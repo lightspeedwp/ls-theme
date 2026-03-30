@@ -1,27 +1,27 @@
-# {{THEME_NAME}} — LightSpeed WordPress Block Theme Starter
+# LightSpeed Theme — WordPress Block Theme
 
-A lean, production-aware starter repository for building custom WordPress block themes at LightSpeed.
+LightSpeed Theme is a custom WordPress block theme built by [LightSpeed](https://lightspeedwp.agency/) for fast, accessible, and maintainable websites using the WordPress Site Editor and block editor.
 
 ---
 
 ## What This Repo Is
 
-This is a **GitHub template repository** for creating WordPress block themes for client and commercial projects.
+This is the **LightSpeed Theme** repository — a production WordPress block theme for client and commercial projects.
 
-It provides:
-- A working WordPress block theme skeleton
+It includes:
+- A working WordPress block theme
 - Validation and linting tooling
 - AI guidance files and GitHub Copilot instructions
 - Structured folders for prompts, reports, tasks, docs, and AI agents
 
-> **Note:** This starter is not specifically packaged for WordPress.org submission. It is designed for client and commercial block theme development.
+> **Note:** This theme is not specifically packaged for WordPress.org submission. It is designed for client and commercial block theme development.
 
 ---
 
 ## Who It Is For
 
 - WordPress theme developers at LightSpeed
-- Developers creating custom block themes for clients
+- Developers maintaining or extending this theme
 - AI agents building or maintaining block themes in this repo
 
 ---
@@ -60,22 +60,18 @@ It provides:
 ## Quick Start
 
 ```bash
-# 1. Clone or use this repo as a template on GitHub
+# 1. Clone the repo
 
-# 2. Replace all placeholder tokens
-#    Search for {{ to find all placeholders
-grep -r "{{" . --include="*.php" --include="*.json" --include="*.css" --include="*.html" --include="*.md" --include="*.txt" --include="*.mjs" --include="*.yml"
-
-# 3. Install Node dependencies
+# 2. Install Node dependencies
 npm install
 
-# 4. Install Composer dependencies
+# 3. Install Composer dependencies
 composer install
 
-# 5. Validate the theme
+# 4. Validate the theme
 npm run theme:validate
 
-# 6. Validate JSON schema
+# 5. Validate JSON schema
 npm run schema:validate
 ```
 
@@ -161,34 +157,15 @@ npm run schema:validate
 
 ---
 
-## How to Customise Placeholders
+## What to Edit
 
-Search for `{{` across the repository and replace all placeholder tokens:
-
-| Placeholder              | Replace with                        |
-|--------------------------|-------------------------------------|
-| `{{THEME_NAME}}`         | Human-readable theme name           |
-| `{{THEME_SLUG}}`         | Kebab-case slug                     |
-| `{{TEXT_DOMAIN}}`        | Text domain (same as slug)          |
-| `{{THEME_URI}}`          | Theme URI                           |
-| `{{AUTHOR_NAME}}`        | Author or agency name               |
-| `{{AUTHOR_URI}}`         | Author or agency URI                |
-| `{{THEME_DESCRIPTION}}` | Short theme description              |
-| `{{REPO_NAME}}`          | GitHub repository name              |
-| `{{GITHUB_ORG}}`         | GitHub organisation name            |
-
----
-
-## What to Edit First
-
-1. `style.css` — replace all header placeholders
-2. `theme.json` — set your colour palette and typography
-3. `functions.php` — add any theme supports you need
-4. `parts/header.html` — build your header
-5. `parts/footer.html` — build your footer
-6. `templates/index.html` — build your main template
-7. `CHANGELOG.md` — start tracking your changes
-8. `CODEOWNERS` — set your team as owners
+1. `theme.json` — set your colour palette and typography
+2. `functions.php` — add any theme supports you need
+3. `parts/header.html` — build your header
+4. `parts/footer.html` — build your footer
+5. `templates/index.html` — build your main template
+6. `CHANGELOG.md` — track your changes
+7. `CODEOWNERS` — set your team as owners
 
 ---
 

@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Replaced all placeholder tokens with final `ls-theme` / `LightSpeed` values across all files.
+- Updated `README.md`, `AGENTS.md`, and `.github/copilot-instructions.md` to reflect the real theme repo rather than a starter template.
+
 ### Deprecated
 
 ### Removed
@@ -27,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial starter repository scaffold for LightSpeed WordPress block themes.
+- Initial LightSpeed Theme repository setup.
 - Root theme files: `style.css`, `theme.json`, `functions.php`, `readme.txt`.
 - Block template: `templates/index.html`.
 - Block template parts: `parts/header.html`, `parts/footer.html`.
@@ -48,5 +51,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/{{GITHUB_ORG}}/{{REPO_NAME}}/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/{{GITHUB_ORG}}/{{REPO_NAME}}/releases/tag/v0.1.0
+[Unreleased]: https://github.com/lightspeedwp/ls-theme/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/lightspeedwp/ls-theme/releases/tag/v0.1.0

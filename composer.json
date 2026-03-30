@@ -1,12 +1,12 @@
 {
-	"name": "{{GITHUB_ORG}}/{{REPO_NAME}}",
-	"description": "{{THEME_DESCRIPTION}}",
+	"name": "lightspeedwp/ls-theme",
+	"description": "LightSpeed Theme is a custom WordPress block theme built by LightSpeed for fast, accessible, maintainable websites using the WordPress Site Editor and block editor.",
 	"type": "wordpress-theme",
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
-			"name": "{{AUTHOR_NAME}}",
-			"homepage": "{{AUTHOR_URI}}"
+			"name": "LightSpeed",
+			"homepage": "https://lightspeedwp.agency/"
 		}
 	],
 	"require-dev": {

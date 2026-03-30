@@ -7,8 +7,8 @@ Human developers should also read this file before contributing.
 
 ## Repo Purpose
 
-This is a **LightSpeed WordPress block theme starter repository**.
-It is designed to be used as a GitHub template for building custom WordPress block themes for client and commercial work.
+This is the **LightSpeed Theme** WordPress block theme repository (`lightspeedwp/ls-theme`).
+It is a production block theme for client and commercial work at [LightSpeed](https://lightspeedwp.agency/).
 
 It is **not** specifically packaged for WordPress.org submission.
 Do not add WordPress.org-specific bureaucracy unless there is clear value.
@@ -78,27 +78,23 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 
 ---
 
-## Slug and Text Domain Consistency
+## Slug and Text Domain
 
-Replace all placeholder tokens before using this starter:
+This theme uses the following identifiers consistently:
 
-| Placeholder         | Description                              |
-|---------------------|------------------------------------------|
-| `{{THEME_NAME}}`    | Human-readable theme name                |
-| `{{THEME_SLUG}}`    | Kebab-case slug (used in folder names)   |
-| `{{TEXT_DOMAIN}}`   | Text domain (must match slug)            |
-| `{{THEME_URI}}`     | Theme URI                                |
-| `{{AUTHOR_NAME}}`   | Author or agency name                    |
-| `{{AUTHOR_URI}}`    | Author or agency URI                     |
-| `{{THEME_DESCRIPTION}}` | Short theme description              |
-| `{{REPO_NAME}}`     | GitHub repository name                   |
-| `{{GITHUB_ORG}}`    | GitHub organisation name                 |
+| Key              | Value                                |
+|------------------|--------------------------------------|
+| Theme name       | `LightSpeed Theme`                   |
+| Theme slug       | `ls-theme`                           |
+| Text domain      | `ls-theme`                           |
+| Theme URI        | `https://lightspeedwp.agency/`       |
+| Author           | `LightSpeed`                         |
+| Author URI       | `https://lightspeedwp.agency/`       |
+| Repo             | `lightspeedwp/ls-theme`              |
 
 Rules:
-- `{{TEXT_DOMAIN}}` must match `{{THEME_SLUG}}` everywhere.
+- Text domain must match the theme slug (`ls-theme`) everywhere.
 - Keep the slug consistent in `style.css`, `theme.json`, `composer.json`, and `package.json`.
-- Do not leave placeholder tokens blank — replace them with real values.
-- Search the repo for `{{` to find all remaining placeholders.
 
 ---
 
@@ -157,7 +153,7 @@ Rules:
 ## Style Variation Guidance
 
 - Style variations live in `styles/`.
-- Two starter variations are provided: `light.json` and `dark.json`.
+- Two style variations are provided: `light.json` and `dark.json`.
 - Additional variations can be added as `styles/*.json`.
 - `styles/blocks/` and `styles/sections/` are organisational conventions for future per-block or per-section styles.
 - These nested JSON files are not automatically consumed by WordPress as global style variations — they are available for reference or tooling.
@@ -250,5 +246,4 @@ composer run lint:php
 12. **Keep agent personas in `.agents/agents/`.** Agent persona files describe specialist roles.
 13. **Do not modify `.github/workflows/` without understanding CI impacts.**
 14. **Always update `CHANGELOG.md`** when making meaningful changes.
-15. **Replace all placeholder tokens** before considering setup complete.
-16. **Use placeholder tokens** (`{{THEME_SLUG}}` etc.) rather than leaving metadata blank.
+15. **Keep slug and text domain consistent** — use `ls-theme` as both the theme slug and text domain.

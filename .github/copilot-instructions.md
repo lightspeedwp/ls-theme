@@ -8,7 +8,7 @@ For full AI and developer guidance, read [`AGENTS.md`](../AGENTS.md) at the root
 
 ## Repo Overview
 
-This is a **LightSpeed WordPress block theme starter repository**.
+This is the **LightSpeed Theme** WordPress block theme repository (`lightspeedwp/ls-theme`).
 One theme, one repo. Not a monorepo.
 
 The theme uses the WordPress Full Site Editing (FSE) / block theme approach:
@@ -96,11 +96,15 @@ composer run lint:php     # Lint PHP syntax
 
 ---
 
-## Placeholder Tokens
+## Theme Identity
 
-If placeholder tokens like `{{THEME_NAME}}` or `{{TEXT_DOMAIN}}` appear in any file, they must be replaced before the theme is used in production.
+| Key          | Value                            |
+|--------------|----------------------------------|
+| Theme name   | `LightSpeed Theme`               |
+| Theme slug   | `ls-theme`                       |
+| Text domain  | `ls-theme`                       |
+| Repo         | `lightspeedwp/ls-theme`          |
+| Author       | `LightSpeed`                     |
+| Author URI   | `https://lightspeedwp.agency/`   |
 
-Search for unreplaced placeholders:
-```bash
-grep -r "{{" . --include="*.php" --include="*.json" --include="*.css" --include="*.html" --include="*.md" --include="*.txt" --include="*.mjs"
-```
+Keep the text domain (`ls-theme`) consistent in all PHP files and theme metadata.
