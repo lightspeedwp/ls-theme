@@ -1,0 +1,4 @@
+# {{GITHUB_ORG}}/{{REPO_NAME}} CODEOWNERS
+
+# Default owner for all files
+* @lightspeedwp/developers
