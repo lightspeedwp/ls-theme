@@ -52,9 +52,9 @@ Always include the text domain in translation functions:
 
 ```php
 // Correct:
-esc_html__( 'Read more', '{{TEXT_DOMAIN}}' );
-esc_attr__( 'Search', '{{TEXT_DOMAIN}}' );
-__( 'Hello', '{{TEXT_DOMAIN}}' );
+esc_html__( 'Read more', 'ls-theme' );
+esc_attr__( 'Search', 'ls-theme' );
+__( 'Hello', 'ls-theme' );
 
 // Wrong — missing text domain:
 __( 'Hello' );

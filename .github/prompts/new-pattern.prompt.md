@@ -10,7 +10,7 @@ Generate a new WordPress block pattern for this theme.
 
 Provide the following details before generating:
 - **Pattern name**: (human-readable, e.g. "Hero with Image")
-- **Pattern slug**: (e.g. `{{TEXT_DOMAIN}}/hero-with-image`)
+- **Pattern slug**: (e.g. `ls-theme/hero-with-image`)
 - **Category**: (e.g. `featured`, `text`, `call-to-action`)
 - **Description**: (short description of what the pattern does)
 

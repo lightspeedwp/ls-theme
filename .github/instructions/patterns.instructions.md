@@ -19,7 +19,7 @@ Every pattern file must start with a valid registration header:
 <?php
 /**
  * Title: My Pattern Name
- * Slug: {{TEXT_DOMAIN}}/my-pattern-name
+ * Slug: ls-theme/my-pattern-name
  * Categories: featured, text
  * Description: A short description.
  * Keywords: hero, banner
@@ -37,7 +37,7 @@ Patterns often contain PHP output. All output must be escaped:
 // Correct:
 echo esc_html( get_bloginfo( 'name' ) );
 echo esc_url( home_url( '/' ) );
-echo esc_html__( 'Read more', '{{TEXT_DOMAIN}}' );
+echo esc_html__( 'Read more', 'ls-theme' );
 
 // Wrong:
 echo get_bloginfo( 'name' );
@@ -53,7 +53,7 @@ Prefer block markup in patterns over raw HTML:
 ```php
 ?>
 <!-- wp:paragraph -->
-<p><?php echo esc_html__( 'Example text', '{{TEXT_DOMAIN}}' ); ?></p>
+<p><?php echo esc_html__( 'Example text', 'ls-theme' ); ?></p>
 <!-- /wp:paragraph -->
 <?php
 ```

@@ -8,13 +8,13 @@ Update this file as tasks are created, started, or completed.
 
 ## Setup
 
-- [ ] Replace all `{{PLACEHOLDER}}` tokens in the repo
-- [ ] Set the theme name, slug, and text domain in `style.css`, `theme.json`, and `functions.php`
+- [x] Replace all placeholder tokens in the repo
+- [x] Set the theme name, slug, and text domain in `style.css`, `theme.json`, and `functions.php`
 - [ ] Update `CHANGELOG.md` with the initial release date
-- [ ] Update `CODEOWNERS` with the correct GitHub team
+- [x] Update `CODEOWNERS` with the correct GitHub team
 - [ ] Create `screenshot.png` (1200×900 recommended)
-- [ ] Update `composer.json` with the correct author details
-- [ ] Update `package.json` with the correct name and description
+- [x] Update `composer.json` with the correct author details
+- [x] Update `package.json` with the correct name and description
 - [ ] Run `npm install` and `composer install`
 - [ ] Run `npm run theme:validate` to confirm setup is clean
 
