@@ -20,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
-		'gradient-text' => array(
-			'handle'   => 'ls-theme-effect-gradient-text',
-			'path'     => 'assets/css/effects/gradient-text.css',
+		'effects' => array(
+			'handle'   => 'ls-theme-effects',
+			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);

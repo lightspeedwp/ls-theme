@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+  "version": 3,
+  "title": "Button Glow Accent",
+  "slug": "button-glow-accent",
+  "blockTypes": [
+    "core/button"
+  ],
+  "description": "Outlined accent button with a glow bloom on hover.",
+  "styles": {
+    "border": {
+      "color": "var:preset|color|accent",
+      "radius": "999px",
+      "style": "solid",
+      "width": "1px"
+    },
+    "color": {
+      "background": "var:preset|color|base",
+      "text": "var:preset|color|accent"
+    },
+    "spacing": {
+      "padding": {
+        "top": "0.9rem",
+        "right": "1.4rem",
+        "bottom": "0.9rem",
+        "left": "1.4rem"
+      }
+    },
+    "typography": {
+      "fontSize": "var:preset|font-size|small",
+      "fontWeight": "600",
+      "letterSpacing": "0.08em",
+      "textTransform": "uppercase"
+    }
+  }
+}

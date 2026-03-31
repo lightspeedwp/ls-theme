@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Loads effect file */
-require get_template_directory() . '/inc/effects.php';
+require get_template_directory() . '/inc/animations.php';
 
 /**
  * Sets up theme supports.

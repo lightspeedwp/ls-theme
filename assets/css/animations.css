@@ -1,0 +1,194 @@
+/* Gradient Text: Gradient Accent */
+@keyframes ls-gradient-text-clip {
+	to {
+		background-position: var(--ls-gradient-end-position, 100%) center;
+	}
+}
+
+.wp-block-heading.is-style-gradient-accent {
+	width: var(--ls-gradient-width, fit-content);
+	max-width: 100%;
+}
+
+.wp-block-heading.is-style-gradient-accent.has-text-align-center {
+	margin-inline: auto;
+}
+
+.wp-block-heading.is-style-gradient-accent.has-text-align-right {
+	margin-inline-start: auto;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+	.wp-block-heading.is-style-gradient-accent,
+	.wp-block-heading.is-style-gradient-accent a {
+		background-image: var(--ls-gradient-image);
+		background-position: var(--ls-gradient-start-position, 0%) center;
+		background-repeat: no-repeat;
+		background-size: var(--ls-gradient-size, 200% auto);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.wp-block-heading.is-style-gradient-accent {
+		animation:
+			ls-gradient-text-clip
+			var(--ls-gradient-duration, 5s)
+			var(--ls-gradient-timing, ease-in-out)
+			var(--ls-gradient-delay, 0s)
+			infinite
+			var(--ls-gradient-direction, alternate);
+	}
+
+	.wp-block-heading.is-style-gradient-accent a {
+		animation: inherit;
+	}
+}
+
+.wp-block-heading.is-style-gradient-accent a:focus-visible {
+	outline: var(--ls-gradient-focus-width, 2px) solid
+		var(--ls-gradient-focus-color, currentColor);
+	outline-offset: var(--ls-gradient-focus-offset, 4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-heading.is-style-gradient-accent,
+	.wp-block-heading.is-style-gradient-accent a {
+		animation: none;
+		background-position: var(--ls-gradient-reduced-position, 100%) center;
+	}
+}
+
+/* Button Dot: Button Dot Accent */
+.wp-block-button.is-style-button-dot-accent .wp-block-button__link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+	overflow: hidden;
+	isolation: isolate;
+	background: transparent;
+	border: 0;
+	color: var(--ls-button-dot-text, var(--wp--preset--color--base));
+	transition:
+		transform var(--ls-button-dot-duration, 300ms)
+			cubic-bezier(0.4, 0, 0.2, 1),
+		color var(--ls-button-dot-duration, 300ms)
+			cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wp-block-button.is-style-button-dot-accent .wp-block-button__link::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: var(--ls-button-dot-fill, var(--wp--preset--color--accent));
+	transition:
+		inset-inline-start var(--ls-button-dot-duration, 220ms)
+			cubic-bezier(0.4, 0, 0.2, 1),
+		inset-inline-end var(--ls-button-dot-duration, 220ms)
+			cubic-bezier(0.4, 0, 0.2, 1),
+		inset-block-start var(--ls-button-dot-duration, 220ms)
+			cubic-bezier(0.4, 0, 0.2, 1),
+		inset-block-end var(--ls-button-dot-duration, 220ms)
+			cubic-bezier(0.4, 0, 0.2, 1),
+		border-radius var(--ls-button-dot-duration, 220ms)
+			cubic-bezier(0.4, 0, 0.2, 1);
+	pointer-events: none;
+	z-index: -1;
+}
+
+.wp-block-button.is-style-button-dot-accent .wp-block-button__link::after {
+	content: "\2192";
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-end: calc(
+		0.625rem + (var(--ls-button-dot-circle-size, 2.5rem) / 2)
+	);
+	color: var(--ls-button-dot-icon-color, currentColor);
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1;
+	transform: translate(50%, -50%);
+	transition:
+		color var(--ls-button-dot-duration, 220ms)
+			cubic-bezier(0.4, 0, 0.2, 1);
+	pointer-events: none;
+}
+
+.wp-block-button.is-style-button-dot-accent .wp-block-button__link:hover::before,
+.wp-block-button.is-style-button-dot-accent
+	.wp-block-button__link:focus-visible::before {
+	inset-block-start: calc(
+		50% - (var(--ls-button-dot-circle-size, 2.5rem) / 2)
+	);
+	inset-inline-end: 0.625rem;
+	inset-block-end: calc(
+		50% - (var(--ls-button-dot-circle-size, 2.5rem) / 2)
+	);
+	inset-inline-start: calc(
+		100% - var(--ls-button-dot-circle-size, 2.5rem) - 0.625rem
+	);
+	border-radius: 999px;
+}
+
+.wp-block-button.is-style-button-dot-accent .wp-block-button__link:hover,
+.wp-block-button.is-style-button-dot-accent
+	.wp-block-button__link:focus-visible {
+	color: var(--ls-button-dot-hover-text, var(--wp--preset--color--contrast));
+}
+
+.wp-block-button.is-style-button-dot-accent .wp-block-button__link:active {
+	transform: scale(0.98);
+}
+
+/* Button Glow: Button Glow Accent */
+.wp-block-button.is-style-button-glow-accent .wp-block-button__link {
+	transition:
+		box-shadow 900ms cubic-bezier(0.19, 1, 0.22, 1),
+		outline-color 900ms cubic-bezier(0.19, 1, 0.22, 1),
+		outline-offset 900ms cubic-bezier(0.19, 1, 0.22, 1),
+		transform 180ms ease;
+	box-shadow: inset 0 0 20px
+		color-mix(in srgb, var(--wp--preset--color--accent) 0%, transparent);
+	outline: 1px solid
+		color-mix(in srgb, var(--wp--preset--color--accent) 45%, transparent);
+	outline-offset: 0;
+	text-shadow: none;
+}
+
+.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
+.wp-block-button.is-style-button-glow-accent
+	.wp-block-button__link:focus-visible {
+	box-shadow:
+		inset 0 0 20px
+			color-mix(in srgb, var(--wp--preset--color--accent) 35%, transparent),
+		0 0 20px
+			color-mix(in srgb, var(--wp--preset--color--accent) 20%, transparent);
+	outline-color: transparent;
+	outline-offset: 12px;
+}
+
+.wp-block-button.is-style-button-glow-accent .wp-block-button__link:active {
+	transform: scale(0.98);
+}
+
+/* Paragraph Link: Link Underline Accent */
+.wp-block-paragraph.is-style-link-underline-accent a {
+	text-decoration: none;
+	padding-bottom: 5px;
+	background-image: linear-gradient(
+		var(--wp--preset--color--accent),
+		var(--wp--preset--color--accent)
+	);
+	background-position: 0 100%;
+	background-repeat: no-repeat;
+	background-size: 0 2px;
+	transition: background-size 220ms ease, color 220ms ease;
+}
+
+.wp-block-paragraph.is-style-link-underline-accent a:hover,
+.wp-block-paragraph.is-style-link-underline-accent a:focus-visible {
+	background-size: 100% 2px;
+}

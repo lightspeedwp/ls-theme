@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+  "version": 3,
+  "title": "Link Underline Accent",
+  "slug": "link-underline-accent",
+  "blockTypes": [
+    "core/paragraph"
+  ],
+  "description": "Paragraph links with an accent underline that draws on hover.",
+  "styles": {
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var:preset|color|contrast"
+        },
+        "typography": {
+          "textDecoration": "none"
+        }
+      }
+    }
+  }
+}
