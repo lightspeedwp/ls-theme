@@ -1,0 +1,60 @@
+@keyframes ls-gradient-text-clip {
+	to {
+		background-position: var(--ls-gradient-end-position, 100%) center;
+	}
+}
+
+.wp-block-heading[class*="is-style-gradient-"] {
+	width: var(--ls-gradient-width, fit-content);
+	max-width: 100%;
+}
+
+.wp-block-heading[class*="is-style-gradient-"].has-text-align-center {
+	margin-inline: auto;
+}
+
+.wp-block-heading[class*="is-style-gradient-"].has-text-align-right {
+	margin-inline-start: auto;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+	.wp-block-heading[class*="is-style-gradient-"],
+	.wp-block-heading[class*="is-style-gradient-"] a {
+		background-image: var(--ls-gradient-image);
+		background-position: var(--ls-gradient-start-position, 0%) center;
+		background-repeat: no-repeat;
+		background-size: var(--ls-gradient-size, 200% auto);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.wp-block-heading[class*="is-style-gradient-"] {
+		animation:
+			ls-gradient-text-clip
+			var(--ls-gradient-duration, 5s)
+			var(--ls-gradient-timing, ease-in-out)
+			var(--ls-gradient-delay, 0s)
+			infinite
+			var(--ls-gradient-direction, alternate);
+	}
+
+	.wp-block-heading[class*="is-style-gradient-"] a {
+		animation: inherit;
+	}
+}
+
+.wp-block-heading[class*="is-style-gradient-"] a:focus-visible {
+	outline: var(--ls-gradient-focus-width, 2px) solid
+		var(--ls-gradient-focus-color, currentColor);
+	outline-offset: var(--ls-gradient-focus-offset, 4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-heading[class*="is-style-gradient-"],
+	.wp-block-heading[class*="is-style-gradient-"] a {
+		animation: none;
+		background-position: var(--ls-gradient-reduced-position, 100%) center;
+	}
+}

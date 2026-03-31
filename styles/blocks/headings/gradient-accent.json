@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+  "version": 3,
+  "title": "Gradient Accent",
+  "slug": "gradient-accent",
+  "blockTypes": [
+    "core/heading"
+  ],
+  "description": "Animated gradient text for headings using the LightSpeed Theme accent presets.",
+  "styles": {
+    "color": {
+      "text": "var:preset|color|accent"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var:preset|color|accent"
+        }
+      }
+    },
+    "css": "&{--ls-gradient-image: linear-gradient(to right, var(--wp--preset--color--accent) 0%, var(--wp--preset--color--contrast) 25%, var(--wp--preset--color--accent) 50%, var(--wp--preset--color--contrast) 75%, var(--wp--preset--color--accent) 100%); --ls-gradient-size: 200% auto; --ls-gradient-start-position: 0%; --ls-gradient-end-position: 100%; --ls-gradient-duration: 6s; --ls-gradient-timing: ease-in-out; --ls-gradient-direction: alternate; --ls-gradient-focus-color: var(--wp--preset--color--contrast);}"
+  }
+}

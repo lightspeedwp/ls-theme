@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/** Loads effect file */
+require get_template_directory() . '/inc/effects.php';
+
 /**
  * Sets up theme supports.
  */
