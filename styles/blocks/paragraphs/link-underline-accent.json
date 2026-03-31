@@ -17,6 +17,7 @@
           "textDecoration": "none"
         }
       }
-    }
+    },
+    "css": "&{--ls-link-underline-enter-delay: 80ms;}"
   }
 }

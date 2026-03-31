@@ -28,6 +28,6 @@
       "letterSpacing": "0.08em",
       "textTransform": "uppercase"
     },
-    "css": "&{--ls-button-dot-fill: var(--wp--preset--color--accent); --ls-button-dot-text: var(--wp--preset--color--base); --ls-button-dot-hover-text: var(--wp--preset--color--contrast); --ls-button-dot-icon-color: var(--wp--preset--color--base); --ls-button-dot-circle-size: 2.5rem; --ls-button-dot-duration: 500ms;}"
+    "css": "&{--ls-button-dot-fill: var(--wp--preset--color--accent); --ls-button-dot-text: var(--wp--preset--color--base); --ls-button-dot-hover-text: var(--wp--preset--color--contrast); --ls-button-dot-icon-color: var(--wp--preset--color--base); --ls-button-dot-circle-size: 2.5rem; --ls-button-dot-duration: 500ms; --ls-button-dot-enter-delay: 80ms;}"
   }
 }
