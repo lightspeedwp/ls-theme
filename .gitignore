@@ -98,6 +98,9 @@ $RECYCLE.BIN/
 *.temp
 /tmp/
 
+# VS Code workspace file
+lightspeed.code-workspace
+
 # AI and cache folders (local agent working files)
 .cache/
 .aider*
