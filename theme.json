@@ -793,7 +793,7 @@
 						"offset": "2px"
 					}
 				},
-				"css": "&{--ls-button-glow-colour:var(--wp--preset--color--brand-500);--ls-button-hover-background:var(--wp--preset--color--brand-500);--ls-button-hover-text:var(--wp--preset--color--base);--ls-button-hover-border:var(--wp--preset--color--base);--ls-button-glow-enter-delay:80ms;--ls-button-glow-outline-offset:12px;--ls-button-glow-size:28px;--ls-button-glow-resting-strength:8%;--ls-button-glow-inner-strength:60%;--ls-button-glow-outer-strength:42%;--ls-button-glow-halo-strength:24%;--ls-button-active-scale:0.98;}"
+				"css": "&{--ls-button-glow-colour:var(--wp--preset--color--brand-500);--ls-button-hover-background:var(--wp--preset--color--brand-500);--ls-button-hover-text:var(--wp--preset--color--base);--ls-button-hover-border:var(--wp--preset--color--base);--ls-button-glow-enter-delay:80ms;--ls-button-glow-outline-offset:12px;--ls-button-glow-size:28px;--ls-button-glow-resting-size:20px;--ls-button-glow-resting-strength:8%;--ls-button-glow-resting-outer-strength:0%;--ls-button-glow-inner-strength:60%;--ls-button-glow-outer-strength:42%;--ls-button-glow-halo-strength:24%;--ls-button-active-scale:0.98;}"
 			},
 			"link": {
 				"color": {
