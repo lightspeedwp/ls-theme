@@ -23,11 +23,11 @@
       }
     },
     "typography": {
-      "fontSize": "var:preset|font-size|small",
+      "fontSize": "var:preset|font-size|200",
       "fontWeight": "700",
       "letterSpacing": "0.08em",
       "textTransform": "uppercase"
     },
-    "css": "&{--ls-button-dot-fill: var(--wp--preset--color--accent); --ls-button-dot-text: var(--wp--preset--color--base); --ls-button-dot-hover-text: var(--wp--preset--color--contrast); --ls-button-dot-icon-color: var(--wp--preset--color--base); --ls-button-dot-circle-size: 2.5rem; --ls-button-dot-duration: 500ms; --ls-button-dot-enter-delay: 80ms;}"
+    "css": "&{--ls-button-dot-fill: var(--wp--preset--color--accent-500); --ls-button-dot-text: var(--wp--preset--color--base); --ls-button-dot-hover-text: var(--wp--preset--color--contrast); --ls-button-dot-icon-color: var(--wp--preset--color--base); --ls-button-dot-circle-size: 2.5rem; --ls-button-dot-duration: 500ms; --ls-button-dot-enter-delay: 80ms;}"
   }
 }

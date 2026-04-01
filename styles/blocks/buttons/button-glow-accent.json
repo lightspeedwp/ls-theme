@@ -9,28 +9,27 @@
   "description": "Outlined accent button with a glow bloom on hover.",
   "styles": {
     "border": {
-      "color": "var:preset|color|accent",
-      "radius": "999px",
+      "color": "var:preset|color|brand-500",
+      "radius": "var:preset|border-radius|100",
       "style": "solid",
-      "width": "1px"
+      "width": "2px"
     },
     "color": {
       "background": "var:preset|color|base",
-      "text": "var:preset|color|accent"
+      "text": "var:preset|color|brand-500"
     },
     "spacing": {
       "padding": {
-        "top": "0.9rem",
-        "right": "1.4rem",
-        "bottom": "0.9rem",
-        "left": "1.4rem"
+        "top": "var:preset|spacing|20",
+        "right": "var:preset|spacing|40",
+        "bottom": "var:preset|spacing|20",
+        "left": "var:preset|spacing|40"
       }
     },
     "typography": {
-      "fontSize": "var:preset|font-size|small",
+      "fontSize": "var:preset|font-size|200",
       "fontWeight": "600",
-      "letterSpacing": "0.08em",
-      "textTransform": "uppercase"
+      "letterSpacing": "0.08em"
     },
     "css": "&{--ls-button-glow-enter-delay: 80ms;}"
   }
