@@ -10,6 +10,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Returns a cache-busting version for a local theme asset.
+ *
+ * @param string $path Relative asset path inside the theme.
+ * @return string
+ */
+function ls_theme_get_local_asset_version( $path ) {
+	$file_path = get_theme_file_path( $path );
+
+	if ( file_exists( $file_path ) ) {
+		return (string) filemtime( $file_path );
+	}
+
+	return wp_get_theme()->get( 'Version' );
+}
+
+/**
  * Returns effect stylesheet definitions.
  *
  * Each effect can declare the contexts where it should load so the theme can
@@ -43,7 +59,6 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
  */
 function ls_theme_enqueue_effect_styles( $context = 'front' ) {
 	$effects = ls_theme_get_effect_styles( $context );
-	$version = wp_get_theme()->get( 'Version' );
 
 	foreach ( $effects as $effect ) {
 		$handle   = $effect['handle'] ?? null;
@@ -58,7 +73,7 @@ function ls_theme_enqueue_effect_styles( $context = 'front' ) {
 			$handle,
 			get_theme_file_uri( $path ),
 			array(),
-			$version
+			ls_theme_get_local_asset_version( $path )
 		);
 	}
 }

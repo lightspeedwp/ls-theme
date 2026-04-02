@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** Loads effect file */
 require get_template_directory() . '/inc/animations.php';
 
+/** Loads GSAP integration file */
+require get_template_directory() . '/inc/gsap.php';
+
 /**
  * Sets up theme supports.
  */
