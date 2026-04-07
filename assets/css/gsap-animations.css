@@ -135,3 +135,101 @@
 		transition: none;
 	}
 }
+
+/* Home Hero Section: background-only Group block style. */
+.is-style-home-hero-section {
+	--ls-home-hero-surface: var(--wp--preset--color--base);
+	--ls-home-hero-brand: var(--wp--preset--color--brand-500);
+	--ls-home-hero-cta: var(--wp--preset--color--cta-500);
+	--ls-home-hero-accent: var(--wp--preset--color--accent-two-500);
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+	background:
+		radial-gradient(
+			circle at 16% 14%,
+			color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%,
+			transparent 34%
+		),
+		radial-gradient(
+			circle at 84% 18%,
+			color-mix(in srgb, var(--ls-home-hero-cta) 14%, transparent) 0%,
+			transparent 28%
+		),
+		radial-gradient(
+			circle at 50% 100%,
+			color-mix(in srgb, var(--ls-home-hero-accent) 7%, transparent) 0%,
+			transparent 36%
+		),
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--ls-home-hero-surface) 98%, #fff 2%) 0%,
+			var(--ls-home-hero-surface) 100%
+		);
+}
+
+.is-style-home-hero-section > :not(.ls-home-hero-section__background) {
+	position: relative;
+	z-index: 1;
+}
+
+.ls-home-hero-section__background,
+.ls-home-hero-section__network {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.ls-home-hero-section__background {
+	z-index: 0;
+}
+
+.ls-home-hero-section__orb {
+	position: absolute;
+	border-radius: 999px;
+	filter: blur(80px);
+	opacity: 0.8;
+	transform: translate3d( 0, 0, 0 );
+	will-change: transform;
+}
+
+.ls-home-hero-section__orb--brand {
+	top: 8%;
+	left: -8rem;
+	width: 24rem;
+	height: 24rem;
+	background: color-mix(in srgb, var(--ls-home-hero-brand) 24%, transparent);
+}
+
+.ls-home-hero-section__orb--cta {
+	right: -6rem;
+	bottom: 10%;
+	width: 20rem;
+	height: 20rem;
+	background: color-mix(in srgb, var(--ls-home-hero-cta) 22%, transparent);
+}
+
+.ls-home-hero-section__canvas {
+	display: block;
+	inline-size: 100%;
+	block-size: 100%;
+}
+
+@media (max-width: 781px) {
+	.ls-home-hero-section__orb {
+		filter: blur(64px);
+	}
+
+	.ls-home-hero-section__orb--brand {
+		left: -10rem;
+		width: 18rem;
+		height: 18rem;
+	}
+
+	.ls-home-hero-section__orb--cta {
+		right: -8rem;
+		width: 16rem;
+		height: 16rem;
+	}
+}

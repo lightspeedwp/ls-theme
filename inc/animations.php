@@ -28,9 +28,6 @@ function ls_theme_get_local_asset_version( $path ) {
 /**
  * Returns effect stylesheet definitions.
  *
- * Each effect can declare the contexts where it should load so the theme can
- * later split or gate effects without changing the main bootstrap flow.
- *
  * @param string $context Load context. Accepts 'front' or 'editor'.
  * @return array<string, array<string, mixed>>
  */

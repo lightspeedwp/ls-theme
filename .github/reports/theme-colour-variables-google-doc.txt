@@ -1,0 +1,391 @@
+Theme Colour Variables
+
+- Base
+Slug: base
+Hex: #F8F8F8
+Variable: var(--wp--preset--color--base)
+
+- Contrast
+Slug: contrast
+Hex: #080808
+Variable: var(--wp--preset--color--contrast)
+
+- Neutral 100
+Slug: neutral-100
+Hex: #F8F8F8
+Variable: var(--wp--preset--color--neutral-100)
+
+- Neutral 200
+Slug: neutral-200
+Hex: #E8E8E8
+Variable: var(--wp--preset--color--neutral-200)
+
+- Neutral 300
+Slug: neutral-300
+Hex: #D8D8D8
+Variable: var(--wp--preset--color--neutral-300)
+
+- Neutral 400
+Slug: neutral-400
+Hex: #B8B8B8
+Variable: var(--wp--preset--color--neutral-400)
+
+- Neutral 500
+Slug: neutral-500
+Hex: #909090
+Variable: var(--wp--preset--color--neutral-500)
+
+- Neutral 600
+Slug: neutral-600
+Hex: #707070
+Variable: var(--wp--preset--color--neutral-600)
+
+- Neutral 700
+Slug: neutral-700
+Hex: #505050
+Variable: var(--wp--preset--color--neutral-700)
+
+- Neutral 800
+Slug: neutral-800
+Hex: #303030
+Variable: var(--wp--preset--color--neutral-800)
+
+- Neutral 900
+Slug: neutral-900
+Hex: #181818
+Variable: var(--wp--preset--color--neutral-900)
+
+- Surface 100
+Slug: surface-100
+Hex: #2A2A30
+Variable: var(--wp--preset--color--surface-100)
+
+- Surface 200
+Slug: surface-200
+Hex: #202028
+Variable: var(--wp--preset--color--surface-200)
+
+- Surface 300
+Slug: surface-300
+Hex: #181820
+Variable: var(--wp--preset--color--surface-300)
+
+- Surface 400
+Slug: surface-400
+Hex: #12121A
+Variable: var(--wp--preset--color--surface-400)
+
+- Surface 500
+Slug: surface-500
+Hex: #101018
+Variable: var(--wp--preset--color--surface-500)
+
+- Surface 600
+Slug: surface-600
+Hex: #0C0C14
+Variable: var(--wp--preset--color--surface-600)
+
+- Surface 700
+Slug: surface-700
+Hex: #080810
+Variable: var(--wp--preset--color--surface-700)
+
+- Surface 800
+Slug: surface-800
+Hex: #05050A
+Variable: var(--wp--preset--color--surface-800)
+
+- Surface 900
+Slug: surface-900
+Hex: #000000
+Variable: var(--wp--preset--color--surface-900)
+
+- Brand 100
+Slug: brand-100
+Hex: #D6E4FF
+Variable: var(--wp--preset--color--brand-100)
+
+- Brand 200
+Slug: brand-200
+Hex: #ADC8FF
+Variable: var(--wp--preset--color--brand-200)
+
+- Brand 300
+Slug: brand-300
+Hex: #85ACFF
+Variable: var(--wp--preset--color--brand-300)
+
+- Brand 400
+Slug: brand-400
+Hex: #5C90FF
+Variable: var(--wp--preset--color--brand-400)
+
+- Brand 500
+Slug: brand-500
+Hex: #1E6AFF
+Variable: var(--wp--preset--color--brand-500)
+
+- Brand 600
+Slug: brand-600
+Hex: #1C5EE4
+Variable: var(--wp--preset--color--brand-600)
+
+- Brand 700
+Slug: brand-700
+Hex: #184FBF
+Variable: var(--wp--preset--color--brand-700)
+
+- Brand 800
+Slug: brand-800
+Hex: #123B8F
+Variable: var(--wp--preset--color--brand-800)
+
+- Brand 900
+Slug: brand-900
+Hex: #0B255F
+Variable: var(--wp--preset--color--brand-900)
+
+- Cta 100
+Slug: cta-100
+Hex: #DDFBFF
+Variable: var(--wp--preset--color--cta-100)
+
+- Cta 200
+Slug: cta-200
+Hex: #B8F5FF
+Variable: var(--wp--preset--color--cta-200)
+
+- Cta 300
+Slug: cta-300
+Hex: #8DEEFF
+Variable: var(--wp--preset--color--cta-300)
+
+- Cta 400
+Slug: cta-400
+Hex: #5AE3F5
+Variable: var(--wp--preset--color--cta-400)
+
+- Cta 500
+Slug: cta-500
+Hex: #00FCFC
+Variable: var(--wp--preset--color--cta-500)
+
+- Cta 600
+Slug: cta-600
+Hex: #00D9D9
+Variable: var(--wp--preset--color--cta-600)
+
+- Cta 700
+Slug: cta-700
+Hex: #00A8A8
+Variable: var(--wp--preset--color--cta-700)
+
+- Cta 800
+Slug: cta-800
+Hex: #007476
+Variable: var(--wp--preset--color--cta-800)
+
+- Cta 900
+Slug: cta-900
+Hex: #003D3F
+Variable: var(--wp--preset--color--cta-900)
+
+- Accent 100
+Slug: accent-100
+Hex: #DDFBF1
+Variable: var(--wp--preset--color--accent-100)
+
+- Accent 200
+Slug: accent-200
+Hex: #B8F5DE
+Variable: var(--wp--preset--color--accent-200)
+
+- Accent 300
+Slug: accent-300
+Hex: #86EDC4
+Variable: var(--wp--preset--color--accent-300)
+
+- Accent 400
+Slug: accent-400
+Hex: #4FDEAA
+Variable: var(--wp--preset--color--accent-400)
+
+- Accent 500
+Slug: accent-500
+Hex: #22C78A
+Variable: var(--wp--preset--color--accent-500)
+
+- Accent 600
+Slug: accent-600
+Hex: #17A974
+Variable: var(--wp--preset--color--accent-600)
+
+- Accent 700
+Slug: accent-700
+Hex: #11865B
+Variable: var(--wp--preset--color--accent-700)
+
+- Accent 800
+Slug: accent-800
+Hex: #0B6243
+Variable: var(--wp--preset--color--accent-800)
+
+- Accent 900
+Slug: accent-900
+Hex: #063828
+Variable: var(--wp--preset--color--accent-900)
+
+- Accent Two 100
+Slug: accent-two-100
+Hex: #FFDDFB
+Variable: var(--wp--preset--color--accent-two-100)
+
+- Accent Two 200
+Slug: accent-two-200
+Hex: #FFB8F5
+Variable: var(--wp--preset--color--accent-two-200)
+
+- Accent Two 300
+Slug: accent-two-300
+Hex: #FF85EE
+Variable: var(--wp--preset--color--accent-two-300)
+
+- Accent Two 400
+Slug: accent-two-400
+Hex: #FF4FE3
+Variable: var(--wp--preset--color--accent-two-400)
+
+- Accent Two 500
+Slug: accent-two-500
+Hex: #FC00FC
+Variable: var(--wp--preset--color--accent-two-500)
+
+- Accent Two 600
+Slug: accent-two-600
+Hex: #D400D4
+Variable: var(--wp--preset--color--accent-two-600)
+
+- Accent Two 700
+Slug: accent-two-700
+Hex: #A600A6
+Variable: var(--wp--preset--color--accent-two-700)
+
+- Accent Two 800
+Slug: accent-two-800
+Hex: #760076
+Variable: var(--wp--preset--color--accent-two-800)
+
+- Accent Two 900
+Slug: accent-two-900
+Hex: #3F003F
+Variable: var(--wp--preset--color--accent-two-900)
+
+- Accent Three 100
+Slug: accent-three-100
+Hex: #E5FFE5
+Variable: var(--wp--preset--color--accent-three-100)
+
+- Accent Three 200
+Slug: accent-three-200
+Hex: #BEFFBE
+Variable: var(--wp--preset--color--accent-three-200)
+
+- Accent Three 300
+Slug: accent-three-300
+Hex: #8FFF8F
+Variable: var(--wp--preset--color--accent-three-300)
+
+- Accent Three 400
+Slug: accent-three-400
+Hex: #4FFF4F
+Variable: var(--wp--preset--color--accent-three-400)
+
+- Accent Three 500
+Slug: accent-three-500
+Hex: #00FC00
+Variable: var(--wp--preset--color--accent-three-500)
+
+- Accent Three 600
+Slug: accent-three-600
+Hex: #00D400
+Variable: var(--wp--preset--color--accent-three-600)
+
+- Accent Three 700
+Slug: accent-three-700
+Hex: #00A300
+Variable: var(--wp--preset--color--accent-three-700)
+
+- Accent Three 800
+Slug: accent-three-800
+Hex: #007000
+Variable: var(--wp--preset--color--accent-three-800)
+
+- Accent Three 900
+Slug: accent-three-900
+Hex: #003D00
+Variable: var(--wp--preset--color--accent-three-900)
+
+- Accent Four 100
+Slug: accent-four-100
+Hex: #FFFFDD
+Variable: var(--wp--preset--color--accent-four-100)
+
+- Accent Four 200
+Slug: accent-four-200
+Hex: #FFFFB8
+Variable: var(--wp--preset--color--accent-four-200)
+
+- Accent Four 300
+Slug: accent-four-300
+Hex: #FFFF85
+Variable: var(--wp--preset--color--accent-four-300)
+
+- Accent Four 400
+Slug: accent-four-400
+Hex: #FFFF4F
+Variable: var(--wp--preset--color--accent-four-400)
+
+- Accent Four 500
+Slug: accent-four-500
+Hex: #FCFC00
+Variable: var(--wp--preset--color--accent-four-500)
+
+- Accent Four 600
+Slug: accent-four-600
+Hex: #D4D400
+Variable: var(--wp--preset--color--accent-four-600)
+
+- Accent Four 700
+Slug: accent-four-700
+Hex: #A6A600
+Variable: var(--wp--preset--color--accent-four-700)
+
+- Accent Four 800
+Slug: accent-four-800
+Hex: #767600
+Variable: var(--wp--preset--color--accent-four-800)
+
+- Accent Four 900
+Slug: accent-four-900
+Hex: #3F3F00
+Variable: var(--wp--preset--color--accent-four-900)
+
+- Error Foreground
+Slug: error-foreground
+Hex: #EF4444
+Variable: var(--wp--preset--color--error-foreground)
+
+- Warning Foreground
+Slug: warning-foreground
+Hex: #F59E0B
+Variable: var(--wp--preset--color--warning-foreground)
+
+- Information Foreground
+Slug: information-foreground
+Hex: #3B82F6
+Variable: var(--wp--preset--color--information-foreground)
+
+- Success Foreground
+Slug: success-foreground
+Hex: #10B981
+Variable: var(--wp--preset--color--success-foreground)
