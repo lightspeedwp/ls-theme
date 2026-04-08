@@ -15,6 +15,9 @@ require get_template_directory() . '/inc/animations.php';
 /** Loads GSAP integration file */
 require get_template_directory() . '/inc/gsap.php';
 
+/** Loads the presets integration files */
+require get_template_directory() . '/inc/presets.php';
+
 /**
  * Sets up theme supports.
  */
