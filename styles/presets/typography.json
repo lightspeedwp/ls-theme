@@ -1,0 +1,321 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "settings": {
+        "typography": {
+            "defaultFontSizes": false,
+            "fluid": true,
+            "writingMode": true,
+            "fontFamilies": [
+                {
+                    "name": "Lexend",
+                    "slug": "heading",
+                    "fontFamily": "Lexend, sans-serif",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "200",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-200-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "300",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-300-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-400-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "500",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-500-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "600",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-600-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "700",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-700-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "800",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-800-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Lexend",
+                            "fontStyle": "normal",
+                            "fontWeight": "900",
+                            "src": [
+                                "file:./assets/fonts/lexend/Lexend-900-normal.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Manrope",
+                    "slug": "body",
+                    "fontFamily": "Manrope, sans-serif",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "200",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-200-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "300",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-300-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-400-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "500",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-500-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "600",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-600-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "700",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-700-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Manrope",
+                            "fontStyle": "normal",
+                            "fontWeight": "800",
+                            "src": [
+                                "file:./assets/fonts/manrope/Manrope-800-normal.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Roboto Mono",
+                    "slug": "monospace",
+                    "fontFamily": "Roboto Mono, monospace",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Roboto Mono",
+                            "fontStyle": "normal",
+                            "fontWeight": "100 700",
+                            "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF",
+                            "src": [
+                                "file:./assets/fonts/roboto-mono/roboto-mono-latin-ext-wght-normal.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Roboto Mono",
+                            "fontStyle": "normal",
+                            "fontWeight": "100 700",
+                            "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
+                            "src": [
+                                "file:./assets/fonts/roboto-mono/roboto-mono-latin-wght-normal.woff2"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "fontSizes": [
+                {
+                    "name": "Tiny",
+                    "slug": "100",
+                    "size": "0.75rem",
+                    "fluid": {
+                        "min": "0.688rem",
+                        "max": "0.75rem"
+                    }
+                },
+                {
+                    "name": "Base",
+                    "slug": "200",
+                    "size": "1rem",
+                    "fluid": {
+                        "min": "0.875rem",
+                        "max": "1rem"
+                    }
+                },
+                {
+                    "name": "Small",
+                    "slug": "300",
+                    "size": "1.25rem",
+                    "fluid": {
+                        "min": "1rem",
+                        "max": "1.25rem"
+                    }
+                },
+                {
+                    "name": "Medium",
+                    "slug": "400",
+                    "size": "1.5rem",
+                    "fluid": {
+                        "min": "1.25rem",
+                        "max": "1.5rem"
+                    }
+                },
+                {
+                    "name": "Large",
+                    "slug": "500",
+                    "size": "2rem",
+                    "fluid": {
+                        "min": "1.625rem",
+                        "max": "2rem"
+                    }
+                },
+                {
+                    "name": "X-Large",
+                    "slug": "600",
+                    "size": "2.5rem",
+                    "fluid": {
+                        "min": "2.125rem",
+                        "max": "2.5rem"
+                    }
+                },
+                {
+                    "name": "Huge",
+                    "slug": "700",
+                    "size": "3rem",
+                    "fluid": {
+                        "min": "2.375rem",
+                        "max": "3rem"
+                    }
+                },
+                {
+                    "name": "Gigantic",
+                    "slug": "800",
+                    "size": "3.75rem",
+                    "fluid": {
+                        "min": "2.625rem",
+                        "max": "3.75rem"
+                    }
+                },
+                {
+                    "name": "Colossal",
+                    "slug": "900",
+                    "size": "4.5rem",
+                    "fluid": {
+                        "min": "2.75rem",
+                        "max": "4.5rem"
+                    }
+                }
+            ]
+        },
+        "custom": {
+            "line-height": {
+                "heading-snug": "1.1",
+                "heading-default": "1.25",
+                "heading-loose": "1.35",
+                "button": "1.3",
+                "paragraph": "1.5"
+            }
+        }
+    },
+    "styles": {
+        "typography": {
+            "fontFamily": "var(--wp--preset--font-family--body, system-ui, sans-serif)",
+            "fontSize": "var(--wp--preset--font-size--200)",
+            "lineHeight": "var(--wp--custom--line-height--paragraph)"
+        },
+        "elements": {
+            "heading": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--heading, sans-serif)"
+                }
+            },
+            "h1": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--900)",
+                    "fontWeight": "700",
+                    "lineHeight": "var(--wp--custom--line-height--heading-snug)"
+                }
+            },
+            "h2": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--700)",
+                    "fontWeight": "600",
+                    "lineHeight": "var(--wp--custom--line-height--heading-default)"
+                }
+            },
+            "h3": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--500)",
+                    "fontWeight": "500",
+                    "lineHeight": "var(--wp--custom--line-height--heading-default)"
+                }
+            },
+            "h4": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--400)",
+                    "fontWeight": "500",
+                    "lineHeight": "var(--wp--custom--line-height--heading-loose)"
+                }
+            },
+            "h5": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--300)",
+                    "fontWeight": "500",
+                    "lineHeight": "var(--wp--custom--line-height--heading-loose)"
+                }
+            },
+            "h6": {
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--300)",
+                    "fontWeight": "500",
+                    "lineHeight": "var(--wp--custom--line-height--heading-default)",
+                    "textDecoration": "uppercase"
+                }
+            }
+        }
+    }
+}
