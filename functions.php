@@ -18,6 +18,9 @@ require get_template_directory() . '/inc/gsap.php';
 /** Loads the presets integration files */
 require get_template_directory() . '/inc/presets.php';
 
+/** Loads the presets integration files */
+require get_template_directory() . '/inc/mode-switcher.php';
+
 /**
  * Sets up theme supports.
  */
@@ -62,3 +65,11 @@ function ls_theme_enqueue_assets() {
 	// );
 }
 add_action( 'wp_enqueue_scripts', 'ls_theme_enqueue_assets' );
+
+add_action( 'wp_footer', function() {
+	if ( function_exists( 'ls_theme\\includes\\display_mode_switcher_button' ) ) {
+		echo '<div class="mode-switcher-footer">';
+		ls_theme\includes\display_mode_switcher_button();
+		echo '</div>';
+	}
+}, 5 );
