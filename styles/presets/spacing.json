@@ -1,0 +1,85 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "settings": {
+        "spacing": {
+            "defaultSpacingSizes": false,
+            "spacingSizes": [
+                {
+                    "name": "XXS",
+                    "slug": "5",
+                    "size": "clamp(0.250rem, calc(0.227rem + 0.006vw), 0.312rem)"
+                },
+                {
+                    "name": "XS",
+                    "slug": "10",
+                    "size": "clamp(0.500rem, calc(0.454rem + 0.012vw), 0.625rem)"
+                },
+                {
+                    "name": "S",
+                    "slug": "20",
+                    "size": "clamp(0.875rem, calc(0.736rem + 0.036vw), 1.250rem)"
+                },
+                {
+                    "name": "M",
+                    "slug": "30",
+                    "size": "clamp(1.250rem, calc(1.018rem + 0.060vw), 1.875rem)"
+                },
+                {
+                    "name": "L",
+                    "slug": "40",
+                    "size": "clamp(1.625rem, calc(1.300rem + 0.083vw), 2.500rem)"
+                },
+                {
+                    "name": "XL",
+                    "slug": "50",
+                    "size": "clamp(2.062rem, calc(1.668rem + 0.101vw), 3.125rem)"
+                },
+                {
+                    "name": "XXL",
+                    "slug": "60",
+                    "size": "clamp(2.312rem, calc(1.779rem + 0.137vw), 3.750rem)"
+                },
+                {
+                    "name": "XXXL",
+                    "slug": "70",
+                    "size": "clamp(2.625rem, calc(1.975rem + 0.167vw), 4.375rem)"
+                },
+                {
+                    "name": "XXXXL",
+                    "slug": "80",
+                    "size": "clamp(3.000rem, calc(2.257rem + 0.190vw), 5.000rem)"
+                },
+                {
+                    "name": "Gigantic",
+                    "slug": "90",
+                    "size": "clamp(3.500rem, calc(2.711rem + 0.202vw), 5.625rem)"
+                },
+                {
+                    "name": "Colossal",
+                    "slug": "100",
+                    "size": "clamp(4.000rem, calc(3.164rem + 0.214vw), 6.250rem)"
+                }
+            ],
+            "units": [
+                "%",
+                "em",
+                "px",
+                "rem",
+                "vh",
+                "vw"
+            ]
+        }
+    },
+    "styles": {
+        "spacing": {
+            "blockGap": "var(--wp--preset--spacing--30)",
+            "padding": {
+                "bottom": "0",
+                "left": "var(--wp--preset--spacing--20)",
+                "right": "var(--wp--preset--spacing--20)",
+                "top": "0"
+            }
+        }
+    }
+}
