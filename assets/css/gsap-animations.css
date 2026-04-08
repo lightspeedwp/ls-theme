@@ -185,6 +185,11 @@
 	z-index: 0;
 }
 
+.ls-home-hero-section__network {
+	z-index: 1;
+	opacity: 0.92;
+}
+
 .ls-home-hero-section__orb {
 	position: absolute;
 	border-radius: 999px;
@@ -192,6 +197,7 @@
 	opacity: 0.8;
 	transform: translate3d( 0, 0, 0 );
 	will-change: transform;
+	z-index: 0;
 }
 
 .ls-home-hero-section__orb--brand {
@@ -217,8 +223,13 @@
 }
 
 @media (max-width: 781px) {
+	.ls-home-hero-section__network {
+		opacity: 1;
+	}
+
 	.ls-home-hero-section__orb {
 		filter: blur(64px);
+		opacity: 0.62;
 	}
 
 	.ls-home-hero-section__orb--brand {

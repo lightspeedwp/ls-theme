@@ -1,6 +1,6 @@
-/********** Text **********/
+/********** Text Motion **********/
 
-/* Gradient Text: Gradient Accent */
+/* Gradient Accent */
 @keyframes ls-gradient-text-clip {
 	to {
 		background-position: var(--ls-gradient-end-position, 100%) center;
@@ -62,17 +62,22 @@
 	}
 }
 
-/********** Links **********/
 
-/* Paragraph Link: Link Underline Accent */
+/********** Link Motion **********/
+
+/* Link Underline Accent */
 .wp-block-paragraph.is-style-link-underline-accent a {
-	text-decoration: none;
-	padding-bottom: 5px;
-	background-image: linear-gradient(var(--wp--preset--color--brand-500),
-			var(--wp--preset--color--accent-500));
+	padding-bottom: var(--ls-link-underline-padding-bottom, 5px);
+	background-image: var(
+		--ls-link-underline-image,
+		linear-gradient(
+			var(--wp--preset--color--brand-500),
+			var(--wp--preset--color--accent-500)
+		)
+	);
 	background-position: 0 100%;
 	background-repeat: no-repeat;
-	background-size: 0 2px;
+	background-size: 0 var(--ls-link-underline-thickness, 2px);
 	transition: background-size 220ms ease, color 220ms ease;
 	transition-delay: 0s;
 }
@@ -83,10 +88,11 @@
 
 .wp-block-paragraph.is-style-link-underline-accent a:hover,
 .wp-block-paragraph.is-style-link-underline-accent a:focus-visible {
-	background-size: 100% 2px;
+	background-size: 100% var(--ls-link-underline-thickness, 2px);
 }
 
-/********** Buttons **********/
+
+/********** Button Motion **********/
 
 .wp-block-button:not([class*="is-style-"]),
 .wp-block-button.is-style-fill,
@@ -94,7 +100,7 @@
 	max-inline-size: 100%;
 }
 
-/* Shared Button Transition */
+/* Shared button motion primitives */
 .wp-element-button,
 .wp-block-button__link {
 	transition:
@@ -105,23 +111,13 @@
 		outline-color 220ms ease,
 		outline-offset 220ms ease,
 		transform 180ms ease;
-	transition-delay: 0s;
-	box-shadow: none;
-	outline-offset: 0;
-	text-shadow: none;
-}
-
-
-.wp-element-button:hover,
-.wp-block-button__link:hover {
-	transition-delay: 0s;
+	transition-delay: 80ms;
 }
 
 .wp-element-button:hover,
 .wp-element-button:focus-visible,
 .wp-block-button__link:hover,
 .wp-block-button__link:focus-visible {
-	box-shadow: none;
 	outline-offset: 0;
 }
 
@@ -130,9 +126,12 @@
 	transform: scale(var(--ls-button-active-scale, 0.98));
 }
 
-/* Default Fill Button */
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link,
-.wp-block-button.is-style-fill .wp-block-button__link {
+/* Shared button shell for the default fill and outline treatments. */
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill,
+	.wp-block-button.is-style-outline
+) .wp-block-button__link {
 	position: relative;
 	display: inline-flex;
 	align-items: center;
@@ -141,24 +140,43 @@
 	white-space: nowrap;
 	overflow: hidden;
 	isolation: isolate;
+}
+
+/* Fill button motion */
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link {
+	--ls-button-fill-icon-well-size: 3rem;
+	--ls-button-fill-icon-inline-end: 0.625rem;
+	--ls-button-fill-icon-font-size: 1.25rem;
+	--ls-button-fill-icon-block-inset: calc(
+		50% - (var(--ls-button-fill-icon-well-size) / 2)
+	);
+	--ls-button-fill-icon-inline-start: calc(
+		100% - var(--ls-button-fill-icon-well-size) - var(--ls-button-fill-icon-inline-end)
+	);
 	background: transparent;
 	border: 0;
-	color: var(--ls-button-fill-text, var(--wp--preset--color--base));
 	transition:
 		transform var(--ls-button-fill-duration, 500ms)
 			cubic-bezier(0.4, 0, 0.2, 1),
 		color var(--ls-button-fill-duration, 500ms)
 			cubic-bezier(0.4, 0, 0.2, 1);
-	transition-delay: 0s;
 }
 
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link::before,
-.wp-block-button.is-style-fill .wp-block-button__link::before {
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link::before {
 	content: "";
 	position: absolute;
 	inset: 0;
 	border-radius: inherit;
-	background: var(--ls-button-fill-background, var(--wp--preset--color--brand-500));
+	background: var(
+		--ls-button-fill-background,
+		var(--wp--preset--color--brand-500)
+	);
 	transition:
 		inset-inline-start 350ms
 			cubic-bezier(0.4, 0, 0.2, 1),
@@ -170,202 +188,121 @@
 			cubic-bezier(0.4, 0, 0.2, 1),
 		border-radius 350ms
 			cubic-bezier(0.4, 0, 0.2, 1);
-	transition-delay: 0s;
-	pointer-events: none;
 	z-index: -1;
 }
 
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link::after,
-.wp-block-button.is-style-fill .wp-block-button__link::after {
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link::after {
 	content: "\2192";
 	position: absolute;
-	inset-block-start: calc(
-		50% - (var(--ls-button-fill-icon-well-size, 3rem) / 2)
-	);
-	inset-block-end: calc(
-		50% - (var(--ls-button-fill-icon-well-size, 3rem) / 2)
-	);
-	inset-inline-end: 0.625rem;
-	width: var(--ls-button-fill-icon-well-size, 3rem);
+	inset-block: var(--ls-button-fill-icon-block-inset);
+	inset-inline-end: var(--ls-button-fill-icon-inline-end);
+	width: var(--ls-button-fill-icon-well-size);
 	display: grid;
 	place-items: center;
-	color: var(--ls-button-fill-icon-colour, var(--wp--preset--color--base));
-	font-size: 1.25rem;
+	color: var(--ls-button-fill-icon-colour, currentColor);
+	font-size: var(--ls-button-fill-icon-font-size);
 	font-weight: 700;
 	line-height: 1;
-	transform: translateY(-1px);
 	transition:
 		color 500ms
 			cubic-bezier(0.4, 0, 0.2, 1);
-	pointer-events: none;
 }
 
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover,
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover::before,
-.wp-block-button.is-style-fill .wp-block-button__link:hover,
-.wp-block-button.is-style-fill .wp-block-button__link:hover::before {
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link:hover,
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link:hover::before {
 	transition-delay: var(--ls-button-fill-enter-delay, 80ms);
 }
 
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover::before,
-.wp-block-button:not([class*="is-style-"])
-	.wp-block-button__link:focus-visible::before,
-.wp-block-button.is-style-fill .wp-block-button__link:hover::before,
-.wp-block-button.is-style-fill .wp-block-button__link:focus-visible::before {
-	inset-block-start: calc(
-		50% - (var(--ls-button-fill-icon-well-size, 3rem) / 2)
-	);
-	inset-inline-end: 0.625rem;
-	inset-block-end: calc(
-		50% - (var(--ls-button-fill-icon-well-size, 3rem) / 2)
-	);
-	inset-inline-start: calc(
-		100% - var(--ls-button-fill-icon-well-size, 3rem) - 0.625rem
-	);
-	border-radius: var(--wp--preset--border-radius--200);
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link:hover::before,
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link:focus-visible::before {
+	inset-block: var(--ls-button-fill-icon-block-inset);
+	inset-inline-end: var(--ls-button-fill-icon-inline-end);
+	inset-inline-start: var(--ls-button-fill-icon-inline-start);
+	border-radius: inherit;
 }
 
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover,
-.wp-block-button:not([class*="is-style-"])
-	.wp-block-button__link:focus-visible,
-.wp-block-button.is-style-fill .wp-block-button__link:hover,
-.wp-block-button.is-style-fill .wp-block-button__link:focus-visible {
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link:hover,
+:is(
+	.wp-block-button:not([class*="is-style-"]),
+	.wp-block-button.is-style-fill
+) .wp-block-button__link:focus-visible {
 	color: var(--ls-button-fill-hover-text, var(--wp--preset--color--contrast));
 }
 
-.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:active,
-.wp-block-button.is-style-fill .wp-block-button__link:active {
-	transform: scale(0.98);
-}
-
-/* Outline Button */
+/* Outline button motion */
 .wp-block-button.is-style-outline .wp-block-button__link {
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	box-sizing: border-box;
-	max-inline-size: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	isolation: isolate;
-	border: 2px solid var(--wp--preset--color--brand-500);
-	border-radius: var(--wp--preset--border-radius--200);
-	background-color: var(--wp--preset--color--base);
-	color: var(--wp--preset--color--contrast);
+	--ls-button-outline-icon-well-size: 3rem;
+	--ls-button-outline-icon-inset: 4px;
+	--ls-button-outline-icon-font-size: 1.25rem;
+	--ls-button-outline-hover-padding-start: 4rem;
+	--ls-button-outline-hover-padding-end: 1.5rem;
+	--ls-button-outline-icon-inline-start: calc(
+		100% - var(--ls-button-outline-icon-well-size) - var(--ls-button-outline-icon-inset)
+	);
 	transition:
 		padding-inline-start 500ms
 			cubic-bezier(0.4, 0, 0.2, 1),
 		padding-inline-end 500ms
 			cubic-bezier(0.4, 0, 0.2, 1),
-		border-color 280ms ease,
-		color 280ms ease,
-		transform 180ms ease;
-	transition-delay: 0s;
-	box-shadow: none;
+		transform 500ms ease-in-out;
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link::after {
 	content: "\2192";
 	position: absolute;
-	inset-block: 4px;
-	inset-inline-end: 4px;
-	width: 3rem;
+	inset-block: var(--ls-button-outline-icon-inset);
+	inset-inline-end: var(--ls-button-outline-icon-inset);
+	width: var(--ls-button-outline-icon-well-size);
 	display: grid;
 	place-items: center;
-	border-radius: calc(var(--wp--preset--border-radius--200) - 2px);
-	background-color: var(--wp--preset--color--brand-500);
-	color: var(--wp--preset--color--base);
-	font-size: 1.25rem;
+	border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
+	background-color: var(
+		--ls-button-outline-accent-background,
+		var(--wp--preset--color--brand-500)
+	);
+	color: var(--ls-button-outline-accent-colour, var(--wp--preset--color--base));
+	font-size: var(--ls-button-outline-icon-font-size);
 	font-weight: 700;
 	line-height: 1;
-	transform: translateY(-1px);
 	transition:
 		inset-inline-end 500ms
 			cubic-bezier(0.4, 0, 0.2, 1),
 		background-color 280ms ease,
 		color 280ms ease;
-	transition-delay: 0s;
-	pointer-events: none;
 	z-index: 1;
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover,
 .wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
-	padding-inline-start: 4rem;
-	padding-inline-end: 1.5rem;
+	padding-inline-start: var(--ls-button-outline-hover-padding-start);
+	padding-inline-end: var(--ls-button-outline-hover-padding-end);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover::after,
 .wp-block-button.is-style-outline .wp-block-button__link:focus-visible::after {
-	inset-inline-end: calc(100% - 3rem - 4px);
+	inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
-@media (max-width: 680px) {
-	.wp-block-button:not([class*="is-style-"]) .wp-block-button__link,
-	.wp-block-button.is-style-fill .wp-block-button__link {
-		--ls-button-fill-icon-well-size: 2.75rem;
-		max-inline-size: 100%;
-		white-space: normal;
-		text-wrap: pretty;
-		font-size: 0.95rem;
-		line-height: 1.35;
-		padding-top: 0.875rem;
-		padding-right: 3.5rem;
-		padding-bottom: 0.875rem;
-		padding-left: 1rem;
-	}
 
-	.wp-block-button:not([class*="is-style-"]) .wp-block-button__link::after,
-	.wp-block-button.is-style-fill .wp-block-button__link::after {
-		inset-block-start: calc(
-			50% - (var(--ls-button-fill-icon-well-size, 2.75rem) / 2)
-		);
-		inset-block-end: calc(
-			50% - (var(--ls-button-fill-icon-well-size, 2.75rem) / 2)
-		);
-		inset-inline-end: 0.5rem;
-		width: var(--ls-button-fill-icon-well-size, 2.75rem);
-		font-size: 1.125rem;
-		transform: translateY(-1px);
-	}
-
-	.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover::before,
-	.wp-block-button:not([class*="is-style-"])
-		.wp-block-button__link:focus-visible::before,
-	.wp-block-button.is-style-fill .wp-block-button__link:hover::before,
-	.wp-block-button.is-style-fill .wp-block-button__link:focus-visible::before {
-		inset-block-start: calc(
-			50% - (var(--ls-button-fill-icon-well-size, 2.75rem) / 2)
-		);
-		inset-inline-end: 0.5rem;
-		inset-block-end: calc(
-			50% - (var(--ls-button-fill-icon-well-size, 2.75rem) / 2)
-		);
-		inset-inline-start: calc(
-			100% - var(--ls-button-fill-icon-well-size, 2.75rem) - 0.5rem
-		);
-	}
-
-	.wp-block-button.is-style-outline .wp-block-button__link::after {
-		inset-block: 3px;
-		inset-inline-end: 3px;
-		width: 2.75rem;
-		font-size: 1.125rem;
-	}
-
-	.wp-block-button.is-style-outline .wp-block-button__link:hover,
-	.wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
-		padding-inline-start: 3.5rem;
-		padding-inline-end: 1rem;
-	}
-
-	.wp-block-button.is-style-outline .wp-block-button__link:hover::after,
-	.wp-block-button.is-style-outline .wp-block-button__link:focus-visible::after {
-		inset-inline-end: calc(100% - 2.75rem - 3px);
-	}
-}
-
-/* Button Glow: Button Glow Accent */
+/* Button Glow Accent */
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link {
 	transition:
 		box-shadow 900ms cubic-bezier(0.19, 1, 0.22, 1),
@@ -374,33 +311,50 @@
 		transform 180ms ease;
 	transition-delay: 0s;
 	box-shadow: inset 0 0 20px
-		color-mix(in srgb, var(--wp--preset--color--brand-500) 0%, transparent);
-	outline: 1px solid
-		color-mix(in srgb, var(--wp--preset--color--brand-500) 45%, transparent);
-	outline-offset: 0;
-	text-shadow: none;
+		color-mix(
+			in srgb,
+			var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+				var(--ls-button-glow-resting-strength, 0%),
+			transparent
+		);
+	outline: var(--ls-button-glow-outline-width, 1px) solid
+		color-mix(
+			in srgb,
+			var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+				var(--ls-button-glow-outline-strength, 45%),
+			transparent
+		);
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-	transition-delay: 80ms;
+	transition-delay: var(--ls-button-glow-enter-delay, 80ms);
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
 .wp-block-button.is-style-button-glow-accent
 	.wp-block-button__link:focus-visible {
-	background-color: var(--wp--preset--color--brand-500);
-	color: var(--wp--preset--color--base);
+	background-color: var(
+		--ls-button-glow-hover-background,
+		var(--wp--preset--color--brand-500)
+	);
+	color: var(--ls-button-glow-hover-text, var(--wp--preset--color--base));
 	box-shadow:
 		inset 0 0 20px
-			color-mix(in srgb, var(--wp--preset--color--brand-500) 35%, transparent),
+			color-mix(
+				in srgb,
+				var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+					var(--ls-button-glow-inner-strength, 35%),
+				transparent
+			),
 		0 0 20px
-			color-mix(in srgb, var(--wp--preset--color--brand-500) 20%, transparent);
+			color-mix(
+				in srgb,
+				var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+					var(--ls-button-glow-outer-strength, 20%),
+				transparent
+			);
 	outline-color: transparent;
-	outline-offset: 12px;
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:active {
-	transform: scale(0.98);
+	outline-offset: var(--ls-button-glow-outline-offset, 12px);
 }
 
 

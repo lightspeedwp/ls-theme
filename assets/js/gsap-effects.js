@@ -197,10 +197,15 @@
 		let particles = [];
 		let resizeObserver = null;
 
+		function isCompactViewport() {
+			return size.width <= 781;
+		}
+
 		function createParticles() {
+			const compactViewport = isCompactViewport();
 			const particleCount = reduceMotion
-				? Math.min( 20, Math.max( 12, Math.round( ( size.width * size.height ) / 52000 ) ) )
-				: Math.min( 48, Math.max( 22, Math.round( ( size.width * size.height ) / 24000 ) ) );
+				? Math.min( compactViewport ? 24 : 20, Math.max( compactViewport ? 16 : 12, Math.round( ( size.width * size.height ) / ( compactViewport ? 44000 : 52000 ) ) ) )
+				: Math.min( compactViewport ? 56 : 48, Math.max( compactViewport ? 28 : 22, Math.round( ( size.width * size.height ) / ( compactViewport ? 18000 : 24000 ) ) ) );
 
 			particles = Array.from( { length: particleCount }, ( value, index ) => {
 				const driftX = reduceMotion ? 0 : ( ( Math.random() - 0.5 ) * 0.26 );
@@ -244,9 +249,14 @@
 		}
 
 		function drawFrame( time ) {
-			const connectionDistance = Math.min( 220, Math.max( 130, Math.min( size.width, size.height ) * 0.3 ) );
+			const compactViewport = isCompactViewport();
+			const connectionDistance = compactViewport
+				? Math.min( 250, Math.max( 150, Math.min( size.width, size.height ) * 0.42 ) )
+				: Math.min( 220, Math.max( 130, Math.min( size.width, size.height ) * 0.3 ) );
 			const connectionDistanceSquared = connectionDistance * connectionDistance;
-			const influenceRadius = Math.max( 220, Math.min( size.width, size.height ) * 0.36 );
+			const influenceRadius = compactViewport
+				? Math.max( 260, Math.min( size.width, size.height ) * 0.46 )
+				: Math.max( 220, Math.min( size.width, size.height ) * 0.36 );
 
 			context.clearRect( 0, 0, size.width, size.height );
 
@@ -309,9 +319,13 @@
 					context.lineTo( targetParticle.x, targetParticle.y );
 					context.strokeStyle = rgbaString(
 						lineColour,
-						0.13 + ( connectionStrength * 0.24 ) + ( interaction.strength * connectionStrength * 0.12 )
+						compactViewport
+							? 0.2 + ( connectionStrength * 0.3 ) + ( interaction.strength * connectionStrength * 0.14 )
+							: 0.13 + ( connectionStrength * 0.24 ) + ( interaction.strength * connectionStrength * 0.12 )
 					);
-					context.lineWidth = distance < ( connectionDistance * 0.4 ) ? 1.35 : 0.95;
+					context.lineWidth = compactViewport
+						? ( distance < ( connectionDistance * 0.4 ) ? 1.6 : 1.15 )
+						: ( distance < ( connectionDistance * 0.4 ) ? 1.35 : 0.95 );
 					context.stroke();
 				}
 			}
@@ -326,7 +340,12 @@
 
 				context.beginPath();
 				context.arc( particle.x, particle.y, particle.radius, 0, Math.PI * 2, false );
-				context.fillStyle = rgbaString( dotColour, 0.72 + ( interaction.strength * 0.16 ) );
+				context.fillStyle = rgbaString(
+					dotColour,
+					compactViewport
+						? 0.84 + ( interaction.strength * 0.16 )
+						: 0.72 + ( interaction.strength * 0.16 )
+				);
 				context.fill();
 			}
 		}
