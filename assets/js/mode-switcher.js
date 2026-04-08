@@ -52,11 +52,28 @@
 	function applyMode( mode ) {
 		if ( mode === 'dark' ) {
 			document.documentElement.classList.add( 'dark-mode' );
-			document.body.classList.add( 'dark-mode' );
+			if ( document.body ) {
+				document.body.classList.add( 'dark-mode' );
+			}
 		} else {
 			document.documentElement.classList.remove( 'dark-mode' );
-			document.body.classList.remove( 'dark-mode' );
+			if ( document.body ) {
+				document.body.classList.remove( 'dark-mode' );
+			}
 		}
+	}
+
+	/**
+	 * Determines whether dark mode is currently active.
+	 *
+	 * Supports early script execution before document.body exists.
+	 */
+	function isDarkModeActive() {
+		if ( document.body && document.body.classList.contains( 'dark-mode' ) ) {
+			return true;
+		}
+
+		return document.documentElement.classList.contains( 'dark-mode' );
 	}
 
 	/**
@@ -68,7 +85,7 @@
 			return;
 		}
 
-		const isDark = document.body.classList.contains( 'dark-mode' );
+		const isDark = isDarkModeActive();
 		const label = button.querySelector( '.ls-theme-mode-label' );
 		const lightIcon = button.querySelector( '.ls-theme-mode-icon-light' );
 		const darkIcon = button.querySelector( '.ls-theme-mode-icon-dark' );
@@ -136,6 +153,9 @@
 	 * Sets up event listeners for the switcher button.
 	 */
 	function setup() {
+		// Re-apply once body exists so body-scoped CSS selectors are active.
+		applyMode( getSavedMode() );
+
 		const button = document.getElementById( 'ls-theme-mode-switcher' );
 		if ( button ) {
 			button.addEventListener( 'click', toggleMode );
