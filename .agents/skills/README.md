@@ -34,6 +34,7 @@ skills/
 | Skill folder           | Purpose                                |
 |------------------------|----------------------------------------|
 | `block-theme-audit/`   | Audit a WordPress block theme          |
+| `build-process-bootstrap/` | Bootstrap build tooling from scaffold |
 
 ---
 

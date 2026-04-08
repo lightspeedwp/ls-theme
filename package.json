@@ -2,21 +2,64 @@
 	"name": "ls-theme",
 	"version": "0.1.0",
 	"description": "LightSpeed Theme is a custom WordPress block theme built by LightSpeed for fast, accessible, maintainable websites using the WordPress Site Editor and block editor.",
-	"type": "module",
+	"private": true,
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://lightspeedwp.agency/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lightspeedwp/ls-theme"
+	},
+	"bugs": {
+		"url": "https://github.com/lightspeedwp/ls-theme/issues"
+	},
+	"keywords": [
+		"wordpress",
+		"block-theme",
+		"full-site-editing",
+		"lightspeed",
+		"ls-theme"
+	],
+	"engines": {
+		"node": ">=20.0.0",
+		"npm": ">=9.0.0"
+	},
 	"scripts": {
+		"start": "wp-scripts start --webpack-copy-php",
+		"build": "wp-scripts build --webpack-copy-php",
+		"build:production": "NODE_ENV=production npm run build",
 		"schema:validate": "node theme-utils.mjs validate-schema",
 		"theme:validate": "node theme-utils.mjs validate-theme",
 		"patterns:escape": "node theme-utils.mjs escape-patterns",
 		"security:scan": "node theme-utils.mjs security-scan",
-		"lint": "npm run lint:json",
-		"lint:json": "node --input-type=module --eval \"import { readFileSync } from 'fs'; import { glob } from 'glob'; const files = await glob(['theme.json', 'styles/**/*.json']); let ok = true; for (const f of files) { try { JSON.parse(readFileSync(f, 'utf8')); } catch (e) { console.error('Invalid JSON:', f, e.message); ok = false; } } if (ok) console.log('All JSON files are valid.'); else process.exit(1);\""
+		"makepot": "wp i18n make-pot . languages/ls-theme.pot --slug=ls-theme --domain=ls-theme --exclude=node_modules,vendor,build,tests",
+		"makepot:php": "wp i18n make-pot . languages/ls-theme.pot --slug=ls-theme --domain=ls-theme --exclude=node_modules,vendor,build,tests,src",
+		"makejson": "wp i18n make-json languages --no-purge",
+		"i18n": "npm run makepot && npm run makejson",
+		"lint": "npm run lint:json && npm run lint:js && npm run lint:css && npm run lint:php",
+		"lint:json": "node --input-type=module --eval \"import { readFileSync } from 'fs'; import { glob } from 'glob'; const files = await glob(['theme.json', 'styles/**/*.json']); let ok = true; for (const f of files) { try { JSON.parse(readFileSync(f, 'utf8')); } catch (e) { console.error('Invalid JSON:', f, e.message); ok = false; } } if (ok) console.log('All JSON files are valid.'); else process.exit(1);\"",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts lint-js --fix",
+		"lint:css": "wp-scripts lint-style",
+		"lint:css:fix": "wp-scripts lint-style --fix",
+		"lint:php": "composer run lint",
+		"lint:php:fix": "composer run lint:fix",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"format": "wp-scripts format"
 	},
 	"devDependencies": {
+		"@wordpress/babel-preset-default": "^8.35.0",
+		"@wordpress/browserslist-config": "^6.35.0",
+		"@wordpress/env": "^10.35.0",
+		"@wordpress/eslint-plugin": "^22.21.0",
+		"@wordpress/npm-package-json-lint-config": "5.36.0",
+		"@wordpress/postcss-plugins-preset": "5.36.0",
+		"@wordpress/postcss-themes": "6.36.0",
+		"@wordpress/prettier-config": "^4.35.0",
+		"@wordpress/scripts": "^31.0.0",
+		"@wordpress/stylelint-config": "^23.27.0",
 		"ajv": "^8.17.1",
-		"glob": "^11.0.1"
-	},
-	"engines": {
-		"node": ">=20.0.0"
-	},
-	"private": true
+		"glob": "^11.0.1",
+		"sass": "1.97.0",
+		"webpack-remove-empty-scripts": "^1.0.4"
+	}
 }

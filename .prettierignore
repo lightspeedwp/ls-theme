@@ -1,0 +1,15 @@
+# Node
+modules
+node_modules
+
+# Build directories
+build
+dist
+
+# Vendor
+vendor
+
+# Test directories
+coverage
+playwright-report
+test-results
