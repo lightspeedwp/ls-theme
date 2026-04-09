@@ -23,9 +23,6 @@ require get_template_directory() . '/inc/gsap.php';
 /** Loads the presets integration files */
 require get_template_directory() . '/inc/presets.php';
 
-/** Loads the mode switcher */
-require get_template_directory() . '/inc/mode-switcher.php';
-
 /**
  * Sets up theme supports.
  */
