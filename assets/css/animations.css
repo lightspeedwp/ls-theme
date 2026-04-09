@@ -78,7 +78,7 @@
 	background-position: 0 100%;
 	background-repeat: no-repeat;
 	background-size: 0 var(--ls-link-underline-thickness, 2px);
-	transition: background-size 220ms ease, color 220ms ease;
+	transition: background-size 220ms ease, color 300ms ease;
 	transition-delay: 0s;
 }
 

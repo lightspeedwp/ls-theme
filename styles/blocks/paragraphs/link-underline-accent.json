@@ -18,6 +18,6 @@
         }
       }
     },
-    "css": "&{--ls-link-underline-image:linear-gradient(var(--wp--custom--color--link--decoration-start),var(--wp--custom--color--link--decoration-end));--ls-link-underline-padding-bottom:5px;--ls-link-underline-thickness:2px;--ls-link-underline-enter-delay:80ms;}"
+    "css": "&{--ls-link-underline-image:linear-gradient(var(--wp--custom--color--link--decoration-start),var(--wp--custom--color--link--decoration-end));--ls-link-underline-padding-bottom:3px;--ls-link-underline-thickness:2px;--ls-link-underline-enter-delay:80ms;}"
   }
 }

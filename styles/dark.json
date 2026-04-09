@@ -28,20 +28,20 @@
 					"accent": "var(--wp--preset--color--brand-300)",
 					"accent-hover": "var(--wp--preset--color--accent-two-300)"
 				},
-				"action": {
-					"primary": {
-						"background": "var(--wp--preset--color--brand-300)",
+				"button": {
+					"fill": {
+						"background": "var(--wp--preset--color--cta-500)",
 						"text": "var(--wp--preset--color--contrast)",
-						"border": "var(--wp--preset--color--brand-300)",
-						"background-hover": "var(--wp--preset--color--brand-200)",
+						"border": "var(--wp--preset--color--cta-500)",
+						"background-hover": "var(--wp--preset--color--cta-400)",
 						"text-hover": "var(--wp--preset--color--contrast)",
-						"border-hover": "var(--wp--preset--color--brand-200)"
+						"border-hover": "var(--wp--preset--color--cta-400)"
 					},
-					"secondary": {
+					"outline": {
 						"background": "var(--wp--preset--color--surface-400)",
-						"text": "var(--wp--preset--color--brand-300)",
-						"border": "var(--wp--preset--color--brand-300)",
-						"background-hover": "var(--wp--preset--color--brand-400)",
+						"text": "var(--wp--preset--color--cta-500)",
+						"border": "var(--wp--preset--color--cta-500)",
+						"background-hover": "var(--wp--preset--color--cta-400)",
 						"text-hover": "var(--wp--preset--color--contrast)"
 					}
 				},
