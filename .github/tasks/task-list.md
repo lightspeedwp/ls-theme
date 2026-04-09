@@ -33,7 +33,8 @@ Update this file as tasks are created, started, or completed.
 
 ## Quality
 
+- [x] Add semantic colour token policy instructions and a colour-token enforcement skill
 - [ ] Run `npm run security:scan`
 - [ ] Run `npm run patterns:escape`
 - [ ] Run `composer run phpcs`
-- [ ] Run `npm run schema:validate`
+- [x] Run `npm run schema:validate`

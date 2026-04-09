@@ -7,14 +7,14 @@
                 "variations": {
                     "outline": {
                         "border": {
-                            "color": "var:preset|color|brand-500",
+                            "color": "var(--wp--custom--color--action--secondary--border)",
                             "style": "solid",
                             "width": "2px",
                             "radius": "var:preset|border-radius|200"
                         },
                         "color": {
-                            "background": "var:preset|color|base",
-                            "text": "var:preset|color|contrast"
+                            "background": "var(--wp--custom--color--surface--canvas)",
+                            "text": "var(--wp--custom--color--text--default)"
                         },
                         "spacing": {
                             "padding": {
@@ -29,7 +29,7 @@
                             "fontWeight": "700",
                             "letterSpacing": "0.08em"
                         },
-                        "css": "&{--ls-button-outline-accent-background:var(--wp--preset--color--brand-500);--ls-button-outline-accent-colour:var(--wp--preset--color--base);--ls-button-outline-icon-radius:var(--wp--preset--border-radius--100);}"
+                        "css": "&{--ls-button-outline-accent-background:var(--wp--custom--color--action--secondary--border);--ls-button-outline-accent-colour:var(--wp--custom--color--action--secondary--text-hover);--ls-button-outline-icon-radius:var(--wp--preset--border-radius--100);}"
                     }
                 }
             }

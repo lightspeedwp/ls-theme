@@ -15,7 +15,7 @@
         "elements": {
             "button": {
                 "color": {
-                    "text": "var:preset|color|base"
+                    "text": "var(--wp--custom--color--action--primary--text)"
                 },
                 "border": {
                     "radius": "var:preset|border-radius|200"
@@ -33,7 +33,7 @@
                     "fontWeight": "700",
                     "letterSpacing": "0.08em"
                 },
-                "css": "&{--ls-button-fill-background:var(--wp--preset--color--brand-500);--ls-button-fill-icon-colour:var(--wp--preset--color--base);--ls-button-fill-hover-text:var(--wp--preset--color--contrast);--ls-button-fill-duration:500ms;--ls-button-fill-enter-delay:80ms;--ls-button-active-scale:0.98;}"
+                "css": "&{--ls-button-fill-background:var(--wp--custom--color--action--primary--background);--ls-button-fill-icon-colour:var(--wp--custom--color--action--primary--text);--ls-button-fill-hover-text:var(--wp--custom--color--text--default);--ls-button-fill-duration:500ms;--ls-button-fill-enter-delay:80ms;--ls-button-active-scale:0.98;}"
             }
         }
     }

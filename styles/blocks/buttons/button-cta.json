@@ -9,14 +9,14 @@
   "description": "CTA button with a strong resting glow that blooms further on hover.",
   "styles": {
     "border": {
-      "color": "var:preset|color|brand-500",
+      "color": "var(--wp--custom--color--action--primary--border)",
       "radius": "var:preset|border-radius|100",
       "style": "solid",
       "width": "2px"
     },
     "color": {
-      "background": "var:preset|color|brand-500",
-      "text": "var:preset|color|base"
+      "background": "var(--wp--custom--color--action--primary--background)",
+      "text": "var(--wp--custom--color--action--primary--text)"
     },
     "spacing": {
       "padding": {
@@ -31,6 +31,6 @@
       "fontWeight": "600",
       "lineHeight": "var(--wp--custom--line-height--button)"
     },
-    "css": "&{--ls-button-glow-colour:var(--wp--preset--color--brand-500);--ls-button-hover-background:var(--wp--preset--color--brand-500);--ls-button-hover-text:var(--wp--preset--color--base);--ls-button-hover-border:var(--wp--preset--color--base);--ls-button-glow-enter-delay:80ms;--ls-button-glow-outline-offset:12px;--ls-button-glow-size:28px;--ls-button-glow-resting-size:24px;--ls-button-glow-resting-strength:100%;--ls-button-glow-resting-outer-strength:100%;--ls-button-glow-inner-strength:74%;--ls-button-glow-outer-strength:56%;--ls-button-glow-halo-strength:34%;--ls-button-active-scale:0.98;}"
+    "css": "&{--ls-button-glow-colour:var(--wp--custom--color--action--primary--background);--ls-button-hover-background:var(--wp--custom--color--action--primary--background-hover);--ls-button-hover-text:var(--wp--custom--color--action--primary--text-hover);--ls-button-hover-border:var(--wp--custom--color--action--primary--border-hover);--ls-button-glow-enter-delay:80ms;--ls-button-glow-outline-offset:12px;--ls-button-glow-size:28px;--ls-button-glow-resting-size:24px;--ls-button-glow-resting-strength:100%;--ls-button-glow-resting-outer-strength:100%;--ls-button-glow-inner-strength:74%;--ls-button-glow-outer-strength:56%;--ls-button-glow-halo-strength:34%;--ls-button-active-scale:0.98;}"
   }
 }

@@ -71,8 +71,8 @@
 	background-image: var(
 		--ls-link-underline-image,
 		linear-gradient(
-			var(--wp--preset--color--brand-500),
-			var(--wp--preset--color--accent-500)
+			var(--wp--custom--color--link--decoration-start),
+			var(--wp--custom--color--link--decoration-end)
 		)
 	);
 	background-position: 0 100%;
@@ -175,7 +175,7 @@
 	border-radius: inherit;
 	background: var(
 		--ls-button-fill-background,
-		var(--wp--preset--color--brand-500)
+		var(--wp--custom--color--action--primary--background)
 	);
 	transition:
 		inset-inline-start 350ms
@@ -244,7 +244,7 @@
 	.wp-block-button:not([class*="is-style-"]),
 	.wp-block-button.is-style-fill
 ) .wp-block-button__link:focus-visible {
-	color: var(--ls-button-fill-hover-text, var(--wp--preset--color--contrast));
+	color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
 }
 
 /* Outline button motion */
@@ -276,9 +276,9 @@
 	border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
 	background-color: var(
 		--ls-button-outline-accent-background,
-		var(--wp--preset--color--brand-500)
+		var(--wp--custom--color--action--secondary--border)
 	);
-	color: var(--ls-button-outline-accent-colour, var(--wp--preset--color--base));
+	color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--action--secondary--text-hover));
 	font-size: var(--ls-button-outline-icon-font-size);
 	font-weight: 700;
 	line-height: 1;
@@ -313,14 +313,14 @@
 	box-shadow: inset 0 0 20px
 		color-mix(
 			in srgb,
-			var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+			var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
 				var(--ls-button-glow-resting-strength, 0%),
 			transparent
 		);
 	outline: var(--ls-button-glow-outline-width, 1px) solid
 		color-mix(
 			in srgb,
-			var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+			var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
 				var(--ls-button-glow-outline-strength, 45%),
 			transparent
 		);
@@ -335,21 +335,21 @@
 	.wp-block-button__link:focus-visible {
 	background-color: var(
 		--ls-button-glow-hover-background,
-		var(--wp--preset--color--brand-500)
+		var(--wp--custom--color--action--secondary--background-hover)
 	);
-	color: var(--ls-button-glow-hover-text, var(--wp--preset--color--base));
+	color: var(--ls-button-glow-hover-text, var(--wp--custom--color--action--secondary--text-hover));
 	box-shadow:
 		inset 0 0 20px
 			color-mix(
 				in srgb,
-				var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+				var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
 					var(--ls-button-glow-inner-strength, 35%),
 				transparent
 			),
 		0 0 20px
 			color-mix(
 				in srgb,
-				var(--ls-button-glow-colour, var(--wp--preset--color--brand-500))
+				var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
 					var(--ls-button-glow-outer-strength, 20%),
 				transparent
 			);

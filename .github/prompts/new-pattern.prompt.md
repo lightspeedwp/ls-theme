@@ -9,6 +9,7 @@ Generate a new WordPress block pattern for this theme.
 ## Instructions
 
 Provide the following details before generating:
+
 - **Pattern name**: (human-readable, e.g. "Hero with Image")
 - **Pattern slug**: (e.g. `ls-theme/hero-with-image`)
 - **Category**: (e.g. `featured`, `text`, `call-to-action`)
@@ -25,9 +26,12 @@ The generated pattern must:
 5. Use `esc_html__()` or `esc_attr__()` for translatable strings with the correct text domain.
 6. Use semantic HTML (`tagName` attributes on block groups).
 7. Use correct heading levels appropriate to the pattern's context.
-8. Use colour and spacing presets from `theme.json` where possible.
-9. Not hard-code URLs — use WordPress functions like `home_url()`, `esc_url()`.
-10. Be self-contained — do not depend on other patterns.
+8. Use semantic custom colour tokens and theme spacing tokens from `theme.json` where possible.
+9. Do not reference colour presets directly in authored pattern styles.
+10. If a required semantic colour token does not exist yet, add it to `theme.json` and add the exact same token path to `styles/dark.json` before using it.
+11. Ensure any new text or UI colour pairings maintain WCAG AA contrast.
+12. Not hard-code URLs — use WordPress functions like `home_url()`, `esc_url()`.
+13. Be self-contained — do not depend on other patterns.
 
 ## Output
 

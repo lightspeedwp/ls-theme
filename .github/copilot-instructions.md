@@ -12,6 +12,7 @@ This is the **LightSpeed Theme** WordPress block theme repository (`lightspeedwp
 One theme, one repo. Not a monorepo.
 
 The theme uses the WordPress Full Site Editing (FSE) / block theme approach:
+
 - `theme.json` is the primary source of truth for design tokens.
 - Templates live in `templates/`.
 - Template parts live in `parts/`.
@@ -24,6 +25,7 @@ The theme uses the WordPress Full Site Editing (FSE) / block theme approach:
 ## Key Principles
 
 - **theme.json first** — prefer `theme.json` for colours, typography, spacing, and layout over PHP or CSS.
+- **Semantic colour tokens** — authored UI styles should use `settings.custom.color` tokens, not direct preset-colour references. See `.github/instructions/design-token-policy.instructions.md`.
 - **Minimal PHP** — `functions.php` should stay small. Use `inc/` only for necessary PHP logic.
 - **No unnecessary dependencies** — do not add npm or Composer packages without justification.
 - **No build pipeline** — this repo does not use Webpack, Vite, or similar unless deliberately added.
@@ -35,24 +37,24 @@ The theme uses the WordPress Full Site Editing (FSE) / block theme approach:
 
 ## File Structure Summary
 
-| Path                          | Purpose                                           |
-|-------------------------------|---------------------------------------------------|
-| `style.css`                   | Block theme header                                |
-| `theme.json`                  | Design tokens and settings                        |
-| `functions.php`               | Minimal PHP setup                                 |
-| `templates/`                  | Block templates (HTML)                            |
-| `parts/`                      | Block template parts (HTML)                       |
-| `patterns/`                   | Block patterns (PHP or HTML)                      |
-| `styles/`                     | Style variations (JSON)                           |
-| `assets/`                     | CSS, JS, fonts, icons, logos, images              |
-| `inc/`                        | Optional PHP includes                             |
-| `docs/`                       | End-user documentation                            |
-| `.github/instructions/`       | These instruction files                           |
-| `.github/prompts/`            | Reusable prompt files                             |
-| `.github/reports/`            | Developer and AI reports                          |
-| `.github/tasks/`              | Task lists                                        |
-| `.agents/skills/`             | Portable AI skills                                |
-| `.agents/agents/`             | Agent persona definitions                         |
+| Path                    | Purpose                              |
+| ----------------------- | ------------------------------------ |
+| `style.css`             | Block theme header                   |
+| `theme.json`            | Design tokens and settings           |
+| `functions.php`         | Minimal PHP setup                    |
+| `templates/`            | Block templates (HTML)               |
+| `parts/`                | Block template parts (HTML)          |
+| `patterns/`             | Block patterns (PHP or HTML)         |
+| `styles/`               | Style variations (JSON)              |
+| `assets/`               | CSS, JS, fonts, icons, logos, images |
+| `inc/`                  | Optional PHP includes                |
+| `docs/`                 | End-user documentation               |
+| `.github/instructions/` | These instruction files              |
+| `.github/prompts/`      | Reusable prompt files                |
+| `.github/reports/`      | Developer and AI reports             |
+| `.github/tasks/`        | Task lists                           |
+| `.agents/skills/`       | Portable AI skills                   |
+| `.agents/agents/`       | Agent persona definitions            |
 
 ---
 
@@ -61,6 +63,7 @@ The theme uses the WordPress Full Site Editing (FSE) / block theme approach:
 When working on specific file types, also consult these instruction files:
 
 - PHP: `.github/instructions/php.instructions.md`
+- Design tokens: `.github/instructions/design-token-policy.instructions.md`
 - Patterns: `.github/instructions/patterns.instructions.md`
 - Templates: `.github/instructions/templates.instructions.md`
 - theme.json: `.github/instructions/theme-json.instructions.md`
@@ -85,26 +88,26 @@ composer run lint:php     # Lint PHP syntax
 
 ## Where Things Belong
 
-| What                    | Where                        |
-|-------------------------|------------------------------|
-| AI prompts              | `.github/prompts/`           |
-| Developer reports       | `.github/reports/`           |
-| Task lists              | `.github/tasks/`             |
-| End-user documentation  | `docs/`                      |
-| Portable AI skills      | `.agents/skills/`            |
-| Agent personas          | `.agents/agents/`            |
+| What                   | Where              |
+| ---------------------- | ------------------ |
+| AI prompts             | `.github/prompts/` |
+| Developer reports      | `.github/reports/` |
+| Task lists             | `.github/tasks/`   |
+| End-user documentation | `docs/`            |
+| Portable AI skills     | `.agents/skills/`  |
+| Agent personas         | `.agents/agents/`  |
 
 ---
 
 ## Theme Identity
 
-| Key          | Value                            |
-|--------------|----------------------------------|
-| Theme name   | `LightSpeed Theme`               |
-| Theme slug   | `ls-theme`                       |
-| Text domain  | `ls-theme`                       |
-| Repo         | `lightspeedwp/ls-theme`          |
-| Author       | `LightSpeed`                     |
-| Author URI   | `https://lightspeedwp.agency/`   |
+| Key         | Value                          |
+| ----------- | ------------------------------ |
+| Theme name  | `LightSpeed Theme`             |
+| Theme slug  | `ls-theme`                     |
+| Text domain | `ls-theme`                     |
+| Repo        | `lightspeedwp/ls-theme`        |
+| Author      | `LightSpeed`                   |
+| Author URI  | `https://lightspeedwp.agency/` |
 
 Keep the text domain (`ls-theme`) consistent in all PHP files and theme metadata.

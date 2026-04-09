@@ -22,6 +22,7 @@ skills/
 ```
 
 `SKILL.md` defines:
+
 - The skill's purpose
 - The inputs it expects
 - The steps it performs
@@ -31,9 +32,10 @@ skills/
 
 ## Available Skills
 
-| Skill folder           | Purpose                                |
-|------------------------|----------------------------------------|
-| `block-theme-audit/`   | Audit a WordPress block theme          |
+| Skill folder                  | Purpose                                  |
+| ----------------------------- | ---------------------------------------- |
+| `block-theme-audit/`          | Audit a WordPress block theme            |
+| `theme-color-token-enforcer/` | Audit or fix semantic colour token usage |
 
 ---
 

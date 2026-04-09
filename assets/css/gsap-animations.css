@@ -4,17 +4,17 @@
 .is-style-card-spotlight {
 	--ls-card-radius: var(--wp--preset--border-radius--400);
 	--ls-card-border-width: 1px;
-	--ls-card-border-colour: var(--wp--preset--color--neutral-300);
-	--ls-card-surface-start: var(--wp--preset--color--base);
-	--ls-card-surface-end: var(--wp--preset--color--neutral-200);
-	--ls-card-shadow: var(--wp--preset--shadow--200);
+	--ls-card-border-colour: var(--wp--custom--color--border--card);
+	--ls-card-surface-start: var(--wp--custom--color--surface--card);
+	--ls-card-surface-end: var(--wp--custom--color--surface--card-raised);
+	--ls-card-shadow: var(--wp--custom--shadow--elevation--200);
 	--ls-effect-x: 50%;
 	--ls-effect-y: 50%;
 	--ls-effect-opacity: 0;
 	--ls-effect-border-opacity: 0;
 	--ls-effect-scale: 0.94;
-	--ls-effect-primary-colour: var(--wp--preset--color--brand-500);
-	--ls-effect-secondary-colour: var(--wp--preset--color--brand-200);
+	--ls-effect-primary-colour: var(--wp--custom--color--effect--spotlight--primary);
+	--ls-effect-secondary-colour: var(--wp--custom--color--effect--spotlight--secondary);
 	--ls-effect-primary-size: 72rem;
 	--ls-effect-secondary-size: 80rem;
 	--ls-effect-blur: 60px;
@@ -32,7 +32,7 @@
 		),
 		var(--ls-card-surface-end);
 	box-shadow:
-		inset 0 0 0 color-mix(in srgb, var(--wp--preset--color--base) 90%, transparent),
+		inset 0 0 0 color-mix(in srgb, var(--wp--custom--color--surface--highlight) 90%, transparent),
 		var(--ls-card-shadow);
 	transition:
 		border-color 220ms ease,
@@ -110,7 +110,7 @@
 		var(--ls-card-border-colour)
 	);
 	box-shadow:
-		inset 0 0 0 color-mix(in srgb, var(--wp--preset--color--base) 95%, transparent),
+		inset 0 0 0 color-mix(in srgb, var(--wp--custom--color--surface--highlight) 95%, transparent),
 		0 0 0 0 color-mix(
 			in srgb,
 			var(--ls-effect-primary-colour) 100%,
@@ -138,10 +138,10 @@
 
 /* Home Hero Section: background-only Group block style. */
 .is-style-home-hero-section {
-	--ls-home-hero-surface: var(--wp--preset--color--base);
-	--ls-home-hero-brand: var(--wp--preset--color--brand-500);
-	--ls-home-hero-cta: var(--wp--preset--color--cta-500);
-	--ls-home-hero-accent: var(--wp--preset--color--accent-two-500);
+	--ls-home-hero-surface: var(--wp--custom--color--surface--canvas);
+	--ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
+	--ls-home-hero-cta: var(--wp--custom--color--effect--hero--cta);
+	--ls-home-hero-accent: var(--wp--custom--color--effect--hero--accent);
 	position: relative;
 	overflow: hidden;
 	isolation: isolate;
@@ -163,7 +163,7 @@
 		),
 		linear-gradient(
 			180deg,
-			color-mix(in srgb, var(--ls-home-hero-surface) 98%, #fff 2%) 0%,
+			color-mix(in srgb, var(--ls-home-hero-surface) 98%, var(--wp--custom--color--surface--highlight) 2%) 0%,
 			var(--ls-home-hero-surface) 100%
 		);
 }

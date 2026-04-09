@@ -60,6 +60,15 @@ Prefer block markup in patterns over raw HTML:
 
 ---
 
+## Colour Usage
+
+- If a pattern needs a colour in block attributes, inline styles, or custom CSS variables, use semantic custom colour tokens such as `var(--wp--custom--color--text--default)`.
+- Do not reference `var:preset|color|...` or `var(--wp--preset--color--...)` directly in authored pattern styles.
+- If the required semantic colour token does not exist yet, create it in `theme.json` and add the exact same token path to `styles/dark.json` before using it.
+- Spacing, width, line-height, and other non-colour values may still use presets or hard values where appropriate.
+
+---
+
 ## Keep Patterns Focused
 
 - One pattern per file.
