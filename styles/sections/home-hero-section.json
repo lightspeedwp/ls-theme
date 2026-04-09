@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Home Hero Section",
+	"slug": "home-hero-section",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Light full-width group style with the animated network background used for the homepage hero.",
+	"styles": {}
+}

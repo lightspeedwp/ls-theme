@@ -3,45 +3,79 @@
 	"version": 3,
 	"title": "Dark",
 	"settings": {
-		"color": {
-			"palette": [
-				{
-					"name": "Base",
-					"slug": "base",
-					"color": "#111111"
+
+		"custom": {
+			"color": {
+				"text": {
+					"default": "var(--wp--preset--color--base)",
+					"inverse": "var(--wp--preset--color--contrast)",
+					"brand": "var(--wp--preset--color--brand-400)",
+					"brand-strong": "var(--wp--preset--color--brand-200)"
 				},
-				{
-					"name": "Base Two",
-					"slug": "base-2",
-					"color": "#1a1a1a"
+				"surface": {
+					"canvas": "var(--wp--preset--color--surface-500)",
+					"card": "var(--wp--preset--color--surface-300)",
+					"card-raised": "var(--wp--preset--color--surface-400)",
+					"highlight": "var(--wp--preset--color--base)"
 				},
-				{
-					"name": "Contrast",
-					"slug": "contrast",
-					"color": "#ffffff"
+				"border": {
+					"card": "var(--wp--preset--color--neutral-600)"
 				},
-				{
-					"name": "Contrast Two",
-					"slug": "contrast-2",
-					"color": "#e0e0e0"
+				"link": {
+					"default": "var(--wp--preset--color--base)",
+					"decoration-start": "var(--wp--preset--color--brand-400)",
+					"decoration-end": "var(--wp--preset--color--accent-300)",
+					"accent": "var(--wp--preset--color--brand-300)",
+					"accent-hover": "var(--wp--preset--color--accent-two-300)"
 				},
-				{
-					"name": "Accent",
-					"slug": "accent",
-					"color": "#4da6ff"
+				"action": {
+					"primary": {
+						"background": "var(--wp--preset--color--brand-300)",
+						"text": "var(--wp--preset--color--contrast)",
+						"border": "var(--wp--preset--color--brand-300)",
+						"background-hover": "var(--wp--preset--color--brand-200)",
+						"text-hover": "var(--wp--preset--color--contrast)",
+						"border-hover": "var(--wp--preset--color--brand-200)"
+					},
+					"secondary": {
+						"background": "var(--wp--preset--color--surface-400)",
+						"text": "var(--wp--preset--color--brand-300)",
+						"border": "var(--wp--preset--color--brand-300)",
+						"background-hover": "var(--wp--preset--color--brand-400)",
+						"text-hover": "var(--wp--preset--color--contrast)"
+					}
 				},
-				{
-					"name": "Accent Two",
-					"slug": "accent-2",
-					"color": "#80c1ff"
+				"focus": {
+					"ring": "var(--wp--preset--color--base)"
+				},
+				"effect": {
+					"spotlight": {
+						"primary": "var(--wp--preset--color--brand-300)",
+						"secondary": "var(--wp--preset--color--brand-200)"
+					},
+					"hero": {
+						"brand": "var(--wp--preset--color--brand-300)",
+						"cta": "var(--wp--preset--color--cta-300)",
+						"accent": "var(--wp--preset--color--accent-two-300)"
+					}
 				}
-			]
+			},
+			"shadow": {
+				"elevation": {
+					"100": "0.5px 2px 3px 0.5px rgba(8, 8, 8, 0.36)",
+					"200": "0.5px 2px 6px 1px rgba(8, 8, 8, 0.38)",
+					"300": "1px 4px 12px 4px rgba(8, 8, 8, 0.42)",
+					"400": "1px 4px 12px 4px rgba(8, 8, 8, 0.48)",
+					"500": "1px 4px 12px 4px rgba(8, 8, 8, 0.54)",
+					"600": "2px 6px 12px 6px rgba(8, 8, 8, 0.6)"
+				}
+			}
 		}
 	},
 	"styles": {
 		"color": {
-			"background": "var(--wp--preset--color--base)",
-			"text": "var(--wp--preset--color--contrast)"
+			"background": "var(--wp--custom--color--surface--canvas)",
+			"text": "var(--wp--custom--color--text--default)"
 		}
 	}
 }

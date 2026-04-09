@@ -13,3 +13,9 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:       ls-theme
 Tags:              block-theme, full-site-editing, custom-colors, custom-typography
 */
+
+code,
+pre {
+    font-family: var(--wp--preset--font-family--monospace);
+    font-size: var(--wp--preset--font-size--200);
+}

@@ -11,15 +11,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Registered the theme font-family presets as `body`, `heading`, and `monospace`, and applied the `monospace` preset to code elements in `theme.json`.
 - Added a GSAP asset bootstrap in `inc/gsap.php` for class-based interactive effects.
 - Added a GSAP-driven `is-style-card-spotlight` group effect using theme surface and accent colours.
 - Added usage documentation for the spotlight card class.
 - Added a registered `Card Spotlight` Group block style for easy editor application.
 - Added a CSS-only sliding icon treatment for the core outline button variation.
+- Added a GSAP-powered front-page hero with rotating proof points, interactive network background, and primary / outline CTAs.
+- Added a dedicated `front-page.html` template that renders the marketing hero before editable page content.
+- Added a repo-scoped semantic design-token instruction for theme colour work.
+- Added a portable `theme-color-token-enforcer` skill to audit or fix semantic colour token usage.
 
 ### Changed
 
+- Enabled root-padding-aware alignments, added theme typography writing-mode support, and applied a default spacing-20 horizontal page gutter in `theme.json`.
+- Moved block-style visual tokens into `theme.json` and `styles/blocks/**/*.json`, leaving `assets/css/animations.css` as the interaction layer for the heading, link, and button treatments.
+- Started the semantic colour token migration by adding a minimal `settings.custom.color` layer to `theme.json` and `styles/dark.json`, then rewiring the button, heading, and paragraph style JSON hotspots onto semantic tokens.
+- Corrected the first dark-mode semantic token mappings so surface and foreground roles invert properly while interactive accents shift contextually within the existing palette.
+- Clarified that `styles/dark.json` keeps the same preset palette values as `theme.json`, with only the semantic token preset assignments changing between modes.
+- Expanded the token migration across shared preset JSON, animation fallbacks, spotlight card surfaces, and dark-aware custom shadow tokens.
+- Re-aligned the home hero GSAP wiring to the reusable `Home Hero Section` block style and dropped the abandoned cycling heading path.
+- Moved theme and heading line heights in `theme.json` onto shared custom tokens, with H1 using a tighter value and H2 through H6 sharing a common heading rhythm.
 - Refined the GSAP spotlight card glow alignment and switched the card shell to a lighter theme palette.
+- Refined the GSAP front-page hero so the network background sits behind the headline, responds more directly to pointer movement, and swaps words with a right-to-left character stagger.
+- Reduced the default H1 weight in `theme.json` and rebuilt the hero word loop so longer words no longer clip, overlap, or reset with a blank frame.
+- Fixed the homepage template so sites using `show_on_front = posts` render the posts query beneath the hero instead of an empty static-page `post-content` block.
+- Tightened the hero word-stage measurement, removed the empty transition frame, and added smaller-screen layout rules so the hero scales more cleanly on mobile.
+- Softened the hero word transition so the letters stagger vertically from right to left without the word shifting too far sideways during the swap.
+- Replaced the hero's stacked-word repeat timeline with a two-layer word controller so the active word sits slightly higher and the loop no longer starts with an empty frame.
+- Added a subtle character gap to the animated hero word so the rotating terms read a little more cleanly.
 - Simplified the spotlight effect configuration so live tuning happens directly in `assets/css/gsap-animations.css`.
 - Moved GSAP-specific spotlight styling from `assets/css/animations.css` to `assets/css/gsap-animations.css`.
 - Removed glow hover styling from default and outline buttons so only the dedicated glow button style blooms.
@@ -31,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switched local theme asset enqueue versions to file modification times so CSS and JS edits invalidate browser cache during development.
 - Replaced all placeholder tokens with final `ls-theme` / `LightSpeed` values across all files.
 - Updated `README.md`, `AGENTS.md`, and `.github/copilot-instructions.md` to reflect the real theme repo rather than a starter template.
+- Updated theme prompts and instructions to require semantic custom colour tokens, matching `styles/dark.json` token paths, and WCAG AA contrast checks for new colour work.
 
 ### Deprecated
 

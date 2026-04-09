@@ -22,6 +22,7 @@ skills/
 ```
 
 `SKILL.md` defines:
+
 - The skill's purpose
 - The inputs it expects
 - The steps it performs
@@ -35,6 +36,7 @@ skills/
 |------------------------|----------------------------------------|
 | `block-theme-audit/`   | Audit a WordPress block theme          |
 | `build-process-bootstrap/` | Bootstrap build tooling from scaffold |
+| `theme-color-token-enforcer/` | Audit or fix semantic colour token usage |
 
 ---
 
