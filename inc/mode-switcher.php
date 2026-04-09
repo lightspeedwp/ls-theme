@@ -210,3 +210,52 @@ function get_mode_preference() {
 	return 'light';
 }
 
+/**
+ * Merges dark mode colours into theme.json when dark mode is active.
+ *
+ * Uses the same filter strategy as modular presets and only applies
+ * colour-related settings/styles from dark.json for dark-mode requests.
+ *
+ * @since ls_theme 1.1
+ *
+ * @param WP_Theme_JSON_Data $theme_json The theme JSON data object.
+ * @return WP_Theme_JSON_Data The modified theme JSON data object.
+ */
+function merge_dark_mode_theme_json( $theme_json ) {
+	if ( 'dark' !== get_mode_preference() ) {
+		return $theme_json;
+	}
+
+	$dark_json_path = get_template_directory() . '/styles/dark.json';
+
+	if ( ! file_exists( $dark_json_path ) ) {
+		return $theme_json;
+	}
+
+	$dark_data = json_decode( file_get_contents( $dark_json_path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+	if ( ! is_array( $dark_data ) ) {
+		return $theme_json;
+	}
+
+	$dark_color_overrides = array();
+
+	if ( isset( $dark_data['settings']['color'] ) && is_array( $dark_data['settings']['color'] ) ) {
+		$dark_color_overrides['settings']['color'] = $dark_data['settings']['color'];
+	}
+
+	if ( isset( $dark_data['styles']['color'] ) && is_array( $dark_data['styles']['color'] ) ) {
+		$dark_color_overrides['styles']['color'] = $dark_data['styles']['color'];
+	}
+
+	if ( empty( $dark_color_overrides ) ) {
+		return $theme_json;
+	}
+
+	$theme_json->update_with( $dark_color_overrides );
+
+	return $theme_json;
+}
+
+add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_dark_mode_theme_json', 200 );
+
