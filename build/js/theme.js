@@ -1,0 +1,1 @@
+document.documentElement.classList.add("ls-theme-has-build");

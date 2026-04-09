@@ -1,0 +1,1 @@
+wp.domReady(()=>{document.documentElement.classList.add("ls-theme-editor-has-build")});

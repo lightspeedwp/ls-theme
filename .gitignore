@@ -67,7 +67,6 @@ vendor/
 
 # Build artefacts
 dist/
-build/
 *.zip
 *.tar.gz
 *.gz

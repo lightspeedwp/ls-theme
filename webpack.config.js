@@ -7,8 +7,12 @@ module.exports = {
 	entry: {
 		'js/theme': path.resolve( process.cwd(), 'src/js', 'theme.js' ),
 		'js/editor': path.resolve( process.cwd(), 'src/js', 'editor.js' ),
+		'js/gsap-effects': path.resolve( process.cwd(), 'src/js', 'gsap-effects.js' ),
+		'js/mode-switcher': path.resolve( process.cwd(), 'src/js', 'mode-switcher.js' ),
 		'css/style': path.resolve( process.cwd(), 'src/css', 'style.scss' ),
 		'css/editor-style': path.resolve( process.cwd(), 'src/css', 'editor.scss' ),
+		'css/animations': path.resolve( process.cwd(), 'src/css', 'animations.css' ),
+		'css/gsap-animations': path.resolve( process.cwd(), 'src/css', 'gsap-animations.css' ),
 	},
 	output: {
 		...defaultConfig.output,

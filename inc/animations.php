@@ -35,7 +35,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
 		'effects' => array(
 			'handle'   => 'ls-theme-effects',
-			'path'     => 'assets/css/animations.css',
+			'path'     => 'build/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);

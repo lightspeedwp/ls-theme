@@ -19,7 +19,7 @@ function ls_theme_get_gsap_styles( $context = 'front' ) {
 	$styles = array(
 		'gsap-effects' => array(
 			'handle'   => 'ls-theme-gsap-effects',
-			'path'     => 'assets/css/gsap-animations.css',
+			'path'     => 'build/css/gsap-animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);
@@ -50,7 +50,7 @@ function ls_theme_get_gsap_scripts( $context = 'front' ) {
 		),
 		'core-effects' => array(
 			'handle'   => 'ls-theme-gsap-core-effects',
-			'path'     => 'assets/js/gsap-effects.js',
+			'path'     => 'build/js/gsap-effects.js',
 			'deps'     => array( 'ls-theme-gsap' ),
 			'contexts' => array( 'front', 'editor' ),
 		),
