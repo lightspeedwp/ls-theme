@@ -35,8 +35,10 @@
 		inset 0 0 0 color-mix(in srgb, var(--wp--custom--color--surface--highlight) 90%, transparent),
 		var(--ls-card-shadow);
 	transition:
-		border-color 220ms ease,
-		box-shadow 220ms ease;
+		border-color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		box-shadow var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard);
 }
 
 .is-style-card-spotlight::before,
@@ -73,7 +75,7 @@
 	transform: scale(var(--ls-effect-scale));
 	filter: blur(var(--ls-effect-blur));
 	transform-origin: center;
-	z-index: 0;
+	z-index: var(--wp--custom--z-index--base);
 }
 
 .is-style-card-spotlight::after {
@@ -99,7 +101,7 @@
 	-webkit-mask-composite: xor;
 	opacity: var(--ls-effect-border-opacity);
 	filter: brightness(1.15);
-	z-index: 0;
+	z-index: var(--wp--custom--z-index--base);
 }
 
 .is-style-card-spotlight:hover,
@@ -126,7 +128,7 @@
 
 .is-style-card-spotlight > * {
 	position: relative;
-	z-index: 1;
+	z-index: var(--wp--custom--z-index--content);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -170,7 +172,7 @@
 
 .is-style-home-hero-section > :not(.ls-home-hero-section__background) {
 	position: relative;
-	z-index: 1;
+	z-index: var(--wp--custom--z-index--content);
 }
 
 .ls-home-hero-section__background,
@@ -182,11 +184,11 @@
 }
 
 .ls-home-hero-section__background {
-	z-index: 0;
+	z-index: var(--wp--custom--z-index--base);
 }
 
 .ls-home-hero-section__network {
-	z-index: 1;
+	z-index: var(--wp--custom--z-index--content);
 	opacity: 0.92;
 }
 
@@ -197,7 +199,7 @@
 	opacity: 0.8;
 	transform: translate3d( 0, 0, 0 );
 	will-change: transform;
-	z-index: 0;
+	z-index: var(--wp--custom--z-index--base);
 }
 
 .ls-home-hero-section__orb--brand {

@@ -22,10 +22,10 @@
                 },
                 "spacing": {
                     "padding": {
-                        "top": "1rem",
-                        "right": "4rem",
-                        "bottom": "1rem",
-                        "left": "1.5rem"
+                        "top": "var(--wp--custom--spacing--button--padding-top)",
+                        "right": "var(--wp--custom--spacing--button--padding-right)",
+                        "bottom": "var(--wp--custom--spacing--button--padding-bottom)",
+                        "left": "var(--wp--custom--spacing--button--padding-left)"
                     }
                 },
                 "typography": {
@@ -33,7 +33,7 @@
                     "fontWeight": "700",
                     "letterSpacing": "0.08em"
                 },
-                "css": "&{--ls-button-fill-background:var(--wp--custom--color--button--fill--background);--ls-button-fill-icon-colour:var(--wp--custom--color--button--fill--text);--ls-button-fill-hover-text:var(--wp--custom--color--text--default);--ls-button-fill-duration:500ms;--ls-button-fill-enter-delay:80ms;--ls-button-active-scale:0.98;}"
+                "css": "&{--ls-button-fill-background:var(--wp--custom--color--button--fill--background);--ls-button-fill-icon-colour:var(--wp--custom--color--button--fill--text);--ls-button-fill-hover-text:var(--wp--custom--color--text--default);--ls-button-fill-duration:var(--wp--custom--animation--duration--emphasised);--ls-button-fill-enter-delay:var(--wp--custom--animation--delay--enter);--ls-button-active-scale:var(--wp--custom--animation--scale--active);}"
             }
         }
     }

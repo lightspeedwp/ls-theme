@@ -11,6 +11,99 @@
 		return pointerQuery.matches && ! reducedMotionQuery.matches;
 	}
 
+	function resolveCssCustomPropertyValue( styles, value, depth = 0 ) {
+		const trimmedValue = value.trim();
+
+		if ( '' === trimmedValue || depth > 6 ) {
+			return trimmedValue;
+		}
+
+		const variableMatch = trimmedValue.match( /^var\(\s*(--[^,\s)]+)\s*(?:,\s*(.+))?\)$/ );
+
+		if ( ! variableMatch ) {
+			return trimmedValue;
+		}
+
+		const referencedValue = styles.getPropertyValue( variableMatch[ 1 ] ).trim();
+
+		if ( referencedValue ) {
+			return resolveCssCustomPropertyValue( styles, referencedValue, depth + 1 );
+		}
+
+		if ( variableMatch[ 2 ] ) {
+			return resolveCssCustomPropertyValue( styles, variableMatch[ 2 ], depth + 1 );
+		}
+
+		return '';
+	}
+
+	function readRootCustomProperty( propertyName, fallback = '' ) {
+		const styles = getComputedStyle( document.documentElement );
+		const value = styles.getPropertyValue( propertyName ).trim();
+
+		if ( ! value ) {
+			return fallback;
+		}
+
+		return resolveCssCustomPropertyValue( styles, value ) || fallback;
+	}
+
+	function readFirstRootCustomProperty( propertyNames, fallback = '' ) {
+		for ( const propertyName of propertyNames ) {
+			const value = readRootCustomProperty( propertyName );
+
+			if ( value ) {
+				return value;
+			}
+		}
+
+		return fallback;
+	}
+
+	function parseDurationToSeconds( value, fallback ) {
+		const trimmedValue = String( value || '' ).trim();
+
+		if ( ! trimmedValue ) {
+			return fallback;
+		}
+
+		if ( trimmedValue.endsWith( 'ms' ) ) {
+			const milliseconds = Number.parseFloat( trimmedValue.slice( 0, -2 ) );
+
+			return Number.isFinite( milliseconds ) ? milliseconds / 1000 : fallback;
+		}
+
+		if ( trimmedValue.endsWith( 's' ) ) {
+			const seconds = Number.parseFloat( trimmedValue.slice( 0, -1 ) );
+
+			return Number.isFinite( seconds ) ? seconds : fallback;
+		}
+
+		const numericValue = Number.parseFloat( trimmedValue );
+
+		return Number.isFinite( numericValue ) ? numericValue : fallback;
+	}
+
+	function readDurationToken( propertyName, fallback ) {
+		return parseDurationToSeconds( readRootCustomProperty( propertyName ), fallback );
+	}
+
+	function getRuntimeMotionTokens() {
+		return {
+			duration: {
+				responsive: readDurationToken( '--wp--custom--animation--duration--responsive', 0.16 ),
+				fast: readDurationToken( '--wp--custom--animation--duration--fast', 0.18 ),
+				focus: readDurationToken( '--wp--custom--animation--duration--focus', 0.2 ),
+				reveal: readDurationToken( '--wp--custom--animation--duration--reveal', 0.24 ),
+				medium: readDurationToken( '--wp--custom--animation--duration--medium', 0.28 ),
+			},
+			easing: {
+				standard: readRootCustomProperty( '--wp--custom--animation--runtime--easing--standard', 'power2.out' ),
+				emphasised: readRootCustomProperty( '--wp--custom--animation--runtime--easing--emphasised', 'power3.out' ),
+			},
+		};
+	}
+
 	function getCardPosition( card, event ) {
 		const bounds = card.getBoundingClientRect();
 
@@ -28,27 +121,29 @@
 	}
 
 	function showEffect( card, settings = {} ) {
-		const duration = reducedMotionQuery.matches ? 0 : ( settings.duration ?? 0.24 );
+		const motionTokens = getRuntimeMotionTokens();
+		const duration = reducedMotionQuery.matches ? 0 : ( settings.duration ?? motionTokens.duration.reveal );
 
 		gsapInstance.to( card, {
 			'--ls-effect-opacity': settings.opacity ?? 1,
 			'--ls-effect-border-opacity': settings.borderOpacity ?? 1,
 			'--ls-effect-scale': settings.scale ?? 1,
 			duration,
-			ease: settings.ease ?? 'power2.out',
+			ease: settings.ease ?? motionTokens.easing.standard,
 			overwrite: 'auto',
 		} );
 	}
 
 	function hideEffect( card ) {
-		const duration = reducedMotionQuery.matches ? 0 : 0.28;
+		const motionTokens = getRuntimeMotionTokens();
+		const duration = reducedMotionQuery.matches ? 0 : motionTokens.duration.medium;
 
 		gsapInstance.to( card, {
 			'--ls-effect-opacity': 0,
 			'--ls-effect-border-opacity': 0,
 			'--ls-effect-scale': 0.94,
 			duration,
-			ease: 'power2.out',
+			ease: motionTokens.easing.standard,
 			overwrite: 'auto',
 		} );
 	}
@@ -169,25 +264,43 @@
 			return () => {};
 		}
 
-		const rootStyles = getComputedStyle( document.documentElement );
-		const brandColour = parseCssColour( rootStyles.getPropertyValue( '--wp--preset--color--brand-600' ) || rootStyles.getPropertyValue( '--wp--preset--color--brand-500' ) || '#1E6AFF' );
-		const ctaColour = parseCssColour( rootStyles.getPropertyValue( '--wp--preset--color--cta-600' ) || rootStyles.getPropertyValue( '--wp--preset--color--cta-500' ) || '#00FCFC' );
+		const motionTokens = getRuntimeMotionTokens();
+		const brandColour = parseCssColour(
+			readFirstRootCustomProperty(
+				[
+					'--wp--custom--color--effect--hero--brand',
+					'--wp--preset--color--brand-600',
+					'--wp--preset--color--brand-500',
+				],
+				'#1E6AFF'
+			)
+		);
+		const ctaColour = parseCssColour(
+			readFirstRootCustomProperty(
+				[
+					'--wp--custom--color--effect--hero--cta',
+					'--wp--preset--color--cta-600',
+					'--wp--preset--color--cta-500',
+				],
+				'#00FCFC'
+			)
+		);
 		const interaction = {
 			x: 0,
 			y: 0,
 			strength: 0,
 		};
 		const moveX = gsapInstance.quickTo( interaction, 'x', {
-			duration: reduceMotion ? 0 : 0.18,
-			ease: 'power3.out',
+			duration: reduceMotion ? 0 : motionTokens.duration.fast,
+			ease: motionTokens.easing.emphasised,
 		} );
 		const moveY = gsapInstance.quickTo( interaction, 'y', {
-			duration: reduceMotion ? 0 : 0.18,
-			ease: 'power3.out',
+			duration: reduceMotion ? 0 : motionTokens.duration.fast,
+			ease: motionTokens.easing.emphasised,
 		} );
 		const moveStrength = gsapInstance.quickTo( interaction, 'strength', {
-			duration: reduceMotion ? 0 : 0.16,
-			ease: 'power2.out',
+			duration: reduceMotion ? 0 : motionTokens.duration.responsive,
+			ease: motionTokens.easing.standard,
 		} );
 		const size = {
 			width: 0,
@@ -436,6 +549,7 @@
 	}
 
 	function setFocusState( card ) {
+		const motionTokens = getRuntimeMotionTokens();
 		const bounds = card.getBoundingClientRect();
 
 		setEffectPosition( card, bounds.width / 2, bounds.height / 2 );
@@ -443,7 +557,8 @@
 			opacity: 0.72,
 			borderOpacity: 0.62,
 			scale: 1,
-			duration: 0.2,
+			duration: motionTokens.duration.focus,
+			ease: motionTokens.easing.standard,
 		} );
 	}
 

@@ -17,6 +17,13 @@ Treat:
 - `settings.custom.color` as semantic usage tokens only
 - In this theme, the dark variation keeps the same preset palette values and changes only the preset references assigned to semantic tokens
 
+Related shared non-colour token families:
+
+- `settings.custom.animation` for repeated motion values such as duration, delay, easing, and scale
+- `settings.custom.z-index` for repeated stacking layers
+- These families live in `theme.json` only unless a task explicitly asks for mode-specific non-colour overrides
+- Only semantic colour tokens require dark-mode parity by default
+
 ## Required inputs
 
 - Theme root path
@@ -111,6 +118,7 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 - Do not silently keep direct preset-colour references in authored UI files.
 - Do not auto-rewrite non-visual masking or compositing colours without an explicit note.
 - Do not weaken contrast to preserve a preferred hue.
+- Do not mirror `settings.custom.animation` or `settings.custom.z-index` into `styles/dark.json` unless the task explicitly asks for a mode-specific non-colour override.
 
 ## Suggested scan scope
 

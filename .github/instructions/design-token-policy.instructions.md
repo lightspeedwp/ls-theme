@@ -18,8 +18,17 @@ Whenever you create or change a colour in a theme file, follow this policy befor
 - Keep palette slugs value-based and kebab-case, such as `neutral-100`, `surface-800`, or `brand-500`.
 - Use `color` in token paths, not `colour`, because the WordPress variable format uses `custom.color`.
 - Name semantic tokens broad-to-specific, such as `text.default`, `surface.card`, or `action.primary.background`.
+- Name shared non-colour tokens broad-to-specific too, such as `animation.duration.base`, `animation.delay.enter`, `animation.easing.emphasised`, or `z-index.content`.
 - Keep semantic token names stable across modes. Do not create `light` or `dark` suffixes for normal semantic roles.
 - Non-colour custom tokens such as spacing, line-height, shadow, width, layout, or interaction values may use hard values or preset references.
+
+## Shared Non-Colour Tokens
+
+- Keep shared motion tokens in `settings.custom.animation`.
+- Keep shared stacking tokens in `settings.custom.z-index`.
+- Use these families for repeated durations, delays, easings, scales, and z-index layers instead of scattering the same literals through `theme.json`, style JSON, or theme CSS.
+- These shared non-colour token families live in `theme.json` only. Do not mirror them into `styles/dark.json` unless a task explicitly calls for a mode-specific non-colour override.
+- Only semantic colour tokens require dark-mode parity by default.
 
 ## Required Colour Architecture
 
@@ -68,3 +77,4 @@ When adding or changing a colour:
 - Do not set `settings.custom.color` values to hex, `rgb()`, `rgba()`, `hsl()`, `hsla()`, or `color-mix()` strings.
 - Do not add direct `var:preset|color|...` or `var(--wp--preset--color--...)` references to authored UI styles outside token-definition areas.
 - Do not update only one mode. `theme.json` and `styles/dark.json` must stay in sync for semantic colour token paths.
+- Do not copy `settings.custom.animation` or `settings.custom.z-index` into `styles/dark.json` unless the task explicitly asks for a mode-specific non-colour override.

@@ -18,10 +18,10 @@
                         },
                         "spacing": {
                             "padding": {
-                                "top": "1rem",
-                                "right": "4rem",
-                                "bottom": "1rem",
-                                "left": "1.5rem"
+                                "top": "calc(var(--wp--custom--spacing--button--padding-top) - 2px)",
+                                "right": "var(--wp--custom--spacing--button--padding-right)",
+                                "bottom": "calc(var(--wp--custom--spacing--button--padding-bottom) - 2px)",
+                                "left": "var(--wp--custom--spacing--button--padding-left)"
                             }
                         },
                         "typography": {

@@ -36,9 +36,9 @@
 	.wp-block-heading.is-style-gradient-accent {
 		animation:
 			ls-gradient-text-clip
-			var(--ls-gradient-duration, 5s)
-			var(--ls-gradient-timing, ease-in-out)
-			var(--ls-gradient-delay, 0s)
+			var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop))
+			var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth))
+			var(--ls-gradient-delay, var(--wp--custom--animation--delay--none))
 			infinite
 			var(--ls-gradient-direction, alternate);
 	}
@@ -78,12 +78,16 @@
 	background-position: 0 100%;
 	background-repeat: no-repeat;
 	background-size: 0 var(--ls-link-underline-thickness, 2px);
-	transition: background-size 220ms ease, color 300ms ease;
-	transition-delay: 0s;
+	transition:
+		background-size var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		color var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--standard);
+	transition-delay: var(--wp--custom--animation--delay--none);
 }
 
 .wp-block-paragraph.is-style-link-underline-accent a:hover {
-	transition-delay: var(--ls-link-underline-enter-delay, 80ms);
+	transition-delay: var(--ls-link-underline-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
 .wp-block-paragraph.is-style-link-underline-accent a:hover,
@@ -104,14 +108,21 @@
 .wp-element-button,
 .wp-block-button__link {
 	transition:
-		background-color 220ms ease,
-		border-color 220ms ease,
-		box-shadow 220ms ease,
-		color 220ms ease,
-		outline-color 220ms ease,
-		outline-offset 220ms ease,
-		transform 180ms ease;
-	transition-delay: 80ms;
+		background-color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		border-color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		box-shadow var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		outline-color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		outline-offset var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		transform var(--wp--custom--animation--duration--fast)
+			var(--wp--custom--animation--easing--standard);
+	transition-delay: var(--wp--custom--animation--delay--enter);
 }
 
 .wp-element-button:hover,
@@ -123,7 +134,7 @@
 
 .wp-element-button:active,
 .wp-block-button__link:active {
-	transform: scale(var(--ls-button-active-scale, 0.98));
+	transform: scale(var(--ls-button-active-scale, var(--wp--custom--animation--scale--active)));
 }
 
 /* Shared button shell for the default fill and outline treatments. */
@@ -159,10 +170,10 @@
 	background: transparent;
 	border: 0;
 	transition:
-		transform var(--ls-button-fill-duration, 500ms)
-			cubic-bezier(0.4, 0, 0.2, 1),
-		color var(--ls-button-fill-duration, 500ms)
-			cubic-bezier(0.4, 0, 0.2, 1);
+		transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+			var(--wp--custom--animation--easing--emphasised),
+		color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+			var(--wp--custom--animation--easing--emphasised);
 }
 
 :is(
@@ -175,20 +186,20 @@
 	border-radius: inherit;
 	background: var(
 		--ls-button-fill-background,
-		var(--wp--custom--color--action--primary--background)
+		var(--wp--custom--color--button--fill--background)
 	);
 	transition:
-		inset-inline-start 350ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		inset-inline-end 350ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		inset-block-start 350ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		inset-block-end 350ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		border-radius 350ms
-			cubic-bezier(0.4, 0, 0.2, 1);
-	z-index: -1;
+		inset-inline-start var(--wp--custom--animation--duration--slow)
+			var(--wp--custom--animation--easing--emphasised),
+		inset-inline-end var(--wp--custom--animation--duration--slow)
+			var(--wp--custom--animation--easing--emphasised),
+		inset-block-start var(--wp--custom--animation--duration--slow)
+			var(--wp--custom--animation--easing--emphasised),
+		inset-block-end var(--wp--custom--animation--duration--slow)
+			var(--wp--custom--animation--easing--emphasised),
+		border-radius var(--wp--custom--animation--duration--slow)
+			var(--wp--custom--animation--easing--emphasised);
+	z-index: var(--wp--custom--z-index--behind);
 }
 
 :is(
@@ -207,8 +218,8 @@
 	font-weight: 700;
 	line-height: 1;
 	transition:
-		color 500ms
-			cubic-bezier(0.4, 0, 0.2, 1);
+		color var(--wp--custom--animation--duration--emphasised)
+			var(--wp--custom--animation--easing--emphasised);
 }
 
 :is(
@@ -219,7 +230,7 @@
 	.wp-block-button:not([class*="is-style-"]),
 	.wp-block-button.is-style-fill
 ) .wp-block-button__link:hover::before {
-	transition-delay: var(--ls-button-fill-enter-delay, 80ms);
+	transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
 :is(
@@ -249,20 +260,21 @@
 
 /* Outline button motion */
 .wp-block-button.is-style-outline .wp-block-button__link {
-	--ls-button-outline-icon-well-size: 3rem;
+	--ls-button-outline-icon-well-size: calc(3rem - 4px);
 	--ls-button-outline-icon-inset: 4px;
 	--ls-button-outline-icon-font-size: 1.25rem;
-	--ls-button-outline-hover-padding-start: 4rem;
+	--ls-button-outline-hover-padding-start: calc(4rem - 4px);
 	--ls-button-outline-hover-padding-end: 1.5rem;
 	--ls-button-outline-icon-inline-start: calc(
 		100% - var(--ls-button-outline-icon-well-size) - var(--ls-button-outline-icon-inset)
 	);
 	transition:
-		padding-inline-start 500ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		padding-inline-end 500ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		transform 500ms ease-in-out;
+		padding-inline-start var(--wp--custom--animation--duration--emphasised)
+			var(--wp--custom--animation--easing--emphasised),
+		padding-inline-end var(--wp--custom--animation--duration--emphasised)
+			var(--wp--custom--animation--easing--emphasised),
+		transform var(--wp--custom--animation--duration--emphasised)
+			var(--wp--custom--animation--easing--smooth);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link::after {
@@ -276,18 +288,20 @@
 	border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
 	background-color: var(
 		--ls-button-outline-accent-background,
-		var(--wp--custom--color--action--secondary--border)
+		var(--wp--custom--color--button--outline--border)
 	);
-	color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--action--secondary--text-hover));
+	color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--button--outline--text-hover));
 	font-size: var(--ls-button-outline-icon-font-size);
 	font-weight: 700;
 	line-height: 1;
 	transition:
-		inset-inline-end 500ms
-			cubic-bezier(0.4, 0, 0.2, 1),
-		background-color 280ms ease,
-		color 280ms ease;
-	z-index: 1;
+		inset-inline-end var(--wp--custom--animation--duration--emphasised)
+			var(--wp--custom--animation--easing--emphasised),
+		background-color var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--standard),
+		color var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--standard);
+	z-index: var(--wp--custom--z-index--content);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover,
@@ -305,29 +319,33 @@
 /* Button Glow Accent */
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link {
 	transition:
-		box-shadow 900ms cubic-bezier(0.19, 1, 0.22, 1),
-		outline-color 900ms cubic-bezier(0.19, 1, 0.22, 1),
-		outline-offset 900ms cubic-bezier(0.19, 1, 0.22, 1),
-		transform 180ms ease;
-	transition-delay: 0s;
+		box-shadow var(--wp--custom--animation--duration--dramatic)
+			var(--wp--custom--animation--easing--dramatic),
+		outline-color var(--wp--custom--animation--duration--dramatic)
+			var(--wp--custom--animation--easing--dramatic),
+		outline-offset var(--wp--custom--animation--duration--dramatic)
+			var(--wp--custom--animation--easing--dramatic),
+		transform var(--wp--custom--animation--duration--fast)
+			var(--wp--custom--animation--easing--standard);
+	transition-delay: var(--wp--custom--animation--delay--none);
 	box-shadow: inset 0 0 20px
 		color-mix(
 			in srgb,
-			var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
+			var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
 				var(--ls-button-glow-resting-strength, 0%),
 			transparent
 		);
 	outline: var(--ls-button-glow-outline-width, 1px) solid
 		color-mix(
 			in srgb,
-			var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
+			var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
 				var(--ls-button-glow-outline-strength, 45%),
 			transparent
 		);
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-	transition-delay: var(--ls-button-glow-enter-delay, 80ms);
+	transition-delay: var(--ls-button-glow-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
@@ -335,21 +353,21 @@
 	.wp-block-button__link:focus-visible {
 	background-color: var(
 		--ls-button-glow-hover-background,
-		var(--wp--custom--color--action--secondary--background-hover)
+		var(--wp--custom--color--button--outline--background-hover)
 	);
-	color: var(--ls-button-glow-hover-text, var(--wp--custom--color--action--secondary--text-hover));
+	color: var(--ls-button-glow-hover-text, var(--wp--custom--color--button--outline--text-hover));
 	box-shadow:
 		inset 0 0 20px
 			color-mix(
 				in srgb,
-				var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
+				var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
 					var(--ls-button-glow-inner-strength, 35%),
 				transparent
 			),
 		0 0 20px
 			color-mix(
 				in srgb,
-				var(--ls-button-glow-colour, var(--wp--custom--color--action--secondary--border))
+				var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
 					var(--ls-button-glow-outer-strength, 20%),
 				transparent
 			);

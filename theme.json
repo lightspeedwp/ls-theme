@@ -454,6 +454,35 @@
                     }
                 }
             },
+            "typography": {
+                "letter-spacing": {
+                    "tighter": "-0.05em",
+                    "tight": "-0.025em",
+                    "normal": "0",
+                    "wide": "0.025em",
+                    "wider": "0.05em",
+                    "widest": "0.1em"
+                },
+                "font-weight": {
+                    "thin": "100",
+                    "extralight": "200",
+                    "light": "300",
+                    "normal": "400",
+                    "medium": "500",
+                    "semibold": "600",
+                    "bold": "700",
+                    "extrabold": "800",
+                    "black": "900"
+                }
+            },
+            "spacing": {
+                "button": {
+                    "padding-top": "1rem",
+                    "padding-right": "4rem",
+                    "padding-bottom": "1rem",
+                    "padding-left": "1.5rem"
+                }
+            },
             "shadow": {
                 "elevation": {
                     "100": "0.5px 2px 3px 0.5px rgba(17, 17, 17, 0.2)",
@@ -463,6 +492,45 @@
                     "500": "1px 4px 12px 4px rgba(17, 17, 17, 0.3)",
                     "600": "2px 6px 12px 6px rgba(17, 17, 17, 0.3)"
                 }
+            },
+            "animation": {
+                "duration": {
+                    "responsive": "160ms",
+                    "fast": "180ms",
+                    "focus": "200ms",
+                    "base": "220ms",
+                    "reveal": "240ms",
+                    "medium": "280ms",
+                    "slow": "350ms",
+                    "emphasised": "500ms",
+                    "dramatic": "900ms",
+                    "loop": "6s"
+                },
+                "delay": {
+                    "none": "0s",
+                    "enter": "80ms"
+                },
+                "easing": {
+                    "standard": "ease",
+                    "smooth": "ease-in-out",
+                    "emphasised": "cubic-bezier(0.4, 0, 0.2, 1)",
+                    "dramatic": "cubic-bezier(0.19, 1, 0.22, 1)"
+                },
+                "runtime": {
+                    "easing": {
+                        "standard": "power2.out",
+                        "emphasised": "power3.out"
+                    }
+                },
+                "scale": {
+                    "active": "0.98"
+                }
+            },
+            "z-index": {
+                "behind": "-1",
+                "base": "0",
+                "content": "1",
+                "overlay": "10"
             }
         }
     },

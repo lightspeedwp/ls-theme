@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a dedicated `front-page.html` template that renders the marketing hero before editable page content.
 - Added a repo-scoped semantic design-token instruction for theme colour work.
 - Added a portable `theme-color-token-enforcer` skill to audit or fix semantic colour token usage.
+- Added a theme-local `pattern-extractor` skill and matching `extract-pattern` prompt wrapper for Figma-to-pattern workflows that honour semantic tokens and CSS-versus-GSAP motion routing.
 
 ### Changed
 
@@ -30,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Corrected the first dark-mode semantic token mappings so surface and foreground roles invert properly while interactive accents shift contextually within the existing palette.
 - Clarified that `styles/dark.json` keeps the same preset palette values as `theme.json`, with only the semantic token preset assignments changing between modes.
 - Expanded the token migration across shared preset JSON, animation fallbacks, spotlight card surfaces, and dark-aware custom shadow tokens.
+- Added shared animation and z-index custom tokens to `theme.json`, documented how agents should use them, and rewired common motion and stacking literals onto those shared tokens.
+- Rewired the GSAP runtime to read shared theme animation tokens for common durations and easings, and to resolve the hero effect colours from the semantic custom token layer.
+- Corrected the shared button spacing token references and narrowed the outline button icon well so the fill and outline buttons keep equal height without the outline label or icon frame breaking.
+- Reduced the outline button's top and bottom padding by the border thickness so it stays level with the fill button while preserving the narrower square icon frame.
 - Re-aligned the home hero GSAP wiring to the reusable `Home Hero Section` block style and dropped the abandoned cycling heading path.
 - Moved theme and heading line heights in `theme.json` onto shared custom tokens, with H1 using a tighter value and H2 through H6 sharing a common heading rhythm.
 - Refined the GSAP spotlight card glow alignment and switched the card shell to a lighter theme palette.

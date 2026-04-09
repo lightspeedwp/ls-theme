@@ -14,6 +14,7 @@ They provide a consistent starting point for common tasks.
 ## Using a Prompt
 
 In GitHub Copilot Chat, reference a prompt file with:
+
 ```
 @workspace #file:.github/prompts/audit-theme.prompt.md
 ```
@@ -33,9 +34,10 @@ Or open the file and use it as the basis for a Copilot Chat session.
 
 ## Available Prompts
 
-| File                    | Purpose                                         |
-|-------------------------|-------------------------------------------------|
-| `audit-theme.prompt.md` | Audit the theme for issues and improvements     |
-| `cleanup.prompt.md`     | Clean up and tidy the theme codebase            |
-| `new-pattern.prompt.md` | Generate a new block pattern                    |
-| `release.prompt.md`     | Prepare a new release                           |
+| File                        | Purpose                                     |
+| --------------------------- | ------------------------------------------- |
+| `audit-theme.prompt.md`     | Audit the theme for issues and improvements |
+| `cleanup.prompt.md`         | Clean up and tidy the theme codebase        |
+| `extract-pattern.prompt.md` | Run the ls-theme Figma-to-pattern workflow  |
+| `new-pattern.prompt.md`     | Generate a new block pattern                |
+| `release.prompt.md`         | Prepare a new release                       |

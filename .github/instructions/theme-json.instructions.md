@@ -124,6 +124,47 @@ var(--wp--preset--spacing--40)
 
 ---
 
+## Animation
+
+- Define shared motion tokens in `settings.custom.animation`.
+- Prefer nested groups for repeated values such as `duration`, `delay`, `easing`, and `scale`.
+- Use these tokens for commonly repeated CSS timings instead of hard-coding the same `ms`, `s`, easing, or scale values across multiple files.
+
+Example:
+
+```json
+{
+  "settings": {
+    "custom": {
+      "animation": {
+        "duration": {
+          "base": "220ms"
+        },
+        "delay": {
+          "enter": "80ms"
+        },
+        "easing": {
+          "emphasised": "cubic-bezier(0.4, 0, 0.2, 1)"
+        }
+      }
+    }
+  }
+}
+```
+
+Reference them from authored CSS or style JSON with `var(--wp--custom--animation--...)`.
+
+---
+
+## Z Index
+
+- Define shared stacking layers in `settings.custom.z-index`.
+- Prefer semantic layer names such as `behind`, `base`, `content`, or `overlay` instead of repeating raw `z-index` numbers.
+- Reference them from authored CSS with `var(--wp--custom--z-index--...)`.
+- Keep these values in `theme.json` only unless a task explicitly asks for mode-specific non-colour overrides.
+
+---
+
 ## Style Variations
 
 - `styles/light.json` and `styles/dark.json` are registered style variations.
@@ -132,6 +173,7 @@ var(--wp--preset--spacing--40)
   WordPress does not auto-consume these as global style variations.
 - Keep variation files focused — only override what differs from the base `theme.json`.
 - `styles/dark.json` must mirror the semantic colour token paths from `theme.json`.
+- Shared non-colour token families such as `settings.custom.animation` and `settings.custom.z-index` do not need matching paths in `styles/dark.json`.
 - Do not create separate light or dark token names for normal semantic roles. Remap values, not token names.
 
 ---

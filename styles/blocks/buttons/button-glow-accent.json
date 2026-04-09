@@ -31,6 +31,6 @@
       "fontWeight": "600",
       "letterSpacing": "0.08em"
     },
-    "css": "&{--ls-button-glow-colour:var(--wp--custom--color--button--outline--border);--ls-button-glow-hover-background:var(--wp--custom--color--button--outline--background-hover);--ls-button-glow-hover-text:var(--wp--custom--color--button--outline--text-hover);--ls-button-glow-enter-delay:80ms;--ls-button-glow-outline-width:1px;--ls-button-glow-outline-offset:12px;--ls-button-glow-resting-strength:0%;--ls-button-glow-outline-strength:45%;--ls-button-glow-inner-strength:35%;--ls-button-glow-outer-strength:20%;--ls-button-active-scale:0.98;}"
+    "css": "&{--ls-button-glow-colour:var(--wp--custom--color--button--outline--border);--ls-button-glow-hover-background:var(--wp--custom--color--button--outline--background-hover);--ls-button-glow-hover-text:var(--wp--custom--color--button--outline--text-hover);--ls-button-glow-enter-delay:var(--wp--custom--animation--delay--enter);--ls-button-glow-outline-width:1px;--ls-button-glow-outline-offset:12px;--ls-button-glow-resting-strength:0%;--ls-button-glow-outline-strength:45%;--ls-button-glow-inner-strength:35%;--ls-button-glow-outer-strength:20%;--ls-button-active-scale:var(--wp--custom--animation--scale--active);}"
   }
 }
