@@ -45,11 +45,13 @@ Whenever you create or change a colour in a theme file, follow this policy befor
 When adding or changing a colour:
 
 1. Read the existing semantic tokens in `theme.json` and `styles/dark.json`.
-2. Reuse an existing token if it already matches the role.
-3. If no suitable token exists, create a new semantic token in `theme.json` and add the exact same token path to `styles/dark.json` before using it.
-4. Map both token values only to preset colours.
-5. Replace the authored usage with `var(--wp--custom--color--...)`.
-6. Re-scan the edited file for raw colours or direct preset-colour references before finishing.
+2. Check the existing tokens in the same semantic family first.
+3. Reuse an existing token if it already matches the role. Keep families aligned: `surface.*` should look for `surface.*` first, `text.*` should look for `text.*` first, and so on.
+4. Do not create a new token in the same family if it would point to the same preset as an existing same-family token for the same mode and state. Reuse the existing token instead.
+5. If no suitable same-family token exists, create a new semantic token in `theme.json` and add the exact same token path to `styles/dark.json` before using it.
+6. Map both token values only to preset colours.
+7. Replace the authored usage with `var(--wp--custom--color--...)`.
+8. Re-scan the edited file for raw colours or direct preset-colour references before finishing.
 
 ## Dark Mode Mapping
 
@@ -78,3 +80,4 @@ When adding or changing a colour:
 - Do not add direct `var:preset|color|...` or `var(--wp--preset--color--...)` references to authored UI styles outside token-definition areas.
 - Do not update only one mode. `theme.json` and `styles/dark.json` must stay in sync for semantic colour token paths.
 - Do not copy `settings.custom.animation` or `settings.custom.z-index` into `styles/dark.json` unless the task explicitly asks for a mode-specific non-colour override.
+- Do not create duplicate same-family tokens that point to the same preset unless a verified mode-specific or state-specific distinction is required.

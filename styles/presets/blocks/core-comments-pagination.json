@@ -1,0 +1,19 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/comments-pagination": {
+                "spacing": {
+                    "margin": {
+                        "top": "var:preset|spacing|40",
+                        "bottom": "var:preset|spacing|40"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|200"
+                }
+            }
+        }
+    }
+}

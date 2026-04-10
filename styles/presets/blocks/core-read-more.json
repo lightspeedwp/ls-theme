@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/read-more": {
+                "elements": {
+                    "link": {
+                        "color": {
+                            "text": "var(--wp--custom--color--link--accent)"
+                        },
+                        "typography": {
+                            "fontWeight": "600",
+                            "textDecoration": "none"
+                        },
+                        ":hover": {
+                            "color": {
+                                "text": "var(--wp--custom--color--link--accent-hover)"
+                            },
+                            "typography": {
+                                "textDecoration": "underline"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

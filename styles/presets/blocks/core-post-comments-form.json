@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/post-comments-form": {
+                "css": "& .comment-reply-title { font-size: var(--wp--preset--font-size--200); } & textarea, & input:not([type=submit]) { border-radius: var(--wp--preset--border-radius--100); border-color: var(--wp--custom--color--border--card); } & input[type=checkbox] { margin: 0 0.2rem 0 0; } & label { font-size: var(--wp--preset--font-size--100); }",
+                "spacing": {
+                    "padding": {
+                        "top": "var:preset|spacing|40",
+                        "bottom": "var:preset|spacing|40"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|200"
+                },
+                "elements": {
+                    "button": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|100"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

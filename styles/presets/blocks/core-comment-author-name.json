@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/comment-author-name": {
+                "color": {
+                    "text": "var(--wp--custom--color--text--brand)"
+                },
+                "spacing": {
+                    "margin": {
+                        "top": "var:preset|spacing|5",
+                        "bottom": "0"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|200",
+                    "fontWeight": "600",
+                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                },
+                "elements": {
+                    "link": {
+                        "color": {
+                            "text": "var(--wp--custom--color--text--brand)"
+                        },
+                        "typography": {
+                            "fontSize": "var:preset|font-size|200",
+                            "textDecoration": "none"
+                        },
+                        ":hover": {
+                            "typography": {
+                                "textDecoration": "underline"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

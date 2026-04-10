@@ -9,6 +9,8 @@ description: Convert Figma designs into ls-theme WordPress block patterns with s
 
 Use this skill when importing a Figma design into `patterns/` as a production-ready WordPress block pattern for `ls-theme`.
 
+Patterns should be grouped into taxonomy subfolders rather than stored flat at the top level. For example, a single featured card pattern should live at `patterns/cards/feature-card.php`.
+
 This skill is approval-gated:
 
 1. Analyse the design and propose what to reuse or create.
@@ -88,7 +90,7 @@ Prefer semantic core blocks over generic layout blocks whenever one exists.
 
 1. Read `theme.json`, `styles/dark.json`, and `styles/presets/**/*.json` and build token registries.
 2. Read `inc/presets.php` to understand how preset slices are merged into the live theme data.
-3. Read 2 to 4 existing pattern files in `patterns/`.
+3. Read 2 to 4 existing pattern files in `patterns/` and its relevant subfolders.
 4. Scan `styles/blocks/**/*.json` and `styles/sections/**/*.json` for reusable styles.
 5. Read `assets/css/animations.css`, `assets/css/gsap-animations.css`, `assets/js/gsap-effects.js`, `inc/animations.php`, and `inc/gsap.php` to understand the current motion contracts.
 6. Read the Figma node with `mcp_figma_dev-mod_get_design_context`.
@@ -174,6 +176,8 @@ Use CSS-only motion when the interaction is selector-driven and does not need ru
 - underline draws, glow blooms, fades, scale shifts, and icon slides
 - keyframe loops that can be expressed safely in CSS
 
+If the component is a hoverable card, prefer making the whole card the hover and focus-visible target rather than applying the state only to an inner CTA.
+
 CSS-only output goes in:
 
 - `assets/css/animations.css`
@@ -219,15 +223,20 @@ Style constraints:
 
 - Use semantic colour tokens only in authored UI.
 - Use preset or custom non-colour tokens from the merged theme token model.
+- Radius values must always resolve through an existing border-radius preset. Do not hardcode radius values in pattern markup, style JSON, or CSS.
 - Avoid inline presentational styles in pattern markup when a reusable style file is appropriate.
 - Keep style intent narrow and reusable.
 - Treat `styles/sections/**/*.json` as organisational artefacts unless runtime registration is also accounted for.
+- Prefer existing core block defaults and existing styles before creating new styles. Do not create a new heading block style when a native heading block at the correct level already satisfies the design intent.
+- If a hover shadow is likely to be reused across multiple cards, create it as a reusable custom shadow token rather than hardcoding the hover shadow in CSS.
 
 ### Phase 6 — Icon Discovery And Staging
 
 1. Detect icon usage from the Figma design.
 2. Check whether each icon already exists in `assets/icons/`.
-3. For missing icons:
+3. When a card uses an icon holder, model it as a nested `core/group` shell containing an Icon Block.
+4. If the user intends to replace icons later, the Icon Block may be left empty in the pattern while preserving the correct icon wrapper structure.
+5. For missing icons that should be staged now:
    - prepare clean SVG files
    - use clear kebab-case filenames
    - keep them reusable and free from unnecessary metadata
@@ -261,13 +270,14 @@ After the report, ask for explicit approval. Do not write files before approval.
 After the user confirms:
 
 1. Add any required semantic colour token paths to both `theme.json` and `styles/dark.json` first.
-2. Create or update block and section style JSON files.
-3. Add CSS-only motion rules to `assets/css/animations.css` when applicable.
-4. Add GSAP CSS and JS to `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js` only when the approved plan requires it.
-5. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
-6. Create the pattern file in `patterns/<pattern-slug>.php`.
-7. Stage any missing icons in `assets/icons/`.
-8. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
+2. If a general-purpose muted text colour is required, prefer a broad semantic token such as `text.muted` or `text.subtle` rather than a card-specific token name.
+3. Create or update block and section style JSON files.
+4. Add CSS-only motion rules to `assets/css/animations.css` when applicable.
+5. Add GSAP CSS and JS to `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js` only when the approved plan requires it.
+6. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
+7. Create the pattern file in `patterns/<subfolder>/<pattern-slug>.php`.
+8. Stage any missing icons in `assets/icons/` only when the icon should be supplied now.
+9. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
 
 ## Pattern Authoring Standards
 
@@ -285,6 +295,8 @@ Pattern files should include the maximum useful header metadata unless the user 
 - `Viewport Width`
 - `Inserter: yes` by default
 
+Single-card patterns should remain insertable from the editor unless the user explicitly says otherwise.
+
 ### Pattern Markup
 
 - Use WordPress block markup rather than raw HTML.
@@ -292,6 +304,9 @@ Pattern files should include the maximum useful header metadata unless the user 
 - Use the correct heading hierarchy for the pattern context.
 - Keep the pattern self-contained.
 - Do not hard-code URLs when a WordPress function should provide them.
+- Group patterns into subfolders by family, such as `patterns/cards/`, `patterns/hero/`, or `patterns/content/`.
+- Prefer a native `core/heading` block at the correct level before introducing a dedicated heading block style.
+- When a card includes an icon tile, use a nested `core/group` wrapper with an Icon Block inside it.
 
 ### PHP, Escaping, And i18n
 
@@ -305,6 +320,7 @@ Pattern files should include the maximum useful header metadata unless the user 
 - Use CSS custom properties for preset values in CSS when appropriate: `var(--wp--preset--type--slug)`
 - Use the border-radius namespace `--wp--preset--border-radius--<slug>` when referencing radius values in CSS
 - Do not mix preset syntax and CSS variable syntax incorrectly
+- Do not hardcode radius values; always map radius to an existing preset slug.
 
 ### Interactive State Rules
 
@@ -312,10 +328,12 @@ Pattern files should include the maximum useful header metadata unless the user 
 - Ensure keyboard parity for meaningful hover affordances.
 - Keep motion contracts token-led and reusable.
 - Prefer explicit selectors in CSS over unverified pseudo-state JSON shapes when runtime support is unclear.
+- If a card is designed to respond as a single interactive surface, ensure the whole card owns the hover and focus-visible state.
+- If a CTA arrow extends or shifts on hover, apply that motion as part of the card's shared hover contract, not as an isolated CTA-only state.
 
 ## Validation Checklist
 
-- Pattern file is created in `patterns/`
+- Pattern file is created in the correct `patterns/<subfolder>/` location
 - Pattern slug and filename align
 - Pattern markup is valid WordPress block markup
 - All PHP output is escaped and all visible strings use the `ls-theme` text domain
@@ -324,25 +342,27 @@ Pattern files should include the maximum useful header metadata unless the user 
 - Non-colour values map to the theme's merged preset model
 - Existing styles and motion contracts are reused where possible
 - New styles are created only when necessary
+- No radius value is hardcoded; radius is mapped to a preset
 - CSS-only interactions are placed in `assets/css/animations.css`
 - GSAP interactions are placed in `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js`
 - Reduced-motion handling is present for any new motion work
 - New GSAP block styles are registered in `inc/gsap.php` when needed
-- Icons are matched or staged in `assets/icons/`
+- Icon wrappers use a nested Group plus Icon Block structure, and icons are staged in `assets/icons/` only when they should ship with the pattern
+- Single-card patterns remain insertable from the editor unless explicitly overridden
 - Visual output matches the Figma intent without importing foreign design-system token names into the final theme
 
 ## Reporting Template
 
-1. **Pattern**: `<title>` -> `patterns/<slug>.php`
+1. **Pattern**: `<title>` -> `patterns/<subfolder>/<slug>.php`
 2. **Reuse: Patterns**: `<list>`
 3. **Reuse: Block styles**: `<list>`
 4. **Reuse: Section styles**: `<list>`
 5. **Create: Block styles**: `<path + title + slug + intent>`
 6. **Create: Section styles**: `<path + title + slug + intent>`
 7. **Motion routing**: `<interactive element -> CSS or GSAP -> files to update>`
-8. **Semantic colour tokens**: `<reuse list + new paths if required>`
+8. **Semantic colour tokens**: `<reuse list + new general-purpose paths if required>`
 9. **Non-colour token mapping**: `<spacing/typography/radius/shadow/layout summary>`
-10. **Icons**: `<existing matches + missing files>`
+10. **Icons**: `<group wrapper + icon block handling + existing matches + missing files>`
 11. **Need confirmation on**: `<open decisions or ambiguities>`
 
 Then ask: `Approve this plan and proceed with implementation?`

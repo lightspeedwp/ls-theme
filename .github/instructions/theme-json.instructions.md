@@ -80,6 +80,8 @@ Name them broad-to-specific and keep them stable across modes:
 Use `color`, not `colour`, in token paths.
 Every custom colour token in `theme.json` must have the exact same path in `styles/dark.json`.
 Every custom colour token value must point only to preset colours.
+Before adding a new semantic token, check the existing tokens in the same family first and reuse them where possible.
+Do not introduce a new `surface.*`, `text.*`, `link.*`, or similar token if it would map to the same preset as an existing token in that family for the same mode and state.
 
 ### Authored colour usage
 
@@ -175,6 +177,14 @@ Reference them from authored CSS or style JSON with `var(--wp--custom--animation
 - `styles/dark.json` must mirror the semantic colour token paths from `theme.json`.
 - Shared non-colour token families such as `settings.custom.animation` and `settings.custom.z-index` do not need matching paths in `styles/dark.json`.
 - Do not create separate light or dark token names for normal semantic roles. Remap values, not token names.
+
+## Runtime Block Configuration
+
+- Keep live block-specific runtime configuration in `styles/presets/blocks/`.
+- Use one JSON file per block, for example `styles/presets/blocks/core-post-title.json`.
+- These files should carry the runtime `styles.blocks.<block>` or `settings.blocks.<block>` payloads that are merged by `inc/presets.php`.
+- Do not place live block defaults directly in `theme.json` when they can live in an individual `styles/presets/blocks/*.json` file.
+- `styles/blocks/` remains for editor-facing style variation files, not merged runtime block defaults.
 
 ---
 

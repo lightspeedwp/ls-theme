@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/search": {
+                "css": ".wp-block-search__button-inside .wp-block-search__inside-wrapper { border: none; }",
+                "typography": {
+                    "fontSize": "var:preset|font-size|200",
+                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                },
+                "elements": {
+                    "button": {
+                        "border": {
+                            "radius": "var:preset|border-radius|200"
+                        },
+                        "spacing": {
+                            "margin": {
+                                "left": "var:preset|spacing|10"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

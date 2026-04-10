@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/pullquote": {
+                "border": {
+                    "top": {
+                        "color": "var(--wp--custom--color--link--accent)",
+                        "style": "solid",
+                        "width": "4px"
+                    }
+                },
+                "spacing": {
+                    "padding": {
+                        "top": "0",
+                        "right": "0",
+                        "bottom": "0",
+                        "left": "0"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|300",
+                    "fontWeight": "500",
+                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                },
+                "elements": {
+                    "cite": {
+                        "color": {
+                            "text": "var(--wp--custom--color--text--muted)"
+                        },
+                        "typography": {
+                            "fontSize": "var:preset|font-size|100"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

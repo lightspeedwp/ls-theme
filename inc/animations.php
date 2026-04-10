@@ -90,3 +90,21 @@ function ls_theme_enqueue_editor_effect_styles() {
 	ls_theme_enqueue_effect_styles( 'editor' );
 }
 add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_styles' );
+
+/**
+	* Registers CSS-driven block styles.
+	*/
+function ls_theme_register_effect_block_styles() {
+	if ( ! function_exists( 'register_block_style' ) ) {
+		return;
+	}
+
+	register_block_style(
+		'core/group',
+		array(
+			'name'  => 'feature-card',
+			'label' => __( 'Feature Card', 'ls-theme' ),
+		)
+	);
+}
+add_action( 'init', 'ls_theme_register_effect_block_styles' );

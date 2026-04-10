@@ -34,10 +34,11 @@ Or open the file and use it as the basis for a Copilot Chat session.
 
 ## Available Prompts
 
-| File                        | Purpose                                     |
-| --------------------------- | ------------------------------------------- |
-| `audit-theme.prompt.md`     | Audit the theme for issues and improvements |
-| `cleanup.prompt.md`         | Clean up and tidy the theme codebase        |
-| `extract-pattern.prompt.md` | Run the ls-theme Figma-to-pattern workflow  |
-| `new-pattern.prompt.md`     | Generate a new block pattern                |
-| `release.prompt.md`         | Prepare a new release                       |
+| File                            | Purpose                                     |
+| ------------------------------- | ------------------------------------------- |
+| `audit-theme.prompt.md`         | Audit the theme for issues and improvements |
+| `cleanup.prompt.md`             | Clean up and tidy the theme codebase        |
+| `complete-theme-json.prompt.md` | Audit and fill missing theme.json coverage  |
+| `extract-pattern.prompt.md`     | Run the ls-theme Figma-to-pattern workflow  |
+| `new-pattern.prompt.md`         | Generate a new block pattern                |
+| `release.prompt.md`             | Prepare a new release                       |

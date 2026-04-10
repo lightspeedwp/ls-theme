@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/site-tagline": {
+                "color": {
+                    "text": "var(--wp--custom--color--text--muted)"
+                },
+                "spacing": {
+                    "margin": {
+                        "bottom": "var:preset|spacing|20"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|100"
+                }
+            }
+        }
+    }
+}

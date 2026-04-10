@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added individual merged block preset files under `styles/presets/blocks/` so live block runtime defaults can be maintained one block per file.
+- Added a theme-local `themejson-completion` skill, `ThemeJSON Completer` agent, and `complete-theme-json` prompt for approval-first Global Styles completion work.
 - Registered the theme font-family presets as `body`, `heading`, and `monospace`, and applied the `monospace` preset to code elements in `theme.json`.
 - Added a GSAP asset bootstrap in `inc/gsap.php` for class-based interactive effects.
 - Added a GSAP-driven `is-style-card-spotlight` group effect using theme surface and accent colours.
@@ -22,9 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a repo-scoped semantic design-token instruction for theme colour work.
 - Added a portable `theme-color-token-enforcer` skill to audit or fix semantic colour token usage.
 - Added a theme-local `pattern-extractor` skill and matching `extract-pattern` prompt wrapper for Figma-to-pattern workflows that honour semantic tokens and CSS-versus-GSAP motion routing.
+- Added a CSS-only `Feature Card` group treatment, a matching inline CTA paragraph style, and an insertable single-card pattern at `patterns/cards/feature-card.php`.
 
 ### Changed
 
+- Tightened the theme.json workflow and instruction files so all live block configuration must be authored in individual `styles/presets/blocks/*.json` files rather than directly in `theme.json`.
+- Tightened the theme-local pattern extractor guidance so patterns are grouped into subfolders, card icons use a nested Group plus Icon Block structure, radius values always resolve through presets, whole-card hover states are preferred for interactive cards, and reusable muted-text and hover-shadow tokens are favoured over card-specific hardcoding.
 - Enabled root-padding-aware alignments, added theme typography writing-mode support, and applied a default spacing-20 horizontal page gutter in `theme.json`.
 - Moved block-style visual tokens into `theme.json` and `styles/blocks/**/*.json`, leaving `assets/css/animations.css` as the interaction layer for the heading, link, and button treatments.
 - Started the semantic colour token migration by adding a minimal `settings.custom.color` layer to `theme.json` and `styles/dark.json`, then rewiring the button, heading, and paragraph style JSON hotspots onto semantic tokens.
@@ -35,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rewired the GSAP runtime to read shared theme animation tokens for common durations and easings, and to resolve the hero effect colours from the semantic custom token layer.
 - Corrected the shared button spacing token references and narrowed the outline button icon well so the fill and outline buttons keep equal height without the outline label or icon frame breaking.
 - Reduced the outline button's top and bottom padding by the border thickness so it stays level with the fill button while preserving the narrower square icon frame.
+- Tightened the token guidance so same-family semantic tokens must be reused before new ones are created, and re-mapped the light surface tokens so only distinct surface roles keep distinct preset assignments.
 - Re-aligned the home hero GSAP wiring to the reusable `Home Hero Section` block style and dropped the abandoned cycling heading path.
 - Moved theme and heading line heights in `theme.json` onto shared custom tokens, with H1 using a tighter value and H2 through H6 sharing a common heading rhythm.
 - Refined the GSAP spotlight card glow alignment and switched the card shell to a lighter theme palette.

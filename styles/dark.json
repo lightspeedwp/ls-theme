@@ -8,7 +8,8 @@
 			"color": {
 				"text": {
 					"default": "var(--wp--preset--color--base)",
-					"inverse": "var(--wp--preset--color--contrast)",
+					"inverse": "var(--wp--preset--color--base)",
+					"muted": "var(--wp--preset--color--neutral-400)",
 					"brand": "var(--wp--preset--color--brand-400)",
 					"brand-strong": "var(--wp--preset--color--brand-200)"
 				},
@@ -68,6 +69,9 @@
 					"400": "1px 4px 12px 4px rgba(8, 8, 8, 0.48)",
 					"500": "1px 4px 12px 4px rgba(8, 8, 8, 0.54)",
 					"600": "2px 6px 12px 6px rgba(8, 8, 8, 0.6)"
+				},
+				"card": {
+					"hover": "var(--wp--custom--shadow--elevation--400), 0 28px 56px -28px color-mix(in srgb, var(--wp--custom--color--link--accent) 52%, transparent), 0 14px 30px -18px color-mix(in srgb, var(--wp--custom--color--link--accent) 32%, transparent)"
 				}
 			}
 		}

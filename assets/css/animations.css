@@ -95,6 +95,165 @@
 	background-size: 100% var(--ls-link-underline-thickness, 2px);
 }
 
+/* Link Arrow Accent */
+.wp-block-paragraph.is-style-link-arrow-accent a {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--ls-link-arrow-gap, 0.45ch);
+	color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
+	font-weight: var(--ls-link-arrow-weight, var(--wp--custom--typography--font-weight--semibold));
+	text-decoration: none;
+	transition:
+		color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		gap var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard);
+	transition-delay: var(--wp--custom--animation--delay--none);
+}
+
+.wp-block-paragraph.is-style-link-arrow-accent a::after {
+	content: "\2192";
+	display: inline-block;
+	transform: translateX( 0 );
+	transition:
+		transform var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--emphasised),
+		color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard);
+}
+
+.wp-block-paragraph.is-style-link-arrow-accent a:hover,
+.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible,
+.is-style-feature-card:hover .wp-block-paragraph.is-style-link-arrow-accent a,
+.is-style-feature-card:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
+	color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+}
+
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
+.is-style-feature-card:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-feature-card:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+	transform: translateX( var(--ls-link-arrow-offset, 0.35em) );
+}
+
+
+/********** Card Motion **********/
+
+/* Feature Card */
+.is-style-feature-card {
+	--ls-feature-card-border-rest: var(--wp--custom--color--border--card);
+	--ls-feature-card-border-active: var(--wp--custom--color--link--accent);
+	--ls-feature-card-shadow-rest: var(--wp--custom--shadow--elevation--100);
+	--ls-feature-card-shadow-active: var(--wp--custom--shadow--card--hover);
+	--ls-feature-card-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--link--accent) 76%, transparent);
+	--ls-feature-card-lift: -6px;
+	position: relative;
+	gap: var(--wp--preset--spacing--30);
+	padding: var(--wp--preset--spacing--30);
+	border: 1px solid var(--ls-feature-card-border-rest);
+	border-radius: var(--wp--preset--border-radius--300);
+	background: var(--wp--custom--color--surface--card);
+	box-shadow: var(--ls-feature-card-shadow-rest);
+	transition:
+		border-color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		box-shadow var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--standard),
+		transform var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--emphasised);
+}
+
+.is-style-feature-card:hover,
+.is-style-feature-card:focus-within {
+	border-color: var(--ls-feature-card-border-active);
+	box-shadow: var(--ls-feature-card-shadow-active);
+	transform: translateY( var(--ls-feature-card-lift) );
+}
+
+.is-style-feature-card .ls-feature-card__content {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--20);
+}
+
+.is-style-feature-card .ls-feature-card__cta {
+	margin-top: auto;
+	margin-bottom: 0;
+}
+
+.is-style-feature-card .ls-feature-card__icon-shell {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	align-self: flex-start;
+	padding: var(--wp--preset--spacing--20);
+	border: 1px solid color-mix(in srgb, var(--wp--custom--color--text--brand) 35%, transparent);
+	border-radius: var(--wp--preset--border-radius--200);
+	background: var(--wp--custom--color--text--brand);
+	box-sizing: border-box;
+	overflow: hidden;
+	line-height: 0;
+	transition:
+		border-color var(--wp--custom--animation--duration--base)
+			var(--wp--custom--animation--easing--standard),
+		box-shadow var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--standard),
+		transform var(--wp--custom--animation--duration--medium)
+			var(--wp--custom--animation--easing--emphasised);
+}
+
+.is-style-feature-card:hover .ls-feature-card__icon-shell,
+.is-style-feature-card:focus-within .ls-feature-card__icon-shell {
+	border-color: var(--ls-feature-card-border-active);
+	box-shadow: var(--ls-feature-card-icon-shadow-active);
+	transform: translateY( -3px ) rotate( -10deg ) scale( 1.04 );
+}
+
+.is-style-feature-card .ls-feature-card__icon-shell .wp-block-outermost-icon-block {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	margin: 0;
+	line-height: 0;
+	color: var(--wp--custom--color--text--inverse);
+}
+
+.is-style-feature-card .ls-feature-card__icon-shell .icon-container {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent !important;
+	color: var(--wp--custom--color--text--inverse) !important;
+}
+
+.is-style-feature-card .ls-feature-card__icon-shell .icon-container svg {
+	fill: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-paragraph.is-style-link-arrow-accent a,
+	.wp-block-paragraph.is-style-link-arrow-accent a::after,
+	.is-style-feature-card,
+	.is-style-feature-card .ls-feature-card__icon-shell {
+		transition: none;
+	}
+
+	.is-style-feature-card:hover,
+	.is-style-feature-card:focus-within {
+		transform: none;
+	}
+
+	.wp-block-paragraph.is-style-link-arrow-accent a::after,
+	.wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+	.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
+	.is-style-feature-card:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+	.is-style-feature-card:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+		transform: none;
+	}
+}
+
 
 /********** Button Motion **********/
 

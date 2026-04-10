@@ -76,27 +76,33 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
    - Ignore palette definitions in `settings.color.palette`.
    - Ignore approved non-visual technical colours only if they do not control visible UI meaning.
    - For visual UI usage, determine the semantic role: text, surface, border, link, action, form, state, icon, overlay, or focus.
-5. Reuse an existing semantic token when one already fits the role and state.
-6. If no suitable token exists:
+5. Reuse an existing semantic token from the same semantic family when one already fits the role and state.
+   - Check `surface.*` before creating a new `surface.*` token.
+   - Check `text.*` before creating a new `text.*` token.
+   - Keep token reuse within the matching semantic family; do not use a surface token for a text role or vice versa.
+6. If a proposed new same-family token would point to the same preset as an existing same-family token in the same mode and state, do not create it. Reuse the existing token instead.
+7. If no suitable token exists:
    - Create a new token path in `theme.json` under `settings.custom.color`.
    - Create the exact same token path in `styles/dark.json`.
    - Map both values only to preset colours.
    - Keep names broad-to-specific and mode-stable.
-7. Build the dark mapping contextually, not mechanically.
+8. Build the dark mapping contextually, not mechanically.
    - Keep the preset palette itself unchanged in `styles/dark.json`; only remap the semantic tokens onto existing preset slugs.
    - Start by testing whether the role is a direct foreground or surface inversion. If it is, a swap such as light `base` to dark `contrast`, light `contrast` to dark `base`, or light surface to dark surface is often correct.
    - For accents, gradients, glows, borders, button fills, and hover states, keep the semantic role and usually keep the same colour family, then move to a nearby palette step that works on the dark surface.
    - Review the target background, neighbouring tokens, and interaction states together before choosing the dark value.
    - Use lifted dark surfaces such as `surface-*` when a component needs separation from the dark canvas without becoming a light block.
-8. Validate contrast before finalizing any mapping.
+9. Validate contrast before finalizing any mapping.
    - Normal text requires at least `4.5:1`.
    - Large text, focus indicators, icons, borders, and other non-text UI require at least `3:1`.
    - If no preset pairing meets the threshold, stop and report the gap instead of inventing a raw colour.
-9. In `apply` mode:
-   - Replace visual authored usage with `var(--wp--custom--color--...)`.
-   - Keep non-colour custom tokens, spacing, widths, line-heights, and layout values unchanged unless the task also asks for them.
-10. Re-scan until the target no longer contains direct visual preset-colour references or raw visual colours outside approved exceptions.
-11. Report:
+10. In `apply` mode:
+
+- Replace visual authored usage with `var(--wp--custom--color--...)`.
+- Keep non-colour custom tokens, spacing, widths, line-heights, and layout values unchanged unless the task also asks for them.
+
+11. Re-scan until the target no longer contains direct visual preset-colour references or raw visual colours outside approved exceptions.
+12. Report:
 
 - Tokens reused
 - Tokens created
@@ -119,6 +125,7 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 - Do not auto-rewrite non-visual masking or compositing colours without an explicit note.
 - Do not weaken contrast to preserve a preferred hue.
 - Do not mirror `settings.custom.animation` or `settings.custom.z-index` into `styles/dark.json` unless the task explicitly asks for a mode-specific non-colour override.
+- Do not create extra same-family tokens that map to the same preset as an existing same-family token unless a verified mode-specific or state-specific distinction is required.
 
 ## Suggested scan scope
 

@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Link Arrow Accent",
+	"slug": "link-arrow-accent",
+	"blockTypes": [
+		"core/paragraph"
+	],
+	"description": "Paragraph links with an inline arrow accent for compact card CTAs.",
+	"styles": {
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var(--wp--custom--color--link--accent)"
+				},
+				"typography": {
+					"fontWeight": "600",
+					"textDecoration": "none"
+				}
+			}
+		},
+		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;}"
+	}
+}

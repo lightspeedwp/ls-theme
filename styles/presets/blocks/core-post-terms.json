@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/post-terms": {
+                "css": "& a { white-space: nowrap; }",
+                "typography": {
+                    "fontSize": "var:preset|font-size|100",
+                    "fontWeight": "600"
+                },
+                "elements": {
+                    "link": {
+                        "typography": {
+                            "textDecoration": "none"
+                        },
+                        ":hover": {
+                            "typography": {
+                                "textDecoration": "underline"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
