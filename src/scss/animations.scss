@@ -1,0 +1,541 @@
+@use "sass:string";
+@use "abstracts/mixins/motion";
+@use "abstracts/mixins/surface";
+
+$ls-icon-arrow-right: string.unquote("\"\\2192\"");
+
+/********** Text Motion **********/
+
+/* Gradient Accent */
+@keyframes ls-gradient-text-clip {
+  to {
+    background-position: var(--ls-gradient-end-position, 100%) center;
+  }
+}
+
+.wp-block-heading.is-style-gradient-accent {
+  width: var(--ls-gradient-width, fit-content);
+  max-width: 100%;
+
+  &.has-text-align-center {
+    margin-inline: auto;
+  }
+
+  &.has-text-align-right {
+    margin-inline-start: auto;
+  }
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .wp-block-heading.is-style-gradient-accent,
+  .wp-block-heading.is-style-gradient-accent a {
+    background-image: var(--ls-gradient-image);
+    background-position: var(--ls-gradient-start-position, 0%) center;
+    background-repeat: no-repeat;
+    background-size: var(--ls-gradient-size, 200% auto);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .wp-block-heading.is-style-gradient-accent {
+    animation:
+      ls-gradient-text-clip
+      var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop))
+      var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth))
+      var(--ls-gradient-delay, var(--wp--custom--animation--delay--none))
+      infinite
+      var(--ls-gradient-direction, alternate);
+  }
+
+  .wp-block-heading.is-style-gradient-accent a {
+    animation: inherit;
+  }
+}
+
+.wp-block-heading.is-style-gradient-accent a:focus-visible {
+  outline: var(--ls-gradient-focus-width, 2px) solid
+    var(--ls-gradient-focus-color, currentColor);
+  outline-offset: var(--ls-gradient-focus-offset, 4px);
+}
+
+@include motion.reduced-motion {
+  .wp-block-heading.is-style-gradient-accent,
+  .wp-block-heading.is-style-gradient-accent a {
+    animation: none;
+    background-position: var(--ls-gradient-reduced-position, 100%) center;
+  }
+}
+
+
+/********** Link Motion **********/
+
+/* Link Underline Accent */
+.wp-block-paragraph.is-style-link-underline-accent a {
+  padding-bottom: var(--ls-link-underline-padding-bottom, 5px);
+  background-image: var(
+    --ls-link-underline-image,
+    linear-gradient(
+      var(--wp--custom--color--link--decoration-start),
+      var(--wp--custom--color--link--decoration-end)
+    )
+  );
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 var(--ls-link-underline-thickness, 2px);
+  transition:
+    background-size var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--none);
+
+  &:hover {
+    transition-delay: var(--ls-link-underline-enter-delay, var(--wp--custom--animation--delay--enter));
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% var(--ls-link-underline-thickness, 2px);
+  }
+}
+
+/* Link Arrow Accent */
+.wp-block-paragraph.is-style-link-arrow-accent a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ls-link-arrow-gap, 0.45ch);
+  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
+  font-weight: var(--ls-link-arrow-weight, var(--wp--custom--typography--font-weight--semibold));
+  text-decoration: none;
+  transition:
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    gap var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--none);
+
+  &::after {
+    content: $ls-icon-arrow-right;
+    display: inline-block;
+    transform: translateX(0);
+    transition:
+      transform var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--emphasised),
+      color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+  }
+
+  &:hover,
+  &:focus-visible,
+  .is-style-feature-card:hover &,
+  .is-style-feature-card:focus-within & {
+    color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+  }
+
+  &:hover::after,
+  &:focus-visible::after,
+  .is-style-feature-card:hover &::after,
+  .is-style-feature-card:focus-within &::after {
+    transform: translateX(var(--ls-link-arrow-offset, 0.35em));
+  }
+}
+
+
+/********** Card Motion **********/
+
+/* Feature Card */
+.is-style-feature-card {
+  --ls-feature-card-border-rest: var(--wp--custom--color--border--card);
+  --ls-feature-card-border-active: var(--wp--custom--color--link--accent);
+  --ls-feature-card-shadow-rest: var(--wp--custom--shadow--elevation--100);
+  --ls-feature-card-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-feature-card-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--link--accent) 76%, transparent);
+  --ls-feature-card-lift: -6px;
+  @include surface.surface-card(
+    $radius: var(--wp--preset--border-radius--300),
+    $border: 1px solid var(--ls-feature-card-border-rest),
+    $background: var(--wp--custom--color--surface--card),
+    $shadow: var(--ls-feature-card-shadow-rest)
+  );
+  gap: var(--wp--preset--spacing--30);
+  padding: var(--wp--preset--spacing--30);
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-feature-card-border-active);
+    box-shadow: var(--ls-feature-card-shadow-active);
+    transform: translateY(var(--ls-feature-card-lift));
+  }
+
+  .ls-feature-card__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--20);
+  }
+
+  .ls-feature-card__cta {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+
+  .ls-feature-card__icon-shell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: var(--wp--preset--spacing--20);
+    border: 1px solid color-mix(in srgb, var(--wp--custom--color--text--brand) 35%, transparent);
+    border-radius: var(--wp--preset--border-radius--200);
+    background: var(--wp--custom--color--text--brand);
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 0;
+    transition:
+      border-color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard),
+      box-shadow var(--wp--custom--animation--duration--medium)
+        var(--wp--custom--animation--easing--standard),
+      transform var(--wp--custom--animation--duration--medium)
+        var(--wp--custom--animation--easing--emphasised);
+
+    .wp-block-outermost-icon-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      margin: 0;
+      line-height: 0;
+      color: var(--wp--custom--color--text--inverse);
+    }
+
+    .icon-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent !important;
+      color: var(--wp--custom--color--text--inverse) !important;
+
+      svg {
+        fill: currentColor;
+      }
+    }
+  }
+
+  &:hover .ls-feature-card__icon-shell,
+  &:focus-within .ls-feature-card__icon-shell {
+    border-color: var(--ls-feature-card-border-active);
+    box-shadow: var(--ls-feature-card-icon-shadow-active);
+    transform: translateY(-3px) rotate(-10deg) scale(1.04);
+  }
+}
+
+@include motion.reduced-motion {
+  .wp-block-paragraph.is-style-link-arrow-accent a,
+  .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .is-style-feature-card,
+  .is-style-feature-card .ls-feature-card__icon-shell {
+    transition: none;
+  }
+
+  .is-style-feature-card:hover,
+  .is-style-feature-card:focus-within {
+    transform: none;
+  }
+
+  .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
+  .is-style-feature-card:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .is-style-feature-card:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+    transform: none;
+  }
+}
+
+
+/********** Button Motion **********/
+
+.wp-block-button:not([class*="is-style-"]),
+.wp-block-button.is-style-fill,
+.wp-block-button.is-style-outline {
+  max-inline-size: 100%;
+}
+
+/* Shared button motion primitives */
+.wp-element-button,
+.wp-block-button__link {
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    outline-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    outline-offset var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--fast)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--enter);
+}
+
+.wp-element-button:hover,
+.wp-element-button:focus-visible,
+.wp-block-button__link:hover,
+.wp-block-button__link:focus-visible {
+  outline-offset: 0;
+}
+
+.wp-element-button:active,
+.wp-block-button__link:active {
+  transform: scale(var(--ls-button-active-scale, var(--wp--custom--animation--scale--active)));
+}
+
+/* Shared button shell for the default fill and outline treatments. */
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill,
+  .wp-block-button.is-style-outline
+) .wp-block-button__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Fill button motion */
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link {
+  --ls-button-fill-icon-well-size: 3rem;
+  --ls-button-fill-icon-inline-end: 0.625rem;
+  --ls-button-fill-icon-font-size: 1.25rem;
+  --ls-button-fill-icon-block-inset: calc(
+    50% - (var(--ls-button-fill-icon-well-size) / 2)
+  );
+  --ls-button-fill-icon-inline-start: calc(
+    100% - var(--ls-button-fill-icon-well-size) - var(--ls-button-fill-icon-inline-end)
+  );
+  background: transparent;
+  border: 0;
+  transition:
+    transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+      var(--wp--custom--animation--easing--emphasised),
+    color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+      var(--wp--custom--animation--easing--emphasised);
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link::before {
+  content: "";
+  @include surface.absolute-fill();
+  border-radius: inherit;
+  background: var(
+    --ls-button-fill-background,
+    var(--wp--custom--color--button--fill--background)
+  );
+  transition:
+    inset-inline-start var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    inset-inline-end var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    inset-block-start var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    inset-block-end var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    border-radius var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised);
+  z-index: var(--wp--custom--z-index--behind);
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link::after {
+  content: $ls-icon-arrow-right;
+  position: absolute;
+  inset-block: var(--ls-button-fill-icon-block-inset);
+  inset-inline-end: var(--ls-button-fill-icon-inline-end);
+  width: var(--ls-button-fill-icon-well-size);
+  display: grid;
+  place-items: center;
+  color: var(--ls-button-fill-icon-colour, currentColor);
+  font-size: var(--ls-button-fill-icon-font-size);
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    color var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised);
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover,
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover::before {
+  transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover::before,
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:focus-visible::before {
+  inset-block: var(--ls-button-fill-icon-block-inset);
+  inset-inline-end: var(--ls-button-fill-icon-inline-end);
+  inset-inline-start: var(--ls-button-fill-icon-inline-start);
+  border-radius: inherit;
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover,
+:is(
+  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:focus-visible {
+  color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
+}
+
+/* Outline button motion */
+.wp-block-button.is-style-outline .wp-block-button__link {
+  --ls-button-outline-icon-well-size: calc(3rem - 4px);
+  --ls-button-outline-icon-inset: 4px;
+  --ls-button-outline-icon-font-size: 1.25rem;
+  --ls-button-outline-hover-padding-start: calc(4rem - 4px);
+  --ls-button-outline-hover-padding-end: 1.5rem;
+  --ls-button-outline-icon-inline-start: calc(
+    100% - var(--ls-button-outline-icon-well-size) - var(--ls-button-outline-icon-inset)
+  );
+  transition:
+    padding-inline-start var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    padding-inline-end var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    transform var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--smooth);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link::after {
+  content: $ls-icon-arrow-right;
+  position: absolute;
+  inset-block: var(--ls-button-outline-icon-inset);
+  inset-inline-end: var(--ls-button-outline-icon-inset);
+  width: var(--ls-button-outline-icon-well-size);
+  display: grid;
+  place-items: center;
+  border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
+  background-color: var(
+    --ls-button-outline-accent-background,
+    var(--wp--custom--color--button--outline--border)
+  );
+  color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--button--outline--text-hover));
+  font-size: var(--ls-button-outline-icon-font-size);
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    inset-inline-end var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    background-color var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard);
+  z-index: var(--wp--custom--z-index--content);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
+  padding-inline-start: var(--ls-button-outline-hover-padding-start);
+  padding-inline-end: var(--ls-button-outline-hover-padding-end);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover::after,
+.wp-block-button.is-style-outline .wp-block-button__link:focus-visible::after {
+  inset-inline-end: var(--ls-button-outline-icon-inline-start);
+}
+
+
+/* Button Glow Accent */
+.wp-block-button.is-style-button-glow-accent .wp-block-button__link {
+  transition:
+    box-shadow var(--wp--custom--animation--duration--dramatic)
+      var(--wp--custom--animation--easing--dramatic),
+    outline-color var(--wp--custom--animation--duration--dramatic)
+      var(--wp--custom--animation--easing--dramatic),
+    outline-offset var(--wp--custom--animation--duration--dramatic)
+      var(--wp--custom--animation--easing--dramatic),
+    transform var(--wp--custom--animation--duration--fast)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--none);
+  box-shadow: inset 0 0 20px
+    color-mix(
+      in srgb,
+      var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
+        var(--ls-button-glow-resting-strength, 0%),
+      transparent
+    );
+  outline: var(--ls-button-glow-outline-width, 1px) solid
+    color-mix(
+      in srgb,
+      var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
+        var(--ls-button-glow-outline-strength, 45%),
+      transparent
+    );
+}
+
+.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
+  transition-delay: var(--ls-button-glow-enter-delay, var(--wp--custom--animation--delay--enter));
+}
+
+.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
+.wp-block-button.is-style-button-glow-accent
+  .wp-block-button__link:focus-visible {
+  background-color: var(
+    --ls-button-glow-hover-background,
+    var(--wp--custom--color--button--outline--background-hover)
+  );
+  color: var(--ls-button-glow-hover-text, var(--wp--custom--color--button--outline--text-hover));
+  box-shadow:
+    inset 0 0 20px
+      color-mix(
+        in srgb,
+        var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
+          var(--ls-button-glow-inner-strength, 35%),
+        transparent
+      ),
+    0 0 20px
+      color-mix(
+        in srgb,
+        var(--ls-button-glow-colour, var(--wp--custom--color--button--outline--border))
+          var(--ls-button-glow-outer-strength, 20%),
+        transparent
+      );
+  outline-color: transparent;
+  outline-offset: var(--ls-button-glow-outline-offset, 12px);
+}

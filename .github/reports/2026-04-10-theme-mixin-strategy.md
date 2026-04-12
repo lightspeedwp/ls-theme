@@ -159,7 +159,7 @@ Keep `style.css` outside this flow because it carries the theme header.
 
 ## Recommended v1 Mixins
 
-### _mq.scss
+### \_mq.scss
 
 ```scss
 @use "sass:map";
@@ -192,7 +192,7 @@ $ls-breakpoints: (
 }
 ```
 
-### _motion.scss
+### \_motion.scss
 
 ```scss
 @mixin reduced-motion {
@@ -224,7 +224,7 @@ $ls-breakpoints: (
 }
 ```
 
-### _focus.scss
+### \_focus.scss
 
 ```scss
 @mixin focus-ring(
@@ -239,7 +239,7 @@ $ls-breakpoints: (
 }
 ```
 
-### _surface.scss
+### \_surface.scss
 
 ```scss
 @mixin absolute-fill($inset: 0) {
@@ -262,19 +262,29 @@ $ls-breakpoints: (
 }
 ```
 
-### _glass.scss
+### \_glass.scss
 
 ```scss
 @mixin glass-surface(
-  $background: color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent),
-  $border: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent),
+  $background: color-mix(
+      in srgb,
+      var(--wp--custom--color--surface--card) 24%,
+      transparent
+    ),
+  $border: color-mix(
+      in srgb,
+      var(--wp--custom--color--surface--highlight) 35%,
+      transparent
+    ),
   $radius: var(--wp--preset--border-radius--300),
   $blur: 24px,
   $shadow: var(--wp--custom--shadow--elevation--200)
 ) {
   @include surface-card($radius, 1px solid $border, $background, $shadow);
 
-  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @supports (
+    (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+  ) {
     backdrop-filter: blur($blur);
     -webkit-backdrop-filter: blur($blur);
   }
@@ -295,13 +305,23 @@ $ls-breakpoints: (
     @include absolute-fill(auto 0 auto 0);
     top: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, $top-highlight, transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $top-highlight,
+      transparent
+    );
   }
 
   &::after {
     @include absolute-fill(0 auto 0 0);
     width: 1px;
-    background: linear-gradient(180deg, $side-highlight, transparent, rgba(255, 255, 255, 0.3));
+    background: linear-gradient(
+      180deg,
+      $side-highlight,
+      transparent,
+      rgba(255, 255, 255, 0.3)
+    );
   }
 }
 ```

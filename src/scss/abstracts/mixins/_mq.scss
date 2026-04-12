@@ -1,0 +1,45 @@
+@use "sass:map";
+
+$ls-breakpoints: (
+  full: 1440px,
+  desktop: 1280px,
+  tablet-landscape: 1024px,
+  tablet-portrait: 768px,
+  mobile-landscape: 640px,
+  mobile-portrait: 390px,
+  mobile-compact: 320px,
+);
+
+@function breakpoint($name) {
+  @if not map.has-key($ls-breakpoints, $name) {
+    @error "Unknown LightSpeed breakpoint `#{$name}`.";
+  }
+
+  @return map.get($ls-breakpoints, $name);
+}
+
+@mixin mq($from: null, $until: null) {
+  @if null == $from and null == $until {
+    @error "The mq() mixin requires at least one of `$from` or `$until`.";
+  }
+
+  $query: null;
+
+  @if null != $from {
+    $query: "(min-width: #{breakpoint($from)})";
+  }
+
+  @if null != $until {
+    $max-query: "(max-width: #{breakpoint($until) - 0.02px})";
+
+    @if null == $query {
+      $query: $max-query;
+    } @else {
+      $query: "#{$query} and #{$max-query}";
+    }
+  }
+
+  @media #{$query} {
+    @content;
+  }
+}

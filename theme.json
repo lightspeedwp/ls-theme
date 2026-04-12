@@ -427,6 +427,10 @@
                 "border": {
                     "card": "var(--wp--preset--color--neutral-300)"
                 },
+                    "text-shadow": {
+                        "contrast": "var(--wp--preset--color--contrast)",
+                        "base": "var(--wp--preset--color--base)"
+                    },
                 "link": {
                     "default": "var(--wp--preset--color--contrast)",
                     "decoration-start": "var(--wp--preset--color--brand-600)",
@@ -501,11 +505,15 @@
                     "200": "0.5px 2px 6px 1px rgba(17, 17, 17, 0.2)",
                     "300": "1px 4px 12px 4px rgba(17, 17, 17, 0.2)",
                     "400": "1px 4px 12px 4px rgba(17, 17, 17, 0.3)",
-                    "500": "1px 4px 12px 4px rgba(17, 17, 17, 0.3)",
+                    "500": "1px 4px 12px 4px rgba(17, 17, 17, 0.4)",
                     "600": "2px 6px 12px 6px rgba(17, 17, 17, 0.3)"
                 },
+                "heading": {
+                    "contrast": "0.5px 2px 3px color-mix(in srgb, var(--wp--custom--color--text-shadow--contrast) 18%, transparent)",
+                    "base": "0.5px 2px 3px color-mix(in srgb, var(--wp--custom--color--text-shadow--base) 24%, transparent)"
+                },
                 "card": {
-                    "hover": "var(--wp--custom--shadow--elevation--300), 0 28px 56px -28px color-mix(in srgb, var(--wp--custom--color--link--accent) 48%, transparent), 0 14px 30px -18px color-mix(in srgb, var(--wp--custom--color--link--accent) 28%, transparent)"
+                    "hover": "0 9px 28px -16px color-mix(in srgb, var(--wp--custom--color--text--brand) 80%, transparent), 0 8px 18px -14px color-mix(in srgb, var(--wp--custom--color--text--brand-strong) 24%, transparent)"
                 }
             },
             "animation": {

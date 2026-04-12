@@ -1,5 +1,3 @@
-/********** GSAP Effects **********/
-/* Card Spotlight: GSAP-driven spotlight card effect. */
 .is-style-card-spotlight {
   --ls-card-radius: var(--wp--preset--border-radius--400);
   --ls-card-border-width: 1px;
@@ -27,6 +25,7 @@
   box-shadow: inset 0 0 0 color-mix(in srgb, var(--wp--custom--color--surface--highlight) 90%, transparent), var(--ls-card-shadow);
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
+
 .is-style-card-spotlight::before, .is-style-card-spotlight::after {
   content: "";
   position: absolute;
@@ -35,6 +34,7 @@
   border-radius: inherit;
   will-change: opacity, transform;
 }
+
 .is-style-card-spotlight::before {
   background: radial-gradient(circle var(--ls-effect-primary-size) at var(--ls-effect-x) var(--ls-effect-y), color-mix(in srgb, var(--ls-effect-primary-colour) 15%, transparent) 0%, transparent 12%), radial-gradient(circle var(--ls-effect-secondary-size) at var(--ls-effect-x) var(--ls-effect-y), color-mix(in srgb, var(--ls-effect-secondary-colour) 8%, transparent) 0%, transparent 10%);
   opacity: var(--ls-effect-opacity);
@@ -43,10 +43,13 @@
   transform-origin: center;
   z-index: var(--wp--custom--z-index--base);
 }
+
 .is-style-card-spotlight::after {
   padding: 2.5px;
   background: radial-gradient(circle calc(var(--ls-effect-primary-size) * 0.9) at var(--ls-effect-x) var(--ls-effect-y), color-mix(in srgb, var(--ls-effect-primary-colour) 75%, transparent) 0%, transparent 30%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
   mask-composite: exclude;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -54,22 +57,22 @@
   filter: brightness(1.15);
   z-index: var(--wp--custom--z-index--base);
 }
+
 .is-style-card-spotlight:hover, .is-style-card-spotlight:focus-within {
   border-color: color-mix(in srgb, var(--ls-effect-primary-colour) 25%, var(--ls-card-border-colour));
   box-shadow: inset 0 0 0 color-mix(in srgb, var(--wp--custom--color--surface--highlight) 95%, transparent), 0 0 0 0 color-mix(in srgb, var(--ls-effect-primary-colour) 100%, transparent), 0 1.25rem 2.5rem -1.75rem color-mix(in srgb, var(--ls-effect-primary-colour) 100%, transparent), var(--ls-card-shadow);
 }
+
 .is-style-card-spotlight > * {
   position: relative;
   z-index: var(--wp--custom--z-index--content);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-card-spotlight::before,
-  .is-style-card-spotlight::after {
+  .is-style-card-spotlight::before, .is-style-card-spotlight::after {
     transition: none;
   }
 }
-/* Home Hero Section: background-only Group block style. */
 .is-style-home-hero-section {
   --ls-home-hero-surface: var(--wp--custom--color--surface--canvas);
   --ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
@@ -80,13 +83,13 @@
   isolation: isolate;
   background: radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%, transparent 34%), radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--ls-home-hero-cta) 14%, transparent) 0%, transparent 28%), radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--ls-home-hero-accent) 7%, transparent) 0%, transparent 36%), linear-gradient(180deg, color-mix(in srgb, var(--ls-home-hero-surface) 98%, var(--wp--custom--color--surface--highlight) 2%) 0%, var(--ls-home-hero-surface) 100%);
 }
+
 .is-style-home-hero-section > :not(.ls-home-hero-section__background) {
   position: relative;
   z-index: var(--wp--custom--z-index--content);
 }
 
-.ls-home-hero-section__background,
-.ls-home-hero-section__network {
+.ls-home-hero-section__background, .ls-home-hero-section__network {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -153,3 +156,4 @@
     height: 16rem;
   }
 }
+

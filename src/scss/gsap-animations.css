@@ -46,8 +46,10 @@
 .is-style-card-spotlight::after {
   padding: 2.5px;
   background: radial-gradient(circle calc(var(--ls-effect-primary-size) * 0.9) at var(--ls-effect-x) var(--ls-effect-y), color-mix(in srgb, var(--ls-effect-primary-colour) 75%, transparent) 0%, transparent 30%) border-box;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   opacity: var(--ls-effect-border-opacity);
@@ -65,7 +67,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .is-style-card-spotlight::before,
-  .is-style-card-spotlight::after {
+.is-style-card-spotlight::after {
     transition: none;
   }
 }
@@ -153,3 +155,4 @@
     height: 16rem;
   }
 }
+/*# sourceMappingURL=gsap-animations.css.map */

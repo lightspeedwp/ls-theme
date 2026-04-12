@@ -22,6 +22,10 @@
 				"border": {
 					"card": "var(--wp--preset--color--neutral-600)"
 				},
+				"text-shadow": {
+					"contrast": "var(--wp--preset--color--base)",
+					"base": "var(--wp--preset--color--contrast)"
+				},
 				"link": {
 					"default": "var(--wp--preset--color--base)",
 					"decoration-start": "var(--wp--preset--color--brand-400)",

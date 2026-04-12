@@ -1,11 +1,18 @@
 /********** Text Motion **********/
 /* Gradient Accent */
+@-webkit-keyframes ls-gradient-text-clip {
+  to {
+    background-position: var(--ls-gradient-end-position, 100%) center;
+  }
+}
 @keyframes ls-gradient-text-clip {
   to {
     background-position: var(--ls-gradient-end-position, 100%) center;
   }
 }
 .wp-block-heading.is-style-gradient-accent {
+  width: var(--ls-gradient-width, -webkit-fit-content);
+  width: var(--ls-gradient-width, -moz-fit-content);
   width: var(--ls-gradient-width, fit-content);
   max-width: 100%;
 }
@@ -13,12 +20,13 @@
   margin-inline: auto;
 }
 .wp-block-heading.is-style-gradient-accent.has-text-align-right {
-  margin-inline-start: auto;
+  -webkit-margin-start: auto;
+          margin-inline-start: auto;
 }
 
-@supports (-webkit-background-clip: text) or (background-clip: text) {
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
+.wp-block-heading.is-style-gradient-accent a {
     background-image: var(--ls-gradient-image);
     background-position: var(--ls-gradient-start-position, 0%) center;
     background-repeat: no-repeat;
@@ -29,10 +37,12 @@
     -webkit-text-fill-color: transparent;
   }
   .wp-block-heading.is-style-gradient-accent {
-    animation: ls-gradient-text-clip var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop)) var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-gradient-direction, alternate);
+    -webkit-animation: ls-gradient-text-clip var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop)) var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-gradient-direction, alternate);
+            animation: ls-gradient-text-clip var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop)) var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-gradient-direction, alternate);
   }
   .wp-block-heading.is-style-gradient-accent a {
-    animation: inherit;
+    -webkit-animation: inherit;
+            animation: inherit;
   }
 }
 .wp-block-heading.is-style-gradient-accent a:focus-visible {
@@ -42,8 +52,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
-    animation: none;
+.wp-block-heading.is-style-gradient-accent a {
+    -webkit-animation: none;
+            animation: none;
     background-position: var(--ls-gradient-reduced-position, 100%) center;
   }
 }
@@ -96,7 +107,7 @@
   --ls-feature-card-border-active: var(--wp--custom--color--link--accent);
   --ls-feature-card-shadow-rest: var(--wp--custom--shadow--elevation--100);
   --ls-feature-card-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-feature-card-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--link--accent) 76%, transparent);
+  --ls-feature-card-icon-shadow-active: var(--wp--custom--shadow--card--hover);
   --ls-feature-card-lift: -6px;
   position: relative;
   overflow: hidden;
@@ -159,25 +170,25 @@
 .is-style-feature-card:hover .ls-feature-card__icon-shell, .is-style-feature-card:focus-within .ls-feature-card__icon-shell {
   border-color: var(--ls-feature-card-border-active);
   box-shadow: var(--ls-feature-card-icon-shadow-active);
-  transform: translateY(-3px) rotate(-10deg) scale(1.04);
+  transform: translateY(-3px) rotate(-10deg) scale(0.98);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
-  .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-feature-card,
-  .is-style-feature-card .ls-feature-card__icon-shell {
+.wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-feature-card,
+.is-style-feature-card .ls-feature-card__icon-shell {
     transition: none;
   }
   .is-style-feature-card:hover,
-  .is-style-feature-card:focus-within {
+.is-style-feature-card:focus-within {
     transform: none;
   }
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
-  .is-style-feature-card:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-feature-card:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
+.is-style-feature-card:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-feature-card:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
     transform: none;
   }
 }
@@ -299,7 +310,9 @@
   --ls-button-outline-icon-inline-start: calc(
     100% - var(--ls-button-outline-icon-well-size) - var(--ls-button-outline-icon-inset)
   );
+  transition: transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--smooth), -webkit-padding-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), -webkit-padding-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
   transition: padding-inline-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), padding-inline-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--smooth);
+  transition: padding-inline-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), padding-inline-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--smooth), -webkit-padding-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), -webkit-padding-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link::after {
@@ -322,8 +335,10 @@
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover,
 .wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
-  padding-inline-start: var(--ls-button-outline-hover-padding-start);
-  padding-inline-end: var(--ls-button-outline-hover-padding-end);
+  -webkit-padding-start: var(--ls-button-outline-hover-padding-start);
+          padding-inline-start: var(--ls-button-outline-hover-padding-start);
+  -webkit-padding-end: var(--ls-button-outline-hover-padding-end);
+          padding-inline-end: var(--ls-button-outline-hover-padding-end);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover::after,
@@ -351,3 +366,4 @@
   outline-color: transparent;
   outline-offset: var(--ls-button-glow-outline-offset, 12px);
 }
+/*# sourceMappingURL=animations.css.map */

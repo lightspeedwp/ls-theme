@@ -9,7 +9,9 @@ LightSpeed Theme is a custom WordPress block theme built by [LightSpeed](https:/
 This is the **LightSpeed Theme** repository — a production WordPress block theme for client and commercial projects.
 
 It includes:
+
 - A working WordPress block theme
+- A Sass source layer for authored effect CSS
 - Validation and linting tooling
 - AI guidance files and GitHub Copilot instructions
 - Structured folders for prompts, reports, tasks, docs, and AI agents
@@ -28,23 +30,23 @@ It includes:
 
 ## What It Includes
 
-| Area              | Details                                                     |
-|-------------------|-------------------------------------------------------------|
-| Theme files       | `style.css`, `theme.json`, `functions.php`, `readme.txt`    |
-| Templates         | `templates/index.html`                                      |
-| Parts             | `parts/header.html`, `parts/footer.html`                    |
-| Style variations  | `styles/light.json`, `styles/dark.json`                     |
-| Assets            | `assets/fonts/`, `assets/css/`, `assets/js/`, etc.         |
-| PHP includes      | `inc/` (empty, ready for use)                               |
-| Patterns          | `patterns/` (empty, ready for use)                          |
-| Validation        | `theme-utils.mjs`, `package.json`, `composer.json`          |
-| AI guidance       | `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` |
-| Copilot prompts   | `.github/prompts/`                                          |
-| Reports           | `.github/reports/`                                          |
-| Tasks             | `.github/tasks/`                                            |
-| Docs              | `docs/`                                                     |
-| Agent assets      | `.agents/skills/`, `.agents/agents/`                        |
-| CI workflows      | `.github/workflows/`                                        |
+| Area             | Details                                                     |
+| ---------------- | ----------------------------------------------------------- |
+| Theme files      | `style.css`, `theme.json`, `functions.php`, `readme.txt`    |
+| Templates        | `templates/index.html`                                      |
+| Parts            | `parts/header.html`, `parts/footer.html`                    |
+| Style variations | `styles/light.json`, `styles/dark.json`                     |
+| Assets           | `assets/fonts/`, `assets/css/`, `assets/js/`, etc.          |
+| PHP includes     | `inc/` (empty, ready for use)                               |
+| Patterns         | `patterns/` (empty, ready for use)                          |
+| Validation       | `theme-utils.mjs`, `package.json`, `composer.json`          |
+| AI guidance      | `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` |
+| Copilot prompts  | `.github/prompts/`                                          |
+| Reports          | `.github/reports/`                                          |
+| Tasks            | `.github/tasks/`                                            |
+| Docs             | `docs/`                                                     |
+| Agent assets     | `.agents/skills/`, `.agents/agents/`                        |
+| CI workflows     | `.github/workflows/`                                        |
 
 ---
 
@@ -71,7 +73,10 @@ composer install
 # 4. Validate the theme
 npm run theme:validate
 
-# 5. Validate JSON schema
+# 5. Compile authored CSS
+npm run build:css
+
+# 6. Validate JSON schema
 npm run schema:validate
 ```
 
@@ -107,6 +112,8 @@ npm run schema:validate
 │   ├── images/
 │   ├── css/
 │   └── js/
+├── src/
+│   └── scss/                # Sass source for authored theme CSS
 ├── docs/                      # End-user documentation
 ├── inc/                       # PHP includes
 ├── parts/
@@ -138,22 +145,24 @@ npm run schema:validate
 
 ### Node
 
-| Command                   | Description                                  |
-|---------------------------|----------------------------------------------|
-| `npm run schema:validate` | Validate theme.json and styles JSON schemas  |
-| `npm run theme:validate`  | Validate theme consistency                   |
-| `npm run patterns:escape` | Check PHP patterns for escaping issues       |
-| `npm run security:scan`   | Scan PHP files for security issues           |
-| `npm run lint`            | Run all linting                              |
-| `npm run lint:json`       | Lint JSON files                              |
+| Command                   | Description                                 |
+| ------------------------- | ------------------------------------------- |
+| `npm run schema:validate` | Validate theme.json and styles JSON schemas |
+| `npm run theme:validate`  | Validate theme consistency                  |
+| `npm run build:css`       | Compile Sass source to `assets/css/`        |
+| `npm run watch:css`       | Watch Sass source and rebuild CSS           |
+| `npm run patterns:escape` | Check PHP patterns for escaping issues      |
+| `npm run security:scan`   | Scan PHP files for security issues          |
+| `npm run lint`            | Run all linting                             |
+| `npm run lint:json`       | Lint JSON files                             |
 
 ### Composer
 
-| Command                   | Description                                  |
-|---------------------------|----------------------------------------------|
-| `composer run phpcs`      | PHP code sniffer                             |
-| `composer run phpcbf`     | Fix auto-fixable PHP issues                  |
-| `composer run lint:php`   | Lint PHP syntax                              |
+| Command                 | Description                 |
+| ----------------------- | --------------------------- |
+| `composer run phpcs`    | PHP code sniffer            |
+| `composer run phpcbf`   | Fix auto-fixable PHP issues |
+| `composer run lint:php` | Lint PHP syntax             |
 
 ---
 
@@ -171,14 +180,14 @@ npm run schema:validate
 
 ## AI Prompts, Reports, Tasks, Docs, Skills, and Agents
 
-| What                   | Where                        |
-|------------------------|------------------------------|
-| Copilot prompts        | `.github/prompts/`           |
-| Developer reports      | `.github/reports/`           |
-| Task lists             | `.github/tasks/`             |
-| End-user documentation | `docs/`                      |
-| Portable AI skills     | `.agents/skills/`            |
-| Agent personas         | `.agents/agents/`            |
+| What                   | Where              |
+| ---------------------- | ------------------ |
+| Copilot prompts        | `.github/prompts/` |
+| Developer reports      | `.github/reports/` |
+| Task lists             | `.github/tasks/`   |
+| End-user documentation | `docs/`            |
+| Portable AI skills     | `.agents/skills/`  |
+| Agent personas         | `.agents/agents/`  |
 
 See `AGENTS.md` for full guidance on AI workflow conventions.
 
