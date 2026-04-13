@@ -415,7 +415,7 @@
                     "default": "var(--wp--preset--color--contrast)",
                     "inverse": "var(--wp--preset--color--base)",
                     "muted": "var(--wp--preset--color--neutral-700)",
-                    "brand": "var(--wp--preset--color--brand-600)",
+                    "brand": "var(--wp--preset--color--brand-500)",
                     "brand-strong": "var(--wp--preset--color--brand-800)"
                 },
                 "surface": {
@@ -511,6 +511,9 @@
                 "heading": {
                     "contrast": "0.5px 2px 3px color-mix(in srgb, var(--wp--custom--color--text-shadow--contrast) 18%, transparent)",
                     "base": "0.5px 2px 3px color-mix(in srgb, var(--wp--custom--color--text-shadow--base) 24%, transparent)"
+                },
+                "interactive": {
+                    "accent": "1px 4px 12px 4px color-mix(in srgb, var(--wp--custom--color--link--accent) 50%, transparent)"
                 },
                 "card": {
                     "hover": "0 9px 28px -16px color-mix(in srgb, var(--wp--custom--color--text--brand) 80%, transparent), 0 8px 18px -14px color-mix(in srgb, var(--wp--custom--color--text--brand-strong) 24%, transparent)"

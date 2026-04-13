@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Icon Frame Glow",
+	"slug": "icon-frame-glow",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact icon frame with a reusable accent glow treatment.",
+	"styles": {
+		"color": {
+			"background": "var(--wp--custom--color--surface--card-raised)",
+			"text": "var(--wp--custom--color--text--brand)"
+		},
+		"border": {
+			"color": "var(--wp--custom--color--link--accent)",
+			"radius": "var:preset|border-radius|200",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "&{--ls-icon-frame-shadow-active:var(--wp--custom--shadow--interactive--accent);}"
+	}
+}

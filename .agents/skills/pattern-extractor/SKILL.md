@@ -1,6 +1,6 @@
 ---
 name: pattern-extractor
-description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, icon staging, and CSS-versus-GSAP motion routing.
+description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, Phosphor icon mapping into Icon Block markup, and CSS-versus-GSAP motion routing.
 ---
 
 # Pattern Extractor
@@ -230,16 +230,19 @@ Style constraints:
 - Prefer existing core block defaults and existing styles before creating new styles. Do not create a new heading block style when a native heading block at the correct level already satisfies the design intent.
 - If a hover shadow is likely to be reused across multiple cards, create it as a reusable custom shadow token rather than hardcoding the hover shadow in CSS.
 
-### Phase 6 — Icon Discovery And Staging
+### Phase 6 — Icon Discovery And Phosphor Mapping
 
 1. Detect icon usage from the Figma design.
-2. Check whether each icon already exists in `assets/icons/`.
-3. When a card uses an icon holder, model it as a nested `core/group` shell containing an Icon Block.
-4. If the user intends to replace icons later, the Icon Block may be left empty in the pattern while preserving the correct icon wrapper structure.
-5. For missing icons that should be staged now:
-   - prepare clean SVG files
-   - use clear kebab-case filenames
-   - keep them reusable and free from unnecessary metadata
+2. Match each detected icon to the closest Phosphor Icons glyph from https://phosphoricons.com/ using both visual silhouette and semantic intent from the surrounding content.
+3. Prefer a high-confidence Phosphor match over exporting a bespoke SVG from Figma.
+4. When a card uses an icon holder, model it as a nested `core/group` shell containing an Icon Block populated with the chosen Phosphor icon.
+5. Leave the Icon Block empty only when:
+   - the user explicitly wants to replace the icon later
+   - there is no confident Phosphor match and the user has not approved a fallback
+6. Treat icon matching as part of the proposal:
+   - report the chosen Phosphor icon name for each detected icon
+   - flag any low-confidence matches for confirmation before implementation
+7. Use `assets/icons/` only as an explicit fallback path when no suitable Phosphor icon exists and the user approves shipping a bespoke SVG.
 
 ### Phase 7 — Proposal Report
 
@@ -259,7 +262,7 @@ The report must include:
 10. Semantic colour tokens to reuse
 11. Semantic colour tokens to add, with matching `theme.json` and `styles/dark.json` paths
 12. Non-colour preset mappings used
-13. Icons matched and icons still needed
+13. Phosphor icon matches, confidence, and any fallback icons still needing approval
 14. Context-aware block map with confidence scores
 15. Assumptions or ambiguities that need confirmation
 
@@ -276,7 +279,7 @@ After the user confirms:
 5. Add GSAP CSS and JS to `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js` only when the approved plan requires it.
 6. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
 7. Create the pattern file in `patterns/<subfolder>/<pattern-slug>.php`.
-8. Stage any missing icons in `assets/icons/` only when the icon should be supplied now.
+8. Populate Icon Blocks with the approved Phosphor icons, and use `assets/icons/` only for approved bespoke fallbacks.
 9. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
 
 ## Pattern Authoring Standards
@@ -306,7 +309,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - Do not hard-code URLs when a WordPress function should provide them.
 - Group patterns into subfolders by family, such as `patterns/cards/`, `patterns/hero/`, or `patterns/content/`.
 - Prefer a native `core/heading` block at the correct level before introducing a dedicated heading block style.
-- When a card includes an icon tile, use a nested `core/group` wrapper with an Icon Block inside it.
+- When a card includes an icon tile, use a nested `core/group` wrapper with an Icon Block inside it, populated with the approved Phosphor icon unless the user has approved an empty or bespoke fallback state.
 
 ### PHP, Escaping, And i18n
 
@@ -347,7 +350,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - GSAP interactions are placed in `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js`
 - Reduced-motion handling is present for any new motion work
 - New GSAP block styles are registered in `inc/gsap.php` when needed
-- Icon wrappers use a nested Group plus Icon Block structure, and icons are staged in `assets/icons/` only when they should ship with the pattern
+- Icon wrappers use a nested Group plus Icon Block structure, detected icons are matched to Phosphor Icons first, and `assets/icons/` is used only for approved bespoke fallbacks
 - Single-card patterns remain insertable from the editor unless explicitly overridden
 - Visual output matches the Figma intent without importing foreign design-system token names into the final theme
 
@@ -362,7 +365,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 7. **Motion routing**: `<interactive element -> CSS or GSAP -> files to update>`
 8. **Semantic colour tokens**: `<reuse list + new general-purpose paths if required>`
 9. **Non-colour token mapping**: `<spacing/typography/radius/shadow/layout summary>`
-10. **Icons**: `<group wrapper + icon block handling + existing matches + missing files>`
+10. **Icons**: `<group wrapper + icon block handling + chosen Phosphor matches + confidence + any bespoke fallback approvals needed>`
 11. **Need confirmation on**: `<open decisions or ambiguities>`
 
 Then ask: `Approve this plan and proceed with implementation?`

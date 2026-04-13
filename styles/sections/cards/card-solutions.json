@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Feature Card",
-	"slug": "feature-card",
+	"title": "Card - Solutions",
+	"slug": "card-solutions",
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact card shell for a replaceable icon, H3 heading, supporting copy, and inline CTA.",
+	"description": "Compact white card shell for a replaceable icon, supporting copy, and an icon-only CTA.",
 	"styles": {
 		"color": {
 			"background": "var(--wp--custom--color--surface--card)",
@@ -14,13 +14,13 @@
 		},
 		"border": {
 			"color": "var(--wp--custom--color--border--card)",
-			"radius": "var:preset|border-radius|300",
+			"radius": "var:preset|border-radius|200",
 			"style": "solid",
 			"width": "1px"
 		},
 		"shadow": "var(--wp--custom--shadow--elevation--100)",
 		"spacing": {
-			"blockGap": "var:preset|spacing|30",
+			"blockGap": "var:preset|spacing|10",
 			"padding": {
 				"top": "var:preset|spacing|30",
 				"right": "var:preset|spacing|30",
@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{--ls-feature-card-hover-shadow:var(--wp--custom--shadow--card--hover);--ls-feature-card-lift:-4px;}"
+		"css": "&{--ls-card-solutions-hover-shadow:var(--wp--custom--shadow--interactive--accent);}"
 	}
 }

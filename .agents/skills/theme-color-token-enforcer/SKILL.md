@@ -39,7 +39,7 @@ Approved categories:
 - `surface`
 - `border`
 - `link`
-- `action`
+- `button`
 - `form`
 - `state`
 - `icon`
@@ -53,8 +53,8 @@ Prefer names such as:
 - `surface.canvas`
 - `surface.card`
 - `border.subtle`
-- `action.primary.background`
-- `action.primary.text`
+- `button.primary.background`
+- `button.primary.text`
 - `form.field.border-focus`
 
 Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-border`.

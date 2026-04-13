@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Tick Accent",
+	"slug": "tick-accent",
+	"blockTypes": [
+		"core/list"
+	],
+	"description": "Compact list style with blue circular tick markers for service-card bullet points.",
+	"styles": {
+		"color": {
+			"text": "var(--wp--custom--color--text--default)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--heading)",
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "300",
+			"lineHeight": "var(--wp--custom--line-height--paragraph)"
+		},
+		"css": "&{list-style:none;padding-left:0;margin-left:0;text-align:left;}& li{display:grid;grid-template-columns:1.2rem minmax(0,1fr);align-items:center;column-gap:var(--wp--preset--spacing--10);}& li::before{content:'\\2713';display:grid;place-items:center;inline-size:1.2rem;block-size:1.2rem;border-radius:var(--wp--preset--border-radius--500);background:var(--wp--custom--color--link--accent);color:var(--wp--custom--color--text--inverse);font-size:var(--wp--preset--font-size--100);font-weight:700;line-height:1;}"
+	}
+}

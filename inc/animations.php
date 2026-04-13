@@ -99,12 +99,37 @@ function ls_theme_register_effect_block_styles() {
 		return;
 	}
 
-	register_block_style(
-		'core/group',
+	$block_styles = array(
 		array(
-			'name'  => 'feature-card',
-			'label' => __( 'Feature Card', 'ls-theme' ),
-		)
+			'block_name' => 'core/group',
+			'name'       => 'card-feature',
+			'label'      => __( 'Card - Feature', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'card-solutions',
+			'label'      => __( 'Card - Solutions', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'icon-frame-glow',
+			'label'      => __( 'Icon Frame Glow', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/button',
+			'name'       => 'button-arrow-compact',
+			'label'      => __( 'Button Arrow Compact', 'ls-theme' ),
+		),
 	);
+
+	foreach ( $block_styles as $block_style ) {
+		register_block_style(
+			$block_style['block_name'],
+			array(
+				'name'  => $block_style['name'],
+				'label' => $block_style['label'],
+			)
+		);
+	}
 }
 add_action( 'init', 'ls_theme_register_effect_block_styles' );
