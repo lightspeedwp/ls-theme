@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Glass Button",
+	"slug": "glass-button",
+	"blockTypes": [
+		"core/button"
+	],
+	"description": "Reusable frosted-glass button treatment with subtle lift and accent focus feedback.",
+	"styles": {
+		"border": {
+			"color": "var(--ls-glass-button-border-rest)",
+			"radius": "var:preset|border-radius|200",
+			"style": "solid",
+			"width": "1px"
+		},
+		"color": {
+			"background": "var(--ls-glass-button-background-rest)",
+			"text": "var(--ls-glass-button-text-rest)"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|40",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|40"
+			}
+		},
+		"typography": {
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "var:custom|typography|font-weight|semibold",
+			"letterSpacing": "0.08em"
+		},
+		"css": "&{--ls-glass-button-background-rest:color-mix(in srgb,var(--wp--custom--color--surface--card) 24%,transparent);--ls-glass-button-background-hover:color-mix(in srgb,var(--wp--custom--color--surface--card) 36%,transparent);--ls-glass-button-border-rest:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 35%,transparent);--ls-glass-button-border-hover:color-mix(in srgb,var(--wp--custom--color--link--accent) 38%,var(--wp--custom--color--surface--highlight) 34%,transparent);--ls-glass-button-text-rest:var(--wp--custom--color--text--default);--ls-glass-button-text-hover:var(--wp--custom--color--text--brand);--ls-glass-button-blur:24px;--ls-glass-button-shadow-rest:var(--wp--custom--shadow--elevation--200);--ls-glass-button-shadow-hover:var(--wp--custom--shadow--elevation--300),var(--wp--custom--shadow--interactive--accent);--ls-glass-button-top-highlight:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 80%,transparent);--ls-glass-button-side-highlight:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 68%,transparent);--ls-glass-button-side-tail:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 26%,transparent);--ls-glass-button-focus-width:2px;--ls-glass-button-focus-colour:var(--wp--custom--color--focus--ring);--ls-glass-button-focus-offset:4px;--ls-glass-button-lift:-2px;--ls-button-active-scale:var(--wp--custom--animation--scale--active);}"
+	}
+}

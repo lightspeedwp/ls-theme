@@ -17,7 +17,6 @@
           "text": "var(--wp--custom--color--text--brand)"
         }
       }
-    },
-    "css": "&{--ls-gradient-width:fit-content;--ls-accent-gradient-image:linear-gradient(to right,var(--wp--custom--color--text--brand) 0%,var(--wp--custom--color--text--default) 25%,var(--wp--custom--color--text--brand-strong) 50%,var(--wp--custom--color--text--default) 75%,var(--wp--custom--color--text--brand) 100%);--ls-accent-gradient-size:200% auto;--ls-accent-gradient-start-position:0%;--ls-accent-gradient-end-position:100%;--ls-accent-gradient-duration:var(--wp--custom--animation--duration--loop);--ls-accent-gradient-delay:var(--wp--custom--animation--delay--none);--ls-accent-gradient-timing:var(--wp--custom--animation--easing--smooth);--ls-accent-gradient-direction:alternate;--ls-accent-gradient-focus-width:2px;--ls-accent-gradient-focus-color:var(--wp--custom--color--focus--ring);--ls-accent-gradient-focus-offset:4px;--ls-accent-gradient-reduced-position:100%;}"
+    }
   }
 }

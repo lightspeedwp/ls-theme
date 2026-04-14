@@ -1,4 +1,5 @@
 @use "sass:string";
+@use "abstracts/mixins/glass";
 @use "abstracts/mixins/motion";
 @use "abstracts/mixins/surface";
 
@@ -10,16 +11,47 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 /* Gradient Accent */
 @keyframes ls-accent-gradient-shift {
   to {
-    background-position: var(
-        --ls-accent-gradient-end-position,
-        var(--ls-gradient-end-position, 100%)
-      )
-      center;
+    background-position: var(--ls-accent-gradient-end-position) center;
   }
 }
 
 .wp-block-heading.is-style-gradient-accent {
-  width: var(--ls-gradient-width, fit-content);
+  --ls-accent-gradient-width: var(--ls-gradient-width, fit-content);
+  --ls-accent-gradient-image: var(
+    --ls-gradient-image,
+    linear-gradient(
+      to right,
+      var(--wp--custom--color--text--brand) 0%,
+      var(--wp--custom--color--text--default) 25%,
+      var(--wp--custom--color--text--brand-strong) 50%,
+      var(--wp--custom--color--text--default) 75%,
+      var(--wp--custom--color--text--brand) 100%
+    )
+  );
+  --ls-accent-gradient-size: var(--ls-gradient-size, 200% auto);
+  --ls-accent-gradient-start-position: var(--ls-gradient-start-position, 0%);
+  --ls-accent-gradient-end-position: var(--ls-gradient-end-position, 100%);
+  --ls-accent-gradient-duration: var(
+    --ls-gradient-duration,
+    var(--wp--custom--animation--duration--loop)
+  );
+  --ls-accent-gradient-delay: var(
+    --ls-gradient-delay,
+    var(--wp--custom--animation--delay--none)
+  );
+  --ls-accent-gradient-timing: var(
+    --ls-gradient-timing,
+    var(--wp--custom--animation--easing--smooth)
+  );
+  --ls-accent-gradient-direction: var(--ls-gradient-direction, alternate);
+  --ls-accent-gradient-focus-width: var(--ls-gradient-focus-width, 2px);
+  --ls-accent-gradient-focus-color: var(
+    --ls-gradient-focus-color,
+    var(--wp--custom--color--focus--ring)
+  );
+  --ls-accent-gradient-focus-offset: var(--ls-gradient-focus-offset, 4px);
+  --ls-accent-gradient-reduced-position: var(--ls-gradient-reduced-position, 100%);
+  width: var(--ls-accent-gradient-width);
   max-width: 100%;
 
   &.has-text-align-center {
@@ -34,17 +66,10 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .wp-block-heading.is-style-gradient-accent,
   .wp-block-heading.is-style-gradient-accent a {
-    background-image: var(--ls-accent-gradient-image, var(--ls-gradient-image));
-    background-position: var(
-        --ls-accent-gradient-start-position,
-        var(--ls-gradient-start-position, 0%)
-      )
-      center;
+    background-image: var(--ls-accent-gradient-image);
+    background-position: var(--ls-accent-gradient-start-position) center;
     background-repeat: no-repeat;
-    background-size: var(
-      --ls-accent-gradient-size,
-      var(--ls-gradient-size, 200% auto)
-    );
+    background-size: var(--ls-accent-gradient-size);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -54,26 +79,11 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
   .wp-block-heading.is-style-gradient-accent {
     animation:
       ls-accent-gradient-shift
-      var(
-        --ls-accent-gradient-duration,
-        var(
-          --ls-gradient-duration,
-          var(--wp--custom--animation--duration--loop)
-        )
-      )
-      var(
-        --ls-accent-gradient-timing,
-        var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth))
-      )
-      var(
-        --ls-accent-gradient-delay,
-        var(--ls-gradient-delay, var(--wp--custom--animation--delay--none))
-      )
+      var(--ls-accent-gradient-duration)
+      var(--ls-accent-gradient-timing)
+      var(--ls-accent-gradient-delay)
       infinite
-      var(
-        --ls-accent-gradient-direction,
-        var(--ls-gradient-direction, alternate)
-      );
+      var(--ls-accent-gradient-direction);
   }
 
   .wp-block-heading.is-style-gradient-accent a {
@@ -82,29 +92,16 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 }
 
 .wp-block-heading.is-style-gradient-accent a:focus-visible {
-  outline: var(
-      --ls-accent-gradient-focus-width,
-      var(--ls-gradient-focus-width, 2px)
-    )
-    solid var(
-      --ls-accent-gradient-focus-color,
-      var(--ls-gradient-focus-color, currentColor)
-    );
-  outline-offset: var(
-    --ls-accent-gradient-focus-offset,
-    var(--ls-gradient-focus-offset, 4px)
-  );
+  outline: var(--ls-accent-gradient-focus-width) solid
+    var(--ls-accent-gradient-focus-color);
+  outline-offset: var(--ls-accent-gradient-focus-offset);
 }
 
 @include motion.reduced-motion {
   .wp-block-heading.is-style-gradient-accent,
   .wp-block-heading.is-style-gradient-accent a {
     animation: none;
-    background-position: var(
-        --ls-accent-gradient-reduced-position,
-        var(--ls-gradient-reduced-position, 100%)
-      )
-      center;
+    background-position: var(--ls-accent-gradient-reduced-position) center;
   }
 }
 
@@ -331,6 +328,88 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
     svg {
       fill: currentColor;
     }
+  }
+}
+
+/* Glass Card */
+.is-style-glass-card {
+  @include glass.glass-surface(
+    $background: var(
+      --ls-glass-card-background-rest,
+      color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent)
+    ),
+    $border: var(
+      --ls-glass-card-border-rest,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent)
+    ),
+    $radius: var(--wp--preset--border-radius--300),
+    $blur: var(--ls-glass-card-blur, 24px),
+    $shadow: var(
+      --ls-glass-card-shadow-rest,
+      var(--wp--custom--shadow--elevation--200)
+    )
+  );
+  @include glass.glass-edge-highlights(
+    $top-highlight: var(
+      --ls-glass-card-top-highlight,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 82%, transparent)
+    ),
+    $side-highlight: var(
+      --ls-glass-card-side-highlight,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 72%, transparent)
+    ),
+    $side-tail: var(
+      --ls-glass-card-side-tail,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 30%, transparent)
+    )
+  );
+  isolation: isolate;
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    outline-color var(--wp--custom--animation--duration--focus)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+  outline: var(--ls-glass-card-focus-width, 2px) solid transparent;
+  outline-offset: var(--ls-glass-card-focus-offset, 4px);
+
+  &::before,
+  &::after {
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  > * {
+    position: relative;
+    z-index: var(--wp--custom--z-index--content);
+  }
+
+  &:hover,
+  &:focus-within {
+    background: var(
+      --ls-glass-card-background-hover,
+      var(--ls-glass-card-background-rest)
+    );
+    border-color: var(
+      --ls-glass-card-border-hover,
+      var(--ls-glass-card-border-rest)
+    );
+    box-shadow: var(
+      --ls-glass-card-shadow-hover,
+      var(--ls-glass-card-shadow-rest)
+    );
+    transform: translateY(var(--ls-glass-card-lift, -4px));
+  }
+
+  &:focus-within {
+    outline-color: var(
+      --ls-glass-card-focus-colour,
+      var(--wp--custom--color--focus--ring)
+    );
   }
 }
 
@@ -655,6 +734,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 @include motion.reduced-motion {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   .is-style-card-services,
@@ -667,6 +747,8 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
     transition: none;
   }
 
+  .is-style-glass-card:hover,
+  .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
   .is-style-card-services:hover,
@@ -925,6 +1007,103 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
 
 /* Button Glow Accent */
+.wp-block-button.is-style-glass-button {
+  max-inline-size: 100%;
+}
+
+.wp-block-button.is-style-glass-button .wp-block-button__link {
+  @include glass.glass-surface(
+    $background: var(
+      --ls-glass-button-background-rest,
+      color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent)
+    ),
+    $border: var(
+      --ls-glass-button-border-rest,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent)
+    ),
+    $radius: var(--wp--preset--border-radius--200),
+    $blur: var(--ls-glass-button-blur, 24px),
+    $shadow: var(
+      --ls-glass-button-shadow-rest,
+      var(--wp--custom--shadow--elevation--200)
+    )
+  );
+  @include glass.glass-edge-highlights(
+    $top-highlight: var(
+      --ls-glass-button-top-highlight,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 80%, transparent)
+    ),
+    $side-highlight: var(
+      --ls-glass-button-side-highlight,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 68%, transparent)
+    ),
+    $side-tail: var(
+      --ls-glass-button-side-tail,
+      color-mix(in srgb, var(--wp--custom--color--surface--highlight) 26%, transparent)
+    )
+  );
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  white-space: nowrap;
+  isolation: isolate;
+  text-align: center;
+  color: var(
+    --ls-glass-button-text-rest,
+    var(--wp--custom--color--text--default)
+  );
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    outline-color var(--wp--custom--animation--duration--focus)
+      var(--wp--custom--animation--easing--standard),
+    outline-offset var(--wp--custom--animation--duration--focus)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+  transition-delay: var(--wp--custom--animation--delay--none);
+  outline: var(--ls-glass-button-focus-width, 2px) solid transparent;
+  outline-offset: var(--ls-glass-button-focus-offset, 4px);
+
+  &:hover,
+  &:focus-visible {
+    background: var(
+      --ls-glass-button-background-hover,
+      var(--ls-glass-button-background-rest)
+    );
+    border-color: var(
+      --ls-glass-button-border-hover,
+      var(--ls-glass-button-border-rest)
+    );
+    box-shadow: var(
+      --ls-glass-button-shadow-hover,
+      var(--ls-glass-button-shadow-rest)
+    );
+    color: var(
+      --ls-glass-button-text-hover,
+      var(--ls-glass-button-text-rest)
+    );
+    transform: translateY(var(--ls-glass-button-lift, -2px));
+  }
+
+  &:focus-visible {
+    outline-color: var(
+      --ls-glass-button-focus-colour,
+      var(--wp--custom--color--focus--ring)
+    );
+    outline-offset: var(--ls-glass-button-focus-offset, 4px);
+  }
+}
+
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link {
   transition:
     box-shadow var(--wp--custom--animation--duration--dramatic)
@@ -1056,9 +1235,16 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 }
 
 @include motion.reduced-motion {
+  .wp-block-button.is-style-glass-button .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transition: none;
+  }
+
+  .wp-block-button.is-style-glass-button .wp-block-button__link:hover,
+  .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible,
+  .wp-block-button.is-style-glass-button .wp-block-button__link:active {
+    transform: none;
   }
 
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
