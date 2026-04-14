@@ -21,7 +21,11 @@
   }
 
   @if null != $until {
-    $max-query: "(max-width: #{breakpoint($until) - 0.02px})";
+    // Subtract a tiny offset so this max-width query stops just before the
+    // next inclusive min-width breakpoint. This prevents adjacent breakpoint
+    // ranges from overlapping at the exact breakpoint value.
+    $breakpoint-max-width-offset: 0.02px;
+    $max-query: "(max-width: #{breakpoint($until) - $breakpoint-max-width-offset})";
 
     @if null == $query {
       $query: $max-query;

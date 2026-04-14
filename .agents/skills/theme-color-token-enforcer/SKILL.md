@@ -22,7 +22,8 @@ Related shared non-colour token families:
 - `settings.custom.animation` for repeated motion values such as duration, delay, easing, and scale
 - `settings.custom.typography.font-weight` for repeated font-weight values such as `light`, `normal`, `medium`, and `semibold`
 - `settings.custom.z-index` for repeated stacking layers
-- When a task also changes typography weight in an authored UI file, prefer `var(--wp--custom--typography--font-weight--...)` over raw numeric literals such as `300` or `400`
+- When a task also changes typography weight in a normal JSON property value, prefer `var:custom|typography|font-weight|...` over raw numeric literals such as `300` or `400`
+- Inside raw `css` strings embedded in style JSON, continue using CSS custom property syntax such as `var(--wp--custom--typography--font-weight--...)`
 - These families live in `theme.json` only unless a task explicitly asks for mode-specific non-colour overrides
 - Only semantic colour tokens require dark-mode parity by default
 
@@ -106,7 +107,8 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 
 - Replace visual authored usage with `var(--wp--custom--color--...)`.
 - Keep non-colour custom tokens, spacing, widths, line-heights, and layout values unchanged unless the task also asks for them.
-- If font-weight changes are in scope and the theme already exposes custom typography weight tokens, use `var(--wp--custom--typography--font-weight--...)` rather than raw numeric literals.
+- If font-weight changes are in scope and the theme already exposes custom typography weight tokens, use `var:custom|typography|font-weight|...` in normal JSON property values rather than raw numeric literals.
+- Keep `var(--wp--custom--...)` syntax for those tokens inside raw CSS strings.
 
 11. Re-scan until the target no longer contains direct visual preset-colour references or raw visual colours outside approved exceptions.
 12. Report:
@@ -132,7 +134,7 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 - Do not auto-rewrite non-visual masking or compositing colours without an explicit note.
 - Do not weaken contrast to preserve a preferred hue.
 - Do not mirror `settings.custom.animation` or `settings.custom.z-index` into `styles/dark.json` unless the task explicitly asks for a mode-specific non-colour override.
-- Do not introduce raw numeric `font-weight` literals into authored UI when the theme already exposes matching `settings.custom.typography.font-weight` tokens.
+- Do not introduce raw numeric `font-weight` literals into normal JSON property values when the theme already exposes matching `settings.custom.typography.font-weight` tokens.
 - Do not create extra same-family tokens that map to the same preset as an existing same-family token unless a verified mode-specific or state-specific distinction is required.
 
 ## Suggested scan scope

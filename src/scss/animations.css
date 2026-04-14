@@ -1,11 +1,18 @@
 /********** Text Motion **********/
 /* Gradient Accent */
+@-webkit-keyframes ls-accent-gradient-shift {
+  to {
+    background-position: var(--ls-accent-gradient-end-position, var(--ls-gradient-end-position, 100%)) center;
+  }
+}
 @keyframes ls-accent-gradient-shift {
   to {
     background-position: var(--ls-accent-gradient-end-position, var(--ls-gradient-end-position, 100%)) center;
   }
 }
 .wp-block-heading.is-style-gradient-accent {
+  width: var(--ls-gradient-width, -webkit-fit-content);
+  width: var(--ls-gradient-width, -moz-fit-content);
   width: var(--ls-gradient-width, fit-content);
   max-width: 100%;
 }
@@ -13,12 +20,13 @@
   margin-inline: auto;
 }
 .wp-block-heading.is-style-gradient-accent.has-text-align-right {
-  margin-inline-start: auto;
+  -webkit-margin-start: auto;
+          margin-inline-start: auto;
 }
 
-@supports (-webkit-background-clip: text) or (background-clip: text) {
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
+.wp-block-heading.is-style-gradient-accent a {
     background-image: var(--ls-accent-gradient-image, var(--ls-gradient-image));
     background-position: var(--ls-accent-gradient-start-position, var(--ls-gradient-start-position, 0%)) center;
     background-repeat: no-repeat;
@@ -29,10 +37,12 @@
     -webkit-text-fill-color: transparent;
   }
   .wp-block-heading.is-style-gradient-accent {
-    animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop))) var(--ls-accent-gradient-timing, var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth))) var(--ls-accent-gradient-delay, var(--ls-gradient-delay, var(--wp--custom--animation--delay--none))) infinite var(--ls-accent-gradient-direction, var(--ls-gradient-direction, alternate));
+    -webkit-animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop))) var(--ls-accent-gradient-timing, var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth))) var(--ls-accent-gradient-delay, var(--ls-gradient-delay, var(--wp--custom--animation--delay--none))) infinite var(--ls-accent-gradient-direction, var(--ls-gradient-direction, alternate));
+            animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--ls-gradient-duration, var(--wp--custom--animation--duration--loop))) var(--ls-accent-gradient-timing, var(--ls-gradient-timing, var(--wp--custom--animation--easing--smooth))) var(--ls-accent-gradient-delay, var(--ls-gradient-delay, var(--wp--custom--animation--delay--none))) infinite var(--ls-accent-gradient-direction, var(--ls-gradient-direction, alternate));
   }
   .wp-block-heading.is-style-gradient-accent a {
-    animation: inherit;
+    -webkit-animation: inherit;
+            animation: inherit;
   }
 }
 .wp-block-heading.is-style-gradient-accent a:focus-visible {
@@ -42,8 +52,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
-    animation: none;
+.wp-block-heading.is-style-gradient-accent a {
+    -webkit-animation: none;
+            animation: none;
     background-position: var(--ls-accent-gradient-reduced-position, var(--ls-gradient-reduced-position, 100%)) center;
   }
 }
@@ -118,7 +129,8 @@
   flex: none;
   width: 0.625rem;
   height: 0.625rem;
-  margin-inline-start: auto;
+  -webkit-margin-start: auto;
+          margin-inline-start: auto;
   border-right: 2px solid var(--wp--custom--color--link--accent);
   border-bottom: 2px solid var(--wp--custom--color--link--accent);
   transform: translateY(-1px) rotate(45deg);
@@ -291,7 +303,8 @@
   transform: scale(var(--ls-card-services-scale));
 }
 .is-style-card-services:hover::before, .is-style-card-services:focus-within::before {
-  animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--wp--custom--animation--duration--loop)) var(--ls-accent-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-accent-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-accent-gradient-direction, alternate);
+  -webkit-animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--wp--custom--animation--duration--loop)) var(--ls-accent-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-accent-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-accent-gradient-direction, alternate);
+          animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--wp--custom--animation--duration--loop)) var(--ls-accent-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-accent-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-accent-gradient-direction, alternate);
 }
 .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
   align-self: center;
@@ -455,41 +468,42 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
-  .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-feature,
-  .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
-  .is-style-card-services,
-  .is-style-card-services::before,
-  .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
-  .is-style-icon-frame-glow,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent),
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading {
+.wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-feature,
+.is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+.is-style-card-services,
+.is-style-card-services::before,
+.is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+.is-style-icon-frame-glow,
+:is(.is-style-card-solutions, .is-style-card-solutions-accent),
+:is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading {
     transition: none;
   }
   .is-style-card-feature:hover,
-  .is-style-card-feature:focus-within,
-  .is-style-card-services:hover,
-  .is-style-card-services:focus-within {
+.is-style-card-feature:focus-within,
+.is-style-card-services:hover,
+.is-style-card-services:focus-within {
     transform: none;
   }
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
-  .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
+.is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
     transform: none;
   }
   .is-style-card-services:hover::before,
-  .is-style-card-services:focus-within::before {
-    animation: none;
+.is-style-card-services:focus-within::before {
+    -webkit-animation: none;
+            animation: none;
     background-position: var(--ls-accent-gradient-reduced-position, var(--ls-accent-gradient-end-position, 100%)) center;
   }
   .is-style-icon-frame-glow:hover,
-  .is-style-icon-frame-glow:focus-within,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
+.is-style-icon-frame-glow:focus-within,
+:is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow,
+:is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
     transform: none;
   }
 }
@@ -611,7 +625,9 @@
   --ls-button-outline-icon-inline-start: calc(
     100% - var(--ls-button-outline-icon-well-size) - var(--ls-button-outline-icon-inset)
   );
+  transition: transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--smooth), -webkit-padding-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), -webkit-padding-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
   transition: padding-inline-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), padding-inline-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--smooth);
+  transition: padding-inline-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), padding-inline-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--smooth), -webkit-padding-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), -webkit-padding-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link::after {
@@ -634,8 +650,10 @@
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover,
 .wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
-  padding-inline-start: var(--ls-button-outline-hover-padding-start);
-  padding-inline-end: var(--ls-button-outline-hover-padding-end);
+  -webkit-padding-start: var(--ls-button-outline-hover-padding-start);
+          padding-inline-start: var(--ls-button-outline-hover-padding-start);
+  -webkit-padding-end: var(--ls-button-outline-hover-padding-end);
+          padding-inline-end: var(--ls-button-outline-hover-padding-end);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link:hover::after,
@@ -719,14 +737,15 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transition: none;
   }
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
+:is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
+:is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transform: none;
   }
 }
+/*# sourceMappingURL=animations.css.map */
