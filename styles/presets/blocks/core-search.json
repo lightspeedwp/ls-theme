@@ -7,7 +7,7 @@
                 "css": ".wp-block-search__button-inside .wp-block-search__inside-wrapper { border: none; }",
                 "typography": {
                     "fontSize": "var:preset|font-size|200",
-                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                    "lineHeight": "var:custom|line-height|paragraph"
                 },
                 "elements": {
                     "button": {

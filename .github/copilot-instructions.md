@@ -25,7 +25,9 @@ The theme uses the WordPress Full Site Editing (FSE) / block theme approach:
 ## Key Principles
 
 - **theme.json first** — prefer `theme.json` for colours, typography, spacing, and layout over PHP or CSS.
+- **Source-first styling** — author theme styling in `src/scss/` and compile to `assets/css/` with the existing Sass CLI scripts. Do not introduce Gulp, Grunt, CodeKit, PurgeCSS, or alternate pipelines without approval.
 - **Semantic colour tokens** — authored UI styles should use `settings.custom.color` tokens, not direct preset-colour references. See `.github/instructions/design-token-policy.instructions.md`.
+- **Lean, predictable CSS** — keep selectors shallow, reuse the shared breakpoint mixin, prefer logical properties for directional layout, and favour `transform` or `opacity` for motion when possible.
 - **Minimal PHP** — `functions.php` should stay small. Use `inc/` only for necessary PHP logic.
 - **No unnecessary dependencies** — do not add npm or Composer packages without justification.
 - **No build pipeline** — this repo does not use Webpack, Vite, or similar unless deliberately added.
@@ -65,6 +67,7 @@ When working on specific file types, also consult these instruction files:
 - PHP: `.github/instructions/php.instructions.md`
 - Design tokens: `.github/instructions/design-token-policy.instructions.md`
 - Patterns: `.github/instructions/patterns.instructions.md`
+- Styling: `.github/instructions/styling.instructions.md`
 - Templates: `.github/instructions/templates.instructions.md`
 - theme.json: `.github/instructions/theme-json.instructions.md`
 - Workflows: `.github/instructions/workflows.instructions.md`
@@ -74,6 +77,9 @@ When working on specific file types, also consult these instruction files:
 ## Available Commands
 
 ```bash
+npm run sync:breakpoints  # Sync the generated Sass breakpoint map from theme.json
+npm run build:css         # Compile Sass entry files to assets/css
+npm run watch:css         # Watch Sass entry files and rebuild CSS
 npm run schema:validate   # Validate JSON schemas
 npm run theme:validate    # Validate theme consistency
 npm run patterns:escape   # Check PHP patterns for escaping issues

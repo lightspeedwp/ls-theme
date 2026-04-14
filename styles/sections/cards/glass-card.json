@@ -6,19 +6,16 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment.",
+	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Shared interaction contract lives in src/scss/animations.scss.",
 	"styles": {
 		"border": {
-			"color": "var(--ls-glass-card-border-rest)",
 			"radius": "var:preset|border-radius|300",
 			"style": "solid",
 			"width": "1px"
 		},
 		"color": {
-			"background": "var(--ls-glass-card-background-rest)",
-			"text": "var(--wp--custom--color--text--default)"
+			"text": "var:custom|color|text|default"
 		},
-		"shadow": "var(--ls-glass-card-shadow-rest)",
 		"spacing": {
 			"blockGap": "var:preset|spacing|30",
 			"padding": {
@@ -27,7 +24,6 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		},
-		"css": "&{--ls-glass-card-background-rest:color-mix(in srgb,var(--wp--custom--color--surface--card) 24%,transparent);--ls-glass-card-background-hover:color-mix(in srgb,var(--wp--custom--color--surface--card) 34%,transparent);--ls-glass-card-border-rest:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 35%,transparent);--ls-glass-card-border-hover:color-mix(in srgb,var(--wp--custom--color--link--accent) 32%,var(--wp--custom--color--surface--highlight) 30%,transparent);--ls-glass-card-blur:24px;--ls-glass-card-shadow-rest:var(--wp--custom--shadow--elevation--200);--ls-glass-card-shadow-hover:var(--wp--custom--shadow--elevation--300),var(--wp--custom--shadow--interactive--accent);--ls-glass-card-top-highlight:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 82%,transparent);--ls-glass-card-side-highlight:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 72%,transparent);--ls-glass-card-side-tail:color-mix(in srgb,var(--wp--custom--color--surface--highlight) 30%,transparent);--ls-glass-card-focus-width:2px;--ls-glass-card-focus-colour:var(--wp--custom--color--focus--ring);--ls-glass-card-focus-offset:4px;--ls-glass-card-lift:-4px;}"
+		}
 	}
 }

@@ -6,15 +6,15 @@
   "blockTypes": [
     "core/heading"
   ],
-  "description": "Animated gradient text for headings using the LightSpeed Theme accent presets.",
+  "description": "Animated gradient text for headings using the LightSpeed Theme accent presets. Shared interaction contract lives in src/scss/animations.scss.",
   "styles": {
     "color": {
-      "text": "var(--wp--custom--color--text--brand)"
+      "text": "var:wp|custom|color|text|brand"
     },
     "elements": {
       "link": {
         "color": {
-          "text": "var(--wp--custom--color--text--brand)"
+          "text": "var:wp|custom|color|text|brand"
         }
       }
     }

@@ -1,0 +1,111 @@
+@use "icons";
+
+/********** Link Motion **********/
+
+/* Link Underline Accent */
+.wp-block-paragraph.is-style-link-underline-accent {
+  --ls-link-underline-image: linear-gradient(
+    var(--wp--custom--color--link--decoration-start),
+    var(--wp--custom--color--link--decoration-end)
+  );
+  --ls-link-underline-padding-bottom: 3px;
+  --ls-link-underline-thickness: 2px;
+  --ls-link-underline-enter-delay: var(--wp--custom--animation--delay--enter);
+}
+
+.wp-block-paragraph.is-style-link-underline-accent a {
+  padding-bottom: var(--ls-link-underline-padding-bottom);
+  background-image: var(--ls-link-underline-image);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 var(--ls-link-underline-thickness);
+  transition:
+    background-size var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--none);
+
+  &:hover {
+    transition-delay: var(--ls-link-underline-enter-delay);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% var(--ls-link-underline-thickness);
+  }
+}
+
+/* Link Arrow Accent */
+.wp-block-paragraph.is-style-link-arrow-accent a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ls-link-arrow-gap, 0.45ch);
+  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
+  font-weight: var(--ls-link-arrow-weight, var(--wp--custom--typography--font-weight--semibold));
+  text-decoration: none;
+  transition:
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    gap var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--none);
+
+  &::after {
+    content: icons.$ls-icon-arrow-right;
+    display: inline-block;
+    transform: translateX(0);
+    transition:
+      transform var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--emphasised),
+      color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+  }
+
+  &:hover,
+  &:focus-visible,
+  .is-style-card-feature:hover &,
+  .is-style-card-feature:focus-within &,
+  .is-style-card-services:hover &,
+  .is-style-card-services:focus-within & {
+    color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+  }
+
+  &:hover::after,
+  &:focus-visible::after,
+  .is-style-card-feature:hover &::after,
+  .is-style-card-feature:focus-within &::after,
+  .is-style-card-services:hover &::after,
+  .is-style-card-services:focus-within &::after {
+    transform: translateX(var(--ls-link-arrow-offset, 0.35em));
+  }
+}
+
+/* Tick Accent */
+.wp-block-list.is-style-tick-accent {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  text-align: left;
+
+  li {
+    display: grid;
+    grid-template-columns: 1.2rem minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--wp--preset--spacing--10);
+
+    &::before {
+      content: icons.$ls-icon-check;
+      display: grid;
+      place-items: center;
+      inline-size: 1.2rem;
+      block-size: 1.2rem;
+      border-radius: var(--wp--preset--border-radius--500);
+      background: var(--wp--custom--color--icon--background);
+      color: var(--wp--custom--color--icon--color);
+      font-size: var(--wp--preset--font-size--100);
+      font-weight: 700;
+      line-height: 1;
+    }
+  }
+}

@@ -6,19 +6,19 @@
             "core/comment-reply-link": {
                 "typography": {
                     "fontSize": "var:preset|font-size|100",
-                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                    "lineHeight": "var:custom|line-height|paragraph"
                 },
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--custom--color--link--accent)"
+                            "text": "var:custom|color|link|accent"
                         },
                         "typography": {
                             "textDecoration": "none"
                         },
                         ":hover": {
                             "color": {
-                                "text": "var(--wp--custom--color--link--accent-hover)"
+                                "text": "var:custom|color|link|accent-hover"
                             },
                             "typography": {
                                 "textDecoration": "underline"

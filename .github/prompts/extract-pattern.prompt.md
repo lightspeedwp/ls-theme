@@ -1,5 +1,5 @@
 ---
-mode: "ask"
+agent: "ask"
 ---
 
 # Extract Pattern From Figma
@@ -32,7 +32,7 @@ Use `.agents/skills/pattern-extractor/SKILL.md` to convert a Figma design into a
 13. Route motion deliberately:
 
 - selector-driven hover, focus-visible, active, and keyframe work -> `assets/css/animations.css`
-- JS-managed or pointer-tracked effects -> `assets/css/gsap-animations.css`, `assets/js/gsap-effects.js`, and `inc/gsap.php` when registration is required
+- JS-managed or pointer-tracked effects -> first load and follow `wordpress-gsap`, then route work into `assets/css/gsap-animations.css`, `assets/js/gsap-effects.js`, and `inc/gsap.php` when registration is required
 
 14. Keep the base visual contract in style JSON where practical, and keep the interaction layer in CSS or JS.
 15. Default single-card patterns to insertable from the editor unless the user says otherwise.

@@ -9,16 +9,16 @@
 	"description": "Compact card shell for a replaceable icon, H3 heading, supporting copy, and inline CTA.",
 	"styles": {
 		"color": {
-			"background": "var(--wp--custom--color--surface--card)",
-			"text": "var(--wp--custom--color--text--default)"
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
 		},
 		"border": {
-			"color": "var(--wp--custom--color--border--card)",
+			"color": "var:custom|color|border|card",
 			"radius": "var:preset|border-radius|300",
 			"style": "solid",
 			"width": "1px"
 		},
-		"shadow": "var(--wp--custom--shadow--elevation--100)",
+		"shadow": "var:preset|shadow|100",
 		"spacing": {
 			"blockGap": "var:preset|spacing|30",
 			"padding": {
@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{--ls-card-feature-hover-shadow:var(--wp--custom--shadow--card--hover);--ls-card-feature-lift:-4px;}"
+		"css": "&{--ls-card-feature-shadow-active:var(--wp--custom--shadow--card--hover);--ls-card-feature-lift:-4px;}"
 	}
 }

@@ -1,0 +1,79 @@
+@use "../abstracts/mixins/motion";
+
+/********** Text Motion **********/
+
+/* Gradient Accent */
+.wp-block-heading.is-style-gradient-accent {
+  --ls-accent-gradient-width: fit-content;
+  --ls-accent-gradient-image: linear-gradient(
+    to right,
+    var(--wp--custom--color--text--brand) 0%,
+    var(--wp--custom--color--text--default) 25%,
+    var(--wp--custom--color--text--brand-strong) 50%,
+    var(--wp--custom--color--text--default) 75%,
+    var(--wp--custom--color--text--brand) 100%
+  );
+  --ls-accent-gradient-size: 200% auto;
+  --ls-accent-gradient-start-position: 0%;
+  --ls-accent-gradient-end-position: 100%;
+  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
+  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
+  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
+  --ls-accent-gradient-direction: alternate;
+  --ls-accent-gradient-focus-width: 2px;
+  --ls-accent-gradient-focus-color: var(--wp--custom--color--focus--ring);
+  --ls-accent-gradient-focus-offset: 4px;
+  --ls-accent-gradient-reduced-position: 100%;
+  width: var(--ls-accent-gradient-width);
+  max-width: 100%;
+
+  &.has-text-align-center {
+    margin-inline: auto;
+  }
+
+  &.has-text-align-right {
+    margin-inline-start: auto;
+  }
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .wp-block-heading.is-style-gradient-accent,
+  .wp-block-heading.is-style-gradient-accent a {
+    background-image: var(--ls-accent-gradient-image);
+    background-position: var(--ls-accent-gradient-start-position) center;
+    background-repeat: no-repeat;
+    background-size: var(--ls-accent-gradient-size);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .wp-block-heading.is-style-gradient-accent {
+    animation:
+      ls-accent-gradient-shift
+      var(--ls-accent-gradient-duration)
+      var(--ls-accent-gradient-timing)
+      var(--ls-accent-gradient-delay)
+      infinite
+      var(--ls-accent-gradient-direction);
+  }
+
+  .wp-block-heading.is-style-gradient-accent a {
+    animation: inherit;
+  }
+}
+
+.wp-block-heading.is-style-gradient-accent a:focus-visible {
+  outline: var(--ls-accent-gradient-focus-width) solid
+    var(--ls-accent-gradient-focus-color);
+  outline-offset: var(--ls-accent-gradient-focus-offset);
+}
+
+@include motion.reduced-motion {
+  .wp-block-heading.is-style-gradient-accent,
+  .wp-block-heading.is-style-gradient-accent a {
+    animation: none;
+    background-position: var(--ls-accent-gradient-reduced-position) center;
+  }
+}

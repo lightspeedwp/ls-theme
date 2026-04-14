@@ -5,7 +5,7 @@
         "blocks": {
             "core/site-tagline": {
                 "color": {
-                    "text": "var(--wp--custom--color--text--muted)"
+                    "text": "var:custom|color|text|muted"
                 },
                 "spacing": {
                     "margin": {

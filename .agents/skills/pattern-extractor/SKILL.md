@@ -1,6 +1,6 @@
 ---
 name: pattern-extractor
-description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, Phosphor icon mapping into Icon Block markup, CSS-versus-GSAP motion routing, and mandatory use of the theme-color-token-enforcer skill for any created patterns or styles.
+description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, Phosphor icon mapping into Icon Block markup, CSS-versus-GSAP motion routing, mandatory use of the theme-color-token-enforcer skill for created patterns or styles, and mandatory use of the wordpress-gsap skill whenever GSAP is required.
 ---
 
 # Pattern Extractor
@@ -10,6 +10,8 @@ description: Convert Figma designs into ls-theme WordPress block patterns with s
 Use this skill when importing a Figma design into `patterns/` as a production-ready WordPress block pattern for `ls-theme`.
 
 Whenever this skill creates or updates authored UI files such as pattern PHP, block style JSON, section style JSON, or theme CSS, it must also load and follow the `theme-color-token-enforcer` skill for those files. Treat `theme-color-token-enforcer` as the authoritative rule set for semantic colour token reuse, token creation, dark-mode parity, and contrast validation.
+
+Whenever this skill decides that a pattern needs GSAP-powered motion, it must also load and follow the `wordpress-gsap` skill. Treat `wordpress-gsap` as the authoritative workflow for WordPress enqueueing, GSAP plugin registration, runtime scoping, and reduced-motion-safe effect architecture.
 
 Patterns should be grouped into taxonomy subfolders rather than stored flat at the top level. For example, a single featured card pattern should live at `patterns/cards/feature-card.php`.
 
@@ -199,6 +201,8 @@ GSAP output goes in:
 - `inc/gsap.php` when a new registered block style or asset wiring is required
 - supporting `styles/blocks/**/*.json` or `styles/sections/**/*.json` files for the base visual contract
 
+Whenever GSAP is chosen, load and follow `wordpress-gsap` before the proposal is finalised or any GSAP files are edited.
+
 Motion guardrails:
 
 - Prefer CSS unless GSAP is clearly required.
@@ -222,6 +226,8 @@ For any new or updated pattern or style artefact created in this phase, follow `
    - Paths: `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js`
 5. GSAP registration:
    - Update `inc/gsap.php` if the effect needs a registered block style for editor discoverability or standardised class usage.
+
+For GSAP-powered work in items 4 and 5, follow `wordpress-gsap` before implementation is considered complete.
 
 Style constraints:
 
@@ -262,7 +268,7 @@ The report must include:
 6. New section styles to create
 7. Motion routing decision for each interactive element
 8. CSS-only files to update
-9. GSAP files to update
+9. GSAP files to update, plus any required handles or GSAP plugins
 10. Semantic colour tokens to reuse
 11. Semantic colour tokens to add, with matching `theme.json` and `styles/dark.json` paths
 12. Non-colour preset mappings used
@@ -354,6 +360,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - No radius value is hardcoded; radius is mapped to a preset
 - CSS-only interactions are placed in `assets/css/animations.css`
 - GSAP interactions are placed in `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js`
+- `wordpress-gsap` has been followed for any GSAP-powered motion work
 - Reduced-motion handling is present for any new motion work
 - New GSAP block styles are registered in `inc/gsap.php` when needed
 - Icon wrappers use a nested Group plus Icon Block structure, detected icons are matched to Phosphor Icons first, and `assets/icons/` is used only for approved bespoke fallbacks

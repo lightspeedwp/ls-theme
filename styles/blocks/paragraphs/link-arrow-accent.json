@@ -11,7 +11,7 @@
 		"elements": {
 			"link": {
 				"color": {
-					"text": "var(--wp--custom--color--link--accent)"
+					"text": "var:wp|custom|color|link|accent"
 				},
 				"typography": {
 					"fontWeight": "600",

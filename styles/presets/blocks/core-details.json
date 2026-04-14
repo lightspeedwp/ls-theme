@@ -5,14 +5,14 @@
         "blocks": {
             "core/details": {
                 "border": {
-                    "color": "var(--wp--custom--color--border--card)",
+                    "color": "var:custom|color|border|card",
                     "radius": "var:preset|border-radius|200",
                     "style": "solid",
                     "width": "1px"
                 },
                 "color": {
-                    "background": "var(--wp--custom--color--surface--card)",
-                    "text": "var(--wp--custom--color--text--default)"
+                    "background": "var:custom|color|surface|card",
+                    "text": "var:custom|color|text|default"
                 },
                 "spacing": {
                     "blockGap": "0"

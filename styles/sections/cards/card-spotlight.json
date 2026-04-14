@@ -9,10 +9,10 @@
 	"description": "Light surface group card with a GSAP-driven spotlight that follows the pointer.",
 	"styles": {
 		"color": {
-			"background": "var(--wp--custom--color--surface--card)",
-			"text": "var(--wp--custom--color--text--default)"
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
 		},
-		"shadow": "var(--wp--custom--shadow--elevation--200)",
+		"shadow": "var:preset|shadow|200",
 		"spacing": {
 			"blockGap": "var:preset|spacing|20",
 			"padding": {

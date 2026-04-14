@@ -7,15 +7,15 @@
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--custom--color--link--accent)"
+                            "text": "var:custom|color|link|accent"
                         },
                         "typography": {
-                            "fontWeight": "600",
+                            "fontWeight": "var:custom|typography|font-weight|semibold",
                             "textDecoration": "none"
                         },
                         ":hover": {
                             "color": {
-                                "text": "var(--wp--custom--color--link--accent-hover)"
+                                "text": "var:custom|color|link|accent-hover"
                             },
                             "typography": {
                                 "textDecoration": "underline"
