@@ -9,11 +9,11 @@
 	"description": "Compact icon frame with a reusable accent glow treatment.",
 	"styles": {
 		"color": {
-			"background": "var(--wp--custom--color--surface--card-raised)",
-			"text": "var(--wp--custom--color--text--brand)"
+			"background": "var(--ls-icon-frame-background-rest)",
+			"text": "var(--ls-icon-frame-accent-colour)"
 		},
 		"border": {
-			"color": "var(--wp--custom--color--link--accent)",
+			"color": "var(--ls-icon-frame-border-rest)",
 			"radius": "var:preset|border-radius|200",
 			"style": "solid",
 			"width": "1px"
@@ -26,6 +26,6 @@
 				"left": "var:preset|spacing|20"
 			}
 		},
-		"css": "&{--ls-icon-frame-shadow-active:var(--wp--custom--shadow--interactive--accent);}"
+		"css": "&{--ls-icon-frame-accent-colour:var(--ls-card-solutions-accent-colour,var(--wp--custom--color--card--solutions--brand));--ls-icon-frame-border-rest:var(--ls-icon-frame-accent-colour);--ls-icon-frame-background-rest:color-mix(in srgb,var(--ls-icon-frame-accent-colour) 10%,transparent);}"
 	}
 }

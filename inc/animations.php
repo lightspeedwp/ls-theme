@@ -112,6 +112,11 @@ function ls_theme_register_effect_block_styles() {
 		),
 		array(
 			'block_name' => 'core/group',
+			'name'       => 'card-solutions-accent',
+			'label'      => __( 'Card - Solutions Accent', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
 			'name'       => 'icon-frame-glow',
 			'label'      => __( 'Icon Frame Glow', 'ls-theme' ),
 		),

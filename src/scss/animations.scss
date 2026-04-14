@@ -197,9 +197,9 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
   align-items: center;
   justify-content: center;
   padding: var(--wp--preset--spacing--20);
-  border: 1px solid color-mix(in srgb, var(--wp--custom--color--link--accent) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--wp--custom--color--icon--background) 35%, transparent);
   border-radius: var(--wp--preset--border-radius--200);
-  background: var(--wp--custom--color--link--accent);
+  background: var(--wp--custom--color--icon--background);
   box-sizing: border-box;
   overflow: hidden;
   line-height: 0;
@@ -218,7 +218,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
     flex: 0 0 auto;
     margin: 0;
     line-height: 0;
-    color: var(--wp--custom--color--text--inverse);
+    color: var(--wp--custom--color--icon--color);
   }
 
   .icon-container {
@@ -226,7 +226,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
     align-items: center;
     justify-content: center;
     background: transparent !important;
-    color: var(--wp--custom--color--text--inverse) !important;
+    color: var(--wp--custom--color--icon--color) !important;
 
     svg {
       fill: currentColor;
@@ -238,9 +238,10 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 .is-style-card-feature {
   --ls-card-feature-border-rest: var(--wp--custom--color--border--card);
   --ls-card-feature-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-feature-icon-border-active: var(--wp--custom--color--icon--background);
   --ls-card-feature-shadow-rest: var(--wp--custom--shadow--elevation--100);
   --ls-card-feature-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-feature-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--link--accent) 76%, transparent);
+  --ls-card-feature-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
   --ls-card-feature-lift: -6px;
   @include surface.surface-card(
     $radius: var(--wp--preset--border-radius--300),
@@ -283,7 +284,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
   &:hover :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   &:focus-within :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
-    border-color: var(--ls-card-feature-border-active);
+    border-color: var(--ls-card-feature-icon-border-active);
     box-shadow: var(--ls-card-feature-icon-shadow-active);
     transform: rotate(-5deg) scale(0.98);
   }
@@ -293,9 +294,10 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 .is-style-card-services {
   --ls-card-services-border-rest: var(--wp--custom--color--border--card);
   --ls-card-services-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
   --ls-card-services-shadow-rest: var(--wp--custom--shadow--elevation--100);
   --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--link--accent) 76%, transparent);
+  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
   --ls-card-services-scale: 1.05;
   --ls-card-services-accent-thickness: 8px;
   @include surface.surface-card(
@@ -395,25 +397,34 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
   &:hover :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
   &:focus-within :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
-    border-color: var(--ls-card-services-border-active);
+    border-color: var(--ls-card-services-icon-border-active);
     box-shadow: var(--ls-card-services-icon-shadow-active);
   }
 }
 
 /* Icon Frame Glow */
 .is-style-icon-frame-glow {
-  --ls-icon-frame-border-rest: color-mix(
+  --ls-icon-frame-accent-colour: var(
+    --ls-card-solutions-accent-colour,
+    var(--wp--custom--color--card--solutions--brand)
+  );
+  --ls-icon-frame-border-rest: var(--ls-icon-frame-accent-colour);
+  --ls-icon-frame-border-active: var(--ls-icon-frame-accent-colour);
+  --ls-icon-frame-background-rest: color-mix(
     in srgb,
-    var(--wp--custom--color--link--accent) 32%,
+    var(--ls-icon-frame-accent-colour) 10%,
     transparent
   );
-  --ls-icon-frame-border-active: var(--wp--custom--color--link--accent);
-  --ls-icon-frame-background-rest: var(--wp--custom--color--surface--card-raised);
-  --ls-icon-frame-shadow-active: var(--wp--custom--shadow--interactive--accent);
+  --ls-icon-frame-shadow-active: 0 0 4px 4px
+    color-mix(
+      in srgb,
+      var(--ls-icon-frame-accent-colour) 50%,
+      transparent
+    );
   --ls-icon-frame-inset-shadow-active: inset 0 0 4px 3px
     color-mix(
       in srgb,
-      var(--wp--custom--color--link--accent) 52%,
+      var(--ls-icon-frame-accent-colour) 50%,
       transparent
     );
   --ls-icon-frame-tilt: -3deg;
@@ -445,7 +456,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
     flex: 0 0 auto;
     margin: 0;
     line-height: 0;
-    color: var(--wp--custom--color--text--brand);
+    color: var(--ls-icon-frame-accent-colour);
   }
 
   .icon-container {
@@ -453,7 +464,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
     align-items: center;
     justify-content: center;
     background: transparent !important;
-    color: var(--wp--custom--color--text--brand) !important;
+    color: var(--ls-icon-frame-accent-colour) !important;
 
     svg {
       fill: currentColor;
@@ -462,8 +473,8 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
   &:hover,
   &:focus-within,
-  .is-style-card-solutions:hover &,
-  .is-style-card-solutions:focus-within & {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
     border-color: var(--ls-icon-frame-border-active);
     box-shadow:
       var(--ls-icon-frame-shadow-active),
@@ -473,11 +484,20 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 }
 
 /* Card - Solutions */
-.is-style-card-solutions {
+:is(.is-style-card-solutions, .is-style-card-solutions-accent) {
+  --ls-card-solutions-accent-resolved: var(
+    --ls-card-solutions-accent-colour,
+    var(--wp--custom--color--card--solutions--brand)
+  );
   --ls-card-solutions-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-solutions-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
   --ls-card-solutions-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-solutions-shadow-active: var(--wp--custom--shadow--interactive--accent);
+  --ls-card-solutions-shadow-active: 1px 4px 12px 4px
+    color-mix(
+      in srgb,
+      var(--ls-card-solutions-accent-resolved) 50%,
+      transparent
+    );
   @include surface.surface-card(
     $radius: var(--wp--preset--border-radius--200),
     $border: 1px solid var(--ls-card-solutions-border-rest),
@@ -487,7 +507,6 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
   gap: var(--wp--preset--spacing--10);
   padding: var(--wp--preset--spacing--30);
   max-inline-size: 22.5rem;
-  min-block-size: 18rem;
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -520,7 +539,7 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
   &:hover .ls-card-solutions__content .wp-block-heading,
   &:focus-within .ls-card-solutions__content .wp-block-heading {
-    color: var(--wp--custom--color--text--brand);
+    color: var(--ls-card-solutions-accent-resolved);
   }
 
   .ls-card-solutions__cta {
@@ -542,8 +561,9 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
   .is-style-icon-frame-glow,
-  .is-style-card-solutions,
-  .is-style-card-solutions .wp-block-heading {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent),
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent)
+    .wp-block-heading {
     transition: none;
   }
 
@@ -576,8 +596,10 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
   .is-style-icon-frame-glow:hover,
   .is-style-icon-frame-glow:focus-within,
-  .is-style-card-solutions:hover .is-style-icon-frame-glow,
-  .is-style-card-solutions:focus-within .is-style-icon-frame-glow {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
+    .is-style-icon-frame-glow,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
+    .is-style-icon-frame-glow {
     transform: none;
   }
 }
@@ -868,15 +890,19 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
 .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
   --ls-button-arrow-compact-size: 2.5rem;
-  --ls-button-arrow-compact-border-rest: var(--wp--custom--color--link--accent);
-  --ls-button-arrow-compact-border-active: var(--wp--custom--color--button--fill--background);
+  --ls-button-arrow-compact-accent-colour: var(
+    --ls-card-solutions-accent-colour,
+    var(--wp--custom--color--card--solutions--brand)
+  );
+  --ls-button-arrow-compact-border-rest: var(--ls-button-arrow-compact-accent-colour);
+  --ls-button-arrow-compact-border-active: var(--ls-button-arrow-compact-accent-colour);
   --ls-button-arrow-compact-background-rest: color-mix(
     in srgb,
-    var(--wp--custom--color--link--accent) 10%,
-    var(--wp--custom--color--surface--card-raised)
+    var(--ls-button-arrow-compact-accent-colour) 10%,
+    transparent
   );
-  --ls-button-arrow-compact-background-active: var(--wp--custom--color--button--fill--background);
-  --ls-button-arrow-compact-colour-rest: var(--wp--custom--color--text--brand);
+  --ls-button-arrow-compact-background-active: var(--ls-button-arrow-compact-accent-colour);
+  --ls-button-arrow-compact-colour-rest: var(--ls-button-arrow-compact-accent-colour);
   --ls-button-arrow-compact-colour-active: var(--wp--custom--color--button--fill--text);
   justify-content: center;
   inline-size: var(--ls-button-arrow-compact-size);
@@ -915,17 +941,16 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
 
   &:hover,
   &:focus-visible,
-  .is-style-card-solutions:hover &,
-  .is-style-card-solutions:focus-within & {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
     background: var(--ls-button-arrow-compact-background-active);
     border-color: var(--ls-button-arrow-compact-border-active);
-    box-shadow: var(--wp--custom--shadow--interactive--accent);
   }
 
   &:hover::after,
   &:focus-visible::after,
-  .is-style-card-solutions:hover &::after,
-  .is-style-card-solutions:focus-within &::after {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &::after,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within &::after {
     color: var(--ls-button-arrow-compact-colour-active);
   }
 }
@@ -939,10 +964,10 @@ $ls-icon-arrow-right: string.unquote("\"\\2192\"");
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  .is-style-card-solutions:hover
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after,
-  .is-style-card-solutions:focus-within
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after {
     transform: none;

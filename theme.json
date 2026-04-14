@@ -9,7 +9,7 @@
                 {
                     "name": "Base",
                     "slug": "base",
-                    "color": "#F8F8F8"
+                    "color": "#FAFAFA"
                 },
                 {
                     "name": "Contrast",
@@ -19,7 +19,7 @@
                 {
                     "name": "Neutral 100",
                     "slug": "neutral-100",
-                    "color": "#F8F8F8"
+                    "color": "#F4F4F4"
                 },
                 {
                     "name": "Neutral 200",
@@ -419,13 +419,23 @@
                     "brand-strong": "var(--wp--preset--color--brand-800)"
                 },
                 "surface": {
-                    "canvas": "var(--wp--preset--color--neutral-100)",
-                    "card": "var(--wp--preset--color--neutral-200)",
-                    "card-raised": "var(--wp--preset--color--neutral-300)",
+                    "canvas": "var(--wp--preset--color--base)",
+                    "card": "var(--wp--preset--color--neutral-100)",
+                    "card-raised": "var(--wp--preset--color--neutral-200)",
                     "highlight": "var(--wp--preset--color--base)"
                 },
                 "border": {
                     "card": "var(--wp--preset--color--neutral-300)"
+                },
+                "icon": {
+                    "background": "var(--wp--preset--color--brand-500)",
+                    "color": "var(--wp--preset--color--base)"
+                },
+                "card": {
+                    "solutions": {
+                        "brand": "var(--wp--preset--color--brand-500)",
+                        "accent": "var(--wp--preset--color--accent-500)"
+                    }
                 },
                     "text-shadow": {
                         "contrast": "var(--wp--preset--color--contrast)",
@@ -461,7 +471,7 @@
                 "effect": {
                     "spotlight": {
                         "primary": "var(--wp--preset--color--brand-500)",
-                        "secondary": "var(--wp--preset--color--brand-200)"
+                        "secondary": "var(--wp--preset--color--cta-500)"
                     },
                     "hero": {
                         "brand": "var(--wp--preset--color--brand-500)",

@@ -9,14 +9,14 @@
 	"description": "Compact square button with the shared arrow glyph for card CTAs.",
 	"styles": {
 		"border": {
-			"color": "var(--wp--custom--color--link--accent)",
+			"color": "var(--ls-button-arrow-compact-border-rest)",
 			"radius": "var:preset|border-radius|100",
 			"style": "solid",
 			"width": "1px"
 		},
 		"color": {
-			"background": "var(--wp--custom--color--surface--card-raised)",
-			"text": "var(--wp--custom--color--text--brand)"
+			"background": "var(--ls-button-arrow-compact-background-rest)",
+			"text": "var(--ls-button-arrow-compact-colour-rest)"
 		},
 		"spacing": {
 			"padding": {
@@ -26,6 +26,6 @@
 				"left": "0"
 			}
 		},
-		"css": "&{--ls-button-arrow-compact-size:2.5rem;--ls-button-arrow-compact-background-rest:color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, var(--wp--custom--color--surface--card-raised));--ls-button-arrow-compact-background-active:var(--wp--custom--color--button--fill--background);--ls-button-arrow-compact-colour-rest:var(--wp--custom--color--text--brand);--ls-button-arrow-compact-colour-active:var(--wp--custom--color--button--fill--text);}"
+		"css": "&{--ls-button-arrow-compact-size:2.5rem;--ls-button-arrow-compact-accent-colour:var(--ls-card-solutions-accent-colour,var(--wp--custom--color--card--solutions--brand));--ls-button-arrow-compact-border-rest:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-background-rest:color-mix(in srgb,var(--ls-button-arrow-compact-accent-colour) 10%,transparent);--ls-button-arrow-compact-background-active:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-colour-rest:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-colour-active:var(--wp--custom--color--button--fill--text);}"
 	}
 }

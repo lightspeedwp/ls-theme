@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Solutions",
-	"slug": "card-solutions",
+	"title": "Card - Solutions Accent",
+	"slug": "card-solutions-accent",
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact white card shell for a replaceable icon, supporting copy, and an icon-only CTA.",
+	"description": "Compact solutions card shell with the alternate accent colour treatment.",
 	"styles": {
 		"color": {
 			"background": "var(--wp--custom--color--surface--card)",
@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{--ls-card-solutions-accent-colour:var(--wp--custom--color--card--solutions--brand);}"
+		"css": "&{--ls-card-solutions-accent-colour:var(--wp--custom--color--card--solutions--accent);}"
 	}
 }

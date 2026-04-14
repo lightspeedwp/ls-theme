@@ -55,6 +55,8 @@ Prefer names such as:
 - `border.subtle`
 - `button.primary.background`
 - `button.primary.text`
+- `icon.background`
+- `icon.color`
 - `form.field.border-focus`
 
 Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-border`.
@@ -75,7 +77,8 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 4. Classify each colour occurrence.
    - Ignore palette definitions in `settings.color.palette`.
    - Ignore approved non-visual technical colours only if they do not control visible UI meaning.
-   - For visual UI usage, determine the semantic role: text, surface, border, link, action, form, state, icon, overlay, or focus.
+   - For visual UI usage, determine the semantic role: text, surface, border, link, button, form, state, icon, overlay, or focus.
+   - Reusable icon wells, icon frames, list-marker glyphs, and icon-only controls should prefer `icon.*` tokens instead of borrowing `link.*` or `text.*` tokens unless the design intent is explicitly link-driven text.
 5. Reuse an existing semantic token from the same semantic family when one already fits the role and state.
    - Check `surface.*` before creating a new `surface.*` token.
    - Check `text.*` before creating a new `text.*` token.
@@ -90,6 +93,7 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
    - Keep the preset palette itself unchanged in `styles/dark.json`; only remap the semantic tokens onto existing preset slugs.
    - Start by testing whether the role is a direct foreground or surface inversion. If it is, a swap such as light `base` to dark `contrast`, light `contrast` to dark `base`, or light surface to dark surface is often correct.
    - For accents, gradients, glows, borders, button fills, and hover states, keep the semantic role and usually keep the same colour family, then move to a nearby palette step that works on the dark surface.
+   - In this theme, brand-led interactive and icon accents often remap from `brand-*` in light mode to `cta-*` in dark mode. Treat that as a preferred dark-mode pattern when it improves contrast and emphasis.
    - Review the target background, neighbouring tokens, and interaction states together before choosing the dark value.
    - Use lifted dark surfaces such as `surface-*` when a component needs separation from the dark canvas without becoming a light block.
 9. Validate contrast before finalizing any mapping.
