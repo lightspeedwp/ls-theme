@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Meta",
+	"slug": "meta",
+	"blockTypes": [
+		"core/post-time-to-read"
+	],
+	"description": "Muted inline time-to-read styling for compact cards and meta rows.",
+	"styles": {
+		"color": {
+			"text": "var:custom|color|text|muted"
+		},
+		"typography": {
+			"fontSize": "var:preset|font-size|100",
+			"fontWeight": "var:custom|typography|font-weight|normal",
+			"lineHeight": "var:custom|line-height|paragraph"
+		},
+		"css": "&{margin:0;white-space:nowrap;}"
+	}
+}

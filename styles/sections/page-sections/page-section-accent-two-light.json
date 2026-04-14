@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Page Section - Accent Two Light",
+	"slug": "page-section-accent-two-light",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Reusable page section shell with the accent-two light surface and matching strong foreground text.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|accent-two-light",
+			"text": "var:custom|color|text|accent-two-strong"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|60",
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"bottom": "var:preset|spacing|80"
+			}
+		}
+	}
+}

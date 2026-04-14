@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card Post Media",
+	"slug": "card-post-media",
+	"blockTypes": [
+		"core/cover"
+	],
+	"description": "Featured-image cover shell for post cards with a top-right term badge overlay and hover zoom support.",
+	"styles": {
+		"dimensions": {
+			"aspectRatio": "1.6/1"
+		},
+		"spacing": {
+			"blockGap": "0",
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "&{--ls-card-post-media-scale:1.05;}"
+	}
+}

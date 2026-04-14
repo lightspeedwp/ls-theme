@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Pill",
+	"slug": "pill",
+	"blockTypes": [
+		"core/post-terms"
+	],
+	"description": "Post terms rendered as compact uppercase pills for card overlays and summaries.",
+	"styles": {
+		"typography": {
+			"fontSize": "var:preset|font-size|100",
+			"fontWeight": "var:custom|typography|font-weight|semibold",
+			"lineHeight": "var:custom|line-height|heading-default",
+			"textTransform": "uppercase"
+		},
+		"css": "&{display:flex;flex-wrap:wrap;gap:var(--wp--preset--spacing--10);margin:0;} & .wp-block-post-terms__separator{display:none;} & a{display:inline-flex;align-items:center;justify-content:center;padding:var(--wp--preset--spacing--5) var(--wp--preset--spacing--20);border-radius:var(--wp--preset--border-radius--500);background:var(--wp--custom--color--surface--brand);color:var(--wp--custom--color--text--inverse);text-decoration:none;} & a:hover,& a:focus-visible{background:var(--wp--custom--color--link--accent-hover);color:var(--wp--custom--color--text--inverse);}"
+	}
+}

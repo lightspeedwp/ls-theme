@@ -10,7 +10,11 @@
 					"inverse": "var:preset|color|contrast",
 					"muted": "var:preset|color|neutral-400",
 					"brand": "var:preset|color|cta-500",
-					"brand-strong": "var:preset|color|cta-200"
+					"brand-strong": "var:preset|color|cta-100",
+					"cta-strong": "var:preset|color|cta-100",
+					"accent-strong": "var:preset|color|accent-100",
+					"accent-two-strong": "var:preset|color|accent-two-100",
+					"accent-three-strong": "var:preset|color|accent-three-100"
 				},
 				"surface": {
 					"canvas": "var:preset|color|contrast",
@@ -64,6 +68,16 @@
 						"border": "var:preset|color|cta-500",
 						"background-hover": "var:preset|color|cta-400",
 						"text-hover": "var:preset|color|contrast"
+					}
+				},
+				"pagination": {
+					"control": {
+						"background": "var:preset|color|brand-900",
+						"text": "var:preset|color|brand-100",
+						"border": "var:preset|color|brand-900",
+						"background-hover": "var:preset|color|brand-500",
+						"border-hover": "var:preset|color|brand-500",
+						"text-hover": "var:preset|color|base"
 					}
 				},
 				"focus": {

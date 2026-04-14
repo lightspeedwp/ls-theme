@@ -37,7 +37,8 @@
 }
 
 /* Link Arrow Accent */
-.wp-block-paragraph.is-style-link-arrow-accent a {
+.wp-block-paragraph.is-style-link-arrow-accent a,
+.wp-block-read-more.is-style-link-arrow-accent {
   display: inline-flex;
   align-items: center;
   gap: var(--ls-link-arrow-gap, 0.45ch);
@@ -50,33 +51,42 @@
     gap var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard);
   transition-delay: var(--wp--custom--animation--delay--none);
+}
 
-  &::after {
-    content: icons.$ls-icon-arrow-right;
-    display: inline-block;
-    transform: translateX(0);
-    transition:
-      transform var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--emphasised),
-      color var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--standard);
-  }
+.wp-block-paragraph.is-style-link-arrow-accent a::after,
+.wp-block-read-more.is-style-link-arrow-accent::after {
+  content: icons.$ls-icon-arrow-right;
+  display: inline-block;
+  transform: translateX(0);
+  transition:
+    transform var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--emphasised),
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+}
 
-  &:hover,
-  &:focus-visible,
-  .is-style-card-feature:hover &,
-  .is-style-card-feature:focus-within &,
-  .is-style-card-services:hover &,
-  .is-style-card-services:focus-within & {
-    color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
-  }
+.wp-block-paragraph.is-style-link-arrow-accent a:hover,
+.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible,
+.wp-block-read-more.is-style-link-arrow-accent:hover,
+.wp-block-read-more.is-style-link-arrow-accent:focus-visible,
+.is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a,
+.is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a,
+.is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a,
+.is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a,
+.is-style-card-post:hover .wp-block-read-more.is-style-link-arrow-accent,
+.is-style-card-post:focus-within .wp-block-read-more.is-style-link-arrow-accent {
+  color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+}
 
-  &:hover::after,
-  &:focus-visible::after,
-  .is-style-card-feature:hover &::after,
-  .is-style-card-feature:focus-within &::after,
-  .is-style-card-services:hover &::after,
-  .is-style-card-services:focus-within &::after {
-    transform: translateX(var(--ls-link-arrow-offset, 0.35em));
-  }
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+.wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
+.wp-block-read-more.is-style-link-arrow-accent:hover::after,
+.wp-block-read-more.is-style-link-arrow-accent:focus-visible::after,
+.is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
+.is-style-card-post:hover .wp-block-read-more.is-style-link-arrow-accent::after,
+.is-style-card-post:focus-within .wp-block-read-more.is-style-link-arrow-accent::after {
+  transform: translateX(var(--ls-link-arrow-offset, 0.35em));
 }

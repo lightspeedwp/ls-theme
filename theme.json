@@ -416,7 +416,11 @@
                     "inverse": "var:preset|color|base",
                     "muted": "var:preset|color|neutral-700",
                     "brand": "var:preset|color|brand-500",
-                    "brand-strong": "var:preset|color|brand-800"
+                    "brand-strong": "var:preset|color|brand-900",
+                    "cta-strong": "var:preset|color|cta-900",
+                    "accent-strong": "var:preset|color|accent-900",
+                    "accent-two-strong": "var:preset|color|accent-two-900",
+                    "accent-three-strong": "var:preset|color|accent-three-900"
                 },
                 "surface": {
                     "canvas": "var:preset|color|base",
@@ -472,6 +476,16 @@
 						"text-hover": "var:preset|color|base"
 					}
 				},
+                "pagination": {
+                    "control": {
+                        "background": "var:preset|color|brand-100",
+                        "text": "var:preset|color|brand-600",
+                        "background-hover": "var:preset|color|brand-500",
+                        "text-hover": "var:preset|color|base",
+                        "border": "var:preset|color|brand-100",
+                        "border-hover": "var:preset|color|brand-500"
+                    }
+                },
                 "focus": {
                     "ring": "var:preset|color|contrast"
                 },

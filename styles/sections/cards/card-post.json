@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Post",
+	"slug": "card-post",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Post-aware card shell with a featured-image cover, compact post meta, and inline read-more CTA. Shared interaction contract lives in src/scss/animations.scss.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "var:preset|shadow|100",
+		"spacing": {
+			"blockGap": "0",
+			"padding": {
+				"top": "0",
+				"right": "0",
+				"bottom": "0",
+				"left": "0"
+			}
+		}
+	}
+}

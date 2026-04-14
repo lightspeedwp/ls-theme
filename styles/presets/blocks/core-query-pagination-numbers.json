@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/query-pagination-numbers": {
+                "typography": {
+                    "fontFamily": "var:preset|font-family|body",
+                    "fontSize": "var:preset|font-size|300",
+                    "fontWeight": "var:custom|typography|font-weight|normal",
+                    "lineHeight": "var:custom|line-height|paragraph",
+                    "textDecoration": "none"
+                },
+                "spacing": {
+                    "padding": {
+                        "top": "var:preset|spacing|5",
+                        "right": "var:preset|spacing|10",
+                        "bottom": "var:preset|spacing|5",
+                        "left": "var:preset|spacing|10"
+                    },
+                    "blockGap": "var:preset|spacing|5"
+                },
+                "css": "&{display:flex;align-items:center;gap:var(--wp--preset--spacing--5);} & .page-numbers{margin:0;} & .page-numbers:not(.dots){display:inline-flex;align-items:center;justify-content:center;min-inline-size:calc(1ch + (var(--wp--preset--spacing--10) * 2));padding:var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);border-radius:var(--wp--preset--border-radius--100);border:1px solid var(--wp--custom--color--pagination--control--border);background-color:var(--wp--custom--color--pagination--control--background);color:var(--wp--custom--color--pagination--control--text);font-family:var(--wp--preset--font-family--body);font-size:var(--wp--preset--font-size--300);font-weight:var(--wp--custom--typography--font-weight--normal);line-height:var(--wp--custom--line-height--paragraph);text-decoration:none;} & a.page-numbers:not(.dots):hover,& a.page-numbers:not(.dots):focus-visible,& a.page-numbers:not(.dots):active,& .page-numbers.current{background-color:var(--wp--custom--color--pagination--control--background-hover);color:var(--wp--custom--color--pagination--control--text-hover);text-decoration:none;} & a.page-numbers:not(.dots):focus-visible{outline:2px solid var(--wp--custom--color--focus--ring);outline-offset:2px;} & .page-numbers.dots{color:var(--wp--custom--color--pagination--control--text);font-family:var(--wp--preset--font-family--body);font-size:var(--wp--preset--font-size--300);font-weight:var(--wp--custom--typography--font-weight--normal);line-height:var(--wp--custom--line-height--paragraph);text-decoration:none;}"
+            }
+        }
+    }
+}
