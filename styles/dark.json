@@ -16,7 +16,14 @@
 					"canvas": "var(--wp--preset--color--contrast)",
 					"card": "var(--wp--preset--color--neutral-900)",
 					"card-raised": "var(--wp--preset--color--neutral-800)",
-					"highlight": "var(--wp--preset--color--base)"
+					"highlight": "var(--wp--preset--color--base)",
+					"brand-light": "var(--wp--preset--color--brand-900)",
+                    "brand": "var(--wp--preset--color--cta-500)",
+                    "cta-light": "var(--wp--preset--color--cta-900)",
+                    "cta": "var(--wp--preset--color--accent-two-500)",
+                    "accent-light": "var(--wp--preset--color--accent-900)",
+                    "accent-two-light": "var(--wp--preset--color--accent-two-900)",
+                    "accent-three-light": "var(--wp--preset--color--accent-three-900)"
 				},
 				"border": {
 					"card": "var(--wp--preset--color--neutral-800)"

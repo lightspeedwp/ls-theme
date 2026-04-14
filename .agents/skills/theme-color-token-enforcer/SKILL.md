@@ -1,6 +1,6 @@
 ---
 name: theme-color-token-enforcer
-description: Audit or fix semantic colour token usage in a WordPress block theme. Use when checking a file, folder, or glob for raw colours, direct preset-colour references, missing settings.custom.color tokens, missing styles/dark.json token parity, or WCAG AA contrast issues. Reuse an existing semantic custom colour token where possible; otherwise create matching theme.json and styles/dark.json token paths and replace authored usage with semantic custom colour tokens.
+description: Audit or fix semantic colour token usage in a WordPress block theme. Use when checking a file, folder, or glob for raw colours, direct preset-colour references, missing settings.custom.color tokens, missing styles/dark.json token parity, or WCAG AA contrast issues. Reuse an existing semantic custom colour token where possible; otherwise create matching theme.json and styles/dark.json token paths and replace authored usage with semantic custom colour tokens, while preserving existing shared non-colour token families such as custom typography font-weight variables.
 ---
 
 # Theme Color Token Enforcer
@@ -20,7 +20,9 @@ Treat:
 Related shared non-colour token families:
 
 - `settings.custom.animation` for repeated motion values such as duration, delay, easing, and scale
+- `settings.custom.typography.font-weight` for repeated font-weight values such as `light`, `normal`, `medium`, and `semibold`
 - `settings.custom.z-index` for repeated stacking layers
+- When a task also changes typography weight in an authored UI file, prefer `var(--wp--custom--typography--font-weight--...)` over raw numeric literals such as `300` or `400`
 - These families live in `theme.json` only unless a task explicitly asks for mode-specific non-colour overrides
 - Only semantic colour tokens require dark-mode parity by default
 
@@ -104,6 +106,7 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 
 - Replace visual authored usage with `var(--wp--custom--color--...)`.
 - Keep non-colour custom tokens, spacing, widths, line-heights, and layout values unchanged unless the task also asks for them.
+- If font-weight changes are in scope and the theme already exposes custom typography weight tokens, use `var(--wp--custom--typography--font-weight--...)` rather than raw numeric literals.
 
 11. Re-scan until the target no longer contains direct visual preset-colour references or raw visual colours outside approved exceptions.
 12. Report:
@@ -129,6 +132,7 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 - Do not auto-rewrite non-visual masking or compositing colours without an explicit note.
 - Do not weaken contrast to preserve a preferred hue.
 - Do not mirror `settings.custom.animation` or `settings.custom.z-index` into `styles/dark.json` unless the task explicitly asks for a mode-specific non-colour override.
+- Do not introduce raw numeric `font-weight` literals into authored UI when the theme already exposes matching `settings.custom.typography.font-weight` tokens.
 - Do not create extra same-family tokens that map to the same preset as an existing same-family token unless a verified mode-specific or state-specific distinction is required.
 
 ## Suggested scan scope

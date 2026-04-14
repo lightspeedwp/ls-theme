@@ -1,6 +1,6 @@
 ---
 name: pattern-extractor
-description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, Phosphor icon mapping into Icon Block markup, and CSS-versus-GSAP motion routing.
+description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, Phosphor icon mapping into Icon Block markup, CSS-versus-GSAP motion routing, and mandatory use of the theme-color-token-enforcer skill for any created patterns or styles.
 ---
 
 # Pattern Extractor
@@ -8,6 +8,8 @@ description: Convert Figma designs into ls-theme WordPress block patterns with s
 ## Purpose
 
 Use this skill when importing a Figma design into `patterns/` as a production-ready WordPress block pattern for `ls-theme`.
+
+Whenever this skill creates or updates authored UI files such as pattern PHP, block style JSON, section style JSON, or theme CSS, it must also load and follow the `theme-color-token-enforcer` skill for those files. Treat `theme-color-token-enforcer` as the authoritative rule set for semantic colour token reuse, token creation, dark-mode parity, and contrast validation.
 
 Patterns should be grouped into taxonomy subfolders rather than stored flat at the top level. For example, a single featured card pattern should live at `patterns/cards/feature-card.php`.
 
@@ -208,6 +210,8 @@ Motion guardrails:
 
 If no suitable style exists, create the narrowest reusable artefacts needed.
 
+For any new or updated pattern or style artefact created in this phase, follow `theme-color-token-enforcer` in `apply` mode across the authored UI files being changed before considering the implementation complete.
+
 1. Block style JSON:
    - Path: `styles/blocks/<block-family>/<style-slug>.json`
 2. Section style JSON:
@@ -277,10 +281,11 @@ After the user confirms:
 3. Create or update block and section style JSON files.
 4. Add CSS-only motion rules to `assets/css/animations.css` when applicable.
 5. Add GSAP CSS and JS to `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js` only when the approved plan requires it.
-6. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
-7. Create the pattern file in `patterns/<subfolder>/<pattern-slug>.php`.
-8. Populate Icon Blocks with the approved Phosphor icons, and use `assets/icons/` only for approved bespoke fallbacks.
-9. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
+6. Create the pattern file in `patterns/<subfolder>/<pattern-slug>.php`.
+7. Run the `theme-color-token-enforcer` skill against every created or updated pattern and style file so authored UI uses only approved semantic custom colour tokens and any required token additions are mirrored in `theme.json` and `styles/dark.json`.
+8. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
+9. Populate Icon Blocks with the approved Phosphor icons, and use `assets/icons/` only for approved bespoke fallbacks.
+10. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
 
 ## Pattern Authoring Standards
 
@@ -340,6 +345,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - Pattern slug and filename align
 - Pattern markup is valid WordPress block markup
 - All PHP output is escaped and all visible strings use the `ls-theme` text domain
+- `theme-color-token-enforcer` has been followed for every created or updated pattern or style file
 - All semantic custom colour tokens used in authored UI exist in both `theme.json` and `styles/dark.json`
 - No direct preset-colour references remain in authored UI files outside token-definition areas
 - Non-colour values map to the theme's merged preset model

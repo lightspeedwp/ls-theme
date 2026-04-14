@@ -145,16 +145,17 @@ npm run schema:validate
 
 ### Node
 
-| Command                   | Description                                 |
-| ------------------------- | ------------------------------------------- |
-| `npm run schema:validate` | Validate theme.json and styles JSON schemas |
-| `npm run theme:validate`  | Validate theme consistency                  |
-| `npm run build:css`       | Compile Sass source to `assets/css/`        |
-| `npm run watch:css`       | Watch Sass source and rebuild CSS           |
-| `npm run patterns:escape` | Check PHP patterns for escaping issues      |
-| `npm run security:scan`   | Scan PHP files for security issues          |
-| `npm run lint`            | Run all linting                             |
-| `npm run lint:json`       | Lint JSON files                             |
+| Command                    | Description                                                   |
+| -------------------------- | ------------------------------------------------------------- |
+| `npm run sync:breakpoints` | Sync the generated Sass breakpoint map from `theme.json`      |
+| `npm run schema:validate`  | Validate theme.json and styles JSON schemas                   |
+| `npm run theme:validate`   | Validate theme consistency                                    |
+| `npm run build:css`        | Sync breakpoints and compile Sass source to `assets/css/`     |
+| `npm run watch:css`        | Sync breakpoints, then watch Sass entry files and rebuild CSS |
+| `npm run patterns:escape`  | Check PHP patterns for escaping issues                        |
+| `npm run security:scan`    | Scan PHP files for security issues                            |
+| `npm run lint`             | Run all linting                                               |
+| `npm run lint:json`        | Lint JSON files                                               |
 
 ### Composer
 
