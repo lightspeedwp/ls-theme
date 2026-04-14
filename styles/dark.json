@@ -72,12 +72,12 @@
 				},
 				"pagination": {
 					"control": {
-						"background": "var:preset|color|brand-900",
-						"text": "var:preset|color|brand-100",
-						"border": "var:preset|color|brand-900",
-						"background-hover": "var:preset|color|brand-500",
-						"border-hover": "var:preset|color|brand-500",
-						"text-hover": "var:preset|color|base"
+						"background": "var:preset|color|cta-200",
+						"text": "var:preset|color|cta-900",
+						"border": "var:preset|color|cta-500",
+						"background-hover": "var:preset|color|cta-500",
+						"border-hover": "var:preset|color|cta-500",
+						"text-hover": "var:preset|color|contrast"
 					}
 				},
 				"focus": {

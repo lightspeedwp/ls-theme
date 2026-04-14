@@ -482,7 +482,7 @@
                         "text": "var:preset|color|brand-600",
                         "background-hover": "var:preset|color|brand-500",
                         "text-hover": "var:preset|color|base",
-                        "border": "var:preset|color|brand-100",
+                        "border": "var:preset|color|brand-200",
                         "border-hover": "var:preset|color|brand-500"
                     }
                 },

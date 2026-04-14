@@ -4,40 +4,10 @@
     "styles": {
         "blocks": {
             "core/query-pagination": {
-                "typography": {
-                    "fontSize": "var:preset|font-size|200",
-                    "fontWeight": "var:custom|typography|font-weight|medium"
+                "spacing": {
+                    "blockGap": "var:preset|spacing|5"
                 },
-                "elements": {
-                    "link": {
-                        "border": {
-                            "radius": "var:preset|border-radius|100",
-                            "width": "0"
-                        },
-                        "color": {
-                            "background": "var:custom|color|surface|card",
-                            "text": "var:custom|color|text|default"
-                        },
-                        "spacing": {
-                            "padding": {
-                                "top": "var:preset|spacing|10",
-                                "right": "var:preset|spacing|20",
-                                "bottom": "var:preset|spacing|10",
-                                "left": "var:preset|spacing|20"
-                            }
-                        },
-                        "typography": {
-                            "fontSize": "var:preset|font-size|100",
-                            "fontWeight": "var:custom|typography|font-weight|medium",
-                            "textDecoration": "none"
-                        },
-                        ":hover": {
-                            "typography": {
-                                "textDecoration": "underline"
-                            }
-                        }
-                    }
-                }
+                "css": "&{align-items:center;}"
             }
         }
     }
