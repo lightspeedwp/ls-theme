@@ -613,7 +613,104 @@
 		} );
 	}
 
+	// Initialise the sticky site header so it can morph between default and scrolled states.
+	function initSiteHeader( header ) {
+		if ( header.dataset.lsSiteHeader === 'true' ) {
+			return;
+		}
+
+		// Find the shell element that GSAP will move vertically during the scroll morph.
+		const shell = header.querySelector( '.ls-site-header__shell' );
+
+		if ( ! shell ) {
+			return;
+		}
+
+		header.dataset.lsSiteHeader = 'true';
+
+		// Track the current state so repeated scroll events do not restart the same animation.
+		let isScrolled = false;
+		// Batch scroll updates into requestAnimationFrame so the morph stays smoother under load.
+		let animationFrame = null;
+
+		// Compute the scroll threshold that switches the header into its compact pill state.
+		function getScrollThreshold() {
+			return Math.max( 24, Math.round( header.offsetHeight * 0.35 ) );
+		}
+
+		// Read the CSS-defined top gap so JS uses the same spacing token as the visual styles.
+		function getHeaderOffset() {
+			const offset = getComputedStyle( header ).getPropertyValue( '--ls-site-header-pill-gap' ).trim();
+
+			return offset || '20px';
+		}
+
+		// Apply the target header state and either jump or animate the shell offset accordingly.
+		function applyState( nextScrolled, animate = true ) {
+			const offset = nextScrolled ? getHeaderOffset() : '0px';
+			const motionTokens = getRuntimeMotionTokens();
+
+			isScrolled = nextScrolled;
+			header.classList.toggle( 'is-scrolled', nextScrolled );
+
+			if ( ! animate || reducedMotionQuery.matches ) {
+				gsapInstance.set( shell, {
+					'--ls-site-header-offset-y': offset,
+				} );
+				return;
+			}
+
+			gsapInstance.to( shell, {
+				'--ls-site-header-offset-y': offset,
+				duration: nextScrolled ? motionTokens.duration.medium : motionTokens.duration.base,
+				ease: motionTokens.easing.emphasised,
+				overwrite: 'auto',
+			} );
+		}
+
+		// Re-evaluate the scroll position and switch states only when the result actually changes.
+		function updateState( animate = true ) {
+			const nextScrolled = window.scrollY > getScrollThreshold();
+
+			if ( nextScrolled === isScrolled && animate ) {
+				return;
+			}
+
+			applyState( nextScrolled, animate );
+		}
+
+		// Schedule a single state update for the next animation frame during scroll or resize bursts.
+		function requestUpdate() {
+			if ( null !== animationFrame ) {
+				return;
+			}
+
+			animationFrame = window.requestAnimationFrame( () => {
+				animationFrame = null;
+				updateState( true );
+			} );
+		}
+
+		// Snap the header to the correct state whenever the reduced-motion preference changes.
+		function handleReducedMotionChange() {
+			updateState( false );
+		}
+
+		updateState( false );
+
+		window.addEventListener( 'scroll', requestUpdate, { passive: true } );
+		window.addEventListener( 'resize', requestUpdate );
+
+		if ( 'function' === typeof reducedMotionQuery.addEventListener ) {
+			reducedMotionQuery.addEventListener( 'change', handleReducedMotionChange );
+		} else if ( 'function' === typeof reducedMotionQuery.addListener ) {
+			reducedMotionQuery.addListener( handleReducedMotionChange );
+		}
+	}
+
 	function initEffects() {
+		// Boot the scroll-morph behaviour on any header pattern instance in the document.
+		document.querySelectorAll( '.ls-site-header' ).forEach( initSiteHeader );
 		document.querySelectorAll( '.is-style-card-spotlight' ).forEach( initSpotlightCard );
 		document.querySelectorAll( '.is-style-home-hero-section' ).forEach( initHomeHeroSection );
 	}

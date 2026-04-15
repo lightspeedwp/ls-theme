@@ -4,9 +4,12 @@
     "styles": {
         "blocks": {
             "core/navigation": {
+                "css": "/* Keep the navigation hover and current-state colours on the block preset so header layouts only control placement. */ & .wp-block-navigation-item__content,& .wp-block-navigation__responsive-container-open,& .wp-block-navigation__responsive-container-close { color: var(--wp--custom--color--text--default); text-decoration: none; transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard); } & .wp-block-navigation-item__content:hover,& .wp-block-navigation-item__content:focus-visible,& .wp-block-navigation__responsive-container-open:hover,& .wp-block-navigation__responsive-container-open:focus-visible,& .wp-block-navigation__responsive-container-close:hover,& .wp-block-navigation__responsive-container-close:focus-visible,& :is(.current-menu-item,.current-menu-ancestor,.current-menu-parent,.current_page_item,.current-page-ancestor,.current_page_parent) > .wp-block-navigation-item__content { color: var(--wp--custom--color--text--brand); text-decoration: none; }",
                 "typography": {
+                    "fontFamily": "var:preset|font-family|heading",
                     "fontSize": "var:preset|font-size|200",
-                    "fontWeight": "var:custom|typography|font-weight|medium"
+                    "fontWeight": "var:custom|typography|font-weight|medium",
+                    "lineHeight": "var:custom|line-height|paragraph"
                 },
                 "elements": {
                     "link": {
@@ -18,10 +21,10 @@
                         },
                         ":hover": {
                             "color": {
-                                "text": "var:custom|color|link|accent-hover"
+                                "text": "var:custom|color|text|brand"
                             },
                             "typography": {
-                                "textDecoration": "underline"
+                                "textDecoration": "none"
                             }
                         }
                     }

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added a GSAP-assisted site header morph that keeps the default shell full width, centres the inner layout, scales the site logo into the pill state, and uses a shared faded gradient bottom accent instead of a hover glow.
 - Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells.
 - Added a post-aware `Card - Post` pattern with reusable featured-image cover, category pill, compact meta, and read-more arrow block styles.
 - Added a `Card - Services` pattern with a reusable accent-border gradient contract, a matching services card section style, and a blue tick list block style.
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated the core navigation preset to own the header navigation hover and current-state colours directly, keeping the header layout Sass free of navigation styling rules.
 - Refactored `src/scss/animations.scss` and `src/scss/gsap-animations.scss` into loader entrypoints backed by smaller contextual partials, normalised live preset JSON onto WordPress shorthand for non-colour tokens, and removed the dead `settings.custom.button-padding` branch.
 - Extended the shared link-arrow and card motion Sass contracts to support the new `Card - Post` hover border, featured-image zoom, and title-colour transition.
 - Made `theme.json` custom layout breakpoints the build-time source for the Sass `mq()` map, and tightened the CSS build to compile only explicit Sass entry files so tracked source-directory CSS artefacts can no longer override live assets.

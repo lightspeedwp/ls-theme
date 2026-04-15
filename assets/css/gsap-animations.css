@@ -69,6 +69,23 @@
     transition: none;
   }
 }
+/* Load the reduced-motion helper used to tone down header-specific runtime hints. */
+/* Expose the GSAP-driven vertical offset custom property on the header shell. */
+.ls-site-header__shell {
+  --ls-site-header-offset-y: 0px;
+  transform: translate3d(0, var(--ls-site-header-offset-y), 0);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Drop the transform optimisation hint when the user prefers reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  /* Reset the performance hint because the shell is no longer expected to animate. */
+  .ls-site-header__shell {
+    will-change: auto;
+  }
+}
 /********** Home Hero Section **********/
 /* Home Hero Section: background-only Group block style. */
 .is-style-home-hero-section {

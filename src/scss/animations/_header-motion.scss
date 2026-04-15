@@ -1,0 +1,332 @@
+/* Load the shared glass, reduced-motion, and breakpoint helpers used by the header states. */
+@use "../abstracts/mixins/glass";
+@use "../abstracts/mixins/motion";
+@use "../abstracts/mixins/mq";
+
+/* Define the shared header tokens that drive both the default bar and the compact pill state. */
+.ls-site-header {
+  --ls-site-header-pill-gap: var(--wp--preset--spacing--20);
+  --ls-site-header-shell-padding-block: var(--wp--preset--spacing--20);
+  --ls-site-header-shell-max-width: 100%;
+  --ls-site-header-shell-radius: 0px;
+  --ls-site-header-shell-background: var(--wp--custom--color--surface--canvas);
+  --ls-site-header-shell-border: transparent;
+  --ls-site-header-shell-border-bottom: var(--wp--custom--color--border--card);
+  --ls-site-header-shell-shadow: none;
+  --ls-site-header-shell-blur: 0px;
+  --ls-site-header-shell-top-highlight: transparent;
+  --ls-site-header-shell-side-highlight: transparent;
+  --ls-site-header-shell-side-tail: transparent;
+  --ls-site-header-branding-width: 220px;
+  --ls-site-header-content-gap: var(--wp--preset--spacing--20);
+  --ls-site-header-control-size: 44px;
+  --ls-site-header-pill-background: color-mix(
+    in srgb,
+    var(--wp--custom--color--surface--card) 72%,
+    transparent
+  );
+  --ls-site-header-pill-border: color-mix(
+    in srgb,
+    var(--wp--custom--color--surface--highlight) 38%,
+    transparent
+  );
+  --ls-site-header-pill-shadow: var(--wp--custom--shadow--elevation--200);
+  --ls-site-header-pill-blur: 32px;
+  --ls-site-header-pill-top-highlight: color-mix(
+    in srgb,
+    var(--wp--custom--color--surface--highlight) 82%,
+    transparent
+  );
+  --ls-site-header-pill-side-highlight: color-mix(
+    in srgb,
+    var(--wp--custom--color--surface--highlight) 72%,
+    transparent
+  );
+  --ls-site-header-pill-side-tail: color-mix(
+    in srgb,
+    var(--wp--custom--color--surface--highlight) 30%,
+    transparent
+  );
+  --ls-site-header-accent-thickness: 3px;
+  --ls-site-header-accent-opacity: 0;
+  --ls-site-header-accent-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(
+      in srgb,
+      var(--wp--custom--color--effect--spotlight--secondary) 82%,
+      transparent
+    ) 16%,
+    var(--wp--custom--color--effect--spotlight--primary) 50%,
+    color-mix(
+      in srgb,
+      var(--wp--custom--color--effect--spotlight--secondary) 82%,
+      transparent
+    ) 84%,
+    transparent 100%
+  );
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--wp--custom--z-index--overlay);
+  inline-size: 100%;
+}
+
+/* Apply the shared shell styling so the default bar and pill state transition through the same surface. */
+.ls-site-header__shell {
+  @include glass.glass-surface(
+    $background: var(--ls-site-header-shell-background),
+    $border: var(--ls-site-header-shell-border),
+    $radius: var(--ls-site-header-shell-radius),
+    $blur: var(--ls-site-header-shell-blur),
+    $shadow: var(--ls-site-header-shell-shadow)
+  );
+  @include glass.glass-edge-highlights(
+    $top-highlight: var(--ls-site-header-shell-top-highlight),
+    $side-highlight: var(--ls-site-header-shell-side-highlight),
+    $side-tail: var(--ls-site-header-shell-side-tail)
+  );
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: var(--ls-site-header-shell-max-width);
+  margin-inline: auto;
+  padding-block: var(--ls-site-header-shell-padding-block);
+  border-block-end-color: var(--ls-site-header-shell-border-bottom);
+  border-radius: var(--ls-site-header-shell-radius);
+  box-shadow: var(--ls-site-header-shell-shadow);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition:
+    padding-block var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised),
+    max-inline-size var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised),
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-radius var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    outline-color var(--wp--custom--animation--duration--focus)
+      var(--wp--custom--animation--easing--standard);
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+
+  /* Keep the shell highlight edges behind the content while their colours fade in for the pill state. */
+  &::before,
+  &::after {
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  /* Keep the shell children above the decorative glass highlights and bottom accent strip. */
+  > :not(.ls-site-header__accent) {
+    position: relative;
+    z-index: var(--wp--custom--z-index--content);
+  }
+}
+
+/* Lay out the inner row with a true three-column structure so the navigation stays optically centred. */
+.ls-site-header__inner {
+  position: relative;
+  inline-size: min(
+    calc(100% - (2 * var(--wp--preset--spacing--20))),
+    var(--wp--style--global--wide-size, 1360px)
+  );
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--ls-site-header-content-gap);
+  row-gap: var(--wp--preset--spacing--10);
+
+  /* Remove default block margins from the inner children so the header height stays consistent. */
+  > * {
+    margin-block: 0;
+  }
+}
+
+/* Let the logo hug its intrinsic size while still transitioning between the default and pill widths. */
+.ls-site-header__branding {
+  justify-self: start;
+  margin: 0;
+
+  /* Keep the logo link as a simple inline block so the image width drives the visual size. */
+  .custom-logo-link {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  /* Animate the logo image width directly so the pill state shrinks without snapping. */
+  img {
+    display: block;
+    inline-size: auto;
+    max-inline-size: var(--ls-site-header-branding-width);
+    block-size: auto;
+    transition: max-inline-size var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+  }
+}
+
+/* Keep the navigation in the centre column without applying any hover or colour rules here. */
+.ls-site-header__nav {
+  justify-self: center;
+  min-inline-size: 0;
+  inline-size: 100%;
+}
+
+/* Keep the utility area anchored to the right-hand column of the header grid. */
+.ls-site-header__utilities {
+  justify-self: end;
+  align-items: center;
+  gap: var(--wp--preset--spacing--10);
+}
+
+/* Normalise the search block wrapper so the icon-only control sits flush in the header utilities. */
+.ls-site-header__search {
+  margin: 0;
+
+  /* Remove the default search wrapper chrome so only the icon button remains visible. */
+  .wp-block-search__inside-wrapper {
+    gap: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  /* Turn the icon-only search button into the compact circular utility control used in the header. */
+  .wp-block-search__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--ls-site-header-control-size);
+    block-size: var(--ls-site-header-control-size);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--wp--preset--border-radius--500);
+    background: transparent;
+    box-shadow: none;
+    color: var(--wp--custom--color--text--default);
+    line-height: 0;
+    transition: color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  }
+
+  /* Colour the search control on hover and focus without adding any glow or extra shell treatment. */
+  .wp-block-search__button:hover,
+  .wp-block-search__button:focus-visible {
+    color: var(--wp--custom--color--text--brand);
+  }
+
+  /* Apply the standard focus ring directly to the control button for keyboard visibility. */
+  .wp-block-search__button:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: 4px;
+  }
+
+  /* Keep the inline icon centred and inheriting the button colour. */
+  .wp-block-search__button svg {
+    inline-size: 20px;
+    block-size: 20px;
+    color: currentColor;
+    fill: currentColor;
+  }
+}
+
+/* Draw the dedicated bottom accent strip so it can span the full shell width in both states. */
+.ls-site-header__accent {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--ls-site-header-accent-thickness);
+  background-image: var(--ls-site-header-accent-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: var(--ls-site-header-accent-opacity);
+  pointer-events: none;
+  z-index: var(--wp--custom--z-index--base);
+  transition: opacity var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+}
+
+/* Fade the shared bottom accent in on hover and focus for both the default and pill header states. */
+.ls-site-header__shell:hover .ls-site-header__accent,
+.ls-site-header__shell:focus-within .ls-site-header__accent {
+  opacity: 1;
+}
+
+/* Apply the focus ring to the shell itself when focus enters the header controls or navigation. */
+.ls-site-header__shell:focus-within {
+  outline-color: var(--wp--custom--color--focus--ring);
+}
+
+/* Switch the root tokens once JS marks the header as scrolled into its compact pill state. */
+.ls-site-header.is-scrolled {
+  --ls-site-header-shell-padding-block: var(--wp--preset--spacing--10);
+  --ls-site-header-shell-max-width: min(
+    calc(100% - (2 * var(--ls-site-header-pill-gap))),
+    var(--wp--style--global--wide-size, 1360px)
+  );
+  --ls-site-header-shell-radius: var(--wp--preset--border-radius--500);
+  --ls-site-header-shell-background: var(--ls-site-header-pill-background);
+  --ls-site-header-shell-border: var(--ls-site-header-pill-border);
+  --ls-site-header-shell-border-bottom: var(--ls-site-header-pill-border);
+  --ls-site-header-shell-shadow: var(--ls-site-header-pill-shadow);
+  --ls-site-header-shell-blur: var(--ls-site-header-pill-blur);
+  --ls-site-header-shell-top-highlight: var(--ls-site-header-pill-top-highlight);
+  --ls-site-header-shell-side-highlight: var(--ls-site-header-pill-side-highlight);
+  --ls-site-header-shell-side-tail: var(--ls-site-header-pill-side-tail);
+  --ls-site-header-branding-width: 160px;
+}
+
+/* Tighten the inner content width and gaps as the viewport narrows. */
+@include mq.mq($until: tablet-landscape) {
+  /* Reduce the content width calculation so the centred grid keeps a sensible horizontal gutter. */
+  .ls-site-header__inner {
+    inline-size: min(
+      calc(100% - (2 * var(--wp--preset--spacing--10))),
+      var(--wp--style--global--wide-size, 1360px)
+    );
+  }
+}
+
+/* Reduce the overall header scale and control sizes on portrait-tablet widths and below. */
+@include mq.mq($until: tablet-portrait) {
+  /* Tighten the token values so the full header and pill state both remain proportional on smaller screens. */
+  .ls-site-header {
+    --ls-site-header-pill-gap: 10px;
+    --ls-site-header-content-gap: var(--wp--preset--spacing--10);
+    --ls-site-header-control-size: 40px;
+  }
+
+  /* Keep the grid content narrow enough that the logo, nav toggle, and search control do not collide. */
+  .ls-site-header__inner {
+    inline-size: min(
+      calc(100% - (2 * var(--wp--preset--spacing--10))),
+      var(--wp--style--global--wide-size, 1360px)
+    );
+  }
+
+  /* Keep the logo from dominating the smaller layout while preserving the same default-to-pill ratio. */
+  .ls-site-header:not(.is-scrolled) {
+    --ls-site-header-branding-width: 180px;
+  }
+
+  /* Lower the scrolled logo width proportionally so the pill still feels compact. */
+  .ls-site-header.is-scrolled {
+    --ls-site-header-branding-width: 140px;
+  }
+}
+
+/* Remove animation timing in reduced-motion mode while preserving the same visual end states. */
+@include motion.reduced-motion {
+  /* Disable the shell, logo, search, and accent transitions so the state change snaps cleanly. */
+  .ls-site-header__shell,
+  .ls-site-header__branding img,
+  .ls-site-header__search .wp-block-search__button,
+  .ls-site-header__accent {
+    transition: none;
+  }
+}

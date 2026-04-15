@@ -1,0 +1,19 @@
+/* Load the reduced-motion helper used to tone down header-specific runtime hints. */
+@use "../abstracts/mixins/motion";
+
+/* Expose the GSAP-driven vertical offset custom property on the header shell. */
+.ls-site-header__shell {
+  --ls-site-header-offset-y: 0px;
+  transform: translate3d(0, var(--ls-site-header-offset-y), 0);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Drop the transform optimisation hint when the user prefers reduced motion. */
+@include motion.reduced-motion {
+  /* Reset the performance hint because the shell is no longer expected to animate. */
+  .ls-site-header__shell {
+    will-change: auto;
+  }
+}
