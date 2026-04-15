@@ -110,6 +110,24 @@ Do not bundle web fonts by default — add them only when `.woff2` files exist i
 ## Spacing
 
 Define spacing in `settings.spacing.spacingSizes` or via the spacing scale.
+For normal JSON property values in `theme.json` and `styles/**/*.json`, use WordPress shorthand references such as `var:preset|...` for presets and `var:custom|...` for supported custom tokens. Use CSS custom property syntax only inside raw `css` strings.
+
+Reference spacing presets using WordPress preset shorthand:
+
+```json
+"margin": "var:preset|spacing|40"
+```
+
+Do not use CSS custom property syntax such as `var(--wp--preset--spacing--40)` for normal JSON property values.
+If you are authoring a raw `css` string inside a style JSON file, treat that string as CSS and use standard CSS variable syntax there instead.
+
+For typography or other supported custom token paths in normal JSON property values, use the same bar format:
+
+```json
+"fontWeight": "var:custom|typography|font-weight|normal",
+"lineHeight": "var:custom|line-height|paragraph"
+```
+
 Reference spacing using presets or non-colour custom tokens:
 
 ```css

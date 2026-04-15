@@ -7,7 +7,7 @@
                 "css": "& a { white-space: nowrap; }",
                 "typography": {
                     "fontSize": "var:preset|font-size|100",
-                    "fontWeight": "600"
+                    "fontWeight": "var:custom|typography|font-weight|semibold"
                 },
                 "elements": {
                     "link": {

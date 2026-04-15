@@ -1,0 +1,97 @@
+/********** Details / Accordion **********/
+
+.wp-block-details {
+  overflow: hidden;
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+
+  > summary {
+    display: flex;
+    align-items: center;
+    gap: var(--wp--preset--spacing--20);
+    padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
+    font: inherit;
+    font-weight: var(--wp--custom--typography--font-weight--normal);
+    color: inherit;
+    list-style: none;
+    cursor: pointer;
+    transition: inherit;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      content: "";
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      flex: none;
+      width: 0.625rem;
+      height: 0.625rem;
+      margin-inline-start: auto;
+      border-right: 2px solid var(--wp--custom--color--link--accent);
+      border-bottom: 2px solid var(--wp--custom--color--link--accent);
+      transform: translateY(-1px) rotate(45deg);
+      transform-origin: center;
+      transition:
+        transform var(--wp--custom--animation--duration--base)
+          var(--wp--custom--animation--easing--emphasised),
+        border-color var(--wp--custom--animation--duration--base)
+          var(--wp--custom--animation--easing--standard);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  > :where(:not(summary)) {
+    margin: 0;
+    padding-left: var(--wp--preset--spacing--30);
+    padding-right: var(--wp--preset--spacing--30);
+  }
+
+  > :where(:not(summary):first-of-type) {
+    padding-top: var(--wp--preset--spacing--20);
+  }
+
+  > :where(:not(summary):last-child) {
+    padding-bottom: var(--wp--preset--spacing--20);
+  }
+
+  > :where(:not(summary)) + :where(:not(summary)) {
+    padding-top: var(--wp--preset--spacing--20);
+  }
+
+  &:hover {
+    background: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--link--accent);
+  }
+
+  &[open],
+  &[open]:hover {
+    background: var(--wp--custom--color--surface--card);
+    border-color: var(--wp--custom--color--link--accent);
+  }
+
+  &[open] > summary {
+    border-bottom: 1px solid var(--wp--custom--color--link--accent);
+
+    &::after {
+      transform: translateY(1px) rotate(-135deg);
+    }
+  }
+
+  &:focus-within {
+    border-color: var(--wp--custom--color--link--accent);
+    box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
+  }
+}

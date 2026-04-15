@@ -30,6 +30,13 @@ Whenever you create or change a colour in a theme file, follow this policy befor
 - These shared non-colour token families live in `theme.json` only. Do not mirror them into `styles/dark.json` unless a task explicitly calls for a mode-specific non-colour override.
 - Only semantic colour tokens require dark-mode parity by default.
 
+## Preset Reference Syntax
+
+- In normal JSON property values, use WordPress shorthand such as `var:preset|spacing|20`.
+- For supported custom token paths in normal JSON property values, use the matching shorthand such as `var:custom|typography|font-weight|normal`.
+- In authored CSS, use CSS custom property syntax such as `var(--wp--preset--spacing--20)`.
+- This CSS form also applies inside raw `css` strings embedded in style JSON files, because those strings are authored as CSS rather than JSON token values.
+
 ## Required Colour Architecture
 
 - Define fixed colours only in `settings.color.palette`.

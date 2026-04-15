@@ -6,17 +6,17 @@
   "blockTypes": [
     "core/button"
   ],
-  "description": "Outlined accent button with a glow bloom on hover.",
+  "description": "Outlined accent button with a glow bloom on hover. Shared interaction contract lives in src/scss/animations.scss.",
   "styles": {
     "border": {
-      "color": "var(--wp--custom--color--button--outline--border)",
+      "color": "var:custom|color|button|outline|border",
       "radius": "var:preset|border-radius|100",
       "style": "solid",
       "width": "2px"
     },
     "color": {
-      "background": "var(--wp--custom--color--button--outline--background)",
-      "text": "var(--wp--custom--color--button--outline--text)"
+      "background": "var:custom|color|button|outline|background",
+      "text": "var:custom|color|button|outline|text"
     },
     "spacing": {
       "padding": {
@@ -30,7 +30,6 @@
       "fontSize": "var:preset|font-size|200",
       "fontWeight": "600",
       "letterSpacing": "0.08em"
-    },
-    "css": "&{--ls-button-glow-colour:var(--wp--custom--color--button--outline--border);--ls-button-glow-hover-background:var(--wp--custom--color--button--outline--background-hover);--ls-button-glow-hover-text:var(--wp--custom--color--button--outline--text-hover);--ls-button-glow-enter-delay:var(--wp--custom--animation--delay--enter);--ls-button-glow-outline-width:1px;--ls-button-glow-outline-offset:12px;--ls-button-glow-resting-strength:0%;--ls-button-glow-outline-strength:45%;--ls-button-glow-inner-strength:35%;--ls-button-glow-outer-strength:20%;--ls-button-active-scale:var(--wp--custom--animation--scale--active);}"
+    }
   }
 }

@@ -10,6 +10,7 @@ These are referenced from `.github/copilot-instructions.md`.
 | `design-token-policy.instructions.md` | Semantic design-token policy    |
 | `php.instructions.md`                 | PHP files                       |
 | `patterns.instructions.md`            | Block patterns                  |
+| `styling.instructions.md`             | Sass, authored CSS, style JSON  |
 | `templates.instructions.md`           | Block templates and parts       |
 | `theme-json.instructions.md`          | theme.json and style variations |
 | `workflows.instructions.md`           | GitHub Actions workflows        |

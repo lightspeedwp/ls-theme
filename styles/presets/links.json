@@ -5,11 +5,11 @@
         "elements": {
             "link": {
                 "color": {
-                    "text": "var(--wp--custom--color--link--accent)"
+                    "text": "var:custom|color|link|accent"
                 },
                 ":hover": {
                     "color": {
-                        "text": "var(--wp--custom--color--link--accent-hover)"
+                        "text": "var:custom|color|link|accent-hover"
                     }
                 }
             }

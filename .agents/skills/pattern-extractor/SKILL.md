@@ -1,6 +1,6 @@
 ---
 name: pattern-extractor
-description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, icon staging, and CSS-versus-GSAP motion routing.
+description: Convert Figma designs into ls-theme WordPress block patterns with strict semantic token mapping, dark-token parity, reuse-or-create style workflow, Phosphor icon mapping into Icon Block markup, CSS-versus-GSAP motion routing, mandatory use of the theme-color-token-enforcer skill for created patterns or styles, and mandatory use of the wordpress-gsap skill whenever GSAP is required.
 ---
 
 # Pattern Extractor
@@ -8,6 +8,10 @@ description: Convert Figma designs into ls-theme WordPress block patterns with s
 ## Purpose
 
 Use this skill when importing a Figma design into `patterns/` as a production-ready WordPress block pattern for `ls-theme`.
+
+Whenever this skill creates or updates authored UI files such as pattern PHP, block style JSON, section style JSON, or theme CSS, it must also load and follow the `theme-color-token-enforcer` skill for those files. Treat `theme-color-token-enforcer` as the authoritative rule set for semantic colour token reuse, token creation, dark-mode parity, and contrast validation.
+
+Whenever this skill decides that a pattern needs GSAP-powered motion, it must also load and follow the `wordpress-gsap` skill. Treat `wordpress-gsap` as the authoritative workflow for WordPress enqueueing, GSAP plugin registration, runtime scoping, and reduced-motion-safe effect architecture.
 
 Patterns should be grouped into taxonomy subfolders rather than stored flat at the top level. For example, a single featured card pattern should live at `patterns/cards/feature-card.php`.
 
@@ -197,6 +201,8 @@ GSAP output goes in:
 - `inc/gsap.php` when a new registered block style or asset wiring is required
 - supporting `styles/blocks/**/*.json` or `styles/sections/**/*.json` files for the base visual contract
 
+Whenever GSAP is chosen, load and follow `wordpress-gsap` before the proposal is finalised or any GSAP files are edited.
+
 Motion guardrails:
 
 - Prefer CSS unless GSAP is clearly required.
@@ -207,6 +213,8 @@ Motion guardrails:
 ### Phase 5 — Style Creation Rules
 
 If no suitable style exists, create the narrowest reusable artefacts needed.
+
+For any new or updated pattern or style artefact created in this phase, follow `theme-color-token-enforcer` in `apply` mode across the authored UI files being changed before considering the implementation complete.
 
 1. Block style JSON:
    - Path: `styles/blocks/<block-family>/<style-slug>.json`
@@ -219,6 +227,8 @@ If no suitable style exists, create the narrowest reusable artefacts needed.
 5. GSAP registration:
    - Update `inc/gsap.php` if the effect needs a registered block style for editor discoverability or standardised class usage.
 
+For GSAP-powered work in items 4 and 5, follow `wordpress-gsap` before implementation is considered complete.
+
 Style constraints:
 
 - Use semantic colour tokens only in authored UI.
@@ -230,16 +240,19 @@ Style constraints:
 - Prefer existing core block defaults and existing styles before creating new styles. Do not create a new heading block style when a native heading block at the correct level already satisfies the design intent.
 - If a hover shadow is likely to be reused across multiple cards, create it as a reusable custom shadow token rather than hardcoding the hover shadow in CSS.
 
-### Phase 6 — Icon Discovery And Staging
+### Phase 6 — Icon Discovery And Phosphor Mapping
 
 1. Detect icon usage from the Figma design.
-2. Check whether each icon already exists in `assets/icons/`.
-3. When a card uses an icon holder, model it as a nested `core/group` shell containing an Icon Block.
-4. If the user intends to replace icons later, the Icon Block may be left empty in the pattern while preserving the correct icon wrapper structure.
-5. For missing icons that should be staged now:
-   - prepare clean SVG files
-   - use clear kebab-case filenames
-   - keep them reusable and free from unnecessary metadata
+2. Match each detected icon to the closest Phosphor Icons glyph from https://phosphoricons.com/ using both visual silhouette and semantic intent from the surrounding content.
+3. Prefer a high-confidence Phosphor match over exporting a bespoke SVG from Figma.
+4. When a card uses an icon holder, model it as a nested `core/group` shell containing an Icon Block populated with the chosen Phosphor icon.
+5. Leave the Icon Block empty only when:
+   - the user explicitly wants to replace the icon later
+   - there is no confident Phosphor match and the user has not approved a fallback
+6. Treat icon matching as part of the proposal:
+   - report the chosen Phosphor icon name for each detected icon
+   - flag any low-confidence matches for confirmation before implementation
+7. Use `assets/icons/` only as an explicit fallback path when no suitable Phosphor icon exists and the user approves shipping a bespoke SVG.
 
 ### Phase 7 — Proposal Report
 
@@ -255,11 +268,11 @@ The report must include:
 6. New section styles to create
 7. Motion routing decision for each interactive element
 8. CSS-only files to update
-9. GSAP files to update
+9. GSAP files to update, plus any required handles or GSAP plugins
 10. Semantic colour tokens to reuse
 11. Semantic colour tokens to add, with matching `theme.json` and `styles/dark.json` paths
 12. Non-colour preset mappings used
-13. Icons matched and icons still needed
+13. Phosphor icon matches, confidence, and any fallback icons still needing approval
 14. Context-aware block map with confidence scores
 15. Assumptions or ambiguities that need confirmation
 
@@ -274,10 +287,11 @@ After the user confirms:
 3. Create or update block and section style JSON files.
 4. Add CSS-only motion rules to `assets/css/animations.css` when applicable.
 5. Add GSAP CSS and JS to `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js` only when the approved plan requires it.
-6. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
-7. Create the pattern file in `patterns/<subfolder>/<pattern-slug>.php`.
-8. Stage any missing icons in `assets/icons/` only when the icon should be supplied now.
-9. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
+6. Create the pattern file in `patterns/<subfolder>/<pattern-slug>.php`.
+7. Run the `theme-color-token-enforcer` skill against every created or updated pattern and style file so authored UI uses only approved semantic custom colour tokens and any required token additions are mirrored in `theme.json` and `styles/dark.json`.
+8. Update `inc/gsap.php` when a new registered GSAP block style is part of the plan.
+9. Populate Icon Blocks with the approved Phosphor icons, and use `assets/icons/` only for approved bespoke fallbacks.
+10. Optionally save a Code Connect mapping with `mcp_figma_dev-mod_send_code_connect_mappings` when the user wants the Figma-to-code link recorded.
 
 ## Pattern Authoring Standards
 
@@ -306,7 +320,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - Do not hard-code URLs when a WordPress function should provide them.
 - Group patterns into subfolders by family, such as `patterns/cards/`, `patterns/hero/`, or `patterns/content/`.
 - Prefer a native `core/heading` block at the correct level before introducing a dedicated heading block style.
-- When a card includes an icon tile, use a nested `core/group` wrapper with an Icon Block inside it.
+- When a card includes an icon tile, use a nested `core/group` wrapper with an Icon Block inside it, populated with the approved Phosphor icon unless the user has approved an empty or bespoke fallback state.
 
 ### PHP, Escaping, And i18n
 
@@ -337,6 +351,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - Pattern slug and filename align
 - Pattern markup is valid WordPress block markup
 - All PHP output is escaped and all visible strings use the `ls-theme` text domain
+- `theme-color-token-enforcer` has been followed for every created or updated pattern or style file
 - All semantic custom colour tokens used in authored UI exist in both `theme.json` and `styles/dark.json`
 - No direct preset-colour references remain in authored UI files outside token-definition areas
 - Non-colour values map to the theme's merged preset model
@@ -345,9 +360,10 @@ Single-card patterns should remain insertable from the editor unless the user ex
 - No radius value is hardcoded; radius is mapped to a preset
 - CSS-only interactions are placed in `assets/css/animations.css`
 - GSAP interactions are placed in `assets/css/gsap-animations.css` and `assets/js/gsap-effects.js`
+- `wordpress-gsap` has been followed for any GSAP-powered motion work
 - Reduced-motion handling is present for any new motion work
 - New GSAP block styles are registered in `inc/gsap.php` when needed
-- Icon wrappers use a nested Group plus Icon Block structure, and icons are staged in `assets/icons/` only when they should ship with the pattern
+- Icon wrappers use a nested Group plus Icon Block structure, detected icons are matched to Phosphor Icons first, and `assets/icons/` is used only for approved bespoke fallbacks
 - Single-card patterns remain insertable from the editor unless explicitly overridden
 - Visual output matches the Figma intent without importing foreign design-system token names into the final theme
 
@@ -362,7 +378,7 @@ Single-card patterns should remain insertable from the editor unless the user ex
 7. **Motion routing**: `<interactive element -> CSS or GSAP -> files to update>`
 8. **Semantic colour tokens**: `<reuse list + new general-purpose paths if required>`
 9. **Non-colour token mapping**: `<spacing/typography/radius/shadow/layout summary>`
-10. **Icons**: `<group wrapper + icon block handling + existing matches + missing files>`
+10. **Icons**: `<group wrapper + icon block handling + chosen Phosphor matches + confidence + any bespoke fallback approvals needed>`
 11. **Need confirmation on**: `<open decisions or ambiguities>`
 
 Then ask: `Approve this plan and proceed with implementation?`

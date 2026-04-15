@@ -6,7 +6,7 @@
             "core/pullquote": {
                 "border": {
                     "top": {
-                        "color": "var(--wp--custom--color--link--accent)",
+                        "color": "var:custom|color|link|accent",
                         "style": "solid",
                         "width": "4px"
                     }
@@ -21,13 +21,13 @@
                 },
                 "typography": {
                     "fontSize": "var:preset|font-size|300",
-                    "fontWeight": "500",
-                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                    "fontWeight": "var:custom|typography|font-weight|medium",
+                    "lineHeight": "var:custom|line-height|paragraph"
                 },
                 "elements": {
                     "cite": {
                         "color": {
-                            "text": "var(--wp--custom--color--text--muted)"
+                            "text": "var:custom|color|text|muted"
                         },
                         "typography": {
                             "fontSize": "var:preset|font-size|100"

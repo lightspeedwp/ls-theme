@@ -6,19 +6,19 @@
             "core/navigation": {
                 "typography": {
                     "fontSize": "var:preset|font-size|200",
-                    "fontWeight": "500"
+                    "fontWeight": "var:custom|typography|font-weight|medium"
                 },
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--custom--color--text--default)"
+                            "text": "var:custom|color|text|default"
                         },
                         "typography": {
                             "textDecoration": "none"
                         },
                         ":hover": {
                             "color": {
-                                "text": "var(--wp--custom--color--link--accent-hover)"
+                                "text": "var:custom|color|link|accent-hover"
                             },
                             "typography": {
                                 "textDecoration": "underline"

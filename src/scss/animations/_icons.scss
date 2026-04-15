@@ -1,0 +1,4 @@
+@use "sass:string";
+
+$ls-icon-arrow-right: string.unquote("\"\\2192\"");
+$ls-icon-check: string.unquote("\"\\2713\"");

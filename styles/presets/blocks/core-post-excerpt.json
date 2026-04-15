@@ -5,11 +5,11 @@
         "blocks": {
             "core/post-excerpt": {
                 "color": {
-                    "text": "var(--wp--custom--color--text--muted)"
+                    "text": "var:custom|color|text|muted"
                 },
                 "typography": {
                     "fontSize": "var:preset|font-size|200",
-                    "lineHeight": "var(--wp--custom--line-height--paragraph)"
+                    "lineHeight": "var:custom|line-height|paragraph"
                 },
                 "elements": {
                     "link": {

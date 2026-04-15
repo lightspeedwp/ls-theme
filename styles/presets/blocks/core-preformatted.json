@@ -9,8 +9,8 @@
                     "width": "0"
                 },
                 "color": {
-                    "background": "var(--wp--custom--color--surface--card-raised)",
-                    "text": "var(--wp--custom--color--text--default)"
+                    "background": "var:custom|color|surface|card-raised",
+                    "text": "var:custom|color|text|default"
                 },
                 "spacing": {
                     "padding": {
@@ -21,7 +21,7 @@
                     }
                 },
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--monospace, monospace)",
+                    "fontFamily": "var:preset|font-family|monospace",
                     "fontSize": "var:preset|font-size|200"
                 }
             }

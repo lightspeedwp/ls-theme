@@ -6,7 +6,7 @@
             "core/query-pagination": {
                 "typography": {
                     "fontSize": "var:preset|font-size|200",
-                    "fontWeight": "500"
+                    "fontWeight": "var:custom|typography|font-weight|medium"
                 },
                 "elements": {
                     "link": {
@@ -15,8 +15,8 @@
                             "width": "0"
                         },
                         "color": {
-                            "background": "var(--wp--custom--color--surface--card)",
-                            "text": "var(--wp--custom--color--text--default)"
+                            "background": "var:custom|color|surface|card",
+                            "text": "var:custom|color|text|default"
                         },
                         "spacing": {
                             "padding": {
@@ -28,7 +28,7 @@
                         },
                         "typography": {
                             "fontSize": "var:preset|font-size|100",
-                            "fontWeight": "500",
+                            "fontWeight": "var:custom|typography|font-weight|medium",
                             "textDecoration": "none"
                         },
                         ":hover": {

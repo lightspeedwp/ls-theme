@@ -4,7 +4,26 @@
     "styles": {
         "blocks": {
             "core/details": {
-                "css": ".wp-block-details summary { font-weight: 600; }"
+                "border": {
+                    "color": "var:custom|color|border|card",
+                    "radius": "var:preset|border-radius|200",
+                    "style": "solid",
+                    "width": "1px"
+                },
+                "color": {
+                    "background": "var:custom|color|surface|card",
+                    "text": "var:custom|color|text|default"
+                },
+                "spacing": {
+                    "blockGap": "0"
+                },
+                "typography": {
+                    "fontFamily": "var:preset|font-family|heading",
+                    "fontSize": "var:preset|font-size|300",
+                    "fontWeight": "var:custom|typography|font-weight|light",
+                    "letterSpacing": "0",
+                    "lineHeight": "var:custom|line-height|paragraph"
+                }
             }
         }
     }

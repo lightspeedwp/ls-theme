@@ -1,5 +1,5 @@
 ---
-mode: "ask"
+agent: "ask"
 ---
 
 # Complete Theme JSON

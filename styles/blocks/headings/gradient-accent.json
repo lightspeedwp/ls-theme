@@ -6,18 +6,17 @@
   "blockTypes": [
     "core/heading"
   ],
-  "description": "Animated gradient text for headings using the LightSpeed Theme accent presets.",
+  "description": "Animated gradient text for headings using the LightSpeed Theme accent presets. Shared interaction contract lives in src/scss/animations.scss.",
   "styles": {
     "color": {
-      "text": "var(--wp--custom--color--text--brand)"
+      "text": "var:custom|color|text|brand"
     },
     "elements": {
       "link": {
         "color": {
-          "text": "var(--wp--custom--color--text--brand)"
+          "text": "var:custom|color|text|brand"
         }
       }
-    },
-    "css": "&{--ls-gradient-width:fit-content;--ls-gradient-image:linear-gradient(to right,var(--wp--custom--color--text--brand) 0%,var(--wp--custom--color--text--default) 25%,var(--wp--custom--color--text--brand-strong) 50%,var(--wp--custom--color--text--default) 75%,var(--wp--custom--color--text--brand) 100%);--ls-gradient-size:200% auto;--ls-gradient-start-position:0%;--ls-gradient-end-position:100%;--ls-gradient-duration:var(--wp--custom--animation--duration--loop);--ls-gradient-delay:var(--wp--custom--animation--delay--none);--ls-gradient-timing:var(--wp--custom--animation--easing--smooth);--ls-gradient-direction:alternate;--ls-gradient-focus-width:2px;--ls-gradient-focus-color:var(--wp--custom--color--focus--ring);--ls-gradient-focus-offset:4px;--ls-gradient-reduced-position:100%;}"
+    }
   }
 }

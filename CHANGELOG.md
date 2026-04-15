@@ -11,9 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells.
+- Added a `Card - Services` pattern with a reusable accent-border gradient contract, a matching services card section style, and a blue tick list block style.
+- Added a `Solutions Card` pattern with a reusable `Icon Frame Glow` group style and a compact shared-arrow card CTA button style.
 - Added individual merged block preset files under `styles/presets/blocks/` so live block runtime defaults can be maintained one block per file.
 - Added a theme-local `themejson-completion` skill, `ThemeJSON Completer` agent, and `complete-theme-json` prompt for approval-first Global Styles completion work.
 - Registered the theme font-family presets as `body`, `heading`, and `monospace`, and applied the `monospace` preset to code elements in `theme.json`.
+- Added a Sass source layer under `src/scss/` with reusable mixin families for breakpoints, motion, surfaces, and glass effects.
 - Added a GSAP asset bootstrap in `inc/gsap.php` for class-based interactive effects.
 - Added a GSAP-driven `is-style-card-spotlight` group effect using theme surface and accent colours.
 - Added usage documentation for the spotlight card class.
@@ -24,10 +28,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a repo-scoped semantic design-token instruction for theme colour work.
 - Added a portable `theme-color-token-enforcer` skill to audit or fix semantic colour token usage.
 - Added a theme-local `pattern-extractor` skill and matching `extract-pattern` prompt wrapper for Figma-to-pattern workflows that honour semantic tokens and CSS-versus-GSAP motion routing.
-- Added a CSS-only `Feature Card` group treatment, a matching inline CTA paragraph style, and an insertable single-card pattern at `patterns/cards/feature-card.php`.
+- Added a CSS-only `Card - Feature` group treatment, a matching inline CTA paragraph style, and an insertable single-card pattern at `patterns/cards/card-feature.php`.
 
 ### Changed
 
+- Refactored `src/scss/animations.scss` and `src/scss/gsap-animations.scss` into loader entrypoints backed by smaller contextual partials, normalised live preset JSON onto WordPress shorthand for non-colour tokens, and removed the dead `settings.custom.button-padding` branch.
+- Made `theme.json` custom layout breakpoints the build-time source for the Sass `mq()` map, and tightened the CSS build to compile only explicit Sass entry files so tracked source-directory CSS artefacts can no longer override live assets.
+- Styled the merged `core/details` preset as the site accordion contract, including token-driven default, hover, focus, and open states, tuned chevron alignment, custom typography font-weight tokens for the question and answer text, and moved the selector-driven accordion layer into Sass for maintainability.
+- Moved the longer heading, link, list, card, glass, and button style contracts out of inline style JSON and into `src/scss/animations.scss`, added maintenance notes to the migrated style files, and standardised the shared gradient contract on `--ls-accent-gradient-*`.
+- Moved authored effect CSS maintenance to Sass entry files that compile back to `assets/css/animations.css` and `assets/css/gsap-animations.css`, while keeping the WordPress runtime asset paths unchanged.
+- Rewired shared card icon shells onto the existing accent token path so dark-mode accent remaps stay in sync across icon shells, list markers, and related card accents, and removed the services card icon rotation from its hover state.
+- Normalised the GSAP hero mobile breakpoint onto the canonical `theme.json` breakpoint naming set by routing the authored media query through the new `mq()` mixin.
 - Tightened the theme.json workflow and instruction files so all live block configuration must be authored in individual `styles/presets/blocks/*.json` files rather than directly in `theme.json`.
 - Tightened the theme-local pattern extractor guidance so patterns are grouped into subfolders, card icons use a nested Group plus Icon Block structure, radius values always resolve through presets, whole-card hover states are preferred for interactive cards, and reusable muted-text and hover-shadow tokens are favoured over card-specific hardcoding.
 - Enabled root-padding-aware alignments, added theme typography writing-mode support, and applied a default spacing-20 horizontal page gutter in `theme.json`.
@@ -68,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Removed stale compiled CSS and source-map artefacts from `src/scss/` so `assets/css/` remains the only runtime stylesheet output tree.
 - Removed the experimental vanilla JavaScript spotlight card implementation pending GSAP evaluation.
 - Removed the section style contract loader for `styles/sections/*.json` runtime CSS generation.
 - Removed the temporary experimental button variation and its temporary selector path.

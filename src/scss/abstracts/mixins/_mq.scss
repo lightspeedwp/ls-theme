@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "breakpoints-theme" as breakpoint-theme;
+
+@function breakpoint($name) {
+  @if not map.has-key(breakpoint-theme.$ls-breakpoints, $name) {
+    @error "Unknown LightSpeed breakpoint `#{$name}`.";
+  }
+
+  @return map.get(breakpoint-theme.$ls-breakpoints, $name);
+}
+
+@mixin mq($from: null, $until: null) {
+  @if null == $from and null == $until {
+    @error "The mq() mixin requires at least one of `$from` or `$until`.";
+  }
+
+  $query: null;
+
+  @if null != $from {
+    $query: "(min-width: #{breakpoint($from)})";
+  }
+
+  @if null != $until {
+    // Subtract a tiny offset so this max-width query stops just before the
+    // next inclusive min-width breakpoint. This prevents adjacent breakpoint
+    // ranges from overlapping at the exact breakpoint value.
+    $breakpoint-max-width-offset: 0.02px;
+    $max-query: "(max-width: #{breakpoint($until) - $breakpoint-max-width-offset})";
+
+    @if null == $query {
+      $query: $max-query;
+    } @else {
+      $query: "#{$query} and #{$max-query}";
+    }
+  }
+
+  @media #{$query} {
+    @content;
+  }
+}

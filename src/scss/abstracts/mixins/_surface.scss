@@ -1,0 +1,18 @@
+@mixin absolute-fill($inset: 0) {
+  position: absolute;
+  inset: $inset;
+}
+
+@mixin surface-card(
+  $radius: var(--wp--preset--border-radius--300),
+  $border: 1px solid var(--wp--custom--color--border--card),
+  $background: var(--wp--custom--color--surface--card),
+  $shadow: var(--wp--custom--shadow--elevation--100)
+) {
+  position: relative;
+  overflow: hidden;
+  border: $border;
+  border-radius: $radius;
+  background: $background;
+  box-shadow: $shadow;
+}

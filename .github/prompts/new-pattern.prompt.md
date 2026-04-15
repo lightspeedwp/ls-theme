@@ -1,5 +1,5 @@
 ---
-mode: "ask"
+agent: "ask"
 ---
 
 # New Block Pattern

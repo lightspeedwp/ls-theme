@@ -6,7 +6,7 @@
             "core/post-navigation-link": {
                 "typography": {
                     "fontSize": "var:preset|font-size|200",
-                    "fontWeight": "500"
+                    "fontWeight": "var:custom|typography|font-weight|medium"
                 }
             }
         }

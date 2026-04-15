@@ -5,23 +5,23 @@
         "blocks": {
             "core/site-title": {
                 "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--heading, sans-serif)",
+                    "fontFamily": "var:preset|font-family|heading",
                     "fontSize": "var:preset|font-size|300",
-                    "fontWeight": "600",
+                    "fontWeight": "var:custom|typography|font-weight|semibold",
                     "letterSpacing": "0",
-                    "lineHeight": "var(--wp--custom--line-height--heading-snug)"
+                    "lineHeight": "var:custom|line-height|heading-snug"
                 },
                 "elements": {
                     "link": {
                         "color": {
-                            "text": "var(--wp--custom--color--text--default)"
+                            "text": "var:custom|color|text|default"
                         },
                         "typography": {
                             "textDecoration": "none"
                         },
                         ":hover": {
                             "color": {
-                                "text": "var(--wp--custom--color--link--accent-hover)"
+                                "text": "var:custom|color|link|accent-hover"
                             },
                             "typography": {
                                 "textDecoration": "underline"

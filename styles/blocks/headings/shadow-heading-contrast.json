@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+  "version": 3,
+  "title": "Shadow Heading Contrast",
+  "slug": "shadow-heading-contrast",
+  "blockTypes": [
+    "core/heading"
+  ],
+  "description": "Subtle text shadow for headings that pair with contrast text.",
+  "styles": {
+    "css": "&{text-shadow:var(--wp--custom--shadow--heading--contrast);}"
+  }
+}
