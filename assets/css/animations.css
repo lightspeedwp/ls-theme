@@ -1,7 +1,7 @@
 /********** Shared Keyframes **********/
 @keyframes ls-accent-gradient-shift {
   to {
-    background-position: var(--ls-accent-gradient-end-position) center;
+    background-position: var(--ls-accent-gradient-end-position, 100%) center;
   }
 }
 /********** Text Motion **********/
