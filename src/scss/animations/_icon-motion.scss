@@ -54,6 +54,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    /* Override plugin inline styles */
     background: transparent !important;
     color: currentColor !important;
 
@@ -73,11 +74,24 @@
   :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
   border-color: var(--wp--custom--color--icon--background);
   box-shadow:
-    var(--wp--custom--shadow--elevation--300),
+    0 0 14px 2px
+      color-mix(
+        in srgb,
+        var(
+            --ls-icon-frame-accent-colour,
+            var(--wp--custom--color--icon--background)
+          )
+          48%,
+        transparent
+      ),
     0 22px 44px -22px
       color-mix(
         in srgb,
-        var(--wp--custom--color--icon--background) 76%,
+        var(
+            --ls-icon-frame-accent-colour,
+            var(--wp--custom--color--icon--background)
+          )
+          82%,
         transparent
       );
   transform: rotate(-5deg) scale(0.98);
@@ -122,12 +136,26 @@
   );
   box-shadow: var(
     --ls-card-services-icon-shadow-active,
-    var(--wp--custom--shadow--elevation--300),
-    0 22px 44px -22px color-mix(
-      in srgb,
-      var(--wp--custom--color--icon--background) 76%,
-      transparent
-    )
+    0 0 14px 2px
+      color-mix(
+        in srgb,
+        var(
+            --ls-icon-frame-accent-colour,
+            var(--wp--custom--color--icon--background)
+          )
+          48%,
+        transparent
+      ),
+    0 22px 44px -22px
+      color-mix(
+        in srgb,
+        var(
+            --ls-icon-frame-accent-colour,
+            var(--wp--custom--color--icon--background)
+          )
+          82%,
+        transparent
+      )
   );
 }
 

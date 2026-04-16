@@ -13,7 +13,7 @@
 			"text": "var:custom|color|text|accent-strong"
 		},
 		"spacing": {
-			"blockGap": "var:preset|spacing|80",
+			"blockGap": "var:preset|spacing|70",
 			"padding": {
 				"top": "var:preset|spacing|80",
 				"bottom": "var:preset|spacing|80"

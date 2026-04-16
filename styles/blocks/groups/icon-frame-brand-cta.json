@@ -12,8 +12,8 @@
 			"text": "var:custom|color|text|inverse"
 		},
 		"border": {
-			"color": "color-mix(in srgb, var(--ls-icon-frame-brand-cta-start) 24%, var(--ls-icon-frame-brand-cta-end) 24%, transparent)",
 			"radius": "var:preset|border-radius|200",
+			"color": "color-mix(in srgb, var(--ls-icon-frame-brand-cta-start) 50%, var(--ls-icon-frame-brand-cta-end) 50%)",
 			"style": "solid",
 			"width": "1px"
 		},
@@ -25,6 +25,6 @@
 				"left": "var:preset|spacing|20"
 			}
 		},
-		"css": "&{--ls-icon-frame-brand-cta-start:var(--wp--custom--color--surface--brand);--ls-icon-frame-brand-cta-end:var(--wp--custom--color--surface--cta);}"
+		"css": "& { --ls-icon-frame-brand-cta-start: var(--wp--custom--color--surface--brand); --ls-icon-frame-brand-cta-end: var(--wp--custom--color--surface--cta); }"
 	}
 }

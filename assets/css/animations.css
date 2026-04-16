@@ -327,6 +327,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  /* Override plugin inline styles */
   background: transparent !important;
   color: currentColor !important;
 }
@@ -347,7 +348,7 @@
 .is-style-card-feature:hover :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
 .is-style-card-feature:focus-within :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
   border-color: var(--wp--custom--color--icon--background);
-  box-shadow: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
+  box-shadow: 0 0 14px 2px color-mix(in srgb, var(--ls-icon-frame-accent-colour, var(--wp--custom--color--icon--background)) 48%, transparent), 0 22px 44px -22px color-mix(in srgb, var(--ls-icon-frame-accent-colour, var(--wp--custom--color--icon--background)) 82%, transparent);
   transform: rotate(-5deg) scale(0.98);
 }
 
@@ -381,7 +382,7 @@
 .is-style-card-services:hover :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
 .is-style-card-services:focus-within :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
   border-color: var(--ls-card-services-icon-border-active, var(--wp--custom--color--icon--background));
-  box-shadow: var(--ls-card-services-icon-shadow-active, var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent));
+  box-shadow: var(--ls-card-services-icon-shadow-active, 0 0 14px 2px color-mix(in srgb, var(--ls-icon-frame-accent-colour, var(--wp--custom--color--icon--background)) 48%, transparent), 0 22px 44px -22px color-mix(in srgb, var(--ls-icon-frame-accent-colour, var(--wp--custom--color--icon--background)) 82%, transparent));
 }
 
 .is-style-card-ai-feature .ls-card-ai-feature__icon-shell {
@@ -492,7 +493,7 @@
 }
 .is-style-glass-card:hover, .is-style-glass-card:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 34%, transparent);
-  border-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 32%, var(--wp--custom--color--surface--highlight) 30%, transparent);
+  border-color: color-mix(in srgb, color-mix(in srgb, var(--wp--custom--color--link--accent) 50%, var(--wp--custom--color--surface--highlight)) 32%, transparent);
   box-shadow: var(--wp--custom--shadow--elevation--300), var(--wp--custom--shadow--interactive--accent);
   transform: translateY(var(--ls-glass-card-lift, -4px));
 }
@@ -526,6 +527,7 @@
 
 /* Card - Post */
 .is-style-card-post {
+  position: relative;
   overflow: hidden;
   inline-size: 100%;
   gap: 0;
@@ -580,7 +582,7 @@
   overflow: hidden;
   align-items: center;
   text-align: center;
-  transform-origin: top center;
+  transform-origin: bottom center;
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
 .is-style-card-services::before {

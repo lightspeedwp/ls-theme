@@ -62,8 +62,11 @@
     );
     border-color: color-mix(
       in srgb,
-      var(--wp--custom--color--link--accent) 32%,
-      var(--wp--custom--color--surface--highlight) 30%,
+      color-mix(
+        in srgb,
+        var(--wp--custom--color--link--accent) 50%,
+        var(--wp--custom--color--surface--highlight)
+      ) 32%,
       transparent
     );
     box-shadow:
@@ -124,6 +127,7 @@
 
 /* Card - Post */
 .is-style-card-post {
+  position: relative;
   overflow: hidden;
   inline-size: 100%;
   gap: 0;
@@ -208,7 +212,7 @@
   overflow: hidden;
   align-items: center;
   text-align: center;
-  transform-origin: top center;
+  transform-origin: bottom center;
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),

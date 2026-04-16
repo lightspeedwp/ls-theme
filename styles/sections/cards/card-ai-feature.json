@@ -9,7 +9,7 @@
 	"description": "Compact centred AI feature card shell with a reused gradient icon frame, bold heading, and supporting copy.",
 	"styles": {
 		"color": {
-			"background": "var:custom|color|surface|card",
+			"background": "var:custom|color|surface|canvas",
 			"text": "var:custom|color|text|default"
 		},
 		"border": {
