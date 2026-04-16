@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Home Stats Section",
+	"slug": "home-stats-section",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Light full-width group style with the animated network background used for the homepage stats section.",
+	"styles": {
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|50",
+				"bottom": "var:preset|spacing|50"
+			},
+			"margin": {
+				"top": "0",
+				"bottom": "0"
+			}
+		}
+	}
+}

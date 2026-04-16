@@ -81,19 +81,6 @@
   }
 }
 
-.ls-badge-hero__label {
-  margin: 0;
-  color: currentColor;
-  font-family: var(--wp--preset--font-family--heading);
-  font-size: var(--wp--preset--font-size--100);
-  font-weight: var(--wp--custom--typography--font-weight--semibold);
-  letter-spacing: var(--wp--custom--typography--letter-spacing--normal);
-  line-height: var(--wp--custom--line-height--heading-default);
-  text-align: center;
-  text-transform: uppercase;
-  white-space: normal;
-}
-
 :is(
   .ls-badge-hero,
   .is-style-badge-hero-brand,

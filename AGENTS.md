@@ -76,6 +76,18 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 - Use `inc/` only for genuine PHP logic that does not belong in `functions.php`.
 - Do not invent PHP architecture that `theme.json` can handle.
 
+### JSON / SCSS Contract
+
+- Treat JSON as the primary home for configurable styling values.
+- Put shared presets and semantic tokens in `theme.json` and modular preset JSON.
+- Put block defaults in `styles/presets/blocks/*.json`.
+- Put variation-specific configuration in the relevant files under `styles/blocks/**` and `styles/sections/**`.
+- Use schema fields first: `color`, `border`, `spacing`, `shadow`, `typography`, `dimensions`, and block-level `elements` / `blocks` settings.
+- Use a small `styles.css` string inside a variation JSON file only when the schema cannot express the value cleanly. Keep it limited to local custom properties where possible.
+- Keep SCSS for structure and behaviour: selectors, pseudo-elements, layout choreography, media queries, `@supports`, hover/focus states, transforms, masks, and motion.
+- Do not create new standalone token files for one-off component values that belong to a specific block or section variation.
+- When a motion concern becomes its own reusable element layer, extract it into a dedicated partial such as `_badge-motion.scss` or `_icon-motion.scss` rather than leaving it buried in unrelated component files.
+
 ---
 
 ## Slug and Text Domain
@@ -155,9 +167,12 @@ Rules:
 - Style variations live in `styles/`.
 - Two style variations are provided: `light.json` and `dark.json`.
 - Additional variations can be added as `styles/*.json`.
-- `styles/blocks/` and `styles/sections/` are organisational conventions for future per-block or per-section styles.
-- These nested JSON files are not automatically consumed by WordPress as global style variations — they are available for reference or tooling.
+- `styles/presets/blocks/` holds shared block defaults.
+- `styles/blocks/` and `styles/sections/` hold modular block and section style variation JSON used by this theme's styling system.
+- These nested JSON files are runtime configuration, not reference-only notes.
 - Keep variation files small and focused.
+- Prefer structured JSON over long inline CSS strings.
+- If a variation needs `styles.css`, keep it to a tiny local variable contract rather than embedding a second stylesheet into the JSON file.
 
 ---
 
@@ -168,6 +183,9 @@ Run these before committing:
 ```bash
 # Install Node dependencies
 npm install
+
+# Rebuild compiled animation styles after SCSS changes
+npm run build:css
 
 # Validate JSON schema for theme.json and styles
 npm run schema:validate
@@ -183,6 +201,9 @@ npm run security:scan
 
 # Run all linting
 npm run lint
+
+# Validate raw JSON syntax for theme.json and all style JSON files
+npm run lint:json
 
 # Install Composer dependencies
 composer install

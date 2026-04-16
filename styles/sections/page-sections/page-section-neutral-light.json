@@ -13,10 +13,14 @@
 			"text": "var:custom|color|text|default"
 		},
 		"spacing": {
-			"blockGap": "var:preset|spacing|60",
+			"blockGap": "var:preset|spacing|80",
 			"padding": {
 				"top": "var:preset|spacing|80",
 				"bottom": "var:preset|spacing|80"
+			},
+			"margin": {
+				"top": "0",
+				"bottom": "0"
 			}
 		}
 	}

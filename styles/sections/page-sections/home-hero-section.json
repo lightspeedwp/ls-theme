@@ -12,6 +12,10 @@
 			"padding": {
 				"top": "var:preset|spacing|80",
 				"bottom": "var:preset|spacing|80"
+			},
+			"margin": {
+				"top": "0",
+				"bottom": "0"
 			}
 		}
 	}

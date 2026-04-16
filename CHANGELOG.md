@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added a `Page Section - Mesh Light` Group style that renders the Figma mesh section as generated CSS grid layers with semantic cyan and brand blob overlays instead of a shipped image asset.
+- Added a `Card - AI Feature` pattern with a dedicated centred card shell that reuses the `Icon Frame Brand CTA` group style and feature-card-style hover motion.
 - Added a `Badge - Hero` pattern with registered brand, CTA, and accent badge styles, semantic badge colour tokens, and a CSS-only sparkle wobble effect.
 - Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells.
 - Added a post-aware `Card - Post` pattern with reusable featured-image cover, category pill, compact meta, and read-more arrow block styles.

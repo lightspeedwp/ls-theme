@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Page Section - Mesh Light",
+	"slug": "page-section-mesh-light",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Reusable page section shell with a generated mesh background and soft cyan and brand blobs.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|default"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|80",
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"bottom": "var:preset|spacing|80"
+			},
+			"margin": {
+				"top": "0",
+				"bottom": "0"
+			}
+		},
+		"css": "&{--ls-page-section-mesh-grid-size:clamp(2rem,1.85rem + 0.4vw,2.375rem);--ls-page-section-mesh-line-colour:color-mix(in srgb,var(--wp--custom--color--border--card) 36%,transparent);--ls-page-section-mesh-blob-cta:var(--wp--custom--color--effect--hero--cta);--ls-page-section-mesh-blob-brand:var(--wp--custom--color--effect--hero--brand);--ls-page-section-mesh-blob-opacity:0.24;}"
+	}
+}

@@ -145,17 +145,19 @@ function ls_theme_register_gsap_block_styles() {
 
 	register_block_style(
 		'core/group',
-		array(
-			'name'  => 'home-hero-section',
-			'label' => __( 'Home Hero Section', 'ls-theme' ),
+		ls_theme_get_block_style_registration_args(
+			'core/group',
+			'home-hero-section',
+			__( 'Home Hero Section', 'ls-theme' )
 		)
 	);
 
 	register_block_style(
 		'core/group',
-		array(
-			'name'  => 'card-spotlight',
-			'label' => __( 'Card Spotlight', 'ls-theme' ),
+		ls_theme_get_block_style_registration_args(
+			'core/group',
+			'card-spotlight',
+			__( 'Card Spotlight', 'ls-theme' )
 		)
 	);
 }

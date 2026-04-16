@@ -19,7 +19,7 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"ls-card-value__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+	<!-- wp:group {"className":"ls-card-value__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-card-value__content">
 		<!-- wp:heading {"level":3,"className":"ls-card-value__title"} -->
 		<h3 class="wp-block-heading ls-card-value__title"><?php echo esc_html__( 'Passion', 'ls-theme' ); ?></h3>

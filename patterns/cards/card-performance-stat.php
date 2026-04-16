@@ -19,12 +19,12 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:heading {"level":4} -->
-	<h4 class="wp-block-heading"><?php echo esc_html__( '40%', 'ls-theme' ); ?></h4>
+	<!-- wp:heading {"level":4,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+	<h4 class="wp-block-heading" style="margin-top:0;margin-bottom:0"><?php echo esc_html__( '40%', 'ls-theme' ); ?></h4>
 	<!-- /wp:heading -->
 
-	<!-- wp:paragraph -->
-	<p><?php echo esc_html__( 'Increase in online bookings', 'ls-theme' ); ?></p>
+	<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+	<p style="margin-top:0;margin-bottom:0"><?php echo esc_html__( 'Increase in online bookings', 'ls-theme' ); ?></p>
 	<!-- /wp:paragraph -->
 </article>
 <!-- /wp:group -->

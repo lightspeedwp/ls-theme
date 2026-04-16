@@ -43,22 +43,22 @@
                 {
                     "name": "XXXL",
                     "slug": "70",
-                    "size": "clamp(2.625rem, calc(1.975rem + 0.167vw), 4.375rem)"
+                    "size": "clamp(3.125rem, calc(1.975rem + 0.167vw), 4.375rem)"
                 },
                 {
                     "name": "XXXXL",
                     "slug": "80",
-                    "size": "clamp(3.000rem, calc(2.257rem + 0.190vw), 5.000rem)"
+                    "size": "clamp(4.000rem, calc(2.257rem + 0.190vw), 6.000rem)"
                 },
                 {
                     "name": "Gigantic",
                     "slug": "90",
-                    "size": "clamp(3.500rem, calc(2.711rem + 0.202vw), 5.625rem)"
+                    "size": "clamp(5.000rem, calc(2.711rem + 0.202vw), 7.225rem)"
                 },
                 {
                     "name": "Colossal",
                     "slug": "100",
-                    "size": "clamp(4.000rem, calc(3.164rem + 0.214vw), 6.250rem)"
+                    "size": "clamp(6.500rem, calc(3.164rem + 0.214vw), 8.250rem)"
                 }
             ],
             "units": [

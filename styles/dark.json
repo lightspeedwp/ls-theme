@@ -24,7 +24,7 @@
 					"brand-light": "var:preset|color|cta-800",
 					"brand-subtle": "var:preset|color|cta-700",
                     "brand": "var:preset|color|cta-500",
-                    "cta-light": "var:preset|color|accent-three-800",
+                    "cta-light": "var:preset|color|cta-900",
                     "cta-subtle": "var:preset|color|accent-three-700",
                     "cta": "var:preset|color|accent-three-500",
                     "accent-light": "var:preset|color|accent-800",

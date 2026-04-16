@@ -282,7 +282,7 @@
             },
             "h2": {
                 "typography": {
-                    "fontSize": "var:preset|font-size|700",
+                    "fontSize": "var:preset|font-size|600",
                     "fontWeight": "var:custom|typography|font-weight|semibold",
                     "lineHeight": "var:custom|line-height|heading-default"
                 }

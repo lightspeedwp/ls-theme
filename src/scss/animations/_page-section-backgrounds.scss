@@ -1,0 +1,138 @@
+@use "../abstracts/mixins/mq";
+@use "../abstracts/mixins/surface";
+
+/********** Page Section Backgrounds **********/
+
+.is-style-page-section-mesh-light {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  > * {
+    position: relative;
+    z-index: var(--wp--custom--z-index--content);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    @include surface.absolute-fill();
+    pointer-events: none;
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  &::before {
+    background:
+      radial-gradient(
+        circle at -8% -10%,
+        color-mix(
+          in srgb,
+          var(--ls-page-section-mesh-blob-cta) 100%,
+          transparent
+        ) 0%,
+        color-mix(
+          in srgb,
+          var(--ls-page-section-mesh-blob-cta) 72%,
+          transparent
+        ) 18%,
+        color-mix(
+          in srgb,
+          var(--ls-page-section-mesh-blob-cta) 28%,
+          transparent
+        ) 34%,
+        transparent 56%
+      ),
+      radial-gradient(
+        circle at 108% 100%,
+        color-mix(
+          in srgb,
+          var(--ls-page-section-mesh-blob-brand) 100%,
+          transparent
+        ) 0%,
+        color-mix(
+          in srgb,
+          var(--ls-page-section-mesh-blob-brand) 68%,
+          transparent
+        ) 18%,
+        color-mix(
+          in srgb,
+          var(--ls-page-section-mesh-blob-brand) 26%,
+          transparent
+        ) 34%,
+        transparent 56%
+      );
+    opacity: var(--ls-page-section-mesh-blob-opacity);
+    transform: translate3d(0, 0, 0);
+  }
+
+  &::after {
+    background-image:
+      linear-gradient(
+        to right,
+        var(--ls-page-section-mesh-line-colour) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        var(--ls-page-section-mesh-line-colour) 1px,
+        transparent 1px
+      );
+    background-position: center;
+    background-size:
+      var(--ls-page-section-mesh-grid-size)
+        var(--ls-page-section-mesh-grid-size),
+      var(--ls-page-section-mesh-grid-size)
+        var(--ls-page-section-mesh-grid-size);
+    opacity: 0.88;
+  }
+}
+
+@include mq.mq($until: tablet-portrait) {
+  .is-style-page-section-mesh-light {
+    &::before {
+      background:
+        radial-gradient(
+          circle at -20% -8%,
+          color-mix(
+            in srgb,
+            var(--ls-page-section-mesh-blob-cta) 100%,
+            transparent
+          ) 0%,
+          color-mix(
+            in srgb,
+            var(--ls-page-section-mesh-blob-cta) 70%,
+            transparent
+          ) 18%,
+          color-mix(
+            in srgb,
+            var(--ls-page-section-mesh-blob-cta) 24%,
+            transparent
+          ) 32%,
+          transparent 52%
+        ),
+        radial-gradient(
+          circle at 120% 104%,
+          color-mix(
+            in srgb,
+            var(--ls-page-section-mesh-blob-brand) 100%,
+            transparent
+          ) 0%,
+          color-mix(
+            in srgb,
+            var(--ls-page-section-mesh-blob-brand) 66%,
+            transparent
+          ) 18%,
+          color-mix(
+            in srgb,
+            var(--ls-page-section-mesh-blob-brand) 22%,
+            transparent
+          ) 32%,
+          transparent 52%
+        );
+    }
+
+    &::after {
+      opacity: 0.76;
+    }
+  }
+}

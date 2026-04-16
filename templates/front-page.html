@@ -1,34 +1,1084 @@
 <!-- wp:template-part {"slug":"header","theme":"ls-theme","area":"header"} /-->
 
-<!-- wp:pattern {"slug":"ls-theme/hero"} /-->
-
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
-	<!-- wp:query {"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
-	<div class="wp-block-query">
-		<!-- wp:post-template -->
-			<!-- wp:group {"tagName":"article","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
-			<article class="wp-block-group">
-				<!-- wp:post-title {"isLink":true} /-->
-				<!-- wp:post-excerpt /-->
-			</article>
+<!-- wp:group {"tagName":"section","metadata":{"categories":["hero"],"patternName":"ls-theme/hero","name":"Home Hero"},"align":"full","className":"ls-hero is-style-home-hero-section","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull ls-hero is-style-home-hero-section">
+	<!-- wp:group {"metadata":{"name":"Content"},"align":"wide","className":"ls-hero__inner is-style-default","style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+	<div class="wp-block-group alignwide ls-hero__inner is-style-default">
+		<!-- wp:group {"metadata":{"categories":["hero"],"patternName":"ls-theme/badge-hero","name":"Badge - Hero"},"className":"ls-badge-hero is-style-badge-hero-brand","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
+		<div class="wp-block-group ls-badge-hero is-style-badge-hero-brand">
+			<!-- wp:group {"className":"ls-badge-hero__icon","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-badge-hero__icon">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"16px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:16px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
 			<!-- /wp:group -->
-		<!-- /wp:post-template -->
 
-		<!-- wp:query-no-results -->
-			<!-- wp:paragraph -->
-			<p>No posts found.</p>
+			<!-- wp:paragraph {"className":"ls-badge-hero__label"} -->
+			<p class="ls-badge-hero__label">WordPress &amp; Woo experts since 2003</p>
 			<!-- /wp:paragraph -->
-		<!-- /wp:query-no-results -->
+		</div>
+		<!-- /wp:group -->
 
-		<!-- wp:query-pagination {"paginationArrow":"chevron","layout":{"type":"flex","justifyContent":"center"}} -->
-			<!-- wp:query-pagination-previous /-->
-			<!-- wp:query-pagination-numbers /-->
-			<!-- wp:query-pagination-next /-->
-		<!-- /wp:query-pagination -->
+		<!-- wp:group {"metadata":{"name":"Inner Content"},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70"}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:group {"metadata":{"name":"Text Content"},"className":"is-style-default","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"default"}} -->
+			<div class="wp-block-group is-style-default">
+				<!-- wp:heading {"level":1,"metadata":{"name":"Cycle"},"className":"is-style-gradient-accent","style":{"typography":{"textAlign":"center"}}} -->
+				<h1 class="wp-block-heading has-text-align-center is-style-gradient-accent">Structured, AI-optimised
+					WordPress solutions</h1>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"className":"ls-hero__dek","style":{"typography":{"textAlign":"center"}},"fontSize":"300"} -->
+				<p class="has-text-align-center ls-hero__dek has-300-font-size">We engineer governed WordPress systems
+					with tokenised design, accessible markup, and measurable performance so your editors publish with
+					confidence and your site stays coherent at scale.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"align":"wide","className":"ls-hero__actions","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
+			<div class="wp-block-buttons alignwide ls-hero__actions"><!-- wp:button -->
+				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#">Book a
+						consultation</a></div>
+				<!-- /wp:button -->
+
+				<!-- wp:button {"className":"is-style-outline"} -->
+				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button"
+						href="#">Explore solutions</a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</div>
+		<!-- /wp:group -->
 	</div>
-	<!-- /wp:query -->
-</main>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"ls-hero__stats","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
+	<div class="wp-block-group ls-hero__stats">
+		<!-- wp:group {"className":"ls-hero__stat is-style-card-hero-stats","layout":{"type":"default"}} -->
+		<div class="wp-block-group ls-hero__stat is-style-card-hero-stats">
+			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value"} -->
+			<h3 class="wp-block-heading ls-hero__stat-value">500+</h3>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"className":"ls-hero__stat-label"} -->
+			<p class="ls-hero__stat-label">Sites launched</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"className":"ls-hero__stat is-style-card-hero-stats","layout":{"type":"default"}} -->
+		<div class="wp-block-group ls-hero__stat is-style-card-hero-stats">
+			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value"} -->
+			<h3 class="wp-block-heading ls-hero__stat-value">WCAG AA</h3>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"className":"ls-hero__stat-label"} -->
+			<p class="ls-hero__stat-label">Accessible</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"className":"ls-hero__stat is-style-card-hero-stats","layout":{"type":"default"}} -->
+		<div class="wp-block-group ls-hero__stat is-style-card-hero-stats">
+			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value"} -->
+			<h3 class="wp-block-heading ls-hero__stat-value">&lt;1s</h3>
+			<!-- /wp:heading -->
+
+			<!-- wp:paragraph {"className":"ls-hero__stat-label"} -->
+			<p class="ls-hero__stat-label">Page loads</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","metadata":{"name":"Stats"},"className":"is-style-home-stats-section","layout":{"type":"constrained"}} -->
+<section class="wp-block-group is-style-home-stats-section">
+	<!-- wp:group {"metadata":{"name":"Content"},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:group {"metadata":{"name":"Stat Card"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:group {"className":"is-style-icon-frame-brand-tint","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group is-style-icon-frame-brand-tint">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"32px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:32px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group"><!-- wp:heading {"level":3,"fontSize":"300"} -->
+				<h3 class="wp-block-heading has-300-font-size">500+</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"className":"is-style-subheading-small"} -->
+				<p class="is-style-subheading-small">Projects Delivered</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"metadata":{"name":"Stat Card"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:group {"className":"is-style-icon-frame-brand-tint","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group is-style-icon-frame-brand-tint">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"32px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:32px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group"><!-- wp:heading {"level":3,"fontSize":"300"} -->
+				<h3 class="wp-block-heading has-300-font-size">4.9/5</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"className":"is-style-subheading-small"} -->
+				<p class="is-style-subheading-small">Average Client Rating</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"metadata":{"name":"Stat Card"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:group {"className":"is-style-icon-frame-brand-tint","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group is-style-icon-frame-brand-tint">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"32px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:32px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group"><!-- wp:heading {"level":3,"fontSize":"300"} -->
+				<h3 class="wp-block-heading has-300-font-size">22+</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"className":"is-style-subheading-small"} -->
+				<p class="is-style-subheading-small">Years WordPress Experience</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"metadata":{"name":"Stat Card"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:group {"className":"is-style-icon-frame-brand-tint","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group is-style-icon-frame-brand-tint">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"32px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:32px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M232,64H208V48a8,8,0,0,0-8-8H56a8,8,0,0,0-8,8V64H24A16,16,0,0,0,8,80V96a40,40,0,0,0,40,40h3.65A80.13,80.13,0,0,0,120,191.61V216H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16H136V191.58c31.94-3.23,58.44-25.64,68.08-55.58H208a40,40,0,0,0,40-40V80A16,16,0,0,0,232,64ZM48,120A24,24,0,0,1,24,96V80H48v32q0,4,.39,8Zm144-8.9c0,35.52-29,64.64-64,64.9a64,64,0,0,1-64-64V56H192ZM232,96a24,24,0,0,1-24,24h-.5a81.81,81.81,0,0,0,.5-8.9V80h24Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-group"><!-- wp:heading {"level":3,"fontSize":"300"} -->
+				<h3 class="wp-block-heading has-300-font-size">98%</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"className":"is-style-subheading-small"} -->
+				<p class="is-style-subheading-small">Client Retention Rate</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","metadata":{"name":"Complete WordPress Solutions"},"className":"is-style-page-section-cta-light","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group is-style-page-section-cta-light"
+	style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0)">
+	<!-- wp:group {"metadata":{"name":"Header"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group">
+		<!-- wp:heading {"className":"is-style-default","style":{"typography":{"textAlign":"center"}}} -->
+		<h2 class="wp-block-heading has-text-align-center is-style-default">Complete WordPress solutions</h2>
+		<!-- /wp:heading -->
+
+		<!-- wp:paragraph {"className":"is-style-subheading-medium","style":{"typography":{"textAlign":"center"}}} -->
+		<p class="has-text-align-center is-style-subheading-medium">From strategy to support, we deliver end-to-end
+			WordPress services for sustainable growth.<a href="https://lightspeedwp.figma.site/services/design"></a><a
+				href="https://lightspeedwp.figma.site/services/design"></a></p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"wide","layout":{"type":"grid","minimumColumnWidth":"16rem"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M192,96a40,40,0,0,0-24-72H96A40,40,0,0,0,72,96a40,40,0,0,0,1.37,65A44,44,0,1,0,144,196V160a40,40,0,1,0,48-64Zm0-32a24,24,0,0,1-24,24H144V40h24A24,24,0,0,1,192,64ZM72,64A24,24,0,0,1,96,40h32V88H96A24,24,0,0,1,72,64Zm24,88a24,24,0,0,1,0-48h32v48H96Zm32,44a28,28,0,1,1-28-28h28Zm40-44a24,24,0,1,1,24-24A24,24,0,0,1,168,152Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Prototyping</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Rapid Figma prototypes
+					validated before development starts.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions-accent","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions-accent">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M232,32a8,8,0,0,0-8-8c-44.08,0-89.31,49.71-114.43,82.63A60,60,0,0,0,32,164c0,30.88-19.54,44.73-20.47,45.37A8,8,0,0,0,16,224H92a60,60,0,0,0,57.37-77.57C182.3,121.31,232,76.08,232,32ZM92,208H34.63C41.38,198.41,48,183.92,48,164a44,44,0,1,1,44,44Zm32.42-94.45q5.14-6.66,10.09-12.55A76.23,76.23,0,0,1,155,121.49q-5.9,4.94-12.55,10.09A60.54,60.54,0,0,0,124.42,113.55Zm42.7-2.68a92.57,92.57,0,0,0-22-22c31.78-34.53,55.75-45,69.9-47.91C212.17,55.12,201.65,79.09,167.12,110.87Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Design</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Tokenised design systems
+					with accessible markup and WCAG compliance.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Development</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Custom WordPress themes,
+					plugins, and block patterns engineered for scale.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions-accent","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions-accent">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M207.06,72.67A111.24,111.24,0,0,0,128,40h-.4C66.07,40.21,16,91,16,153.13V176a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V152A111.25,111.25,0,0,0,207.06,72.67ZM224,176H119.71l54.76-75.3a8,8,0,0,0-12.94-9.42L99.92,176H32V153.13c0-3.08.15-6.12.43-9.13H56a8,8,0,0,0,0-16H35.27c10.32-38.86,44-68.24,84.73-71.66V80a8,8,0,0,0,16,0V56.33A96.14,96.14,0,0,1,221,128H200a8,8,0,0,0,0,16h23.67c.21,2.65.33,5.31.33,8Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Performance</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Speed optimisation, Core
+					Web Vitals, and measurable results.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M201.89,54.66A103.43,103.43,0,0,0,128.79,24H128A104,104,0,0,0,24,128v56a24,24,0,0,0,24,24H64a24,24,0,0,0,24-24V144a24,24,0,0,0-24-24H40.36A88.12,88.12,0,0,1,190.54,65.93,87.39,87.39,0,0,1,215.65,120H192a24,24,0,0,0-24,24v40a24,24,0,0,0,24,24h24a24,24,0,0,1-24,24H136a8,8,0,0,0,0,16h56a40,40,0,0,0,40-40V128A103.41,103.41,0,0,0,201.89,54.66ZM64,136a8,8,0,0,1,8,8v40a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V136Zm128,56a8,8,0,0,1-8-8V144a8,8,0,0,1,8-8h24v56Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Support</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">24/7 monitoring,
+					maintenance, and technical assistance.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions-accent","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions-accent">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Training</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Workshops and
+					documentation so your team masters WordPress.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Security</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Hardening, SSL, backups,
+					and proactive threat monitoring.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions-accent","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions-accent">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M178.34,165.66,160,147.31V208a8,8,0,0,1-16,0V147.31l-18.34,18.35a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0l32,32a8,8,0,0,1-11.32,11.32ZM160,40A88.08,88.08,0,0,0,81.29,88.68,64,64,0,1,0,72,216h40a8,8,0,0,0,0-16H72a48,48,0,0,1,0-96c1.1,0,2.2,0,3.29.12A88,88,0,0,0,72,128a8,8,0,0,0,16,0,72,72,0,1,1,100.8,66,8,8,0,0,0,3.2,15.34,7.9,7.9,0,0,0,3.2-.68A88,88,0,0,0,160,40Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Hosting</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Managed WordPress hosting
+					with automatic updates and daily backups.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-solutions","name":"Card - Solutions"},"className":"is-style-card-solutions","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-solutions">
+			<!-- wp:group {"className":"ls-card-solutions__icon-shell is-style-icon-frame-glow","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-solutions__icon-shell is-style-icon-frame-glow">
+				<!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M255.59,189.47a8,8,0,0,0-10.12-5.06l-17.42,5.81-28.9-57.8A8,8,0,0,0,192,128H112V104h56a8,8,0,0,0,0-16H112V79a32,32,0,1,0-16,0V89.81A72,72,0,0,0,112,232c33.52,0,63.69-22.71,71.75-54a8,8,0,1,0-15.5-4C162.09,198,137.91,216,112,216A56,56,0,0,1,96,106.34V136a8,8,0,0,0,8,8h83.05l29.79,59.58a8,8,0,0,0,9.69,4l24-8A8,8,0,0,0,255.59,189.47ZM88,48a16,16,0,1,1,16,16A16,16,0,0,1,88,48Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-solutions__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ls-card-solutions__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Accessibility</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">WCAG 2.2 AA/AAA compliance
+					audits and remediation.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
+			<div class="wp-block-buttons ls-card-solutions__cta">
+				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
+				<div class="wp-block-button is-style-button-arrow-compact"><a
+						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
+							class="screen-reader-text">Learn more about prototyping</span></a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</article>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:separator {"align":"center","className":"is-style-wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"}}}} -->
+<hr class="wp-block-separator aligncenter has-alpha-channel-opacity is-style-wide"
+	style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0)" />
+<!-- /wp:separator -->
+
+<!-- wp:group {"tagName":"section","metadata":{"name":"Solutions built for your needs"},"className":"is-style-page-section-default","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group is-style-page-section-default"
+	style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0)">
+	<!-- wp:group {"metadata":{"name":"Header"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group"><!-- wp:heading {"style":{"typography":{"textAlign":"center"}}} -->
+		<h2 class="wp-block-heading has-text-align-center">Solutions built for your needs</h2>
+		<!-- /wp:heading -->
+
+		<!-- wp:paragraph {"className":"is-style-subheading-medium","style":{"typography":{"textAlign":"center"}}} -->
+		<p class="has-text-align-center is-style-subheading-medium">Comprehensive WordPress packages for every business
+			type and industry.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"wide","layout":{"type":"grid","minimumColumnWidth":"22rem"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-feature","name":"Card - Feature"},"className":"is-style-card-feature","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-feature">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell"><!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-feature__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">WordPress sites</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Custom block themes with
+					Full Site Editing, design tokens, and pattern libraries.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
+					href="http://localhost:8897/">Learn More</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-feature","name":"Card - Feature"},"className":"is-style-card-feature","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-feature">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell"><!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-feature__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Woo stores</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Scalable e-commerce with
+					custom checkout, subscriptions, and payment gateways.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
+					href="http://localhost:8897/">Learn More</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-feature","name":"Card - Feature"},"className":"is-style-card-feature","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-feature">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell"><!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M185.33,114.21l29.14-27.42.17-.17a32,32,0,0,0-45.26-45.26c0,.06-.11.11-.17.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.88A8,8,0,0,0,136.8,144c-.27,0-.53,0-.79,0a8,8,0,0,0-5.66,2.35l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2L180.78,52.6A16,16,0,0,1,203.4,75.23l-32.87,30.93a8,8,0,0,0-2,8.56l30.26,83.22Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-feature__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Tour operators</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Booking systems for travel
+					agencies with itinerary management and reviews.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
+					href="http://localhost:8897/">Learn More</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-feature","name":"Card - Feature"},"className":"is-style-card-feature","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-feature">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell"><!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-feature__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">Publishers</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Content-first sites with
+					editorial workflows and membership systems.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
+					href="http://localhost:8897/">Learn More</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-feature","name":"Card - Feature"},"className":"is-style-card-feature","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-feature">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell"><!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-24,16v24H116V152ZM80,164a12,12,0,0,1,12-12h8v24H92A12,12,0,0,1,80,164Zm84,12h-8V152h8a12,12,0,0,1,0,24ZM72,108a12,12,0,1,1,12,12A12,12,0,0,1,72,108Zm88,0a12,12,0,1,1,12,12A12,12,0,0,1,160,108Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-feature__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">AI integrations</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">AI-powered content
+					generation, chatbots, SEO optimization, and analytics.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
+					href="http://localhost:8897/">Learn More</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-feature","name":"Card - Feature"},"className":"is-style-card-feature","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-feature">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell"><!-- wp:outermost/icon-block {"iconName":""} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:48px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-feature__content"><!-- wp:heading {"level":3} -->
+				<h3 class="wp-block-heading">LSX products</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"}}} -->
+				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)">Premium WordPress themes
+					and plugins for tour operators and agencies.</p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
+					href="http://localhost:8897/">Learn More</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+	<div class="wp-block-buttons">
+		<!-- wp:button {"className":"is-style-button-glow-accent","style":{"border":{"radius":{"topLeft":"var:preset|border-radius|500","topRight":"var:preset|border-radius|500","bottomLeft":"var:preset|border-radius|500","bottomRight":"var:preset|border-radius|500"}}}} -->
+		<div class="wp-block-button is-style-button-glow-accent"><a class="wp-block-button__link wp-element-button"
+				style="border-top-left-radius:var(--wp--preset--border-radius--500);border-top-right-radius:var(--wp--preset--border-radius--500);border-bottom-left-radius:var(--wp--preset--border-radius--500);border-bottom-right-radius:var(--wp--preset--border-radius--500)">Explore
+				all solutions</a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","metadata":{"name":"Services designed for growth"},"className":"is-style-page-section-mesh-light","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group is-style-page-section-mesh-light"
+	style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0)">
+	<!-- wp:group {"metadata":{"name":"Header"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group"><!-- wp:heading {"style":{"typography":{"textAlign":"center"}}} -->
+		<h2 class="wp-block-heading has-text-align-center">Solutions built for your needs</h2>
+		<!-- /wp:heading -->
+
+		<!-- wp:paragraph {"className":"is-style-subheading-medium","style":{"typography":{"textAlign":"center"}}} -->
+		<p class="has-text-align-center is-style-subheading-medium">Comprehensive WordPress packages for every business
+			type and industry.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"wide","layout":{"type":"grid","minimumColumnWidth":"22rem"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-services","name":"Card - Services"},"className":"is-style-card-services","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-services">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"34px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:34px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-services__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-services__content">
+				<!-- wp:heading {"level":3,"style":{"typography":{"textAlign":"center"}}} -->
+				<h3 class="wp-block-heading has-text-align-center">Discovery</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"},"typography":{"textAlign":"center"}}} -->
+				<p class="has-text-align-center has-text-color" style="color:var(--wp--custom--color--text--muted)">
+					Discovery, strategy, and planning to set your project up for success.</p>
+				<!-- /wp:paragraph -->
+
+				<!-- wp:list {"className":"wp-block-list ls-card-services__list is-style-tick-accent"} -->
+				<ul class="wp-block-list ls-card-services__list is-style-tick-accent"><!-- wp:list-item -->
+					<li>Discovery workshops</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Content strategy</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Competitor research</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>SEO audit</li>
+					<!-- /wp:list-item -->
+				</ul>
+				<!-- /wp:list -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"
+				style="margin-top:auto;margin-bottom:0"><a href="http://localhost:8897/">Explore services</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-services","name":"Card - Services"},"className":"is-style-card-services","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-services">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"34px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:34px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,224ZM128,112a12,12,0,1,0-12-12A12,12,0,0,0,128,112Zm95.62,43.83-12.36,55.63a16,16,0,0,1-25.51,9.11L158.51,200h-61L70.25,220.57a16,16,0,0,1-25.51-9.11L32.38,155.83a16.09,16.09,0,0,1,3.32-13.71l28.56-34.26a123.07,123.07,0,0,1,8.57-36.67c12.9-32.34,36-52.63,45.37-59.85a16,16,0,0,1,19.6,0c9.34,7.22,32.47,27.51,45.37,59.85a123.07,123.07,0,0,1,8.57,36.67l28.56,34.26A16.09,16.09,0,0,1,223.62,155.83ZM99.43,184h57.14c21.12-37.54,25.07-73.48,11.74-106.88C156.55,47.64,134.49,29,128,24c-6.51,5-28.57,23.64-40.33,53.12C74.36,110.52,78.31,146.46,99.43,184Zm-15,5.85Q68.28,160.5,64.83,132.16L48,152.36,60.36,208l.18-.13ZM208,152.36l-16.83-20.2q-3.42,28.28-19.56,57.69l23.85,18,.18.13Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-services__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-services__content">
+				<!-- wp:heading {"level":3,"style":{"typography":{"textAlign":"center"}}} -->
+				<h3 class="wp-block-heading has-text-align-center">Growth</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"},"typography":{"textAlign":"center"}}} -->
+				<p class="has-text-align-center has-text-color" style="color:var(--wp--custom--color--text--muted)">
+					Design, development, and deployment of your WordPress solution.</p>
+				<!-- /wp:paragraph -->
+
+				<!-- wp:list {"className":"wp-block-list ls-card-services__list is-style-tick-accent"} -->
+				<ul class="wp-block-list ls-card-services__list is-style-tick-accent"><!-- wp:list-item -->
+					<li>Custom design systems</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Block theme development</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>WooCommerce setup</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Performance optimisation</li>
+					<!-- /wp:list-item -->
+				</ul>
+				<!-- /wp:list -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"
+				style="margin-top:auto;margin-bottom:0"><a href="http://localhost:8897/">Explore services</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"tagName":"article","metadata":{"categories":["featured"],"patternName":"ls-theme/card-services","name":"Card - Services"},"className":"is-style-card-services","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<article class="wp-block-group is-style-card-services">
+			<!-- wp:group {"className":"ls-card__icon-shell","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card__icon-shell">
+				<!-- wp:outermost/icon-block {"iconName":"","width":"34px"} -->
+				<div class="wp-block-outermost-icon-block">
+					<div class="icon-container" style="width:34px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg
+							xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
+							viewBox="0 0 256 256">
+							<path
+								d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z">
+							</path>
+						</svg></div>
+				</div>
+				<!-- /wp:outermost/icon-block -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"ls-card-services__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-services__content">
+				<!-- wp:heading {"level":3,"style":{"typography":{"textAlign":"center"}}} -->
+				<h3 class="wp-block-heading has-text-align-center">Enterprise</h3>
+				<!-- /wp:heading -->
+
+				<!-- wp:paragraph {"style":{"color":{"text":"var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dcolor\u002d\u002dtext\u002d\u002dmuted)"},"typography":{"textAlign":"center"}}} -->
+				<p class="has-text-align-center has-text-color" style="color:var(--wp--custom--color--text--muted)">
+					Ongoing support, security, and evolution for established sites.</p>
+				<!-- /wp:paragraph -->
+
+				<!-- wp:list {"className":"wp-block-list ls-card-services__list is-style-tick-accent"} -->
+				<ul class="wp-block-list ls-card-services__list is-style-tick-accent"><!-- wp:list-item -->
+					<li>Managed hosting</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Security monitoring</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Content support</li>
+					<!-- /wp:list-item -->
+
+					<!-- wp:list-item -->
+					<li>Analytics reporting</li>
+					<!-- /wp:list-item -->
+				</ul>
+				<!-- /wp:list -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:paragraph {"className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"
+				style="margin-top:auto;margin-bottom:0"><a href="http://localhost:8897/">Explore services</a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+</section>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","theme":"ls-theme","area":"footer"} /-->

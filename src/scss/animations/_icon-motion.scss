@@ -84,11 +84,18 @@
 }
 
 .ls-card-post-archive__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wp--preset--spacing--5);
+  color: var(--wp--custom--color--text--muted);
+
   .wp-block-outermost-icon-block,
   .icon-container {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
     line-height: 0;
     color: currentColor;
   }
@@ -122,6 +129,22 @@
       transparent
     )
   );
+}
+
+.is-style-card-ai-feature .ls-card-ai-feature__icon-shell {
+  align-self: center;
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+}
+
+.is-style-card-ai-feature:hover .ls-card-ai-feature__icon-shell,
+.is-style-card-ai-feature:focus-within .ls-card-ai-feature__icon-shell {
+  transform: rotate(-5deg) scale(0.98);
 }
 
 .is-style-icon-frame-glow {
@@ -198,6 +221,7 @@
 @include motion.reduced-motion {
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+  .is-style-card-ai-feature .ls-card-ai-feature__icon-shell,
   .is-style-icon-frame-glow {
     transition: none;
   }
@@ -207,7 +231,9 @@
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
     .is-style-icon-frame-glow,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
-    .is-style-icon-frame-glow {
+    .is-style-icon-frame-glow,
+  .is-style-card-ai-feature:hover .ls-card-ai-feature__icon-shell,
+  .is-style-card-ai-feature:focus-within .ls-card-ai-feature__icon-shell {
     transform: none;
   }
 }

@@ -19,7 +19,7 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"ls-card-services__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+	<!-- wp:group {"className":"ls-card-services__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-card-services__content">
 		<!-- wp:heading {"level":3,"textAlign":"center"} -->
 		<h3 class="wp-block-heading has-text-align-center"><?php echo esc_html__( 'Growth', 'ls-theme' ); ?></h3>
@@ -35,8 +35,8 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:paragraph {"align":"center","className":"ls-card-services__cta is-style-link-arrow-accent"} -->
-	<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Explore services', 'ls-theme' ); ?></a></p>
+	<!-- wp:paragraph {"align":"center","className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+	<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Explore services', 'ls-theme' ); ?></a></p>
 	<!-- /wp:paragraph -->
 </article>
 <!-- /wp:group -->

@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - AI Feature",
+	"slug": "card-ai-feature",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact centred AI feature card shell with a reused gradient icon frame, bold heading, and supporting copy.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|200",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"blocks": {
+			"core/heading": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|400",
+					"fontWeight": "var:custom|typography|font-weight|bold",
+					"letterSpacing": "var:custom|typography|letter-spacing|tight",
+					"lineHeight": "var:custom|line-height|heading-default"
+				}
+			},
+			"core/paragraph": {
+				"color": {
+					"text": "var:custom|color|text|muted"
+				},
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				},
+				"typography": {
+					"fontFamily": "var:preset|font-family|heading",
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|typography|font-weight|normal",
+					"letterSpacing": "0.01em",
+					"lineHeight": "var:custom|line-height|paragraph"
+				}
+			}
+		},
+		"css": "&{--ls-card-ai-feature-lift:-4px;}& .ls-card-ai-feature__content{display:flex;flex-direction:column;align-items:center;gap:var(--wp--preset--spacing--10);inline-size:100%;text-align:center;}"
+	}
+}

@@ -96,18 +96,30 @@
     transform: translateY(var(--ls-card-feature-lift, -4px));
   }
 
-  .ls-card-feature__content {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--20);
-  }
+}
 
-  .ls-card-feature__cta {
-    margin-top: auto;
-    margin-bottom: 0;
-  }
+/* Card - AI Feature */
+.is-style-card-ai-feature {
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
 
+  &:hover,
+  &:focus-within {
+    border-color: color-mix(
+      in srgb,
+      var(--wp--custom--color--link--accent) 50%,
+      transparent
+    );
+    box-shadow: var(--wp--custom--shadow--card--hover);
+    transform: translateY(var(--ls-card-ai-feature-lift, -4px));
+  }
 }
 
 /* Card - Post */
@@ -153,56 +165,9 @@
     transform: scale(var(--ls-card-post-media-scale, 1.05));
   }
 
-  .ls-card-post__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-    padding: var(--wp--preset--spacing--20);
-
-    > * {
-      margin-block: 0;
-    }
-  }
-
-  .ls-card-post__meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    column-gap: var(--wp--preset--spacing--20);
-    row-gap: var(--wp--preset--spacing--10);
-  }
-
   &.ls-card-post-archive {
-    .ls-card-post-archive__content {
-      gap: var(--wp--preset--spacing--20);
-    }
-
-    .ls-card-post-archive__text {
-      display: flex;
-      flex-direction: column;
-      gap: var(--wp--preset--spacing--10);
-
-      > * {
-        margin-block: 0;
-      }
-    }
-
     .ls-card-post-archive__meta {
-      padding-top: var(--wp--preset--spacing--10);
       border-top: 1px solid var(--wp--custom--color--border--card);
-    }
-
-    .ls-card-post-archive__meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--wp--preset--spacing--5);
-      color: var(--wp--custom--color--text--muted);
-
-      > * {
-        margin-block: 0;
-      }
-
     }
   }
 
@@ -299,16 +264,7 @@
   }
 
   .ls-card-services__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--wp--preset--spacing--20);
     inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
   }
 
   .ls-card-services__list {
@@ -317,10 +273,6 @@
   }
 
   .ls-card-services__cta {
-    position: static;
-    margin-top: auto;
-    margin-bottom: 0;
-
     a::before {
       content: "";
       position: absolute;
@@ -347,20 +299,6 @@
   max-inline-size: 100%;
   min-inline-size: var(--ls-card-hero-stats-min-inline-size, 11.25rem);
   text-align: center;
-
-  > * {
-    margin-block: 0;
-  }
-
-  .wp-block-heading {
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .wp-block-paragraph {
-    margin: 0;
-    text-align: center;
-  }
 }
 
 /* Card - Value */
@@ -411,15 +349,7 @@
   }
 
   .ls-card-value__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
     inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
   }
 }
 
@@ -461,7 +391,6 @@
   > * {
     position: relative;
     z-index: var(--wp--custom--z-index--content);
-    margin-block: 0;
   }
 
   &:hover,
@@ -515,16 +444,6 @@
   }
 
   .ls-card-solutions__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-
     .wp-block-heading {
       color: var(--wp--custom--color--text--default);
       transition: color var(--wp--custom--animation--duration--base)
@@ -538,9 +457,6 @@
   }
 
   .ls-card-solutions__cta {
-    margin-top: auto;
-    margin-bottom: 0;
-
     .wp-block-button {
       margin: 0;
     }
@@ -554,6 +470,7 @@
   .wp-block-read-more.is-style-link-arrow-accent::after,
   .is-style-glass-card,
   .is-style-card-feature,
+  .is-style-card-ai-feature,
   .is-style-card-post,
   .is-style-card-post .wp-block-cover__image-background,
   .is-style-card-post .ls-card-post__title a,
@@ -572,6 +489,8 @@
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
+  .is-style-card-ai-feature:hover,
+  .is-style-card-ai-feature:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within,
   .is-style-card-performance-stat:hover,

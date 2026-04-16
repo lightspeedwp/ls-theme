@@ -9,7 +9,7 @@
 	"description": "Centred services card shell with a reusable animated accent border, replaceable icon well, tick list, and inline CTA. Shared interaction contract lives in src/scss/animations.scss.",
 	"styles": {
 		"color": {
-			"background": "var:custom|color|surface|card",
+			"background": "var:custom|color|surface|canvas",
 			"text": "var:custom|color|text|default"
 		},
 		"border": {

@@ -92,6 +92,105 @@ function ls_theme_enqueue_editor_effect_styles() {
 add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_styles' );
 
 /**
+	* Returns recursive block style variation JSON files for a directory.
+	*
+	* @param string $directory Base directory.
+	* @return array<int, string>
+	*/
+function ls_theme_get_block_style_json_files( $directory ) {
+		$json_files = glob( trailingslashit( $directory ) . '*.json' );
+
+		if ( false === $json_files ) {
+			$json_files = array();
+		}
+
+		$subdirectories = glob( trailingslashit( $directory ) . '*', GLOB_ONLYDIR );
+
+		if ( false === $subdirectories ) {
+			$subdirectories = array();
+		}
+
+		foreach ( $subdirectories as $subdirectory ) {
+			$json_files = array_merge( $json_files, ls_theme_get_block_style_json_files( $subdirectory ) );
+		}
+
+		return $json_files;
+	}
+
+/**
+	* Returns a modular block style definition by slug.
+	*
+	* @param string $slug Block style slug.
+	* @return array<string, mixed>|null
+	*/
+function ls_theme_get_block_style_definition( $slug ) {
+		static $definitions = null;
+
+		if ( null === $definitions ) {
+			$definitions = array();
+			$directories = array(
+				get_theme_file_path( 'styles/sections' ),
+				get_theme_file_path( 'styles/blocks' ),
+			);
+
+			foreach ( $directories as $directory ) {
+				if ( ! is_dir( $directory ) ) {
+					continue;
+				}
+
+				foreach ( ls_theme_get_block_style_json_files( $directory ) as $json_file ) {
+					$style_definition = wp_json_file_decode( $json_file, array( 'associative' => true ) );
+
+					if (
+						! is_array( $style_definition ) ||
+						empty( $style_definition['slug'] ) ||
+						empty( $style_definition['blockTypes'] ) ||
+						! isset( $style_definition['styles'] ) ||
+						! is_array( $style_definition['styles'] )
+					) {
+						continue;
+					}
+
+					$definitions[ $style_definition['slug'] ] = $style_definition;
+				}
+			}
+		}
+
+		return $definitions[ $slug ] ?? null;
+	}
+
+/**
+	* Returns registration arguments for a modular block style.
+	*
+	* @param string $block_name Block type name.
+	* @param string $name       Style slug.
+	* @param string $label      Style label.
+	* @return array<string, mixed>
+	*/
+function ls_theme_get_block_style_registration_args( $block_name, $name, $label ) {
+		$registration_args = array(
+			'name'  => $name,
+			'label' => $label,
+		);
+
+		$style_definition = ls_theme_get_block_style_definition( $name );
+
+		if ( ! is_array( $style_definition ) ) {
+			return $registration_args;
+		}
+
+		$block_types = $style_definition['blockTypes'];
+
+		if ( ! is_array( $block_types ) || ! in_array( $block_name, $block_types, true ) ) {
+			return $registration_args;
+		}
+
+		$registration_args['style_data'] = $style_definition['styles'];
+
+		return $registration_args;
+	}
+
+/**
 	* Registers CSS-driven block styles.
 	*/
 function ls_theme_register_effect_block_styles() {
@@ -102,8 +201,28 @@ function ls_theme_register_effect_block_styles() {
 	$block_styles = array(
 		array(
 			'block_name' => 'core/group',
+			'name'       => 'glass-card',
+			'label'      => __( 'Glass Card', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
 			'name'       => 'card-feature',
 			'label'      => __( 'Card - Feature', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'card-post',
+			'label'      => __( 'Card - Post', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/cover',
+			'name'       => 'card-post-media',
+			'label'      => __( 'Card - Post Media', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'card-services',
+			'label'      => __( 'Card - Services', 'ls-theme' ),
 		),
 		array(
 			'block_name' => 'core/group',
@@ -127,6 +246,11 @@ function ls_theme_register_effect_block_styles() {
 		),
 		array(
 			'block_name' => 'core/group',
+			'name'       => 'card-value',
+			'label'      => __( 'Card - Value', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
 			'name'       => 'badge-hero-brand',
 			'label'      => __( 'Badge Hero - Brand', 'ls-theme' ),
 		),
@@ -147,6 +271,11 @@ function ls_theme_register_effect_block_styles() {
 		),
 		array(
 			'block_name' => 'core/group',
+			'name'       => 'icon-frame-brand-cta',
+			'label'      => __( 'Icon Frame Brand CTA', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
 			'name'       => 'icon-frame-brand-tint',
 			'label'      => __( 'Icon Frame Brand Tint', 'ls-theme' ),
 		),
@@ -160,9 +289,10 @@ function ls_theme_register_effect_block_styles() {
 	foreach ( $block_styles as $block_style ) {
 		register_block_style(
 			$block_style['block_name'],
-			array(
-				'name'  => $block_style['name'],
-				'label' => $block_style['label'],
+			ls_theme_get_block_style_registration_args(
+				$block_style['block_name'],
+				$block_style['name'],
+				$block_style['label']
 			)
 		);
 	}

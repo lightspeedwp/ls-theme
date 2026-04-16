@@ -18,6 +18,14 @@
 			"style": "solid",
 			"width": "1px"
 		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontSize": "var:preset|font-size|400",
+					"lineHeight": "var:custom|line-height|heading-default"
+				}
+			}
+		},
 		"shadow": "var:preset|shadow|100",
 		"spacing": {
 			"blockGap": "var:preset|spacing|30",

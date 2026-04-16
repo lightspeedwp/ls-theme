@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Main Header",
+	"slug": "main-header",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Main header section with site logo, navigation, and search.",
+	"styles": {
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30"
+			},
+			"margin": {
+				"top": "0",
+				"bottom": "0"
+			}
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Subheading - Small",
+	"slug": "subheading-small",
+	"blockTypes": [
+		"core/paragraph"
+	],
+	"description": "Paragraph style for small subheadings",
+	"styles": {
+        "color": {
+            "text": "var:custom|color|text|muted"
+        },
+        "typography": {
+            "fontWeight": "var:custom|typography|font-weight|semibold",
+            "fontSize": "var:preset|font-size|200",
+            "lineHeight": "var:custom|line-height|heading-loose"
+        }
+	}
+}

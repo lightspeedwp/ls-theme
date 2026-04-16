@@ -19,7 +19,7 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"ls-card-feature__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+	<!-- wp:group {"className":"ls-card-feature__content","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-card-feature__content">
 		<!-- wp:heading {"level":3} -->
 		<h3 class="wp-block-heading"><?php echo esc_html__( 'Custom WordPress builds that scale with your team.', 'ls-theme' ); ?></h3>
@@ -31,8 +31,8 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent"} -->
-	<p class="ls-card-feature__cta is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Learn More', 'ls-theme' ); ?></a></p>
+	<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
+	<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Learn More', 'ls-theme' ); ?></a></p>
 	<!-- /wp:paragraph -->
 </article>
 <!-- /wp:group -->

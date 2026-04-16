@@ -20,7 +20,7 @@
 		},
 		"shadow": "var:preset|shadow|100",
 		"spacing": {
-			"blockGap": "var:preset|spacing|10",
+			"blockGap": "var:preset|spacing|50",
 			"padding": {
 				"top": "var:preset|spacing|20",
 				"right": "var:preset|spacing|20",

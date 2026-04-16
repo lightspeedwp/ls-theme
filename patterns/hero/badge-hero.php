@@ -19,8 +19,8 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:paragraph {"className":"ls-badge-hero__label"} -->
-	<p class="ls-badge-hero__label"><?php echo esc_html__( 'Badge Title', 'ls-theme' ); ?></p>
+	<!-- wp:paragraph {"className":"ls-badge-hero__label","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontFamily":"var:preset|font-family|heading","fontSize":"var:preset|font-size|100","fontWeight":"var:custom|typography|font-weight|semibold","letterSpacing":"var:custom|typography|letter-spacing|normal","lineHeight":"var:custom|line-height|heading-default","textAlign":"center","textTransform":"uppercase"}}} -->
+	<p class="ls-badge-hero__label" style="margin-top:0;margin-bottom:0;font-family:var(--wp--preset--font-family--heading);font-size:var(--wp--preset--font-size--100);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--normal);line-height:var(--wp--custom--line-height--heading-default);text-align:center;text-transform:uppercase"><?php echo esc_html__( 'Badge Title', 'ls-theme' ); ?></p>
 	<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
