@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Value",
+	"slug": "card-value",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact value card shell with the shared services-card top-bar gradient, a static gradient icon frame, and supporting copy.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|200",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "var:preset|shadow|100",
+		"spacing": {
+			"blockGap": "var:preset|spacing|10",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"blocks": {
+			"core/heading": {
+				"typography": {
+					"fontSize": "var:preset|font-size|400",
+					"fontWeight": "var:custom|typography|font-weight|bold",
+					"lineHeight": "var:custom|line-height|heading-default"
+				}
+			},
+			"core/paragraph": {
+				"color": {
+					"text": "var:custom|color|text|muted"
+				},
+				"typography": {
+					"fontFamily": "var:preset|font-family|heading",
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|typography|font-weight|normal",
+					"lineHeight": "var:custom|line-height|paragraph",
+					"letterSpacing": "0.01em"
+				}
+			}
+		},
+		"css": "&{--ls-card-value-accent-thickness:6px;--ls-accent-gradient-image:linear-gradient(90deg,var(--wp--custom--color--effect--spotlight--secondary) 0%,var(--wp--custom--color--effect--spotlight--primary) 50%,var(--wp--custom--color--effect--spotlight--secondary) 100%);}"
+	}
+}

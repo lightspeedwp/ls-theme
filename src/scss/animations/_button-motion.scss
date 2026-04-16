@@ -44,25 +44,6 @@
   transform: scale(var(--ls-button-active-scale, var(--wp--custom--animation--scale--active)));
 }
 
-/* Shared button shell for the default fill and outline treatments. */
-:is(
-  .wp-block-button:not([class*="is-style-"]),
-  .wp-block-button.is-style-fill
-) {
-  --ls-button-fill-background: var(--wp--custom--color--button--fill--background);
-  --ls-button-fill-icon-colour: var(--wp--custom--color--button--fill--text);
-  --ls-button-fill-hover-text: var(--wp--custom--color--text--default);
-  --ls-button-fill-duration: var(--wp--custom--animation--duration--emphasised);
-  --ls-button-fill-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-outline {
-  --ls-button-outline-accent-background: var(--wp--custom--color--button--outline--border);
-  --ls-button-outline-accent-colour: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-outline-icon-radius: var(--wp--preset--border-radius--100);
-}
-
 :is(
   .wp-block-button:not([class*="is-style-"]),
   .wp-block-button.is-style-fill,
@@ -95,9 +76,9 @@
   background: transparent;
   border: 0;
   transition:
-    transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+    transform var(--wp--custom--animation--duration--emphasised)
       var(--wp--custom--animation--easing--emphasised),
-    color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+    color var(--wp--custom--animation--duration--emphasised)
       var(--wp--custom--animation--easing--emphasised);
 }
 
@@ -108,10 +89,7 @@
   content: "";
   @include surface.absolute-fill();
   border-radius: inherit;
-  background: var(
-    --ls-button-fill-background,
-    var(--wp--custom--color--button--fill--background)
-  );
+  background: var(--wp--custom--color--button--fill--background);
   transition:
     inset-inline-start var(--wp--custom--animation--duration--slow)
       var(--wp--custom--animation--easing--emphasised),
@@ -137,7 +115,7 @@
   width: var(--ls-button-fill-icon-well-size);
   display: grid;
   place-items: center;
-  color: var(--ls-button-fill-icon-colour, currentColor);
+  color: var(--wp--custom--color--button--fill--text);
   font-size: var(--ls-button-fill-icon-font-size);
   font-weight: 700;
   line-height: 1;
@@ -154,7 +132,7 @@
   .wp-block-button:not([class*="is-style-"]),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover::before {
-  transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
+  transition-delay: var(--wp--custom--animation--delay--enter);
 }
 
 :is(
@@ -179,7 +157,7 @@
   .wp-block-button:not([class*="is-style-"]),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:focus-visible {
-  color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
+  color: var(--wp--custom--color--button--fill--text-hover);
 }
 
 /* Outline button motion */
@@ -209,12 +187,9 @@
   width: var(--ls-button-outline-icon-well-size);
   display: grid;
   place-items: center;
-  border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
-  background-color: var(
-    --ls-button-outline-accent-background,
-    var(--wp--custom--color--button--outline--border)
-  );
-  color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--button--outline--text-hover));
+  border-radius: var(--wp--preset--border-radius--100);
+  background-color: var(--wp--custom--color--button--outline--border);
+  color: var(--wp--custom--color--button--outline--text-hover);
   font-size: var(--ls-button-outline-icon-font-size);
   font-weight: 700;
   line-height: 1;
@@ -245,66 +220,29 @@
 }
 
 .wp-block-button.is-style-glass-button .wp-block-button__link {
-  --ls-glass-button-background-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 24%,
-    transparent
-  );
-  --ls-glass-button-background-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 36%,
-    transparent
-  );
-  --ls-glass-button-border-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 35%,
-    transparent
-  );
-  --ls-glass-button-border-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--link--accent) 38%,
-    var(--wp--custom--color--surface--highlight) 34%,
-    transparent
-  );
-  --ls-glass-button-text-rest: var(--wp--custom--color--text--default);
-  --ls-glass-button-text-hover: var(--wp--custom--color--text--brand);
-  --ls-glass-button-blur: 24px;
-  --ls-glass-button-shadow-rest: var(--wp--custom--shadow--elevation--200);
-  --ls-glass-button-shadow-hover: var(--wp--custom--shadow--elevation--300),
-    var(--wp--custom--shadow--interactive--accent);
-  --ls-glass-button-top-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 80%,
-    transparent
-  );
-  --ls-glass-button-side-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 68%,
-    transparent
-  );
-  --ls-glass-button-side-tail: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 26%,
-    transparent
-  );
-  --ls-glass-button-focus-width: 2px;
-  --ls-glass-button-focus-colour: var(--wp--custom--color--focus--ring);
-  --ls-glass-button-focus-offset: 4px;
-  --ls-glass-button-lift: -2px;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-  @include glass.glass-surface(
-    $background: var(--ls-glass-button-background-rest),
-    $border: var(--ls-glass-button-border-rest),
-    $radius: var(--wp--preset--border-radius--200),
-    $blur: var(--ls-glass-button-blur),
-    $shadow: var(--ls-glass-button-shadow-rest)
-  );
-  @include glass.glass-edge-highlights(
-    $top-highlight: var(--ls-glass-button-top-highlight),
-    $side-highlight: var(--ls-glass-button-side-highlight),
-    $side-tail: var(--ls-glass-button-side-tail)
-  );
   position: relative;
+  overflow: hidden;
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    backdrop-filter: blur(var(--ls-glass-button-blur, 24px));
+    -webkit-backdrop-filter: blur(var(--ls-glass-button-blur, 24px));
+  }
+  @include glass.glass-edge-highlights(
+    $top-highlight: color-mix(
+      in srgb,
+      var(--wp--custom--color--surface--highlight) 80%,
+      transparent
+    ),
+    $side-highlight: color-mix(
+      in srgb,
+      var(--wp--custom--color--surface--highlight) 68%,
+      transparent
+    ),
+    $side-tail: color-mix(
+      in srgb,
+      var(--wp--custom--color--surface--highlight) 26%,
+      transparent
+    )
+  );
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -313,7 +251,7 @@
   white-space: nowrap;
   isolation: isolate;
   text-align: center;
-  color: var(--ls-glass-button-text-rest);
+  color: var(--wp--custom--color--text--default);
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -330,39 +268,36 @@
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
   transition-delay: var(--wp--custom--animation--delay--none);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
+  outline: var(--ls-glass-button-focus-width, 2px) solid transparent;
+  outline-offset: var(--ls-glass-button-focus-offset, 4px);
 
   &:hover,
   &:focus-visible {
-    background: var(--ls-glass-button-background-hover);
-    border-color: var(--ls-glass-button-border-hover);
-    box-shadow: var(--ls-glass-button-shadow-hover);
-    color: var(--ls-glass-button-text-hover);
-    transform: translateY(var(--ls-glass-button-lift));
+    background-color: color-mix(
+      in srgb,
+      var(--wp--custom--color--surface--card) 36%,
+      transparent
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--wp--custom--color--link--accent) 38%,
+      var(--wp--custom--color--surface--highlight) 34%,
+      transparent
+    );
+    box-shadow:
+      var(--wp--custom--shadow--elevation--300),
+      var(--wp--custom--shadow--interactive--accent);
+    color: var(--wp--custom--color--text--brand);
+    transform: translateY(var(--ls-glass-button-lift, -2px));
   }
 
   &:focus-visible {
-    outline-color: var(--ls-glass-button-focus-colour);
-    outline-offset: var(--ls-glass-button-focus-offset);
+    outline-color: var(--wp--custom--color--focus--ring);
+    outline-offset: var(--ls-glass-button-focus-offset, 4px);
   }
 }
 
 /* Button Glow Accent */
-.wp-block-button.is-style-button-glow-accent {
-  --ls-button-glow-colour: var(--wp--custom--color--button--outline--border);
-  --ls-button-glow-hover-background: var(--wp--custom--color--button--outline--background-hover);
-  --ls-button-glow-hover-text: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-glow-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-glow-outline-width: 1px;
-  --ls-button-glow-outline-offset: 12px;
-  --ls-button-glow-resting-strength: 0%;
-  --ls-button-glow-outline-strength: 45%;
-  --ls-button-glow-inner-strength: 35%;
-  --ls-button-glow-outer-strength: 20%;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link {
   transition:
     box-shadow var(--wp--custom--animation--duration--dramatic)
@@ -377,41 +312,45 @@
   box-shadow: inset 0 0 20px
     color-mix(
       in srgb,
-      var(--ls-button-glow-colour) var(--ls-button-glow-resting-strength),
+      var(--wp--custom--color--button--outline--border)
+        var(--ls-button-glow-resting-strength, 0%),
       transparent
     );
-  outline: var(--ls-button-glow-outline-width) solid
+  outline: var(--ls-button-glow-outline-width, 1px) solid
     color-mix(
       in srgb,
-      var(--ls-button-glow-colour) var(--ls-button-glow-outline-strength),
+      var(--wp--custom--color--button--outline--border)
+        var(--ls-button-glow-outline-strength, 45%),
       transparent
     );
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-  transition-delay: var(--ls-button-glow-enter-delay);
+  transition-delay: var(--wp--custom--animation--delay--enter);
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
 .wp-block-button.is-style-button-glow-accent
   .wp-block-button__link:focus-visible {
-  background-color: var(--ls-button-glow-hover-background);
-  color: var(--ls-button-glow-hover-text);
+  background-color: var(--wp--custom--color--button--outline--background-hover);
+  color: var(--wp--custom--color--button--outline--text-hover);
   box-shadow:
     inset 0 0 20px
       color-mix(
         in srgb,
-        var(--ls-button-glow-colour) var(--ls-button-glow-inner-strength),
+        var(--wp--custom--color--button--outline--border)
+          var(--ls-button-glow-inner-strength, 35%),
         transparent
       ),
     0 0 20px
       color-mix(
         in srgb,
-        var(--ls-button-glow-colour) var(--ls-button-glow-outer-strength),
+        var(--wp--custom--color--button--outline--border)
+          var(--ls-button-glow-outer-strength, 20%),
         transparent
       );
   outline-color: transparent;
-  outline-offset: var(--ls-button-glow-outline-offset);
+  outline-offset: var(--ls-button-glow-outline-offset, 12px);
 }
 
 /* Button Arrow Compact */
@@ -420,30 +359,23 @@
 }
 
 .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  --ls-button-arrow-compact-size: 2.5rem;
   --ls-button-arrow-compact-accent-colour: var(
     --ls-card-solutions-accent-colour,
     var(--wp--custom--color--card--solutions--brand)
   );
-  --ls-button-arrow-compact-border-rest: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-border-active: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-background-rest: color-mix(
+  justify-content: center;
+  inline-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  min-inline-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  block-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  min-block-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  padding: 0;
+  border: 1px solid var(--ls-button-arrow-compact-accent-colour);
+  border-radius: var(--wp--preset--border-radius--100);
+  background: color-mix(
     in srgb,
     var(--ls-button-arrow-compact-accent-colour) 10%,
     transparent
   );
-  --ls-button-arrow-compact-background-active: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-colour-rest: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-colour-active: var(--wp--custom--color--button--fill--text);
-  justify-content: center;
-  inline-size: var(--ls-button-arrow-compact-size);
-  min-inline-size: var(--ls-button-arrow-compact-size);
-  block-size: var(--ls-button-arrow-compact-size);
-  min-block-size: var(--ls-button-arrow-compact-size);
-  padding: 0;
-  border: 1px solid var(--ls-button-arrow-compact-border-rest);
-  border-radius: var(--wp--preset--border-radius--100);
-  background: var(--ls-button-arrow-compact-background-rest);
   color: transparent;
   overflow: hidden;
   transition:
@@ -459,7 +391,7 @@
     position: static;
     display: grid;
     place-items: center;
-    color: var(--ls-button-arrow-compact-colour-rest);
+    color: var(--ls-button-arrow-compact-accent-colour);
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1;
@@ -474,15 +406,15 @@
   &:focus-visible,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
-    background: var(--ls-button-arrow-compact-background-active);
-    border-color: var(--ls-button-arrow-compact-border-active);
+    background: var(--ls-button-arrow-compact-accent-colour);
+    border-color: var(--ls-button-arrow-compact-accent-colour);
   }
 
   &:hover::after,
   &:focus-visible::after,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &::after,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within &::after {
-    color: var(--ls-button-arrow-compact-colour-active);
+    color: var(--wp--custom--color--button--fill--text);
   }
 }
 

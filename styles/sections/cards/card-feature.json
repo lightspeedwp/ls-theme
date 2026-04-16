@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{--ls-card-feature-shadow-active:var(--wp--custom--shadow--card--hover);--ls-card-feature-lift:-4px;}"
+		"css": "&{--ls-card-feature-lift:-4px;}"
 	}
 }

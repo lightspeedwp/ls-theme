@@ -18,10 +18,10 @@
                         },
                         ":hover": {
                             "color": {
-                                "text": "var:custom|color|link|accent-hover"
+                                "text": "var:custom|color|text|brand"
                             },
                             "typography": {
-                                "textDecoration": "underline"
+                                "textDecoration": "none"
                             }
                         }
                     }

@@ -9,13 +9,16 @@
 	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Shared interaction contract lives in src/scss/animations.scss.",
 	"styles": {
 		"border": {
+			"color": "color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent)",
 			"radius": "var:preset|border-radius|300",
 			"style": "solid",
 			"width": "1px"
 		},
 		"color": {
+			"background": "color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent)",
 			"text": "var:custom|color|text|default"
 		},
+		"shadow": "var:preset|shadow|200",
 		"spacing": {
 			"blockGap": "var:preset|spacing|30",
 			"padding": {
@@ -24,6 +27,7 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		}
+		},
+		"css": "&{--ls-glass-card-blur:24px;--ls-glass-card-focus-width:2px;--ls-glass-card-focus-offset:4px;--ls-glass-card-lift:-4px;}"
 	}
 }

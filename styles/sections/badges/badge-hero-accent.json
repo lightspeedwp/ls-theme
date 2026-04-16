@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Badge Hero - Accent",
+	"slug": "badge-hero-accent",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact hero badge style with the accent tone and CSS-derived tint and glow.",
+	"styles": {
+		"color": {
+			"background": "color-mix(in srgb, var(--ls-badge-hero-tone) 10%, transparent)",
+			"text": "var:custom|color|badge|accent"
+		},
+		"border": {
+			"color": "var:custom|color|badge|accent",
+			"radius": "var:preset|border-radius|500",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "0 0 0 1px color-mix(in srgb, var(--ls-badge-hero-tone) 14%, transparent), 0 0 18px -9px color-mix(in srgb, var(--ls-badge-hero-tone) 52%, transparent)",
+		"spacing": {
+			"blockGap": "var:preset|spacing|10",
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "&{--ls-badge-hero-tone:var(--wp--custom--color--badge--accent);}"
+	}
+}

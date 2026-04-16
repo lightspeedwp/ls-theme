@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Page Section - Default",
+	"slug": "page-section-default",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Reusable page section shell with the default surface and matching default foreground text.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|default"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|60",
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"bottom": "var:preset|spacing|80"
+			}
+		}
+	}
+}

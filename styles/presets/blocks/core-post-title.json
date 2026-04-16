@@ -10,6 +10,8 @@
                             "text": "var:custom|color|text|default"
                         },
                         "typography": {
+                            "fontWeight": "var:custom|typography|font-weight|semibold",
+                            "lineHeight": "var:custom|line-height|heading-default",
                             "textDecoration": "none"
                         },
                         ":hover": {
@@ -17,7 +19,7 @@
                                 "text": "var:custom|color|link|accent-hover"
                             },
                             "typography": {
-                                "textDecoration": "underline"
+                                "textDecoration": "none"
                             }
                         }
                     }

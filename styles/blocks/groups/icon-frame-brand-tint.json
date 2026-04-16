@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Icon Frame Brand Tint",
+	"slug": "icon-frame-brand-tint",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact tinted icon frame with a solid brand-light background and coloured nested icon.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|brand-light",
+			"text": "var:custom|color|text|brand"
+		},
+		"border": {
+			"radius": "var:preset|border-radius|200",
+			"style": "solid",
+			"width": "0"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
+			}
+		}
+	}
+}

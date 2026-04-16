@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Meta",
+	"slug": "meta",
+	"blockTypes": [
+		"core/post-author-name"
+	],
+	"description": "Muted inline post-author-name styling for compact cards and meta rows.",
+	"styles": {
+		"color": {
+			"text": "var:custom|color|text|muted"
+		},
+		"typography": {
+			"fontSize": "var:preset|font-size|100",
+			"fontWeight": "var:custom|typography|font-weight|normal",
+			"lineHeight": "var:custom|line-height|paragraph"
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:custom|color|text|muted"
+				},
+				"typography": {
+					"textDecoration": "none"
+				},
+				":hover": {
+					"typography": {
+						"textDecoration": "underline"
+					}
+				}
+			}
+		},
+		"css": "&{margin:0;white-space:nowrap;}"
+	}
+}

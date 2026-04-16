@@ -21,13 +21,15 @@
 					"card": "var:preset|color|neutral-900",
 					"card-raised": "var:preset|color|neutral-800",
 					"highlight": "var:preset|color|base",
-					"brand-light": "var:preset|color|brand-900",
+					"brand-light": "var:preset|color|cta-800",
+					"brand-subtle": "var:preset|color|cta-700",
                     "brand": "var:preset|color|cta-500",
-                    "cta-light": "var:preset|color|cta-900",
-                    "cta": "var:preset|color|accent-two-500",
-                    "accent-light": "var:preset|color|accent-900",
-                    "accent-two-light": "var:preset|color|accent-two-900",
-                    "accent-three-light": "var:preset|color|accent-three-900"
+                    "cta-light": "var:preset|color|accent-three-800",
+                    "cta-subtle": "var:preset|color|accent-three-700",
+                    "cta": "var:preset|color|accent-three-500",
+                    "accent-light": "var:preset|color|accent-800",
+                    "accent-two-light": "var:preset|color|accent-two-800",
+                    "accent-three-light": "var:preset|color|accent-three-800"
 				},
 				"border": {
 					"card": "var:preset|color|neutral-800"
@@ -41,6 +43,11 @@
 						"brand": "var:preset|color|cta-500",
 						"accent": "var:preset|color|accent-three-500"
 					}
+				},
+				"badge": {
+					"brand": "var:preset|color|cta-500",
+					"cta": "var:preset|color|accent-three-500",
+					"accent": "var:preset|color|accent-two-500"
 				},
 				"text-shadow": {
 					"contrast": "var:preset|color|base",

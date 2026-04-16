@@ -8,8 +8,14 @@
 	],
 	"description": "Light surface group card with a GSAP-driven spotlight that follows the pointer.",
 	"styles": {
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|400",
+			"style": "solid",
+			"width": "1px"
+		},
 		"color": {
-			"background": "var:custom|color|surface|card",
+			"background": "var:custom|color|surface|card-raised",
 			"text": "var:custom|color|text|default"
 		},
 		"shadow": "var:preset|shadow|200",
@@ -21,6 +27,7 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		}
+		},
+		"css": "&{--ls-effect-primary-size:72rem;--ls-effect-secondary-size:80rem;--ls-effect-blur:60px;--ls-effect-scale:0.94;}"
 	}
 }

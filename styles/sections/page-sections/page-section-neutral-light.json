@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Page Section - Neutral Light",
+	"slug": "page-section-neutral-light",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Reusable page section shell with the neutral-tinted light surface and matching strong foreground text.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|60",
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"bottom": "var:preset|spacing|80"
+			}
+		}
+	}
+}

@@ -7,5 +7,12 @@
 		"core/group"
 	],
 	"description": "Light full-width group style with the animated network background used for the homepage hero.",
-	"styles": {}
+	"styles": {
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"bottom": "var:preset|spacing|80"
+			}
+		}
+	}
 }

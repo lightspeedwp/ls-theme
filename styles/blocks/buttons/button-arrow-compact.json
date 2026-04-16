@@ -20,6 +20,7 @@
 				"bottom": "0",
 				"left": "0"
 			}
-		}
+		},
+		"css": "&{--ls-button-arrow-compact-size:2.5rem;}"
 	}
 }

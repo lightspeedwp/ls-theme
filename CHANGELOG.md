@@ -11,9 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added a `Badge - Hero` pattern with registered brand, CTA, and accent badge styles, semantic badge colour tokens, and a CSS-only sparkle wobble effect.
 - Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells.
 - Added a post-aware `Card - Post` pattern with reusable featured-image cover, category pill, compact meta, and read-more arrow block styles.
+- Added a `Card - Post Archive` pattern that reuses the shared post-card shell and hover media treatment, with a compact icon-led author, date, and native reading-time meta row.
 - Added a `Card - Services` pattern with a reusable accent-border gradient contract, a matching services card section style, and a blue tick list block style.
+- Added a reusable `Card - Hero Stats` Group style and a matching `Gradient Brand Inverse` heading style for compact hero proof cards.
+- Added a `Card - Performance Stat` pattern with a reusable left gradient rail card style and a new tinted brand icon-frame Group style.
+- Added a `Card - Value` pattern with a reused services-card top-bar gradient and a static `Icon Frame Brand CTA` group style for padded value-card icon holders.
 - Added a `Solutions Card` pattern with a reusable `Icon Frame Glow` group style and a compact shared-arrow card CTA button style.
 - Added individual merged block preset files under `styles/presets/blocks/` so live block runtime defaults can be maintained one block per file.
 - Added a theme-local `themejson-completion` skill, `ThemeJSON Completer` agent, and `complete-theme-json` prompt for approval-first Global Styles completion work.

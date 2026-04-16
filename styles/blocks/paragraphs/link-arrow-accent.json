@@ -19,6 +19,6 @@
 				}
 			}
 		},
-		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;}"
+		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;--ls-link-arrow-hover-colour:var(--wp--custom--color--link--accent-hover);}"
 	}
 }

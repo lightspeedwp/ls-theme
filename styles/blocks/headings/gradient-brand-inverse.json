@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Gradient Brand Inverse",
+	"slug": "gradient-brand-inverse",
+	"blockTypes": [
+		"core/heading"
+	],
+	"description": "Animated two-tone gradient text for headings using the LightSpeed Theme brand and inverse text tokens.",
+	"styles": {
+		"color": {
+			"text": "var:custom|color|text|brand"
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:custom|color|text|brand"
+				}
+			}
+		},
+		"css": "&{--ls-accent-gradient-width:fit-content;--ls-accent-gradient-image:linear-gradient(135deg,var(--wp--custom--color--text--brand) 0%,var(--wp--custom--color--text--brand) 50%,var(--wp--custom--color--surface--brand-light) 100%);}"
+	}
+}

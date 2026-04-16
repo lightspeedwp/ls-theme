@@ -1,0 +1,213 @@
+@use "../abstracts/mixins/motion";
+
+/********** Icon Motion **********/
+
+:is(
+  .ls-card__icon-shell,
+  .ls-card-feature__icon-shell,
+  .ls-card-services__icon-shell
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--wp--preset--spacing--20);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--wp--custom--color--icon--background) 35%,
+      transparent
+    );
+  border-radius: var(--wp--preset--border-radius--200);
+  background: var(--wp--custom--color--icon--background);
+  color: var(--wp--custom--color--icon--color);
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+}
+
+:is(
+  .ls-card__icon-shell,
+  .ls-card-feature__icon-shell,
+  .ls-card-services__icon-shell,
+  .is-style-icon-frame-glow,
+  .is-style-icon-frame-brand-cta,
+  .is-style-icon-frame-brand-tint
+) {
+  .wp-block-outermost-icon-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
+    color: currentColor;
+  }
+
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    color: currentColor !important;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+}
+
+.is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+.ls-card-value__icon-shell {
+  align-self: flex-start;
+}
+
+.is-style-card-feature:hover :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+.is-style-card-feature:focus-within
+  :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
+  border-color: var(--wp--custom--color--icon--background);
+  box-shadow:
+    var(--wp--custom--shadow--elevation--300),
+    0 22px 44px -22px
+      color-mix(
+        in srgb,
+        var(--wp--custom--color--icon--background) 76%,
+        transparent
+      );
+  transform: rotate(-5deg) scale(0.98);
+}
+
+.ls-card-post-archive__meta-item {
+  .wp-block-outermost-icon-block,
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    color: currentColor;
+  }
+
+  .icon-container {
+    background: transparent !important;
+  }
+
+  .icon-container svg {
+    fill: currentColor;
+  }
+}
+
+.is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
+  align-self: center;
+}
+
+.is-style-card-services:hover :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+.is-style-card-services:focus-within
+  :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
+  border-color: var(
+    --ls-card-services-icon-border-active,
+    var(--wp--custom--color--icon--background)
+  );
+  box-shadow: var(
+    --ls-card-services-icon-shadow-active,
+    var(--wp--custom--shadow--elevation--300),
+    0 22px 44px -22px color-mix(
+      in srgb,
+      var(--wp--custom--color--icon--background) 76%,
+      transparent
+    )
+  );
+}
+
+.is-style-icon-frame-glow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-inline-size: var(--ls-icon-frame-size, 5rem);
+  min-block-size: var(--ls-icon-frame-size, 5rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
+    border-color: var(--ls-icon-frame-accent-colour);
+    box-shadow:
+      0 0 4px 4px
+        color-mix(
+          in srgb,
+          var(--ls-icon-frame-accent-colour) 50%,
+          transparent
+        ),
+      inset 0 0 4px 3px
+        color-mix(
+          in srgb,
+          var(--ls-icon-frame-accent-colour) 50%,
+          transparent
+        );
+    transform: rotate(var(--ls-icon-frame-tilt, -3deg));
+  }
+}
+
+.is-style-icon-frame-brand-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  background: linear-gradient(
+    135deg,
+    color-mix(
+      in srgb,
+      var(--ls-icon-frame-brand-cta-start) 88%,
+      var(--ls-icon-frame-brand-cta-end) 12%
+    ) 0%,
+    color-mix(
+      in srgb,
+      var(--ls-icon-frame-brand-cta-end) 84%,
+      var(--ls-icon-frame-brand-cta-start) 16%
+    ) 100%
+  );
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.is-style-icon-frame-brand-tint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: 0;
+}
+
+@include motion.reduced-motion {
+  .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+  .is-style-icon-frame-glow {
+    transition: none;
+  }
+
+  .is-style-icon-frame-glow:hover,
+  .is-style-icon-frame-glow:focus-within,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
+    .is-style-icon-frame-glow,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
+    .is-style-icon-frame-glow {
+    transform: none;
+  }
+}

@@ -25,7 +25,7 @@
 
 		<!-- wp:post-title {"level":3,"isLink":true,"className":"ls-card-post__title"} /-->
 
-		<!-- wp:post-excerpt {"showMoreOnNewLine":false,"excerptLength":18,"className":"ls-card-post__excerpt"} /-->
+		<!-- wp:post-excerpt {"showMoreOnNewLine":false,"excerptLength":35,"className":"ls-card-post__excerpt"} /-->
 
 		<!-- wp:read-more {"content":"Read article","className":"ls-card-post__cta is-style-link-arrow-accent"} /--></div>
 	<!-- /wp:group --></article>

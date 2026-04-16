@@ -8,14 +8,17 @@
 	],
 	"description": "Read-more links with an inline arrow accent for compact card CTAs.",
 	"styles": {
-		"color": {
-			"text": "var:custom|color|link|accent"
+		"spacing": {
+			"margin": {
+				"top": "0",
+				"right": "0",
+				"bottom": "0",
+				"left": "0"
+			}
 		},
 		"typography": {
-			"fontSize": "var:preset|font-size|200",
-			"fontWeight": "var:custom|typography|font-weight|semibold",
-			"textDecoration": "none"
+			"fontSize": "var:preset|font-size|200"
 		},
-		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;margin:0;}"
+		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;--ls-link-arrow-hover-colour:var(--wp--custom--color--link--accent-hover);}"
 	}
 }

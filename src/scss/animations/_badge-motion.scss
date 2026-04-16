@@ -1,0 +1,134 @@
+@use "../abstracts/mixins/motion";
+
+/********** Badge Motion **********/
+
+@keyframes ls-badge-hero-icon-wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  40% {
+    transform: rotate(8deg);
+  }
+
+  60% {
+    transform: rotate(-5deg);
+  }
+
+  80% {
+    transform: rotate(4deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+:is(
+  .ls-badge-hero,
+  .is-style-badge-hero-brand,
+  .is-style-badge-hero-cta,
+  .is-style-badge-hero-accent
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-inline-size: 100%;
+  box-sizing: border-box;
+  line-height: 1;
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard);
+}
+
+.ls-badge-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
+  transform-origin: center;
+
+  .wp-block-outermost-icon-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
+    color: currentColor;
+  }
+
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    color: currentColor !important;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+}
+
+.ls-badge-hero__label {
+  margin: 0;
+  color: currentColor;
+  font-family: var(--wp--preset--font-family--heading);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--semibold);
+  letter-spacing: var(--wp--custom--typography--letter-spacing--normal);
+  line-height: var(--wp--custom--line-height--heading-default);
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+}
+
+:is(
+  .ls-badge-hero,
+  .is-style-badge-hero-brand,
+  .is-style-badge-hero-cta,
+  .is-style-badge-hero-accent
+):hover .ls-badge-hero__icon,
+:is(
+  .ls-badge-hero,
+  .is-style-badge-hero-brand,
+  .is-style-badge-hero-cta,
+  .is-style-badge-hero-accent
+):focus-within .ls-badge-hero__icon {
+  animation: ls-badge-hero-icon-wobble
+    var(--wp--custom--animation--duration--emphasised)
+    var(--wp--custom--animation--easing--emphasised) 1;
+}
+
+@include motion.reduced-motion {
+  .ls-badge-hero__icon {
+    transition: none;
+  }
+
+  :is(
+    .ls-badge-hero,
+    .is-style-badge-hero-brand,
+    .is-style-badge-hero-cta,
+    .is-style-badge-hero-accent
+  ):hover .ls-badge-hero__icon,
+  :is(
+    .ls-badge-hero,
+    .is-style-badge-hero-brand,
+    .is-style-badge-hero-cta,
+    .is-style-badge-hero-accent
+  ):focus-within .ls-badge-hero__icon {
+    animation: none;
+    transform: none;
+  }
+}

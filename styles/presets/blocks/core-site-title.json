@@ -24,7 +24,7 @@
                                 "text": "var:custom|color|link|accent-hover"
                             },
                             "typography": {
-                                "textDecoration": "underline"
+                                "textDecoration": "none"
                             }
                         }
                     }

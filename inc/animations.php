@@ -117,8 +117,38 @@ function ls_theme_register_effect_block_styles() {
 		),
 		array(
 			'block_name' => 'core/group',
+			'name'       => 'card-hero-stats',
+			'label'      => __( 'Card - Hero Stats', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'card-performance-stat',
+			'label'      => __( 'Card - Performance Stat', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'badge-hero-brand',
+			'label'      => __( 'Badge Hero - Brand', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'badge-hero-cta',
+			'label'      => __( 'Badge Hero - CTA', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'badge-hero-accent',
+			'label'      => __( 'Badge Hero - Accent', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
 			'name'       => 'icon-frame-glow',
 			'label'      => __( 'Icon Frame Glow', 'ls-theme' ),
+		),
+		array(
+			'block_name' => 'core/group',
+			'name'       => 'icon-frame-brand-tint',
+			'label'      => __( 'Icon Frame Brand Tint', 'ls-theme' ),
 		),
 		array(
 			'block_name' => 'core/button',

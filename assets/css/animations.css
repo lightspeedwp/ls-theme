@@ -6,16 +6,9 @@
 }
 /********** Text Motion **********/
 /* Gradient Accent */
-.wp-block-heading.is-style-gradient-accent {
-  --ls-accent-gradient-width: fit-content;
-  --ls-accent-gradient-image: linear-gradient(
-    to right,
-    var(--wp--custom--color--text--brand) 0%,
-    var(--wp--custom--color--text--default) 25%,
-    var(--wp--custom--color--text--brand-strong) 50%,
-    var(--wp--custom--color--text--default) 75%,
-    var(--wp--custom--color--text--brand) 100%
-  );
+.wp-block-heading.is-style-gradient-accent,
+.wp-block-heading.is-style-gradient-brand-inverse,
+.is-style-card-hero-stats .wp-block-heading {
   --ls-accent-gradient-size: 200% auto;
   --ls-accent-gradient-start-position: 0%;
   --ls-accent-gradient-end-position: 100%;
@@ -23,23 +16,18 @@
   --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
   --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
   --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-focus-width: 2px;
-  --ls-accent-gradient-focus-color: var(--wp--custom--color--focus--ring);
-  --ls-accent-gradient-focus-offset: 4px;
   --ls-accent-gradient-reduced-position: 100%;
-  width: var(--ls-accent-gradient-width);
+  width: var(--ls-accent-gradient-width, auto);
   max-width: 100%;
-}
-.wp-block-heading.is-style-gradient-accent.has-text-align-center {
-  margin-inline: auto;
-}
-.wp-block-heading.is-style-gradient-accent.has-text-align-right {
-  margin-inline-start: auto;
 }
 
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
+  .wp-block-heading.is-style-gradient-accent a,
+  .wp-block-heading.is-style-gradient-brand-inverse,
+  .wp-block-heading.is-style-gradient-brand-inverse a,
+  .is-style-card-hero-stats .wp-block-heading,
+  .is-style-card-hero-stats .wp-block-heading a {
     background-image: var(--ls-accent-gradient-image);
     background-position: var(--ls-accent-gradient-start-position) center;
     background-repeat: no-repeat;
@@ -52,34 +40,30 @@
   .wp-block-heading.is-style-gradient-accent {
     animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
   }
+  .wp-block-heading.is-style-gradient-brand-inverse,
+  .is-style-card-hero-stats .wp-block-heading {
+    animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
+  }
   .wp-block-heading.is-style-gradient-accent a {
     animation: inherit;
   }
+  .wp-block-heading.is-style-gradient-brand-inverse a,
+  .is-style-card-hero-stats .wp-block-heading a {
+    animation: inherit;
+  }
 }
-.wp-block-heading.is-style-gradient-accent a:focus-visible {
-  outline: var(--ls-accent-gradient-focus-width) solid var(--ls-accent-gradient-focus-color);
-  outline-offset: var(--ls-accent-gradient-focus-offset);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
+  .wp-block-heading.is-style-gradient-accent a,
+  .wp-block-heading.is-style-gradient-brand-inverse,
+  .wp-block-heading.is-style-gradient-brand-inverse a,
+  .is-style-card-hero-stats .wp-block-heading,
+  .is-style-card-hero-stats .wp-block-heading a {
     animation: none;
     background-position: var(--ls-accent-gradient-reduced-position) center;
   }
 }
 /********** Link Motion **********/
-/* Link Underline Accent */
-.wp-block-paragraph.is-style-link-underline-accent {
-  --ls-link-underline-image: linear-gradient(
-    var(--wp--custom--color--link--decoration-start),
-    var(--wp--custom--color--link--decoration-end)
-  );
-  --ls-link-underline-padding-bottom: 3px;
-  --ls-link-underline-thickness: 2px;
-  --ls-link-underline-enter-delay: var(--wp--custom--animation--delay--enter);
-}
-
 .wp-block-paragraph.is-style-link-underline-accent a {
   padding-bottom: var(--ls-link-underline-padding-bottom);
   background-image: var(--ls-link-underline-image);
@@ -102,9 +86,6 @@
   display: inline-flex;
   align-items: center;
   gap: var(--ls-link-arrow-gap, 0.45ch);
-  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
-  font-weight: var(--ls-link-arrow-weight, var(--wp--custom--typography--font-weight--semibold));
-  text-decoration: none;
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), gap var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
   transition-delay: var(--wp--custom--animation--delay--none);
 }
@@ -127,7 +108,7 @@
 .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a,
 .is-style-card-post:hover .wp-block-read-more.is-style-link-arrow-accent,
 .is-style-card-post:focus-within .wp-block-read-more.is-style-link-arrow-accent {
-  color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+  color: var(--ls-link-arrow-hover-colour);
 }
 
 .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
@@ -215,7 +196,110 @@
   box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
 }
 
-/********** Card Motion **********/
+/********** Badge Motion **********/
+@keyframes ls-badge-hero-icon-wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-5deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+:is(.ls-badge-hero,
+.is-style-badge-hero-brand,
+.is-style-badge-hero-cta,
+.is-style-badge-hero-accent) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-inline-size: 100%;
+  box-sizing: border-box;
+  line-height: 1;
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
+}
+
+.ls-badge-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
+  transform-origin: center;
+}
+.ls-badge-hero__icon .wp-block-outermost-icon-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
+  color: currentColor;
+}
+.ls-badge-hero__icon .icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: currentColor !important;
+}
+.ls-badge-hero__icon .icon-container svg {
+  fill: currentColor;
+}
+
+.ls-badge-hero__label {
+  margin: 0;
+  color: currentColor;
+  font-family: var(--wp--preset--font-family--heading);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--semibold);
+  letter-spacing: var(--wp--custom--typography--letter-spacing--normal);
+  line-height: var(--wp--custom--line-height--heading-default);
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+}
+
+:is(.ls-badge-hero,
+.is-style-badge-hero-brand,
+.is-style-badge-hero-cta,
+.is-style-badge-hero-accent):hover .ls-badge-hero__icon,
+:is(.ls-badge-hero,
+.is-style-badge-hero-brand,
+.is-style-badge-hero-cta,
+.is-style-badge-hero-accent):focus-within .ls-badge-hero__icon {
+  animation: ls-badge-hero-icon-wobble var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised) 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-badge-hero__icon {
+    transition: none;
+  }
+  :is(.ls-badge-hero,
+  .is-style-badge-hero-brand,
+  .is-style-badge-hero-cta,
+  .is-style-badge-hero-accent):hover .ls-badge-hero__icon,
+  :is(.ls-badge-hero,
+  .is-style-badge-hero-brand,
+  .is-style-badge-hero-cta,
+  .is-style-badge-hero-accent):focus-within .ls-badge-hero__icon {
+    animation: none;
+    transform: none;
+  }
+}
+/********** Icon Motion **********/
 :is(.ls-card__icon-shell,
 .ls-card-feature__icon-shell,
 .ls-card-services__icon-shell) {
@@ -226,94 +310,145 @@
   border: 1px solid color-mix(in srgb, var(--wp--custom--color--icon--background) 35%, transparent);
   border-radius: var(--wp--preset--border-radius--200);
   background: var(--wp--custom--color--icon--background);
+  color: var(--wp--custom--color--icon--color);
   box-sizing: border-box;
   overflow: hidden;
   line-height: 0;
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
+
 :is(.ls-card__icon-shell,
 .ls-card-feature__icon-shell,
-.ls-card-services__icon-shell) .wp-block-outermost-icon-block {
+.ls-card-services__icon-shell,
+.is-style-icon-frame-glow,
+.is-style-icon-frame-brand-cta,
+.is-style-icon-frame-brand-tint) .wp-block-outermost-icon-block {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
   margin: 0;
   line-height: 0;
-  color: var(--wp--custom--color--icon--color);
+  color: currentColor;
 }
 :is(.ls-card__icon-shell,
 .ls-card-feature__icon-shell,
-.ls-card-services__icon-shell) .icon-container {
+.ls-card-services__icon-shell,
+.is-style-icon-frame-glow,
+.is-style-icon-frame-brand-cta,
+.is-style-icon-frame-brand-tint) .icon-container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent !important;
-  color: var(--wp--custom--color--icon--color) !important;
+  color: currentColor !important;
 }
 :is(.ls-card__icon-shell,
 .ls-card-feature__icon-shell,
-.ls-card-services__icon-shell) .icon-container svg {
+.ls-card-services__icon-shell,
+.is-style-icon-frame-glow,
+.is-style-icon-frame-brand-cta,
+.is-style-icon-frame-brand-tint) .icon-container svg {
   fill: currentColor;
 }
 
+.is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+.ls-card-value__icon-shell {
+  align-self: flex-start;
+}
+
+.is-style-card-feature:hover :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+.is-style-card-feature:focus-within :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
+  border-color: var(--wp--custom--color--icon--background);
+  box-shadow: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
+  transform: rotate(-5deg) scale(0.98);
+}
+
+.ls-card-post-archive__meta-item .wp-block-outermost-icon-block,
+.ls-card-post-archive__meta-item .icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  color: currentColor;
+}
+.ls-card-post-archive__meta-item .icon-container {
+  background: transparent !important;
+}
+.ls-card-post-archive__meta-item .icon-container svg {
+  fill: currentColor;
+}
+
+.is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
+  align-self: center;
+}
+
+.is-style-card-services:hover :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+.is-style-card-services:focus-within :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
+  border-color: var(--ls-card-services-icon-border-active, var(--wp--custom--color--icon--background));
+  box-shadow: var(--ls-card-services-icon-shadow-active, var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent));
+}
+
+.is-style-icon-frame-glow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-inline-size: var(--ls-icon-frame-size, 5rem);
+  min-block-size: var(--ls-icon-frame-size, 5rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
+}
+.is-style-icon-frame-glow:hover, .is-style-icon-frame-glow:focus-within, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
+  border-color: var(--ls-icon-frame-accent-colour);
+  box-shadow: 0 0 4px 4px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent), inset 0 0 4px 3px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
+  transform: rotate(var(--ls-icon-frame-tilt, -3deg));
+}
+
+.is-style-icon-frame-brand-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--ls-icon-frame-brand-cta-start) 88%, var(--ls-icon-frame-brand-cta-end) 12%) 0%, color-mix(in srgb, var(--ls-icon-frame-brand-cta-end) 84%, var(--ls-icon-frame-brand-cta-start) 16%) 100%);
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.is-style-icon-frame-brand-tint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+  .is-style-icon-frame-glow {
+    transition: none;
+  }
+  .is-style-icon-frame-glow:hover,
+  .is-style-icon-frame-glow:focus-within,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow,
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
+    transform: none;
+  }
+}
+/********** Card Motion **********/
 /* Glass Card */
 .is-style-glass-card {
-  --ls-glass-card-background-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 24%,
-    transparent
-  );
-  --ls-glass-card-background-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 34%,
-    transparent
-  );
-  --ls-glass-card-border-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 35%,
-    transparent
-  );
-  --ls-glass-card-border-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--link--accent) 32%,
-    var(--wp--custom--color--surface--highlight) 30%,
-    transparent
-  );
-  --ls-glass-card-blur: 24px;
-  --ls-glass-card-shadow-rest: var(--wp--custom--shadow--elevation--200);
-  --ls-glass-card-shadow-hover: var(--wp--custom--shadow--elevation--300),
-    var(--wp--custom--shadow--interactive--accent);
-  --ls-glass-card-top-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 82%,
-    transparent
-  );
-  --ls-glass-card-side-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 72%,
-    transparent
-  );
-  --ls-glass-card-side-tail: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 30%,
-    transparent
-  );
-  --ls-glass-card-focus-width: 2px;
-  --ls-glass-card-focus-colour: var(--wp--custom--color--focus--ring);
-  --ls-glass-card-focus-offset: 4px;
-  --ls-glass-card-lift: -4px;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-glass-card-border-rest);
-  border-radius: var(--wp--preset--border-radius--300);
-  background: var(--ls-glass-card-background-rest);
-  box-shadow: var(--ls-glass-card-shadow-rest);
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .is-style-glass-card {
-    backdrop-filter: blur(var(--ls-glass-card-blur));
-    -webkit-backdrop-filter: blur(var(--ls-glass-card-blur));
+    backdrop-filter: blur(var(--ls-glass-card-blur, 24px));
+    -webkit-backdrop-filter: blur(var(--ls-glass-card-blur, 24px));
   }
 }
 .is-style-glass-card::before, .is-style-glass-card::after {
@@ -326,19 +461,19 @@
   inset: auto 0 auto 0;
   top: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--ls-glass-card-top-highlight), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 82%, transparent), transparent);
 }
 .is-style-glass-card::after {
   position: absolute;
   inset: 0 auto 0 0;
   width: 1px;
-  background: linear-gradient(180deg, var(--ls-glass-card-side-highlight), transparent, var(--ls-glass-card-side-tail));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 72%, transparent), transparent, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 30%, transparent));
 }
 .is-style-glass-card {
   isolation: isolate;
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), outline-color var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-  outline: var(--ls-glass-card-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-card-focus-offset);
+  outline: var(--ls-glass-card-focus-width, 2px) solid transparent;
+  outline-offset: var(--ls-glass-card-focus-offset, 4px);
 }
 .is-style-glass-card::before, .is-style-glass-card::after {
   z-index: var(--wp--custom--z-index--base);
@@ -348,38 +483,25 @@
   z-index: var(--wp--custom--z-index--content);
 }
 .is-style-glass-card:hover, .is-style-glass-card:focus-within {
-  background: var(--ls-glass-card-background-hover);
-  border-color: var(--ls-glass-card-border-hover);
-  box-shadow: var(--ls-glass-card-shadow-hover);
-  transform: translateY(var(--ls-glass-card-lift));
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 34%, transparent);
+  border-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 32%, var(--wp--custom--color--surface--highlight) 30%, transparent);
+  box-shadow: var(--wp--custom--shadow--elevation--300), var(--wp--custom--shadow--interactive--accent);
+  transform: translateY(var(--ls-glass-card-lift, -4px));
 }
 .is-style-glass-card:focus-within {
-  outline-color: var(--ls-glass-card-focus-colour);
+  outline-color: var(--wp--custom--color--focus--ring);
 }
 
 /* Card - Feature */
 .is-style-card-feature {
-  --ls-card-feature-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-feature-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-feature-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-feature-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-feature-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-feature-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
-  --ls-card-feature-lift: -6px;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-card-feature-border-rest);
-  border-radius: var(--wp--preset--border-radius--300);
-  background: var(--wp--custom--color--surface--card);
-  box-shadow: var(--ls-card-feature-shadow-rest);
-  gap: var(--wp--preset--spacing--30);
-  padding: var(--wp--preset--spacing--30);
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
 .is-style-card-feature:hover, .is-style-card-feature:focus-within {
-  border-color: var(--ls-card-feature-border-active);
-  box-shadow: var(--ls-card-feature-shadow-active);
-  transform: translateY(var(--ls-card-feature-lift));
+  border-color: var(--wp--custom--color--link--accent);
+  box-shadow: var(--wp--custom--shadow--card--hover);
+  transform: translateY(var(--ls-card-feature-lift, -4px));
 }
 .is-style-card-feature .ls-card-feature__content {
   flex: 1 1 auto;
@@ -391,36 +513,17 @@
   margin-top: auto;
   margin-bottom: 0;
 }
-.is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
-  align-self: flex-start;
-}
-.is-style-card-feature:hover :is(.ls-card__icon-shell, .ls-card-feature__icon-shell), .is-style-card-feature:focus-within :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
-  border-color: var(--ls-card-feature-icon-border-active);
-  box-shadow: var(--ls-card-feature-icon-shadow-active);
-  transform: rotate(-5deg) scale(0.98);
-}
 
 /* Card - Post */
 .is-style-card-post {
-  --ls-card-post-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-post-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-post-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-post-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-post-title-active: var(--wp--custom--color--text--brand);
-  position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-card-post-border-rest);
-  border-radius: var(--wp--preset--border-radius--300);
-  background: var(--wp--custom--color--surface--card);
-  box-shadow: var(--ls-card-post-shadow-rest);
   inline-size: 100%;
-  max-inline-size: 27.3125rem;
   gap: 0;
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
 }
 .is-style-card-post:hover, .is-style-card-post:focus-within {
-  border-color: var(--ls-card-post-border-active);
-  box-shadow: var(--ls-card-post-shadow-active);
+  border-color: var(--wp--custom--color--link--accent);
+  box-shadow: var(--wp--custom--shadow--card--hover);
 }
 .is-style-card-post > * {
   margin-block: 0;
@@ -437,7 +540,7 @@
   will-change: transform;
 }
 .is-style-card-post:hover .wp-block-cover.is-style-card-post-media .wp-block-cover__image-background, .is-style-card-post:focus-within .wp-block-cover.is-style-card-post-media .wp-block-cover__image-background {
-  transform: scale(var(--ls-card-post-media-scale, 1.08));
+  transform: scale(var(--ls-card-post-media-scale, 1.05));
 }
 .is-style-card-post .ls-card-post__content {
   display: flex;
@@ -456,11 +559,29 @@
   column-gap: var(--wp--preset--spacing--20);
   row-gap: var(--wp--preset--spacing--10);
 }
-.is-style-card-post .ls-card-post__meta > * {
+.is-style-card-post.ls-card-post-archive .ls-card-post-archive__content {
+  gap: var(--wp--preset--spacing--20);
+}
+.is-style-card-post.ls-card-post-archive .ls-card-post-archive__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--10);
+}
+.is-style-card-post.ls-card-post-archive .ls-card-post-archive__text > * {
   margin-block: 0;
 }
-.is-style-card-post .ls-card-post__title {
-  margin: 0;
+.is-style-card-post.ls-card-post-archive .ls-card-post-archive__meta {
+  padding-top: var(--wp--preset--spacing--10);
+  border-top: 1px solid var(--wp--custom--color--border--card);
+}
+.is-style-card-post.ls-card-post-archive .ls-card-post-archive__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wp--preset--spacing--5);
+  color: var(--wp--custom--color--text--muted);
+}
+.is-style-card-post.ls-card-post-archive .ls-card-post-archive__meta-item > * {
+  margin-block: 0;
 }
 .is-style-card-post .ls-card-post__title a {
   color: var(--wp--custom--color--text--default);
@@ -468,16 +589,7 @@
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 .is-style-card-post:hover .ls-card-post__title a, .is-style-card-post:focus-within .ls-card-post__title a {
-  color: var(--ls-card-post-title-active);
-}
-.is-style-card-post .ls-card-post__excerpt {
-  margin: 0;
-}
-.is-style-card-post .ls-card-post__cta {
-  position: static;
-  margin-top: auto;
-  margin-bottom: 0;
-  padding-top: var(--wp--preset--spacing--10);
+  color: var(--wp--custom--color--text--brand);
 }
 .is-style-card-post .ls-card-post__cta::before {
   content: "";
@@ -492,39 +604,9 @@
 
 /* Card - Services */
 .is-style-card-services {
-  --ls-card-services-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-services-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-services-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
-  --ls-card-services-scale: 1.05;
-  --ls-card-services-accent-thickness: 8px;
-  --ls-link-arrow-offset: 0;
-  --ls-accent-gradient-image: linear-gradient(
-    90deg,
-    var(--wp--custom--color--effect--spotlight--secondary) 0%,
-    var(--wp--custom--color--effect--spotlight--primary) 50%,
-    var(--wp--custom--color--effect--spotlight--secondary) 100%
-  );
-  --ls-accent-gradient-size: 200% auto;
-  --ls-accent-gradient-start-position: 0%;
-  --ls-accent-gradient-end-position: 100%;
-  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
-  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
-  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
-  --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-reduced-position: 100%;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-card-services-border-rest);
-  border-radius: var(--wp--preset--border-radius--300);
-  background: var(--wp--custom--color--surface--card);
-  box-shadow: var(--ls-card-services-shadow-rest);
   align-items: center;
-  gap: var(--wp--preset--spacing--20);
-  max-inline-size: 24.167rem;
-  padding: var(--wp--preset--spacing--40);
   text-align: center;
   transform-origin: top center;
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
@@ -534,11 +616,11 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline: 0;
-  block-size: var(--ls-card-services-accent-thickness);
-  background-image: var(--ls-accent-gradient-image);
-  background-position: var(--ls-accent-gradient-start-position) center;
+  block-size: var(--ls-card-services-accent-thickness, 8px);
+  background-image: linear-gradient(90deg, var(--wp--custom--color--effect--spotlight--secondary) 0%, var(--wp--custom--color--effect--spotlight--primary) 50%, var(--wp--custom--color--effect--spotlight--secondary) 100%);
+  background-position: 0 center;
   background-repeat: no-repeat;
-  background-size: var(--ls-accent-gradient-size);
+  background-size: 200% auto;
   z-index: var(--wp--custom--z-index--base);
 }
 .is-style-card-services > * {
@@ -546,15 +628,12 @@
   z-index: var(--wp--custom--z-index--content);
 }
 .is-style-card-services:hover, .is-style-card-services:focus-within {
-  border-color: var(--ls-card-services-border-active);
-  box-shadow: var(--ls-card-services-shadow-active);
-  transform: scale(var(--ls-card-services-scale));
+  border-color: var(--ls-card-services-border-active, var(--wp--custom--color--link--accent));
+  box-shadow: var(--ls-card-services-shadow-active, var(--wp--custom--shadow--card--hover));
+  transform: scale(var(--ls-card-services-scale, 1.02));
 }
 .is-style-card-services:hover::before, .is-style-card-services:focus-within::before {
-  animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
-}
-.is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
-  align-self: center;
+  animation: ls-accent-gradient-shift var(--wp--custom--animation--duration--loop) var(--wp--custom--animation--easing--smooth) var(--wp--custom--animation--delay--none) infinite alternate;
 }
 .is-style-card-services .ls-card-services__content {
   display: flex;
@@ -587,75 +666,102 @@
   position: relative;
   z-index: 2;
 }
-.is-style-card-services:hover :is(.ls-card__icon-shell, .ls-card-services__icon-shell), .is-style-card-services:focus-within :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
-  border-color: var(--ls-card-services-icon-border-active);
-  box-shadow: var(--ls-card-services-icon-shadow-active);
+
+/* Card - Hero Stats */
+.is-style-card-hero-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-inline-size: var(--ls-card-hero-stats-min-inline-size, 11.25rem);
+  text-align: center;
+}
+.is-style-card-hero-stats > * {
+  margin-block: 0;
+}
+.is-style-card-hero-stats .wp-block-heading {
+  margin: 0 auto;
+  text-align: center;
+}
+.is-style-card-hero-stats .wp-block-paragraph {
+  margin: 0;
+  text-align: center;
 }
 
-/* Icon Frame Glow */
-.is-style-icon-frame-glow {
-  --ls-icon-frame-accent-colour: var(
-    --ls-card-solutions-accent-colour,
-    var(--wp--custom--color--card--solutions--brand)
-  );
-  --ls-icon-frame-border-rest: var(--ls-icon-frame-accent-colour);
-  --ls-icon-frame-border-active: var(--ls-icon-frame-accent-colour);
-  --ls-icon-frame-background-rest: color-mix(
-    in srgb,
-    var(--ls-icon-frame-accent-colour) 10%,
-    transparent
-  );
-  --ls-icon-frame-shadow-active: 0 0 4px 4px
-    color-mix(
-      in srgb,
-      var(--ls-icon-frame-accent-colour) 50%,
-      transparent
-    );
-  --ls-icon-frame-inset-shadow-active: inset 0 0 4px 3px
-    color-mix(
-      in srgb,
-      var(--ls-icon-frame-accent-colour) 50%,
-      transparent
-    );
-  --ls-icon-frame-tilt: -3deg;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  min-inline-size: 5rem;
-  min-block-size: 5rem;
-  padding: var(--wp--preset--spacing--20);
-  border: 1px solid var(--ls-icon-frame-border-rest);
-  border-radius: var(--wp--preset--border-radius--200);
-  background: var(--ls-icon-frame-background-rest);
-  box-sizing: border-box;
+/* Card - Value */
+.is-style-card-value {
+  position: relative;
   overflow: hidden;
-  line-height: 0;
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
+  text-align: left;
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
 }
-.is-style-icon-frame-glow .wp-block-outermost-icon-block {
+.is-style-card-value::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--ls-card-value-accent-thickness, 6px);
+  background-image: var(--ls-accent-gradient-image, linear-gradient(90deg, var(--wp--custom--color--effect--spotlight--secondary) 0%, var(--wp--custom--color--effect--spotlight--primary) 50%, var(--wp--custom--color--effect--spotlight--secondary) 100%));
+  background-position: var(--ls-accent-gradient-start-position, 0%) center;
+  background-repeat: no-repeat;
+  background-size: var(--ls-accent-gradient-size, 200% auto);
+  z-index: var(--wp--custom--z-index--base);
+}
+.is-style-card-value > * {
+  position: relative;
+  z-index: var(--wp--custom--z-index--content);
+}
+.is-style-card-value:hover, .is-style-card-value:focus-within {
+  border-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 35%, var(--wp--custom--color--border--card));
+  box-shadow: var(--wp--custom--shadow--interactive--accent);
+}
+.is-style-card-value .ls-card-value__content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  margin: 0;
-  line-height: 0;
-  color: var(--ls-icon-frame-accent-colour);
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--10);
+  inline-size: 100%;
 }
-.is-style-icon-frame-glow .icon-container {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent !important;
-  color: var(--ls-icon-frame-accent-colour) !important;
+.is-style-card-value .ls-card-value__content > * {
+  margin-block: 0;
 }
-.is-style-icon-frame-glow .icon-container svg {
-  fill: currentColor;
+
+/* Card - Performance Stat */
+.is-style-card-performance-stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-align: left;
+  transition: transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
-.is-style-icon-frame-glow:hover, .is-style-icon-frame-glow:focus-within, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
-  border-color: var(--ls-icon-frame-border-active);
-  box-shadow: var(--ls-icon-frame-shadow-active), var(--ls-icon-frame-inset-shadow-active);
-  transform: rotate(var(--ls-icon-frame-tilt));
+.is-style-card-performance-stat::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: var(--ls-card-performance-stat-accent-thickness, 3px);
+  background-image: var(--ls-accent-gradient-image, linear-gradient(180deg, var(--wp--custom--color--effect--spotlight--secondary) 0%, var(--wp--custom--color--effect--spotlight--primary) 50%, var(--wp--custom--color--effect--spotlight--secondary) 100%));
+  background-position: var(--ls-accent-gradient-start-position, 0%) center;
+  background-repeat: no-repeat;
+  background-size: var(--ls-accent-gradient-size, 200% auto);
+  z-index: var(--wp--custom--z-index--base);
+}
+.is-style-card-performance-stat > * {
+  position: relative;
+  z-index: var(--wp--custom--z-index--content);
+  margin-block: 0;
+}
+.is-style-card-performance-stat:hover, .is-style-card-performance-stat:focus-within {
+  transform: translateX(var(--ls-card-performance-stat-shift, 4px));
+}
+.is-style-card-performance-stat:hover::before, .is-style-card-performance-stat:focus-within::before {
+  animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration, var(--wp--custom--animation--duration--slow)) var(--ls-accent-gradient-timing, var(--wp--custom--animation--easing--smooth)) var(--ls-accent-gradient-delay, var(--wp--custom--animation--delay--none)) infinite var(--ls-accent-gradient-direction, alternate);
 }
 
 /* Card - Solutions */
@@ -664,29 +770,13 @@
     --ls-card-solutions-accent-colour,
     var(--wp--custom--color--card--solutions--brand)
   );
-  --ls-card-solutions-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
-  --ls-card-solutions-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-solutions-shadow-active: 1px 4px 12px 4px
-    color-mix(
-      in srgb,
-      var(--ls-card-solutions-accent-resolved) 50%,
-      transparent
-    );
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-card-solutions-border-rest);
-  border-radius: var(--wp--preset--border-radius--200);
-  background: var(--wp--custom--color--surface--card);
-  box-shadow: var(--ls-card-solutions-shadow-rest);
-  gap: var(--wp--preset--spacing--10);
-  padding: var(--wp--preset--spacing--30);
-  max-inline-size: 22.5rem;
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
 }
 :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within {
-  border-color: var(--ls-card-solutions-border-active);
-  box-shadow: var(--ls-card-solutions-shadow-active);
+  border-color: var(--ls-card-solutions-accent-resolved);
+  box-shadow: 1px 4px 12px 4px color-mix(in srgb, var(--ls-card-solutions-accent-resolved) 50%, transparent);
 }
 :is(.is-style-card-solutions, .is-style-card-solutions-accent) .ls-card-solutions__content {
   display: flex;
@@ -720,14 +810,14 @@
   .wp-block-read-more.is-style-link-arrow-accent::after,
   .is-style-glass-card,
   .is-style-card-feature,
-  .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   .is-style-card-post,
   .is-style-card-post .wp-block-cover__image-background,
   .is-style-card-post .ls-card-post__title a,
   .is-style-card-services,
   .is-style-card-services::before,
-  .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
-  .is-style-icon-frame-glow,
+  .is-style-card-value,
+  .is-style-card-performance-stat,
+  .is-style-card-performance-stat::before,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent),
   :is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading {
     transition: none;
@@ -738,9 +828,16 @@
   .is-style-card-feature:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within,
+  .is-style-card-performance-stat:hover,
+  .is-style-card-performance-stat:focus-within,
   .is-style-card-post:hover .wp-block-cover__image-background,
   .is-style-card-post:focus-within .wp-block-cover__image-background {
     transform: none;
+  }
+  .is-style-card-performance-stat:hover::before,
+  .is-style-card-performance-stat:focus-within::before {
+    animation: none;
+    background-position: var(--ls-accent-gradient-reduced-position, 100%) center;
   }
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
@@ -759,13 +856,7 @@
   .is-style-card-services:hover::before,
   .is-style-card-services:focus-within::before {
     animation: none;
-    background-position: var(--ls-accent-gradient-reduced-position) center;
-  }
-  .is-style-icon-frame-glow:hover,
-  .is-style-icon-frame-glow:focus-within,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
-    transform: none;
+    background-position: 100% center;
   }
 }
 /********** Button Motion **********/
@@ -792,23 +883,6 @@
 .wp-element-button:active,
 .wp-block-button__link:active {
   transform: scale(var(--ls-button-active-scale, var(--wp--custom--animation--scale--active)));
-}
-
-/* Shared button shell for the default fill and outline treatments. */
-:is(.wp-block-button:not([class*=is-style-]),
-.wp-block-button.is-style-fill) {
-  --ls-button-fill-background: var(--wp--custom--color--button--fill--background);
-  --ls-button-fill-icon-colour: var(--wp--custom--color--button--fill--text);
-  --ls-button-fill-hover-text: var(--wp--custom--color--text--default);
-  --ls-button-fill-duration: var(--wp--custom--animation--duration--emphasised);
-  --ls-button-fill-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-outline {
-  --ls-button-outline-accent-background: var(--wp--custom--color--button--outline--border);
-  --ls-button-outline-accent-colour: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-outline-icon-radius: var(--wp--preset--border-radius--100);
 }
 
 :is(.wp-block-button:not([class*=is-style-]),
@@ -838,7 +912,7 @@
   );
   background: transparent;
   border: 0;
-  transition: transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised)) var(--wp--custom--animation--easing--emphasised), color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised)) var(--wp--custom--animation--easing--emphasised);
+  transition: transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
 }
 
 :is(.wp-block-button:not([class*=is-style-]),
@@ -847,7 +921,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: var(--ls-button-fill-background, var(--wp--custom--color--button--fill--background));
+  background: var(--wp--custom--color--button--fill--background);
   transition: inset-inline-start var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--emphasised), inset-inline-end var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--emphasised), inset-block-start var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--emphasised), inset-block-end var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--emphasised), border-radius var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--emphasised);
   z-index: var(--wp--custom--z-index--behind);
 }
@@ -861,7 +935,7 @@
   width: var(--ls-button-fill-icon-well-size);
   display: grid;
   place-items: center;
-  color: var(--ls-button-fill-icon-colour, currentColor);
+  color: var(--wp--custom--color--button--fill--text);
   font-size: var(--ls-button-fill-icon-font-size);
   font-weight: 700;
   line-height: 1;
@@ -872,7 +946,7 @@
 .wp-block-button.is-style-fill) .wp-block-button__link:hover,
 :is(.wp-block-button:not([class*=is-style-]),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover::before {
-  transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
+  transition-delay: var(--wp--custom--animation--delay--enter);
 }
 
 :is(.wp-block-button:not([class*=is-style-]),
@@ -889,7 +963,7 @@
 .wp-block-button.is-style-fill) .wp-block-button__link:hover,
 :is(.wp-block-button:not([class*=is-style-]),
 .wp-block-button.is-style-fill) .wp-block-button__link:focus-visible {
-  color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
+  color: var(--wp--custom--color--button--fill--text-hover);
 }
 
 /* Outline button motion */
@@ -913,9 +987,9 @@
   width: var(--ls-button-outline-icon-well-size);
   display: grid;
   place-items: center;
-  border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
-  background-color: var(--ls-button-outline-accent-background, var(--wp--custom--color--button--outline--border));
-  color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--button--outline--text-hover));
+  border-radius: var(--wp--preset--border-radius--100);
+  background-color: var(--wp--custom--color--button--outline--border);
+  color: var(--wp--custom--color--button--outline--text-hover);
   font-size: var(--ls-button-outline-icon-font-size);
   font-weight: 700;
   line-height: 1;
@@ -940,64 +1014,13 @@
 }
 
 .wp-block-button.is-style-glass-button .wp-block-button__link {
-  --ls-glass-button-background-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 24%,
-    transparent
-  );
-  --ls-glass-button-background-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 36%,
-    transparent
-  );
-  --ls-glass-button-border-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 35%,
-    transparent
-  );
-  --ls-glass-button-border-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--link--accent) 38%,
-    var(--wp--custom--color--surface--highlight) 34%,
-    transparent
-  );
-  --ls-glass-button-text-rest: var(--wp--custom--color--text--default);
-  --ls-glass-button-text-hover: var(--wp--custom--color--text--brand);
-  --ls-glass-button-blur: 24px;
-  --ls-glass-button-shadow-rest: var(--wp--custom--shadow--elevation--200);
-  --ls-glass-button-shadow-hover: var(--wp--custom--shadow--elevation--300),
-    var(--wp--custom--shadow--interactive--accent);
-  --ls-glass-button-top-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 80%,
-    transparent
-  );
-  --ls-glass-button-side-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 68%,
-    transparent
-  );
-  --ls-glass-button-side-tail: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 26%,
-    transparent
-  );
-  --ls-glass-button-focus-width: 2px;
-  --ls-glass-button-focus-colour: var(--wp--custom--color--focus--ring);
-  --ls-glass-button-focus-offset: 4px;
-  --ls-glass-button-lift: -2px;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-glass-button-border-rest);
-  border-radius: var(--wp--preset--border-radius--200);
-  background: var(--ls-glass-button-background-rest);
-  box-shadow: var(--ls-glass-button-shadow-rest);
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .wp-block-button.is-style-glass-button .wp-block-button__link {
-    backdrop-filter: blur(var(--ls-glass-button-blur));
-    -webkit-backdrop-filter: blur(var(--ls-glass-button-blur));
+    backdrop-filter: blur(var(--ls-glass-button-blur, 24px));
+    -webkit-backdrop-filter: blur(var(--ls-glass-button-blur, 24px));
   }
 }
 .wp-block-button.is-style-glass-button .wp-block-button__link::before, .wp-block-button.is-style-glass-button .wp-block-button__link::after {
@@ -1010,16 +1033,15 @@
   inset: auto 0 auto 0;
   top: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--ls-glass-button-top-highlight), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 80%, transparent), transparent);
 }
 .wp-block-button.is-style-glass-button .wp-block-button__link::after {
   position: absolute;
   inset: 0 auto 0 0;
   width: 1px;
-  background: linear-gradient(180deg, var(--ls-glass-button-side-highlight), transparent, var(--ls-glass-button-side-tail));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 68%, transparent), transparent, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 26%, transparent));
 }
 .wp-block-button.is-style-glass-button .wp-block-button__link {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1028,57 +1050,43 @@
   white-space: nowrap;
   isolation: isolate;
   text-align: center;
-  color: var(--ls-glass-button-text-rest);
+  color: var(--wp--custom--color--text--default);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), outline-color var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), outline-offset var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
   transition-delay: var(--wp--custom--animation--delay--none);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
+  outline: var(--ls-glass-button-focus-width, 2px) solid transparent;
+  outline-offset: var(--ls-glass-button-focus-offset, 4px);
 }
 .wp-block-button.is-style-glass-button .wp-block-button__link:hover, .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible {
-  background: var(--ls-glass-button-background-hover);
-  border-color: var(--ls-glass-button-border-hover);
-  box-shadow: var(--ls-glass-button-shadow-hover);
-  color: var(--ls-glass-button-text-hover);
-  transform: translateY(var(--ls-glass-button-lift));
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 36%, transparent);
+  border-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 38%, var(--wp--custom--color--surface--highlight) 34%, transparent);
+  box-shadow: var(--wp--custom--shadow--elevation--300), var(--wp--custom--shadow--interactive--accent);
+  color: var(--wp--custom--color--text--brand);
+  transform: translateY(var(--ls-glass-button-lift, -2px));
 }
 .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible {
-  outline-color: var(--ls-glass-button-focus-colour);
-  outline-offset: var(--ls-glass-button-focus-offset);
+  outline-color: var(--wp--custom--color--focus--ring);
+  outline-offset: var(--ls-glass-button-focus-offset, 4px);
 }
 
 /* Button Glow Accent */
-.wp-block-button.is-style-button-glow-accent {
-  --ls-button-glow-colour: var(--wp--custom--color--button--outline--border);
-  --ls-button-glow-hover-background: var(--wp--custom--color--button--outline--background-hover);
-  --ls-button-glow-hover-text: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-glow-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-glow-outline-width: 1px;
-  --ls-button-glow-outline-offset: 12px;
-  --ls-button-glow-resting-strength: 0%;
-  --ls-button-glow-outline-strength: 45%;
-  --ls-button-glow-inner-strength: 35%;
-  --ls-button-glow-outer-strength: 20%;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link {
   transition: box-shadow var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), outline-color var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), outline-offset var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), transform var(--wp--custom--animation--duration--fast) var(--wp--custom--animation--easing--standard);
   transition-delay: var(--wp--custom--animation--delay--none);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-resting-strength), transparent);
-  outline: var(--ls-button-glow-outline-width) solid color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-outline-strength), transparent);
+  box-shadow: inset 0 0 20px color-mix(in srgb, var(--wp--custom--color--button--outline--border) var(--ls-button-glow-resting-strength, 0%), transparent);
+  outline: var(--ls-button-glow-outline-width, 1px) solid color-mix(in srgb, var(--wp--custom--color--button--outline--border) var(--ls-button-glow-outline-strength, 45%), transparent);
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-  transition-delay: var(--ls-button-glow-enter-delay);
+  transition-delay: var(--wp--custom--animation--delay--enter);
 }
 
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
 .wp-block-button.is-style-button-glow-accent .wp-block-button__link:focus-visible {
-  background-color: var(--ls-button-glow-hover-background);
-  color: var(--ls-button-glow-hover-text);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-inner-strength), transparent), 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-outer-strength), transparent);
+  background-color: var(--wp--custom--color--button--outline--background-hover);
+  color: var(--wp--custom--color--button--outline--text-hover);
+  box-shadow: inset 0 0 20px color-mix(in srgb, var(--wp--custom--color--button--outline--border) var(--ls-button-glow-inner-strength, 35%), transparent), 0 0 20px color-mix(in srgb, var(--wp--custom--color--button--outline--border) var(--ls-button-glow-outer-strength, 20%), transparent);
   outline-color: transparent;
-  outline-offset: var(--ls-button-glow-outline-offset);
+  outline-offset: var(--ls-button-glow-outline-offset, 12px);
 }
 
 /* Button Arrow Compact */
@@ -1087,30 +1095,19 @@
 }
 
 .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  --ls-button-arrow-compact-size: 2.5rem;
   --ls-button-arrow-compact-accent-colour: var(
     --ls-card-solutions-accent-colour,
     var(--wp--custom--color--card--solutions--brand)
   );
-  --ls-button-arrow-compact-border-rest: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-border-active: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-background-rest: color-mix(
-    in srgb,
-    var(--ls-button-arrow-compact-accent-colour) 10%,
-    transparent
-  );
-  --ls-button-arrow-compact-background-active: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-colour-rest: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-colour-active: var(--wp--custom--color--button--fill--text);
   justify-content: center;
-  inline-size: var(--ls-button-arrow-compact-size);
-  min-inline-size: var(--ls-button-arrow-compact-size);
-  block-size: var(--ls-button-arrow-compact-size);
-  min-block-size: var(--ls-button-arrow-compact-size);
+  inline-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  min-inline-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  block-size: var(--ls-button-arrow-compact-size, 2.5rem);
+  min-block-size: var(--ls-button-arrow-compact-size, 2.5rem);
   padding: 0;
-  border: 1px solid var(--ls-button-arrow-compact-border-rest);
+  border: 1px solid var(--ls-button-arrow-compact-accent-colour);
   border-radius: var(--wp--preset--border-radius--100);
-  background: var(--ls-button-arrow-compact-background-rest);
+  background: color-mix(in srgb, var(--ls-button-arrow-compact-accent-colour) 10%, transparent);
   color: transparent;
   overflow: hidden;
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
@@ -1120,18 +1117,18 @@
   position: static;
   display: grid;
   place-items: center;
-  color: var(--ls-button-arrow-compact-colour-rest);
+  color: var(--ls-button-arrow-compact-accent-colour);
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1;
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  background: var(--ls-button-arrow-compact-background-active);
-  border-color: var(--ls-button-arrow-compact-border-active);
+  background: var(--ls-button-arrow-compact-accent-colour);
+  border-color: var(--ls-button-arrow-compact-accent-colour);
 }
 .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-  color: var(--ls-button-arrow-compact-colour-active);
+  color: var(--wp--custom--color--button--fill--text);
 }
 
 @media (prefers-reduced-motion: reduce) {

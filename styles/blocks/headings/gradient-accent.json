@@ -17,6 +17,7 @@
           "text": "var:custom|color|text|brand"
         }
       }
-    }
+    },
+    "css": "&{--ls-accent-gradient-image:linear-gradient(to right,var(--wp--custom--color--text--brand) 0%,var(--wp--custom--color--text--default) 25%,var(--wp--custom--color--text--brand-strong) 50%,var(--wp--custom--color--text--default) 75%,var(--wp--custom--color--text--brand) 100%);}"
   }
 }

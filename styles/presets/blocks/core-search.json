@@ -6,18 +6,17 @@
             "core/search": {
                 "css": ".wp-block-search__button-inside .wp-block-search__inside-wrapper { border: none; }",
                 "typography": {
-                    "fontSize": "var:preset|font-size|200",
+                    "fontSize": "var:preset|font-size|300",
                     "lineHeight": "var:custom|line-height|paragraph"
                 },
                 "elements": {
                     "button": {
+                        "color": {
+                            "background": "transparent",
+                            "text": "var:custom|color|text|default"
+                        },
                         "border": {
                             "radius": "var:preset|border-radius|200"
-                        },
-                        "spacing": {
-                            "margin": {
-                                "left": "var:preset|spacing|10"
-                            }
                         }
                     }
                 }

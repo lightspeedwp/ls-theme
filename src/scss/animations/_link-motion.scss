@@ -2,17 +2,6 @@
 
 /********** Link Motion **********/
 
-/* Link Underline Accent */
-.wp-block-paragraph.is-style-link-underline-accent {
-  --ls-link-underline-image: linear-gradient(
-    var(--wp--custom--color--link--decoration-start),
-    var(--wp--custom--color--link--decoration-end)
-  );
-  --ls-link-underline-padding-bottom: 3px;
-  --ls-link-underline-thickness: 2px;
-  --ls-link-underline-enter-delay: var(--wp--custom--animation--delay--enter);
-}
-
 .wp-block-paragraph.is-style-link-underline-accent a {
   padding-bottom: var(--ls-link-underline-padding-bottom);
   background-image: var(--ls-link-underline-image);
@@ -42,9 +31,6 @@
   display: inline-flex;
   align-items: center;
   gap: var(--ls-link-arrow-gap, 0.45ch);
-  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
-  font-weight: var(--ls-link-arrow-weight, var(--wp--custom--typography--font-weight--semibold));
-  text-decoration: none;
   transition:
     color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -75,7 +61,7 @@
 .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a,
 .is-style-card-post:hover .wp-block-read-more.is-style-link-arrow-accent,
 .is-style-card-post:focus-within .wp-block-read-more.is-style-link-arrow-accent {
-  color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+  color: var(--ls-link-arrow-hover-colour);
 }
 
 .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
