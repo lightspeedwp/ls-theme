@@ -92,73 +92,72 @@ function ls_theme_enqueue_editor_effect_styles() {
 add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_styles' );
 
 /**
-	* Returns recursive block style variation JSON files for a directory.
-	*
-	* @param string $directory Base directory.
-	* @return array<int, string>
-	*/
+ * Returns recursive block style variation JSON files for a directory.
+ *
+ * @param string $directory Base directory.
+ * @return array<int, string>
+ */
 function ls_theme_get_block_style_json_files( $directory ) {
-		$json_files = glob( trailingslashit( $directory ) . '*.json' );
+	$json_files = glob( trailingslashit( $directory ) . '*.json' );
 
-		if ( false === $json_files ) {
-			$json_files = array();
-		}
-
-		$subdirectories = glob( trailingslashit( $directory ) . '*', GLOB_ONLYDIR );
-
-		if ( false === $subdirectories ) {
-			$subdirectories = array();
-		}
-
-		foreach ( $subdirectories as $subdirectory ) {
-			$json_files = array_merge( $json_files, ls_theme_get_block_style_json_files( $subdirectory ) );
-		}
-
-		return $json_files;
+	if ( false === $json_files ) {
+		$json_files = array();
 	}
 
+	$subdirectories = glob( trailingslashit( $directory ) . '*', GLOB_ONLYDIR );
+
+	if ( false === $subdirectories ) {
+		$subdirectories = array();
+	}
+
+	foreach ( $subdirectories as $subdirectory ) {
+		$json_files = array_merge( $json_files, ls_theme_get_block_style_json_files( $subdirectory ) );
+	}
+
+	return $json_files;
+}
+
 /**
-	* Returns a modular block style definition by slug.
-	*
-	* @param string $slug Block style slug.
-	* @return array<string, mixed>|null
-	*/
+ * Returns a modular block style definition by slug.
+ *
+ * @param string $slug Block style slug.
+ * @return array<string, mixed>|null
+ */
 function ls_theme_get_block_style_definition( $slug ) {
-		static $definitions = null;
+	static $definitions = null;
 
-		if ( null === $definitions ) {
-			$definitions = array();
-			$directories = array(
-				get_theme_file_path( 'styles/sections' ),
-				get_theme_file_path( 'styles/blocks' ),
-			);
+	if ( null === $definitions ) {
+		$definitions = array();
+		$directories = array(
+			get_theme_file_path( 'styles/sections' ),
+			get_theme_file_path( 'styles/blocks' ),
+		);
 
-			foreach ( $directories as $directory ) {
-				if ( ! is_dir( $directory ) ) {
+		foreach ( $directories as $directory ) {
+			if ( ! is_dir( $directory ) ) {
+				continue;
+			}
+
+			foreach ( ls_theme_get_block_style_json_files( $directory ) as $json_file ) {
+				$style_definition = wp_json_file_decode( $json_file, array( 'associative' => true ) );
+
+				if (
+					! is_array( $style_definition ) ||
+					empty( $style_definition['slug'] ) ||
+					empty( $style_definition['blockTypes'] ) ||
+					! isset( $style_definition['styles'] ) ||
+					! is_array( $style_definition['styles'] )
+				) {
 					continue;
 				}
 
-				foreach ( ls_theme_get_block_style_json_files( $directory ) as $json_file ) {
-					$style_definition = wp_json_file_decode( $json_file, array( 'associative' => true ) );
-
-					if (
-						! is_array( $style_definition ) ||
-						empty( $style_definition['slug'] ) ||
-						empty( $style_definition['blockTypes'] ) ||
-						! isset( $style_definition['styles'] ) ||
-						! is_array( $style_definition['styles'] )
-					) {
-						continue;
-					}
-
-					$definitions[ $style_definition['slug'] ] = $style_definition;
-				}
+				$definitions[ $style_definition['slug'] ] = $style_definition;
 			}
 		}
-
-		return $definitions[ $slug ] ?? null;
 	}
 
+	return $definitions[ $slug ] ?? null;
+}
 /**
 	* Returns registration arguments for a modular block style.
 	*
