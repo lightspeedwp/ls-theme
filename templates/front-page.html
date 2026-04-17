@@ -1,7 +1,8 @@
 <!-- wp:template-part {"slug":"header","theme":"ls-theme","area":"header"} /-->
 
-<!-- wp:group {"tagName":"section","Ametadata":{"categories":["hero"],"patternName":"ls-theme/hero","name":"Home Hero"},"align":"full","className":"ls-hero is-style-home-hero-section","layout":{"type":"default"}} -->
-<section class="wp-block-group alignfull ls-hero is-style-home-hero-section">
+<!-- wp:group {"tagName":"section","metadata":{"categories":["hero"],"patternName":"ls-theme/hero","name":"Home Hero"},"align":"full","className":"ls-hero is-style-home-hero-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull ls-hero is-style-home-hero-section"
+	style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 	<!-- wp:group {"metadata":{"name":"Content"},"align":"wide","className":"ls-hero__inner is-style-default","style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide ls-hero__inner is-style-default">
 		<!-- wp:group {"metadata":{"categories":["hero"],"patternName":"ls-theme/badge-hero","name":"Badge - Hero"},"className":"ls-badge-hero is-style-badge-hero-brand","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
@@ -22,8 +23,13 @@
 			</div>
 			<!-- /wp:group -->
 
-			<!-- wp:paragraph {"className":"ls-badge-hero__label"} -->
-			<p class="ls-badge-hero__label">WordPress &amp; Woo experts since 2003</p>
+			<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontFamily":"var:preset|font-family|heading","fontSize":"var:preset|font-size|100","fontWeight":"var:custom|typography|font-weight|semibold","letterSpacing":"var:custom|typography|letter-spacing|normal","lineHeight":"var:custom|line-height|heading-default","textAlign":"center","textTransform":"uppercase"}}} -->
+			<p class="has-text-align-center"
+				style="margin-top:0;margin-bottom:0;font-family:var(--wp--preset--font-family--heading);font-size:var(--wp--preset--font-size--100);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--normal);line-height:var(--wp--custom--line-height--heading-default);text-transform:uppercase">
+			<p class="ls-badge-hero__label"
+				style="margin-top:0;margin-bottom:0;font-family:var(--wp--preset--font-family--heading);font-size:var(--wp--preset--font-size--100);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--normal);line-height:var(--wp--custom--line-height--heading-default);text-align:center;text-transform:uppercase">
+				WordPress &amp; Woo experts since 2003</p>
+			</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
@@ -66,36 +72,39 @@
 	<div class="wp-block-group ls-hero__stats">
 		<!-- wp:group {"className":"ls-hero__stat is-style-card-hero-stats","layout":{"type":"default"}} -->
 		<div class="wp-block-group ls-hero__stat is-style-card-hero-stats">
-			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value"} -->
-			<h3 class="wp-block-heading ls-hero__stat-value">500+</h3>
+			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<h3 class="wp-block-heading has-text-align-center ls-hero__stat-value" style="margin-top:0;margin-bottom:0">
+				500+</h3>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"className":"ls-hero__stat-label"} -->
-			<p class="ls-hero__stat-label">Sites launched</p>
+			<!-- wp:paragraph {"className":"ls-hero__stat-label","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<p class="has-text-align-center ls-hero__stat-label" style="margin-top:0;margin-bottom:0">Sites launched</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
 
 		<!-- wp:group {"className":"ls-hero__stat is-style-card-hero-stats","layout":{"type":"default"}} -->
 		<div class="wp-block-group ls-hero__stat is-style-card-hero-stats">
-			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value"} -->
-			<h3 class="wp-block-heading ls-hero__stat-value">WCAG AA</h3>
+			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<h3 class="wp-block-heading has-text-align-center ls-hero__stat-value" style="margin-top:0;margin-bottom:0">
+				WCAG AA</h3>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"className":"ls-hero__stat-label"} -->
-			<p class="ls-hero__stat-label">Accessible</p>
+			<!-- wp:paragraph {"className":"ls-hero__stat-label","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<p class="has-text-align-center ls-hero__stat-label" style="margin-top:0;margin-bottom:0">Accessible</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
 
 		<!-- wp:group {"className":"ls-hero__stat is-style-card-hero-stats","layout":{"type":"default"}} -->
 		<div class="wp-block-group ls-hero__stat is-style-card-hero-stats">
-			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value"} -->
-			<h3 class="wp-block-heading ls-hero__stat-value">&lt;1s</h3>
+			<!-- wp:heading {"level":3,"className":"ls-hero__stat-value","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<h3 class="wp-block-heading has-text-align-center ls-hero__stat-value" style="margin-top:0;margin-bottom:0">
+				&lt;1s</h3>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"className":"ls-hero__stat-label"} -->
-			<p class="ls-hero__stat-label">Page loads</p>
+			<!-- wp:paragraph {"className":"ls-hero__stat-label","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
+			<p class="has-text-align-center ls-hero__stat-label" style="margin-top:0;margin-bottom:0">Page loads</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
@@ -288,8 +297,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about prototyping</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -330,8 +339,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about design</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -372,8 +381,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about development</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -414,8 +423,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about performance</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -456,8 +465,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about support</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -498,8 +507,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about training</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -540,8 +549,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about security</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -582,8 +591,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about hosting</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -624,8 +633,8 @@
 			<div class="wp-block-buttons ls-card-solutions__cta">
 				<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
 				<div class="wp-block-button is-style-button-arrow-compact"><a
-						class="wp-block-button__link wp-element-button" href="http://localhost:8897/"><span
-							class="screen-reader-text">Learn more about prototyping</span></a></div>
+						class="wp-block-button__link wp-element-button" href="#"><span class="screen-reader-text">Learn
+							more about accessibility</span></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -684,7 +693,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
 			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
-					href="http://localhost:8897/">Learn More</a></p>
+					href="#">Learn More</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -720,7 +729,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
 			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
-					href="http://localhost:8897/">Learn More</a></p>
+					href="#">Learn More</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -756,7 +765,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
 			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
-					href="http://localhost:8897/">Learn More</a></p>
+					href="#">Learn More</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -792,7 +801,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
 			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
-					href="http://localhost:8897/">Learn More</a></p>
+					href="#">Learn More</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -828,7 +837,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
 			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
-					href="http://localhost:8897/">Learn More</a></p>
+					href="#">Learn More</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -864,7 +873,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}}}} -->
 			<p class="ls-card-feature__cta is-style-link-arrow-accent" style="margin-top:auto;margin-bottom:0"><a
-					href="http://localhost:8897/">Learn More</a></p>
+					href="#">Learn More</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -952,7 +961,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
 			<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"
-				style="margin-top:auto;margin-bottom:0"><a href="http://localhost:8897/">Explore services</a></p>
+				style="margin-top:auto;margin-bottom:0"><a href="#">Explore services</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -1009,7 +1018,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
 			<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"
-				style="margin-top:auto;margin-bottom:0"><a href="http://localhost:8897/">Explore services</a></p>
+				style="margin-top:auto;margin-bottom:0"><a href="#">Explore services</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -1066,7 +1075,7 @@
 
 			<!-- wp:paragraph {"className":"ls-card-services__cta is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"textAlign":"center"}}} -->
 			<p class="has-text-align-center ls-card-services__cta is-style-link-arrow-accent"
-				style="margin-top:auto;margin-bottom:0"><a href="http://localhost:8897/">Explore services</a></p>
+				style="margin-top:auto;margin-bottom:0"><a href="#">Explore services</a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
