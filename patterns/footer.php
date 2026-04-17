@@ -55,7 +55,7 @@
 <p class="ls-footer__nav-label">Company</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:navigation {"ref":4,"overlayMenu":"never","className":"ls-footer__nav is-style-link-underline-brand","layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} /--></div>
+<!-- wp:navigation {"overlayMenu":"never","className":"ls-footer__nav is-style-link-underline-brand","layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"ls-footer__nav-column","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->

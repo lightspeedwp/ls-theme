@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|40"
 			}
 		},
-			"css": "&{--ls-card-services-scale:1.02;--ls-card-services-accent-thickness:var(--wp--custom--border--width--extra-heavy);--ls-link-arrow-offset:0;}"
+		"css": "&{--ls-card-services-scale:1.02;--ls-card-services-accent-thickness:var(--wp--custom--border--width--extra-heavy);--ls-link-arrow-offset:0;}"
 	}
 }
