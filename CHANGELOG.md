@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added a production footer pattern with reusable footer proof-card, footer badge, footer social-links, brand-underline navigation, and bottom legal-navigation style variations.
 - Added a `Page Section - Mesh Light` Group style that renders the Figma mesh section as generated CSS grid layers with semantic cyan and brand blob overlays instead of a shipped image asset.
 - Added a `Card - AI Feature` pattern with a dedicated centred card shell that reuses the `Icon Frame Brand CTA` group style and feature-card-style hover motion.
 - Added a `Badge - Hero` pattern with registered brand, CTA, and accent badge styles, semantic badge colour tokens, and a CSS-only sparkle wobble effect.
@@ -40,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Replaced the placeholder footer with the Figma-aligned main footer, extended the header with a matching hover rail, and moved the new footer and navigation interaction contracts into authored Sass.
 - Refactored `src/scss/animations.scss` and `src/scss/gsap-animations.scss` into loader entrypoints backed by smaller contextual partials, normalised live preset JSON onto WordPress shorthand for non-colour tokens, and removed the dead `settings.custom.button-padding` branch.
 - Extended the shared link-arrow and card motion Sass contracts to support the new `Card - Post` hover border, featured-image zoom, and title-colour transition.
 - Made `theme.json` custom layout breakpoints the build-time source for the Sass `mq()` map, and tightened the CSS build to compile only explicit Sass entry files so tracked source-directory CSS artefacts can no longer override live assets.

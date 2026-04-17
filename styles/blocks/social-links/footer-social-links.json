@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Footer Social Links",
+	"slug": "footer-social-links",
+	"blockTypes": [
+		"core/social-links"
+	],
+	"description": "Footer social links with compact card styling and the shared blue hover treatment.",
+	"styles": {
+		"spacing": {
+			"blockGap": "var:preset|spacing|10"
+		},
+		"css": "&{--ls-footer-social-link-size:2.75rem;--ls-footer-social-link-accent:var(--wp--custom--color--card--solutions--brand);}" 
+	}
+}

@@ -28,6 +28,17 @@
   }
 }
 
+@keyframes ls-footer-availability-throb {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(var(--ls-footer-availability-scale-max, 1.025));
+  }
+}
+
 :is(
   .ls-badge-hero,
   .is-style-badge-hero-brand,
@@ -98,6 +109,13 @@
     var(--wp--custom--animation--easing--emphasised) 1;
 }
 
+.is-style-footer-availability {
+  animation: ls-footer-availability-throb 3.2s
+    var(--wp--custom--animation--easing--smooth) infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
 @include motion.reduced-motion {
   .ls-badge-hero__icon {
     transition: none;
@@ -115,6 +133,11 @@
     .is-style-badge-hero-cta,
     .is-style-badge-hero-accent
   ):focus-within .ls-badge-hero__icon {
+    animation: none;
+    transform: none;
+  }
+
+  .is-style-footer-availability {
     animation: none;
     transform: none;
   }

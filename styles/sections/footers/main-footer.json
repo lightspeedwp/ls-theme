@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Main Footer",
+	"slug": "main-footer",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Primary footer shell with a persistent accent rail, divider rhythm, and support for newsletter, navigation, proof, and legal content.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|muted"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|30",
+			"padding": {
+				"top": "var:preset|spacing|40",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|40",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "&{--ls-main-footer-rail-thickness:3px;--ls-main-footer-divider-colour:var(--wp--custom--color--border--card);--ls-main-footer-accent-colour:var(--wp--custom--color--link--accent);}"
+	}
+}

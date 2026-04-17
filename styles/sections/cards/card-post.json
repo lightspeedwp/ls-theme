@@ -27,21 +27,21 @@
 				"bottom": "0",
 				"left": "0"
 			}
-			},
-			"blocks": {
-				"core/post-title": {
-					"typography": {
-						"fontSize": "var:preset|font-size|400",
-						"lineHeight": "var:custom|line-height|heading-default"
-					},
-					"elements": {
-						"link": {
-							"typography": {
-								"textDecoration": "none"
-							}
+		},
+		"blocks": {
+			"core/post-title": {
+				"typography": {
+					"fontSize": "var:preset|font-size|400",
+					"lineHeight": "var:custom|line-height|heading-default"
+				},
+				"elements": {
+					"link": {
+						"typography": {
+							"textDecoration": "none"
 						}
 					}
 				}
 			}
 		}
 	}
+}

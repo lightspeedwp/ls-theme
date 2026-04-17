@@ -8,6 +8,10 @@
 	],
 	"description": "Main header section with site logo, navigation, and search.",
 	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|default"
+		},
 		"spacing": {
 			"padding": {
 				"top": "var:preset|spacing|30",
@@ -17,6 +21,7 @@
 				"top": "0",
 				"bottom": "0"
 			}
-		}
+		},
+		"css": "&{--ls-main-header-rail-thickness:3px;}"
 	}
 }

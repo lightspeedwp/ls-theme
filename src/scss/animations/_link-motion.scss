@@ -25,6 +25,84 @@
   }
 }
 
+.wp-block-navigation.is-style-link-underline-brand {
+  .wp-block-navigation__container {
+    align-items: flex-start;
+    gap: var(--wp--preset--spacing--30);
+  }
+
+  .wp-block-navigation-item {
+    inline-size: 100%;
+  }
+
+  .wp-block-navigation-item__content {
+    display: inline-flex;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    padding-bottom: var(--ls-link-underline-padding-bottom);
+    background-image: var(--ls-link-underline-image);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 var(--ls-link-underline-thickness);
+    transition:
+      background-size var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard),
+      color var(--wp--custom--animation--duration--medium)
+        var(--wp--custom--animation--easing--standard);
+    transition-delay: var(--wp--custom--animation--delay--none);
+
+    &:hover {
+      transition-delay: var(--ls-link-underline-enter-delay);
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-size: 100% var(--ls-link-underline-thickness);
+      color: var(--wp--custom--color--text--brand);
+    }
+  }
+
+  .current-menu-item > .wp-block-navigation-item__content,
+  .current_page_item > .wp-block-navigation-item__content,
+  .current-menu-ancestor > .wp-block-navigation-item__content {
+    background-size: 100% var(--ls-link-underline-thickness);
+  }
+}
+
+.wp-block-navigation.is-style-bottom-footer-nav {
+  .wp-block-navigation__container {
+    align-items: center;
+    gap: var(--wp--preset--spacing--5);
+    justify-content: center;
+  }
+
+  .wp-block-navigation-item {
+    display: inline-flex;
+    align-items: center;
+
+    &:not(:last-child)::after {
+      content: "\00b7";
+      margin-inline-start: var(--wp--preset--spacing--5);
+      color: var(--ls-bottom-footer-nav-separator-colour);
+    }
+  }
+
+  .wp-block-navigation-item__content {
+    opacity: var(--ls-bottom-footer-nav-item-opacity);
+    transition:
+      color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard),
+      opacity var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--wp--custom--color--text--brand);
+      opacity: 1;
+    }
+  }
+}
+
 /* Link Arrow Accent */
 .wp-block-paragraph.is-style-link-arrow-accent a,
 .wp-block-read-more.is-style-link-arrow-accent {

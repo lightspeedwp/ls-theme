@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Footer Stats Button",
+	"slug": "footer-stats-button",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact linked footer proof card with centred metric text and blue-accent hover treatment.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|muted"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|200",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|5",
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"blocks": {
+			"core/heading": {
+				"color": {
+					"text": "var:custom|color|text|brand"
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|600",
+					"fontWeight": "var:custom|typography|font-weight|extrabold",
+					"letterSpacing": "var:custom|typography|letter-spacing|normal",
+					"lineHeight": "var:custom|line-height|heading-default"
+				}
+			},
+			"core/paragraph": {
+				"typography": {
+					"fontSize": "var:preset|font-size|100",
+					"fontWeight": "var:custom|typography|font-weight|medium",
+					"letterSpacing": "0.025em",
+					"lineHeight": "var:custom|line-height|paragraph",
+					"textTransform": "uppercase"
+				}
+			}
+		},
+		"css": "&{--ls-footer-stats-accent-colour:var(--wp--custom--color--card--solutions--brand);--ls-footer-stats-shadow:1px 4px 12px 4px color-mix(in srgb,var(--ls-footer-stats-accent-colour) 50%,transparent);text-align:center;position:relative;--ls-footer-stats-value-size:var(--wp--preset--font-size--600);}"
+	}
+}

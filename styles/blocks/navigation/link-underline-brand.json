@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Link Underline Brand",
+	"slug": "link-underline-brand",
+	"blockTypes": [
+		"core/navigation"
+	],
+	"description": "Footer navigation links with the shared underline animation using a solid brand line.",
+	"styles": {
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:custom|color|text|default"
+				},
+				"typography": {
+					"textDecoration": "none"
+				}
+			}
+		},
+		"css": "&{--ls-link-underline-image:linear-gradient(var(--wp--custom--color--link--accent),var(--wp--custom--color--link--accent));--ls-link-underline-padding-bottom:3px;--ls-link-underline-thickness:2px;--ls-link-underline-enter-delay:var(--wp--custom--animation--delay--enter);}"
+	}
+}

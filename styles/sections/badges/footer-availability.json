@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Footer Availability",
+	"slug": "footer-availability",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Rounded footer availability badge with a subtle brand tint and pulse-ready motion contract.",
+	"styles": {
+		"color": {
+			"background": "color-mix(in srgb, var(--ls-footer-availability-tone) 10%, transparent)",
+			"text": "var:custom|color|text|brand"
+		},
+		"border": {
+			"color": "var:custom|color|badge|brand",
+			"radius": "var:preset|border-radius|500",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "0 0 0 1px color-mix(in srgb, var(--ls-footer-availability-tone) 12%, transparent), 0 0 18px -10px color-mix(in srgb, var(--ls-footer-availability-tone) 44%, transparent)",
+		"spacing": {
+			"blockGap": "var:preset|spacing|10",
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"blocks": {
+			"core/paragraph": {
+				"typography": {
+					"fontSize": "var:preset|font-size|100",
+					"fontWeight": "var:custom|typography|font-weight|semibold",
+					"lineHeight": "var:custom|line-height|heading-default",
+					"textTransform": "uppercase"
+				}
+			}
+		},
+		"css": "&{--ls-footer-availability-tone:var(--wp--custom--color--badge--brand);--ls-footer-availability-scale-max:1.025;}"
+	}
+}
