@@ -163,11 +163,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:navigation {"overlayMenu":"never","className":"is-style-bottom-footer-nav","layout":{"type":"flex","justifyContent":"center","flexWrap":"wrap"}} -->
-<!-- wp:navigation-link {"label":"Privacy","url":"http://localhost:8897/privacy-policy/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Privacy","url":"<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>","kind":"custom"} /-->
 
-<!-- wp:navigation-link {"label":"Terms","url":"http://localhost:8897/terms-and-conditions/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Terms","url":"<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>","kind":"custom"} /-->
 
-<!-- wp:navigation-link {"label":"Sitemap","url":"http://localhost:8897/sitemap/","kind":"custom"} /-->
+<!-- wp:navigation-link {"label":"Sitemap","url":"<?php echo esc_url( home_url( '/sitemap/' ) ); ?>","kind":"custom"} /-->
 <!-- /wp:navigation -->
 
 <!-- wp:group {"className":"ls-footer__crafted","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center","justifyContent":"center"}} -->
