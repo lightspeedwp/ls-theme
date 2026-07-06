@@ -8,6 +8,8 @@
  * Keywords: thank you, confirmation, consultation
  * Viewport Width: 1200
  * Inserter: true
+ *
+ * @package ls-theme
  */
 
 ?>
@@ -98,8 +100,8 @@
 	<p class="ls-thank-you__return is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Return to the homepage', 'ls-theme' ); ?></a></p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:separator {"className":"ls-thank-you__divider","style":{"color":{"text":"var(--wp--custom--color--border--card)"}}} -->
-	<hr class="wp-block-separator has-text-color ls-thank-you__divider" style="color:var(--wp--custom--color--border--card)"/>
+	<!-- wp:separator {"className":"ls-thank-you__divider","style":{"color":{"background":"var(--wp--custom--color--border--card)"}}} -->
+	<hr class="wp-block-separator has-background ls-thank-you__divider" style="background-color:var(--wp--custom--color--border--card)"/>
 	<!-- /wp:separator -->
 
 	<!-- wp:group {"className":"ls-thank-you__waiting-intro","layout":{"type":"constrained"}} -->
