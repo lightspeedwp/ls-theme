@@ -23,7 +23,7 @@
 		<div class="wp-block-group ls-cta-inline__badge">
 			<!-- wp:group {"className":"ls-cta-inline__badge-icon","style":{"color":{"background":"var(--wp--custom--color--icon--background)"},"border":{"radius":"var:preset|border-radius|200"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-cta-inline__badge-icon" style="background-color:var(--wp--custom--color--icon--background);border-radius:var(--wp--preset--border-radius--200);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
-				<!-- wp:outermost/icon-block {"iconName":"phone","width":"12px","style":{"color":{"text":"var(--wp--custom--color--icon--color)"}}} /-->
+				<span class="ls-icon ls-icon--phone" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:12px;height:12px;background-color:var(--wp--custom--color--icon--color);mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/phone.svg' ) ); ?>);-webkit-mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/phone.svg' ) ); ?>);mask-size:contain;-webkit-mask-size:contain;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;mask-position:center;-webkit-mask-position:center"></span>
 			</div>
 			<!-- /wp:group -->
 
