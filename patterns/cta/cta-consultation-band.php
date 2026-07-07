@@ -45,7 +45,7 @@
 		<!-- /wp:group -->
 
 		<!-- wp:group {"className":"ls-cta-band__actions","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-		<div class="wp-block-group ls-cta-band__actions">
+		<div class="wp-block-group ls-cta-band__actions" style="--ls-link-arrow-colour:var(--wp--custom--color--text--on-dark);--ls-link-arrow-hover-colour:var(--wp--custom--color--text--brand)">
 			<!-- wp:buttons -->
 			<div class="wp-block-buttons">
 				<!-- wp:button {"className":"ls-cta-band__button"} -->
@@ -54,11 +54,9 @@
 			</div>
 			<!-- /wp:buttons -->
 
-			<span style="--ls-link-arrow-colour:var(--wp--custom--color--text--on-dark);--ls-link-arrow-hover-colour:var(--wp--custom--color--text--brand)">
 			<!-- wp:paragraph {"className":"ls-cta-band__secondary is-style-link-arrow-accent"} -->
 			<p class="ls-cta-band__secondary is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'or see our work', 'ls-theme' ); ?></a></p>
 			<!-- /wp:paragraph -->
-			</span>
 		</div>
 		<!-- /wp:group -->
 	</div>
@@ -69,7 +67,9 @@
 
 		<!-- wp:group {"tagName":"article","className":"is-style-glass-card ls-cta-band__tile","layout":{"type":"flex","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 		<article class="wp-block-group is-style-glass-card ls-cta-band__tile">
-			<span class="ls-icon ls-icon--check" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:20px;height:20px;background-color:var(--wp--custom--color--text--brand);mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/check.svg' ) ); ?>);-webkit-mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/check.svg' ) ); ?>);mask-size:contain;-webkit-mask-size:contain;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;mask-position:center;-webkit-mask-position:center"></span>
+			<!-- wp:html -->
+			<span class="ls-icon ls-icon--check" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:20px;height:20px;color:var(--wp--custom--color--text--brand)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg></span>
+			<!-- /wp:html -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}}} -->
 			<p style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Clear next steps', 'ls-theme' ); ?></p>
@@ -79,7 +79,9 @@
 
 		<!-- wp:group {"tagName":"article","className":"is-style-glass-card ls-cta-band__tile","layout":{"type":"flex","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 		<article class="wp-block-group is-style-glass-card ls-cta-band__tile">
-			<span class="ls-icon ls-icon--chat" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:20px;height:20px;background-color:var(--wp--custom--color--text--brand);mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/chat.svg' ) ); ?>);-webkit-mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/chat.svg' ) ); ?>);mask-size:contain;-webkit-mask-size:contain;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;mask-position:center;-webkit-mask-position:center"></span>
+			<!-- wp:html -->
+			<span class="ls-icon ls-icon--chat" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:20px;height:20px;color:var(--wp--custom--color--text--brand)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20" fill="currentColor"><path d="M216,48H40A16,16,0,0,0,24,64V224a15.84,15.84,0,0,0,9.25,14.5A16.05,16.05,0,0,0,40,240a15.89,15.89,0,0,0,10.25-3.78l.09-.07L83,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM40,224h0ZM216,192H80a8,8,0,0,0-5.23,1.95L40,224V64H216Z"></path></svg></span>
+			<!-- /wp:html -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}}} -->
 			<p style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'No pressure, just useful advice', 'ls-theme' ); ?></p>
@@ -89,7 +91,9 @@
 
 		<!-- wp:group {"tagName":"article","className":"is-style-glass-card ls-cta-band__tile","layout":{"type":"flex","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 		<article class="wp-block-group is-style-glass-card ls-cta-band__tile">
-			<span class="ls-icon ls-icon--star" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:20px;height:20px;background-color:var(--wp--custom--color--text--brand);mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/star.svg' ) ); ?>);-webkit-mask-image:url(<?php echo esc_url( get_theme_file_uri( 'assets/icons/star.svg' ) ); ?>);mask-size:contain;-webkit-mask-size:contain;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;mask-position:center;-webkit-mask-position:center"></span>
+			<!-- wp:html -->
+			<span class="ls-icon ls-icon--star" aria-hidden="true" style="display:inline-flex;flex-shrink:0;width:20px;height:20px;color:var(--wp--custom--color--text--brand)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20" fill="currentColor"><path d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z"></path></svg></span>
+			<!-- /wp:html -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}}} -->
 			<p style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( '21 years of WordPress expertise', 'ls-theme' ); ?></p>
