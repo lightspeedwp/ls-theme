@@ -21,7 +21,11 @@
 
 		<!-- wp:group {"className":"ls-cta-inline__badge","layout":{"type":"flex","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group ls-cta-inline__badge">
-			<!-- wp:outermost/icon-block {"iconName":"phone","width":"22px","style":{"border":{"radius":"var:preset|border-radius|200"},"color":{"text":"var(--wp--custom--color--icon--color)","background":"var(--wp--custom--color--icon--background)"}}} /-->
+			<!-- wp:group {"className":"ls-cta-inline__badge-icon","style":{"color":{"background":"var(--wp--custom--color--icon--background)"},"border":{"radius":"var:preset|border-radius|200"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-cta-inline__badge-icon" style="background-color:var(--wp--custom--color--icon--background);border-radius:var(--wp--preset--border-radius--200);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
+				<!-- wp:outermost/icon-block {"iconName":"phone","width":"12px","style":{"color":{"text":"var(--wp--custom--color--icon--color)"}}} /-->
+			</div>
+			<!-- /wp:group -->
 
 			<!-- wp:paragraph {"className":"ls-cta-inline__badge-label","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"typography":{"textTransform":"uppercase","letterSpacing":"1.2px"}},"fontSize":"x-small"} -->
 			<p class="ls-cta-inline__badge-label has-x-small-font-size" style="color:var(--wp--custom--color--text--brand);letter-spacing:1.2px;text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
