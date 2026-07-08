@@ -41,7 +41,8 @@
 	</div>
 	<!-- /wp:group -->
 
-	<div class="ls-cta-strip__cta-wrap" style="position:relative;display:inline-flex">
+	<!-- wp:group {"className":"ls-cta-strip__cta-wrap","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+	<div class="wp-block-group ls-cta-strip__cta-wrap">
 	<!-- wp:buttons -->
 	<div class="wp-block-buttons">
 		<!-- wp:button {"className":"is-style-glass-button ls-cta-strip__button"} -->
@@ -54,6 +55,7 @@
 	<span class="ls-icon ls-icon--arrow-right ls-cta-strip__button-arrow" aria-hidden="true" style="position:absolute;top:50%;right:var(--wp--preset--spacing--20);transform:translateY(-50%);display:inline-flex;flex-shrink:0;width:13px;height:13px;color:var(--wp--custom--color--text--default);pointer-events:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="13" height="13" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg></span>
 	<!-- /wp:html -->
 	</div>
+	<!-- /wp:group -->
 
 </div>
 <!-- /wp:group -->

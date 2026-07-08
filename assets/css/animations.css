@@ -1023,6 +1023,11 @@
 /* CTA strip: the arrow sits next to the glass button rather than nested in
    its rich text, so it needs its own hover contract tied to the shared
    wrapper. */
+.ls-cta-strip__cta-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
 .ls-cta-strip__button-arrow {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }

@@ -45,14 +45,13 @@
 	</div>
 	<!-- /wp:group -->
 
-	<span style="width:1px;align-self:stretch;background-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);flex-shrink:0"></span>
+	<span aria-hidden="true" style="width:1px;align-self:stretch;background-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);flex-shrink:0"></span>
 
 	<!-- wp:group {"className":"ls-cta-reassurance__list","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-cta-reassurance__list">
 
-		<div style="border-bottom:1px solid color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);padding-bottom:var(--wp--preset--spacing--10)">
-		<!-- wp:group {"className":"ls-cta-reassurance__item","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","verticalAlignment":"top","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group ls-cta-reassurance__item">
+		<!-- wp:group {"className":"ls-cta-reassurance__item","style":{"border":{"bottom":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent)","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"bottom":"var:preset|spacing|10"}}},"layout":{"type":"flex","verticalAlignment":"top","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group ls-cta-reassurance__item" style="border-bottom-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);border-bottom-style:solid;border-bottom-width:1px;padding-bottom:var(--wp--preset--spacing--10)">
 			<!-- wp:group {"className":"ls-cta-reassurance__item-icon","style":{"color":{"background":"color-mix(in srgb, var(--wp--custom--color--text--brand) 20%, transparent)"},"border":{"radius":"var:preset|border-radius|300"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|5","bottom":"var:preset|spacing|5","left":"var:preset|spacing|5"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-cta-reassurance__item-icon" style="background-color:color-mix(in srgb, var(--wp--custom--color--text--brand) 20%, transparent);border-radius:var(--wp--preset--border-radius--300);padding-top:var(--wp--preset--spacing--5);padding-right:var(--wp--preset--spacing--5);padding-bottom:var(--wp--preset--spacing--5);padding-left:var(--wp--preset--spacing--5)">
 				<!-- wp:html -->
@@ -66,11 +65,9 @@
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
-		</div>
 
-		<div style="border-bottom:1px solid color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);padding-bottom:var(--wp--preset--spacing--10)">
-		<!-- wp:group {"className":"ls-cta-reassurance__item","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","verticalAlignment":"top","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group ls-cta-reassurance__item">
+		<!-- wp:group {"className":"ls-cta-reassurance__item","style":{"border":{"bottom":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent)","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"bottom":"var:preset|spacing|10"}}},"layout":{"type":"flex","verticalAlignment":"top","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group ls-cta-reassurance__item" style="border-bottom-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);border-bottom-style:solid;border-bottom-width:1px;padding-bottom:var(--wp--preset--spacing--10)">
 			<!-- wp:group {"className":"ls-cta-reassurance__item-icon","style":{"color":{"background":"color-mix(in srgb, var(--wp--custom--color--text--brand) 20%, transparent)"},"border":{"radius":"var:preset|border-radius|300"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|5","bottom":"var:preset|spacing|5","left":"var:preset|spacing|5"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-cta-reassurance__item-icon" style="background-color:color-mix(in srgb, var(--wp--custom--color--text--brand) 20%, transparent);border-radius:var(--wp--preset--border-radius--300);padding-top:var(--wp--preset--spacing--5);padding-right:var(--wp--preset--spacing--5);padding-bottom:var(--wp--preset--spacing--5);padding-left:var(--wp--preset--spacing--5)">
 				<!-- wp:html -->
@@ -84,7 +81,6 @@
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
-		</div>
 
 		<!-- wp:group {"className":"ls-cta-reassurance__item","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","verticalAlignment":"top","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group ls-cta-reassurance__item">
