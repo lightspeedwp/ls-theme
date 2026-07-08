@@ -45,7 +45,7 @@
 		<!-- /wp:group -->
 
 		<!-- wp:group {"className":"ls-cta-band__actions","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-		<div class="wp-block-group ls-cta-band__actions" style="--ls-link-arrow-colour:var(--wp--custom--color--text--on-dark);--ls-link-arrow-hover-colour:var(--wp--custom--color--text--brand)">
+		<div class="wp-block-group ls-cta-band__actions">
 			<!-- wp:buttons -->
 			<div class="wp-block-buttons">
 				<!-- wp:button {"className":"ls-cta-band__button"} -->

@@ -488,13 +488,24 @@
 
 /* CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark
    tokens so the fill button's rest and hover states stay readable regardless
-   of the site's light/dark style variation. */
+   of the site's light/dark style variation. The background is also pinned to
+   a dark surface token — text--on-dark against the default brand/cta fill
+   colour fails WCAG contrast (~1.2:1) once the fill fully reveals on hover. */
 .ls-cta-band__button .wp-block-button__link,
 .ls-cta-inline__button .wp-block-button__link,
 .ls-cta-reassurance__button .wp-block-button__link {
   color: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-background: var(--wp--custom--color--surface--on-dark-card);
   --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
   --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+}
+
+/* CTA band: the secondary link's arrow colours aren't part of the group's
+   saved block attributes, so they're defined here instead of as an inline
+   style on the wrapper (which would be dropped on save). */
+.ls-cta-band__actions {
+  --ls-link-arrow-colour: var(--wp--custom--color--text--on-dark);
+  --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
 }
 
 /* CTA strip: the arrow sits next to the glass button rather than nested in
