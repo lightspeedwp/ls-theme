@@ -486,6 +486,34 @@
   }
 }
 
+/* CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark
+   tokens so the fill button's rest and hover states stay readable regardless
+   of the site's light/dark style variation. */
+.ls-cta-band__button .wp-block-button__link,
+.ls-cta-inline__button .wp-block-button__link,
+.ls-cta-reassurance__button .wp-block-button__link {
+  color: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+}
+
+/* CTA strip: the arrow sits next to the glass button rather than nested in
+   its rich text, so it needs its own hover contract tied to the shared
+   wrapper. */
+.ls-cta-strip__button-arrow {
+  transition:
+    transform var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--emphasised),
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+}
+
+.ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
+.ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
+  color: var(--wp--custom--color--text--brand);
+  transform: translateX(0.25em);
+}
+
 @include motion.reduced-motion {
   .wp-block-button.is-style-glass-button .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
@@ -508,6 +536,15 @@
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after {
+    transform: none;
+  }
+
+  .ls-cta-strip__button-arrow {
+    transition: none;
+  }
+
+  .ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
+  .ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
     transform: none;
   }
 }
