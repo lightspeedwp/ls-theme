@@ -8,3 +8,9 @@
  */
 
 ?>
+
+<!-- wp:group {"align":"full","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}}} -->
+<div class="wp-block-group alignfull">
+	<!-- wp:ls-plugin/breadcrumbs /-->
+</div>
+<!-- /wp:group -->
