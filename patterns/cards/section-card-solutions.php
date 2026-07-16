@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Card - Solutions
- * Slug: ls-theme/card-solutions
+ * Slug: ls-theme/section-card-solutions
  * Categories: featured
  * Block Types: core/pattern
  * Description: A compact solutions card with a replaceable icon well, supporting copy, and an icon-only CTA.

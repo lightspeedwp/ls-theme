@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: CTA - Consultation Band
- * Slug: ls-theme/cta-consultation-band
+ * Slug: ls-theme/section-cta-consultation-band
  * Categories: cta
  * Block Types: core/pattern
  * Description: A dark gradient call-to-action band inviting visitors to book a free consultation, paired with a "see our work" link and three reassurance tiles.

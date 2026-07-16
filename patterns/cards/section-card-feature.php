@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Card - Feature
- * Slug: ls-theme/card-feature
+ * Slug: ls-theme/section-card-feature
  * Categories: featured
  * Block Types: core/pattern
  * Description: A single feature card with a replaceable icon well, supporting copy, and an inline CTA.

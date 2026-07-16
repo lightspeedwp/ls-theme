@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Card - Services
- * Slug: ls-theme/card-services
+ * Slug: ls-theme/section-card-services
  * Categories: featured
  * Block Types: core/pattern
  * Description: A centred services card with a replaceable icon tile, supporting copy, a blue tick list, and an inline CTA.

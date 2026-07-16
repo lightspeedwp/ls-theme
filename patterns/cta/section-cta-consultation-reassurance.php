@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: CTA - Consultation Reassurance
- * Slug: ls-theme/cta-consultation-reassurance
+ * Slug: ls-theme/section-cta-consultation-reassurance
  * Categories: cta
  * Block Types: core/pattern
  * Description: A two-column call-to-action card pairing a consultation pitch with a short list of reassurances, for use before a commitment point.
