@@ -14,7 +14,7 @@
 	<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
 	<div class="wp-block-group">
 		<!-- wp:paragraph {"fontSize":"small"} -->
-		<p class="has-small-font-size">© <!-- wp:site-title /--></p>
+		<p class="has-small-font-size">© <?php echo esc_html( get_bloginfo( 'name' ) ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
