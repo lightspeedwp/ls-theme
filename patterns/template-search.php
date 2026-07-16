@@ -15,7 +15,7 @@
 	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|x-small"}}} -->
 	<div class="wp-block-group">
 		<!-- wp:query-title {"type":"search"} /-->
-		<!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search"} /-->
+		<!-- wp:search {"label":"<?php echo esc_attr__( 'Search', 'ls-theme' ); ?>","showLabel":false,"buttonText":"<?php echo esc_attr__( 'Search', 'ls-theme' ); ?>"} /-->
 	</div>
 	<!-- /wp:group -->
 
@@ -32,7 +32,7 @@
 
 		<!-- wp:query-no-results -->
 			<!-- wp:paragraph -->
-			<p>No results found for your search.</p>
+			<p><?php echo esc_html__( 'No results found for your search.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		<!-- /wp:query-no-results -->
 

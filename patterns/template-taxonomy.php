@@ -32,7 +32,7 @@
 
 		<!-- wp:query-no-results -->
 			<!-- wp:paragraph -->
-			<p>No case studies found.</p>
+			<p><?php echo esc_html__( 'No case studies found.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		<!-- /wp:query-no-results -->
 

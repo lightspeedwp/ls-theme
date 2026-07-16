@@ -25,7 +25,7 @@
 
 		<!-- wp:query-no-results -->
 			<!-- wp:paragraph -->
-			<p>No posts found.</p>
+			<p><?php echo esc_html__( 'No posts found.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		<!-- /wp:query-no-results -->
 
