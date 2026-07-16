@@ -600,5 +600,13 @@
             "area": "footer"
         }
     ],
-    "customTemplates": []
+    "customTemplates": [
+        {
+            "name": "page-no-title",
+            "title": "Page (No Title)",
+            "postTypes": [
+                "page"
+            ]
+        }
+    ]
 }
