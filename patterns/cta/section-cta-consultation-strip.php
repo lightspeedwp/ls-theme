@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: CTA - Consultation Strip
- * Slug: ls-theme/cta-consultation-strip
+ * Slug: ls-theme/section-cta-consultation-strip
  * Categories: cta
  * Block Types: core/pattern
  * Description: A compact glass-panel strip inviting visitors to book a free consultation, for use as a lightweight inline call to action.

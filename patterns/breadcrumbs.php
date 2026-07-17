@@ -10,8 +10,8 @@
 ?>
 
 <?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
-<!-- wp:group {"align":"full","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}}} -->
-<div class="wp-block-group alignfull">
+<!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}}} -->
+<div class="wp-block-group">
 	<!-- wp:yoast-seo/breadcrumbs /-->
 </div>
 <!-- /wp:group -->

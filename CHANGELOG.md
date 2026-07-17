@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added the Search Results template (`search.html` + `template-search.php`), a Page (No Title) custom template (`page-no-title.html` + `template-page-no-title.php`, registered in `theme.json` `customTemplates`), and a shared Taxonomy template (`taxonomy.html` + `template-taxonomy.php`) covering all four Portfolio taxonomies (LS-1226).
+- Extracted `front-page.html`, `index.html`, `page.html`, `single.html`, and `archive.html` into dedicated pattern files (`hero` + `front-page-latest-posts`, `template-index`, `template-page`, `template-single`, `template-archive`) so every template body is a single pattern injection, per the new template/pattern naming convention (LS-1226).
+- Built out `archive.html`'s main content (query title, term description, paginated post query loop), which previously rendered no content at all (LS-1226).
+- Added `settings.layout.contentSize` (`800px`) and `wideSize` (`1370px`) to `theme.json` to match the design system's Figma values (LS-1226).
 - Wired Yoast SEO's native `yoast-seo/breadcrumbs` block into the `Breadcrumbs` pattern and added the `breadcrumbs` template part to the `page`, `single`, and `archive` templates (LS-1228 Part 2). The pattern degrades gracefully (renders nothing) if Yoast SEO is inactive.
 - Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells.
 - Added a `Card - Services` pattern with a reusable accent-border gradient contract, a matching services card section style, and a blue tick list block style.
@@ -33,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Renamed section-level patterns to lead with `section-` (`section-cta`, `section-cta-consultation-band`/`inline`/`reassurance`/`strip`, `section-card-feature`/`services`/`solutions`, `section-stats-grid`) to distinguish freely-insertable section patterns from full-page template patterns and page-scoped content patterns (LS-1226).
 - Refactored `src/scss/animations.scss` and `src/scss/gsap-animations.scss` into loader entrypoints backed by smaller contextual partials, normalised live preset JSON onto WordPress shorthand for non-colour tokens, and removed the dead `settings.custom.button-padding` branch.
 - Made `theme.json` custom layout breakpoints the build-time source for the Sass `mq()` map, and tightened the CSS build to compile only explicit Sass entry files so tracked source-directory CSS artefacts can no longer override live assets.
 - Styled the merged `core/details` preset as the site accordion contract, including token-driven default, hover, focus, and open states, tuned chevron alignment, custom typography font-weight tokens for the question and answer text, and moved the selector-driven accordion layer into Sass for maintainability.
@@ -86,6 +91,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the temporary experimental button variation and its temporary selector path.
 
 ### Fixed
+
+- Fixed an invalid nested `wp:site-title` block inside `patterns/footer.php`'s paragraph markup that broke block parsing on every template (LS-1226).
+- Fixed `patterns/breadcrumbs.php` rendering full-bleed instead of content width by removing an unnecessary `align:full` (LS-1226).
 
 ### Security
 

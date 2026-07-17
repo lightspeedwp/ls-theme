@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: CTA - Consultation Inline
- * Slug: ls-theme/cta-consultation-inline
+ * Slug: ls-theme/section-cta-consultation-inline
  * Categories: cta
  * Block Types: core/pattern
  * Description: A compact inline call-to-action card inviting visitors to book a free consultation, for use inside articles, sidebars, or content flows.
