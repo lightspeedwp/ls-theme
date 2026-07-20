@@ -92,6 +92,28 @@ function ls_theme_enqueue_editor_effect_styles() {
 add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_styles' );
 
 /**
+ * Enqueues the FAQ accordion script on requests that contain the Yoast FAQ block.
+ */
+function ls_theme_enqueue_faq_accordion_script() {
+	if ( ! has_block( 'yoast/faq-block' ) ) {
+		return;
+	}
+
+	$path = 'assets/js/faq-accordion.js';
+
+	wp_enqueue_script(
+		'ls-theme-faq-accordion',
+		get_theme_file_uri( $path ),
+		array(),
+		ls_theme_get_local_asset_version( $path ),
+		true
+	);
+
+	wp_script_add_data( 'ls-theme-faq-accordion', 'strategy', 'defer' );
+}
+add_action( 'wp_enqueue_scripts', 'ls_theme_enqueue_faq_accordion_script' );
+
+/**
 	* Registers CSS-driven block styles.
 	*/
 function ls_theme_register_effect_block_styles() {
