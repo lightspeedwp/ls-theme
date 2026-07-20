@@ -8,6 +8,8 @@
  * Keywords: faq, questions, accordion, yoast
  * Viewport Width: 1240
  * Inserter: true
+ *
+ * @package ls-theme
  */
 
 ?>

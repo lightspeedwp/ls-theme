@@ -1081,8 +1081,7 @@
   flex-direction: column;
   gap: var(--wp--preset--spacing--20);
 }
-
-.schema-faq-section {
+.schema-faq.is-accordion .schema-faq-section {
   --ls-faq-border-rest: var(--wp--custom--color--border--card);
   --ls-faq-border-active: var(--wp--custom--color--link--accent);
   position: relative;
@@ -1093,19 +1092,18 @@
   box-shadow: none;
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.schema-faq-section:hover {
+.schema-faq.is-accordion .schema-faq-section:hover {
   border-color: var(--ls-faq-border-active);
 }
-.schema-faq-section.is-open {
+.schema-faq.is-accordion .schema-faq-section.is-open {
   background: var(--wp--custom--color--surface--card-raised);
   border-color: var(--ls-faq-border-active);
 }
-.schema-faq-section:focus-within {
+.schema-faq.is-accordion .schema-faq-section:focus-within {
   border-color: var(--ls-faq-border-active);
   box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
 }
-
-.schema-faq-question {
+.schema-faq.is-accordion .schema-faq-question {
   display: flex;
   align-items: center;
   gap: var(--wp--preset--spacing--20);
@@ -1115,7 +1113,7 @@
   cursor: pointer;
   transition: inherit;
 }
-.schema-faq-question::after {
+.schema-faq.is-accordion .schema-faq-question::after {
   content: "";
   display: block;
   flex: none;
@@ -1128,16 +1126,14 @@
   transform-origin: center;
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.schema-faq-question:focus-visible {
+.schema-faq.is-accordion .schema-faq-question:focus-visible {
   outline: 2px solid var(--wp--custom--color--focus--ring);
   outline-offset: -2px;
 }
-
-.schema-faq-section.is-open > .schema-faq-question::after {
+.schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-question::after {
   transform: translateY(1px) rotate(-135deg);
 }
-
-.schema-faq-answer {
+.schema-faq.is-accordion .schema-faq-answer {
   display: grid;
   grid-template-rows: 0fr;
   margin: 0;
@@ -1146,17 +1142,16 @@
   opacity: 0;
   transition: grid-template-rows var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), opacity var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), padding var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-
-.schema-faq-section.is-open > .schema-faq-answer {
+.schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-answer {
   grid-template-rows: 1fr;
   padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--20);
   opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .schema-faq-section,
-  .schema-faq-question::after,
-  .schema-faq-answer {
+  .schema-faq.is-accordion .schema-faq-section,
+  .schema-faq.is-accordion .schema-faq-question::after,
+  .schema-faq.is-accordion .schema-faq-answer {
     transition: none;
   }
 }

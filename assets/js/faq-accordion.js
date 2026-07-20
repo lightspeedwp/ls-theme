@@ -14,12 +14,18 @@
 			return;
 		}
 
+		if ( 'button' === question.getAttribute( 'role' ) ) {
+			return;
+		}
+
 		const answerId = answer.id || `schema-faq-answer-${ index }`;
 		answer.id = answerId;
 
+		const isInitiallyOpen = section.classList.contains( 'is-open' );
+
 		question.setAttribute( 'role', 'button' );
 		question.setAttribute( 'tabindex', '0' );
-		question.setAttribute( 'aria-expanded', 'false' );
+		question.setAttribute( 'aria-expanded', isInitiallyOpen ? 'true' : 'false' );
 		question.setAttribute( 'aria-controls', answerId );
 
 		question.addEventListener( 'click', () => toggleSection( section, question ) );
@@ -32,7 +38,17 @@
 	}
 
 	function initFaqAccordions() {
-		document.querySelectorAll( '.schema-faq-section' ).forEach( enhanceSection );
+		const sections = document.querySelectorAll( '.schema-faq-section' );
+
+		if ( 0 === sections.length ) {
+			return;
+		}
+
+		document.querySelectorAll( '.schema-faq' ).forEach( ( faq ) => {
+			faq.classList.add( 'is-accordion' );
+		} );
+
+		sections.forEach( enhanceSection );
 	}
 
 	if ( 'loading' === document.readyState ) {

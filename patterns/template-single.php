@@ -6,6 +6,8 @@
  * Block Types: core/template-part
  * Description: Main-content pattern for the Single Blog template — title, date, and content.
  * Inserter: false
+ *
+ * @package ls-theme
  */
 
 ?>
