@@ -92,6 +92,38 @@ function ls_theme_enqueue_editor_effect_styles() {
 add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_styles' );
 
 /**
+ * Enqueues the FAQ accordion script when the Yoast FAQ block is actually rendered.
+ *
+ * Uses render_block rather than has_block() so the script still loads when the
+ * block is rendered via a template part, query loop, or other context that
+ * has_block() can't see (it only inspects the current post's content).
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_enqueue_faq_accordion_script( $block_content, $block ) {
+	if ( ! isset( $block['blockName'] ) || 'yoast/faq-block' !== $block['blockName'] ) {
+		return $block_content;
+	}
+
+	$path = 'assets/js/faq-accordion.js';
+
+	wp_enqueue_script(
+		'ls-theme-faq-accordion',
+		get_theme_file_uri( $path ),
+		array(),
+		ls_theme_get_local_asset_version( $path ),
+		true
+	);
+
+	wp_script_add_data( 'ls-theme-faq-accordion', 'strategy', 'defer' );
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_enqueue_faq_accordion_script', 10, 2 );
+
+/**
 	* Registers CSS-driven block styles.
 	*/
 function ls_theme_register_effect_block_styles() {
