@@ -1155,3 +1155,57 @@
     transition: none;
   }
 }
+
+/********** Mega Menu Panel **********/
+.is-style-mega-menu-panel {
+  border-color: var(--wp--custom--color--border--card);
+}
+
+.ls-mega-menu__divider {
+  border-color: var(--wp--custom--color--border--card);
+}
+
+.ls-mega-menu__item {
+  position: relative;
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.ls-mega-menu__item:hover,
+.ls-mega-menu__item:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised);
+}
+.ls-mega-menu__item .ls-mega-menu__item-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--wp--custom--z-index--content);
+}
+.ls-mega-menu__item .ls-mega-menu__item-link {
+  position: relative;
+}
+
+.ls-mega-menu__icon-well {
+  min-inline-size: 2.25rem;
+  min-block-size: 2.25rem;
+  padding: var(--wp--preset--spacing--5);
+}
+
+.ls-mega-menu__item .wp-block-heading,
+.ls-mega-menu__item h5,
+.ls-mega-menu__item p {
+  margin: 0 !important;
+}
+
+.ls-mega-menu__phase-dot {
+  display: inline-block;
+  flex: none;
+  inline-size: 8px;
+  block-size: 8px;
+  padding: 0;
+  border-radius: var(--wp--preset--border-radius--500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-mega-menu__item {
+    transition: none;
+  }
+}

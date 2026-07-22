@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Panel",
+	"slug": "mega-menu-panel",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Dropdown panel shell for Ollie Menu Designer mega menus. Card surface with a highlight-tinted border and popover shadow. Border tint lives in assets/css/animations.css.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "var:preset|shadow|popover",
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|20"
+			}
+		}
+	}
+}

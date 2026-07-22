@@ -34,6 +34,11 @@
                     "name": "X-Large",
                     "slug": "600",
                     "shadow": "var(--wp--custom--shadow--elevation--600)"
+                },
+                {
+                    "name": "Popover",
+                    "slug": "popover",
+                    "shadow": "var(--wp--custom--shadow--popover--menu)"
                 }
             ]
         }

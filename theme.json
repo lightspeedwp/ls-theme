@@ -399,6 +399,66 @@
                     "name": "Success Foreground",
                     "slug": "success-foreground",
                     "color": "#10B981"
+                },
+                {
+                    "name": "Phase One",
+                    "slug": "phase-one",
+                    "color": "#5DE81C"
+                },
+                {
+                    "name": "Phase One Strong",
+                    "slug": "phase-one-strong",
+                    "color": "#32800D"
+                },
+                {
+                    "name": "Phase Two",
+                    "slug": "phase-two",
+                    "color": "#18CAE9"
+                },
+                {
+                    "name": "Phase Two Strong",
+                    "slug": "phase-two-strong",
+                    "color": "#0E7B8E"
+                },
+                {
+                    "name": "Phase Three",
+                    "slug": "phase-three",
+                    "color": "#FE5EAD"
+                },
+                {
+                    "name": "Phase Three Strong",
+                    "slug": "phase-three-strong",
+                    "color": "#DB016D"
+                },
+                {
+                    "name": "Phase Four",
+                    "slug": "phase-four",
+                    "color": "#FADC2F"
+                },
+                {
+                    "name": "Phase Four Strong",
+                    "slug": "phase-four-strong",
+                    "color": "#826F03"
+                },
+                {
+                    "name": "Phase Five",
+                    "slug": "phase-five",
+                    "color": "#22CD94"
+                },
+                {
+                    "name": "Phase Five Strong",
+                    "slug": "phase-five-strong",
+                    "color": "#157F5C"
+                },
+                {
+                    "name": "Phase Six",
+                    "slug": "phase-six",
+                    "color": "#7A7CF9"
+                },
+                {
+                    "name": "Phase Six Strong",
+                    "slug": "phase-six-strong",
+                    "color": "#585AF7"
                 }
             ]
         },
@@ -419,6 +479,7 @@
                     "default": "var:preset|color|contrast",
                     "inverse": "var:preset|color|base",
                     "muted": "var:preset|color|neutral-700",
+                    "subtle": "var:preset|color|neutral-600",
                     "brand": "var:preset|color|brand-500",
                     "brand-strong": "var:preset|color|brand-800",
                     "on-dark": "var:preset|color|base",
@@ -452,6 +513,14 @@
                         "brand": "var:preset|color|brand-500",
                         "accent": "var:preset|color|accent-500"
                     }
+                },
+                "phase": {
+                    "discover": "var:preset|color|phase-one-strong",
+                    "create": "var:preset|color|phase-two-strong",
+                    "build": "var:preset|color|phase-three-strong",
+                    "launch": "var:preset|color|phase-four-strong",
+                    "grow": "var:preset|color|phase-five-strong",
+                    "evolve": "var:preset|color|phase-six-strong"
                 },
                 "text-shadow": {
                     "contrast": "var:preset|color|contrast",
@@ -543,6 +612,9 @@
                 },
                 "card": {
                     "hover": "0 9px 28px -16px color-mix(in srgb, var(--wp--custom--color--text--brand) 80%, transparent), 0 8px 18px -14px color-mix(in srgb, var(--wp--custom--color--text--brand-strong) 24%, transparent)"
+                },
+                "popover": {
+                    "menu": "0 32px 80px 0 color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 18%, transparent), var(--wp--custom--shadow--elevation--200)"
                 }
             },
             "animation": {

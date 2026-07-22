@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `Mega Menu - Default` and `Mega Menu - Service` patterns (`patterns/menu/`) for Ollie Menu Designer, using `Block Types: core/template-part/menu` so they register as selectable mega-menu content per nav item (LS-1618).
+- Added a `Mega Menu Panel` section style (`styles/sections/menu/mega-menu-panel.json`) plus a `shadow.popover` custom shadow token for the dropdown panel shell.
+- Added a `phase.discover|create|build|launch|grow|evolve` semantic colour token family (six new `phase-*` / `phase-*-strong` palette presets) for the Services mega menu's lifecycle-phase colour coding, with light-mode values darkened to meet WCAG AA 4.5:1 against the light card surface.
+- Added a `text.subtle` semantic colour token (`neutral-600` light / `neutral-500` dark) for a tertiary text tier between `text.muted` and full-contrast text.
 - Added the Search Results template (`search.html` + `template-search.php`), a Page (No Title) custom template (`page-no-title.html` + `template-page-no-title.php`, registered in `theme.json` `customTemplates`), and a shared Taxonomy template (`taxonomy.html` + `template-taxonomy.php`) covering all four Portfolio taxonomies (LS-1226).
 - Extracted `front-page.html`, `index.html`, `page.html`, `single.html`, and `archive.html` into dedicated pattern files (`hero` + `front-page-latest-posts`, `template-index`, `template-page`, `template-single`, `template-archive`) so every template body is a single pattern injection, per the new template/pattern naming convention (LS-1226).
 - Built out `archive.html`'s main content (query title, term description, paginated post query loop), which previously rendered no content at all (LS-1226).
