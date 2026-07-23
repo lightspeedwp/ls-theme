@@ -1,0 +1,113 @@
+@use "../abstracts/mixins/motion";
+
+/********** Site Header **********/
+
+/*
+ * Header icon buttons (search, light/dark toggle) and the gradient CTA: subtle hover treatment,
+ * matching the rest of the theme's interactive-control conventions. WordPress doesn't generate
+ * :hover CSS for arbitrary block style variations, so this lives here rather than in JSON.
+ */
+.is-style-header-icon-button {
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--phase--create);
+  }
+}
+
+.is-style-button-cta-gradient .wp-block-button__link {
+  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
+  }
+}
+
+/*
+ * Header search (core/search, buttonPosition: button-only): the input is collapsed to 0 width by
+ * default and expands via the .site-header__search--expanded class. core/search's "button-only"
+ * position only changes layout (it hides the input and renders just a submit button) — there's no
+ * built-in click-to-expand behaviour in core, and a pure-CSS :focus-within trick can't reveal a
+ * zero-width input either (nothing to click into until it's already visible). The class is toggled
+ * by assets/js/header-search.js, which intercepts the button's first click to expand + focus the
+ * field instead of submitting immediately.
+ */
+.site-header__search {
+  .wp-block-search__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 44px;
+    min-block-size: 44px;
+    padding: var(--wp--preset--spacing--10);
+    border: 1px solid var(--wp--custom--color--border--card);
+    border-radius: var(--wp--preset--border-radius--500);
+    background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
+    color: var(--wp--custom--color--text--default);
+    transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+      border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+  }
+
+  .wp-block-search__button:hover,
+  .wp-block-search__button:focus-visible {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--phase--create);
+  }
+
+  .wp-block-search__input {
+    inline-size: 0;
+    min-inline-size: 0;
+    padding-inline: 0;
+    border-width: 0;
+    opacity: 0;
+    transition: inline-size var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard),
+      opacity var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+      padding-inline var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
+  }
+
+  &.site-header__search--expanded .wp-block-search__input {
+    inline-size: 12rem;
+    padding-inline: var(--wp--preset--spacing--10);
+    border-width: 1px;
+    opacity: 1;
+  }
+}
+
+/*
+ * Light/dark toggle: sun/moon icon swap based on the current mode. Default (no [data-theme]
+ * override present) is the site's light-mode default, so the moon shows first — clicking it
+ * offers a switch *to* dark. Once [data-theme="dark"] is set (assets/js/theme-toggle.js), the
+ * icons swap to offer a switch back to light.
+ */
+.ls-theme-toggle__icon--sun {
+  display: none;
+}
+
+.ls-theme-toggle__icon--moon {
+  display: block;
+}
+
+:root[data-theme="dark"] {
+  .ls-theme-toggle__icon--sun {
+    display: block;
+  }
+
+  .ls-theme-toggle__icon--moon {
+    display: none;
+  }
+}
+
+@include motion.reduced-motion {
+  .is-style-header-icon-button,
+  .is-style-button-cta-gradient .wp-block-button__link,
+  .site-header__search .wp-block-search__button,
+  .site-header__search .wp-block-search__input {
+    transition: none;
+  }
+}

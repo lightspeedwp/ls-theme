@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"sync:breakpoints": "node theme-utils.mjs sync-breakpoints",
-		"build:css": "npm run sync:breakpoints && sass --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css",
+		"generate:theme-toggle": "node theme-utils.mjs generate-theme-toggle",
+		"build:css": "npm run sync:breakpoints && npm run generate:theme-toggle && sass --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css",
 		"schema:validate": "node theme-utils.mjs validate-schema",
 		"theme:validate": "node theme-utils.mjs validate-theme",
 		"patterns:escape": "node theme-utils.mjs escape-patterns",

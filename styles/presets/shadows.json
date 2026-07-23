@@ -44,6 +44,11 @@
                     "name": "Footer Notes Glow",
                     "slug": "footer-notes",
                     "shadow": "var(--wp--custom--shadow--footer--notes)"
+                },
+                {
+                    "name": "Interactive Accent Glow",
+                    "slug": "interactive-accent",
+                    "shadow": "var(--wp--custom--shadow--interactive--accent)"
                 }
             ]
         }
