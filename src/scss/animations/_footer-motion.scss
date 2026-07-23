@@ -1,0 +1,137 @@
+@use "../abstracts/mixins/motion";
+
+/********** Site Footer **********/
+
+/*
+ * "LightSpeed notes" badge: a flex group with no explicit width constraint defaults to filling
+ * its row, so the border/background stretch across the notes panel instead of hugging the label
+ * text. There's no theme.json dimensions property for width/fit-content, so this has to be CSS —
+ * same fix as the Services mega menu panel.
+ */
+.footer-notes-badge {
+  width: fit-content;
+}
+
+/*
+ * Decorative background: top edge glow bar + ambient radial-gradient glow behind the footer.
+ * Authored as layered CSS gradients rather than embedding Figma's raw multi-layer SVG data-URIs,
+ * which would be extremely brittle to maintain. Every colour route through the same semantic
+ * custom properties used everywhere else in the theme (phase.create, effect.spotlight), so the
+ * glow automatically tones itself down under the light global-styles variation instead of needing
+ * a separate light/dark branch — there's no runtime class/attribute toggle in this theme, dark mode
+ * is a full alternate theme.json variation, so re-resolving the same custom properties is enough.
+ */
+.site-footer {
+  position: relative;
+  overflow: clip;
+  background:
+    radial-gradient(
+      ellipse 480px 420px at 12% 0%,
+      color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 16%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 460px 400px at 92% 22%,
+      color-mix(in srgb, var(--wp--custom--color--phase--create) 12%, transparent) 0%,
+      transparent 60%
+    ),
+    var(--wp--custom--color--surface--canvas);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 4px;
+    z-index: var(--wp--custom--z-index--content);
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--wp--custom--color--phase--create) 60%, transparent) 24%,
+      var(--wp--custom--color--phase--create) 50%,
+      color-mix(in srgb, var(--wp--custom--color--phase--create) 60%, transparent) 76%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 16px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 70%, transparent),
+      0 8px 32px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 30%, transparent);
+  }
+}
+
+/*
+ * Blurred accent blob behind the nav-column grid, echoing Figma's "Mask Group" glow. Purely
+ * decorative and non-interactive, so it's safe to skip under reduced motion (nothing here
+ * animates — it's a static blur, included in the reduced-motion block only for parity/consistency).
+ */
+.site-footer .wp-block-columns:nth-of-type(2) {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 10%;
+    inset-inline-end: 8%;
+    inline-size: min(38vw, 520px);
+    block-size: min(30vw, 360px);
+    background: radial-gradient(
+      ellipse closest-side,
+      color-mix(in srgb, var(--wp--custom--color--phase--create) 14%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/*
+ * Footer nav links (is-style-footer-nav-link, styles/blocks/paragraphs/footer-nav-link.json):
+ * underline reveals on hover/focus by animating decoration-colour from transparent, rather than
+ * toggling text-decoration-line itself. Matches the approved reference screenshot, and matches the
+ * pattern already used for is-style-link-underline-accent elsewhere in this file family.
+ */
+.is-style-footer-nav-link a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
+.is-style-footer-nav-link a:hover,
+.is-style-footer-nav-link a:focus-visible {
+  color: var(--wp--custom--color--phase--create);
+  text-decoration-color: var(--wp--custom--color--phase--create);
+}
+
+/*
+ * Proof-point cards and social icon circles (styles/blocks/groups/footer-proof-card.json,
+ * footer-social-icon.json): subtle background lift on hover/focus, matching the rest of the
+ * theme's card-hover conventions. No hover state shown in the Figma reference — added per
+ * explicit approval as a consistency default.
+ */
+.is-style-footer-proof-card,
+.is-style-footer-social-icon {
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--phase--create);
+  }
+}
+
+@include motion.reduced-motion {
+  .is-style-footer-nav-link a,
+  .is-style-footer-proof-card,
+  .is-style-footer-social-icon {
+    transition: none;
+  }
+}

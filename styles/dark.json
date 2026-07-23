@@ -52,6 +52,9 @@
 					"grow": "var:preset|color|phase-five",
 					"evolve": "var:preset|color|phase-six"
 				},
+				"status": {
+					"success": "var:preset|color|success-foreground"
+				},
 				"text-shadow": {
 					"contrast": "var:preset|color|base",
 					"base": "var:preset|color|contrast"
@@ -112,6 +115,9 @@
 				},
 				"popover": {
 					"menu": "0 32px 80px 0 color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 18%, transparent), var(--wp--custom--shadow--elevation--200)"
+				},
+				"footer": {
+					"notes": "0 0 0 1px color-mix(in srgb, var(--wp--custom--color--phase--create) 24%, transparent), 0 0 34px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 18%, transparent)"
 				}
 			}
 		}

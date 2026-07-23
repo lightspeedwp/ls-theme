@@ -39,6 +39,11 @@
                     "name": "Popover",
                     "slug": "popover",
                     "shadow": "var(--wp--custom--shadow--popover--menu)"
+                },
+                {
+                    "name": "Footer Notes Glow",
+                    "slug": "footer-notes",
+                    "shadow": "var(--wp--custom--shadow--footer--notes)"
                 }
             ]
         }
