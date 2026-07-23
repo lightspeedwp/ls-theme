@@ -1155,57 +1155,30 @@
     transition: none;
   }
 }
-
-/********** Mega Menu Panel **********/
-.is-style-mega-menu-panel {
-  border-color: var(--wp--custom--color--border--card);
-}
-
-.ls-mega-menu__divider {
-  border-color: var(--wp--custom--color--border--card);
-}
-
-.ls-mega-menu__item {
-  position: relative;
+/********** Mega Menu Item **********/
+/*
+ * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json).
+ * WordPress's global-styles engine only generates :hover/:focus CSS for the elements.link/button/etc.
+ * allowlist — arbitrary block style variations never get pseudo-state rules, so this piece can't be
+ * expressed in the JSON style and lives here instead. Base (non-hover) styles for this row, and the
+ * icon well's own appearance, remain authored in theme.json/style JSON.
+ */
+.is-style-mega-menu-item-default {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.ls-mega-menu__item:hover,
-.ls-mega-menu__item:focus-within {
+.is-style-mega-menu-item-default:hover, .is-style-mega-menu-item-default:focus-within {
   background-color: var(--wp--custom--color--surface--card-raised);
 }
-.ls-mega-menu__item .ls-mega-menu__item-link::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: var(--wp--custom--z-index--content);
+.is-style-mega-menu-item-default .wp-block-outermost-icon-block {
+  transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.ls-mega-menu__item .ls-mega-menu__item-link {
-  position: relative;
-}
-
-.ls-mega-menu__icon-well {
-  min-inline-size: 2.25rem;
-  min-block-size: 2.25rem;
-  padding: var(--wp--preset--spacing--5);
-}
-
-.ls-mega-menu__item .wp-block-heading,
-.ls-mega-menu__item h5,
-.ls-mega-menu__item p {
-  margin: 0 !important;
-}
-
-.ls-mega-menu__phase-dot {
-  display: inline-block;
-  flex: none;
-  inline-size: 8px;
-  block-size: 8px;
-  padding: 0;
-  border-radius: var(--wp--preset--border-radius--500);
+.is-style-mega-menu-item-default:hover .wp-block-outermost-icon-block, .is-style-mega-menu-item-default:focus-within .wp-block-outermost-icon-block {
+  color: var(--wp--custom--color--text--subtle);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ls-mega-menu__item {
+  .is-style-mega-menu-item-default,
+  .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
     transition: none;
   }
 }

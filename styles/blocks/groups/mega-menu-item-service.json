@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Item - Service",
+	"slug": "mega-menu-item-service",
+	"blockTypes": [
+		"core/paragraph"
+	],
+	"description": "Menu-item row for the Service mega menu's phase columns. Structural padding/radius only for now — hover treatment to follow once the Service-specific interaction reference is provided.",
+	"styles": {
+		"border": {
+			"radius": "var:preset|border-radius|300"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
+			}
+		}
+	}
+}

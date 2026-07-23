@@ -674,6 +674,36 @@
             "name": "footer",
             "title": "Footer",
             "area": "footer"
+        },
+        {
+            "name": "work-mega-menu",
+            "title": "Work Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "solutions-mega-menu",
+            "title": "Solutions Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "pricing-mega-menu",
+            "title": "Pricing Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "insights-mega-menu",
+            "title": "Insights Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "about-mega-menu",
+            "title": "About Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "services-mega-menu",
+            "title": "Services Mega Menu",
+            "area": "uncategorized"
         }
     ],
     "customTemplates": [
