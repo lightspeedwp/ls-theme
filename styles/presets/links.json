@@ -10,6 +10,25 @@
                 ":hover": {
                     "color": {
                         "text": "var:custom|color|link|accent-hover"
+                    },
+					"typography": {
+
+						"textDecoration": "none"
+
+					}
+
+                }
+            }
+        },
+        "blocks": {
+            "core/navigation": {
+                "elements": {
+                    "link": {
+                        ":hover": {
+                            "typography": {
+                                "textDecoration": "none"
+                            }
+                        }
                     }
                 }
             }

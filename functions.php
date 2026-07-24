@@ -18,6 +18,9 @@ require get_template_directory() . '/inc/gsap.php';
 /** Loads the presets integration files */
 require get_template_directory() . '/inc/presets.php';
 
+/** Loads site header assets */
+require get_template_directory() . '/inc/header.php';
+
 /**
  * Sets up theme supports.
  */
@@ -31,8 +34,11 @@ function ls_theme_setup() {
 	// Add support for editor styles.
 	add_theme_support( 'editor-styles' );
 
-	// Enqueue editor styles.
+	// Enqueue editor styles. animations.css must be listed here (not just enqueued via
+	// enqueue_block_editor_assets) so the header/footer interactive-control CSS — the collapsed
+	// search field, the icon-toggle button shell — reliably reaches the Site Editor's iframed canvas.
 	add_editor_style( 'style.css' );
+	add_editor_style( 'assets/css/animations.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

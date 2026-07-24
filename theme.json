@@ -522,6 +522,9 @@
                     "grow": "var:preset|color|phase-five-strong",
                     "evolve": "var:preset|color|phase-six-strong"
                 },
+                "status": {
+                    "success": "var:preset|color|success-foreground"
+                },
                 "text-shadow": {
                     "contrast": "var:preset|color|contrast",
                     "base": "var:preset|color|base"
@@ -615,6 +618,9 @@
                 },
                 "popover": {
                     "menu": "0 32px 80px 0 color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 18%, transparent), var(--wp--custom--shadow--elevation--200)"
+                },
+                "footer": {
+                    "notes": "0 0 0 1px color-mix(in srgb, var(--wp--custom--color--phase--create) 14%, transparent), 0 0 24px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 10%, transparent)"
                 }
             },
             "animation": {
@@ -674,6 +680,36 @@
             "name": "footer",
             "title": "Footer",
             "area": "footer"
+        },
+        {
+            "name": "work-mega-menu",
+            "title": "Work Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "solutions-mega-menu",
+            "title": "Solutions Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "pricing-mega-menu",
+            "title": "Pricing Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "insights-mega-menu",
+            "title": "Insights Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "about-mega-menu",
+            "title": "About Mega Menu",
+            "area": "uncategorized"
+        },
+        {
+            "name": "services-mega-menu",
+            "title": "Services Mega Menu",
+            "area": "uncategorized"
         }
     ],
     "customTemplates": [

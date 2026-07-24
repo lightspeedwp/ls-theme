@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Item - Service",
+	"slug": "mega-menu-item-service",
+	"blockTypes": [
+		"core/paragraph"
+	],
+	"description": "Menu-item row for the Service mega menu's phase columns. Structural padding/radius live here; the row background-on-hover/focus treatment (matching the Default menu's convention) is authored in src/scss/animations/_menu-motion.scss, since WordPress doesn't generate :hover/:focus CSS for arbitrary block style variations.",
+	"styles": {
+		"border": {
+			"radius": "var:preset|border-radius|300"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
+			}
+		}
+	}
+}

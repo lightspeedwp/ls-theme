@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Item - Default",
+	"slug": "mega-menu-item-default",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Single style for the whole Default mega-menu row (icon well + title/description + trailing arrow). Only this row reacts to hover/focus: its background highlights and the trailing arrow icon becomes visible. The icon well itself carries no className/registered style of its own, so it has no hover behaviour to trigger.",
+	"styles": {
+		"border": {
+			"radius": "var:preset|border-radius|300"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
+			}
+		},
+		"blocks": {
+			"outermost/icon-block": {
+				"color": {
+					"text": "transparent"
+				}
+			}
+		}
+	}
+}
