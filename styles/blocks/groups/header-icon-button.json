@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Header Icon Button",
+	"slug": "header-icon-button",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Circular icon button for the header (search, light/dark toggle). Structural styling only — the hover background lift is authored in src/scss/animations/_header-motion.scss (WordPress doesn't generate :hover CSS for arbitrary block style variations).",
+	"styles": {
+		"color": {
+			"background": "color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent)",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|500",
+			"style": "solid",
+			"width": "1px"
+		},
+		"dimensions": {
+			"minHeight": "44px"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
+			}
+		}
+	}
+}

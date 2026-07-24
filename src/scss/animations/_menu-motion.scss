@@ -1,0 +1,150 @@
+@use "sass:list";
+@use "../abstracts/mixins/motion";
+
+/********** Mega Menu Item **********/
+
+/*
+ * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json).
+ * WordPress's global-styles engine only generates :hover/:focus CSS for the elements.link/button/etc.
+ * allowlist — arbitrary block style variations never get pseudo-state rules, so this piece can't be
+ * expressed in the JSON style and lives here instead. Base (non-hover) styles for this row, and the
+ * icon well's own appearance, remain authored in theme.json/style JSON.
+ */
+.is-style-mega-menu-item-default {
+  transition: background-color var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+  }
+
+  .wp-block-outermost-icon-block {
+    transition: color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  }
+
+  &:hover .wp-block-outermost-icon-block,
+  &:focus-within .wp-block-outermost-icon-block {
+    color: var(--wp--custom--color--text--subtle);
+  }
+}
+
+@include motion.reduced-motion {
+  .is-style-mega-menu-item-default,
+  .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
+    transition: none;
+  }
+}
+
+/*
+ * Hover/focus states for .is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json),
+ * matching the Default menu's row-background convention. Same WordPress core limitation as above applies.
+ */
+.is-style-mega-menu-item-service {
+  transition: background-color var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+  }
+}
+
+@include motion.reduced-motion {
+  .is-style-mega-menu-item-service {
+    transition: none;
+  }
+}
+
+/*
+ * Services mega menu panel structural fixes.
+ */
+.is-style-mega-menu-panel-services {
+  /*
+   * "Hug" the panel to its own content instead of stretching to whatever width the Ollie dropdown
+   * container's ancestor happens to give it. Without this, the panel's background/border render at
+   * the ancestor's (narrower) width while the flex-wrapped columns inside still need their full
+   * natural width, so content visibly overflows past the card edge. There's no theme.json dimensions
+   * property for width/fit-content, so this has to be CSS.
+   */
+  width: fit-content;
+  max-width: 100vw;
+
+  /*
+   * core/columns divides its row into equal shares with no per-column minimum, so at narrower
+   * widths the phase labels (Discover, Create, etc.) run out of room and wrap mid-word. Neither a
+   * column minimum-width nor a guaranteed-no-wrap label is expressible via theme.json (dimensions
+   * only supports aspectRatio/minHeight, and typography has no whiteSpace property), so both are
+   * set here: each phase column gets a floor matching Figma's 120px minimum, wrapping onto a new
+   * row via flex-wrap once six no longer fit, instead of shrinking below that floor; the label text
+   * itself is also pinned to one line as a belt-and-suspenders guarantee.
+   */
+  .wp-block-columns {
+    flex-wrap: wrap;
+  }
+
+  .wp-block-column {
+    flex: 1 1 120px;
+    min-width: 120px;
+  }
+}
+
+.is-style-mega-menu-panel-services .wp-block-column > .wp-block-group p {
+  white-space: nowrap;
+}
+
+/*
+ * Per-phase hover colour for the Services mega menu: the phase-header group (dot + label + arrow)
+ * and every service row underneath it hover in that same column's phase colour. Each phase always
+ * occupies the same column position (Discover 1st ... Evolve 6th), so this is targeted structurally
+ * via :nth-child rather than adding a per-instance custom property to the markup — the same custom
+ * hover mechanic that broke block validation earlier in this file. var(--wp--custom--color--phase--*)
+ * already resolves to the "strong" preset in light mode and the plain preset in dark mode, so one
+ * token covers both the header hover and the "Phase X strong" row hover in a single declaration.
+ */
+$ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
+
+@each $pair in $ls-mega-menu-phases {
+  $index: list.nth($pair, 1);
+  $phase: list.nth($pair, 2);
+
+  .is-style-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
+    > .wp-block-group:first-child {
+      border-radius: var(--wp--preset--border-radius--300);
+      transition: background-color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+
+      &:hover,
+      &:focus-within {
+        background-color: color-mix(
+          in srgb,
+          var(--wp--custom--color--phase--#{$phase}) 15%,
+          transparent
+        );
+      }
+    }
+
+    .is-style-mega-menu-item-service {
+      &:hover,
+      &:focus-within {
+        background-color: color-mix(
+          in srgb,
+          var(--wp--custom--color--phase--#{$phase}) 15%,
+          transparent
+        );
+      }
+
+      &:hover a,
+      &:focus-within a {
+        color: var(--wp--custom--color--phase--#{$phase});
+      }
+    }
+  }
+}
+
+@include motion.reduced-motion {
+  .is-style-mega-menu-panel-services .wp-block-column > .wp-block-group:first-child {
+    transition: none;
+  }
+}

@@ -34,6 +34,21 @@
                     "name": "X-Large",
                     "slug": "600",
                     "shadow": "var(--wp--custom--shadow--elevation--600)"
+                },
+                {
+                    "name": "Popover",
+                    "slug": "popover",
+                    "shadow": "var(--wp--custom--shadow--popover--menu)"
+                },
+                {
+                    "name": "Footer Notes Glow",
+                    "slug": "footer-notes",
+                    "shadow": "var(--wp--custom--shadow--footer--notes)"
+                },
+                {
+                    "name": "Interactive Accent Glow",
+                    "slug": "interactive-accent",
+                    "shadow": "var(--wp--custom--shadow--interactive--accent)"
                 }
             ]
         }

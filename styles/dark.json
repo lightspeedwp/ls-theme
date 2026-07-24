@@ -9,6 +9,7 @@
 					"default": "var:preset|color|base",
 					"inverse": "var:preset|color|contrast",
 					"muted": "var:preset|color|neutral-400",
+					"subtle": "var:preset|color|neutral-500",
 					"brand": "var:preset|color|cta-500",
 					"brand-strong": "var:preset|color|cta-200",
 					"on-dark": "var:preset|color|base",
@@ -42,6 +43,17 @@
 						"brand": "var:preset|color|cta-500",
 						"accent": "var:preset|color|accent-three-500"
 					}
+				},
+				"phase": {
+					"discover": "var:preset|color|phase-one",
+					"create": "var:preset|color|phase-two",
+					"build": "var:preset|color|phase-three",
+					"launch": "var:preset|color|phase-four",
+					"grow": "var:preset|color|phase-five",
+					"evolve": "var:preset|color|phase-six"
+				},
+				"status": {
+					"success": "var:preset|color|success-foreground"
 				},
 				"text-shadow": {
 					"contrast": "var:preset|color|base",
@@ -100,6 +112,12 @@
 				},
 				"card": {
 					"hover": "var(--wp--custom--shadow--elevation--400), 0 28px 56px -28px color-mix(in srgb, var(--wp--custom--color--link--accent) 52%, transparent), 0 14px 30px -18px color-mix(in srgb, var(--wp--custom--color--link--accent) 32%, transparent)"
+				},
+				"popover": {
+					"menu": "0 32px 80px 0 color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 18%, transparent), var(--wp--custom--shadow--elevation--200)"
+				},
+				"footer": {
+					"notes": "0 0 0 1px color-mix(in srgb, var(--wp--custom--color--phase--create) 24%, transparent), 0 0 34px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 18%, transparent)"
 				}
 			}
 		}
