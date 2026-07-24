@@ -19,30 +19,10 @@
 				"left": "var:preset|spacing|10"
 			}
 		},
-		":hover": {
-			"color": {
-				"background": "var:custom|color|surface|card-raised"
-			}
-		},
-		":focus": {
-			"color": {
-				"background": "var:custom|color|surface|card-raised"
-			}
-		},
 		"blocks": {
 			"outermost/icon-block": {
 				"color": {
 					"text": "transparent"
-				},
-				":hover": {
-					"color": {
-						"text": "var:custom|color|text|subtle"
-					}
-				},
-				":focus": {
-					"color": {
-						"text": "var:custom|color|text|subtle"
-					}
 				}
 			}
 		}

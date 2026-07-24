@@ -7,11 +7,27 @@
  * input is already revealed. This intercepts the button's first click to expand + focus the field
  * instead of submitting immediately; a second click (now that the field has focus) submits
  * normally, matching standard expand-to-search UX.
+ *
+ * The collapsed input is zero-width/invisible via CSS but stays in the DOM, so without help it
+ * would still sit in the natural tab order — a keyboard user tabbing past the visible button would
+ * land on a control they can't see or expand (expansion is click-driven, no keyboard-only path
+ * exists). tabindex="-1" is applied while collapsed to skip it, and cleared once expanded so it
+ * behaves like a normal focusable field again.
  */
 ( function () {
 	'use strict';
 
 	var EXPANDED_CLASS = 'site-header__search--expanded';
+
+	function collapseInput( input ) {
+		input.setAttribute( 'tabindex', '-1' );
+	}
+
+	function expandInput( input ) {
+		input.removeAttribute( 'tabindex' );
+	}
+
+	document.querySelectorAll( '.site-header__search .wp-block-search__input' ).forEach( collapseInput );
 
 	document.addEventListener( 'click', function ( event ) {
 		var button = event.target.closest( '.site-header__search .wp-block-search__button' );
@@ -29,6 +45,7 @@
 
 		var input = container.querySelector( '.wp-block-search__input' );
 		if ( input ) {
+			expandInput( input );
 			input.focus();
 		}
 	} );
@@ -43,6 +60,10 @@
 		window.setTimeout( function () {
 			if ( ! container.contains( document.activeElement ) ) {
 				container.classList.remove( EXPANDED_CLASS );
+				var input = container.querySelector( '.wp-block-search__input' );
+				if ( input ) {
+					collapseInput( input );
+				}
 			}
 		}, 0 );
 	} );

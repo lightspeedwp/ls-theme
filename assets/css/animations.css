@@ -1371,11 +1371,14 @@
  * Blurred accent blob behind the nav-column grid, echoing Figma's "Mask Group" glow. Purely
  * decorative and non-interactive, so it's safe to skip under reduced motion (nothing here
  * animates — it's a static blur, included in the reduced-motion block only for parity/consistency).
+ * Targets the explicit .site-footer__columns class rather than :nth-of-type(2) — that selector
+ * counted by tag name among siblings sharing a parent, not a global count of wp-block-columns, so
+ * it was also accidentally matching the nested Company/Studio sub-grid two levels down.
  */
-.site-footer .wp-block-columns:nth-of-type(2) {
+.site-footer__columns {
   position: relative;
 }
-.site-footer .wp-block-columns:nth-of-type(2)::after {
+.site-footer__columns::after {
   content: "";
   position: absolute;
   inset-block-start: 10%;
@@ -1387,7 +1390,7 @@
   pointer-events: none;
   z-index: 0;
 }
-.site-footer .wp-block-columns:nth-of-type(2) > * {
+.site-footer__columns > * {
   position: relative;
   z-index: 1;
 }
