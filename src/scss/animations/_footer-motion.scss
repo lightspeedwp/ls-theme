@@ -90,6 +90,18 @@
 }
 
 /*
+ * Icon Block SVGs (the phase-colour dots beside each nav-column heading, the "Available for
+ * selected projects" checkmark, and the social icons) render with the browser's default SVG fill
+ * — solid black — because none of their <svg> markup declares fill="currentColor". That means the
+ * `color` set via their inline style (the semantic phase/text colour token) was never actually
+ * reaching the icon glyph, in either light or dark mode. Same fix already applied to
+ * is-style-icon-frame-glow and the Services card icon shell elsewhere in this file family.
+ */
+.site-footer .icon-container svg {
+  fill: currentColor;
+}
+
+/*
  * Footer nav links (is-style-footer-nav-link, styles/blocks/paragraphs/footer-nav-link.json):
  * underline reveals on hover/focus by animating decoration-colour from transparent, rather than
  * toggling text-decoration-line itself. Matches the approved reference screenshot, and matches the
