@@ -29,20 +29,6 @@
   }
 }
 
-/* The toggle <button> itself just needs to fill the circle shell above and drop browser chrome. */
-.ls-theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: 100%;
-  block-size: 100%;
-  padding: 0;
-  border: none;
-  background: none;
-  color: inherit;
-  cursor: pointer;
-}
-
 .is-style-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
@@ -101,55 +87,6 @@
     padding-inline: var(--wp--preset--spacing--10);
     border-width: 1px;
     opacity: 1;
-  }
-}
-
-/*
- * Light/dark toggle: sun/moon icon swap based on the current mode. Default (no [data-theme]
- * override present) is the site's light-mode default, so the moon shows first — clicking it
- * offers a switch *to* dark. Once [data-theme="dark"] is set (assets/js/theme-toggle.js), the
- * icons swap to offer a switch back to light.
- */
-.ls-theme-toggle__icon--sun {
-  display: none;
-}
-
-.ls-theme-toggle__icon--moon {
-  display: block;
-}
-
-:root[data-theme="dark"] {
-  .ls-theme-toggle__icon--sun {
-    display: block;
-  }
-
-  .ls-theme-toggle__icon--moon {
-    display: none;
-  }
-}
-
-/*
- * Site logo swap: same convention as the sun/moon icon swap above. Add the class
- * `site-logo--dark` to the logo image block that should show in light mode, and
- * `site-logo--light` to the one that should show in dark mode — set per-environment in the
- * Site Editor (not baked into a pattern), since the logo image is a Media Library upload and its
- * attachment ID/URL is specific to each site's database.
- */
-.site-logo--light {
-  display: none;
-}
-
-.site-logo--dark {
-  display: block;
-}
-
-:root[data-theme="dark"] {
-  .site-logo--light {
-    display: block;
-  }
-
-  .site-logo--dark {
-    display: none;
   }
 }
 

@@ -18,9 +18,6 @@ require get_template_directory() . '/inc/gsap.php';
 /** Loads the presets integration files */
 require get_template_directory() . '/inc/presets.php';
 
-/** Loads the light/dark mode toggle */
-require get_template_directory() . '/inc/theme-toggle.php';
-
 /** Loads site header assets */
 require get_template_directory() . '/inc/header.php';
 
