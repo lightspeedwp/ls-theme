@@ -126,13 +126,44 @@
 }
 
 /*
- * Proof-point cards and social icon circles (styles/blocks/groups/footer-proof-card.json,
- * footer-social-icon.json): subtle background lift on hover/focus, matching the rest of the
- * theme's card-hover conventions. No hover state shown in the Figma reference — added per
- * explicit approval as a consistency default.
+ * Proof-point card (styles/blocks/groups/footer-proof-card.json): base structural CSS — the JSON
+ * file documents this shape but was never actually implemented as real CSS anywhere (these style
+ * variation JSON files aren't auto-consumed by WordPress, see AGENTS.md). Hover lift matches the
+ * rest of the theme's card-hover conventions; no hover state shown in the Figma reference — added
+ * per explicit approval as a consistency default.
  */
-.is-style-footer-proof-card,
+.is-style-footer-proof-card {
+  background-color: var(--wp--custom--color--surface--card);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--300);
+  padding: var(--wp--preset--spacing--20);
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--phase--create);
+  }
+}
+
+/*
+ * Social icon circle (styles/blocks/groups/footer-social-icon.json): same missing-base-CSS gap as
+ * above. min-inline-size and min-block-size are both set explicitly and equal — a border-radius
+ * intended to make a circle only works if the box is actually square first; without a matching
+ * min-block-size, the box's height was left to flex/content sizing, producing an elongated pill
+ * instead of a circle on both desktop and mobile.
+ */
 .is-style-footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: var(--wp--preset--spacing--10);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--500);
+  background-color: var(--wp--custom--color--surface--card);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
