@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"article","className":"is-style-card-work-stat","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-<article class="wp-block-group is-style-card-work-stat">
+<!-- wp:group {"tagName":"article","className":"is-style-stat-segment","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+<article class="wp-block-group is-style-stat-segment">
 
 	<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group">

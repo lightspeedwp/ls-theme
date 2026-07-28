@@ -13,11 +13,11 @@
  */
 
 ?>
-<!-- wp:group {"className":"is-style-card-work-capability-list","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-<div class="wp-block-group is-style-card-work-capability-list">
+<!-- wp:group {"className":"is-style-card-list-shell","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+<div class="wp-block-group is-style-card-list-shell">
 
-	<!-- wp:group {"className":"is-style-card-work-capability-row","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-	<div class="wp-block-group is-style-card-work-capability-row">
+	<!-- wp:group {"className":"is-style-card-divider-bottom","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+	<div class="wp-block-group is-style-card-divider-bottom">
 		<!-- wp:group {"className":"is-style-icon-well-brand"} -->
 		<div class="wp-block-group is-style-icon-well-brand">
 			<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
@@ -40,8 +40,8 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"is-style-card-work-capability-row","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-	<div class="wp-block-group is-style-card-work-capability-row">
+	<!-- wp:group {"className":"is-style-card-divider-bottom","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+	<div class="wp-block-group is-style-card-divider-bottom">
 		<!-- wp:group {"className":"is-style-icon-well-commerce"} -->
 		<div class="wp-block-group is-style-icon-well-commerce">
 			<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->

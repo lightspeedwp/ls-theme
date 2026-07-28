@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Work Stat",
-	"slug": "card-work-stat",
+	"title": "Stat Segment",
+	"slug": "stat-segment",
 	"blockTypes": [
 		"core/group"
 	],

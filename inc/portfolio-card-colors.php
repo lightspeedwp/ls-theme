@@ -31,7 +31,7 @@ function ls_theme_portfolio_card_platform_class( $block_content, $block ) {
 
 	$class_name = $block['attrs']['className'] ?? '';
 
-	$is_banner = false !== strpos( $class_name, 'is-style-card-work-project-banner' );
+	$is_banner = false !== strpos( $class_name, 'is-style-card-banner-tint' );
 	$is_badge  = false !== strpos( $class_name, 'is-style-badge-brand' );
 
 	if ( ! $is_banner && ! $is_badge ) {
@@ -51,7 +51,7 @@ function ls_theme_portfolio_card_platform_class( $block_content, $block ) {
 	}
 
 	if ( $is_banner ) {
-		return str_replace( 'is-style-card-work-project-banner', 'is-style-card-work-project-banner-woocommerce', $block_content );
+		return str_replace( 'is-style-card-banner-tint', 'is-style-card-banner-tint-woocommerce', $block_content );
 	}
 
 	return str_replace( 'is-style-badge-brand', 'is-style-badge-woocommerce', $block_content );

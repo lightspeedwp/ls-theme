@@ -13,21 +13,21 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"article","className":"is-style-card-work-project","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-<article class="wp-block-group is-style-card-work-project">
+<!-- wp:group {"tagName":"article","className":"is-style-card-case-study","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+<article class="wp-block-group is-style-card-case-study">
 
-	<!-- wp:group {"className":"ls-card-work-project__banner is-style-card-work-project-banner","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-	<div class="wp-block-group ls-card-work-project__banner is-style-card-work-project-banner">
-		<!-- wp:group {"className":"is-style-card-work-project-chip"} -->
-		<div class="wp-block-group is-style-card-work-project-chip">
+	<!-- wp:group {"className":"ls-card-case-study__banner is-style-card-banner-tint","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+	<div class="wp-block-group ls-card-case-study__banner is-style-card-banner-tint">
+		<!-- wp:group {"className":"is-style-card-chip"} -->
+		<div class="wp-block-group is-style-card-chip">
 			<!-- wp:post-terms {"term":"project-group","prefix":"Platform · ","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"1.1px"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"ls-card-work-project__content","style":{"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|20"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-	<div class="wp-block-group ls-card-work-project__content" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--20)">
+	<!-- wp:group {"className":"ls-card-case-study__content","style":{"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|20"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+	<div class="wp-block-group ls-card-case-study__content" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--20)">
 
 		<!-- wp:post-terms {"term":"project-group","className":"is-style-badge-brand"} /-->
 
@@ -35,8 +35,8 @@
 
 		<!-- wp:post-excerpt {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} /-->
 
-		<!-- wp:group {"className":"is-style-card-work-project-tags"} -->
-		<div class="wp-block-group is-style-card-work-project-tags">
+		<!-- wp:group {"className":"is-style-card-divider-top"} -->
+		<div class="wp-block-group is-style-card-divider-top">
 			<!-- wp:post-terms {"term":"project-tag","separator":" ","className":"is-style-tag-pills"} /-->
 		</div>
 		<!-- /wp:group -->

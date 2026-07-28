@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"article","className":"is-style-card-work-list","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-<article class="wp-block-group is-style-card-work-list">
+<!-- wp:group {"tagName":"article","className":"is-style-card-checklist","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+<article class="wp-block-group is-style-card-checklist">
 	<!-- wp:list {"className":"is-style-tick-accent"} -->
 	<ul class="wp-block-list is-style-tick-accent">
 		<li><?php echo esc_html__( 'WordPress platforms and publishing systems', 'ls-theme' ); ?></li>

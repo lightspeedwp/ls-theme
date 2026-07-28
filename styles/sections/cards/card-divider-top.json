@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Work Project Tags",
-	"slug": "card-work-project-tags",
+	"title": "Card - Divider Top",
+	"slug": "card-divider-top",
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Tag-row wrapper for the Work Project Card: a single top divider only. Sets border-width explicitly on all four sides to avoid the has-border-color utility class defaulting the other three sides to the browser's default border.",
+	"description": "Row wrapper with a single top divider only. Sets border-width explicitly on all four sides to avoid the has-border-color utility class defaulting the other three sides to the browser's default border. Used by the Work Project Card's tag row.",
 	"styles": {
 		"spacing": {
 			"padding": {

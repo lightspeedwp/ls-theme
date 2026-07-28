@@ -139,8 +139,8 @@ function ls_theme_register_effect_block_styles() {
 		),
 		array(
 			'block_name' => 'core/group',
-			'name'       => 'card-work-category',
-			'label'      => __( 'Card - Work Category', 'ls-theme' ),
+			'name'       => 'card-category',
+			'label'      => __( 'Card - Category', 'ls-theme' ),
 		),
 		array(
 			'block_name' => 'core/group',

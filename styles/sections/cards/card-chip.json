@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Work Project Chip",
-	"slug": "card-work-project-chip",
+	"title": "Card - Chip",
+	"slug": "card-chip",
 	"blockTypes": [
 		"core/group"
 	],

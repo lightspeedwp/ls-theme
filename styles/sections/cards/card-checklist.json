@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Work Next Step",
-	"slug": "card-work-next-step",
+	"title": "Card - Checklist",
+	"slug": "card-checklist",
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact horizontal related-route button for the Work archive: white card surface, solid border, trailing arrow.",
+	"description": "Card shell wrapping a tick-accent checklist for Work archive CTA panels. Adapts between light and dark mode.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -14,17 +14,17 @@
 		},
 		"border": {
 			"color": "var:custom|color|border|card",
-			"radius": "var:preset|border-radius|400",
+			"radius": "var:preset|border-radius|300",
 			"style": "solid",
 			"width": "1px"
 		},
 		"spacing": {
 			"blockGap": "var:preset|spacing|10",
 			"padding": {
-				"top": "var:preset|spacing|20",
-				"right": "var:preset|spacing|20",
-				"bottom": "var:preset|spacing|20",
-				"left": "var:preset|spacing|20"
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
 			}
 		}
 	}

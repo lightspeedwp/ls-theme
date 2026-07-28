@@ -47,8 +47,8 @@
 
 			<!-- wp:column -->
 			<div class="wp-block-column">
-				<!-- wp:group {"tagName":"article","className":"is-style-card-work-category","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-				<article class="wp-block-group is-style-card-work-category">
+				<!-- wp:group {"tagName":"article","className":"is-style-card-category","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+				<article class="wp-block-group is-style-card-category">
 					<!-- wp:group {"className":"is-style-icon-well-brand"} -->
 					<div class="wp-block-group is-style-icon-well-brand">
 						<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
@@ -57,8 +57,8 @@
 					</div>
 					<!-- /wp:group -->
 
-					<!-- wp:group {"className":"ls-card-work-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-					<div class="wp-block-group ls-card-work-category__content">
+					<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+					<div class="wp-block-group ls-card-category__content">
 						<!-- wp:heading {"level":3,"fontSize":"300"} -->
 						<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'WordPress Work', 'ls-theme' ); ?></h3>
 						<!-- /wp:heading -->
@@ -79,8 +79,8 @@
 
 			<!-- wp:column -->
 			<div class="wp-block-column">
-				<!-- wp:group {"tagName":"article","className":"is-style-card-work-category","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-				<article class="wp-block-group is-style-card-work-category">
+				<!-- wp:group {"tagName":"article","className":"is-style-card-category","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+				<article class="wp-block-group is-style-card-category">
 					<!-- wp:group {"className":"is-style-icon-well-brand"} -->
 					<div class="wp-block-group is-style-icon-well-brand">
 						<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
@@ -89,8 +89,8 @@
 					</div>
 					<!-- /wp:group -->
 
-					<!-- wp:group {"className":"ls-card-work-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-					<div class="wp-block-group ls-card-work-category__content">
+					<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+					<div class="wp-block-group ls-card-category__content">
 						<!-- wp:heading {"level":3,"fontSize":"300"} -->
 						<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'WooCommerce Work', 'ls-theme' ); ?></h3>
 						<!-- /wp:heading -->
@@ -111,8 +111,8 @@
 
 			<!-- wp:column -->
 			<div class="wp-block-column">
-				<!-- wp:group {"tagName":"article","className":"is-style-card-work-category","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-				<article class="wp-block-group is-style-card-work-category">
+				<!-- wp:group {"tagName":"article","className":"is-style-card-category","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+				<article class="wp-block-group is-style-card-category">
 					<!-- wp:group {"className":"is-style-icon-well-brand"} -->
 					<div class="wp-block-group is-style-icon-well-brand">
 						<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
@@ -121,8 +121,8 @@
 					</div>
 					<!-- /wp:group -->
 
-					<!-- wp:group {"className":"ls-card-work-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-					<div class="wp-block-group ls-card-work-category__content">
+					<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+					<div class="wp-block-group ls-card-category__content">
 						<!-- wp:heading {"level":3,"fontSize":"300"} -->
 						<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Design-System Work', 'ls-theme' ); ?></h3>
 						<!-- /wp:heading -->

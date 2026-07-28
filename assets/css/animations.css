@@ -378,28 +378,28 @@
 }
 
 /* Card - Work Category */
-.is-style-card-work-category {
-  --ls-card-work-category-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-work-category-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-work-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-work-category-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-work-category-lift: -4px;
+.is-style-card-category {
+  --ls-card-category-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
+  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-category-lift: -4px;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--ls-card-work-category-border-rest);
+  border: 1px solid var(--ls-card-category-border-rest);
   border-radius: var(--wp--preset--border-radius--300);
   background: var(--wp--custom--color--surface--card);
-  box-shadow: var(--ls-card-work-category-shadow-rest);
+  box-shadow: var(--ls-card-category-shadow-rest);
   gap: var(--wp--preset--spacing--20);
   padding: var(--wp--preset--spacing--20);
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
-.is-style-card-work-category:hover, .is-style-card-work-category:focus-within {
-  border-color: var(--ls-card-work-category-border-active);
-  box-shadow: var(--ls-card-work-category-shadow-active);
-  transform: translateY(var(--ls-card-work-category-lift));
+.is-style-card-category:hover, .is-style-card-category:focus-within {
+  border-color: var(--ls-card-category-border-active);
+  box-shadow: var(--ls-card-category-shadow-active);
+  transform: translateY(var(--ls-card-category-lift));
 }
-.is-style-card-work-category .ls-card-work-category__content {
+.is-style-card-category .ls-card-category__content {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -635,7 +635,7 @@
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
-  .is-style-card-work-category,
+  .is-style-card-category,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
@@ -648,8 +648,8 @@
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
-  .is-style-card-work-category:hover,
-  .is-style-card-work-category:focus-within,
+  .is-style-card-category:hover,
+  .is-style-card-category:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within {
     transform: none;
@@ -676,7 +676,7 @@
   }
 }
 /* Card - Work Project (WooCommerce platform colour) */
-.is-style-card-work-project-banner-woocommerce {
+.is-style-card-banner-tint-woocommerce {
   padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 7%, transparent);
 }

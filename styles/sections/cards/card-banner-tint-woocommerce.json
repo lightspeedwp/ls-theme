@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Work Project Banner (WooCommerce)",
-	"slug": "card-work-project-banner-woocommerce",
+	"title": "Card - Banner Tint (WooCommerce)",
+	"slug": "card-banner-tint-woocommerce",
 	"blockTypes": [
 		"core/group"
 	],

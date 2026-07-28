@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Card - Work Category",
-	"slug": "card-work-category",
+	"title": "Card - Link Row",
+	"slug": "card-link-row",
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact card shell for the Work archive's category row: tinted icon well, H3 heading, supporting copy, and inline CTA sitting close to the copy (no bottom-anchored CTA, unlike Card - Feature).",
+	"description": "Compact horizontal related-route button for the Work archive: white card surface, solid border, trailing arrow.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -14,13 +14,12 @@
 		},
 		"border": {
 			"color": "var:custom|color|border|card",
-			"radius": "var:preset|border-radius|300",
+			"radius": "var:preset|border-radius|400",
 			"style": "solid",
 			"width": "1px"
 		},
-		"shadow": "var:preset|shadow|100",
 		"spacing": {
-			"blockGap": "var:preset|spacing|20",
+			"blockGap": "var:preset|spacing|10",
 			"padding": {
 				"top": "var:preset|spacing|20",
 				"right": "var:preset|spacing|20",
