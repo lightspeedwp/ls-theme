@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Work Project Banner",
+	"slug": "card-work-project-banner",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Brand-tinted banner zone for the Work Project Card. Background colour lives here (not inline in the pattern) so the block's saved HTML stays a plain className the validator can round-trip cleanly.",
+	"styles": {
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|40",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|40",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "&{background-color:color-mix(in srgb, var(--wp--custom--color--card--solutions--brand) 7%, transparent);}"
+	}
+}

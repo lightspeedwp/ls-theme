@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Badge - Brand",
+	"slug": "badge-brand",
+	"blockTypes": [
+		"core/post-terms"
+	],
+	"description": "Renders linked terms as a full-width brand-tinted bar, for the Work Project Card's project-type badge (bound to the Portfolio Project Type taxonomy).",
+	"styles": {
+		"color": {
+			"text": "var:custom|color|text|brand"
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|monospace",
+			"fontSize": "var:preset|font-size|100",
+			"fontWeight": "var:custom|typography|font-weight|bold",
+			"textTransform": "uppercase"
+		},
+		"css": "&{display:block;width:100%;max-width:100%;box-sizing:border-box;background-color:color-mix(in srgb, var(--wp--custom--color--card--solutions--brand) 8%, transparent);border-radius:var(--wp--preset--border-radius--200);padding:var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);letter-spacing:1px;} & a{display:block;min-width:0;max-width:100%;white-space:normal;word-break:break-word;color:inherit;text-decoration:none;}"
+	}
+}

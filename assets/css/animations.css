@@ -97,7 +97,7 @@
 }
 
 /* Link Arrow Accent */
-.wp-block-paragraph.is-style-link-arrow-accent a {
+.wp-block-paragraph.is-style-link-arrow-accent a, .wp-block-read-more.is-style-link-arrow-accent a {
   display: inline-flex;
   align-items: center;
   gap: var(--ls-link-arrow-gap, 0.45ch);
@@ -107,16 +107,16 @@
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), gap var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
   transition-delay: var(--wp--custom--animation--delay--none);
 }
-.wp-block-paragraph.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a::after, .wp-block-read-more.is-style-link-arrow-accent a::after {
   content: "\2192";
   display: inline-block;
   transform: translateX(0);
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .wp-block-read-more.is-style-link-arrow-accent a:hover, .wp-block-read-more.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-work-project:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-work-project:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-work-project:hover .wp-block-read-more.is-style-link-arrow-accent a, .is-style-card-work-project:focus-within .wp-block-read-more.is-style-link-arrow-accent a {
   color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
 }
-.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .wp-block-read-more.is-style-link-arrow-accent a:hover::after, .wp-block-read-more.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-work-project:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-work-project:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-work-project:hover .wp-block-read-more.is-style-link-arrow-accent a::after, .is-style-card-work-project:focus-within .wp-block-read-more.is-style-link-arrow-accent a::after {
   transform: translateX(var(--ls-link-arrow-offset, 0.35em));
 }
 
@@ -600,6 +600,42 @@
   margin: 0;
 }
 
+/* Card - Work Project */
+.is-style-card-work-project {
+  --ls-card-work-project-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-work-project-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-work-project-lift: -6px;
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
+}
+.is-style-card-work-project:hover, .is-style-card-work-project:focus-within {
+  border-color: var(--ls-card-work-project-border-active);
+  box-shadow: var(--ls-card-work-project-shadow-active);
+  transform: translateY(var(--ls-card-work-project-lift));
+}
+
+/* Card - Work Next Step */
+.is-style-card-work-next-step {
+  --ls-card-work-next-step-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-work-next-step-shadow-active: var(--wp--custom--shadow--card--hover);
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
+}
+.is-style-card-work-next-step:hover, .is-style-card-work-next-step:focus-within {
+  border-color: var(--ls-card-work-next-step-border-active);
+  box-shadow: var(--ls-card-work-next-step-shadow-active);
+}
+
+/* Card - Work Project: equal-height grid cells, CTA pinned to the bottom */
+.wp-block-post-template.is-layout-grid > .is-style-card-work-project {
+  height: 100%;
+}
+.is-style-card-work-project .ls-card-work-project__content {
+  flex: 1 1 auto;
+}
+.is-style-card-work-project .wp-block-read-more {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
@@ -611,7 +647,9 @@
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
   .is-style-icon-frame-glow,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent),
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading,
+  .is-style-card-work-project,
+  .is-style-card-work-next-step {
     transition: none;
   }
   .is-style-glass-card:hover,
@@ -619,7 +657,9 @@
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
   .is-style-card-services:hover,
-  .is-style-card-services:focus-within {
+  .is-style-card-services:focus-within,
+  .is-style-card-work-project:hover,
+  .is-style-card-work-project:focus-within {
     transform: none;
   }
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
@@ -628,7 +668,9 @@
   .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .is-style-card-work-project:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .is-style-card-work-project:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
     transform: none;
   }
   .is-style-card-services:hover::before,

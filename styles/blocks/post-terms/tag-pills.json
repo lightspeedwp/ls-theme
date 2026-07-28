@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Tag Pills",
+	"slug": "tag-pills",
+	"blockTypes": [
+		"core/post-terms"
+	],
+	"description": "Renders each linked term as an individual pill chip, for the Work Project Card tag row (bound to the Portfolio Service taxonomy).",
+	"styles": {
+		"color": {
+			"text": "var:custom|color|text|muted"
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|monospace",
+			"fontSize": "var:preset|font-size|100",
+			"fontWeight": "var:custom|typography|font-weight|bold"
+		},
+		"css": "&{display:flex;flex-wrap:wrap;gap:var(--wp--preset--spacing--5);max-width:100%;} & a{display:inline-block;min-width:0;max-width:100%;box-sizing:border-box;white-space:normal;word-break:break-word;background-color:var(--wp--custom--color--surface--card-raised);color:var(--wp--custom--color--text--muted);border-radius:var(--wp--preset--border-radius--100);padding:var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);text-decoration:none;}"
+	}
+}
