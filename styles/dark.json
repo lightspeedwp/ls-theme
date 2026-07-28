@@ -36,7 +36,8 @@
 				},
 				"icon": {
 					"background": "var:preset|color|cta-500",
-					"color": "var:preset|color|contrast"
+					"color": "var:preset|color|contrast",
+					"commerce": "var:preset|color|warning-foreground"
 				},
 				"card": {
 					"solutions": {

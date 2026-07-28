@@ -506,7 +506,8 @@
                 },
                 "icon": {
                     "background": "var:preset|color|brand-500",
-                    "color": "var:preset|color|base"
+                    "color": "var:preset|color|base",
+                    "commerce": "var:preset|color|warning-foreground"
                 },
                 "card": {
                     "solutions": {
@@ -716,6 +717,13 @@
         {
             "name": "page-no-title",
             "title": "Page (No Title)",
+            "postTypes": [
+                "page"
+            ]
+        },
+        {
+            "name": "page-work-archive",
+            "title": "Work Archive",
             "postTypes": [
                 "page"
             ]
