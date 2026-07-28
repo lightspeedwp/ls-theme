@@ -21,6 +21,9 @@ require get_template_directory() . '/inc/presets.php';
 /** Loads site header assets */
 require get_template_directory() . '/inc/header.php';
 
+/** Loads Portfolio card platform-colour swapping */
+require get_template_directory() . '/inc/portfolio-card-colors.php';
+
 /**
  * Sets up theme supports.
  */

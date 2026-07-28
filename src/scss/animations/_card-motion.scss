@@ -202,6 +202,44 @@
   }
 }
 
+/* Card - Work Category */
+.is-style-card-work-category {
+  --ls-card-work-category-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-work-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-work-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
+  --ls-card-work-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-work-category-lift: -4px;
+  @include surface.surface-card(
+    $radius: var(--wp--preset--border-radius--300),
+    $border: 1px solid var(--ls-card-work-category-border-rest),
+    $background: var(--wp--custom--color--surface--card),
+    $shadow: var(--ls-card-work-category-shadow-rest)
+  );
+  gap: var(--wp--preset--spacing--20);
+  padding: var(--wp--preset--spacing--20);
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-work-category-border-active);
+    box-shadow: var(--ls-card-work-category-shadow-active);
+    transform: translateY(var(--ls-card-work-category-lift));
+  }
+
+  .ls-card-work-category__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--10);
+  }
+}
+
 /* Card - Services */
 .is-style-card-services {
   --ls-card-services-border-rest: var(--wp--custom--color--border--card);
@@ -486,6 +524,7 @@
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-work-category,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
@@ -500,6 +539,8 @@
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
+  .is-style-card-work-category:hover,
+  .is-style-card-work-category:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within {
     transform: none;
@@ -528,5 +569,50 @@
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
     .is-style-icon-frame-glow {
     transform: none;
+  }
+}
+
+/* Card - Work Project (WooCommerce platform colour) */
+.is-style-card-work-project-banner-woocommerce {
+  padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 7%, transparent);
+}
+
+.is-style-badge-woocommerce {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  text-transform: uppercase;
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+  border-radius: var(--wp--preset--border-radius--200);
+  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+  letter-spacing: 1px;
+}
+
+/* Badge - multi-term wrapping (WordPress and WooCommerce both bind to
+   project-group, which can carry more than one term per post; core/post-terms
+   forces its links to display:block by default, which stacks each term
+   onto its own line and leaves the ", " separator orphaned on its own row) */
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+
+  a {
+    display: inline;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .wp-block-post-terms__separator {
+    margin-inline-end: var(--wp--preset--spacing--5);
   }
 }

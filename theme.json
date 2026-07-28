@@ -513,6 +513,10 @@
                     "solutions": {
                         "brand": "var:preset|color|brand-500",
                         "accent": "var:preset|color|accent-500"
+                    },
+                    "platform": {
+                        "wordpress": "var:preset|color|brand-500",
+                        "woocommerce": "var:preset|color|cta-800"
                     }
                 },
                 "phase": {

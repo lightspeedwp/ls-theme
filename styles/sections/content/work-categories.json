@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Work Categories Section",
+	"slug": "work-categories",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Full-width content band for the Work archive's category grid: flat near-white background, standard section padding. No gradient, unlike the Hero section's effect.hero tokens.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|90",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}

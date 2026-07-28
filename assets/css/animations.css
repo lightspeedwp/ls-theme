@@ -97,7 +97,7 @@
 }
 
 /* Link Arrow Accent */
-.wp-block-paragraph.is-style-link-arrow-accent a, .wp-block-read-more.is-style-link-arrow-accent a {
+.wp-block-paragraph.is-style-link-arrow-accent a {
   display: inline-flex;
   align-items: center;
   gap: var(--ls-link-arrow-gap, 0.45ch);
@@ -107,16 +107,16 @@
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), gap var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
   transition-delay: var(--wp--custom--animation--delay--none);
 }
-.wp-block-paragraph.is-style-link-arrow-accent a::after, .wp-block-read-more.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a::after {
   content: "\2192";
   display: inline-block;
   transform: translateX(0);
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .wp-block-read-more.is-style-link-arrow-accent a:hover, .wp-block-read-more.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-work-project:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-work-project:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-work-project:hover .wp-block-read-more.is-style-link-arrow-accent a, .is-style-card-work-project:focus-within .wp-block-read-more.is-style-link-arrow-accent a {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
   color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
 }
-.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .wp-block-read-more.is-style-link-arrow-accent a:hover::after, .wp-block-read-more.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-work-project:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-work-project:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-work-project:hover .wp-block-read-more.is-style-link-arrow-accent a::after, .is-style-card-work-project:focus-within .wp-block-read-more.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
   transform: translateX(var(--ls-link-arrow-offset, 0.35em));
 }
 
@@ -377,6 +377,35 @@
   transform: rotate(-5deg) scale(0.98);
 }
 
+/* Card - Work Category */
+.is-style-card-work-category {
+  --ls-card-work-category-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-work-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-work-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
+  --ls-card-work-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-work-category-lift: -4px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ls-card-work-category-border-rest);
+  border-radius: var(--wp--preset--border-radius--300);
+  background: var(--wp--custom--color--surface--card);
+  box-shadow: var(--ls-card-work-category-shadow-rest);
+  gap: var(--wp--preset--spacing--20);
+  padding: var(--wp--preset--spacing--20);
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
+}
+.is-style-card-work-category:hover, .is-style-card-work-category:focus-within {
+  border-color: var(--ls-card-work-category-border-active);
+  box-shadow: var(--ls-card-work-category-shadow-active);
+  transform: translateY(var(--ls-card-work-category-lift));
+}
+.is-style-card-work-category .ls-card-work-category__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--10);
+}
+
 /* Card - Services */
 .is-style-card-services {
   --ls-card-services-border-rest: var(--wp--custom--color--border--card);
@@ -600,66 +629,29 @@
   margin: 0;
 }
 
-/* Card - Work Project */
-.is-style-card-work-project {
-  --ls-card-work-project-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-work-project-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-work-project-lift: -6px;
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-card-work-project:hover, .is-style-card-work-project:focus-within {
-  border-color: var(--ls-card-work-project-border-active);
-  box-shadow: var(--ls-card-work-project-shadow-active);
-  transform: translateY(var(--ls-card-work-project-lift));
-}
-
-/* Card - Work Next Step */
-.is-style-card-work-next-step {
-  --ls-card-work-next-step-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-work-next-step-shadow-active: var(--wp--custom--shadow--card--hover);
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
-}
-.is-style-card-work-next-step:hover, .is-style-card-work-next-step:focus-within {
-  border-color: var(--ls-card-work-next-step-border-active);
-  box-shadow: var(--ls-card-work-next-step-shadow-active);
-}
-
-/* Card - Work Project: equal-height grid cells, CTA pinned to the bottom */
-.wp-block-post-template.is-layout-grid > .is-style-card-work-project {
-  height: 100%;
-}
-.is-style-card-work-project .ls-card-work-project__content {
-  flex: 1 1 auto;
-}
-.is-style-card-work-project .wp-block-read-more {
-  margin-top: auto;
-  margin-bottom: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-work-category,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
   .is-style-icon-frame-glow,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent),
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading,
-  .is-style-card-work-project,
-  .is-style-card-work-next-step {
+  :is(.is-style-card-solutions, .is-style-card-solutions-accent) .wp-block-heading {
     transition: none;
   }
   .is-style-glass-card:hover,
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
+  .is-style-card-work-category:hover,
+  .is-style-card-work-category:focus-within,
   .is-style-card-services:hover,
-  .is-style-card-services:focus-within,
-  .is-style-card-work-project:hover,
-  .is-style-card-work-project:focus-within {
+  .is-style-card-services:focus-within {
     transform: none;
   }
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
@@ -668,9 +660,7 @@
   .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-work-project:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-work-project:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
     transform: none;
   }
   .is-style-card-services:hover::before,
@@ -685,6 +675,49 @@
     transform: none;
   }
 }
+/* Card - Work Project (WooCommerce platform colour) */
+.is-style-card-work-project-banner-woocommerce {
+  padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 7%, transparent);
+}
+
+.is-style-badge-woocommerce {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  text-transform: uppercase;
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+  border-radius: var(--wp--preset--border-radius--200);
+  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+  letter-spacing: 1px;
+}
+
+/* Badge - multi-term wrapping (WordPress and WooCommerce both bind to
+   project-group, which can carry more than one term per post; core/post-terms
+   forces its links to display:block by default, which stacks each term
+   onto its own line and leaves the ", " separator orphaned on its own row) */
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) a {
+  display: inline;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  color: inherit;
+  text-decoration: none;
+}
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) .wp-block-post-terms__separator {
+  margin-inline-end: var(--wp--preset--spacing--5);
+}
+
 /********** Button Motion **********/
 .wp-block-button:not([class*=is-style-]),
 .wp-block-button.is-style-fill,
@@ -1601,4 +1634,41 @@
   .site-header__search .wp-block-search__input {
     transition: none;
   }
+}
+/********** Taxonomy Filter (ls-plugin/taxonomy-filter) **********/
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wp--preset--spacing--10);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--wp--preset--color--neutral-200);
+  border-radius: var(--wp--preset--border-radius--500);
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  background: transparent;
+  color: var(--wp--custom--color--text--muted);
+  font-family: var(--wp--preset--font-family--body);
+  font-weight: var(--wp--custom--typography--font-weight--semibold);
+  font-size: var(--wp--preset--font-size--100);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button:hover, .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button:focus-visible {
+  border-color: var(--wp--custom--color--link--accent);
+  background-color: transparent;
+  color: var(--wp--custom--color--link--accent);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current {
+  border-color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: var(--wp--custom--color--card--platform--wordpress);
+  color: var(--wp--custom--color--text--on-dark);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current:hover, .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current:focus-visible {
+  border-color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: var(--wp--custom--color--card--platform--wordpress);
+  color: var(--wp--custom--color--text--on-dark);
 }
