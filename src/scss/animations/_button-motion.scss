@@ -239,6 +239,20 @@
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
+/* Button - Secondary */
+.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
+  background-color: var(--wp--custom--color--button--fill--background-hover);
+  border-color: var(--wp--custom--color--button--fill--border-hover);
+  color: var(--wp--custom--color--button--fill--text-hover);
+}
+
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
+  background-color: var(--wp--custom--color--button--outline--background-hover);
+  color: var(--wp--custom--color--button--outline--text-hover);
+}
+
 /* Glass Button */
 .wp-block-button.is-style-glass-button {
   max-inline-size: 100%;

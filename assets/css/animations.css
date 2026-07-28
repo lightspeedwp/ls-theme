@@ -629,6 +629,23 @@
   margin: 0;
 }
 
+/* Card - Link Row */
+.is-style-card-link-row {
+  --ls-card-link-row-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-link-row-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
+  --ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);
+  border-color: var(--ls-card-link-row-border-rest);
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.is-style-card-link-row:hover, .is-style-card-link-row:focus-within {
+  background-color: var(--ls-card-link-row-background-active);
+  border-color: var(--ls-card-link-row-border-active);
+}
+.is-style-card-link-row:hover .wp-block-outermost-icon-block .icon-container, .is-style-card-link-row:focus-within .wp-block-outermost-icon-block .icon-container {
+  color: var(--ls-card-link-row-icon-active) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
@@ -636,6 +653,7 @@
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   .is-style-card-category,
+  .is-style-card-link-row,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
@@ -673,6 +691,20 @@
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .is-style-icon-frame-glow,
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .is-style-icon-frame-glow {
     transform: none;
+  }
+}
+/*
+ * Stat Segment: its border-inline-end divider (styles/sections/cards/stat-segment.json) reads as
+ * a vertical rule between adjacent columns in a `wp:columns` row. Below core/columns' own native
+ * stacking breakpoint (WP core hardcodes this at `max-width: 781px` in
+ * wp-includes/blocks/columns/style.css — mirrored here as the `columns-stack` entry in
+ * theme.json's settings.custom.layout.break-points), each column becomes full-width, so that same
+ * border would just show as a stray line down the right edge of every stacked segment. Drop it at
+ * that same breakpoint instead.
+ */
+@media (max-width: 781.98px) {
+  .is-style-stat-segment {
+    border-inline-end: none;
   }
 }
 /* Card - Work Project (WooCommerce platform colour) */
@@ -882,6 +914,20 @@
 .wp-block-button.is-style-outline .wp-block-button__link:hover::after,
 .wp-block-button.is-style-outline .wp-block-button__link:focus-visible::after {
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
+}
+
+/* Button - Secondary */
+.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
+  background-color: var(--wp--custom--color--button--fill--background-hover);
+  border-color: var(--wp--custom--color--button--fill--border-hover);
+  color: var(--wp--custom--color--button--fill--text-hover);
+}
+
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
+  background-color: var(--wp--custom--color--button--outline--background-hover);
+  color: var(--wp--custom--color--button--outline--text-hover);
 }
 
 /* Glass Button */
@@ -1553,6 +1599,21 @@
   }
 }
 /********** Site Header **********/
+/*
+ * Below core/navigation's own native overlay-menu breakpoint (core WP hardcodes this at
+ * `min-width: 600px` in wp-includes/blocks/navigation/style.css — mirrored here as the
+ * `nav-toggle` entry in theme.json's settings.custom.layout.break-points, synced via
+ * `npm run sync:breakpoints`), the nav collapses to its own hamburger toggle automatically.
+ * Hide the search control and CTA button at that same breakpoint so the header row only has
+ * the logo and the (collapsed) nav left — with `justifyContent:"space-between"` already set on
+ * the header row, that alone pushes the hamburger to the far right, matching the desktop layout
+ * where it sits at the end of the row.
+ */
+@media (max-width: 599.98px) {
+  .site-header__actions {
+    display: none;
+  }
+}
 /*
  * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
  * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept

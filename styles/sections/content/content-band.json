@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
-	"title": "Work Categories Section",
-	"slug": "work-categories",
+	"title": "Content Band",
+	"slug": "content-band",
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Full-width content band for the Work archive's category grid: flat near-white background, standard section padding. No gradient, unlike the Hero section's effect.hero tokens.",
+	"description": "Full-width content band for a page section: flat canvas background, standard section padding. Generic — shared by every Work archive section (Categories, Selected Projects, Stats Grid, Discuss Project, Related Routes) and any future section with the same plain band treatment.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|canvas"

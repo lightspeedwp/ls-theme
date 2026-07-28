@@ -471,7 +471,9 @@
                     "tablet-portrait": "768px",
                     "mobile-landscape": "640px",
                     "mobile-portrait": "390px",
-                    "mobile-compact": "320px"
+                    "mobile-compact": "320px",
+                    "nav-toggle": "600px",
+                    "columns-stack": "782px"
                 }
             },
             "color": {

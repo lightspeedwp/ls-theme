@@ -1,6 +1,7 @@
 @use "../abstracts/mixins/glass";
 @use "../abstracts/mixins/motion";
 @use "../abstracts/mixins/surface";
+@use "../abstracts/mixins/mq";
 
 /********** Card Motion **********/
 
@@ -518,6 +519,31 @@
   }
 }
 
+/* Card - Link Row */
+.is-style-card-link-row {
+  --ls-card-link-row-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-link-row-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
+  --ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);
+  border-color: var(--ls-card-link-row-border-rest);
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--ls-card-link-row-background-active);
+    border-color: var(--ls-card-link-row-border-active);
+  }
+
+  &:hover .wp-block-outermost-icon-block .icon-container,
+  &:focus-within .wp-block-outermost-icon-block .icon-container {
+    color: var(--ls-card-link-row-icon-active) !important;
+  }
+}
+
 @include motion.reduced-motion {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
@@ -525,6 +551,7 @@
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   .is-style-card-category,
+  .is-style-card-link-row,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
@@ -569,6 +596,21 @@
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
     .is-style-icon-frame-glow {
     transform: none;
+  }
+}
+
+/*
+ * Stat Segment: its border-inline-end divider (styles/sections/cards/stat-segment.json) reads as
+ * a vertical rule between adjacent columns in a `wp:columns` row. Below core/columns' own native
+ * stacking breakpoint (WP core hardcodes this at `max-width: 781px` in
+ * wp-includes/blocks/columns/style.css — mirrored here as the `columns-stack` entry in
+ * theme.json's settings.custom.layout.break-points), each column becomes full-width, so that same
+ * border would just show as a stray line down the right edge of every stacked segment. Drop it at
+ * that same breakpoint instead.
+ */
+@include mq.mq($until: "columns-stack") {
+  .is-style-stat-segment {
+    border-inline-end: none;
   }
 }
 

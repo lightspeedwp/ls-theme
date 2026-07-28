@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-work-categories","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-work-categories">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
@@ -26,8 +26,8 @@
 			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
 				<!-- wp:pattern {"slug":"ls-theme/eyebrow-badge"} /-->
 
-				<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"600"} -->
-				<h2 class="wp-block-heading has-600-font-size" style="margin-top:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Three recurring areas of work.', 'ls-theme' ); ?></h2>
+				<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"500"} -->
+				<h2 class="wp-block-heading has-500-font-size" style="margin-top:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Three recurring areas of work.', 'ls-theme' ); ?></h2>
 				<!-- /wp:heading -->
 			</div>
 			<!-- /wp:column -->

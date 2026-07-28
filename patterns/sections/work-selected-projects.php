@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-work-selected-projects","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-work-selected-projects">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
@@ -36,8 +36,8 @@
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"700"} -->
-				<h2 class="wp-block-heading has-700-font-size" style="margin-top:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Platform work across WordPress, WooCommerce and design systems.', 'ls-theme' ); ?></h2>
+				<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"500"} -->
+				<h2 class="wp-block-heading has-500-font-size" style="margin-top:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Platform work across WordPress, WooCommerce and design systems.', 'ls-theme' ); ?></h2>
 				<!-- /wp:heading -->
 			</div>
 			<!-- /wp:column -->
@@ -52,7 +52,7 @@
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","inherit":false},"align":"wide","enhancedPagination":true,"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
+		<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","inherit":false},"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
 		<div class="wp-block-query alignwide" style="margin-top:var(--wp--preset--spacing--40)">
 
 			<!-- wp:ls-plugin/taxonomy-filter {"taxonomy":{"name":"Project groups","all_items":"All","slug":"project-group","rest_base":"project-group"},"filterType":"buttons","allItemsText":"All","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} /-->

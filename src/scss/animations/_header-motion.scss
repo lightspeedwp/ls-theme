@@ -1,6 +1,23 @@
 @use "../abstracts/mixins/motion";
+@use "../abstracts/mixins/mq";
 
 /********** Site Header **********/
+
+/*
+ * Below core/navigation's own native overlay-menu breakpoint (core WP hardcodes this at
+ * `min-width: 600px` in wp-includes/blocks/navigation/style.css — mirrored here as the
+ * `nav-toggle` entry in theme.json's settings.custom.layout.break-points, synced via
+ * `npm run sync:breakpoints`), the nav collapses to its own hamburger toggle automatically.
+ * Hide the search control and CTA button at that same breakpoint so the header row only has
+ * the logo and the (collapsed) nav left — with `justifyContent:"space-between"` already set on
+ * the header row, that alone pushes the hamburger to the far right, matching the desktop layout
+ * where it sits at the end of the row.
+ */
+@include mq.mq($until: "nav-toggle") {
+  .site-header__actions {
+    display: none;
+  }
+}
 
 /*
  * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
