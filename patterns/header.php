@@ -15,7 +15,7 @@
 <figure class="wp-block-image size-full"><img src="http://localhost:8882/wp-content/uploads/2026/07/image-1.png" alt="<?php echo esc_attr__( 'LightSpeed', 'ls-theme' ); ?>" class="wp-image-225"/></figure>
 <!-- /wp:image -->
 
-<!-- wp:navigation {"ref":226,"layout":{"type":"flex","justifyContent":"left","flexWrap":"nowrap"}} /-->
+<!-- wp:navigation {"ref":226,"mobileMenuSlug":"mobile-menu","mobileMenuBreakpointEnabled":true,"mobileMenuBreakpoint":1024,"layout":{"type":"flex","justifyContent":"left","flexWrap":"nowrap"}} /-->
 
 <!-- wp:group {"className":"site-header__actions","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group site-header__actions"><!-- wp:group {"className":"site-header__search","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->

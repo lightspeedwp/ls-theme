@@ -1,0 +1,196 @@
+@use "../abstracts/mixins/motion";
+
+/********** Mobile Menu (Ollie Menu Designer mobileMenuSlug drawer) **********/
+
+/*
+ * Logo row + close button. The close button is WP core's own
+ * .wp-block-navigation__responsive-container-close — rendered as a sibling before the injected
+ * mobileMenuSlug content, not part of this template part — so it can only be reached and aligned
+ * via a global selector, not through markup here. Core's default top:0/right:0 plus the content's
+ * default padding-top: calc(2rem + 24px) (wp-includes/blocks/navigation/style.css) is what was
+ * producing the oversized gap above the logo; both are overridden to the same spacing token here
+ * so the logo row and the close button land on the same line. Styled with the same circular
+ * icon-button language as the header's search/theme-toggle buttons
+ * (styles/blocks/groups/header-icon-button.json) for visual consistency.
+ *
+ * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
+ * but these are otherwise generic core class names that would restyle any Navigation block's
+ * overlay drawer anywhere on the site if left unscoped.
+ */
+.site-header .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay)
+  .wp-block-navigation__responsive-container-content {
+  padding-top: var(--wp--preset--spacing--20);
+}
+
+.site-header .wp-block-navigation__responsive-container-close {
+  position: absolute;
+  top: var(--wp--preset--spacing--20);
+  right: var(--wp--preset--spacing--20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: var(--wp--preset--spacing--10);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--500);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  svg {
+    inline-size: 20px;
+    block-size: 20px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--phase--create);
+  }
+}
+
+@include motion.reduced-motion {
+  .site-header .wp-block-navigation__responsive-container-close {
+    transition: none;
+  }
+}
+
+/*
+ * core/details already ships a full card-style accordion (border, background, chevron, hover,
+ * [open] state) globally via styles/presets/blocks/core-details.json + _details-motion.scss. The
+ * mobile drawer wants that same disclosure mechanism but flattened into a full-width list row
+ * (no individual card border/background/shadow, no hover lift) with a divider between siblings
+ * instead — none of which is expressible in theme.json, so it's layered on here rather than
+ * duplicating the chevron/open logic that already exists.
+ */
+.mobile-menu > .mobile-menu-accordion,
+.mobile-menu > .mobile-menu-link-row {
+  border: none;
+  border-bottom: 1px solid var(--wp--custom--color--border--card);
+  border-radius: 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.mobile-menu > .mobile-menu-accordion {
+  background: none;
+  box-shadow: none;
+
+  &:hover,
+  &[open],
+  &[open]:hover {
+    background: none;
+    border-color: var(--wp--custom--color--border--card);
+    box-shadow: none;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  /*
+   * Fixed min-block-size (rather than relying on padding + line-height parity with
+   * .mobile-menu-link-row below) so every top-level row — whether a <summary> with its chevron
+   * or a plain <a> — renders at the exact same height regardless of small content differences.
+   * padding-inline-end keeps a little clearance for the chevron: zeroing it entirely (matching
+   * the row's flush-left text) let the rotated 10px chevron's diagonal corners get clipped by
+   * .wp-block-details's own overflow:hidden.
+   */
+  > summary {
+    min-block-size: 3rem;
+    padding-inline: 0 var(--wp--preset--spacing--10);
+    padding-block: 0;
+    font-size: var(--wp--preset--font-size--200);
+    font-weight: var(--wp--custom--typography--font-weight--semibold);
+  }
+
+  > :where(:not(summary)) {
+    padding-inline: 0;
+  }
+
+  &[open] > summary {
+    border-bottom-color: var(--wp--custom--color--border--card);
+  }
+
+  /*
+   * The card-style focus ring from _details-motion.scss's base :focus-within rule doesn't fit
+   * this flattened row (it draws a border-colour box-shadow meant for the bordered card look),
+   * so it's suppressed above — but that must not mean no focus indicator at all. :focus-visible
+   * on the summary itself restores a visible keyboard-focus outline instead.
+   */
+  &:focus-within {
+    box-shadow: none;
+  }
+
+  > summary:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: -2px;
+  }
+}
+
+.mobile-menu-link-row {
+  margin: 0;
+
+  a {
+    display: flex;
+    align-items: center;
+    min-block-size: 3rem;
+    font-family: var(--wp--preset--font-family--heading);
+    font-size: var(--wp--preset--font-size--200);
+    font-weight: var(--wp--custom--typography--font-weight--semibold);
+    color: var(--wp--custom--color--text--default);
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: 2px solid var(--wp--custom--color--focus--ring);
+      outline-offset: -2px;
+    }
+  }
+}
+
+/*
+ * Footer CTAs (Book a consultation / Start a project): reuse the existing pill button styles,
+ * just stretched to the drawer's full width. No top border here — Contact (the row directly
+ * above) isn't actually :last-child of .mobile-menu once this buttons group follows it, so its
+ * own row divider already renders; adding one here too produced a doubled-up divider line.
+ */
+.mobile-menu-actions {
+  padding-block-start: var(--wp--preset--spacing--20);
+
+  .wp-block-button {
+    width: 100%;
+  }
+
+  .wp-block-button__link {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/*
+ * Services accordion: phase groups are separated by dashed dividers rather than solid ones,
+ * keeping the lighter-weight hierarchy the desktop Services panel also uses between phase
+ * columns. core/separator has no "style: dashed" support declared in its block.json, so setting
+ * that via a block style attribute fails Gutenberg's save-output validation — the dashed look is
+ * applied here instead, against the plain default-attribute wp:separator markup.
+ */
+.mobile-menu-accordion-services hr.wp-block-separator {
+  margin-block: var(--wp--preset--spacing--10);
+  border-style: dashed;
+}
+
+.mobile-menu-brand {
+  min-block-size: 44px;
+  padding-block-end: var(--wp--preset--spacing--20);
+  border-block-end: 1px solid var(--wp--custom--color--border--card);
+
+  .wp-block-site-logo img {
+    display: block;
+    max-block-size: 32px;
+    inline-size: auto;
+  }
+}
