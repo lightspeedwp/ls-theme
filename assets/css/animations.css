@@ -377,6 +377,35 @@
   transform: rotate(-5deg) scale(0.98);
 }
 
+/* Card - Work Category */
+.is-style-card-category {
+  --ls-card-category-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
+  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-category-lift: -4px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ls-card-category-border-rest);
+  border-radius: var(--wp--preset--border-radius--300);
+  background: var(--wp--custom--color--surface--card);
+  box-shadow: var(--ls-card-category-shadow-rest);
+  gap: var(--wp--preset--spacing--20);
+  padding: var(--wp--preset--spacing--20);
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
+}
+.is-style-card-category:hover, .is-style-card-category:focus-within {
+  border-color: var(--ls-card-category-border-active);
+  box-shadow: var(--ls-card-category-shadow-active);
+  transform: translateY(var(--ls-card-category-lift));
+}
+.is-style-card-category .ls-card-category__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--10);
+}
+
 /* Card - Services */
 .is-style-card-services {
   --ls-card-services-border-rest: var(--wp--custom--color--border--card);
@@ -600,12 +629,50 @@
   margin: 0;
 }
 
+/* Card - Link Row */
+.is-style-card-link-row {
+  --ls-card-link-row-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-link-row-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
+  --ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);
+  position: relative;
+  border-color: var(--ls-card-link-row-border-rest);
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.is-style-card-link-row:hover, .is-style-card-link-row:focus-within {
+  background-color: var(--ls-card-link-row-background-active);
+  border-color: var(--ls-card-link-row-border-active);
+}
+.is-style-card-link-row:hover .wp-block-outermost-icon-block .icon-container, .is-style-card-link-row:focus-within .wp-block-outermost-icon-block .icon-container {
+  color: var(--ls-card-link-row-icon-active) !important;
+}
+.is-style-card-link-row {
+  /* Stretched-link pattern: the visible <a> only wraps the title text, but its
+   * ::before covers the whole card so the entire row is clickable — while
+   * keeping a single real, keyboard-focusable link (not a fake click handler). */
+}
+.is-style-card-link-row .ls-card-link-row__link {
+  color: inherit;
+  text-decoration: none;
+}
+.is-style-card-link-row .ls-card-link-row__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.is-style-card-link-row .ls-card-link-row__link:focus-visible {
+  outline: 2px solid var(--wp--custom--color--focus--ring);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-category,
+  .is-style-card-link-row,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
@@ -618,6 +685,8 @@
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
+  .is-style-card-category:hover,
+  .is-style-card-category:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within {
     transform: none;
@@ -643,6 +712,73 @@
     transform: none;
   }
 }
+/*
+ * Stat Segment: its border-inline-end divider (styles/sections/cards/stat-segment.json) reads as
+ * a vertical rule between adjacent columns in a `wp:columns` row. Below core/columns' own native
+ * stacking breakpoint (WP core hardcodes this at `max-width: 781px` in
+ * wp-includes/blocks/columns/style.css — mirrored here as the `columns-stack` entry in
+ * theme.json's settings.custom.layout.break-points), each column becomes full-width, so that same
+ * border would just show as a stray line down the right edge of every stacked segment. Drop it at
+ * that same breakpoint instead.
+ */
+@media (max-width: 781.98px) {
+  .is-style-stat-segment {
+    border-inline-end: none;
+  }
+}
+/*
+ * The last column in a stat row (e.g. "Tokens") reuses is-style-stat-segment for its shared
+ * spacing/colour contract like every sibling, but shouldn't carry a trailing divider — there's no
+ * column after it to divide from. Suppress it by position instead of duplicating the shared
+ * style's properties on a class-less wrapper.
+ */
+.wp-block-columns > .wp-block-column:last-child > .is-style-stat-segment {
+  border-inline-end: none;
+}
+
+/* Card - Work Project (WooCommerce platform colour) */
+.is-style-card-banner-tint-woocommerce {
+  padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 7%, transparent);
+}
+
+.is-style-badge-woocommerce {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  text-transform: uppercase;
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+  border-radius: var(--wp--preset--border-radius--200);
+  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+  letter-spacing: 1px;
+}
+
+/* Badge - multi-term wrapping (WordPress and WooCommerce both bind to
+   project-group, which can carry more than one term per post; core/post-terms
+   forces its links to display:block by default, which stacks each term
+   onto its own line and leaves the ", " separator orphaned on its own row) */
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) a {
+  display: inline;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: inherit;
+  text-decoration: none;
+}
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) .wp-block-post-terms__separator {
+  margin-inline-end: var(--wp--preset--spacing--5);
+}
+
 /********** Button Motion **********/
 .wp-block-button:not([class*=is-style-]),
 .wp-block-button.is-style-fill,
@@ -807,6 +943,24 @@
 .wp-block-button.is-style-outline .wp-block-button__link:hover::after,
 .wp-block-button.is-style-outline .wp-block-button__link:focus-visible::after {
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
+}
+
+/* Button - Secondary */
+.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
+  background-color: var(--wp--custom--color--button--fill--background-hover);
+  border-color: var(--wp--custom--color--button--fill--border-hover);
+  color: var(--wp--custom--color--button--fill--text-hover);
+}
+
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
+  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
+   * the border matches the solid fill it's transitioning to, same as the filled variant's border
+   * matching its own background-hover above. */
+  background-color: var(--wp--custom--color--button--outline--background-hover);
+  border-color: var(--wp--custom--color--button--outline--background-hover);
+  color: var(--wp--custom--color--button--outline--text-hover);
 }
 
 /* Glass Button */
@@ -1479,6 +1633,21 @@
 }
 /********** Site Header **********/
 /*
+ * Below core/navigation's own native overlay-menu breakpoint (core WP hardcodes this at
+ * `min-width: 600px` in wp-includes/blocks/navigation/style.css — mirrored here as the
+ * `nav-toggle` entry in theme.json's settings.custom.layout.break-points, synced via
+ * `npm run sync:breakpoints`), the nav collapses to its own hamburger toggle automatically.
+ * Hide only the "Start a project" CTA button at that same breakpoint — not search, which stays
+ * the site's only search entry point on mobile (the nav overlay drawer doesn't include it).
+ * With `justifyContent:"space-between"` already set on the header row, hiding just the buttons
+ * still leaves enough room for the collapsed nav's hamburger to sit at the far right.
+ */
+@media (max-width: 599.98px) {
+  .site-header__actions .wp-block-buttons {
+    display: none;
+  }
+}
+/*
  * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
  * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept
  * here rather than as a registered block style because it needs to sit alongside the hover
@@ -1559,4 +1728,41 @@
   .site-header__search .wp-block-search__input {
     transition: none;
   }
+}
+/********** Taxonomy Filter (ls-plugin/taxonomy-filter) **********/
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wp--preset--spacing--10);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--wp--preset--color--neutral-200);
+  border-radius: var(--wp--preset--border-radius--500);
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  background: transparent;
+  color: var(--wp--custom--color--text--muted);
+  font-family: var(--wp--preset--font-family--body);
+  font-weight: var(--wp--custom--typography--font-weight--semibold);
+  font-size: var(--wp--preset--font-size--100);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button:hover, .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button:focus-visible {
+  border-color: var(--wp--custom--color--link--accent);
+  background-color: transparent;
+  color: var(--wp--custom--color--link--accent);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current {
+  border-color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: var(--wp--custom--color--card--platform--wordpress);
+  color: var(--wp--custom--color--text--on-dark);
+}
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current:hover, .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current:focus-visible {
+  border-color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: var(--wp--custom--color--card--platform--wordpress);
+  color: var(--wp--custom--color--text--on-dark);
 }

@@ -4,9 +4,10 @@
 	"title": "Link Arrow Accent",
 	"slug": "link-arrow-accent",
 	"blockTypes": [
-		"core/paragraph"
+		"core/paragraph",
+		"core/read-more"
 	],
-	"description": "Paragraph links with an inline arrow accent for compact card CTAs.",
+	"description": "Paragraph or Read More links with an inline arrow accent for compact card CTAs.",
 	"styles": {
 		"elements": {
 			"link": {

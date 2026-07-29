@@ -1,6 +1,7 @@
 @use "../abstracts/mixins/glass";
 @use "../abstracts/mixins/motion";
 @use "../abstracts/mixins/surface";
+@use "../abstracts/mixins/mq";
 
 /********** Card Motion **********/
 
@@ -199,6 +200,44 @@
     border-color: var(--ls-card-feature-icon-border-active);
     box-shadow: var(--ls-card-feature-icon-shadow-active);
     transform: rotate(-5deg) scale(0.98);
+  }
+}
+
+/* Card - Work Category */
+.is-style-card-category {
+  --ls-card-category-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
+  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-category-lift: -4px;
+  @include surface.surface-card(
+    $radius: var(--wp--preset--border-radius--300),
+    $border: 1px solid var(--ls-card-category-border-rest),
+    $background: var(--wp--custom--color--surface--card),
+    $shadow: var(--ls-card-category-shadow-rest)
+  );
+  gap: var(--wp--preset--spacing--20);
+  padding: var(--wp--preset--spacing--20);
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-category-border-active);
+    box-shadow: var(--ls-card-category-shadow-active);
+    transform: translateY(var(--ls-card-category-lift));
+  }
+
+  .ls-card-category__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--10);
   }
 }
 
@@ -480,12 +519,59 @@
   }
 }
 
+/* Card - Link Row */
+.is-style-card-link-row {
+  --ls-card-link-row-border-rest: var(--wp--custom--color--border--card);
+  --ls-card-link-row-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
+  --ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);
+  position: relative;
+  border-color: var(--ls-card-link-row-border-rest);
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--ls-card-link-row-background-active);
+    border-color: var(--ls-card-link-row-border-active);
+  }
+
+  &:hover .wp-block-outermost-icon-block .icon-container,
+  &:focus-within .wp-block-outermost-icon-block .icon-container {
+    color: var(--ls-card-link-row-icon-active) !important;
+  }
+
+  /* Stretched-link pattern: the visible <a> only wraps the title text, but its
+   * ::before covers the whole card so the entire row is clickable — while
+   * keeping a single real, keyboard-focusable link (not a fake click handler). */
+  .ls-card-link-row__link {
+    color: inherit;
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--wp--custom--color--focus--ring);
+      outline-offset: 2px;
+    }
+  }
+}
+
 @include motion.reduced-motion {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-category,
+  .is-style-card-link-row,
   .is-style-card-services,
   .is-style-card-services::before,
   .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
@@ -500,6 +586,8 @@
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
+  .is-style-card-category:hover,
+  .is-style-card-category:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within {
     transform: none;
@@ -528,5 +616,75 @@
   :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
     .is-style-icon-frame-glow {
     transform: none;
+  }
+}
+
+/*
+ * Stat Segment: its border-inline-end divider (styles/sections/cards/stat-segment.json) reads as
+ * a vertical rule between adjacent columns in a `wp:columns` row. Below core/columns' own native
+ * stacking breakpoint (WP core hardcodes this at `max-width: 781px` in
+ * wp-includes/blocks/columns/style.css — mirrored here as the `columns-stack` entry in
+ * theme.json's settings.custom.layout.break-points), each column becomes full-width, so that same
+ * border would just show as a stray line down the right edge of every stacked segment. Drop it at
+ * that same breakpoint instead.
+ */
+@include mq.mq($until: "columns-stack") {
+  .is-style-stat-segment {
+    border-inline-end: none;
+  }
+}
+
+/*
+ * The last column in a stat row (e.g. "Tokens") reuses is-style-stat-segment for its shared
+ * spacing/colour contract like every sibling, but shouldn't carry a trailing divider — there's no
+ * column after it to divide from. Suppress it by position instead of duplicating the shared
+ * style's properties on a class-less wrapper.
+ */
+.wp-block-columns > .wp-block-column:last-child > .is-style-stat-segment {
+  border-inline-end: none;
+}
+
+/* Card - Work Project (WooCommerce platform colour) */
+.is-style-card-banner-tint-woocommerce {
+  padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 7%, transparent);
+}
+
+.is-style-badge-woocommerce {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  text-transform: uppercase;
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+  border-radius: var(--wp--preset--border-radius--200);
+  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+  letter-spacing: 1px;
+}
+
+/* Badge - multi-term wrapping (WordPress and WooCommerce both bind to
+   project-group, which can carry more than one term per post; core/post-terms
+   forces its links to display:block by default, which stacks each term
+   onto its own line and leaves the ", " separator orphaned on its own row) */
+:is(.is-style-badge-brand, .is-style-badge-woocommerce) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+
+  a {
+    display: inline;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .wp-block-post-terms__separator {
+    margin-inline-end: var(--wp--preset--spacing--5);
   }
 }

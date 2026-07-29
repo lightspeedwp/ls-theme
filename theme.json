@@ -471,7 +471,9 @@
                     "tablet-portrait": "768px",
                     "mobile-landscape": "640px",
                     "mobile-portrait": "390px",
-                    "mobile-compact": "320px"
+                    "mobile-compact": "320px",
+                    "nav-toggle": "600px",
+                    "columns-stack": "782px"
                 }
             },
             "color": {
@@ -506,12 +508,17 @@
                 },
                 "icon": {
                     "background": "var:preset|color|brand-500",
-                    "color": "var:preset|color|base"
+                    "color": "var:preset|color|base",
+                    "commerce": "var:preset|color|warning-foreground"
                 },
                 "card": {
                     "solutions": {
                         "brand": "var:preset|color|brand-500",
                         "accent": "var:preset|color|accent-500"
+                    },
+                    "platform": {
+                        "wordpress": "var:preset|color|brand-500",
+                        "woocommerce": "var:preset|color|cta-800"
                     }
                 },
                 "phase": {
@@ -716,6 +723,13 @@
         {
             "name": "page-no-title",
             "title": "Page (No Title)",
+            "postTypes": [
+                "page"
+            ]
+        },
+        {
+            "name": "page-work-archive",
+            "title": "Work Archive",
             "postTypes": [
                 "page"
             ]

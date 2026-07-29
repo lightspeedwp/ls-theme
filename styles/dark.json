@@ -36,12 +36,17 @@
 				},
 				"icon": {
 					"background": "var:preset|color|cta-500",
-					"color": "var:preset|color|contrast"
+					"color": "var:preset|color|contrast",
+					"commerce": "var:preset|color|warning-foreground"
 				},
 				"card": {
 					"solutions": {
 						"brand": "var:preset|color|cta-500",
 						"accent": "var:preset|color|accent-three-500"
+					},
+					"platform": {
+						"wordpress": "var:preset|color|brand-400",
+						"woocommerce": "var:preset|color|cta-400"
 					}
 				},
 				"phase": {

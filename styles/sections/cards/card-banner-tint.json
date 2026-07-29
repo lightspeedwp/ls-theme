@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Banner Tint",
+	"slug": "card-banner-tint",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "WordPress-tinted banner zone for the Work Project Card. Default/fallback variant for any project-group term other than WooCommerce. Background colour lives here (not inline in the pattern) so the block's saved HTML stays a plain className the validator can round-trip cleanly.",
+	"styles": {
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|40",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|40",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "&{background-color:color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 7%, transparent);}"
+	}
+}

@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - List Shell",
+	"slug": "card-list-shell",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Bordered card shell wrapping a 3-row icon/title/description capability list, for the Work archive hero.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|400",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"css": "&{inline-size:100%;} & > .wp-block-group > *:last-child{min-width:0;flex:1 1 auto;}"
+	}
+}

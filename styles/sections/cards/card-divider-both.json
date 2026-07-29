@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Divider Both",
+	"slug": "card-divider-both",
+	"blockTypes": [
+		"core/columns"
+	],
+	"description": "Row wrapper with top and bottom dividers only, for a horizontal band of stat/segment columns. Sets border-width explicitly on all four sides to avoid the has-border-color utility class defaulting the other two sides to the browser's default border. Also stretches each column's own child to the column's full (flexbox-equalised) height, so a per-segment border-inline-end divider spans the whole row instead of stopping at its own content height.",
+	"styles": {
+		"css": "&{border-style:solid;border-color:var(--wp--custom--color--border--card);border-width:1px 0;} &>.wp-block-column{display:flex;flex-direction:column;} &>.wp-block-column>*{flex:1 1 auto;}"
+	}
+}
