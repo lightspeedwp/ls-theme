@@ -12,13 +12,17 @@
  * so the logo row and the close button land on the same line. Styled with the same circular
  * icon-button language as the header's search/theme-toggle buttons
  * (styles/blocks/groups/header-icon-button.json) for visual consistency.
+ *
+ * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
+ * but these are otherwise generic core class names that would restyle any Navigation block's
+ * overlay drawer anywhere on the site if left unscoped.
  */
-.wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay)
+.site-header .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay)
   .wp-block-navigation__responsive-container-content {
   padding-top: var(--wp--preset--spacing--20);
 }
 
-.wp-block-navigation__responsive-container-close {
+.site-header .wp-block-navigation__responsive-container-close {
   position: absolute;
   top: var(--wp--preset--spacing--20);
   right: var(--wp--preset--spacing--20);
@@ -47,7 +51,7 @@
 }
 
 @include motion.reduced-motion {
-  .wp-block-navigation__responsive-container-close {
+  .site-header .wp-block-navigation__responsive-container-close {
     transition: none;
   }
 }
@@ -111,8 +115,19 @@
     border-bottom-color: var(--wp--custom--color--border--card);
   }
 
+  /*
+   * The card-style focus ring from _details-motion.scss's base :focus-within rule doesn't fit
+   * this flattened row (it draws a border-colour box-shadow meant for the bordered card look),
+   * so it's suppressed above — but that must not mean no focus indicator at all. :focus-visible
+   * on the summary itself restores a visible keyboard-focus outline instead.
+   */
   &:focus-within {
     box-shadow: none;
+  }
+
+  > summary:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: -2px;
   }
 }
 
@@ -128,6 +143,11 @@
     font-weight: var(--wp--custom--typography--font-weight--semibold);
     color: var(--wp--custom--color--text--default);
     text-decoration: none;
+
+    &:focus-visible {
+      outline: 2px solid var(--wp--custom--color--focus--ring);
+      outline-offset: -2px;
+    }
   }
 }
 

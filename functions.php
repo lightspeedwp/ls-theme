@@ -38,7 +38,7 @@ function ls_theme_setup() {
 	add_theme_support( 'editor-styles' );
 
 	// Required for core/site-logo to render (used by the mobile menu's logo row); without this,
-	// the block outputs nothing even when a Site Logo is set in Settings > General.
+	// the block outputs nothing even when a Site Logo is set via the Site Editor.
 	add_theme_support( 'custom-logo' );
 
 	// Enqueue editor styles. animations.css must be listed here (not just enqueued via

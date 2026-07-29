@@ -1496,12 +1496,16 @@
  * so the logo row and the close button land on the same line. Styled with the same circular
  * icon-button language as the header's search/theme-toggle buttons
  * (styles/blocks/groups/header-icon-button.json) for visual consistency.
+ *
+ * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
+ * but these are otherwise generic core class names that would restyle any Navigation block's
+ * overlay drawer anywhere on the site if left unscoped.
  */
-.wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) .wp-block-navigation__responsive-container-content {
+.site-header .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) .wp-block-navigation__responsive-container-content {
   padding-top: var(--wp--preset--spacing--20);
 }
 
-.wp-block-navigation__responsive-container-close {
+.site-header .wp-block-navigation__responsive-container-close {
   position: absolute;
   top: var(--wp--preset--spacing--20);
   right: var(--wp--preset--spacing--20);
@@ -1516,17 +1520,17 @@
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-navigation__responsive-container-close svg {
+.site-header .wp-block-navigation__responsive-container-close svg {
   inline-size: 20px;
   block-size: 20px;
 }
-.wp-block-navigation__responsive-container-close:hover, .wp-block-navigation__responsive-container-close:focus-visible {
+.site-header .wp-block-navigation__responsive-container-close:hover, .site-header .wp-block-navigation__responsive-container-close:focus-visible {
   background-color: var(--wp--custom--color--surface--card-raised);
   border-color: var(--wp--custom--color--phase--create);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-navigation__responsive-container-close {
+  .site-header .wp-block-navigation__responsive-container-close {
     transition: none;
   }
 }
@@ -1584,8 +1588,20 @@
 .mobile-menu > .mobile-menu-accordion[open] > summary {
   border-bottom-color: var(--wp--custom--color--border--card);
 }
+.mobile-menu > .mobile-menu-accordion {
+  /*
+   * The card-style focus ring from _details-motion.scss's base :focus-within rule doesn't fit
+   * this flattened row (it draws a border-colour box-shadow meant for the bordered card look),
+   * so it's suppressed above — but that must not mean no focus indicator at all. :focus-visible
+   * on the summary itself restores a visible keyboard-focus outline instead.
+   */
+}
 .mobile-menu > .mobile-menu-accordion:focus-within {
   box-shadow: none;
+}
+.mobile-menu > .mobile-menu-accordion > summary:focus-visible {
+  outline: 2px solid var(--wp--custom--color--focus--ring);
+  outline-offset: -2px;
 }
 
 .mobile-menu-link-row {
@@ -1600,6 +1616,10 @@
   font-weight: var(--wp--custom--typography--font-weight--semibold);
   color: var(--wp--custom--color--text--default);
   text-decoration: none;
+}
+.mobile-menu-link-row a:focus-visible {
+  outline: 2px solid var(--wp--custom--color--focus--ring);
+  outline-offset: -2px;
 }
 
 /*
