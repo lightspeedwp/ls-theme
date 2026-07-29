@@ -717,6 +717,11 @@
             "name": "services-mega-menu",
             "title": "Services Mega Menu",
             "area": "uncategorized"
+        },
+        {
+            "name": "mobile-menu",
+            "title": "Mobile Menu",
+            "area": "uncategorized"
         }
     ],
     "customTemplates": [

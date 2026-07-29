@@ -37,6 +37,10 @@ function ls_theme_setup() {
 	// Add support for editor styles.
 	add_theme_support( 'editor-styles' );
 
+	// Required for core/site-logo to render (used by the mobile menu's logo row); without this,
+	// the block outputs nothing even when a Site Logo is set in Settings > General.
+	add_theme_support( 'custom-logo' );
+
 	// Enqueue editor styles. animations.css must be listed here (not just enqueued via
 	// enqueue_block_editor_assets) so the header/footer interactive-control CSS — the collapsed
 	// search field, the icon-toggle button shell — reliably reaches the Site Editor's iframed canvas.
