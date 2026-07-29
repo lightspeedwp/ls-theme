@@ -746,6 +746,13 @@
             "postTypes": [
                 "page"
             ]
+        },
+        {
+            "name": "page-blog-archive",
+            "title": "Blog Archive",
+            "postTypes": [
+                "page"
+            ]
         }
     ]
 }

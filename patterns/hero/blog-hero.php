@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-hero-dark","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-hero-dark">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-hero-dark","style":{"color":{"gradient":"linear-gradient(158deg,var(--wp--custom--color--surface--band-start) 0%,var(--wp--custom--color--surface--band-end) 100%)"}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-hero-dark has-background" style="background:linear-gradient(158deg,var(--wp--custom--color--surface--band-start) 0%,var(--wp--custom--color--surface--band-end) 100%)">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
@@ -37,8 +37,8 @@
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"800"} -->
-				<h1 class="wp-block-heading has-800-font-size" style="margin-top:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Everything we\'ve learned building on WordPress, out loud.', 'ls-theme' ); ?></h1>
+				<!-- wp:heading {"level":1,"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"800"} -->
+				<h1 class="wp-block-heading has-text-color has-800-font-size" style="color:var(--wp--custom--color--text--on-dark);margin-top:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Everything we\'ve learned building on WordPress, out loud.', 'ls-theme' ); ?></h1>
 				<!-- /wp:heading -->
 
 				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"300"} -->
