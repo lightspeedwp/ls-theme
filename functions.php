@@ -24,6 +24,9 @@ require get_template_directory() . '/inc/header.php';
 /** Loads Portfolio card platform-colour swapping */
 require get_template_directory() . '/inc/portfolio-card-colors.php';
 
+/** Loads Blog card category-colour swapping */
+require get_template_directory() . '/inc/blog-card-colors.php';
+
 /**
  * Sets up theme supports.
  */

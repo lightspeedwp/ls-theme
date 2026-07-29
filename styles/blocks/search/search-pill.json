@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Search - Pill",
+	"slug": "search-pill",
+	"blockTypes": [
+		"core/search"
+	],
+	"description": "Rounded pill wrapper for the Blog All Articles search box. Only overrides what `styles/presets/blocks/core-search.json` (the site-wide core/search default) doesn't already set — that file already provides fontSize:200, the button's own radius/margin, and the button-inside border removal, so none of that is repeated here. This variation only adds a border/background/radius to the block's own wrapper, which the base preset leaves unstyled.",
+	"styles": {
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|500",
+			"style": "solid",
+			"width": "1px"
+		},
+		"css": "&{background-color:var(--wp--custom--color--surface--card);} & .wp-block-search__inside-wrapper{border-radius:var(--wp--preset--border-radius--500);}"
+	}
+}
