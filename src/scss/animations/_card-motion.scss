@@ -525,6 +525,7 @@
   --ls-card-link-row-border-active: var(--wp--custom--color--link--accent);
   --ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
   --ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);
+  position: relative;
   border-color: var(--ls-card-link-row-border-rest);
   transition:
     background-color var(--wp--custom--animation--duration--base)
@@ -541,6 +542,25 @@
   &:hover .wp-block-outermost-icon-block .icon-container,
   &:focus-within .wp-block-outermost-icon-block .icon-container {
     color: var(--ls-card-link-row-icon-active) !important;
+  }
+
+  /* Stretched-link pattern: the visible <a> only wraps the title text, but its
+   * ::before covers the whole card so the entire row is clickable — while
+   * keeping a single real, keyboard-focusable link (not a fake click handler). */
+  .ls-card-link-row__link {
+    color: inherit;
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--wp--custom--color--focus--ring);
+      outline-offset: 2px;
+    }
   }
 }
 
@@ -614,6 +634,16 @@
   }
 }
 
+/*
+ * The last column in a stat row (e.g. "Tokens") reuses is-style-stat-segment for its shared
+ * spacing/colour contract like every sibling, but shouldn't carry a trailing divider — there's no
+ * column after it to divide from. Suppress it by position instead of duplicating the shared
+ * style's properties on a class-less wrapper.
+ */
+.wp-block-columns > .wp-block-column:last-child > .is-style-stat-segment {
+  border-inline-end: none;
+}
+
 /* Card - Work Project (WooCommerce platform colour) */
 .is-style-card-banner-tint-woocommerce {
   padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
@@ -649,7 +679,7 @@
     min-width: 0;
     max-width: 100%;
     white-space: normal;
-    word-break: break-word;
+    overflow-wrap: anywhere;
     color: inherit;
     text-decoration: none;
   }

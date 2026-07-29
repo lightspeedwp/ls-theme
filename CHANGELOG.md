@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added 4 Work archive component patterns (LS-1616), each an individually insertable pattern built entirely from existing adaptive semantic tokens — no new `theme.json`/`dark.json` tokens were needed:
-  - `patterns/cards/work-project-card.php` — a case-study card bound to real Portfolio post data via WordPress block bindings (LS-1617): `core/post-title`, `core/post-excerpt`, `core/post-terms` (bound to the `ls_plugin_portfolio_industry`/`_project_type`/`_service` taxonomies), and `core/read-more` for the permalink. Intended as the Post Template content inside a Query Loop scoped to `ls_plugin_portfolio`.
+  - `patterns/cards/work-project-card.php` — a case-study card bound to real Portfolio post data via WordPress block bindings (LS-1617): `core/post-title`, `core/post-excerpt`, `core/post-terms` (badge bound to `project-group`, tag pills bound to `project-tag`), and `core/read-more` for the permalink. Intended as the Post Template content inside a Query Loop scoped to the `project` post type.
   - `patterns/cards/work-discuss-project-list.php` — a static checklist card reusing the existing `tick-accent` list style.
   - `patterns/cards/work-engagement-stat.php` — a stat segment with a split-colour big number (accent-coloured suffix) and monospace uppercase labels.
   - `patterns/cards/work-next-steps-card.php` — a compact related-route button.

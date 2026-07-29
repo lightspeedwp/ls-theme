@@ -55,7 +55,7 @@
 		<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","inherit":false},"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
 		<div class="wp-block-query alignwide" style="margin-top:var(--wp--preset--spacing--40)">
 
-			<!-- wp:ls-plugin/taxonomy-filter {"taxonomy":{"name":"Project groups","all_items":"All","slug":"project-group","rest_base":"project-group"},"filterType":"buttons","allItemsText":"All","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} /-->
+			<!-- wp:ls-plugin/taxonomy-filter {"taxonomy":{"name":"Project groups","all_items":"All","slug":"project-group","rest_base":"project-group"},"filterType":"buttons","allItemsText":<?php echo wp_json_encode( __( 'All', 'ls-theme' ) ); ?>,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} /-->
 
 			<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
 				<!-- wp:pattern {"slug":"ls-theme/work-project-card"} /-->

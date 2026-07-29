@@ -249,7 +249,11 @@
 
 .wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
 .wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
+  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
+   * the border matches the solid fill it's transitioning to, same as the filled variant's border
+   * matching its own background-hover above. */
   background-color: var(--wp--custom--color--button--outline--background-hover);
+  border-color: var(--wp--custom--color--button--outline--background-hover);
   color: var(--wp--custom--color--button--outline--text-hover);
 }
 

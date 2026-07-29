@@ -6,10 +6,10 @@
 	"blockTypes": [
 		"core/button"
 	],
-	"description": "Outline pill button for CTAs outside the header, paired with Button - Secondary — reuses the default outline button's colour tokens, just pill-shaped with tighter padding and non-uppercase type. Hover contract in src/scss/animations/_button-motion.scss.",
+	"description": "Outline pill button for CTAs outside the header, paired with Button - Secondary — transparent background (not the default outline button's surface-400 fill, which reads as solid black against a light section), reusing the default outline button's border/text colour tokens. Pill-shaped with tighter padding and non-uppercase type. Hover contract in src/scss/animations/_button-motion.scss.",
 	"styles": {
 		"color": {
-			"background": "var:custom|color|button|outline|background",
+			"background": "transparent",
 			"text": "var:custom|color|button|outline|text"
 		},
 		"border": {

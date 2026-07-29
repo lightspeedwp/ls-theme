@@ -20,7 +20,7 @@
 	<div class="wp-block-group ls-card-case-study__banner is-style-card-banner-tint">
 		<!-- wp:group {"className":"is-style-card-chip"} -->
 		<div class="wp-block-group is-style-card-chip">
-			<!-- wp:post-terms {"term":"project-group","prefix":"Platform · ","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"1.1px"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
+			<!-- wp:post-terms {"term":"project-group","prefix":<?php echo wp_json_encode( __( 'Platform · ', 'ls-theme' ) ); ?>,"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"1.1px"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
@@ -41,7 +41,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:read-more {"content":"View project","className":"is-style-link-arrow-accent","fontSize":"100"} /-->
+		<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'View project', 'ls-theme' ) ); ?>,"className":"is-style-link-arrow-accent","fontSize":"100"} /-->
 	</div>
 	<!-- /wp:group -->
 </article>
