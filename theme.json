@@ -731,13 +731,6 @@
             "postTypes": [
                 "page"
             ]
-        },
-        {
-            "name": "page-work-archive",
-            "title": "Work Archive",
-            "postTypes": [
-                "page"
-            ]
         }
     ]
 }
