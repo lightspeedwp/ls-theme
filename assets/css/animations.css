@@ -1505,6 +1505,44 @@
   padding-top: var(--wp--preset--spacing--20);
 }
 
+/*
+ * Side padding: .mobile-menu used to get this for free via the Group block's own "constrained"
+ * layout (which adds .has-global-padding and self-applies the root padding vars). Switching that
+ * layout to "flow" — done to stop the accordion rows getting centered to the site's content-size
+ * at desktop editor widths, a mismatch the plain-paragraph link rows didn't share — dropped this
+ * along with it. Reapplying explicitly here, on the same spacing token the header already uses
+ * for its own padding, rather than depending on the layout-type side effect again.
+ */
+.mobile-menu {
+  padding-inline: var(--wp--preset--spacing--20);
+}
+
+/*
+ * The Navigation block has no backgroundColor of its own, so it never gets core's
+ * .has-background class — which means core's own fallback (wp-includes/blocks/navigation/style.css)
+ * hardcodes this overlay to a literal #fff in every mode. Overriding it here with the same
+ * adaptive token the rest of the page's background already uses (light/dark aware) instead of a
+ * fixed value.
+ *
+ * Selector must mirror core's own ".wp-block-navigation:not(.has-background) ..." ancestor
+ * (not just scope under .site-header) — core's rule has 5 class-level selectors, so anything
+ * with fewer loses regardless of stylesheet order. Matching that shape plus .site-header wins.
+ */
+.site-header .wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
+  background-color: var(--wp--custom--color--surface--canvas);
+}
+
+/*
+ * Same issue, text side: core has a mirror rule keyed off .has-text-color that hardcodes this
+ * wrapper to a literal #000 whenever the Navigation block has no textColor of its own. Elements
+ * inside the mobile-menu template part escape it because they each set their own explicit
+ * color — but core's own close button relies on `currentColor` inherited from this wrapper, so
+ * it was stuck on literal black. Same adaptive token, same specificity-matching shape.
+ */
+.site-header .wp-block-navigation:not(.has-text-color) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
+  color: var(--wp--custom--color--text--default);
+}
+
 .site-header .wp-block-navigation__responsive-container-close {
   position: absolute;
   top: var(--wp--preset--spacing--20);
@@ -1611,7 +1649,13 @@
   display: flex;
   align-items: center;
   min-block-size: 3rem;
-  font-family: var(--wp--preset--font-family--heading);
+  /*
+   * No font-family override here — inherit the body default (Manrope) so this matches the
+   * accordion rows' <summary> and inner items, none of which set a font-family either. This
+   * previously hardcoded the heading font (Lexend) instead, which — sharing the same
+   * min-block-size box but with different font metrics — made these rows look inconsistently
+   * padded against the accordion rows even though the box model was identical.
+   */
   font-size: var(--wp--preset--font-size--200);
   font-weight: var(--wp--custom--typography--font-weight--semibold);
   color: var(--wp--custom--color--text--default);
