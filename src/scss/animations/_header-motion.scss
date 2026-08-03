@@ -4,6 +4,17 @@
 /********** Site Header **********/
 
 /*
+ * The header's own top/bottom padding (spacing token 20) is symmetric — 14px both sides. But
+ * the root layout's blockGap (spacing token 30, ~20px) applies as margin-top on whatever section
+ * follows the header, stacking with the header's own bottom padding (14px + 20px = 34px) against
+ * just the header's 14px above. Targeting "whatever follows .site-header" rather than any one
+ * section by name makes this apply everywhere the header appears, not just the homepage.
+ */
+.site-header + * {
+  margin-block-start: 0;
+}
+
+/*
  * Below core/navigation's own native overlay-menu breakpoint (core WP hardcodes this at
  * `min-width: 600px` in wp-includes/blocks/navigation/style.css — mirrored here as the
  * `nav-toggle` entry in theme.json's settings.custom.layout.break-points, synced via
@@ -16,6 +27,21 @@
 @include mq.mq($until: "nav-toggle") {
   .site-header__actions .wp-block-buttons {
     display: none;
+  }
+}
+
+/*
+ * Below the nav's own `mobileMenuBreakpoint` (1024, matching the "tablet-landscape" breakpoint),
+ * core/navigation collapses to a single hamburger toggle. With the header row's own
+ * `justifyContent:"space-between"` and 3 top-level items (logo, nav, actions), the hamburger
+ * — now much narrower than the full nav — lands wherever equal-gap math puts it, which is close
+ * to dead centre, not next to the actions group where it visually belongs. Scoping the fix to
+ * this breakpoint only (rather than restructuring the header's markup) keeps the desktop nav's
+ * spacing exactly as designed and only changes the collapsed state.
+ */
+@include mq.mq($until: "tablet-landscape") {
+  .site-header .wp-block-navigation {
+    margin-inline-start: auto;
   }
 }
 
