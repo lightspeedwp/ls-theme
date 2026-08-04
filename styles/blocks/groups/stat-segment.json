@@ -19,7 +19,6 @@
 				"bottom": "var:preset|spacing|40",
 				"left": "var:preset|spacing|30"
 			}
-		},
-		"css": "&{border-inline-end:1px solid var(--wp--custom--color--border--card);}"
+		}
 	}
 }
