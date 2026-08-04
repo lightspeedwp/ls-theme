@@ -217,18 +217,6 @@
   }
 }
 
-/*
- * Services accordion: phase groups are separated by dashed dividers rather than solid ones,
- * keeping the lighter-weight hierarchy the desktop Services panel also uses between phase
- * columns. core/separator has no "style: dashed" support declared in its block.json, so setting
- * that via a block style attribute fails Gutenberg's save-output validation — the dashed look is
- * applied here instead, against the plain default-attribute wp:separator markup.
- */
-.mobile-menu-accordion-services hr.wp-block-separator {
-  margin-block: var(--wp--preset--spacing--10);
-  border-style: dashed;
-}
-
 .mobile-menu-brand {
   min-block-size: 44px;
   padding-block-end: var(--wp--preset--spacing--20);
