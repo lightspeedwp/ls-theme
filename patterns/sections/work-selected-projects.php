@@ -26,8 +26,8 @@
 			<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:55%">
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
-					<!-- wp:outermost/icon-block {"iconName":"","className":"has-text-color","width":"8px","style":{"color":{"text":"var(--wp--custom--color--icon--background)"}}} -->
-					<div class="wp-block-outermost-icon-block has-text-color"><div class="icon-container" style="color:var(--wp--custom--color--icon--background);width:8px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"></circle></svg></div></div>
+					<!-- wp:outermost/icon-block {"iconName":"","iconColor":"brand-500","iconColorValue":"#1E6AFF","width":"8px","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--icon--background)"}}} -->
+					<div class="wp-block-outermost-icon-block has-text-color"><div class="icon-container has-icon-color has-brand-500-color" style="color:var(--wp--custom--color--icon--background);width:8px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"></circle></svg></div></div>
 					<!-- /wp:outermost/icon-block -->
 
 					<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"1.4px","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--brand)"}},"fontSize":"100"} -->
@@ -53,9 +53,11 @@
 		<!-- /wp:columns -->
 
 		<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","inherit":false},"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
-		<div class="wp-block-query alignwide" style="margin-top:var(--wp--preset--spacing--40)">
+		<div class="wp-block-query alignwide">
 
-			<!-- wp:ls-plugin/taxonomy-filter {"taxonomy":{"name":"Project groups","all_items":"All","slug":"project-group","rest_base":"project-group"},"filterType":"buttons","allItemsText":<?php echo wp_json_encode( __( 'All', 'ls-theme' ) ); ?>,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} /-->
+			<!-- wp:ls-plugin/taxonomy-filter {"taxonomy":{"name":"Project groups","all_items":"All","slug":"project-group","rest_base":"project-group"},"filterType":"buttons","allItemsText":<?php echo wp_json_encode( __( 'All', 'ls-theme' ) ); ?>,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} -->
+			<div style="margin-bottom:var(--wp--preset--spacing--30)" class="wp-block-ls-plugin-taxonomy-filter"></div>
+			<!-- /wp:ls-plugin/taxonomy-filter -->
 
 			<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
 				<!-- wp:pattern {"slug":"ls-theme/work-project-card"} /-->
