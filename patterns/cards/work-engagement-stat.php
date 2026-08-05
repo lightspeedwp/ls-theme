@@ -33,7 +33,7 @@
 	<!-- /wp:paragraph -->
 
 	<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
-	<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Self-serve subscription accounts moved without billing interruption', 'ls-theme' ); ?></p>
+	<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Self-serve accounts moved without disruption', 'ls-theme' ); ?></p>
 	<!-- /wp:paragraph -->
 </article>
 <!-- /wp:group -->

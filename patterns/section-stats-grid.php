@@ -147,8 +147,8 @@
 
 					<!-- wp:column -->
 					<div class="wp-block-column">
-						<!-- wp:group {"tagName":"article","className":"is-style-stat-segment","style":{"border":{"right":{"color":"var(--wp--custom--color--border--card)","width":"1px","style":"solid"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-						<article class="wp-block-group is-style-stat-segment" style="border-right-color:var(--wp--custom--color--border--card);border-right-width:1px;border-right-style:solid">
+						<!-- wp:group {"tagName":"article","className":"is-style-stat-segment","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+						<article class="wp-block-group is-style-stat-segment">
 							<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
 							<div class="wp-block-group">
 								<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"1.2px","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} -->
@@ -166,7 +166,7 @@
 							<!-- /wp:paragraph -->
 
 							<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
-							<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Design-system tokens authored across active themes', 'ls-theme' ); ?></p>
+							<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Design tokens authored across active themes', 'ls-theme' ); ?></p>
 							<!-- /wp:paragraph -->
 						</article>
 						<!-- /wp:group -->

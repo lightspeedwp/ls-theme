@@ -1,0 +1,27 @@
+// Stats Grid (patterns/section-stats-grid.php): the 4-stat row switches from
+// 4-across to 2-per-row below 834px — narrower than that starts to look
+// squeezed, based on direct testing. WordPress's own default column-stacking
+// breakpoint (782px) is too low for this section specifically, and core has
+// no attribute to pick a custom breakpoint value, so this override is
+// necessary rather than avoidable.
+//
+// Below the same breakpoint, the Subscribers card's border-right (needed on
+// desktop as the divider before TTFB) becomes a trailing edge instead, once
+// it's the last card in its 2-per-row line — same fix already applied to the
+// Tokens card directly in the pattern markup, but Subscribers needs it
+// removed conditionally instead of always, since it's a real divider above
+// this breakpoint.
+
+@media (max-width: 833.98px) {
+	.is-style-card-divider-both {
+		flex-wrap: wrap !important;
+
+		> .wp-block-column {
+			flex-basis: 100% !important;
+		}
+	}
+
+	.is-style-card-divider-both > .wp-block-column:first-child > .is-not-stacked-on-mobile > .wp-block-column:last-child > .is-style-stat-segment {
+		border-right: none !important;
+	}
+}

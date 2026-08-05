@@ -1,0 +1,16 @@
+// Selected Projects (patterns/sections/work-selected-projects.php): the
+// project-card Query Loop is a fixed 3-column grid (post-template
+// columnCount: 3). WordPress's own responsive fallback for a fixed-column
+// grid has exactly one native breakpoint — max-width: 600px, collapsing to
+// 1 column — with no native way to add an intermediate 2-column step above
+// that, so this override is necessary rather than avoidable. It's scoped to
+// the 600.01px–800px gap ONLY, so it never touches WordPress's own native
+// 1-column mobile behaviour at 600px and below. Also scoped to
+// .work-selected-projects-grid (set on the wp:query block itself) so it
+// can't affect any other 3-column grid elsewhere on the site.
+
+@media (min-width: 601px) and (max-width: 800px) {
+	.work-selected-projects-grid .wp-block-post-template.is-layout-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+	}
+}

@@ -52,8 +52,8 @@
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","inherit":false},"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
-		<div class="wp-block-query alignwide">
+		<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","inherit":false},"align":"wide","className":"work-selected-projects-grid","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
+		<div class="wp-block-query alignwide work-selected-projects-grid" style="margin-top:var(--wp--preset--spacing--40)">
 
 			<!-- wp:ls-plugin/taxonomy-filter {"justification":"left","taxonomy":{"name":"Project groups","all_items":"All","slug":"project-group","rest_base":"project-group"},"filterType":"buttons","showCount":true,"allItemsText":<?php echo wp_json_encode( __( 'All', 'ls-theme' ) ); ?>,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|5"}}}} -->
 			<div style="margin-bottom:var(--wp--preset--spacing--5)" class="wp-block-ls-plugin-taxonomy-filter"></div>
