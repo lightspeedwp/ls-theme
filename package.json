@@ -15,7 +15,10 @@
 		"watch:css": "npm run sync:breakpoints && sass --watch --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.62.1",
+		"@types/node": "^26.1.2",
 		"ajv": "^8.17.1",
+		"dotenv": "^17.4.2",
 		"glob": "^11.0.1",
 		"sass": "^1.99.0"
 	},

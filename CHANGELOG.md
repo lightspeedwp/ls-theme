@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a portable `theme-color-token-enforcer` skill to audit or fix semantic colour token usage.
 - Added a theme-local `pattern-extractor` skill and matching `extract-pattern` prompt wrapper for Figma-to-pattern workflows that honour semantic tokens and CSS-versus-GSAP motion routing.
 - Added a CSS-only `Card - Feature` group treatment, a matching inline CTA paragraph style, and an insertable single-card pattern at `patterns/cards/card-feature.php`.
+- Added a Playwright end-to-end testing setup (LS-2335), matching the official `create-playwright` scaffold: `@playwright/test`, `dotenv`, and `@types/node` as dev dependencies, and `playwright.config.ts` configured for all 3 browser projects (Chromium, Firefox, WebKit) with `baseURL` read from a local, gitignored `.env` (`BASE_URL=`) so each developer points tests at their own environment — no CI wiring, run manually via `npx playwright test`. Added a real spec (`tests/specs/work-archive.spec.ts`) exercising all 6 generic assertion helpers from `tests/helpers/assertions.ts` (LS-2244) against the live Work Archive template — section order, category-card count/parts, hero link href, related-routes grid reflow at mobile, and stats-grid divider styling.
 
 ### Changed
 
