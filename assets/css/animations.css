@@ -2026,7 +2026,7 @@
     flex-basis: 100% !important;
   }
   .is-style-card-divider-both > .wp-block-column:first-child > .is-not-stacked-on-mobile > .wp-block-column:last-child > .is-style-stat-segment {
-    border-right: none !important;
+    border-inline-end: none !important;
   }
 }
 @media (min-width: 601px) and (max-width: 800px) {

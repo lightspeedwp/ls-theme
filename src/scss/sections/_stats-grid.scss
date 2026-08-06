@@ -4,7 +4,6 @@
 // breakpoint (782px) is too low for this section specifically, and core has
 // no attribute to pick a custom breakpoint value, so this override is
 // necessary rather than avoidable.
-//
 // Below the same breakpoint, the Subscribers card's border-right (needed on
 // desktop as the divider before TTFB) becomes a trailing edge instead, once
 // it's the last card in its 2-per-row line — same fix already applied to the
@@ -22,6 +21,6 @@
 	}
 
 	.is-style-card-divider-both > .wp-block-column:first-child > .is-not-stacked-on-mobile > .wp-block-column:last-child > .is-style-stat-segment {
-		border-right: none !important;
+		border-inline-end: none !important;
 	}
 }

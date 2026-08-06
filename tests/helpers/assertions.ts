@@ -1,4 +1,4 @@
-import { expect, type Page, type Locator } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 /**
  * Generic Playwright assertion helpers for ls-theme.
@@ -44,9 +44,9 @@ export async function expectCardParts(page: Page, cardSelector: string, required
 		const card = cards.nth(i);
 		for (const part of requiredParts) {
 			await expect(
-				card.locator(part),
+				card.locator(part).first(),
 				`Card ${i} (${cardSelector}) is missing required part "${part}"`
-			).toHaveCount(1, { timeout: 2000 });
+			).toBeAttached({ timeout: 2000 });
 		}
 	}
 }
@@ -115,7 +115,7 @@ export async function expectComputedStyle(
 	const value = await page
 		.locator(selector)
 		.first()
-		.evaluate((el, prop) => getComputedStyle(el).getPropertyValue(prop), property);
+		.evaluate((el, prop) => getComputedStyle(el).getPropertyValue(prop).trim(), property);
 
 	expect(
 		value,

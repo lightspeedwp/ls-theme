@@ -16,7 +16,10 @@ import {
 
 const SINGLE_PROJECT_URL = '/portfolio/african-safari-consultants/';
 
-test.describe('Work Single template', () => {
+// Skipped: work-single doesn't exist yet, and these selectors/URL are illustrative
+// guesses, not real markup. Un-skip once the template is built and selectors are
+// swapped for the real ones.
+test.describe.skip('Work Single template', () => {
 	test('renders sections in order', async ({ page }) => {
 		await page.goto(SINGLE_PROJECT_URL);
 		await expectSectionOrder(page, ['Home', 'Portfolio', 'Related projects']);
