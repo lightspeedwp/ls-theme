@@ -26,6 +26,11 @@
                     "color": "#F4F4F4"
                 },
                 {
+                    "name": "Neutral 150",
+                    "slug": "neutral-150",
+                    "color": "#F0F0F0"
+                },
+                {
                     "name": "Neutral 200",
                     "slug": "neutral-200",
                     "color": "#E8E8E8"
@@ -59,6 +64,11 @@
                     "name": "Neutral 800",
                     "slug": "neutral-800",
                     "color": "#303030"
+                },
+                {
+                    "name": "Neutral 850",
+                    "slug": "neutral-850",
+                    "color": "#262626"
                 },
                 {
                     "name": "Neutral 900",
@@ -482,13 +492,14 @@
                     "inverse": "var:preset|color|base",
                     "muted": "var:preset|color|neutral-700",
                     "subtle": "var:preset|color|neutral-600",
-                    "brand": "var:preset|color|brand-500",
+                    "brand": "var:preset|color|brand-600",
                     "brand-strong": "var:preset|color|brand-800",
                     "on-dark": "var:preset|color|base",
                     "on-dark-muted": "var:preset|color|neutral-400"
                 },
                 "surface": {
                     "canvas": "var:preset|color|base",
+                    "canvas-alt": "var:preset|color|neutral-150",
                     "card": "var:preset|color|neutral-100",
                     "card-raised": "var:preset|color|neutral-200",
                     "highlight": "var:preset|color|base",

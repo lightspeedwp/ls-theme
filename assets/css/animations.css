@@ -406,6 +406,19 @@
   gap: var(--wp--preset--spacing--10);
 }
 
+/* Card - Work Project (Case Study) */
+.is-style-card-case-study {
+  --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-case-study-lift: -4px;
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
+}
+.is-style-card-case-study:hover, .is-style-card-case-study:focus-within {
+  border-color: var(--ls-card-case-study-border-active);
+  box-shadow: var(--ls-card-case-study-shadow-active);
+  transform: translateY(var(--ls-card-case-study-lift));
+}
+
 /* Card - Services */
 .is-style-card-services {
   --ls-card-services-border-rest: var(--wp--custom--color--border--card);
@@ -672,6 +685,7 @@
   .is-style-card-feature,
   .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
   .is-style-card-category,
+  .is-style-card-case-study,
   .is-style-card-link-row,
   .is-style-card-services,
   .is-style-card-services::before,
@@ -687,6 +701,8 @@
   .is-style-card-feature:focus-within,
   .is-style-card-category:hover,
   .is-style-card-category:focus-within,
+  .is-style-card-case-study:hover,
+  .is-style-card-case-study:focus-within,
   .is-style-card-services:hover,
   .is-style-card-services:focus-within {
     transform: none;

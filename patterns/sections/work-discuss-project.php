@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"wide","tagName":"section","className":"is-style-content-band","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignwide is-style-content-band">
+<!-- wp:group {"align":"wide","tagName":"section","className":"is-style-content-band-alt","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignwide is-style-content-band-alt">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">

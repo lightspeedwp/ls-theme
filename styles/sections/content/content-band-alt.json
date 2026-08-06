@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Content Band - Alt",
+	"slug": "content-band-alt",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Alternate full-width content band for a page section: same padding as Content Band, but uses the tinted canvas-alt surface so alternating sections read as visually distinct from the default white/dark canvas.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas-alt"
+		},
+		"border": {
+			"radius": "16px"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|90",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}

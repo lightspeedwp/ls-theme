@@ -17,6 +17,7 @@
 				},
 				"surface": {
 					"canvas": "var:preset|color|contrast",
+					"canvas-alt": "var:preset|color|neutral-850",
 					"card": "var:preset|color|neutral-900",
 					"card-raised": "var:preset|color|neutral-800",
 					"highlight": "var:preset|color|base",
