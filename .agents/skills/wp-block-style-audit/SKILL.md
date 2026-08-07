@@ -10,7 +10,8 @@ compatibility: "Targets WordPress 6.9+ (theme.json v3). Requires access to the t
 
 Use this skill when a block style JSON file under `styles/` has a large `css` string doing work that belongs in structured JSON:
 
-- Colours/backgrounds set via `.wp-block-*` selectors instead of `elements.button`, `elements.link`, etc.
+- Block-root colours/backgrounds set via `.wp-block-*` selectors instead of `blocks["block/name"].color`
+- Descendant element colours (e.g. `.wp-block-button__link`, bare `a`) set via CSS instead of `elements.button`, `elements.link`, etc.
 - Nested block styles (link colours on excerpt, terms, paragraph) done via `:where()` CSS instead of `blocks["core/post-excerpt"].elements.link`
 - Third-party block colours (outermost/icon-block, etc.) done via CSS instead of `blocks["vendor/block"].color.text`
 - Redundant CSS that duplicates what parent `elements` JSON already covers
@@ -78,8 +79,10 @@ For example in the theme, `styles/sections/cards/card-link-row.json` is the cano
 - In `css` strings: use `var(--wp--preset--color--slug)` (double-dash notation)
   for preset tokens, or `var(--wp--custom--path--to--key)` for custom tokens
 
-Verify every preset token slug exists in `theme.json` `settings.presets` and
-every custom token path exists in `theme.json` `settings.custom` before using it.
+Verify every preset token slug exists in its matching category-specific
+`theme.json` collection (e.g. `settings.color.palette`,
+`settings.typography.fontSizes`, `settings.spacing.spacingSizes`), and every
+custom token path exists in `theme.json` `settings.custom`, before using it.
 
 ### 5) Split the remaining `css` by owner
 
