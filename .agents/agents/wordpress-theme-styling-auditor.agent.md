@@ -57,8 +57,10 @@ Find styling-system issues early, explain the root cause, and propose a minimal,
    exist (`elements.*`, `blocks.*`, pseudo-state keys, block attributes)? Use
    `.agents/skills/wp-block-style-audit/references/block-style-json-anatomy.md` as
    the decision table. If yes, flag it as a migration candidate regardless of how
-   long it's been there. Only rules with no JSON equivalent, and carrying a "JSON
-   limitation" comment, pass the audit clean.
+   long it's been there. Rules with no JSON equivalent (e.g. `overflow`,
+   `max-width`, `width`, transitions/transforms) pass clean without a comment if
+   pre-existing; new or modified rules of this kind must carry a "JSON
+   limitation" comment going forward.
 1. Gather the relevant Sass, CSS, `theme.json`, style JSON, and preset files.
 2. Trace repeated values and determine whether they belong in Sass, runtime tokens, or both.
 3. Identify duplication, dead utilities, token drift, invalid syntax, brittle selectors, and over-abstraction.

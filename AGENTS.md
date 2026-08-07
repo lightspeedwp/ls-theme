@@ -82,13 +82,21 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
   the authoritative JSON-vs-CSS decision table.
 - Before writing any new Sass/CSS rule, check whether a JSON equivalent already
   exists — look at sibling files in `styles/**` for the established pattern first.
-- When a CSS rule is genuinely unavoidable, add a comment directly above it naming
-  the specific limitation that forced it, e.g.:
+- When writing a new or modifying an existing CSS rule that is genuinely
+  unavoidable, add a comment directly above it naming the specific limitation
+  that forced it, e.g.:
   `// JSON limitation: block-level :hover has no theme.json pseudo-state key — see AGENTS.md Theme-First Approach`
-- Structural properties — layout (flex/grid), spacing, sizing, positioning — belong
-  in JSON or block attributes **always**, never in Sass/CSS, regardless of what
-  folder or filename the CSS would otherwise land in (a file named "motion" is not
-  exempt).
+  This applies to new/modified rules going forward — it does not require
+  retroactively commenting every pre-existing valid CSS exception already in
+  the codebase.
+- Structural properties — layout (flex/grid), spacing, sizing, positioning — use
+  JSON or block attributes whenever a supported key exists, regardless of what
+  folder or filename the CSS would otherwise land in (a file named "motion" is
+  not exempt). Only fall back to Sass/CSS, with a "JSON limitation" comment,
+  for structural properties JSON genuinely has no key for (e.g. `overflow`,
+  `max-width`, `width` — see
+  `.agents/skills/wp-block-style-audit/references/block-style-json-anatomy.md`
+  for the full list).
 - Motion/animation files (`src/scss/animations/**`, `src/scss/gsap/**`) may contain
   **only** `@keyframes`, `transition`, `transform`, `animation`, and `will-change`
   rules, plus their `prefers-reduced-motion` companions. Any other property in those

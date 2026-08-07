@@ -6,7 +6,7 @@ Block style JSON files live under `styles/` (or subdirectories like `styles/sect
 
 ```json
 {
-  "$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 3,
   "title": "Human-readable name",
   "slug": "css-class-suffix",

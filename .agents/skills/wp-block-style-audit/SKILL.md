@@ -10,9 +10,9 @@ compatibility: "Targets WordPress 6.9+ (theme.json v3). Requires access to the t
 
 Use this skill when a block style JSON file under `styles/` has a large `css` string doing work that belongs in structured JSON:
 
-- Colors/backgrounds set via `.wp-block-*` selectors instead of `elements.button`, `elements.link`, etc.
-- Nested block styles (link colors on excerpt, terms, paragraph) done via `:where()` CSS instead of `blocks["core/post-excerpt"].elements.link`
-- Third-party block colors (outermost/icon-block, etc.) done via CSS instead of `blocks["vendor/block"].color.text`
+- Colours/backgrounds set via `.wp-block-*` selectors instead of `elements.button`, `elements.link`, etc.
+- Nested block styles (link colours on excerpt, terms, paragraph) done via `:where()` CSS instead of `blocks["core/post-excerpt"].elements.link`
+- Third-party block colours (outermost/icon-block, etc.) done via CSS instead of `blocks["vendor/block"].color.text`
 - Redundant CSS that duplicates what parent `elements` JSON already covers
 
 ## Inputs required
@@ -73,10 +73,13 @@ For example in the theme, `styles/sections/cards/card-link-row.json` is the cano
 
 ### 4) Check token references use the correct format
 
-- In JSON values: use `var:preset|color|slug` (colon-pipe notation)
+- In JSON values: use `var:preset|color|slug` (colon-pipe notation) for preset
+  tokens, or `var:custom|path|to|key` for custom tokens
 - In `css` strings: use `var(--wp--preset--color--slug)` (double-dash notation)
+  for preset tokens, or `var(--wp--custom--path--to--key)` for custom tokens
 
-Verify every token slug exists in `theme.json` settings before using it.
+Verify every preset token slug exists in `theme.json` `settings.presets` and
+every custom token path exists in `theme.json` `settings.custom` before using it.
 
 ### 5) Split the remaining `css` by owner
 
