@@ -53,7 +53,7 @@ It includes:
 ## Requirements
 
 - **PHP** 8.1+
-- **WordPress** 6.4+
+- **WordPress** 6.9+
 - **Node.js** (see `.nvmrc` for version)
 - **Composer** 2.x
 
