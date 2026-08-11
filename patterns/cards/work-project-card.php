@@ -20,7 +20,7 @@
 	<div class="wp-block-group ls-card-case-study__banner is-style-card-banner-tint">
 		<!-- wp:group {"className":"is-style-card-chip"} -->
 		<div class="wp-block-group is-style-card-chip">
-			<!-- wp:post-terms {"term":"project-group","prefix":<?php echo wp_json_encode( __( 'Platform · ', 'ls-theme' ) ); ?>,"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"1.1px"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
+			<!-- wp:post-terms {"term":"project-group","prefix":<?php echo wp_json_encode( __( 'Platform · ', 'ls-theme' ) ); ?>,"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
