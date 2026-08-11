@@ -14,9 +14,6 @@
     display: flex;
     align-items: center;
     gap: var(--wp--preset--spacing--20);
-    padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
-    font: inherit;
-    font-weight: var(--wp--custom--typography--font-weight--normal);
     color: inherit;
     list-style: none;
     cursor: pointer;
@@ -53,6 +50,23 @@
     }
   }
 
+  /*
+   * JSON limitation (temporary — remove once Phase 3 Group 5 migrates this file's own rules into
+   * styles/presets/blocks/core-details.json): WordPress wraps every styles/**.json rule in a
+   * :where() selector, which always has zero specificity regardless of what's inside it. That
+   * makes it structurally impossible for styles/blocks/details/mobile-menu-accordion.json's own
+   * `> summary` padding override to beat this real (non-:where()) Sass rule on specificity, no
+   * matter how the JSON selector is written. Excluding the accordion here — rather than trying to
+   * out-specify it from the JSON side — lets that JSON file own its own padding cleanly. Confirmed
+   * empirically 2026-08-11: without this exclusion, the accordion rows render with this rule's
+   * padding on top of the JSON's own, making them visibly taller than sibling plain-link rows.
+   */
+  &:not(.is-style-mobile-menu-accordion) > summary {
+    padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
+    font: inherit;
+    font-weight: var(--wp--custom--typography--font-weight--normal);
+  }
+
   > :where(:not(summary)) {
     margin: 0;
     padding-left: var(--wp--preset--spacing--30);
@@ -71,26 +85,34 @@
     padding-top: var(--wp--preset--spacing--20);
   }
 
-  &:hover {
+  /*
+   * JSON limitation (temporary — see the > summary exclusion comment above for the full
+   * explanation): same :where()-vs-real-specificity issue applies to every state below, so each
+   * is excluded for the flattened mobile accordion, which owns these states itself in
+   * styles/blocks/details/mobile-menu-accordion.json.
+   */
+  &:hover:not(.is-style-mobile-menu-accordion) {
     background: var(--wp--custom--color--surface--card-raised);
     border-color: var(--wp--custom--color--link--accent);
   }
 
-  &[open],
-  &[open]:hover {
+  &[open]:not(.is-style-mobile-menu-accordion),
+  &[open]:hover:not(.is-style-mobile-menu-accordion) {
     background: var(--wp--custom--color--surface--card);
     border-color: var(--wp--custom--color--link--accent);
   }
 
-  &[open] > summary {
+  &:not(.is-style-mobile-menu-accordion)[open] > summary {
     border-bottom: 1px solid var(--wp--custom--color--link--accent);
+  }
 
+  &[open] > summary {
     &::after {
       transform: translateY(1px) rotate(-135deg);
     }
   }
 
-  &:focus-within {
+  &:focus-within:not(.is-style-mobile-menu-accordion) {
     border-color: var(--wp--custom--color--link--accent);
     box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
   }
