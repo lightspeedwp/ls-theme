@@ -184,9 +184,10 @@ function ls_theme_flag_gsap_needed( $block_content, $block ) {
 	}
 
 	$gsap_styles = array( 'is-style-home-hero-section', 'is-style-card-spotlight' );
+	$classes     = preg_split( '/\s+/', trim( $classname ) );
 
 	foreach ( $gsap_styles as $style ) {
-		if ( str_contains( $classname, $style ) ) {
+		if ( in_array( $style, $classes, true ) ) {
 			add_filter( 'ls_theme_gsap_needed', '__return_true' );
 			break;
 		}
