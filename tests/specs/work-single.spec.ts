@@ -41,7 +41,10 @@ test.describe.skip('Work Single template', () => {
 
 	test('the CTA button links to the consultation page', async ({ page }) => {
 		await page.goto(SINGLE_PROJECT_URL);
-		await expectLinkHref(page, 'Book a consultation', '/free-consultation/');
+		// WP renders home_url() links as absolute URLs (the same fix already
+		// applied in work-archive.spec.ts), so resolve via new URL() rather
+		// than asserting a bare relative path.
+		await expectLinkHref(page, 'Book a consultation', new URL('/free-consultation/', page.url()).href);
 	});
 
 	test('related-projects grid reflows from 3 to 1 column on mobile', async ({ page }) => {

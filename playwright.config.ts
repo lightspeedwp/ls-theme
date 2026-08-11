@@ -6,10 +6,20 @@ import { defineConfig, devices } from '@playwright/test';
  */
 import dotenv from 'dotenv';
 import path from 'path';
+import { fileURLToPath } from 'url';
 // This repo's package.json has "type": "module", so __dirname (assumed by
-// Playwright's own generated template) isn't available here — using
-// Node's documented ESM equivalent instead: https://nodejs.org/api/esm.html#importmetadirname
-dotenv.config({ path: path.resolve(import.meta.dirname, '.env') });
+// Playwright's own generated template) isn't available here. Using
+// fileURLToPath(import.meta.url) instead of import.meta.dirname so this
+// works across the full declared engines.node range (>=20.0.0) —
+// import.meta.dirname only exists from Node 20.11.0 onward.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+if (!process.env.BASE_URL) {
+	throw new Error(
+		'BASE_URL is not set. Create a .env file in the theme root with BASE_URL=<your local site URL>.'
+	);
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.

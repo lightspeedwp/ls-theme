@@ -40,14 +40,16 @@ test.describe('Work Archive template', () => {
 		]);
 	});
 
-	test('the hero CTA links to the consultation page', async ({ page, baseURL }) => {
+	test('the hero CTA links to the Work Archive page', async ({ page }) => {
 		await page.goto(WORK_ARCHIVE_URL);
 		// "Book a consultation" text also appears (with a trailing "→") in the
 		// Discuss Project section further down, so use the hero-only
 		// "Explore case studies" link to keep the match unambiguous. WP renders
 		// home_url() links as absolute URLs, so the expected href must match
-		// the full origin too.
-		await expectLinkHref(page, 'Explore case studies', `${baseURL}/work/`);
+		// the full origin too — resolved from WORK_ARCHIVE_URL (respecting the
+		// WORK_ARCHIVE_PATH override) rather than hardcoded, and via new URL()
+		// so a trailing slash on BASE_URL can't produce a double slash.
+		await expectLinkHref(page, 'Explore case studies', new URL(WORK_ARCHIVE_URL, page.url()).href);
 	});
 
 	test('related routes grid reflows from multiple columns to 1 on mobile', async ({ page }) => {
