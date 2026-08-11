@@ -169,8 +169,9 @@ add_action( 'init', 'ls_theme_register_gsap_block_styles' );
  * regardless of whether they come from post content, a template, or a
  * template-embedded pattern — has_block() only inspects the queried post's
  * own content and would miss template-embedded blocks such as Home Hero.
- * This also means any future GSAP-powered is-style is picked up automatically
- * without needing a new page/template check added here.
+ * This also means a future GSAP-powered is-style never needs a new
+ * page/template check added here — only its class name added to
+ * $gsap_styles below.
  *
  * @param string $block_content The block content.
  * @param array  $block         The full block data.
