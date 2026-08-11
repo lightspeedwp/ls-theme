@@ -20,7 +20,7 @@
 
 	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 	<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
-		<!-- wp:paragraph {"style":{"spacing":{"padding":{"top":"0","bottom":"0"}},"typography":{"fontStyle":"normal","fontWeight":"700"}},"fontSize":"small"} -->
+		<!-- wp:paragraph {"style":{"spacing":{"padding":{"top":"0","bottom":"0"}},"typography":{"fontStyle":"normal","fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"small"} -->
 		<p class="has-small-font-size" style="padding-top:0;padding-bottom:0;font-style:normal;font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Share:', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 
