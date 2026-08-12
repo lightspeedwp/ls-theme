@@ -1,5 +1,4 @@
 @use "../abstracts/mixins/motion";
-@use "../abstracts/mixins/mq";
 
 /********** Site Header **********/
 
@@ -23,8 +22,13 @@
  * the site's only search entry point on mobile (the nav overlay drawer doesn't include it).
  * With `justifyContent:"space-between"` already set on the header row, hiding just the buttons
  * still leaves enough room for the collapsed nav's hamburger to sit at the far right.
+ *
+ * JSON limitation: @media is confirmed stripped from the styles/**.json css field, so this stays
+ * real CSS. Inlined literal from the mq mixin (Phase 3 Group 5, mixin teardown): nav-toggle is
+ * 600px in theme.json, minus the mixin's own 0.02px offset so adjacent breakpoint ranges don't
+ * overlap at the exact value.
  */
-@include mq.mq($until: "nav-toggle") {
+@media (max-width: 599.98px) {
   .site-header__actions .wp-block-buttons {
     display: none;
   }
@@ -38,8 +42,11 @@
  * to dead centre, not next to the actions group where it visually belongs. Scoping the fix to
  * this breakpoint only (rather than restructuring the header's markup) keeps the desktop nav's
  * spacing exactly as designed and only changes the collapsed state.
+ *
+ * Inlined literal from the mq mixin: tablet-landscape is 1024px in theme.json, minus the same
+ * 0.02px offset.
  */
-@include mq.mq($until: "tablet-landscape") {
+@media (max-width: 1023.98px) {
   .site-header .wp-block-navigation {
     margin-inline-start: auto;
   }

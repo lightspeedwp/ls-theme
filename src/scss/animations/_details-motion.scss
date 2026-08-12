@@ -1,7 +1,19 @@
 /********** Details / Accordion **********/
 
+/*
+ * Rest-state structural CSS (overflow, summary layout/marker-reset/arrow-shape, content spacing)
+ * all lives in styles/presets/blocks/core-details.json now — it's the confirmed default core/details
+ * root selector (.wp-block-details, no custom "selectors.root" override, unlike core/button), so no
+ * scoping surprises there. Only real motion (transitions, the arrow rotation, hover/[open]/
+ * focus-within states) stays here.
+ *
+ * The lone `:not(.is-style-mobile-menu-accordion) > summary` padding override below stays a REAL
+ * (non-:where()) Sass rule rather than moving to JSON — styles/blocks/details/mobile-menu-
+ * accordion.json's own doubled `&.wp-block-details` selectors rely on out-specifying a real rule at
+ * equal specificity via source order; if this became :where()-wrapped too, both sides would be
+ * zero-specificity and the outcome would depend on unpredictable stylesheet ordering instead.
+ */
 .wp-block-details {
-  overflow: hidden;
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -11,86 +23,24 @@
       var(--wp--custom--animation--easing--standard);
 
   > summary {
-    display: flex;
-    align-items: center;
-    gap: var(--wp--preset--spacing--20);
-    color: inherit;
-    list-style: none;
-    cursor: pointer;
     transition: inherit;
 
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    &::marker {
-      content: "";
-    }
-
     &::after {
-      content: "";
-      display: block;
-      flex: none;
-      width: 0.625rem;
-      height: 0.625rem;
-      margin-inline-start: auto;
-      border-right: 2px solid var(--wp--custom--color--link--accent);
-      border-bottom: 2px solid var(--wp--custom--color--link--accent);
       transform: translateY(-1px) rotate(45deg);
-      transform-origin: center;
       transition:
         transform var(--wp--custom--animation--duration--base)
           var(--wp--custom--animation--easing--emphasised),
         border-color var(--wp--custom--animation--duration--base)
           var(--wp--custom--animation--easing--standard);
     }
-
-    &:focus {
-      outline: none;
-    }
   }
 
-  /*
-   * JSON limitation (temporary — remove once Phase 3 Group 5 migrates this file's own rules into
-   * styles/presets/blocks/core-details.json): WordPress wraps every styles/**.json rule in a
-   * :where() selector, which always has zero specificity regardless of what's inside it. That
-   * makes it structurally impossible for styles/blocks/details/mobile-menu-accordion.json's own
-   * `> summary` padding override to beat this real (non-:where()) Sass rule on specificity, no
-   * matter how the JSON selector is written. Excluding the accordion here — rather than trying to
-   * out-specify it from the JSON side — lets that JSON file own its own padding cleanly. Confirmed
-   * empirically 2026-08-11: without this exclusion, the accordion rows render with this rule's
-   * padding on top of the JSON's own, making them visibly taller than sibling plain-link rows.
-   */
   &:not(.is-style-mobile-menu-accordion) > summary {
     padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
     font: inherit;
     font-weight: var(--wp--custom--typography--font-weight--normal);
   }
 
-  > :where(:not(summary)) {
-    margin: 0;
-    padding-left: var(--wp--preset--spacing--30);
-    padding-right: var(--wp--preset--spacing--30);
-  }
-
-  > :where(:not(summary):first-of-type) {
-    padding-top: var(--wp--preset--spacing--20);
-  }
-
-  > :where(:not(summary):last-child) {
-    padding-bottom: var(--wp--preset--spacing--20);
-  }
-
-  > :where(:not(summary)) + :where(:not(summary)) {
-    padding-top: var(--wp--preset--spacing--20);
-  }
-
-  /*
-   * JSON limitation (temporary — see the > summary exclusion comment above for the full
-   * explanation): same :where()-vs-real-specificity issue applies to every state below, so each
-   * is excluded for the flattened mobile accordion, which owns these states itself in
-   * styles/blocks/details/mobile-menu-accordion.json.
-   */
   &:hover:not(.is-style-mobile-menu-accordion) {
     background: var(--wp--custom--color--surface--card-raised);
     border-color: var(--wp--custom--color--link--accent);

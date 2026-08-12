@@ -121,80 +121,33 @@
 }
 
 /********** Details / Accordion **********/
+/*
+ * Rest-state structural CSS (overflow, summary layout/marker-reset/arrow-shape, content spacing)
+ * all lives in styles/presets/blocks/core-details.json now — it's the confirmed default core/details
+ * root selector (.wp-block-details, no custom "selectors.root" override, unlike core/button), so no
+ * scoping surprises there. Only real motion (transitions, the arrow rotation, hover/[open]/
+ * focus-within states) stays here.
+ *
+ * The lone `:not(.is-style-mobile-menu-accordion) > summary` padding override below stays a REAL
+ * (non-:where()) Sass rule rather than moving to JSON — styles/blocks/details/mobile-menu-
+ * accordion.json's own doubled `&.wp-block-details` selectors rely on out-specifying a real rule at
+ * equal specificity via source order; if this became :where()-wrapped too, both sides would be
+ * zero-specificity and the outcome would depend on unpredictable stylesheet ordering instead.
+ */
 .wp-block-details {
-  overflow: hidden;
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 .wp-block-details > summary {
-  display: flex;
-  align-items: center;
-  gap: var(--wp--preset--spacing--20);
-  color: inherit;
-  list-style: none;
-  cursor: pointer;
   transition: inherit;
 }
-.wp-block-details > summary::-webkit-details-marker {
-  display: none;
-}
-.wp-block-details > summary::marker {
-  content: "";
-}
 .wp-block-details > summary::after {
-  content: "";
-  display: block;
-  flex: none;
-  width: 0.625rem;
-  height: 0.625rem;
-  margin-inline-start: auto;
-  border-right: 2px solid var(--wp--custom--color--link--accent);
-  border-bottom: 2px solid var(--wp--custom--color--link--accent);
   transform: translateY(-1px) rotate(45deg);
-  transform-origin: center;
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.wp-block-details > summary:focus {
-  outline: none;
-}
-.wp-block-details {
-  /*
-   * JSON limitation (temporary — remove once Phase 3 Group 5 migrates this file's own rules into
-   * styles/presets/blocks/core-details.json): WordPress wraps every styles/**.json rule in a
-   * :where() selector, which always has zero specificity regardless of what's inside it. That
-   * makes it structurally impossible for styles/blocks/details/mobile-menu-accordion.json's own
-   * `> summary` padding override to beat this real (non-:where()) Sass rule on specificity, no
-   * matter how the JSON selector is written. Excluding the accordion here — rather than trying to
-   * out-specify it from the JSON side — lets that JSON file own its own padding cleanly. Confirmed
-   * empirically 2026-08-11: without this exclusion, the accordion rows render with this rule's
-   * padding on top of the JSON's own, making them visibly taller than sibling plain-link rows.
-   */
 }
 .wp-block-details:not(.is-style-mobile-menu-accordion) > summary {
   padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
   font: inherit;
   font-weight: var(--wp--custom--typography--font-weight--normal);
-}
-.wp-block-details > :where(:not(summary)) {
-  margin: 0;
-  padding-left: var(--wp--preset--spacing--30);
-  padding-right: var(--wp--preset--spacing--30);
-}
-.wp-block-details > :where(:not(summary):first-of-type) {
-  padding-top: var(--wp--preset--spacing--20);
-}
-.wp-block-details > :where(:not(summary):last-child) {
-  padding-bottom: var(--wp--preset--spacing--20);
-}
-.wp-block-details > :where(:not(summary)) + :where(:not(summary)) {
-  padding-top: var(--wp--preset--spacing--20);
-}
-.wp-block-details {
-  /*
-   * JSON limitation (temporary — see the > summary exclusion comment above for the full
-   * explanation): same :where()-vs-real-specificity issue applies to every state below, so each
-   * is excluded for the flattened mobile accordion, which owns these states itself in
-   * styles/blocks/details/mobile-menu-accordion.json.
-   */
 }
 .wp-block-details:hover:not(.is-style-mobile-menu-accordion) {
   background: var(--wp--custom--color--surface--card-raised);
@@ -1335,6 +1288,11 @@
  * the site's only search entry point on mobile (the nav overlay drawer doesn't include it).
  * With `justifyContent:"space-between"` already set on the header row, hiding just the buttons
  * still leaves enough room for the collapsed nav's hamburger to sit at the far right.
+ *
+ * JSON limitation: @media is confirmed stripped from the styles/**.json css field, so this stays
+ * real CSS. Inlined literal from the mq mixin (Phase 3 Group 5, mixin teardown): nav-toggle is
+ * 600px in theme.json, minus the mixin's own 0.02px offset so adjacent breakpoint ranges don't
+ * overlap at the exact value.
  */
 @media (max-width: 599.98px) {
   .site-header__actions .wp-block-buttons {
@@ -1349,6 +1307,9 @@
  * to dead centre, not next to the actions group where it visually belongs. Scoping the fix to
  * this breakpoint only (rather than restructuring the header's markup) keeps the desktop nav's
  * spacing exactly as designed and only changes the collapsed state.
+ *
+ * Inlined literal from the mq mixin: tablet-landscape is 1024px in theme.json, minus the same
+ * 0.02px offset.
  */
 @media (max-width: 1023.98px) {
   .site-header .wp-block-navigation {
