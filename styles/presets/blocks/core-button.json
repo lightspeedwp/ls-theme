@@ -4,6 +4,7 @@
     "styles": {
         "blocks": {
             "core/button": {
+                "css": "&{position:relative;display:inline-flex;align-items:center;box-sizing:border-box;max-inline-size:100%;white-space:nowrap;overflow:hidden;isolation:isolate;--ls-button-fill-background:var(--wp--custom--color--button--fill--background);--ls-button-fill-icon-colour:var(--wp--custom--color--button--fill--text);--ls-button-fill-hover-text:var(--wp--custom--color--text--default);--ls-button-fill-duration:var(--wp--custom--animation--duration--emphasised);--ls-button-fill-enter-delay:var(--wp--custom--animation--delay--enter);--ls-button-active-scale:var(--wp--custom--animation--scale--active);}",
                 "variations": {
                     "outline": {
                         "border": {
@@ -28,7 +29,8 @@
                             "fontSize": "var:preset|font-size|200",
                             "fontWeight": "var:custom|typography|font-weight|bold",
                             "letterSpacing": "0.08em"
-                        }
+                        },
+                        "css": "&{position:relative;display:inline-flex;align-items:center;box-sizing:border-box;max-inline-size:100%;white-space:nowrap;overflow:hidden;isolation:isolate;--ls-button-outline-accent-background:var(--wp--custom--color--button--outline--border);--ls-button-outline-accent-colour:var(--wp--custom--color--button--outline--text-hover);--ls-button-outline-icon-radius:var(--wp--preset--border-radius--100);}"
                     }
                 }
             }

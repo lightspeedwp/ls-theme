@@ -42,7 +42,7 @@
 	<!-- /wp:group -->
 
 	<!-- wp:group {"className":"ls-cta-strip__cta-wrap","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-	<div class="wp-block-group ls-cta-strip__cta-wrap">
+	<div class="wp-block-group ls-cta-strip__cta-wrap" style="position:relative;display:inline-flex">
 	<!-- wp:buttons -->
 	<div class="wp-block-buttons">
 		<!-- wp:button {"className":"is-style-glass-button ls-cta-strip__button"} -->
