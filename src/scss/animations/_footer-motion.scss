@@ -3,16 +3,6 @@
 /********** Site Footer **********/
 
 /*
- * "LightSpeed notes" badge: a flex group with no explicit width constraint defaults to filling
- * its row, so the border/background stretch across the notes panel instead of hugging the label
- * text. There's no theme.json dimensions property for width/fit-content, so this has to be CSS —
- * same fix as the Services mega menu panel.
- */
-.footer-notes-badge {
-  width: fit-content;
-}
-
-/*
  * Decorative background: top edge glow bar + ambient radial-gradient glow behind the footer.
  * Authored as layered CSS gradients rather than embedding Figma's raw multi-layer SVG data-URIs,
  * which would be extremely brittle to maintain. Every colour route through the same semantic
@@ -108,13 +98,12 @@
  * Footer nav links (is-style-footer-nav-link, styles/blocks/paragraphs/footer-nav-link.json):
  * underline reveals on hover/focus by animating decoration-colour from transparent, rather than
  * toggling text-decoration-line itself. Matches the approved reference screenshot, and matches the
- * pattern already used for is-style-link-underline-accent elsewhere in this file family.
+ * pattern already used for is-style-link-underline-accent elsewhere in this file family. Static
+ * decoration setup (line/colour/offset, colour:inherit) lives in
+ * styles/blocks/paragraphs/footer-nav-link.json; only the transition stays here since it targets
+ * the same `a` the hover rule below does.
  */
 .is-style-footer-nav-link a {
-  color: inherit;
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 3px;
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
@@ -126,17 +115,12 @@
 }
 
 /*
- * Proof-point card (styles/blocks/groups/footer-proof-card.json): base structural CSS — the JSON
- * file documents this shape but was never actually implemented as real CSS anywhere (these style
- * variation JSON files aren't auto-consumed by WordPress, see AGENTS.md). Hover lift matches the
- * rest of the theme's card-hover conventions; no hover state shown in the Figma reference — added
- * per explicit approval as a consistency default.
+ * Proof-point card (styles/blocks/groups/footer-proof-card.json): base structural CSS lives in the
+ * JSON file. Hover lift matches the rest of the theme's card-hover conventions; no hover state
+ * shown in the Figma reference — added per explicit approval as a consistency default. WordPress
+ * doesn't generate :hover/:focus CSS for arbitrary block style variations, so this stays here.
  */
 .is-style-footer-proof-card {
-  background-color: var(--wp--custom--color--surface--card);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--300);
-  padding: var(--wp--preset--spacing--20);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
@@ -148,22 +132,11 @@
 }
 
 /*
- * Social icon circle (styles/blocks/groups/footer-social-icon.json): same missing-base-CSS gap as
- * above. min-inline-size and min-block-size are both set explicitly and equal — a border-radius
- * intended to make a circle only works if the box is actually square first; without a matching
- * min-block-size, the box's height was left to flex/content sizing, producing an elongated pill
- * instead of a circle on both desktop and mobile.
+ * Social icon circle (styles/blocks/groups/footer-social-icon.json): base structural CSS, including
+ * the min-width/min-height pairing that keeps the border-radius circle actually square, lives in
+ * the JSON file. Only the hover/focus transition stays here (same core limitation as above).
  */
 .is-style-footer-social-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: var(--wp--custom--color--surface--card);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
@@ -179,5 +152,29 @@
   .is-style-footer-proof-card,
   .is-style-footer-social-icon {
     transition: none;
+  }
+}
+
+/*
+ * Nav columns 2-per-row on mobile (footer-nav-columns, patterns/footer.php): the 5 nav categories
+ * (Services, Solutions, Systems, Company, Studio) are authored as two separate wp:columns rows
+ * rather than one flat row, so WordPress's own mobile column-stacking (wp-includes/blocks/columns/
+ * style.css, @media max-width: 781px) drops them to one full-width category per row. There's no
+ * JSON equivalent — @media is confirmed stripped from the styles/**.json css field — so this has to
+ * be real CSS. display: contents promotes each row's .wp-block-column children to direct grid
+ * items of the shared wrapper, matching the same 2-column grid approach already used for the
+ * mobile Services mega-menu accordion above. Uses WordPress's own column-stack breakpoint (781px)
+ * rather than that accordion's bespoke 650px, since that's the point these would otherwise stack.
+ */
+@media (max-width: 781px) {
+  .footer-nav-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--wp--preset--spacing--40);
+    row-gap: var(--wp--preset--spacing--40);
+
+    > .wp-block-columns {
+      display: contents;
+    }
   }
 }
