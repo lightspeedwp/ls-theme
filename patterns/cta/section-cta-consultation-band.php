@@ -45,11 +45,11 @@
 		<!-- /wp:group -->
 
 		<!-- wp:group {"className":"ls-cta-band__actions","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-		<div class="wp-block-group ls-cta-band__actions" style="--ls-link-arrow-colour:var(--wp--custom--color--text--on-dark);--ls-link-arrow-hover-colour:var(--wp--custom--color--text--brand)">
+		<div class="wp-block-group ls-cta-band__actions">
 			<!-- wp:buttons -->
 			<div class="wp-block-buttons">
 				<!-- wp:button {"className":"ls-cta-band__button"} -->
-				<div class="wp-block-button ls-cta-band__button"><a class="wp-block-button__link wp-element-button" style="color:var(--wp--custom--color--text--on-dark);--ls-button-fill-background:var(--wp--custom--color--surface--on-dark-card);--ls-button-fill-icon-colour:var(--wp--custom--color--text--on-dark);--ls-button-fill-hover-text:var(--wp--custom--color--text--on-dark)" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
+				<div class="wp-block-button ls-cta-band__button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->

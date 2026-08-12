@@ -44,14 +44,21 @@
  * Mega-menu row hover (Default + Service items): same background-raise idea as the contract above,
  * deliberately kept separate rather than merged into it — these rows were never designed to also
  * change border-color on hover, and merging would silently add that.
+ *
+ * is-style-mega-menu-item-service is qualified to .wp-block-paragraph specifically: the same class
+ * is also applied once to the mobile Services accordion's core/columns grid wrapper
+ * (parts/mobile-menu.html), which contains all 6 phase columns. Left unscoped, :focus-within
+ * bubbles up from any focused descendant, so focusing a single service row would raise the
+ * background of the entire grid instead of just that row. is-style-mega-menu-item-default has no
+ * such conflict (always a core/group), so it stays unqualified.
  */
 .is-style-mega-menu-item-default,
-.is-style-mega-menu-item-service {
+.wp-block-paragraph.is-style-mega-menu-item-service {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 .is-style-mega-menu-item-default:hover, .is-style-mega-menu-item-default:focus-within,
-.is-style-mega-menu-item-service:hover,
-.is-style-mega-menu-item-service:focus-within {
+.wp-block-paragraph.is-style-mega-menu-item-service:hover,
+.wp-block-paragraph.is-style-mega-menu-item-service:focus-within {
   background-color: var(--wp--custom--color--surface--card-raised);
 }
 
@@ -74,7 +81,7 @@
   .is-style-footer-proof-card,
   .is-style-footer-social-icon,
   .is-style-mega-menu-item-default,
-  .is-style-mega-menu-item-service {
+  .wp-block-paragraph.is-style-mega-menu-item-service {
     transition: none;
   }
 }
@@ -759,15 +766,42 @@
 }
 
 /*
- * CTA fill-button on-dark colour pinning (ls-cta-band__button/-inline__button/-reassurance__button),
- * the CTA band's arrow-colour custom properties (ls-cta-band__actions), and the CTA strip wrapper's
- * position/display (ls-cta-strip__cta-wrap) are all single-use, rest-state-only, no pseudo-element
- * or hover involved — now set inline directly on each of the 3 cta-consultation patterns instead of
- * living here.
+ * CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark tokens so the fill
+ * button's rest and hover states stay readable regardless of the site's light/dark style
+ * variation. Was briefly moved to inline style attributes during Phase 3, reverted after code
+ * review confirmed that breaks block validation — core/button's save() only regenerates a style
+ * attribute from registered block attributes (color/border/spacing tokens), never from arbitrary
+ * custom properties, so the stored markup wouldn't match what save() reproduces on the next
+ * editor open.
  */
-/* CTA strip: the arrow sits next to the glass button rather than nested in
-   its rich text, so it needs its own hover contract tied to the shared
-   wrapper. */
+.ls-cta-band__button .wp-block-button__link,
+.ls-cta-inline__button .wp-block-button__link,
+.ls-cta-reassurance__button .wp-block-button__link {
+  color: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-background: var(--wp--custom--color--surface--on-dark-card);
+  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+}
+
+/* CTA band: the secondary link's arrow colours aren't part of the group's
+   saved block attributes, so they're defined here instead of as an inline
+   style on the wrapper (which would be dropped on save). */
+.ls-cta-band__actions {
+  --ls-link-arrow-colour: var(--wp--custom--color--text--on-dark);
+  --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
+}
+
+/*
+ * CTA strip: the arrow sits next to the glass button rather than nested in its rich text, so it
+ * needs its own hover contract tied to the shared wrapper. The wrapper's position/display were
+ * also briefly inlined during Phase 3 — reverted for the same block-validation reason as above
+ * (core/group's save() doesn't regenerate arbitrary style properties either).
+ */
+.ls-cta-strip__cta-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
 .ls-cta-strip__button-arrow {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
@@ -1159,6 +1193,21 @@
 }
 
 /********** Site Footer **********/
+/*
+ * JSON limitation: "LightSpeed notes" badge — a flex group with no explicit width constraint
+ * defaults to filling its row, so the border/background would stretch across the notes panel
+ * instead of hugging the label text. There's no theme.json dimensions property for width/
+ * fit-content, and this plain (non-is-style) classname on a single-use pattern can't hold a
+ * block-style-variation JSON file either — CSS is the only option. Was briefly moved to an inline
+ * style attribute during Phase 3, reverted after code review confirmed that breaks block
+ * validation: core/group's save() only regenerates a style attribute from registered block
+ * attributes, and width:fit-content was never one of them, so the stored markup would no longer
+ * match what save() reproduces on the next editor open.
+ */
+.footer-notes-badge {
+  width: fit-content;
+}
+
 /*
  * Decorative background: top edge glow bar + ambient radial-gradient glow behind the footer.
  * Authored as layered CSS gradients rather than embedding Figma's raw multi-layer SVG data-URIs,

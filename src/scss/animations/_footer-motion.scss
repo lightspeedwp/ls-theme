@@ -2,6 +2,21 @@
 /********** Site Footer **********/
 
 /*
+ * JSON limitation: "LightSpeed notes" badge — a flex group with no explicit width constraint
+ * defaults to filling its row, so the border/background would stretch across the notes panel
+ * instead of hugging the label text. There's no theme.json dimensions property for width/
+ * fit-content, and this plain (non-is-style) classname on a single-use pattern can't hold a
+ * block-style-variation JSON file either — CSS is the only option. Was briefly moved to an inline
+ * style attribute during Phase 3, reverted after code review confirmed that breaks block
+ * validation: core/group's save() only regenerates a style attribute from registered block
+ * attributes, and width:fit-content was never one of them, so the stored markup would no longer
+ * match what save() reproduces on the next editor open.
+ */
+.footer-notes-badge {
+  width: fit-content;
+}
+
+/*
  * Decorative background: top edge glow bar + ambient radial-gradient glow behind the footer.
  * Authored as layered CSS gradients rather than embedding Figma's raw multi-layer SVG data-URIs,
  * which would be extremely brittle to maintain. Every colour route through the same semantic

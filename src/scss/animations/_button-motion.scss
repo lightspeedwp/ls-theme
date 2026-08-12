@@ -372,16 +372,42 @@
 }
 
 /*
- * CTA fill-button on-dark colour pinning (ls-cta-band__button/-inline__button/-reassurance__button),
- * the CTA band's arrow-colour custom properties (ls-cta-band__actions), and the CTA strip wrapper's
- * position/display (ls-cta-strip__cta-wrap) are all single-use, rest-state-only, no pseudo-element
- * or hover involved — now set inline directly on each of the 3 cta-consultation patterns instead of
- * living here.
+ * CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark tokens so the fill
+ * button's rest and hover states stay readable regardless of the site's light/dark style
+ * variation. Was briefly moved to inline style attributes during Phase 3, reverted after code
+ * review confirmed that breaks block validation — core/button's save() only regenerates a style
+ * attribute from registered block attributes (color/border/spacing tokens), never from arbitrary
+ * custom properties, so the stored markup wouldn't match what save() reproduces on the next
+ * editor open.
  */
+.ls-cta-band__button .wp-block-button__link,
+.ls-cta-inline__button .wp-block-button__link,
+.ls-cta-reassurance__button .wp-block-button__link {
+  color: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-background: var(--wp--custom--color--surface--on-dark-card);
+  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
+  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+}
 
-/* CTA strip: the arrow sits next to the glass button rather than nested in
-   its rich text, so it needs its own hover contract tied to the shared
-   wrapper. */
+/* CTA band: the secondary link's arrow colours aren't part of the group's
+   saved block attributes, so they're defined here instead of as an inline
+   style on the wrapper (which would be dropped on save). */
+.ls-cta-band__actions {
+  --ls-link-arrow-colour: var(--wp--custom--color--text--on-dark);
+  --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
+}
+
+/*
+ * CTA strip: the arrow sits next to the glass button rather than nested in its rich text, so it
+ * needs its own hover contract tied to the shared wrapper. The wrapper's position/display were
+ * also briefly inlined during Phase 3 — reverted for the same block-validation reason as above
+ * (core/group's save() doesn't regenerate arbitrary style properties either).
+ */
+.ls-cta-strip__cta-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
 .ls-cta-strip__button-arrow {
   transition:
     transform var(--wp--custom--animation--duration--base)

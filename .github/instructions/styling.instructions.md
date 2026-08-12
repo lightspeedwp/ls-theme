@@ -14,7 +14,7 @@ applyTo: "{style.css,src/scss/**/*.scss,src/scss/**/*.css,assets/css/*.css,style
 
 ## Toolchain
 
-- Use the existing Sass workflow: `npm run sync:breakpoints`, `npm run build:css`, and `npm run watch:css`.
+- Use the existing Sass workflow: `npm run build:css` and `npm run watch:css`.
 - Do not introduce Gulp, Grunt, CodeKit, Scout, LiveReload, or alternate Sass pipelines unless the user explicitly asks to change the toolchain.
 - Do not add Autoprefixer, PurgeCSS, critical-CSS splitting, or CSS frameworks by default. In a WordPress block theme, those changes need measured ROI plus runtime and editor compatibility planning.
 - Do not add vendor prefixes by default. Only keep or add them when existing code, verified browser support, or a specific bug requires them.

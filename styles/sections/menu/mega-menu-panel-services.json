@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|20"
 			}
 		},
-		"css": "width: fit-content;\nmax-width: 100vw;\n\n& .wp-block-columns {\n\tdisplay: grid;\n\tgrid-template-columns: repeat(2, 1fr);\n\tgap: var(--wp--style--block-gap);\n}\n\n& .wp-block-column {\n\twidth: auto;\n}\n\n& .wp-block-column > .wp-block-group p {\n\twhite-space: nowrap;\n}"
+		"css": "width: fit-content;\nmax-width: 100vw;\nbox-sizing: border-box;\n\n& .wp-block-columns {\n\tdisplay: grid;\n\tgrid-template-columns: repeat(2, 1fr);\n\tgap: var(--wp--style--block-gap);\n}\n\n& .wp-block-column {\n\twidth: auto;\n}\n\n& .wp-block-column > .wp-block-group p {\n\twhite-space: nowrap;\n}"
 	}
 }

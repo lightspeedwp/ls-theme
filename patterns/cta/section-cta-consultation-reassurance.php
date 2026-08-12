@@ -38,7 +38,7 @@
 		<!-- wp:buttons -->
 		<div class="wp-block-buttons">
 			<!-- wp:button {"className":"ls-cta-reassurance__button"} -->
-			<div class="wp-block-button ls-cta-reassurance__button"><a class="wp-block-button__link wp-element-button" style="color:var(--wp--custom--color--text--on-dark);--ls-button-fill-background:var(--wp--custom--color--surface--on-dark-card);--ls-button-fill-icon-colour:var(--wp--custom--color--text--on-dark);--ls-button-fill-hover-text:var(--wp--custom--color--text--on-dark)" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
+			<div class="wp-block-button ls-cta-reassurance__button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

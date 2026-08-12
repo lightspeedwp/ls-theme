@@ -9,6 +9,7 @@
     .schema-faq-section {
       --ls-faq-border-rest: var(--wp--custom--color--border--card);
       --ls-faq-border-active: var(--wp--custom--color--link--accent);
+
       position: relative;
       overflow: hidden;
       border: 1px solid var(--ls-faq-border-rest);
