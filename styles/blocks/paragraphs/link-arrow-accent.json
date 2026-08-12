@@ -11,15 +11,12 @@
 	"styles": {
 		"elements": {
 			"link": {
-				"color": {
-					"text": "var:custom|color|link|accent"
-				},
 				"typography": {
 					"fontWeight": "600",
 					"textDecoration": "none"
 				}
 			}
 		},
-		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;}"
+		"css": "&{--ls-link-arrow-gap:0.45ch;--ls-link-arrow-offset:0.35em;}\n\n& a{display:inline-flex;align-items:center;gap:var(--ls-link-arrow-gap, 0.45ch);}\n\n& a::after{display:inline-block;transform:translateX(0);}"
 	}
 }

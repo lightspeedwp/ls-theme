@@ -96,14 +96,18 @@
   background-size: 100% var(--ls-link-underline-thickness);
 }
 
-/* Link Arrow Accent */
+/*
+ * Link Arrow Accent (styles/blocks/paragraphs/link-arrow-accent.json): rest-state layout
+ * (display/align-items/gap on the link, display/baseline transform on the arrow glyph) lives in
+ * the JSON file's css field now — font-weight/text-decoration were already on the JSON's
+ * elements.link. Rest colour stays here rather than on elements.link: it needs the
+ * --ls-link-arrow-colour custom-property-with-fallback pattern so consumers (e.g. the CTA band's
+ * on-dark override) can override it, which the elements schema can't express. `content:` also
+ * stays here (Sass icon variable). Only real motion (transitions, hover/focus states, the
+ * cross-card-hover compound selectors) stays below otherwise.
+ */
 .wp-block-paragraph.is-style-link-arrow-accent a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--ls-link-arrow-gap, 0.45ch);
   color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
-  font-weight: var(--ls-link-arrow-weight, var(--wp--custom--typography--font-weight--semibold));
-  text-decoration: none;
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), gap var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
   transition-delay: var(--wp--custom--animation--delay--none);
 }
