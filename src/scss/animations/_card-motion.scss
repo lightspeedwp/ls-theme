@@ -1,4 +1,3 @@
-@use "../abstracts/mixins/motion";
 
 /********** Card Motion **********/
 
@@ -291,7 +290,7 @@
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .wp-block-paragraph.is-style-link-arrow-accent a,
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-glass-card,

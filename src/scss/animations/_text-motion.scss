@@ -1,4 +1,3 @@
-@use "../abstracts/mixins/motion";
 
 /********** Text Motion **********/
 
@@ -70,7 +69,7 @@
   outline-offset: var(--ls-accent-gradient-focus-offset);
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .wp-block-heading.is-style-gradient-accent,
   .wp-block-heading.is-style-gradient-accent a {
     animation: none;

@@ -1,5 +1,3 @@
-@use "../abstracts/mixins/surface";
-
 /********** Yoast FAQ Accordion **********/
 
 .schema-faq {
@@ -11,12 +9,12 @@
     .schema-faq-section {
       --ls-faq-border-rest: var(--wp--custom--color--border--card);
       --ls-faq-border-active: var(--wp--custom--color--link--accent);
-      @include surface.surface-card(
-        $radius: var(--wp--preset--border-radius--200),
-        $border: 1px solid var(--ls-faq-border-rest),
-        $background: var(--wp--custom--color--surface--card),
-        $shadow: none
-      );
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--ls-faq-border-rest);
+      border-radius: var(--wp--preset--border-radius--200);
+      background: var(--wp--custom--color--surface--card);
+      box-shadow: none;
       transition:
         background-color var(--wp--custom--animation--duration--base)
           var(--wp--custom--animation--easing--standard),

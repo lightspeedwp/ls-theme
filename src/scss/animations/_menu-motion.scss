@@ -1,5 +1,4 @@
 @use "sass:list";
-@use "../abstracts/mixins/motion";
 
 /********** Mega Menu Item **********/
 
@@ -30,7 +29,7 @@
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .is-style-mega-menu-item-default,
   .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
     transition: none;
@@ -51,7 +50,7 @@
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .is-style-mega-menu-item-service {
     transition: none;
   }
@@ -106,7 +105,7 @@ $ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .is-style-mega-menu-panel-services .wp-block-column > .wp-block-group:first-child {
     transition: none;
   }

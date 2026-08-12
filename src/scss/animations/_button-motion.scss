@@ -1,5 +1,3 @@
-@use "../abstracts/mixins/motion";
-@use "../abstracts/mixins/surface";
 @use "icons";
 
 /********** Button Motion **********/
@@ -73,7 +71,8 @@
   .wp-block-button.is-style-fill
 ) .wp-block-button__link::before {
   content: "";
-  @include surface.absolute-fill();
+  position: absolute;
+  inset: 0;
   border-radius: inherit;
   background: var(
     --ls-button-fill-background,
@@ -402,7 +401,7 @@
   transform: translateX(0.25em);
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .wp-block-button.is-style-glass-button .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {

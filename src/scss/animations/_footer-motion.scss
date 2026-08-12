@@ -1,4 +1,3 @@
-@use "../abstracts/mixins/motion";
 
 /********** Site Footer **********/
 
@@ -147,7 +146,7 @@
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .is-style-footer-nav-link a,
   .is-style-footer-proof-card,
   .is-style-footer-social-icon {

@@ -1,4 +1,3 @@
-@use "../abstracts/mixins/motion";
 
 /********** Site Header **********/
 
@@ -140,7 +139,7 @@
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .is-style-header-icon-button,
   .is-style-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__button,
