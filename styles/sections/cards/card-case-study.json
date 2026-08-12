@@ -22,6 +22,6 @@
 		"spacing": {
 			"blockGap": "0"
 		},
-		"css": "&{overflow:hidden;border-color:color-mix(in srgb, var(--wp--custom--color--border--card) 55%, transparent);}"
+		"css": "&{overflow:hidden;border-color:color-mix(in srgb, var(--wp--custom--color--border--card) 55%, transparent);--ls-card-case-study-border-active:var(--wp--custom--color--link--accent);--ls-card-case-study-shadow-active:var(--wp--custom--shadow--card--hover);--ls-card-case-study-lift:var(--wp--custom--animation--lift--md);}"
 	}
 }

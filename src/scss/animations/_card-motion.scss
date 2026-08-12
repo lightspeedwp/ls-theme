@@ -1,25 +1,8 @@
-@use "../abstracts/mixins/glass";
 @use "../abstracts/mixins/motion";
-@use "../abstracts/mixins/surface";
-@use "../abstracts/mixins/mq";
 
 /********** Card Motion **********/
 
-:is(
-  .ls-card__icon-shell,
-  .ls-card-feature__icon-shell,
-  .ls-card-services__icon-shell
-) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--wp--preset--spacing--20);
-  border: 1px solid color-mix(in srgb, var(--wp--custom--color--icon--background) 35%, transparent);
-  border-radius: var(--wp--preset--border-radius--200);
-  background: var(--wp--custom--color--icon--background);
-  box-sizing: border-box;
-  overflow: hidden;
-  line-height: 0;
+.ls-card__icon-shell {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -27,89 +10,14 @@
       var(--wp--custom--animation--easing--standard),
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
-
-  .wp-block-outermost-icon-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    margin: 0;
-    line-height: 0;
-    color: var(--wp--custom--color--icon--color);
-  }
-
-  .icon-container {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent !important;
-    color: var(--wp--custom--color--icon--color) !important;
-
-    svg {
-      fill: currentColor;
-    }
-  }
 }
 
-/* Glass Card */
+/*
+ * Glass Card: rest-state look (background, border, edge highlights, outline) lives in
+ * styles/sections/cards/glass-card.json. Only what's genuinely motion or a confirmed JSON
+ * limitation stays here.
+ */
 .is-style-glass-card {
-  --ls-glass-card-background-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 24%,
-    transparent
-  );
-  --ls-glass-card-background-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 34%,
-    transparent
-  );
-  --ls-glass-card-border-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 35%,
-    transparent
-  );
-  --ls-glass-card-border-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--link--accent) 32%,
-    var(--wp--custom--color--surface--highlight) 30%,
-    transparent
-  );
-  --ls-glass-card-blur: 24px;
-  --ls-glass-card-shadow-rest: var(--wp--custom--shadow--elevation--200);
-  --ls-glass-card-shadow-hover: var(--wp--custom--shadow--elevation--300),
-    var(--wp--custom--shadow--interactive--accent);
-  --ls-glass-card-top-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 82%,
-    transparent
-  );
-  --ls-glass-card-side-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 72%,
-    transparent
-  );
-  --ls-glass-card-side-tail: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 30%,
-    transparent
-  );
-  --ls-glass-card-focus-width: 2px;
-  --ls-glass-card-focus-colour: var(--wp--custom--color--focus--ring);
-  --ls-glass-card-focus-offset: 4px;
-  --ls-glass-card-lift: -4px;
-  @include glass.glass-surface(
-    $background: var(--ls-glass-card-background-rest),
-    $border: var(--ls-glass-card-border-rest),
-    $radius: var(--wp--preset--border-radius--300),
-    $blur: var(--ls-glass-card-blur),
-    $shadow: var(--ls-glass-card-shadow-rest)
-  );
-  @include glass.glass-edge-highlights(
-    $top-highlight: var(--ls-glass-card-top-highlight),
-    $side-highlight: var(--ls-glass-card-side-highlight),
-    $side-tail: var(--ls-glass-card-side-tail)
-  );
-  isolation: isolate;
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -121,18 +29,6 @@
       var(--wp--custom--animation--easing--standard),
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
-  outline: var(--ls-glass-card-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-card-focus-offset);
-
-  &::before,
-  &::after {
-    z-index: var(--wp--custom--z-index--base);
-  }
-
-  > * {
-    position: relative;
-    z-index: var(--wp--custom--z-index--content);
-  }
 
   &:hover,
   &:focus-within {
@@ -145,25 +41,25 @@
   &:focus-within {
     outline-color: var(--ls-glass-card-focus-colour);
   }
+
+  /*
+   * JSON limitation: confirmed empirically (2026-08-11) that @supports has the same bug as
+   * @media in the styles/**.json css field — silently stripped, declarations leak out
+   * unconditionally regardless of feature support.
+   */
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
 }
 
-/* Card - Feature */
+/*
+ * Card - Feature: rest-state border/background/shadow/spacing, the content/cta layout, and the
+ * icon-shell's align-self all live in styles/sections/cards/card-feature.json. Hover-state
+ * custom properties are declared in that same JSON file; only the transition and the
+ * transform-bearing hover rule stay here as real motion.
+ */
 .is-style-card-feature {
-  --ls-card-feature-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-feature-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-feature-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-feature-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-feature-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-feature-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
-  --ls-card-feature-lift: -6px;
-  @include surface.surface-card(
-    $radius: var(--wp--preset--border-radius--300),
-    $border: 1px solid var(--ls-card-feature-border-rest),
-    $background: var(--wp--custom--color--surface--card),
-    $shadow: var(--ls-card-feature-shadow-rest)
-  );
-  gap: var(--wp--preset--spacing--30);
-  padding: var(--wp--preset--spacing--30);
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -179,45 +75,21 @@
     transform: translateY(var(--ls-card-feature-lift));
   }
 
-  .ls-card-feature__content {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--20);
-  }
-
-  .ls-card-feature__cta {
-    margin-top: auto;
-    margin-bottom: 0;
-  }
-
-  :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
-    align-self: flex-start;
-  }
-
-  &:hover :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
-  &:focus-within :is(.ls-card__icon-shell, .ls-card-feature__icon-shell) {
+  &:hover .ls-card__icon-shell,
+  &:focus-within .ls-card__icon-shell {
     border-color: var(--ls-card-feature-icon-border-active);
     box-shadow: var(--ls-card-feature-icon-shadow-active);
     transform: rotate(-5deg) scale(0.98);
   }
 }
 
-/* Card - Work Category */
+/*
+ * Card - Work Category: rest-state border/background/shadow/spacing and the content layout live
+ * in styles/sections/cards/card-category.json. Hover-state custom properties are declared in
+ * that same JSON file; only the transition and the transform-bearing hover rule stay here as
+ * real motion.
+ */
 .is-style-card-category {
-  --ls-card-category-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-category-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-category-lift: -4px;
-  @include surface.surface-card(
-    $radius: var(--wp--preset--border-radius--300),
-    $border: 1px solid var(--ls-card-category-border-rest),
-    $background: var(--wp--custom--color--surface--card),
-    $shadow: var(--ls-card-category-shadow-rest)
-  );
-  gap: var(--wp--preset--spacing--20);
-  padding: var(--wp--preset--spacing--20);
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -232,21 +104,43 @@
     box-shadow: var(--ls-card-category-shadow-active);
     transform: translateY(var(--ls-card-category-lift));
   }
+}
 
-  .ls-card-category__content {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
+/*
+ * Card - Case Study: had no hover treatment at all (pre-existing gap, confirmed 2026-08-12 —
+ * never present anywhere in src/scss/, unrelated to this phase's migration work). Reuses Card -
+ * Work Category's exact hover pattern (border-color, shadow, lift) for consistency across the
+ * Work archive's card family. Rest-state look and the hover-only custom properties live in
+ * styles/sections/cards/card-case-study.json; only the transition and the transform-bearing
+ * hover rule stay here as real motion.
+ */
+.is-style-card-case-study {
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-case-study-border-active);
+    box-shadow: var(--ls-card-case-study-shadow-active);
+    transform: translateY(var(--ls-card-case-study-lift));
   }
 }
 
-/* Card - Services */
+/*
+ * Card - Services: rest-state border/background/shadow/spacing, align-items/max-inline-size/
+ * text-align/transform-origin, the content/list/cta layout, and the icon-shell's align-self all
+ * live in styles/sections/cards/card-services.json. The accent-gradient bar animates via
+ * @keyframes on hover, so everything below (including its own thickness/gradient custom
+ * properties, kept together as one cohesive animated unit) stays real motion.
+ */
 .is-style-card-services {
-  --ls-card-services-border-rest: var(--wp--custom--color--border--card);
   --ls-card-services-border-active: var(--wp--custom--color--link--accent);
   --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-services-shadow-rest: var(--wp--custom--shadow--elevation--100);
   --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
   --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
   --ls-card-services-scale: 1.05;
@@ -266,18 +160,6 @@
   --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
   --ls-accent-gradient-direction: alternate;
   --ls-accent-gradient-reduced-position: 100%;
-  @include surface.surface-card(
-    $radius: var(--wp--preset--border-radius--300),
-    $border: 1px solid var(--ls-card-services-border-rest),
-    $background: var(--wp--custom--color--surface--card),
-    $shadow: var(--ls-card-services-shadow-rest)
-  );
-  align-items: center;
-  gap: var(--wp--preset--spacing--20);
-  max-inline-size: 24.167rem;
-  padding: var(--wp--preset--spacing--40);
-  text-align: center;
-  transform-origin: top center;
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -321,93 +203,22 @@
     }
   }
 
-  :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
-    align-self: center;
-  }
-
-  .ls-card-services__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--wp--preset--spacing--20);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-  }
-
-  .ls-card-services__list {
-    inline-size: 100%;
-    margin-block: 0;
-  }
-
-  .ls-card-services__cta {
-    position: static;
-    margin-top: auto;
-    margin-bottom: 0;
-
-    a::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-
-    a,
-    a::after {
-      position: relative;
-      z-index: 2;
-    }
-  }
-
-  &:hover :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
-  &:focus-within :is(.ls-card__icon-shell, .ls-card-services__icon-shell) {
+  &:hover .ls-card__icon-shell,
+  &:focus-within .ls-card__icon-shell {
     border-color: var(--ls-card-services-icon-border-active);
     box-shadow: var(--ls-card-services-icon-shadow-active);
   }
 }
 
-/* Icon Frame Glow */
+/*
+ * Icon Frame Glow: rest-state look (accent colour, border, background, icon nesting) lives in
+ * styles/blocks/groups/icon-frame-glow.json. border-color is the same value at rest and on hover
+ * (both were --ls-icon-frame-accent-colour) — nothing actually changes there, so it's set once in
+ * JSON and dropped from this rule entirely. Only the shadow and rotate transform are real
+ * changes, and those stay here as real motion. Drops the dead is-style-card-solutions-accent
+ * reference (LS-2341, zero consumers).
+ */
 .is-style-icon-frame-glow {
-  --ls-icon-frame-accent-colour: var(
-    --ls-card-solutions-accent-colour,
-    var(--wp--custom--color--card--solutions--brand)
-  );
-  --ls-icon-frame-border-rest: var(--ls-icon-frame-accent-colour);
-  --ls-icon-frame-border-active: var(--ls-icon-frame-accent-colour);
-  --ls-icon-frame-background-rest: color-mix(
-    in srgb,
-    var(--ls-icon-frame-accent-colour) 10%,
-    transparent
-  );
-  --ls-icon-frame-shadow-active: 0 0 4px 4px
-    color-mix(
-      in srgb,
-      var(--ls-icon-frame-accent-colour) 50%,
-      transparent
-    );
-  --ls-icon-frame-inset-shadow-active: inset 0 0 4px 3px
-    color-mix(
-      in srgb,
-      var(--ls-icon-frame-accent-colour) 50%,
-      transparent
-    );
-  --ls-icon-frame-tilt: -3deg;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  min-inline-size: 5rem;
-  min-block-size: 5rem;
-  padding: var(--wp--preset--spacing--20);
-  border: 1px solid var(--ls-icon-frame-border-rest);
-  border-radius: var(--wp--preset--border-radius--200);
-  background: var(--ls-icon-frame-background-rest);
-  box-sizing: border-box;
-  overflow: hidden;
-  line-height: 0;
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -416,33 +227,10 @@
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
 
-  .wp-block-outermost-icon-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    margin: 0;
-    line-height: 0;
-    color: var(--ls-icon-frame-accent-colour);
-  }
-
-  .icon-container {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent !important;
-    color: var(--ls-icon-frame-accent-colour) !important;
-
-    svg {
-      fill: currentColor;
-    }
-  }
-
   &:hover,
   &:focus-within,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
-    border-color: var(--ls-icon-frame-border-active);
+  .is-style-card-solutions:hover &,
+  .is-style-card-solutions:focus-within & {
     box-shadow:
       var(--ls-icon-frame-shadow-active),
       var(--ls-icon-frame-inset-shadow-active);
@@ -450,30 +238,12 @@
   }
 }
 
-/* Card - Solutions */
-:is(.is-style-card-solutions, .is-style-card-solutions-accent) {
-  --ls-card-solutions-accent-resolved: var(
-    --ls-card-solutions-accent-colour,
-    var(--wp--custom--color--card--solutions--brand)
-  );
-  --ls-card-solutions-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
-  --ls-card-solutions-shadow-rest: var(--wp--custom--shadow--elevation--100);
-  --ls-card-solutions-shadow-active: 1px 4px 12px 4px
-    color-mix(
-      in srgb,
-      var(--ls-card-solutions-accent-resolved) 50%,
-      transparent
-    );
-  @include surface.surface-card(
-    $radius: var(--wp--preset--border-radius--200),
-    $border: 1px solid var(--ls-card-solutions-border-rest),
-    $background: var(--wp--custom--color--surface--card),
-    $shadow: var(--ls-card-solutions-shadow-rest)
-  );
-  gap: var(--wp--preset--spacing--10);
-  padding: var(--wp--preset--spacing--30);
-  max-inline-size: 22.5rem;
+/*
+ * Card - Solutions: rest-state border/background/shadow/spacing/max-inline-size, the content/cta
+ * layout, and the hover-only custom properties all live in styles/sections/cards/card-solutions.json.
+ * Drops the dead is-style-card-solutions-accent reference (LS-2341, zero consumers) from the selector.
+ */
+.is-style-card-solutions {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -486,47 +256,23 @@
     box-shadow: var(--ls-card-solutions-shadow-active);
   }
 
-  .ls-card-solutions__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-
-    .wp-block-heading {
-      color: var(--wp--custom--color--text--default);
-      transition: color var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--standard);
-    }
+  .ls-card-solutions__content .wp-block-heading {
+    transition: color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
   }
 
   &:hover .ls-card-solutions__content .wp-block-heading,
   &:focus-within .ls-card-solutions__content .wp-block-heading {
     color: var(--ls-card-solutions-accent-resolved);
   }
-
-  .ls-card-solutions__cta {
-    margin-top: auto;
-    margin-bottom: 0;
-
-    .wp-block-button {
-      margin: 0;
-    }
-  }
 }
 
-/* Card - Link Row */
+/*
+ * Card - Link Row: rest-state look, hover-only custom properties, stretched-link ::before, base
+ * link style, and :focus-visible all live in styles/sections/cards/card-link-row.json. Only the
+ * background/border-color transition and its hover-state swap stay here as real motion.
+ */
 .is-style-card-link-row {
-  --ls-card-link-row-border-rest: var(--wp--custom--color--border--card);
-  --ls-card-link-row-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
-  --ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);
-  position: relative;
-  border-color: var(--ls-card-link-row-border-rest);
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -543,25 +289,6 @@
   &:focus-within .wp-block-outermost-icon-block .icon-container {
     color: var(--ls-card-link-row-icon-active) !important;
   }
-
-  /* Stretched-link pattern: the visible <a> only wraps the title text, but its
-   * ::before covers the whole card so the entire row is clickable — while
-   * keeping a single real, keyboard-focusable link (not a fake click handler). */
-  .ls-card-link-row__link {
-    color: inherit;
-    text-decoration: none;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--wp--custom--color--focus--ring);
-      outline-offset: 2px;
-    }
-  }
 }
 
 @include motion.reduced-motion {
@@ -569,16 +296,16 @@
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-glass-card,
   .is-style-card-feature,
-  .is-style-card-feature :is(.ls-card__icon-shell, .ls-card-feature__icon-shell),
+  .is-style-card-feature .ls-card__icon-shell,
   .is-style-card-category,
   .is-style-card-link-row,
   .is-style-card-services,
   .is-style-card-services::before,
-  .is-style-card-services :is(.ls-card__icon-shell, .ls-card-services__icon-shell),
+  .is-style-card-services .ls-card__icon-shell,
   .is-style-icon-frame-glow,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent),
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent)
-    .wp-block-heading {
+  .is-style-card-solutions,
+  .is-style-card-solutions .wp-block-heading,
+  .is-style-card-case-study {
     transition: none;
   }
 
@@ -589,7 +316,9 @@
   .is-style-card-category:hover,
   .is-style-card-category:focus-within,
   .is-style-card-services:hover,
-  .is-style-card-services:focus-within {
+  .is-style-card-services:focus-within,
+  .is-style-card-case-study:hover,
+  .is-style-card-case-study:focus-within {
     transform: none;
   }
 
@@ -611,80 +340,47 @@
 
   .is-style-icon-frame-glow:hover,
   .is-style-icon-frame-glow:focus-within,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
-    .is-style-icon-frame-glow,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
-    .is-style-icon-frame-glow {
+  .is-style-card-solutions:hover .is-style-icon-frame-glow,
+  .is-style-card-solutions:focus-within .is-style-icon-frame-glow {
     transform: none;
   }
 }
 
 /*
- * Stat Segment: its border-inline-end divider (styles/sections/cards/stat-segment.json) reads as
- * a vertical rule between adjacent columns in a `wp:columns` row. Below core/columns' own native
- * stacking breakpoint (WP core hardcodes this at `max-width: 781px` in
- * wp-includes/blocks/columns/style.css — mirrored here as the `columns-stack` entry in
- * theme.json's settings.custom.layout.break-points), each column becomes full-width, so that same
- * border would just show as a stray line down the right edge of every stacked segment. Drop it at
- * that same breakpoint instead.
+ * Stat Segment: base border-inline-end divider lives in styles/sections/cards/stat-segment.json.
+ * Both suppression rules below stay here as confirmed JSON limitations:
+ *
+ * 1. JSON limitation: @media can't go in the css field (confirmed empirically, see
+ *    home-hero-section.json). Below core/columns' own native stacking breakpoint (WP core
+ *    hardcodes this at `max-width: 781px` in wp-includes/blocks/columns/style.css — mirrored
+ *    here as the `columns-stack` entry in theme.json's settings.custom.layout.break-points),
+ *    each column becomes full-width, so the divider would just show as a stray line down the
+ *    right edge of every stacked segment. 781.98px = 782px minus the same 0.02px offset the
+ *    retired mq mixin used, so this stops just short of the next breakpoint.
+ *
+ * 2. JSON limitation, confirmed empirically 2026-08-11 (via a temporary throwaway test page):
+ *    a css-field selector with `&` anywhere other than the leading token — e.g.
+ *    ".wp-block-columns > .wp-block-column:last-child > &" — breaks. WordPress's `&`
+ *    substitution silently drops the trailing `&`, and the declaration ends up applying to
+ *    EVERY instance unconditionally instead of just the intended one. `&` must be the first
+ *    token in a css-field selector; ancestor-context selectors with `&` at the end (unlike
+ *    icon-frame-glow's `.is-style-card-solutions:hover &`, which stays in this same file for
+ *    the same reason) cannot go in JSON at all.
  */
-@include mq.mq($until: "columns-stack") {
+@media (max-width: 781.98px) {
   .is-style-stat-segment {
     border-inline-end: none;
   }
 }
 
-/*
- * The last column in a stat row (e.g. "Tokens") reuses is-style-stat-segment for its shared
- * spacing/colour contract like every sibling, but shouldn't carry a trailing divider — there's no
- * column after it to divide from. Suppress it by position instead of duplicating the shared
- * style's properties on a class-less wrapper.
- */
 .wp-block-columns > .wp-block-column:last-child > .is-style-stat-segment {
   border-inline-end: none;
 }
 
-/* Card - Work Project (WooCommerce platform colour) */
-.is-style-card-banner-tint-woocommerce {
-  padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
-  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 7%, transparent);
-}
-
-.is-style-badge-woocommerce {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  color: var(--wp--custom--color--card--platform--woocommerce);
-  font-family: var(--wp--preset--font-family--monospace);
-  font-size: var(--wp--preset--font-size--100);
-  font-weight: var(--wp--custom--typography--font-weight--bold);
-  text-transform: uppercase;
-  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
-  border-radius: var(--wp--preset--border-radius--200);
-  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
-  letter-spacing: 1px;
-}
-
-/* Badge - multi-term wrapping (WordPress and WooCommerce both bind to
-   project-group, which can carry more than one term per post; core/post-terms
-   forces its links to display:block by default, which stacks each term
-   onto its own line and leaves the ", " separator orphaned on its own row) */
-:is(.is-style-badge-brand, .is-style-badge-woocommerce) {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-
-  a {
-    display: inline;
-    min-width: 0;
-    max-width: 100%;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .wp-block-post-terms__separator {
-    margin-inline-end: var(--wp--preset--spacing--5);
-  }
-}
+/*
+ * WooCommerce lockstep pair (card-banner-tint/-woocommerce, badge-brand/-woocommerce): already
+ * fully authored in styles/sections/cards/card-banner-tint*.json and
+ * styles/blocks/post-terms/badge-*.json, confirmed matching this file's former content
+ * property-for-property. Nothing left to migrate — this block only ever duplicated JSON that
+ * already existed.
+ */

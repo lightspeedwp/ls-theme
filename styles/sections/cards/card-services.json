@@ -27,6 +27,7 @@
 				"bottom": "var:preset|spacing|40",
 				"left": "var:preset|spacing|40"
 			}
-		}
+		},
+		"css": "position: relative;\noverflow: hidden;\nalign-items: center;\nmax-inline-size: 24.167rem;\ntext-align: center;\ntransform-origin: top center;\n\n& .ls-card__icon-shell {\n\talign-self: center;\n}\n\n& .ls-card-services__content {\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tflex-direction: column;\n\talign-items: center;\n\tgap: var(--wp--preset--spacing--20);\n\tinline-size: 100%;\n}\n\n& .ls-card-services__content > * {\n\tmargin-block: 0;\n}\n\n& .ls-card-services__list {\n\tinline-size: 100%;\n\tmargin-block: 0;\n}\n\n& .ls-card-services__cta {\n\tposition: static;\n\tmargin-top: auto;\n\tmargin-bottom: 0;\n}\n\n& .ls-card-services__cta a::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n\tz-index: 1;\n}\n\n& .ls-card-services__cta a {\n\tposition: relative;\n\tz-index: 2;\n}\n\n& .ls-card-services__cta a::after {\n\tposition: relative;\n\tz-index: 2;\n}"
 	}
 }
