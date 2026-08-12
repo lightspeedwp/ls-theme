@@ -4,6 +4,80 @@
     background-position: var(--ls-accent-gradient-end-position) center;
   }
 }
+/********** Shared Hover Contracts **********/
+/*
+ * Circular icon-button hover (header search button, mobile-menu close button, footer proof-card,
+ * footer social-icon): identical background/border-color raise-on-hover treatment and identical
+ * transition, previously duplicated once per file. Consolidated 2026-08-12 after a full duplicate
+ * sweep across every animation partial. Each consumer's rest-state box model stays in its own file
+ * (or JSON) — only this shared contract lives here. WordPress doesn't generate :hover CSS for
+ * arbitrary block style variations, and the Navigation close button is WP-core-generated markup
+ * with no registrable block-style slug at all — both are genuine JSON limitations, not a styling
+ * preference.
+ *
+ * The two groups below share identical transition + hover declarations but keep their original,
+ * different focus pseudo-class: the header search button and mobile-menu close button used
+ * :focus-visible (plain buttons — keyboard-only focus indication), footer proof-card/social-icon
+ * used :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation
+ * would silently change which interactions trigger the raise, so they stay split.
+ */
+.site-header__search .wp-block-search__button,
+.site-header .wp-block-navigation__responsive-container-close,
+.is-style-footer-proof-card,
+.is-style-footer-social-icon {
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
+.site-header__search .wp-block-search__button:hover,
+.site-header__search .wp-block-search__button:focus-visible,
+.site-header .wp-block-navigation__responsive-container-close:hover,
+.site-header .wp-block-navigation__responsive-container-close:focus-visible,
+.is-style-footer-proof-card:hover,
+.is-style-footer-proof-card:focus-within,
+.is-style-footer-social-icon:hover,
+.is-style-footer-social-icon:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised);
+  border-color: var(--wp--custom--color--phase--create);
+}
+
+/*
+ * Mega-menu row hover (Default + Service items): same background-raise idea as the contract above,
+ * deliberately kept separate rather than merged into it — these rows were never designed to also
+ * change border-color on hover, and merging would silently add that.
+ */
+.is-style-mega-menu-item-default,
+.is-style-mega-menu-item-service {
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.is-style-mega-menu-item-default:hover, .is-style-mega-menu-item-default:focus-within,
+.is-style-mega-menu-item-service:hover,
+.is-style-mega-menu-item-service:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised);
+}
+
+/*
+ * Frosted-glass blur (Glass Button, Glass Card): identical @supports-gated backdrop-filter pair,
+ * confirmed empirically (2026-08-11) that @supports is silently stripped from the styles/**.json
+ * css field, same bug as @media — so this stays real CSS for both consumers.
+ */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .wp-block-button.is-style-glass-button .wp-block-button__link,
+  .is-style-glass-card {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__search .wp-block-search__button,
+  .site-header .wp-block-navigation__responsive-container-close,
+  .is-style-footer-proof-card,
+  .is-style-footer-social-icon,
+  .is-style-mega-menu-item-default,
+  .is-style-mega-menu-item-service {
+    transition: none;
+  }
+}
 /********** Text Motion **********/
 /* Gradient Accent */
 .wp-block-heading.is-style-gradient-accent {
@@ -195,17 +269,7 @@
   outline-color: var(--ls-glass-card-focus-colour);
 }
 .is-style-glass-card {
-  /*
-   * JSON limitation: confirmed empirically (2026-08-11) that @supports has the same bug as
-   * @media in the styles/**.json css field — silently stripped, declarations leak out
-   * unconditionally regardless of feature support.
-   */
-}
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .is-style-glass-card {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
+  /* backdrop-filter's @supports block lives in _shared-hover.scss, shared with Glass Button. */
 }
 
 /*
@@ -616,16 +680,10 @@
 /*
  * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
  * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
- * live in the JSON file's css field now. backdrop-filter needs a real @supports test — confirmed
- * stripped from the JSON css field (same limitation as @media) — so it stays here. Everything below
- * is real motion: transition + hover/focus states + the lift transform.
+ * live in the JSON file's css field now. backdrop-filter's @supports block lives in
+ * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
+ * hover/focus states + the lift transform.
  */
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-}
 .wp-block-button.is-style-glass-button .wp-block-button__link {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), outline-color var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), outline-offset var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
   transition-delay: var(--wp--custom--animation--delay--none);
@@ -828,18 +886,14 @@
 }
 /********** Mega Menu Item **********/
 /*
- * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json).
- * WordPress's global-styles engine only generates :hover/:focus CSS for the elements.link/button/etc.
- * allowlist — arbitrary block style variations never get pseudo-state rules, so this piece can't be
- * expressed in the JSON style and lives here instead. Base (non-hover) styles for this row, and the
- * icon well's own appearance, remain authored in theme.json/style JSON.
+ * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json)
+ * and .is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json). WordPress's
+ * global-styles engine only generates :hover/:focus CSS for the elements.link/button/etc. allowlist
+ * — arbitrary block style variations never get pseudo-state rules, so this piece can't be expressed
+ * in either JSON style. Base (non-hover) styles for these rows, and the icon well's own appearance,
+ * remain authored in theme.json/style JSON. The shared background-raise contract itself lives in
+ * _shared-hover.scss — only the Default item's icon-colour transition is unique to this file.
  */
-.is-style-mega-menu-item-default {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-mega-menu-item-default:hover, .is-style-mega-menu-item-default:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-}
 .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
@@ -848,24 +902,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-mega-menu-item-default,
   .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
-    transition: none;
-  }
-}
-/*
- * Hover/focus states for .is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json),
- * matching the Default menu's row-background convention. Same WordPress core limitation as above applies.
- */
-.is-style-mega-menu-item-service {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-mega-menu-item-service:hover, .is-style-mega-menu-item-service:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .is-style-mega-menu-item-service {
     transition: none;
   }
 }
@@ -1070,7 +1107,8 @@
 /*
  * JSON limitation: the responsive-container-close button is entirely WP core-generated
  * markup (wp-includes/blocks/navigation) with no className we control and no registrable
- * block-style slug.
+ * block-style slug. Its hover/transition contract lives in _shared-hover.scss — shared
+ * byte-for-byte with the header search button and both footer icon-shell styles.
  */
 .site-header .wp-block-navigation__responsive-container-close {
   position: absolute;
@@ -1085,22 +1123,12 @@
   border: 1px solid var(--wp--custom--color--border--card);
   border-radius: var(--wp--preset--border-radius--500);
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 .site-header .wp-block-navigation__responsive-container-close svg {
   inline-size: 20px;
   block-size: 20px;
 }
-.site-header .wp-block-navigation__responsive-container-close:hover, .site-header .wp-block-navigation__responsive-container-close:focus-visible {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .site-header .wp-block-navigation__responsive-container-close {
-    transition: none;
-  }
-}
 /*
  * JSON limitation: this component is single-use (one instance in this file), so AGENTS.md's
  * single-use rule rules out registering an is-style for it — the border/min-height that WOULD
@@ -1216,36 +1244,14 @@
 }
 
 /*
- * Proof-point card (styles/blocks/groups/footer-proof-card.json): base structural CSS lives in the
- * JSON file. Hover lift matches the rest of the theme's card-hover conventions; no hover state
- * shown in the Figma reference — added per explicit approval as a consistency default. WordPress
- * doesn't generate :hover/:focus CSS for arbitrary block style variations, so this stays here.
+ * Proof-point card (styles/blocks/groups/footer-proof-card.json) and social icon circle
+ * (styles/blocks/groups/footer-social-icon.json): base structural CSS lives in their JSON files.
+ * Their hover/transition contract lives in _shared-hover.scss — shared byte-for-byte with the
+ * header search button and the mobile-menu close button. WordPress doesn't generate :hover/:focus
+ * CSS for arbitrary block style variations, so it can't move to either JSON file.
  */
-.is-style-footer-proof-card {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-footer-proof-card:hover, .is-style-footer-proof-card:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
-}
-
-/*
- * Social icon circle (styles/blocks/groups/footer-social-icon.json): base structural CSS, including
- * the min-width/min-height pairing that keeps the border-radius circle actually square, lives in
- * the JSON file. Only the hover/focus transition stays here (same core limitation as above).
- */
-.is-style-footer-social-icon {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-footer-social-icon:hover, .is-style-footer-social-icon:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .is-style-footer-nav-link a,
-  .is-style-footer-proof-card,
-  .is-style-footer-social-icon {
+  .is-style-footer-nav-link a {
     transition: none;
   }
 }
@@ -1361,6 +1367,10 @@
  * by assets/js/header-search.js, which intercepts the button's first click to expand + focus the
  * field instead of submitting immediately.
  */
+.site-header__search {
+  /* Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles. */
+}
 .site-header__search .wp-block-search__button {
   display: flex;
   align-items: center;
@@ -1372,12 +1382,6 @@
   border-radius: var(--wp--preset--border-radius--500);
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
   color: var(--wp--custom--color--text--default);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.site-header__search .wp-block-search__button:hover,
-.site-header__search .wp-block-search__button:focus-visible {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
 }
 .site-header__search .wp-block-search__input {
   inline-size: 0;
@@ -1397,7 +1401,6 @@
 @media (prefers-reduced-motion: reduce) {
   .is-style-header-icon-button,
   .is-style-button-cta-gradient .wp-block-button__link,
-  .site-header__search .wp-block-search__button,
   .site-header__search .wp-block-search__input {
     transition: none;
   }

@@ -114,42 +114,15 @@
 }
 
 /*
- * Proof-point card (styles/blocks/groups/footer-proof-card.json): base structural CSS lives in the
- * JSON file. Hover lift matches the rest of the theme's card-hover conventions; no hover state
- * shown in the Figma reference — added per explicit approval as a consistency default. WordPress
- * doesn't generate :hover/:focus CSS for arbitrary block style variations, so this stays here.
+ * Proof-point card (styles/blocks/groups/footer-proof-card.json) and social icon circle
+ * (styles/blocks/groups/footer-social-icon.json): base structural CSS lives in their JSON files.
+ * Their hover/transition contract lives in _shared-hover.scss — shared byte-for-byte with the
+ * header search button and the mobile-menu close button. WordPress doesn't generate :hover/:focus
+ * CSS for arbitrary block style variations, so it can't move to either JSON file.
  */
-.is-style-footer-proof-card {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
-  }
-}
-
-/*
- * Social icon circle (styles/blocks/groups/footer-social-icon.json): base structural CSS, including
- * the min-width/min-height pairing that keeps the border-radius circle actually square, lives in
- * the JSON file. Only the hover/focus transition stays here (same core limitation as above).
- */
-.is-style-footer-social-icon {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-footer-nav-link a,
-  .is-style-footer-proof-card,
-  .is-style-footer-social-icon {
+  .is-style-footer-nav-link a {
     transition: none;
   }
 }

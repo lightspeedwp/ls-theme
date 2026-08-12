@@ -1,0 +1,77 @@
+/********** Shared Hover Contracts **********/
+
+/*
+ * Circular icon-button hover (header search button, mobile-menu close button, footer proof-card,
+ * footer social-icon): identical background/border-color raise-on-hover treatment and identical
+ * transition, previously duplicated once per file. Consolidated 2026-08-12 after a full duplicate
+ * sweep across every animation partial. Each consumer's rest-state box model stays in its own file
+ * (or JSON) — only this shared contract lives here. WordPress doesn't generate :hover CSS for
+ * arbitrary block style variations, and the Navigation close button is WP-core-generated markup
+ * with no registrable block-style slug at all — both are genuine JSON limitations, not a styling
+ * preference.
+ *
+ * The two groups below share identical transition + hover declarations but keep their original,
+ * different focus pseudo-class: the header search button and mobile-menu close button used
+ * :focus-visible (plain buttons — keyboard-only focus indication), footer proof-card/social-icon
+ * used :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation
+ * would silently change which interactions trigger the raise, so they stay split.
+ */
+.site-header__search .wp-block-search__button,
+.site-header .wp-block-navigation__responsive-container-close,
+.is-style-footer-proof-card,
+.is-style-footer-social-icon {
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
+.site-header__search .wp-block-search__button:hover,
+.site-header__search .wp-block-search__button:focus-visible,
+.site-header .wp-block-navigation__responsive-container-close:hover,
+.site-header .wp-block-navigation__responsive-container-close:focus-visible,
+.is-style-footer-proof-card:hover,
+.is-style-footer-proof-card:focus-within,
+.is-style-footer-social-icon:hover,
+.is-style-footer-social-icon:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised);
+  border-color: var(--wp--custom--color--phase--create);
+}
+
+/*
+ * Mega-menu row hover (Default + Service items): same background-raise idea as the contract above,
+ * deliberately kept separate rather than merged into it — these rows were never designed to also
+ * change border-color on hover, and merging would silently add that.
+ */
+.is-style-mega-menu-item-default,
+.is-style-mega-menu-item-service {
+  transition: background-color var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+  }
+}
+
+/*
+ * Frosted-glass blur (Glass Button, Glass Card): identical @supports-gated backdrop-filter pair,
+ * confirmed empirically (2026-08-11) that @supports is silently stripped from the styles/**.json
+ * css field, same bug as @media — so this stays real CSS for both consumers.
+ */
+.wp-block-button.is-style-glass-button .wp-block-button__link,
+.is-style-glass-card {
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__search .wp-block-search__button,
+  .site-header .wp-block-navigation__responsive-container-close,
+  .is-style-footer-proof-card,
+  .is-style-footer-social-icon,
+  .is-style-mega-menu-item-default,
+  .is-style-mega-menu-item-service {
+    transition: none;
+  }
+}

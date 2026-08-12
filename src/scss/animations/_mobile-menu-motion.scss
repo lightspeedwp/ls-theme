@@ -59,7 +59,8 @@
 /*
  * JSON limitation: the responsive-container-close button is entirely WP core-generated
  * markup (wp-includes/blocks/navigation) with no className we control and no registrable
- * block-style slug.
+ * block-style slug. Its hover/transition contract lives in _shared-hover.scss — shared
+ * byte-for-byte with the header search button and both footer icon-shell styles.
  */
 .site-header .wp-block-navigation__responsive-container-close {
   position: absolute;
@@ -74,24 +75,10 @@
   border: 1px solid var(--wp--custom--color--border--card);
   border-radius: var(--wp--preset--border-radius--500);
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
   svg {
     inline-size: 20px;
     block-size: 20px;
-  }
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-header .wp-block-navigation__responsive-container-close {
-    transition: none;
   }
 }
 

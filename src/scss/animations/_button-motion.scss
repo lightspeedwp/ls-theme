@@ -226,16 +226,11 @@
 /*
  * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
  * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
- * live in the JSON file's css field now. backdrop-filter needs a real @supports test — confirmed
- * stripped from the JSON css field (same limitation as @media) — so it stays here. Everything below
- * is real motion: transition + hover/focus states + the lift transform.
+ * live in the JSON file's css field now. backdrop-filter's @supports block lives in
+ * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
+ * hover/focus states + the lift transform.
  */
 .wp-block-button.is-style-glass-button .wp-block-button__link {
-  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),

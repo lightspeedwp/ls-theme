@@ -41,15 +41,7 @@
     outline-color: var(--ls-glass-card-focus-colour);
   }
 
-  /*
-   * JSON limitation: confirmed empirically (2026-08-11) that @supports has the same bug as
-   * @media in the styles/**.json css field — silently stripped, declarations leak out
-   * unconditionally regardless of feature support.
-   */
-  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
+  /* backdrop-filter's @supports block lives in _shared-hover.scss, shared with Glass Button. */
 }
 
 /*

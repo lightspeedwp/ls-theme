@@ -99,6 +99,8 @@
  * field instead of submitting immediately.
  */
 .site-header__search {
+  /* Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles. */
   .wp-block-search__button {
     display: flex;
     align-items: center;
@@ -110,14 +112,6 @@
     border-radius: var(--wp--preset--border-radius--500);
     background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
     color: var(--wp--custom--color--text--default);
-    transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-      border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-  }
-
-  .wp-block-search__button:hover,
-  .wp-block-search__button:focus-visible {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
   }
 
   .wp-block-search__input {
@@ -142,7 +136,6 @@
 @media (prefers-reduced-motion: reduce) {
   .is-style-header-icon-button,
   .is-style-button-cta-gradient .wp-block-button__link,
-  .site-header__search .wp-block-search__button,
   .site-header__search .wp-block-search__input {
     transition: none;
   }
