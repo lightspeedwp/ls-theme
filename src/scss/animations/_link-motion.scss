@@ -36,8 +36,8 @@
   &:focus-visible,
   .is-style-card-feature:hover &,
   .is-style-card-feature:focus-within &,
-  .is-style-card-services:hover &,
-  .is-style-card-services:focus-within & {
+  .ls-card-services:hover &,
+  .ls-card-services:focus-within & {
     color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
   }
 
@@ -45,8 +45,8 @@
   &:focus-visible::after,
   .is-style-card-feature:hover &::after,
   .is-style-card-feature:focus-within &::after,
-  .is-style-card-services:hover &::after,
-  .is-style-card-services:focus-within &::after {
+  .ls-card-services:hover &::after,
+  .ls-card-services:focus-within &::after {
     transform: translateX(var(--ls-link-arrow-offset, 0.35em));
   }
 }

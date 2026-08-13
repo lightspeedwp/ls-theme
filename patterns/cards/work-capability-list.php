@@ -13,11 +13,11 @@
  */
 
 ?>
-<!-- wp:group {"className":"is-style-card-list-shell","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-<div class="wp-block-group is-style-card-list-shell">
+<!-- wp:group {"className":"ls-card-list-shell","style":{"color":{"background":"var:custom|color|surface|card","text":"var:custom|color|text|default"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+<div class="wp-block-group ls-card-list-shell has-border-color has-text-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);color:var(--wp--custom--color--text--default);background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 
-	<!-- wp:group {"className":"is-style-card-divider-bottom","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-	<div class="wp-block-group is-style-card-divider-bottom">
+	<!-- wp:group {"style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+	<div class="wp-block-group" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-bottom:var(--wp--preset--spacing--20)">
 		<!-- wp:group {"className":"is-style-icon-well-brand"} -->
 		<div class="wp-block-group is-style-icon-well-brand">
 			<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
@@ -40,8 +40,8 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"is-style-card-divider-bottom","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-	<div class="wp-block-group is-style-card-divider-bottom">
+	<!-- wp:group {"style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+	<div class="wp-block-group" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-bottom:var(--wp--preset--spacing--20)">
 		<!-- wp:group {"className":"is-style-icon-well-commerce"} -->
 		<div class="wp-block-group is-style-icon-well-commerce">
 			<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->

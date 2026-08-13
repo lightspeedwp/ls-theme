@@ -107,10 +107,10 @@
   transform: translateX(0);
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .ls-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .ls-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
   color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
 }
-.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .ls-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .ls-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
   transform: translateX(var(--ls-link-arrow-offset, 0.35em));
 }
 
@@ -209,45 +209,117 @@
 }
 
 /*
- * Card - Work Category: rest-state border/background/shadow/spacing and the content layout live
- * in styles/sections/cards/card-category.json. Hover-state custom properties are declared in
- * that same JSON file; only the transition and the transform-bearing hover rule stay here as
- * real motion.
+ * Card - Work Category (LS-2341: folded in from styles/sections/cards/card-category.json, single
+ * consumer patterns/sections/work-categories.php). Rest-state border/background/shadow/spacing are
+ * now inline block attributes on that consumer. position/overflow, the hover-only custom
+ * properties, and the nested .ls-card-category__content flex rule aren't expressible as block
+ * attributes, so they stay here as a scoped rule on the plain .ls-card-category classname.
  */
-.is-style-card-category {
+.ls-card-category {
+  position: relative;
+  overflow: hidden;
+  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-category-lift: var(--wp--custom--animation--lift--md);
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
-.is-style-card-category:hover, .is-style-card-category:focus-within {
+.ls-card-category:hover, .ls-card-category:focus-within {
   border-color: var(--ls-card-category-border-active);
   box-shadow: var(--ls-card-category-shadow-active);
   transform: translateY(var(--ls-card-category-lift));
 }
+.ls-card-category .ls-card-category__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--10);
+}
 
 /*
- * Card - Case Study: had no hover treatment at all (pre-existing gap, confirmed 2026-08-12 —
- * never present anywhere in src/scss/, unrelated to this phase's migration work). Reuses Card -
- * Work Category's exact hover pattern (border-color, shadow, lift) for consistency across the
- * Work archive's card family. Rest-state look and the hover-only custom properties live in
- * styles/sections/cards/card-case-study.json; only the transition and the transform-bearing
- * hover rule stay here as real motion.
+ * Card - List Shell (LS-2341: folded in from styles/sections/cards/card-list-shell.json, single
+ * consumer patterns/cards/work-capability-list.php). Rest-state border/background/spacing are now
+ * inline block attributes on that consumer. inline-size:100% and the last-child descendant rule
+ * aren't expressible as block attributes, so they stay here on the plain .ls-card-list-shell
+ * classname. Not motion, but kept in this file alongside the other single-use card exceptions —
+ * consistent with the precedent already established across this project.
  */
-.is-style-card-case-study {
+.ls-card-list-shell {
+  inline-size: 100%;
+}
+.ls-card-list-shell > .wp-block-group > *:last-child {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/*
+ * Card - Case Study (LS-2341: folded in from styles/sections/cards/card-case-study.json, single
+ * consumer patterns/cards/work-project-card.php). Rest-state border/background/shadow/spacing are
+ * now inline block attributes on that one consumer. overflow:hidden and the hover-only custom
+ * properties aren't expressible as block attributes, so they stay here as a scoped rule on the
+ * plain .ls-card-case-study classname. Hover treatment reuses Card - Work Category's exact pattern
+ * (border-color, shadow, lift) for consistency across the Work archive's card family — this card
+ * had no hover treatment at all before Phase 3 (confirmed 2026-08-12, unrelated pre-existing gap).
+ */
+.ls-card-case-study {
+  overflow: hidden;
+  --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-case-study-lift: var(--wp--custom--animation--lift--md);
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
-.is-style-card-case-study:hover, .is-style-card-case-study:focus-within {
+.ls-card-case-study:hover, .ls-card-case-study:focus-within {
   border-color: var(--ls-card-case-study-border-active);
   box-shadow: var(--ls-card-case-study-shadow-active);
   transform: translateY(var(--ls-card-case-study-lift));
 }
 
 /*
- * Card - Services: rest-state border/background/shadow/spacing, align-items/max-inline-size/
- * text-align/transform-origin, the content/list/cta layout, and the icon-shell's align-self all
- * live in styles/sections/cards/card-services.json. The accent-gradient bar animates via
+ * Card - Services: rest-state border/background/shadow/spacing come from inline block attributes
+ * on the pattern now (styles/sections/cards/card-services.json was folded in — LS-2341). The
+ * layout-only rules below (position/overflow/align-items/max-inline-size/text-align/
+ * transform-origin, the content/list/cta layout, icon-shell align-self) aren't expressible via
+ * block-supports attrs, so they stay here as plain scoped CSS. The accent-gradient bar animates via
  * @keyframes on hover, so everything below (including its own thickness/gradient custom
  * properties, kept together as one cohesive animated unit) stays real motion.
  */
-.is-style-card-services {
+.ls-card-services {
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  max-inline-size: 24.167rem;
+  text-align: center;
+  transform-origin: top center;
+}
+.ls-card-services .ls-card__icon-shell {
+  align-self: center;
+}
+.ls-card-services .ls-card-services__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--wp--preset--spacing--20);
+  inline-size: 100%;
+}
+.ls-card-services .ls-card-services__content > * {
+  margin-block: 0;
+}
+.ls-card-services .ls-card-services__list {
+  inline-size: 100%;
+  margin-block: 0;
+}
+.ls-card-services .ls-card-services__cta {
+  position: static;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+.ls-card-services .ls-card-services__cta a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.ls-card-services {
   --ls-card-services-border-active: var(--wp--custom--color--link--accent);
   --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
   --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
@@ -271,7 +343,7 @@
   --ls-accent-gradient-reduced-position: 100%;
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
-.is-style-card-services::before {
+.ls-card-services::before {
   content: "";
   position: absolute;
   inset-block-start: 0;
@@ -283,19 +355,19 @@
   background-size: var(--ls-accent-gradient-size);
   z-index: var(--wp--custom--z-index--base);
 }
-.is-style-card-services > * {
+.ls-card-services > * {
   position: relative;
   z-index: var(--wp--custom--z-index--content);
 }
-.is-style-card-services:hover, .is-style-card-services:focus-within {
+.ls-card-services:hover, .ls-card-services:focus-within {
   border-color: var(--ls-card-services-border-active);
   box-shadow: var(--ls-card-services-shadow-active);
   transform: scale(var(--ls-card-services-scale));
 }
-.is-style-card-services:hover::before, .is-style-card-services:focus-within::before {
+.ls-card-services:hover::before, .ls-card-services:focus-within::before {
   animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
 }
-.is-style-card-services:hover .ls-card__icon-shell, .is-style-card-services:focus-within .ls-card__icon-shell {
+.ls-card-services:hover .ls-card__icon-shell, .ls-card-services:focus-within .ls-card__icon-shell {
   border-color: var(--ls-card-services-icon-border-active);
   box-shadow: var(--ls-card-services-icon-shadow-active);
 }
@@ -306,32 +378,64 @@
  * (both were --ls-icon-frame-accent-colour) — nothing actually changes there, so it's set once in
  * JSON and dropped from this rule entirely. Only the shadow and rotate transform are real
  * changes, and those stay here as real motion. Drops the dead is-style-card-solutions-accent
- * reference (LS-2341, zero consumers).
+ * reference (LS-2341, zero consumers) and the .ls-card-solutions cross-reference below is now a
+ * plain classname rather than an is-style, since card-solutions.json was folded in (LS-2341).
  */
 .is-style-icon-frame-glow {
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
-.is-style-icon-frame-glow:hover, .is-style-icon-frame-glow:focus-within, .is-style-card-solutions:hover .is-style-icon-frame-glow, .is-style-card-solutions:focus-within .is-style-icon-frame-glow {
+.is-style-icon-frame-glow:hover, .is-style-icon-frame-glow:focus-within, .ls-card-solutions:hover .is-style-icon-frame-glow, .ls-card-solutions:focus-within .is-style-icon-frame-glow {
   box-shadow: var(--ls-icon-frame-shadow-active), var(--ls-icon-frame-inset-shadow-active);
   transform: rotate(var(--ls-icon-frame-tilt));
 }
 
 /*
- * Card - Solutions: rest-state border/background/shadow/spacing/max-inline-size, the content/cta
- * layout, and the hover-only custom properties all live in styles/sections/cards/card-solutions.json.
- * Drops the dead is-style-card-solutions-accent reference (LS-2341, zero consumers) from the selector.
+ * Card - Solutions: rest-state border/background/shadow/spacing come from inline block attributes
+ * on the pattern now (styles/sections/cards/card-solutions.json was folded in — LS-2341).
+ * position/overflow/max-inline-size and the content/cta layout aren't expressible via
+ * block-supports attrs, so they stay here as plain scoped CSS, alongside the hover-only custom
+ * properties (real motion).
  */
-.is-style-card-solutions {
+.ls-card-solutions {
+  position: relative;
+  overflow: hidden;
+  max-inline-size: 22.5rem;
+  --ls-card-solutions-accent-colour: var(--wp--custom--color--card--solutions--brand);
+  --ls-card-solutions-accent-resolved: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
+  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
+  --ls-card-solutions-shadow-active: 1px 4px 12px 4px color-mix(in srgb, var(--ls-card-solutions-accent-resolved) 50%, transparent);
+}
+.ls-card-solutions .ls-card-solutions__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--10);
+  inline-size: 100%;
+}
+.ls-card-solutions .ls-card-solutions__content > * {
+  margin-block: 0;
+}
+.ls-card-solutions .ls-card-solutions__content .wp-block-heading {
+  color: var(--wp--custom--color--text--default);
+}
+.ls-card-solutions .ls-card-solutions__cta {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+.ls-card-solutions .ls-card-solutions__cta .wp-block-button {
+  margin: 0;
+}
+.ls-card-solutions {
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
 }
-.is-style-card-solutions:hover, .is-style-card-solutions:focus-within {
+.ls-card-solutions:hover, .ls-card-solutions:focus-within {
   border-color: var(--ls-card-solutions-border-active);
   box-shadow: var(--ls-card-solutions-shadow-active);
 }
-.is-style-card-solutions .ls-card-solutions__content .wp-block-heading {
+.ls-card-solutions .ls-card-solutions__content .wp-block-heading {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.is-style-card-solutions:hover .ls-card-solutions__content .wp-block-heading, .is-style-card-solutions:focus-within .ls-card-solutions__content .wp-block-heading {
+.ls-card-solutions:hover .ls-card-solutions__content .wp-block-heading, .ls-card-solutions:focus-within .ls-card-solutions__content .wp-block-heading {
   color: var(--ls-card-solutions-accent-resolved);
 }
 
@@ -357,27 +461,27 @@
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature .ls-card__icon-shell,
-  .is-style-card-category,
+  .ls-card-category,
   .is-style-card-link-row,
-  .is-style-card-services,
-  .is-style-card-services::before,
-  .is-style-card-services .ls-card__icon-shell,
+  .ls-card-services,
+  .ls-card-services::before,
+  .ls-card-services .ls-card__icon-shell,
   .is-style-icon-frame-glow,
-  .is-style-card-solutions,
-  .is-style-card-solutions .wp-block-heading,
-  .is-style-card-case-study {
+  .ls-card-solutions,
+  .ls-card-solutions .wp-block-heading,
+  .ls-card-case-study {
     transition: none;
   }
   .is-style-glass-card:hover,
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
-  .is-style-card-category:hover,
-  .is-style-card-category:focus-within,
-  .is-style-card-services:hover,
-  .is-style-card-services:focus-within,
-  .is-style-card-case-study:hover,
-  .is-style-card-case-study:focus-within {
+  .ls-card-category:hover,
+  .ls-card-category:focus-within,
+  .ls-card-services:hover,
+  .ls-card-services:focus-within,
+  .ls-card-case-study:hover,
+  .ls-card-case-study:focus-within {
     transform: none;
   }
   .wp-block-paragraph.is-style-link-arrow-accent a::after,
@@ -385,19 +489,19 @@
   .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
   .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+  .ls-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .ls-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
     transform: none;
   }
-  .is-style-card-services:hover::before,
-  .is-style-card-services:focus-within::before {
+  .ls-card-services:hover::before,
+  .ls-card-services:focus-within::before {
     animation: none;
     background-position: var(--ls-accent-gradient-reduced-position) center;
   }
   .is-style-icon-frame-glow:hover,
   .is-style-icon-frame-glow:focus-within,
-  .is-style-card-solutions:hover .is-style-icon-frame-glow,
-  .is-style-card-solutions:focus-within .is-style-icon-frame-glow {
+  .ls-card-solutions:hover .is-style-icon-frame-glow,
+  .ls-card-solutions:focus-within .is-style-icon-frame-glow {
     transform: none;
   }
 }
@@ -419,7 +523,7 @@
  *    substitution silently drops the trailing `&`, and the declaration ends up applying to
  *    EVERY instance unconditionally instead of just the intended one. `&` must be the first
  *    token in a css-field selector; ancestor-context selectors with `&` at the end (unlike
- *    icon-frame-glow's `.is-style-card-solutions:hover &`, which stays in this same file for
+ *    icon-frame-glow's `.ls-card-solutions:hover &`, which stays in this same file for
  *    the same reason) cannot go in JSON at all.
  */
 @media (max-width: 781.98px) {
@@ -631,11 +735,11 @@
   content: "\2192";
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible, .is-style-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link, .is-style-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible, .ls-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link, .ls-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
   background: var(--ls-button-arrow-compact-background-active);
   border-color: var(--ls-button-arrow-compact-border-active);
 }
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after, .is-style-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after, .is-style-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after, .ls-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after, .ls-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
   color: var(--ls-button-arrow-compact-colour-active);
 }
 
@@ -700,8 +804,8 @@
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  .is-style-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  .is-style-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
+  .ls-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
+  .ls-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transform: none;
   }
   .ls-cta-strip__button-arrow {
