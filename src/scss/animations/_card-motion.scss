@@ -76,14 +76,11 @@
 
 /*
  * Card - Work Category. Rest-state box model lives on the pattern's block attributes; every
- * non-motion property (position/overflow/layout) lives in src/scss/structural/_cards.scss. Only
- * the transition and hover swap stay here.
- *
- * !important on the hover border-color/box-shadow below is required, not stylistic: rest-state
- * border-color and box-shadow are serialized as an inline style="" attribute on the block (that's
- * what folding into block-supports attrs produces), and inline styles always beat stylesheet
- * rules regardless of selector specificity — :hover/:focus-within can never win against them
- * without !important. transform isn't set inline anywhere, so it needs no override.
+ * non-motion property (position/overflow/layout) lives in src/scss/structural/_cards.scss. The
+ * hover border-color/box-shadow swap is likewise not a motion property (per AGENTS.md, this file
+ * may only contain @keyframes/transition/transform/animation/will-change) — it lives in
+ * src/scss/structural/_cards.scss too. Only the transition (the timing) and the transform-bearing
+ * hover rule stay here as real motion.
  */
 .ls-card-category {
   transition:
@@ -96,8 +93,6 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-category-border-active) !important;
-    box-shadow: var(--ls-card-category-shadow-active) !important;
     transform: translateY(var(--ls-card-category-lift));
   }
 }
@@ -107,8 +102,9 @@
  * non-motion property lives in src/scss/structural/_cards.scss. Hover treatment reuses Card -
  * Work Category's exact pattern (border-color, shadow, lift) for consistency across the Work
  * archive's card family — this card had no hover treatment at all before Phase 3 (confirmed
- * 2026-08-12, unrelated pre-existing gap). !important on hover border-color/box-shadow is required
- * for the same reason documented on Card - Work Category above.
+ * 2026-08-12, unrelated pre-existing gap). The hover border-color/box-shadow swap lives in
+ * src/scss/structural/_cards.scss (not a motion property, per AGENTS.md) — only the transition and
+ * the transform-bearing hover rule stay here.
  */
 .ls-card-case-study {
   transition:
@@ -121,18 +117,15 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-case-study-border-active) !important;
-    box-shadow: var(--ls-card-case-study-shadow-active) !important;
     transform: translateY(var(--ls-card-case-study-lift));
   }
 }
 
 /*
  * Card - Services. Rest-state box model, layout, and the accent-gradient bar's rest-state
- * pseudo-element all live in src/scss/structural/_cards.scss. Only the transition and the
- * @keyframes-triggering hover animation are real motion, so only those stay here. !important on
- * hover border-color/box-shadow is required for the same reason documented on Card - Work
- * Category above.
+ * pseudo-element all live in src/scss/structural/_cards.scss. The hover border-color/box-shadow
+ * swap lives there too (not a motion property, per AGENTS.md). Only the transition and the
+ * @keyframes-triggering hover animation are real motion, so only those stay here.
  */
 .ls-card-services {
   transition:
@@ -145,8 +138,6 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-services-border-active) !important;
-    box-shadow: var(--ls-card-services-shadow-active) !important;
     transform: scale(var(--ls-card-services-scale));
 
     &::before {
@@ -158,12 +149,6 @@
         infinite
         var(--ls-accent-gradient-direction);
     }
-  }
-
-  &:hover .ls-card__icon-shell,
-  &:focus-within .ls-card__icon-shell {
-    border-color: var(--ls-card-services-icon-border-active);
-    box-shadow: var(--ls-card-services-icon-shadow-active);
   }
 }
 
@@ -193,9 +178,9 @@
 }
 
 /*
- * Card - Solutions. Rest-state box model and layout live in src/scss/structural/_cards.scss. Only
- * the transition and hover swap stay here as real motion. !important on hover border-color/
- * box-shadow is required for the same reason documented on Card - Work Category above.
+ * Card - Solutions. Rest-state box model and layout live in src/scss/structural/_cards.scss. The
+ * hover border-color/box-shadow swap lives there too (not a motion property, per AGENTS.md). Only
+ * the transition stays here as real motion.
  */
 .ls-card-solutions {
   transition:
@@ -203,12 +188,6 @@
       var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    border-color: var(--ls-card-solutions-border-active) !important;
-    box-shadow: var(--ls-card-solutions-shadow-active) !important;
-  }
 
   .ls-card-solutions__content .wp-block-heading {
     transition: color var(--wp--custom--animation--duration--base)

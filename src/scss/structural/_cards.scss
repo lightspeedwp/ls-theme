@@ -30,6 +30,20 @@
     flex-direction: column;
     gap: var(--wp--preset--spacing--10);
   }
+
+  /*
+   * Hover colour swap. Not a motion property — AGENTS.md restricts
+   * src/scss/animations/** to @keyframes/transition/transform/animation/will-change only, so the
+   * transition (timing) stays there and this state swap lives here. !important is required: the
+   * rest-state border-color/box-shadow are serialized as an inline style="" attribute (from
+   * folding into block-supports attrs), and inline styles always beat stylesheet rules regardless
+   * of specificity.
+   */
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-category-border-active) !important;
+    box-shadow: var(--ls-card-category-shadow-active) !important;
+  }
 }
 
 /*
@@ -59,6 +73,13 @@
   --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
   --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
   --ls-card-case-study-lift: var(--wp--custom--animation--lift--md);
+
+  /* Hover colour swap — see the identical note on Card - Work Category above. */
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-case-study-border-active) !important;
+    box-shadow: var(--ls-card-case-study-shadow-active) !important;
+  }
 }
 
 /*
@@ -179,6 +200,19 @@
     position: relative;
     z-index: var(--wp--custom--z-index--content);
   }
+
+  /* Hover colour swap — see the identical note on Card - Work Category above. */
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-services-border-active) !important;
+    box-shadow: var(--ls-card-services-shadow-active) !important;
+  }
+
+  &:hover .ls-card__icon-shell,
+  &:focus-within .ls-card__icon-shell {
+    border-color: var(--ls-card-services-icon-border-active);
+    box-shadow: var(--ls-card-services-icon-shadow-active);
+  }
 }
 
 /*
@@ -272,6 +306,13 @@
       margin: 0;
     }
   }
+
+  /* Hover colour swap — see the identical note on Card - Work Category above. */
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-solutions-border-active) !important;
+    box-shadow: var(--ls-card-solutions-shadow-active) !important;
+  }
 }
 
 /*
@@ -346,10 +387,15 @@
   color: inherit;
 }
 
+/*
+ * width:100% has no block-supports equivalent (core/group's dimensions support doesn't offer a
+ * relative-width key). min-height is intentionally NOT set here — it's a real supported block
+ * attribute (style.dimensions.minHeight) and is set inline on the two consumer group instances in
+ * patterns/cards/work-project-card.php instead, per AGENTS.md's structural-properties rule.
+ */
 .ls-card-banner-tint,
 .ls-card-banner-tint-woocommerce {
   width: 100%;
-  min-height: 10rem;
   background-size: 24px 24px;
   background-position: center;
   background-repeat: repeat;

@@ -10,18 +10,17 @@
  * with no registrable block-style slug at all — both are genuine JSON limitations, not a styling
  * preference.
  *
- * The two groups below share identical transition + hover declarations but keep their original,
- * different focus pseudo-class: the header search button and mobile-menu close button used
- * :focus-visible (plain buttons — keyboard-only focus indication), footer proof-card/social-icon
- * used :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation
- * would silently change which interactions trigger the raise, so they stay split.
+ * The two groups share an identical transition (the timing) but keep their original, different
+ * focus pseudo-class: the header search button and mobile-menu close button use :focus-visible
+ * (plain buttons — keyboard-only focus indication), footer proof-card/social-icon use
+ * :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation would
+ * silently change which interactions trigger the raise, so they stay split.
  *
- * !important on the hover background-color/border-color below is required for
- * .ls-footer-proof-card/.ls-footer-social-icon specifically (LS-2341): both now get their
- * rest-state background-color/border-color from an inline style="" attribute (folding an is-style
- * into block-supports attrs serializes as inline HTML, not a stylesheet rule), and inline styles
- * always beat stylesheet :hover/:focus-within regardless of selector specificity. Harmless no-op
- * for the header search button/mobile-menu close button, which don't set these inline.
+ * The actual background-color/border-color hover swap for .ls-footer-proof-card/
+ * .ls-footer-social-icon lives in src/scss/structural/_footer.scss, not here — per AGENTS.md this
+ * file may only contain @keyframes/transition/transform/animation/will-change. The header search
+ * button/mobile-menu close button's own swap has no block-supports-attrs consumer competing with
+ * it, so it stays here as the one exception genuinely tied to this shared transition contract.
  */
 .site-header__search .wp-block-search__button,
 .site-header .wp-block-navigation__responsive-container-close,
@@ -34,13 +33,9 @@
 .site-header__search .wp-block-search__button:hover,
 .site-header__search .wp-block-search__button:focus-visible,
 .site-header .wp-block-navigation__responsive-container-close:hover,
-.site-header .wp-block-navigation__responsive-container-close:focus-visible,
-.ls-footer-proof-card:hover,
-.ls-footer-proof-card:focus-within,
-.ls-footer-social-icon:hover,
-.ls-footer-social-icon:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised) !important;
-  border-color: var(--wp--custom--color--phase--create) !important;
+.site-header .wp-block-navigation__responsive-container-close:focus-visible {
+  background-color: var(--wp--custom--color--surface--card-raised);
+  border-color: var(--wp--custom--color--phase--create);
 }
 
 /*
@@ -71,7 +66,7 @@
  * confirmed empirically (2026-08-11) that @supports is silently stripped from the styles/**.json
  * css field, same bug as @media — so this stays real CSS for both consumers.
  */
-.wp-block-button.is-style-glass-button .wp-block-button__link,
+.wp-block-button.ls-glass-button .wp-block-button__link,
 .is-style-glass-card {
   @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     backdrop-filter: blur(24px);

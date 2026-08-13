@@ -27,6 +27,20 @@
   flex-direction: column;
   gap: var(--wp--preset--spacing--10);
 }
+.ls-card-category {
+  /*
+   * Hover colour swap. Not a motion property — AGENTS.md restricts
+   * src/scss/animations/** to @keyframes/transition/transform/animation/will-change only, so the
+   * transition (timing) stays there and this state swap lives here. !important is required: the
+   * rest-state border-color/box-shadow are serialized as an inline style="" attribute (from
+   * folding into block-supports attrs), and inline styles always beat stylesheet rules regardless
+   * of specificity.
+   */
+}
+.ls-card-category:hover, .ls-card-category:focus-within {
+  border-color: var(--ls-card-category-border-active) !important;
+  box-shadow: var(--ls-card-category-shadow-active) !important;
+}
 
 /*
  * Card - List Shell (folded in from styles/sections/cards/card-list-shell.json, single consumer
@@ -54,6 +68,11 @@
   --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
   --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
   --ls-card-case-study-lift: var(--wp--custom--animation--lift--md);
+  /* Hover colour swap — see the identical note on Card - Work Category above. */
+}
+.ls-card-case-study:hover, .ls-card-case-study:focus-within {
+  border-color: var(--ls-card-case-study-border-active) !important;
+  box-shadow: var(--ls-card-case-study-shadow-active) !important;
 }
 
 /*
@@ -166,6 +185,17 @@
   position: relative;
   z-index: var(--wp--custom--z-index--content);
 }
+.ls-card-services {
+  /* Hover colour swap — see the identical note on Card - Work Category above. */
+}
+.ls-card-services:hover, .ls-card-services:focus-within {
+  border-color: var(--ls-card-services-border-active) !important;
+  box-shadow: var(--ls-card-services-shadow-active) !important;
+}
+.ls-card-services:hover .ls-card__icon-shell, .ls-card-services:focus-within .ls-card__icon-shell {
+  border-color: var(--ls-card-services-icon-border-active);
+  box-shadow: var(--ls-card-services-icon-shadow-active);
+}
 
 /*
  * Icon Frame Glow (folded in from styles/blocks/groups/icon-frame-glow.json, single consumer
@@ -251,6 +281,13 @@
 .ls-card-solutions .ls-card-solutions__cta .wp-block-button {
   margin: 0;
 }
+.ls-card-solutions {
+  /* Hover colour swap — see the identical note on Card - Work Category above. */
+}
+.ls-card-solutions:hover, .ls-card-solutions:focus-within {
+  border-color: var(--ls-card-solutions-border-active) !important;
+  box-shadow: var(--ls-card-solutions-shadow-active) !important;
+}
 
 /*
  * Platform badge/banner-tint pair (LS-2341 Group 4): converted from registered is-style
@@ -324,10 +361,15 @@
   color: inherit;
 }
 
+/*
+ * width:100% has no block-supports equivalent (core/group's dimensions support doesn't offer a
+ * relative-width key). min-height is intentionally NOT set here — it's a real supported block
+ * attribute (style.dimensions.minHeight) and is set inline on the two consumer group instances in
+ * patterns/cards/work-project-card.php instead, per AGENTS.md's structural-properties rule.
+ */
 .ls-card-banner-tint,
 .ls-card-banner-tint-woocommerce {
   width: 100%;
-  min-height: 10rem;
   background-size: 24px 24px;
   background-position: center;
   background-repeat: repeat;
@@ -356,6 +398,22 @@
   text-decoration-line: underline;
   text-decoration-color: transparent;
   text-underline-offset: 3px;
+}
+
+/*
+ * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
+ * hover colour swap. Not a motion property — the shared transition (timing) stays in
+ * _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
+ * background-color/border-color are serialized as an inline style="" attribute (from folding an
+ * is-style into block-supports attrs), and inline styles always beat stylesheet rules regardless
+ * of specificity.
+ */
+.ls-footer-proof-card:hover,
+.ls-footer-proof-card:focus-within,
+.ls-footer-social-icon:hover,
+.ls-footer-social-icon:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised) !important;
+  border-color: var(--wp--custom--color--phase--create) !important;
 }
 
 /********** Home Hero Section Structural Overrides **********/
@@ -460,6 +518,111 @@
     height: 16rem;
   }
 }
+/********** Button Structural Overrides **********/
+/*
+ * Glass Button (LS-2341 Group 5: folded in from styles/blocks/buttons/glass-button.json, single
+ * consumer patterns/cta/section-cta-consultation-strip.php). Rest-state border/color/spacing/
+ * typography are inline block attributes now. Everything below has no block-supports equivalent:
+ * the wrapper-level max-inline-size rule (core/button's `&` in a JSON css field resolves to the
+ * link, not the wrapper — confirmed empirically, see core-button.json/glass-button.json history),
+ * the custom-property recipe, the non-interactive edge-highlight pseudo-elements, and the
+ * position/overflow/display/outline rest-state setup.
+ */
+.wp-block-button.ls-glass-button {
+  max-inline-size: 100%;
+}
+
+.ls-glass-button .wp-block-button__link {
+  --ls-glass-button-background-rest: color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent);
+  --ls-glass-button-background-hover: color-mix(in srgb, var(--wp--custom--color--surface--card) 36%, transparent);
+  --ls-glass-button-border-rest: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent);
+  --ls-glass-button-border-hover: color-mix(in srgb, var(--wp--custom--color--link--accent) 38%, var(--wp--custom--color--surface--highlight) 34%, transparent);
+  --ls-glass-button-text-rest: var(--wp--custom--color--text--default);
+  --ls-glass-button-text-hover: var(--wp--custom--color--text--brand);
+  --ls-glass-button-shadow-rest: var(--wp--custom--shadow--elevation--200);
+  --ls-glass-button-shadow-hover: var(--wp--custom--shadow--elevation--300), var(--wp--custom--shadow--interactive--accent);
+  --ls-glass-button-top-highlight: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 80%, transparent);
+  --ls-glass-button-side-highlight: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 68%, transparent);
+  --ls-glass-button-side-tail: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 26%, transparent);
+  --ls-glass-button-focus-width: 2px;
+  --ls-glass-button-focus-colour: var(--wp--custom--color--focus--ring);
+  --ls-glass-button-focus-offset: 4px;
+  --ls-glass-button-lift: -2px;
+  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  white-space: nowrap;
+  isolation: isolate;
+  text-align: center;
+  color: var(--ls-glass-button-text-rest);
+  background: var(--ls-glass-button-background-rest);
+  border-color: var(--ls-glass-button-border-rest);
+  box-shadow: var(--ls-glass-button-shadow-rest);
+  outline: var(--ls-glass-button-focus-width) solid transparent;
+  outline-offset: var(--ls-glass-button-focus-offset);
+}
+.ls-glass-button .wp-block-button__link::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 auto 0;
+  top: 0;
+  height: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--ls-glass-button-top-highlight), transparent);
+}
+.ls-glass-button .wp-block-button__link::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--ls-glass-button-side-highlight), transparent, var(--ls-glass-button-side-tail));
+}
+.ls-glass-button .wp-block-button__link {
+  /*
+   * Hover colour swap. Not a motion property — the transition (timing) and lift transform live in
+   * _button-motion.scss; this state swap lives here.
+   */
+}
+.ls-glass-button .wp-block-button__link:hover, .ls-glass-button .wp-block-button__link:focus-visible {
+  background: var(--ls-glass-button-background-hover);
+  border-color: var(--ls-glass-button-border-hover);
+  box-shadow: var(--ls-glass-button-shadow-hover);
+  color: var(--ls-glass-button-text-hover);
+}
+.ls-glass-button .wp-block-button__link:focus-visible {
+  outline-color: var(--ls-glass-button-focus-colour);
+}
+
+/*
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php). Hover box-shadow swap — not a motion property, per
+ * AGENTS.md. The transition and the transform-bearing hover rule live in _header-motion.scss.
+ */
+.ls-button-cta-gradient .wp-block-button__link:hover,
+.ls-button-cta-gradient .wp-block-button__link:focus-visible {
+  box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
+}
+
+/********** Hero Structural Overrides **********/
+/*
+ * Work Hero (LS-2341 Group 5: folded in from styles/sections/hero/work-hero.json, single consumer
+ * patterns/hero/work-hero.php). Rest-state padding is an inline block attribute now. The layered
+ * radial-gradient background has no block-supports equivalent (color.gradient only accepts a
+ * single gradient value) — that's the only content that stays here, no motion involved at all.
+ */
+.ls-work-hero {
+  background-image: radial-gradient(circle at 14% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 16%, transparent) 0%, transparent 60%), radial-gradient(circle at 86% 110%, color-mix(in srgb, var(--wp--custom--color--effect--hero--accent) 12%, transparent) 0%, transparent 60%);
+  background-repeat: no-repeat;
+}
+
 /********** Shared Keyframes **********/
 @keyframes ls-accent-gradient-shift {
   to {
@@ -477,18 +640,17 @@
  * with no registrable block-style slug at all — both are genuine JSON limitations, not a styling
  * preference.
  *
- * The two groups below share identical transition + hover declarations but keep their original,
- * different focus pseudo-class: the header search button and mobile-menu close button used
- * :focus-visible (plain buttons — keyboard-only focus indication), footer proof-card/social-icon
- * used :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation
- * would silently change which interactions trigger the raise, so they stay split.
+ * The two groups share an identical transition (the timing) but keep their original, different
+ * focus pseudo-class: the header search button and mobile-menu close button use :focus-visible
+ * (plain buttons — keyboard-only focus indication), footer proof-card/social-icon use
+ * :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation would
+ * silently change which interactions trigger the raise, so they stay split.
  *
- * !important on the hover background-color/border-color below is required for
- * .ls-footer-proof-card/.ls-footer-social-icon specifically (LS-2341): both now get their
- * rest-state background-color/border-color from an inline style="" attribute (folding an is-style
- * into block-supports attrs serializes as inline HTML, not a stylesheet rule), and inline styles
- * always beat stylesheet :hover/:focus-within regardless of selector specificity. Harmless no-op
- * for the header search button/mobile-menu close button, which don't set these inline.
+ * The actual background-color/border-color hover swap for .ls-footer-proof-card/
+ * .ls-footer-social-icon lives in src/scss/structural/_footer.scss, not here — per AGENTS.md this
+ * file may only contain @keyframes/transition/transform/animation/will-change. The header search
+ * button/mobile-menu close button's own swap has no block-supports-attrs consumer competing with
+ * it, so it stays here as the one exception genuinely tied to this shared transition contract.
  */
 .site-header__search .wp-block-search__button,
 .site-header .wp-block-navigation__responsive-container-close,
@@ -500,13 +662,9 @@
 .site-header__search .wp-block-search__button:hover,
 .site-header__search .wp-block-search__button:focus-visible,
 .site-header .wp-block-navigation__responsive-container-close:hover,
-.site-header .wp-block-navigation__responsive-container-close:focus-visible,
-.ls-footer-proof-card:hover,
-.ls-footer-proof-card:focus-within,
-.ls-footer-social-icon:hover,
-.ls-footer-social-icon:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised) !important;
-  border-color: var(--wp--custom--color--phase--create) !important;
+.site-header .wp-block-navigation__responsive-container-close:focus-visible {
+  background-color: var(--wp--custom--color--surface--card-raised);
+  border-color: var(--wp--custom--color--phase--create);
 }
 
 /*
@@ -537,7 +695,7 @@
  * css field, same bug as @media — so this stays real CSS for both consumers.
  */
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link,
+  .wp-block-button.ls-glass-button .wp-block-button__link,
   .is-style-glass-card {
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -679,21 +837,16 @@
 
 /*
  * Card - Work Category. Rest-state box model lives on the pattern's block attributes; every
- * non-motion property (position/overflow/layout) lives in src/scss/structural/_cards.scss. Only
- * the transition and hover swap stay here.
- *
- * !important on the hover border-color/box-shadow below is required, not stylistic: rest-state
- * border-color and box-shadow are serialized as an inline style="" attribute on the block (that's
- * what folding into block-supports attrs produces), and inline styles always beat stylesheet
- * rules regardless of selector specificity — :hover/:focus-within can never win against them
- * without !important. transform isn't set inline anywhere, so it needs no override.
+ * non-motion property (position/overflow/layout) lives in src/scss/structural/_cards.scss. The
+ * hover border-color/box-shadow swap is likewise not a motion property (per AGENTS.md, this file
+ * may only contain @keyframes/transition/transform/animation/will-change) — it lives in
+ * src/scss/structural/_cards.scss too. Only the transition (the timing) and the transform-bearing
+ * hover rule stay here as real motion.
  */
 .ls-card-category {
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
 .ls-card-category:hover, .ls-card-category:focus-within {
-  border-color: var(--ls-card-category-border-active) !important;
-  box-shadow: var(--ls-card-category-shadow-active) !important;
   transform: translateY(var(--ls-card-category-lift));
 }
 
@@ -702,39 +855,31 @@
  * non-motion property lives in src/scss/structural/_cards.scss. Hover treatment reuses Card -
  * Work Category's exact pattern (border-color, shadow, lift) for consistency across the Work
  * archive's card family — this card had no hover treatment at all before Phase 3 (confirmed
- * 2026-08-12, unrelated pre-existing gap). !important on hover border-color/box-shadow is required
- * for the same reason documented on Card - Work Category above.
+ * 2026-08-12, unrelated pre-existing gap). The hover border-color/box-shadow swap lives in
+ * src/scss/structural/_cards.scss (not a motion property, per AGENTS.md) — only the transition and
+ * the transform-bearing hover rule stay here.
  */
 .ls-card-case-study {
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
 .ls-card-case-study:hover, .ls-card-case-study:focus-within {
-  border-color: var(--ls-card-case-study-border-active) !important;
-  box-shadow: var(--ls-card-case-study-shadow-active) !important;
   transform: translateY(var(--ls-card-case-study-lift));
 }
 
 /*
  * Card - Services. Rest-state box model, layout, and the accent-gradient bar's rest-state
- * pseudo-element all live in src/scss/structural/_cards.scss. Only the transition and the
- * @keyframes-triggering hover animation are real motion, so only those stay here. !important on
- * hover border-color/box-shadow is required for the same reason documented on Card - Work
- * Category above.
+ * pseudo-element all live in src/scss/structural/_cards.scss. The hover border-color/box-shadow
+ * swap lives there too (not a motion property, per AGENTS.md). Only the transition and the
+ * @keyframes-triggering hover animation are real motion, so only those stay here.
  */
 .ls-card-services {
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
 }
 .ls-card-services:hover, .ls-card-services:focus-within {
-  border-color: var(--ls-card-services-border-active) !important;
-  box-shadow: var(--ls-card-services-shadow-active) !important;
   transform: scale(var(--ls-card-services-scale));
 }
 .ls-card-services:hover::before, .ls-card-services:focus-within::before {
   animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
-}
-.ls-card-services:hover .ls-card__icon-shell, .ls-card-services:focus-within .ls-card__icon-shell {
-  border-color: var(--ls-card-services-icon-border-active);
-  box-shadow: var(--ls-card-services-icon-shadow-active);
 }
 
 /*
@@ -751,16 +896,12 @@
 }
 
 /*
- * Card - Solutions. Rest-state box model and layout live in src/scss/structural/_cards.scss. Only
- * the transition and hover swap stay here as real motion. !important on hover border-color/
- * box-shadow is required for the same reason documented on Card - Work Category above.
+ * Card - Solutions. Rest-state box model and layout live in src/scss/structural/_cards.scss. The
+ * hover border-color/box-shadow swap lives there too (not a motion property, per AGENTS.md). Only
+ * the transition stays here as real motion.
  */
 .ls-card-solutions {
   transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
-}
-.ls-card-solutions:hover, .ls-card-solutions:focus-within {
-  border-color: var(--ls-card-solutions-border-active) !important;
-  box-shadow: var(--ls-card-solutions-shadow-active) !important;
 }
 .ls-card-solutions .ls-card-solutions__content .wp-block-heading {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
@@ -898,9 +1039,16 @@
  * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
  * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
  * stays here.
+ *
+ * The default-fill selector's `:not([class*="is-style-"])` exclusion only catches registered
+ * is-style variants. LS-2341 Group 5 folded `glass-button`/`button-cta-gradient` from is-styles
+ * into plain classes (`.ls-glass-button`/`.ls-button-cta-gradient`), which stopped matching that
+ * exclusion and started picking up the default fill button's own arrow-icon `::after` on top of
+ * their own content — explicit `:not(.ls-glass-button):not(.ls-button-cta-gradient)` restores the
+ * exclusion for both.
  */
 /* Fill button motion */
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link {
   --ls-button-fill-icon-well-size: 3rem;
   --ls-button-fill-icon-inline-end: 0.625rem;
@@ -916,7 +1064,7 @@
   transition: transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised)) var(--wp--custom--animation--easing--emphasised), color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised)) var(--wp--custom--animation--easing--emphasised);
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link::before {
   content: "";
   position: absolute;
@@ -927,7 +1075,7 @@
   z-index: var(--wp--custom--z-index--behind);
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link::after {
   content: "\2192";
   position: absolute;
@@ -943,16 +1091,16 @@
   transition: color var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover,
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover::before {
   transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover::before,
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:focus-visible::before {
   inset-block: var(--ls-button-fill-icon-block-inset);
   inset-inline-end: var(--ls-button-fill-icon-inline-end);
@@ -960,9 +1108,9 @@
   border-radius: inherit;
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover,
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:focus-visible {
   color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
 }
@@ -1028,28 +1176,18 @@
 }
 
 /*
- * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
- * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
- * live in the JSON file's css field now. backdrop-filter's @supports block lives in
- * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
- * hover/focus states + the lift transform.
+ * Glass Button (LS-2341 Group 5: folded in from styles/blocks/buttons/glass-button.json). Rest-state
+ * background/border/shadow/outline, the recipe custom properties, and the non-interactive top/side
+ * edge-highlight pseudo-elements all live in src/scss/structural/_buttons.scss now — none of that
+ * is a motion property, per AGENTS.md. The hover/focus colour swap lives there too. Only the
+ * transition (timing) and the lift transform stay here as real motion.
  */
-.wp-block-button.is-style-glass-button .wp-block-button__link {
+.wp-block-button.ls-glass-button .wp-block-button__link {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), outline-color var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), outline-offset var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
   transition-delay: var(--wp--custom--animation--delay--none);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
 }
-.wp-block-button.is-style-glass-button .wp-block-button__link:hover, .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible {
-  background: var(--ls-glass-button-background-hover);
-  border-color: var(--ls-glass-button-border-hover);
-  box-shadow: var(--ls-glass-button-shadow-hover);
-  color: var(--ls-glass-button-text-hover);
+.wp-block-button.ls-glass-button .wp-block-button__link:hover, .wp-block-button.ls-glass-button .wp-block-button__link:focus-visible {
   transform: translateY(var(--ls-glass-button-lift));
-}
-.wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible {
-  outline-color: var(--ls-glass-button-focus-colour);
-  outline-offset: var(--ls-glass-button-focus-offset);
 }
 
 /*
@@ -1121,14 +1259,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link,
+  .wp-block-button.ls-glass-button .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transition: none;
   }
-  .wp-block-button.is-style-glass-button .wp-block-button__link:hover,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:active {
+  .wp-block-button.ls-glass-button .wp-block-button__link:hover,
+  .wp-block-button.ls-glass-button .wp-block-button__link:focus-visible,
+  .wp-block-button.ls-glass-button .wp-block-button__link:active {
     transform: none;
   }
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
@@ -1683,12 +1821,19 @@
     margin-inline-start: auto;
   }
 }
-.is-style-button-cta-gradient .wp-block-button__link {
+/*
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php). Rest-state gradient/border/shadow/spacing/typography are
+ * inline block attributes now. box-shadow isn't a motion property (per AGENTS.md, this file may
+ * only contain @keyframes/transition/transform/animation/will-change) — its hover swap lives in
+ * src/scss/structural/_buttons.scss; only the transition and the transform-bearing hover rule
+ * stay here.
+ */
+.ls-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.is-style-button-cta-gradient .wp-block-button__link:hover, .is-style-button-cta-gradient .wp-block-button__link:focus-visible {
+.ls-button-cta-gradient .wp-block-button__link:hover, .ls-button-cta-gradient .wp-block-button__link:focus-visible {
   transform: translateY(-1px);
-  box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
 }
 
 /*
@@ -1732,7 +1877,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-button-cta-gradient .wp-block-button__link,
+  .ls-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;
   }

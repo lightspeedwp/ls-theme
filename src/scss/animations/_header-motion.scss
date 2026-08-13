@@ -51,14 +51,21 @@
   }
 }
 
-.is-style-button-cta-gradient .wp-block-button__link {
+/*
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php). Rest-state gradient/border/shadow/spacing/typography are
+ * inline block attributes now. box-shadow isn't a motion property (per AGENTS.md, this file may
+ * only contain @keyframes/transition/transform/animation/will-change) — its hover swap lives in
+ * src/scss/structural/_buttons.scss; only the transition and the transform-bearing hover rule
+ * stay here.
+ */
+.ls-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
   &:hover,
   &:focus-visible {
     transform: translateY(-1px);
-    box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
   }
 }
 
@@ -107,7 +114,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-button-cta-gradient .wp-block-button__link,
+  .ls-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;
   }

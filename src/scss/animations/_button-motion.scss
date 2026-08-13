@@ -41,11 +41,18 @@
  * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
  * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
  * stays here.
+ *
+ * The default-fill selector's `:not([class*="is-style-"])` exclusion only catches registered
+ * is-style variants. LS-2341 Group 5 folded `glass-button`/`button-cta-gradient` from is-styles
+ * into plain classes (`.ls-glass-button`/`.ls-button-cta-gradient`), which stopped matching that
+ * exclusion and started picking up the default fill button's own arrow-icon `::after` on top of
+ * their own content — explicit `:not(.ls-glass-button):not(.ls-button-cta-gradient)` restores the
+ * exclusion for both.
  */
 
 /* Fill button motion */
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link {
   --ls-button-fill-icon-well-size: 3rem;
@@ -67,7 +74,7 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link::before {
   content: "";
@@ -93,7 +100,7 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link::after {
   content: icons.$ls-icon-arrow-right;
@@ -113,22 +120,22 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover,
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover::before {
   transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover::before,
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:focus-visible::before {
   inset-block: var(--ls-button-fill-icon-block-inset);
@@ -138,11 +145,11 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover,
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:focus-visible {
   color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
@@ -224,13 +231,13 @@
 }
 
 /*
- * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
- * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
- * live in the JSON file's css field now. backdrop-filter's @supports block lives in
- * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
- * hover/focus states + the lift transform.
+ * Glass Button (LS-2341 Group 5: folded in from styles/blocks/buttons/glass-button.json). Rest-state
+ * background/border/shadow/outline, the recipe custom properties, and the non-interactive top/side
+ * edge-highlight pseudo-elements all live in src/scss/structural/_buttons.scss now — none of that
+ * is a motion property, per AGENTS.md. The hover/focus colour swap lives there too. Only the
+ * transition (timing) and the lift transform stay here as real motion.
  */
-.wp-block-button.is-style-glass-button .wp-block-button__link {
+.wp-block-button.ls-glass-button .wp-block-button__link {
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -247,21 +254,10 @@
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
   transition-delay: var(--wp--custom--animation--delay--none);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
 
   &:hover,
   &:focus-visible {
-    background: var(--ls-glass-button-background-hover);
-    border-color: var(--ls-glass-button-border-hover);
-    box-shadow: var(--ls-glass-button-shadow-hover);
-    color: var(--ls-glass-button-text-hover);
     transform: translateY(var(--ls-glass-button-lift));
-  }
-
-  &:focus-visible {
-    outline-color: var(--ls-glass-button-focus-colour);
-    outline-offset: var(--ls-glass-button-focus-offset);
   }
 }
 
@@ -357,15 +353,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link,
+  .wp-block-button.ls-glass-button .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transition: none;
   }
 
-  .wp-block-button.is-style-glass-button .wp-block-button__link:hover,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:active {
+  .wp-block-button.ls-glass-button .wp-block-button__link:hover,
+  .wp-block-button.ls-glass-button .wp-block-button__link:focus-visible,
+  .wp-block-button.ls-glass-button .wp-block-button__link:active {
     transform: none;
   }
 

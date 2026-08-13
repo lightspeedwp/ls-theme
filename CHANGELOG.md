@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `patterns/cards/work-discuss-project-list.php` — a static checklist card reusing the existing `tick-accent` list style.
   - `patterns/cards/work-engagement-stat.php` — a stat segment with a split-colour big number (accent-coloured suffix) and monospace uppercase labels.
   - `patterns/cards/work-next-steps-card.php` — a compact related-route button.
-  - Matching section/block styles: `styles/sections/cards/card-case-study.json`, `card-banner-tint.json`, `card-chip.json`, `card-divider-top.json`, `card-checklist.json`, `stat-segment.json`, `card-link-row.json`, and two new `core/post-terms` block styles (`styles/blocks/post-terms/badge-brand.json`, `tag-pills.json`) for rendering dynamically-bound taxonomy terms as a badge bar and individual tag pills respectively.
+  - Matching section/block styles for rendering dynamically-bound taxonomy terms as a badge bar and individual tag pills, and for the card/divider/checklist shells (all since folded into their consumer patterns or converted to plain classes by LS-2341 — see Removed below).
   - Colour, computed values (background tints, borders) are kept out of pattern-level block attributes and defined only in these external style files — WordPress's block validator can't reliably round-trip a raw `color-mix()` value placed directly in a block's own `style` attribute.
   - Added hover-lift behaviour for the two interactive cards (`is-style-card-case-study`, `is-style-card-link-row`) to `assets/css/animations.css`, reusing the existing `card.hover` shadow contract, and extended the `is-style-link-arrow-accent` style/CSS to also support `core/read-more` (previously `core/paragraph` only).
 - Added a `Menu Item Card` pattern (`patterns/menu/menu-item-card.php`) as the single reusable source of the mega-menu list item structure (icon well, title/description, hover-reveal trailing arrow), used across the Work, Solutions, Pricing, Insights, and About mega menus — Services is excluded, it uses its own per-phase item style. Deliberately a plain registered pattern, not a Synced Pattern, so each insertion stays independently editable per menu item (LS-1618).
@@ -31,9 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Built out `archive.html`'s main content (query title, term description, paginated post query loop), which previously rendered no content at all (LS-1226).
 - Added `settings.layout.contentSize` (`800px`) and `wideSize` (`1370px`) to `theme.json` to match the design system's Figma values (LS-1226).
 - Wired Yoast SEO's native `yoast-seo/breadcrumbs` block into the `Breadcrumbs` pattern and added the `breadcrumbs` template part to the `page`, `single`, and `archive` templates (LS-1228 Part 2). The pattern degrades gracefully (renders nothing) if Yoast SEO is inactive.
-- Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells.
-- Added a `Card - Services` pattern with a reusable accent-border gradient contract, a matching services card section style, and a blue tick list block style.
-- Added a `Solutions Card` pattern with a reusable `Icon Frame Glow` group style and a compact shared-arrow card CTA button style.
+- Added reusable `Glass Button` and `Glass Card` block style variations that apply the shared Sass frosted-glass surface treatment to buttons and Group-based card shells (`Glass Button` since folded into its one consumer pattern by LS-2341 — see Removed below; `Glass Card` remains a real reusable style).
+- Added a `Card - Services` pattern with a reusable accent-border gradient contract, a matching services card section style (since folded into the pattern by LS-2341), and a blue tick list block style.
+- Added a `Solutions Card` pattern with a reusable `Icon Frame Glow` group style (since folded into the pattern by LS-2341) and a compact shared-arrow card CTA button style.
 - Added individual merged block preset files under `styles/presets/blocks/` so live block runtime defaults can be maintained one block per file.
 - Added a theme-local `themejson-completion` skill, `ThemeJSON Completer` agent, and `complete-theme-json` prompt for approval-first Global Styles completion work.
 - Registered the theme font-family presets as `body`, `heading`, and `monospace`, and applied the `monospace` preset to code elements in `theme.json`.
@@ -104,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Removed ~30 single-use "fake" `is-style` block-style variants that cluttered the block editor's style picker with options that were never a real second editorial choice (LS-2341): folded each into its one consumer pattern as real inline block attributes, or as scoped plain-classname CSS under the new `src/scss/structural/` directory where JSON block-supports genuinely can't express the rule (nested selectors, custom-property recipes, layered gradients). Converted `badge-brand`/`badge-woocommerce` and `card-banner-tint`/`card-banner-tint-woocommerce` from registered is-styles into plain classes swapped programmatically by `inc/portfolio-card-colors.php`, since they were a taxonomy-driven state flag, not an editorial choice. Deleted 6 fully dead, zero-consumer style files found during the audit. Left the genuinely reusable variant families (icon-well, buttons, headings, paragraph/link) untouched.
 - Removed stale compiled CSS and source-map artefacts from `src/scss/` so `assets/css/` remains the only runtime stylesheet output tree.
 - Removed the experimental vanilla JavaScript spotlight card implementation pending GSAP evaluation.
 - Removed the section style contract loader for `styles/sections/*.json` runtime CSS generation.
@@ -112,6 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed several pre-existing bugs surfaced while auditing the is-style layer (LS-2341): a `wp:list` block with a duplicated base classname breaking editor validation on the Work Discuss Project CTA; hand-authored inline spacing styles on `core/query`/`core/columns` that neither block nor the theme's settings actually support; the `ls-plugin/taxonomy-filter` block being inserted as a self-closing void block when its `save()` returns a real wrapper div; `assets/js/gsap-effects.js` querying a stale classname after a fold-in rename, breaking the homepage hero's GSAP initialization; the WooCommerce card-colour swap not reliably reading post context for `core/group` blocks on `render_block_data` inside a Post Template loop (moved to `render_block`); and WordPress core's default `.wp-block-group.has-background` padding going un-overridden on the Work Project Card, inset-ing its banner grid.
 - Fixed an invalid nested `wp:site-title` block inside `patterns/footer.php`'s paragraph markup that broke block parsing on every template (LS-1226).
 - Fixed `patterns/breadcrumbs.php` rendering full-bleed instead of content width by removing an unnecessary `align:full` (LS-1226).
 - Fixed the header search field rendering incorrectly in the Site Editor (input shown expanded by default) by adding `assets/css/animations.css` via `add_editor_style()` in `functions.php`, so it reliably reaches the Site Editor's iframed canvas rather than only the outer wp-admin document (LS-1618).

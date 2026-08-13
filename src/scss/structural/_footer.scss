@@ -14,3 +14,19 @@
   text-decoration-color: transparent;
   text-underline-offset: 3px;
 }
+
+/*
+ * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
+ * hover colour swap. Not a motion property — the shared transition (timing) stays in
+ * _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
+ * background-color/border-color are serialized as an inline style="" attribute (from folding an
+ * is-style into block-supports attrs), and inline styles always beat stylesheet rules regardless
+ * of specificity.
+ */
+.ls-footer-proof-card:hover,
+.ls-footer-proof-card:focus-within,
+.ls-footer-social-icon:hover,
+.ls-footer-social-icon:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised) !important;
+  border-color: var(--wp--custom--color--phase--create) !important;
+}
