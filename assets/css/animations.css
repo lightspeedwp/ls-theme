@@ -252,6 +252,97 @@
   margin: 0;
 }
 
+/*
+ * Platform badge/banner-tint pair (LS-2341 Group 4): converted from registered is-style
+ * variations (styles/blocks/post-terms/badge-*.json, styles/sections/cards/card-banner-tint*.json,
+ * now deleted) into plain classes. These were never a real editorial choice — the WooCommerce
+ * variant is swapped in programmatically by inc/portfolio-card-colors.php based on the post's
+ * project-group taxonomy term, so they shouldn't have been discoverable in the style picker.
+ * Layout (flex/wrap/box-sizing/border-radius/padding), the nested `a`/separator resets, and
+ * background-color have no block-supports equivalent as a per-post-conditional swap.
+ */
+.ls-badge-brand,
+.ls-badge-woocommerce {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: var(--wp--preset--border-radius--200);
+  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+  letter-spacing: 1px;
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  text-transform: uppercase;
+}
+.ls-badge-brand a,
+.ls-badge-woocommerce a {
+  display: inline;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: inherit;
+  text-decoration: none;
+}
+.ls-badge-brand .wp-block-post-terms__separator,
+.ls-badge-woocommerce .wp-block-post-terms__separator {
+  margin-inline-end: var(--wp--preset--spacing--5);
+}
+
+.ls-badge-brand {
+  color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
+}
+
+.ls-badge-woocommerce {
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+}
+
+/*
+ * Platform tag overlay (the small "Platform · X" label sitting on the banner grid, LS-2341 Group 4
+ * follow-up): same platform-conditional tint as the badge below it, at the exact same color-mix
+ * formula, so the two read as one consistent colour per project. Layout (border/padding) is its
+ * own, kept separate from .ls-badge-brand/.ls-badge-woocommerce's full-width bar layout, which
+ * doesn't apply to this compact overlay pill.
+ */
+.ls-platform-tag-brand {
+  color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
+}
+
+.ls-platform-tag-woocommerce {
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+}
+
+.ls-platform-tag-brand a,
+.ls-platform-tag-woocommerce a {
+  color: inherit;
+}
+
+.ls-card-banner-tint,
+.ls-card-banner-tint-woocommerce {
+  width: 100%;
+  min-height: 10rem;
+  background-size: 24px 24px;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.ls-card-banner-tint {
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.ls-card-banner-tint-woocommerce {
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
 /********** Footer Structural Overrides **********/
 /*
  * Footer nav link (.ls-footer-nav-link, folded in from
