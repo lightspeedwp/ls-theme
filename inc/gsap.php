@@ -150,14 +150,6 @@ function ls_theme_register_gsap_block_styles() {
 			'label' => __( 'Home Hero Section', 'ls-theme' ),
 		)
 	);
-
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'card-spotlight',
-			'label' => __( 'Card Spotlight', 'ls-theme' ),
-		)
-	);
 }
 add_action( 'init', 'ls_theme_register_gsap_block_styles' );
 
@@ -184,7 +176,7 @@ function ls_theme_flag_gsap_needed( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$gsap_styles = array( 'is-style-home-hero-section', 'is-style-card-spotlight' );
+	$gsap_styles = array( 'is-style-home-hero-section' );
 	$classes     = preg_split( '/\s+/', trim( $classname ) );
 
 	foreach ( $gsap_styles as $style ) {

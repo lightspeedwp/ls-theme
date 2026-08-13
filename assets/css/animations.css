@@ -85,98 +85,7 @@
     transition: none;
   }
 }
-/********** Text Motion **********/
-/* Gradient Accent */
-.wp-block-heading.is-style-gradient-accent {
-  --ls-accent-gradient-width: fit-content;
-  --ls-accent-gradient-image: linear-gradient(
-    to right,
-    var(--wp--custom--color--text--brand) 0%,
-    var(--wp--custom--color--text--default) 25%,
-    var(--wp--custom--color--text--brand-strong) 50%,
-    var(--wp--custom--color--text--default) 75%,
-    var(--wp--custom--color--text--brand) 100%
-  );
-  --ls-accent-gradient-size: 200% auto;
-  --ls-accent-gradient-start-position: 0%;
-  --ls-accent-gradient-end-position: 100%;
-  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
-  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
-  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
-  --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-focus-width: 2px;
-  --ls-accent-gradient-focus-color: var(--wp--custom--color--focus--ring);
-  --ls-accent-gradient-focus-offset: 4px;
-  --ls-accent-gradient-reduced-position: 100%;
-  width: var(--ls-accent-gradient-width);
-  max-width: 100%;
-}
-.wp-block-heading.is-style-gradient-accent.has-text-align-center {
-  margin-inline: auto;
-}
-.wp-block-heading.is-style-gradient-accent.has-text-align-right {
-  margin-inline-start: auto;
-}
-
-@supports (-webkit-background-clip: text) or (background-clip: text) {
-  .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
-    background-image: var(--ls-accent-gradient-image);
-    background-position: var(--ls-accent-gradient-start-position) center;
-    background-repeat: no-repeat;
-    background-size: var(--ls-accent-gradient-size);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  }
-  .wp-block-heading.is-style-gradient-accent {
-    animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
-  }
-  .wp-block-heading.is-style-gradient-accent a {
-    animation: inherit;
-  }
-}
-.wp-block-heading.is-style-gradient-accent a:focus-visible {
-  outline: var(--ls-accent-gradient-focus-width) solid var(--ls-accent-gradient-focus-color);
-  outline-offset: var(--ls-accent-gradient-focus-offset);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
-    animation: none;
-    background-position: var(--ls-accent-gradient-reduced-position) center;
-  }
-}
 /********** Link Motion **********/
-/* Link Underline Accent */
-.wp-block-paragraph.is-style-link-underline-accent {
-  --ls-link-underline-image: linear-gradient(
-    var(--wp--custom--color--link--decoration-start),
-    var(--wp--custom--color--link--decoration-end)
-  );
-  --ls-link-underline-padding-bottom: 3px;
-  --ls-link-underline-thickness: 2px;
-  --ls-link-underline-enter-delay: var(--wp--custom--animation--delay--enter);
-}
-
-.wp-block-paragraph.is-style-link-underline-accent a {
-  padding-bottom: var(--ls-link-underline-padding-bottom);
-  background-image: var(--ls-link-underline-image);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0 var(--ls-link-underline-thickness);
-  transition: background-size var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-}
-.wp-block-paragraph.is-style-link-underline-accent a:hover {
-  transition-delay: var(--ls-link-underline-enter-delay);
-}
-.wp-block-paragraph.is-style-link-underline-accent a:hover, .wp-block-paragraph.is-style-link-underline-accent a:focus-visible {
-  background-size: 100% var(--ls-link-underline-thickness);
-}
-
 /*
  * Link Arrow Accent (styles/blocks/paragraphs/link-arrow-accent.json): rest-state layout
  * (display/align-items/gap on the link, display/baseline transform on the arrow glyph) lives in
@@ -709,41 +618,6 @@
   outline-offset: var(--ls-glass-button-focus-offset);
 }
 
-/* Button Glow Accent */
-.wp-block-button.is-style-button-glow-accent {
-  --ls-button-glow-colour: var(--wp--custom--color--button--outline--border);
-  --ls-button-glow-hover-background: var(--wp--custom--color--button--outline--background-hover);
-  --ls-button-glow-hover-text: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-glow-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-glow-outline-width: 1px;
-  --ls-button-glow-outline-offset: 12px;
-  --ls-button-glow-resting-strength: 0%;
-  --ls-button-glow-outline-strength: 45%;
-  --ls-button-glow-inner-strength: 35%;
-  --ls-button-glow-outer-strength: 20%;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link {
-  transition: box-shadow var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), outline-color var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), outline-offset var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), transform var(--wp--custom--animation--duration--fast) var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-resting-strength), transparent);
-  outline: var(--ls-button-glow-outline-width) solid color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-outline-strength), transparent);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-  transition-delay: var(--ls-button-glow-enter-delay);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:focus-visible {
-  background-color: var(--ls-button-glow-hover-background);
-  color: var(--ls-button-glow-hover-text);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-inner-strength), transparent), 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-outer-strength), transparent);
-  outline-color: transparent;
-  outline-offset: var(--ls-button-glow-outline-offset);
-}
-
 /*
  * Button Arrow Compact (styles/blocks/buttons/button-arrow-compact.json): rest-state size/shape,
  * the recipe custom properties, and the arrow glyph's non-hover appearance all live in the JSON
@@ -757,11 +631,11 @@
   content: "\2192";
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible, .is-style-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link, .is-style-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
   background: var(--ls-button-arrow-compact-background-active);
   border-color: var(--ls-button-arrow-compact-border-active);
 }
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
+.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after, .is-style-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after, .is-style-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
   color: var(--ls-button-arrow-compact-colour-active);
 }
 
@@ -826,8 +700,8 @@
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
+  .is-style-card-solutions:hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
+  .is-style-card-solutions:focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
     transform: none;
   }
   .ls-cta-strip__button-arrow {
@@ -1099,8 +973,8 @@
  * default padding-top: calc(2rem + 24px) (wp-includes/blocks/navigation/style.css) is what was
  * producing the oversized gap above the logo; both are overridden to the same spacing token here
  * so the logo row and the close button land on the same line. Styled with the same circular
- * icon-button language as the header's search/theme-toggle buttons
- * (styles/blocks/groups/header-icon-button.json) for visual consistency.
+ * icon-button language as the header search button and footer icon-shells
+ * (src/scss/animations/_shared-hover.scss) for visual consistency.
  *
  * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
  * but these are otherwise generic core class names that would restyle any Navigation block's
@@ -1276,8 +1150,7 @@
 /*
  * Footer nav links (is-style-footer-nav-link, styles/blocks/paragraphs/footer-nav-link.json):
  * underline reveals on hover/focus by animating decoration-colour from transparent, rather than
- * toggling text-decoration-line itself. Matches the approved reference screenshot, and matches the
- * pattern already used for is-style-link-underline-accent elsewhere in this file family. Static
+ * toggling text-decoration-line itself. Matches the approved reference screenshot. Static
  * decoration setup (line/colour/offset, colour:inherit) lives in
  * styles/blocks/paragraphs/footer-nav-link.json; only the transition stays here since it targets
  * the same `a` the hover rule below does.
@@ -1375,30 +1248,6 @@
     margin-inline-start: auto;
   }
 }
-/*
- * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
- * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept
- * here rather than as a registered block style because it needs to sit alongside the hover
- * treatment, and WordPress doesn't generate :hover CSS for arbitrary block style variations.
- */
-.is-style-header-icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  color: var(--wp--custom--color--text--default);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-header-icon-button:hover, .is-style-header-icon-button:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
-}
-
 .is-style-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
@@ -1448,7 +1297,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-header-icon-button,
   .is-style-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;

@@ -14,8 +14,8 @@
  * default padding-top: calc(2rem + 24px) (wp-includes/blocks/navigation/style.css) is what was
  * producing the oversized gap above the logo; both are overridden to the same spacing token here
  * so the logo row and the close button land on the same line. Styled with the same circular
- * icon-button language as the header's search/theme-toggle buttons
- * (styles/blocks/groups/header-icon-button.json) for visual consistency.
+ * icon-button language as the header search button and footer icon-shells
+ * (src/scss/animations/_shared-hover.scss) for visual consistency.
  *
  * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
  * but these are otherwise generic core class names that would restyle any Navigation block's

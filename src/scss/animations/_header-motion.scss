@@ -51,33 +51,6 @@
   }
 }
 
-/*
- * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
- * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept
- * here rather than as a registered block style because it needs to sit alongside the hover
- * treatment, and WordPress doesn't generate :hover CSS for arbitrary block style variations.
- */
-.is-style-header-icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  color: var(--wp--custom--color--text--default);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
-  }
-}
-
 .is-style-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
@@ -134,7 +107,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-header-icon-button,
   .is-style-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;

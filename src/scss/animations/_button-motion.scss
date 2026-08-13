@@ -265,72 +265,6 @@
   }
 }
 
-/* Button Glow Accent */
-.wp-block-button.is-style-button-glow-accent {
-  --ls-button-glow-colour: var(--wp--custom--color--button--outline--border);
-  --ls-button-glow-hover-background: var(--wp--custom--color--button--outline--background-hover);
-  --ls-button-glow-hover-text: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-glow-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-glow-outline-width: 1px;
-  --ls-button-glow-outline-offset: 12px;
-  --ls-button-glow-resting-strength: 0%;
-  --ls-button-glow-outline-strength: 45%;
-  --ls-button-glow-inner-strength: 35%;
-  --ls-button-glow-outer-strength: 20%;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link {
-  transition:
-    box-shadow var(--wp--custom--animation--duration--dramatic)
-      var(--wp--custom--animation--easing--dramatic),
-    outline-color var(--wp--custom--animation--duration--dramatic)
-      var(--wp--custom--animation--easing--dramatic),
-    outline-offset var(--wp--custom--animation--duration--dramatic)
-      var(--wp--custom--animation--easing--dramatic),
-    transform var(--wp--custom--animation--duration--fast)
-      var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-  box-shadow: inset 0 0 20px
-    color-mix(
-      in srgb,
-      var(--ls-button-glow-colour) var(--ls-button-glow-resting-strength),
-      transparent
-    );
-  outline: var(--ls-button-glow-outline-width) solid
-    color-mix(
-      in srgb,
-      var(--ls-button-glow-colour) var(--ls-button-glow-outline-strength),
-      transparent
-    );
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-  transition-delay: var(--ls-button-glow-enter-delay);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
-.wp-block-button.is-style-button-glow-accent
-  .wp-block-button__link:focus-visible {
-  background-color: var(--ls-button-glow-hover-background);
-  color: var(--ls-button-glow-hover-text);
-  box-shadow:
-    inset 0 0 20px
-      color-mix(
-        in srgb,
-        var(--ls-button-glow-colour) var(--ls-button-glow-inner-strength),
-        transparent
-      ),
-    0 0 20px
-      color-mix(
-        in srgb,
-        var(--ls-button-glow-colour) var(--ls-button-glow-outer-strength),
-        transparent
-      );
-  outline-color: transparent;
-  outline-offset: var(--ls-button-glow-outline-offset);
-}
-
 /*
  * Button Arrow Compact (styles/blocks/buttons/button-arrow-compact.json): rest-state size/shape,
  * the recipe custom properties, and the arrow glyph's non-hover appearance all live in the JSON
@@ -357,16 +291,16 @@
 
   &:hover,
   &:focus-visible,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
+  .is-style-card-solutions:hover &,
+  .is-style-card-solutions:focus-within & {
     background: var(--ls-button-arrow-compact-background-active);
     border-color: var(--ls-button-arrow-compact-border-active);
   }
 
   &:hover::after,
   &:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within &::after {
+  .is-style-card-solutions:hover &::after,
+  .is-style-card-solutions:focus-within &::after {
     color: var(--ls-button-arrow-compact-colour-active);
   }
 }
@@ -438,10 +372,10 @@
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
+  .is-style-card-solutions:hover
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
+  .is-style-card-solutions:focus-within
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after {
     transform: none;
