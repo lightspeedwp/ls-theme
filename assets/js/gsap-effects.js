@@ -615,7 +615,7 @@
 
 	function initEffects() {
 		document.querySelectorAll( '.is-style-card-spotlight' ).forEach( initSpotlightCard );
-		document.querySelectorAll( '.is-style-home-hero-section' ).forEach( initHomeHeroSection );
+		document.querySelectorAll( '.ls-home-hero-section' ).forEach( initHomeHeroSection );
 	}
 
 	function boot() {

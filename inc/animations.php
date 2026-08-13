@@ -138,11 +138,6 @@ function ls_theme_register_effect_block_styles() {
 			'label'      => __( 'Card - Feature', 'ls-theme' ),
 		),
 		array(
-			'block_name' => 'core/group',
-			'name'       => 'icon-frame-glow',
-			'label'      => __( 'Icon Frame Glow', 'ls-theme' ),
-		),
-		array(
 			'block_name' => 'core/button',
 			'name'       => 'button-arrow-compact',
 			'label'      => __( 'Button Arrow Compact', 'ls-theme' ),

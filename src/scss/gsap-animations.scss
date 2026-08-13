@@ -1,1 +1,3 @@
-@use "gsap/home-hero-section";
+/* No GSAP-driven CSS motion currently registered. Home Hero Section's rest-state CSS moved to
+   src/scss/structural/_home-hero-section.scss (LS-2341) — it has no CSS-level motion at all, the
+   animated network/canvas is driven imperatively by assets/js/gsap-effects.js. */

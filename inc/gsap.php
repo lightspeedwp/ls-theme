@@ -136,24 +136,6 @@ function ls_theme_enqueue_gsap_styles( $context = 'front' ) {
 }
 
 /**
-	* Registers GSAP-related block styles.
-	*/
-function ls_theme_register_gsap_block_styles() {
-	if ( ! function_exists( 'register_block_style' ) ) {
-		return;
-	}
-
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'home-hero-section',
-			'label' => __( 'Home Hero Section', 'ls-theme' ),
-		)
-	);
-}
-add_action( 'init', 'ls_theme_register_gsap_block_styles' );
-
-/**
  * Detects whether the block currently being rendered needs GSAP, and flags
  * it for the front-end footer enqueue below.
  *
@@ -161,7 +143,7 @@ add_action( 'init', 'ls_theme_register_gsap_block_styles' );
  * regardless of whether they come from post content, a template, or a
  * template-embedded pattern — has_block() only inspects the queried post's
  * own content and would miss template-embedded blocks such as Home Hero.
- * This also means a future GSAP-powered is-style never needs a new
+ * This also means a future GSAP-powered component never needs a new
  * page/template check added here — only its class name added to
  * $gsap_styles below.
  *
@@ -176,7 +158,7 @@ function ls_theme_flag_gsap_needed( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$gsap_styles = array( 'is-style-home-hero-section' );
+	$gsap_styles = array( 'ls-home-hero-section' );
 	$classes     = preg_split( '/\s+/', trim( $classname ) );
 
 	foreach ( $gsap_styles as $style ) {

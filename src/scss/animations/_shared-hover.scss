@@ -15,11 +15,18 @@
  * :focus-visible (plain buttons — keyboard-only focus indication), footer proof-card/social-icon
  * used :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation
  * would silently change which interactions trigger the raise, so they stay split.
+ *
+ * !important on the hover background-color/border-color below is required for
+ * .ls-footer-proof-card/.ls-footer-social-icon specifically (LS-2341): both now get their
+ * rest-state background-color/border-color from an inline style="" attribute (folding an is-style
+ * into block-supports attrs serializes as inline HTML, not a stylesheet rule), and inline styles
+ * always beat stylesheet :hover/:focus-within regardless of selector specificity. Harmless no-op
+ * for the header search button/mobile-menu close button, which don't set these inline.
  */
 .site-header__search .wp-block-search__button,
 .site-header .wp-block-navigation__responsive-container-close,
-.is-style-footer-proof-card,
-.is-style-footer-social-icon {
+.ls-footer-proof-card,
+.ls-footer-social-icon {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
@@ -28,12 +35,12 @@
 .site-header__search .wp-block-search__button:focus-visible,
 .site-header .wp-block-navigation__responsive-container-close:hover,
 .site-header .wp-block-navigation__responsive-container-close:focus-visible,
-.is-style-footer-proof-card:hover,
-.is-style-footer-proof-card:focus-within,
-.is-style-footer-social-icon:hover,
-.is-style-footer-social-icon:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
+.ls-footer-proof-card:hover,
+.ls-footer-proof-card:focus-within,
+.ls-footer-social-icon:hover,
+.ls-footer-social-icon:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised) !important;
+  border-color: var(--wp--custom--color--phase--create) !important;
 }
 
 /*
@@ -75,8 +82,8 @@
 @media (prefers-reduced-motion: reduce) {
   .site-header__search .wp-block-search__button,
   .site-header .wp-block-navigation__responsive-container-close,
-  .is-style-footer-proof-card,
-  .is-style-footer-social-icon,
+  .ls-footer-proof-card,
+  .ls-footer-social-icon,
   .is-style-mega-menu-item-default,
   .wp-block-paragraph.is-style-mega-menu-item-service {
     transition: none;

@@ -1,0 +1,275 @@
+
+/********** Card Structural Overrides **********/
+
+/*
+ * JSON limitation: none of the rules below are hover/motion — they're rest-state layout,
+ * sizing, and nested-descendant-selector CSS that block-supports attrs genuinely cannot express
+ * (nested selectors, min-inline-size/min-block-size, content:"" pseudo-elements, custom-property
+ * recipes consumed by the hover logic in _card-motion.scss). Per AGENTS.md, this content cannot
+ * live in src/scss/animations/** (motion-only) and cannot go back into a styles/**.json is-style
+ * file (that recreates the exact style-picker clutter LS-2341 removes), so it lives here as a
+ * confirmed JSON limitation instead.
+ */
+
+/*
+ * Card - Work Category (folded in from styles/sections/cards/card-category.json, single consumer
+ * patterns/sections/work-categories.php, LS-2341). Rest-state border/background/shadow/spacing are
+ * inline block attributes on that consumer; position/overflow and the nested
+ * .ls-card-category__content flex rule have no block-supports equivalent.
+ */
+.ls-card-category {
+  position: relative;
+  overflow: hidden;
+  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-category-lift: var(--wp--custom--animation--lift--md);
+
+  .ls-card-category__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--10);
+  }
+}
+
+/*
+ * Card - List Shell (folded in from styles/sections/cards/card-list-shell.json, single consumer
+ * patterns/cards/work-capability-list.php, LS-2341). Rest-state border/background/spacing are
+ * inline block attributes; inline-size:100% and the last-child descendant rule have no
+ * block-supports equivalent.
+ */
+.ls-card-list-shell {
+  inline-size: 100%;
+
+  > .wp-block-group > *:last-child {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}
+
+/*
+ * Card - Case Study (folded in from styles/sections/cards/card-case-study.json, single consumer
+ * patterns/cards/work-project-card.php, LS-2341). Rest-state border/background/shadow/spacing are
+ * inline block attributes; overflow:hidden has no block-supports equivalent. The hover-only custom
+ * properties consumed by _card-motion.scss's transition/hover logic live here too — a custom
+ * property declaration isn't a motion property, only the transition/hover swap referencing it is.
+ */
+.ls-card-case-study {
+  overflow: hidden;
+  --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-case-study-lift: var(--wp--custom--animation--lift--md);
+}
+
+/*
+ * Tag Pills (folded in from styles/blocks/post-terms/tag-pills.json, single consumer
+ * patterns/cards/work-project-card.php, LS-2341). Rest-state color/typography are inline block
+ * attributes on the post-terms block; the wrapper's flex-wrap layout and each pill's chrome
+ * (background/radius/padding, the nested `a`) have no block-supports equivalent for a descendant
+ * selector. No motion involved at all, so nothing for this component lives in _card-motion.scss.
+ */
+.ls-tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wp--preset--spacing--5);
+  max-width: 100%;
+
+  a {
+    display: inline-block;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    background-color: var(--wp--custom--color--surface--card-raised);
+    color: var(--wp--custom--color--text--muted);
+    border-radius: var(--wp--preset--border-radius--100);
+    padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+    text-decoration: none;
+  }
+}
+
+/*
+ * Card - Services (folded in from styles/sections/cards/card-services.json, single consumer
+ * patterns/cards/section-card-services.php, LS-2341). Rest-state border/background/shadow/spacing
+ * are inline block attributes; position/overflow/align-items/max-inline-size/text-align/
+ * transform-origin, the content/list/cta layout, and the icon-shell's align-self have no
+ * block-supports equivalent. The accent-gradient bar's rest-state pseudo-element (content,
+ * position, background-image) and its custom-property recipe live here too — only the
+ * @keyframes-triggering animation on hover is real motion, which stays in _card-motion.scss.
+ */
+.ls-card-services {
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  max-inline-size: 24.167rem;
+  text-align: center;
+  transform-origin: top center;
+  --ls-card-services-border-active: var(--wp--custom--color--link--accent);
+  --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
+  --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
+  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
+  --ls-card-services-scale: 1.05;
+  --ls-card-services-accent-thickness: 8px;
+  --ls-link-arrow-offset: 0;
+  --ls-accent-gradient-image: linear-gradient(
+    90deg,
+    var(--wp--custom--color--effect--spotlight--secondary) 0%,
+    var(--wp--custom--color--effect--spotlight--primary) 50%,
+    var(--wp--custom--color--effect--spotlight--secondary) 100%
+  );
+  --ls-accent-gradient-size: 200% auto;
+  --ls-accent-gradient-start-position: 0%;
+  --ls-accent-gradient-end-position: 100%;
+  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
+  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
+  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
+  --ls-accent-gradient-direction: alternate;
+  --ls-accent-gradient-reduced-position: 100%;
+
+  .ls-card__icon-shell {
+    align-self: center;
+  }
+
+  .ls-card-services__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--wp--preset--spacing--20);
+    inline-size: 100%;
+
+    > * {
+      margin-block: 0;
+    }
+  }
+
+  .ls-card-services__list {
+    inline-size: 100%;
+    margin-block: 0;
+  }
+
+  .ls-card-services__cta {
+    position: static;
+    margin-top: auto;
+    margin-bottom: 0;
+
+    a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: var(--ls-card-services-accent-thickness);
+    background-image: var(--ls-accent-gradient-image);
+    background-position: var(--ls-accent-gradient-start-position) center;
+    background-repeat: no-repeat;
+    background-size: var(--ls-accent-gradient-size);
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  > * {
+    position: relative;
+    z-index: var(--wp--custom--z-index--content);
+  }
+}
+
+/*
+ * Icon Frame Glow (folded in from styles/blocks/groups/icon-frame-glow.json, single consumer
+ * Card - Solutions' icon shell, LS-2341). border-color/background and the nested icon/svg
+ * selectors have no block-supports equivalent (custom-property-driven colour, descendant
+ * selectors). border-color is the same value at rest and on hover — nothing changes there, so
+ * it's set once here; only the shadow and rotate transform on hover are real motion.
+ */
+.ls-icon-frame-glow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-inline-size: 5rem;
+  min-block-size: 5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--wp--preset--border-radius--200);
+  padding: var(--wp--preset--spacing--20);
+  --ls-icon-frame-accent-colour: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
+  --ls-icon-frame-shadow-active: 0 0 4px 4px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
+  --ls-icon-frame-inset-shadow-active: inset 0 0 4px 3px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
+  --ls-icon-frame-tilt: -3deg;
+  border-color: var(--ls-icon-frame-accent-colour);
+  background: color-mix(in srgb, var(--ls-icon-frame-accent-colour) 10%, transparent);
+
+  .wp-block-outermost-icon-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
+    color: var(--ls-icon-frame-accent-colour);
+  }
+
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    color: var(--ls-icon-frame-accent-colour) !important;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+}
+
+/*
+ * Card - Solutions (folded in from styles/sections/cards/card-solutions.json, single consumer
+ * patterns/cards/section-card-solutions.php, LS-2341). Rest-state border/background/shadow/spacing
+ * are inline block attributes; position/overflow/max-inline-size and the content/cta layout have
+ * no block-supports equivalent. The hover-only custom-property recipe consumed by
+ * _card-motion.scss's transition/hover logic lives here too.
+ */
+.ls-card-solutions {
+  position: relative;
+  overflow: hidden;
+  max-inline-size: 22.5rem;
+  --ls-card-solutions-accent-colour: var(--wp--custom--color--card--solutions--brand);
+  --ls-card-solutions-accent-resolved: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
+  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
+  --ls-card-solutions-shadow-active: 1px 4px 12px 4px color-mix(in srgb, var(--ls-card-solutions-accent-resolved) 50%, transparent);
+
+  .ls-card-solutions__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--10);
+    inline-size: 100%;
+
+    > * {
+      margin-block: 0;
+    }
+
+    .wp-block-heading {
+      color: var(--wp--custom--color--text--default);
+    }
+  }
+
+  .ls-card-solutions__cta {
+    margin-top: auto;
+    margin-bottom: 0;
+
+    .wp-block-button {
+      margin: 0;
+    }
+  }
+}

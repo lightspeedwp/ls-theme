@@ -75,18 +75,17 @@
 }
 
 /*
- * Card - Work Category (LS-2341: folded in from styles/sections/cards/card-category.json, single
- * consumer patterns/sections/work-categories.php). Rest-state border/background/shadow/spacing are
- * now inline block attributes on that consumer. position/overflow, the hover-only custom
- * properties, and the nested .ls-card-category__content flex rule aren't expressible as block
- * attributes, so they stay here as a scoped rule on the plain .ls-card-category classname.
+ * Card - Work Category. Rest-state box model lives on the pattern's block attributes; every
+ * non-motion property (position/overflow/layout) lives in src/scss/structural/_cards.scss. Only
+ * the transition and hover swap stay here.
+ *
+ * !important on the hover border-color/box-shadow below is required, not stylistic: rest-state
+ * border-color and box-shadow are serialized as an inline style="" attribute on the block (that's
+ * what folding into block-supports attrs produces), and inline styles always beat stylesheet
+ * rules regardless of selector specificity — :hover/:focus-within can never win against them
+ * without !important. transform isn't set inline anywhere, so it needs no override.
  */
 .ls-card-category {
-  position: relative;
-  overflow: hidden;
-  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-category-lift: var(--wp--custom--animation--lift--md);
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -97,50 +96,21 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-category-border-active);
-    box-shadow: var(--ls-card-category-shadow-active);
+    border-color: var(--ls-card-category-border-active) !important;
+    box-shadow: var(--ls-card-category-shadow-active) !important;
     transform: translateY(var(--ls-card-category-lift));
   }
-
-  .ls-card-category__content {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-  }
 }
 
 /*
- * Card - List Shell (LS-2341: folded in from styles/sections/cards/card-list-shell.json, single
- * consumer patterns/cards/work-capability-list.php). Rest-state border/background/spacing are now
- * inline block attributes on that consumer. inline-size:100% and the last-child descendant rule
- * aren't expressible as block attributes, so they stay here on the plain .ls-card-list-shell
- * classname. Not motion, but kept in this file alongside the other single-use card exceptions —
- * consistent with the precedent already established across this project.
- */
-.ls-card-list-shell {
-  inline-size: 100%;
-
-  > .wp-block-group > *:last-child {
-    min-width: 0;
-    flex: 1 1 auto;
-  }
-}
-
-/*
- * Card - Case Study (LS-2341: folded in from styles/sections/cards/card-case-study.json, single
- * consumer patterns/cards/work-project-card.php). Rest-state border/background/shadow/spacing are
- * now inline block attributes on that one consumer. overflow:hidden and the hover-only custom
- * properties aren't expressible as block attributes, so they stay here as a scoped rule on the
- * plain .ls-card-case-study classname. Hover treatment reuses Card - Work Category's exact pattern
- * (border-color, shadow, lift) for consistency across the Work archive's card family — this card
- * had no hover treatment at all before Phase 3 (confirmed 2026-08-12, unrelated pre-existing gap).
+ * Card - Case Study. Rest-state box model lives on the pattern's block attributes; every
+ * non-motion property lives in src/scss/structural/_cards.scss. Hover treatment reuses Card -
+ * Work Category's exact pattern (border-color, shadow, lift) for consistency across the Work
+ * archive's card family — this card had no hover treatment at all before Phase 3 (confirmed
+ * 2026-08-12, unrelated pre-existing gap). !important on hover border-color/box-shadow is required
+ * for the same reason documented on Card - Work Category above.
  */
 .ls-card-case-study {
-  overflow: hidden;
-  --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-case-study-lift: var(--wp--custom--animation--lift--md);
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -151,85 +121,20 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-case-study-border-active);
-    box-shadow: var(--ls-card-case-study-shadow-active);
+    border-color: var(--ls-card-case-study-border-active) !important;
+    box-shadow: var(--ls-card-case-study-shadow-active) !important;
     transform: translateY(var(--ls-card-case-study-lift));
   }
 }
 
 /*
- * Card - Services: rest-state border/background/shadow/spacing come from inline block attributes
- * on the pattern now (styles/sections/cards/card-services.json was folded in — LS-2341). The
- * layout-only rules below (position/overflow/align-items/max-inline-size/text-align/
- * transform-origin, the content/list/cta layout, icon-shell align-self) aren't expressible via
- * block-supports attrs, so they stay here as plain scoped CSS. The accent-gradient bar animates via
- * @keyframes on hover, so everything below (including its own thickness/gradient custom
- * properties, kept together as one cohesive animated unit) stays real motion.
+ * Card - Services. Rest-state box model, layout, and the accent-gradient bar's rest-state
+ * pseudo-element all live in src/scss/structural/_cards.scss. Only the transition and the
+ * @keyframes-triggering hover animation are real motion, so only those stay here. !important on
+ * hover border-color/box-shadow is required for the same reason documented on Card - Work
+ * Category above.
  */
 .ls-card-services {
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  max-inline-size: 24.167rem;
-  text-align: center;
-  transform-origin: top center;
-
-  .ls-card__icon-shell {
-    align-self: center;
-  }
-
-  .ls-card-services__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--wp--preset--spacing--20);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-  }
-
-  .ls-card-services__list {
-    inline-size: 100%;
-    margin-block: 0;
-  }
-
-  .ls-card-services__cta {
-    position: static;
-    margin-top: auto;
-    margin-bottom: 0;
-
-    a::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-  }
-
-  --ls-card-services-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
-  --ls-card-services-scale: 1.05;
-  --ls-card-services-accent-thickness: 8px;
-  --ls-link-arrow-offset: 0;
-  --ls-accent-gradient-image: linear-gradient(
-    90deg,
-    var(--wp--custom--color--effect--spotlight--secondary) 0%,
-    var(--wp--custom--color--effect--spotlight--primary) 50%,
-    var(--wp--custom--color--effect--spotlight--secondary) 100%
-  );
-  --ls-accent-gradient-size: 200% auto;
-  --ls-accent-gradient-start-position: 0%;
-  --ls-accent-gradient-end-position: 100%;
-  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
-  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
-  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
-  --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-reduced-position: 100%;
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -238,28 +143,10 @@
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline: 0;
-    block-size: var(--ls-card-services-accent-thickness);
-    background-image: var(--ls-accent-gradient-image);
-    background-position: var(--ls-accent-gradient-start-position) center;
-    background-repeat: no-repeat;
-    background-size: var(--ls-accent-gradient-size);
-    z-index: var(--wp--custom--z-index--base);
-  }
-
-  > * {
-    position: relative;
-    z-index: var(--wp--custom--z-index--content);
-  }
-
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-services-border-active);
-    box-shadow: var(--ls-card-services-shadow-active);
+    border-color: var(--ls-card-services-border-active) !important;
+    box-shadow: var(--ls-card-services-shadow-active) !important;
     transform: scale(var(--ls-card-services-scale));
 
     &::before {
@@ -281,15 +168,11 @@
 }
 
 /*
- * Icon Frame Glow: rest-state look (accent colour, border, background, icon nesting) lives in
- * styles/blocks/groups/icon-frame-glow.json. border-color is the same value at rest and on hover
- * (both were --ls-icon-frame-accent-colour) — nothing actually changes there, so it's set once in
- * JSON and dropped from this rule entirely. Only the shadow and rotate transform are real
- * changes, and those stay here as real motion. Drops the dead is-style-card-solutions-accent
- * reference (LS-2341, zero consumers) and the .ls-card-solutions cross-reference below is now a
- * plain classname rather than an is-style, since card-solutions.json was folded in (LS-2341).
+ * Icon Frame Glow. Rest-state look lives in src/scss/structural/_cards.scss. border-color is the
+ * same value at rest and on hover — nothing actually changes there, so it's set once in the
+ * structural partial. Only the shadow and rotate transform below are real motion.
  */
-.is-style-icon-frame-glow {
+.ls-icon-frame-glow {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -310,46 +193,11 @@
 }
 
 /*
- * Card - Solutions: rest-state border/background/shadow/spacing come from inline block attributes
- * on the pattern now (styles/sections/cards/card-solutions.json was folded in — LS-2341).
- * position/overflow/max-inline-size and the content/cta layout aren't expressible via
- * block-supports attrs, so they stay here as plain scoped CSS, alongside the hover-only custom
- * properties (real motion).
+ * Card - Solutions. Rest-state box model and layout live in src/scss/structural/_cards.scss. Only
+ * the transition and hover swap stay here as real motion. !important on hover border-color/
+ * box-shadow is required for the same reason documented on Card - Work Category above.
  */
 .ls-card-solutions {
-  position: relative;
-  overflow: hidden;
-  max-inline-size: 22.5rem;
-  --ls-card-solutions-accent-colour: var(--wp--custom--color--card--solutions--brand);
-  --ls-card-solutions-accent-resolved: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
-  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
-  --ls-card-solutions-shadow-active: 1px 4px 12px 4px color-mix(in srgb, var(--ls-card-solutions-accent-resolved) 50%, transparent);
-
-  .ls-card-solutions__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-
-    .wp-block-heading {
-      color: var(--wp--custom--color--text--default);
-    }
-  }
-
-  .ls-card-solutions__cta {
-    margin-top: auto;
-    margin-bottom: 0;
-
-    .wp-block-button {
-      margin: 0;
-    }
-  }
-
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -358,8 +206,8 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--ls-card-solutions-border-active);
-    box-shadow: var(--ls-card-solutions-shadow-active);
+    border-color: var(--ls-card-solutions-border-active) !important;
+    box-shadow: var(--ls-card-solutions-shadow-active) !important;
   }
 
   .ls-card-solutions__content .wp-block-heading {
@@ -408,7 +256,7 @@
   .ls-card-services,
   .ls-card-services::before,
   .ls-card-services .ls-card__icon-shell,
-  .is-style-icon-frame-glow,
+  .ls-icon-frame-glow,
   .ls-card-solutions,
   .ls-card-solutions .wp-block-heading,
   .ls-card-case-study {
@@ -444,10 +292,10 @@
     background-position: var(--ls-accent-gradient-reduced-position) center;
   }
 
-  .is-style-icon-frame-glow:hover,
-  .is-style-icon-frame-glow:focus-within,
-  .ls-card-solutions:hover .is-style-icon-frame-glow,
-  .ls-card-solutions:focus-within .is-style-icon-frame-glow {
+  .ls-icon-frame-glow:hover,
+  .ls-icon-frame-glow:focus-within,
+  .ls-card-solutions:hover .ls-icon-frame-glow,
+  .ls-card-solutions:focus-within .ls-icon-frame-glow {
     transform: none;
   }
 }

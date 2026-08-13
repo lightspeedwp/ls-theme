@@ -1,0 +1,16 @@
+
+/********** Footer Structural Overrides **********/
+
+/*
+ * Footer nav link (.ls-footer-nav-link, folded in from
+ * styles/blocks/paragraphs/footer-nav-link.json — LS-2341). Rest-state colour/spacing/
+ * textDecoration are inline block attributes on the paragraph; the nested `a`'s static decoration
+ * setup (line/colour/offset, colour:inherit) has no block-supports equivalent for a descendant
+ * selector, so it lives here. The transition and hover swap live in _footer-motion.scss.
+ */
+.ls-footer-nav-link a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
