@@ -77,7 +77,6 @@ When working on specific file types, also consult these instruction files:
 ## Available Commands
 
 ```bash
-npm run sync:breakpoints  # Sync the generated Sass breakpoint map from theme.json
 npm run build:css         # Compile Sass entry files to assets/css
 npm run watch:css         # Watch Sass entry files and rebuild CSS
 npm run schema:validate   # Validate JSON schemas

@@ -1,5 +1,3 @@
-@use "../abstracts/mixins/motion";
-@use "../abstracts/mixins/mq";
 
 /********** Site Header **********/
 
@@ -23,8 +21,13 @@
  * the site's only search entry point on mobile (the nav overlay drawer doesn't include it).
  * With `justifyContent:"space-between"` already set on the header row, hiding just the buttons
  * still leaves enough room for the collapsed nav's hamburger to sit at the far right.
+ *
+ * JSON limitation: @media is confirmed stripped from the styles/**.json css field, so this stays
+ * real CSS. Inlined literal from the mq mixin (Phase 3 Group 5, mixin teardown): nav-toggle is
+ * 600px in theme.json, minus the mixin's own 0.02px offset so adjacent breakpoint ranges don't
+ * overlap at the exact value.
  */
-@include mq.mq($until: "nav-toggle") {
+@media (max-width: 599.98px) {
   .site-header__actions .wp-block-buttons {
     display: none;
   }
@@ -38,8 +41,11 @@
  * to dead centre, not next to the actions group where it visually belongs. Scoping the fix to
  * this breakpoint only (rather than restructuring the header's markup) keeps the desktop nav's
  * spacing exactly as designed and only changes the collapsed state.
+ *
+ * Inlined literal from the mq mixin: tablet-landscape is 1024px in theme.json, minus the same
+ * 0.02px offset.
  */
-@include mq.mq($until: "tablet-landscape") {
+@media (max-width: 1023.98px) {
   .site-header .wp-block-navigation {
     margin-inline-start: auto;
   }
@@ -93,6 +99,8 @@
  * field instead of submitting immediately.
  */
 .site-header__search {
+  /* Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles. */
   .wp-block-search__button {
     display: flex;
     align-items: center;
@@ -104,14 +112,6 @@
     border-radius: var(--wp--preset--border-radius--500);
     background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
     color: var(--wp--custom--color--text--default);
-    transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-      border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-  }
-
-  .wp-block-search__button:hover,
-  .wp-block-search__button:focus-visible {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
   }
 
   .wp-block-search__input {
@@ -133,10 +133,9 @@
   }
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .is-style-header-icon-button,
   .is-style-button-cta-gradient .wp-block-button__link,
-  .site-header__search .wp-block-search__button,
   .site-header__search .wp-block-search__input {
     transition: none;
   }

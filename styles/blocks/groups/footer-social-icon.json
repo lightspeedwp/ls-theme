@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Circular social icon button for the footer. Structural styling only — the hover background lift is authored in src/scss/animations/_footer-motion.scss (WordPress doesn't generate :hover CSS for arbitrary block style variations).",
+	"description": "Circular social icon button for the footer. Structural styling only — the hover background lift is authored in src/scss/animations/_footer-motion.scss (WordPress doesn't generate :hover CSS for arbitrary block style variations). min-width is set via the css field rather than dimensions.minWidth — confirmed against WordPress core's dimensions block support (wp-includes/block-supports/dimensions.php) that minWidth is not a supported feature key; only minHeight/height/width are, so it was silently ignored.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -21,6 +21,7 @@
 		"dimensions": {
 			"minHeight": "44px"
 		},
+		"css": "&{min-inline-size:44px;}",
 		"spacing": {
 			"padding": {
 				"top": "var:preset|spacing|10",

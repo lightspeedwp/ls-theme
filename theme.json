@@ -661,6 +661,11 @@
                 },
                 "scale": {
                     "active": "0.98"
+                },
+                "lift": {
+                    "sm": "-2px",
+                    "md": "-4px",
+                    "lg": "-6px"
                 }
             },
             "z-index": {

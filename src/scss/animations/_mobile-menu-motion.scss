@@ -1,8 +1,12 @@
-@use "../abstracts/mixins/motion";
-
 /********** Mobile Menu (Ollie Menu Designer mobileMenuSlug drawer) **********/
 
 /*
+ * JSON limitation: these four rules target WordPress core's own generated Navigation
+ * overlay markup (.wp-block-navigation__responsive-container*), which has no registrable
+ * block-style slug — register_block_style() registers a style for a block TYPE, not for a
+ * block's internal generated wrapper elements, so there is no styles/** JSON partial to
+ * hook this to. See AGENTS.md Theme-First Approach.
+ *
  * Logo row + close button. The close button is WP core's own
  * .wp-block-navigation__responsive-container-close — rendered as a sibling before the injected
  * mobileMenuSlug content, not part of this template part — so it can only be reached and aligned
@@ -23,27 +27,16 @@
 }
 
 /*
- * Side padding: .mobile-menu used to get this for free via the Group block's own "constrained"
- * layout (which adds .has-global-padding and self-applies the root padding vars). Switching that
- * layout to "flow" — done to stop the accordion rows getting centered to the site's content-size
- * at desktop editor widths, a mismatch the plain-paragraph link rows didn't share — dropped this
- * along with it. Reapplying explicitly here, on the same spacing token the header already uses
- * for its own padding, rather than depending on the layout-type side effect again.
- */
-.mobile-menu {
-  padding-inline: var(--wp--preset--spacing--20);
-}
-
-/*
+ * JSON limitation: see block comment above. Selector must mirror core's own
+ * ".wp-block-navigation:not(.has-background) ..." ancestor shape (not just scope under
+ * .site-header) — core's rule has 5 class-level selectors, so anything with fewer loses
+ * regardless of stylesheet order. Matching that shape plus .site-header wins.
+ *
  * The Navigation block has no backgroundColor of its own, so it never gets core's
  * .has-background class — which means core's own fallback (wp-includes/blocks/navigation/style.css)
  * hardcodes this overlay to a literal #fff in every mode. Overriding it here with the same
  * adaptive token the rest of the page's background already uses (light/dark aware) instead of a
  * fixed value.
- *
- * Selector must mirror core's own ".wp-block-navigation:not(.has-background) ..." ancestor
- * (not just scope under .site-header) — core's rule has 5 class-level selectors, so anything
- * with fewer loses regardless of stylesheet order. Matching that shape plus .site-header wins.
  */
 .site-header .wp-block-navigation:not(.has-background)
   .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
@@ -51,17 +44,24 @@
 }
 
 /*
- * Same issue, text side: core has a mirror rule keyed off .has-text-color that hardcodes this
- * wrapper to a literal #000 whenever the Navigation block has no textColor of its own. Elements
- * inside the mobile-menu template part escape it because they each set their own explicit
- * color — but core's own close button relies on `currentColor` inherited from this wrapper, so
- * it was stuck on literal black. Same adaptive token, same specificity-matching shape.
+ * JSON limitation: see block comment above, text side. Core has a mirror rule keyed off
+ * .has-text-color that hardcodes this wrapper to a literal #000 whenever the Navigation block
+ * has no textColor of its own. Elements inside the mobile-menu template part escape it because
+ * they each set their own explicit color — but core's own close button relies on `currentColor`
+ * inherited from this wrapper, so it was stuck on literal black. Same adaptive token, same
+ * specificity-matching shape.
  */
 .site-header .wp-block-navigation:not(.has-text-color)
   .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
   color: var(--wp--custom--color--text--default);
 }
 
+/*
+ * JSON limitation: the responsive-container-close button is entirely WP core-generated
+ * markup (wp-includes/blocks/navigation) with no className we control and no registrable
+ * block-style slug. Its hover/transition contract lives in _shared-hover.scss — shared
+ * byte-for-byte with the header search button and both footer icon-shell styles.
+ */
 .site-header .wp-block-navigation__responsive-container-close {
   position: absolute;
   top: var(--wp--preset--spacing--20);
@@ -75,156 +75,38 @@
   border: 1px solid var(--wp--custom--color--border--card);
   border-radius: var(--wp--preset--border-radius--500);
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
   svg {
     inline-size: 20px;
     block-size: 20px;
   }
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
-  }
-}
-
-@include motion.reduced-motion {
-  .site-header .wp-block-navigation__responsive-container-close {
-    transition: none;
-  }
 }
 
 /*
- * core/details already ships a full card-style accordion (border, background, chevron, hover,
- * [open] state) globally via styles/presets/blocks/core-details.json + _details-motion.scss. The
- * mobile drawer wants that same disclosure mechanism but flattened into a full-width list row
- * (no individual card border/background/shadow, no hover lift) with a divider between siblings
- * instead — none of which is expressible in theme.json, so it's layered on here rather than
- * duplicating the chevron/open logic that already exists.
+ * JSON limitation: this component is single-use (one instance in this file), so AGENTS.md's
+ * single-use rule rules out registering an is-style for it — the border/min-height that WOULD
+ * justify a style-picker entry are inline block attributes on this instance instead. What's left
+ * here is only the one thing inline attributes structurally cannot express at all: sizing a
+ * descendant element (the logo <img>, not the group itself).
  */
-.mobile-menu > .mobile-menu-accordion,
-.mobile-menu > .mobile-menu-link-row {
-  border: none;
-  border-bottom: 1px solid var(--wp--custom--color--border--card);
-  border-radius: 0;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.mobile-menu > .mobile-menu-accordion {
-  background: none;
-  box-shadow: none;
-
-  &:hover,
-  &[open],
-  &[open]:hover {
-    background: none;
-    border-color: var(--wp--custom--color--border--card);
-    box-shadow: none;
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  /*
-   * Fixed min-block-size (rather than relying on padding + line-height parity with
-   * .mobile-menu-link-row below) so every top-level row — whether a <summary> with its chevron
-   * or a plain <a> — renders at the exact same height regardless of small content differences.
-   * padding-inline-end keeps a little clearance for the chevron: zeroing it entirely (matching
-   * the row's flush-left text) let the rotated 10px chevron's diagonal corners get clipped by
-   * .wp-block-details's own overflow:hidden.
-   */
-  > summary {
-    min-block-size: 3rem;
-    padding-inline: 0 var(--wp--preset--spacing--10);
-    padding-block: 0;
-    font-size: var(--wp--preset--font-size--200);
-    font-weight: var(--wp--custom--typography--font-weight--semibold);
-  }
-
-  > :where(:not(summary)) {
-    padding-inline: 0;
-  }
-
-  &[open] > summary {
-    border-bottom-color: var(--wp--custom--color--border--card);
-  }
-
-  /*
-   * The card-style focus ring from _details-motion.scss's base :focus-within rule doesn't fit
-   * this flattened row (it draws a border-colour box-shadow meant for the bordered card look),
-   * so it's suppressed above — but that must not mean no focus indicator at all. :focus-visible
-   * on the summary itself restores a visible keyboard-focus outline instead.
-   */
-  &:focus-within {
-    box-shadow: none;
-  }
-
-  > summary:focus-visible {
-    outline: 2px solid var(--wp--custom--color--focus--ring);
-    outline-offset: -2px;
-  }
-}
-
-.mobile-menu-link-row {
-  margin: 0;
-
-  a {
-    display: flex;
-    align-items: center;
-    min-block-size: 3rem;
-    /*
-     * No font-family override here — inherit the body default (Manrope) so this matches the
-     * accordion rows' <summary> and inner items, none of which set a font-family either. This
-     * previously hardcoded the heading font (Lexend) instead, which — sharing the same
-     * min-block-size box but with different font metrics — made these rows look inconsistently
-     * padded against the accordion rows even though the box model was identical.
-     */
-    font-size: var(--wp--preset--font-size--200);
-    font-weight: var(--wp--custom--typography--font-weight--semibold);
-    color: var(--wp--custom--color--text--default);
-    text-decoration: none;
-
-    &:focus-visible {
-      outline: 2px solid var(--wp--custom--color--focus--ring);
-      outline-offset: -2px;
-    }
-  }
+.mobile-menu-brand .wp-block-site-logo img {
+  display: block;
+  max-block-size: 32px;
+  inline-size: auto;
 }
 
 /*
- * Footer CTAs (Book a consultation / Start a project): reuse the existing pill button styles,
- * just stretched to the drawer's full width. No top border here — Contact (the row directly
- * above) isn't actually :last-child of .mobile-menu once this buttons group follows it, so its
- * own row divider already renders; adding one here too produced a doubled-up divider line.
+ * JSON limitation: same reasoning as .mobile-menu-brand above — single-use, so the padding is an
+ * inline block attribute on this instance; only the descendant-selector button/link width overrides
+ * (core's own wp-block-button__width-100 class only stretches the wrapper, not the visible
+ * .wp-block-button__link pill — confirmed against wp-includes/blocks/button/style.min.css) stay here.
  */
-.mobile-menu-actions {
-  padding-block-start: var(--wp--preset--spacing--20);
-
-  .wp-block-button {
-    width: 100%;
-  }
-
-  .wp-block-button__link {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
+.mobile-menu-actions .wp-block-button {
+  width: 100%;
 }
 
-.mobile-menu-brand {
-  min-block-size: 44px;
-  padding-block-end: var(--wp--preset--spacing--20);
-  border-block-end: 1px solid var(--wp--custom--color--border--card);
-
-  .wp-block-site-logo img {
-    display: block;
-    max-block-size: 32px;
-    inline-size: auto;
-  }
+.mobile-menu-actions .wp-block-button__link {
+  display: block;
+  width: 100%;
+  text-align: center;
 }

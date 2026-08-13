@@ -1,15 +1,6 @@
-@use "../abstracts/mixins/glass";
-@use "../abstracts/mixins/motion";
-@use "../abstracts/mixins/surface";
 @use "icons";
 
 /********** Button Motion **********/
-
-.wp-block-button:not([class*="is-style-"]),
-.wp-block-button.is-style-fill,
-.wp-block-button.is-style-outline {
-  max-inline-size: 100%;
-}
 
 /* Shared button motion primitives */
 .wp-element-button,
@@ -44,39 +35,13 @@
   transform: scale(var(--ls-button-active-scale, var(--wp--custom--animation--scale--active)));
 }
 
-/* Shared button shell for the default fill and outline treatments. */
-:is(
-  .wp-block-button:not([class*="is-style-"]),
-  .wp-block-button.is-style-fill
-) {
-  --ls-button-fill-background: var(--wp--custom--color--button--fill--background);
-  --ls-button-fill-icon-colour: var(--wp--custom--color--button--fill--text);
-  --ls-button-fill-hover-text: var(--wp--custom--color--text--default);
-  --ls-button-fill-duration: var(--wp--custom--animation--duration--emphasised);
-  --ls-button-fill-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-outline {
-  --ls-button-outline-accent-background: var(--wp--custom--color--button--outline--border);
-  --ls-button-outline-accent-colour: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-outline-icon-radius: var(--wp--preset--border-radius--100);
-}
-
-:is(
-  .wp-block-button:not([class*="is-style-"]),
-  .wp-block-button.is-style-fill,
-  .wp-block-button.is-style-outline
-) .wp-block-button__link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  box-sizing: border-box;
-  max-inline-size: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  isolation: isolate;
-}
+/*
+ * Shared button shell (position/display/box-sizing/max-inline-size/white-space/overflow/isolation)
+ * and the default-fill / outline custom-property "recipes" all live in
+ * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
+ * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
+ * stays here.
+ */
 
 /* Fill button motion */
 :is(
@@ -106,7 +71,8 @@
   .wp-block-button.is-style-fill
 ) .wp-block-button__link::before {
   content: "";
-  @include surface.absolute-fill();
+  position: absolute;
+  inset: 0;
   border-radius: inherit;
   background: var(
     --ls-button-fill-background,
@@ -257,81 +223,14 @@
   color: var(--wp--custom--color--button--outline--text-hover);
 }
 
-/* Glass Button */
-.wp-block-button.is-style-glass-button {
-  max-inline-size: 100%;
-}
-
+/*
+ * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
+ * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
+ * live in the JSON file's css field now. backdrop-filter's @supports block lives in
+ * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
+ * hover/focus states + the lift transform.
+ */
 .wp-block-button.is-style-glass-button .wp-block-button__link {
-  --ls-glass-button-background-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 24%,
-    transparent
-  );
-  --ls-glass-button-background-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--card) 36%,
-    transparent
-  );
-  --ls-glass-button-border-rest: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 35%,
-    transparent
-  );
-  --ls-glass-button-border-hover: color-mix(
-    in srgb,
-    var(--wp--custom--color--link--accent) 38%,
-    var(--wp--custom--color--surface--highlight) 34%,
-    transparent
-  );
-  --ls-glass-button-text-rest: var(--wp--custom--color--text--default);
-  --ls-glass-button-text-hover: var(--wp--custom--color--text--brand);
-  --ls-glass-button-blur: 24px;
-  --ls-glass-button-shadow-rest: var(--wp--custom--shadow--elevation--200);
-  --ls-glass-button-shadow-hover: var(--wp--custom--shadow--elevation--300),
-    var(--wp--custom--shadow--interactive--accent);
-  --ls-glass-button-top-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 80%,
-    transparent
-  );
-  --ls-glass-button-side-highlight: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 68%,
-    transparent
-  );
-  --ls-glass-button-side-tail: color-mix(
-    in srgb,
-    var(--wp--custom--color--surface--highlight) 26%,
-    transparent
-  );
-  --ls-glass-button-focus-width: 2px;
-  --ls-glass-button-focus-colour: var(--wp--custom--color--focus--ring);
-  --ls-glass-button-focus-offset: 4px;
-  --ls-glass-button-lift: -2px;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-  @include glass.glass-surface(
-    $background: var(--ls-glass-button-background-rest),
-    $border: var(--ls-glass-button-border-rest),
-    $radius: var(--wp--preset--border-radius--200),
-    $blur: var(--ls-glass-button-blur),
-    $shadow: var(--ls-glass-button-shadow-rest)
-  );
-  @include glass.glass-edge-highlights(
-    $top-highlight: var(--ls-glass-button-top-highlight),
-    $side-highlight: var(--ls-glass-button-side-highlight),
-    $side-tail: var(--ls-glass-button-side-tail)
-  );
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  max-inline-size: 100%;
-  white-space: nowrap;
-  isolation: isolate;
-  text-align: center;
-  color: var(--ls-glass-button-text-rest);
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -432,38 +331,13 @@
   outline-offset: var(--ls-button-glow-outline-offset);
 }
 
-/* Button Arrow Compact */
-.wp-block-button.is-style-button-arrow-compact {
-  line-height: 0;
-}
-
+/*
+ * Button Arrow Compact (styles/blocks/buttons/button-arrow-compact.json): rest-state size/shape,
+ * the recipe custom properties, and the arrow glyph's non-hover appearance all live in the JSON
+ * file's css field now. `content:` must stay here — it references a Sass icon variable, which JSON
+ * can't resolve — so the ::after rule below carries only content + transition + hover overrides.
+ */
 .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  --ls-button-arrow-compact-size: 2.5rem;
-  --ls-button-arrow-compact-accent-colour: var(
-    --ls-card-solutions-accent-colour,
-    var(--wp--custom--color--card--solutions--brand)
-  );
-  --ls-button-arrow-compact-border-rest: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-border-active: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-background-rest: color-mix(
-    in srgb,
-    var(--ls-button-arrow-compact-accent-colour) 10%,
-    transparent
-  );
-  --ls-button-arrow-compact-background-active: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-colour-rest: var(--ls-button-arrow-compact-accent-colour);
-  --ls-button-arrow-compact-colour-active: var(--wp--custom--color--button--fill--text);
-  justify-content: center;
-  inline-size: var(--ls-button-arrow-compact-size);
-  min-inline-size: var(--ls-button-arrow-compact-size);
-  block-size: var(--ls-button-arrow-compact-size);
-  min-block-size: var(--ls-button-arrow-compact-size);
-  padding: 0;
-  border: 1px solid var(--ls-button-arrow-compact-border-rest);
-  border-radius: var(--wp--preset--border-radius--100);
-  background: var(--ls-button-arrow-compact-background-rest);
-  color: transparent;
-  overflow: hidden;
   transition:
     background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -474,13 +348,6 @@
 
   &::after {
     content: icons.$ls-icon-arrow-right;
-    position: static;
-    display: grid;
-    place-items: center;
-    color: var(--ls-button-arrow-compact-colour-rest);
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1;
     transition:
       transform var(--wp--custom--animation--duration--base)
         var(--wp--custom--animation--easing--emphasised),
@@ -504,11 +371,15 @@
   }
 }
 
-/* CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark
-   tokens so the fill button's rest and hover states stay readable regardless
-   of the site's light/dark style variation. The background is also pinned to
-   a dark surface token — text--on-dark against the default brand/cta fill
-   colour fails WCAG contrast (~1.2:1) once the fill fully reveals on hover. */
+/*
+ * CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark tokens so the fill
+ * button's rest and hover states stay readable regardless of the site's light/dark style
+ * variation. Was briefly moved to inline style attributes during Phase 3, reverted after code
+ * review confirmed that breaks block validation — core/button's save() only regenerates a style
+ * attribute from registered block attributes (color/border/spacing tokens), never from arbitrary
+ * custom properties, so the stored markup wouldn't match what save() reproduces on the next
+ * editor open.
+ */
 .ls-cta-band__button .wp-block-button__link,
 .ls-cta-inline__button .wp-block-button__link,
 .ls-cta-reassurance__button .wp-block-button__link {
@@ -526,9 +397,12 @@
   --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
 }
 
-/* CTA strip: the arrow sits next to the glass button rather than nested in
-   its rich text, so it needs its own hover contract tied to the shared
-   wrapper. */
+/*
+ * CTA strip: the arrow sits next to the glass button rather than nested in its rich text, so it
+ * needs its own hover contract tied to the shared wrapper. The wrapper's position/display were
+ * also briefly inlined during Phase 3 — reverted for the same block-validation reason as above
+ * (core/group's save() doesn't regenerate arbitrary style properties either).
+ */
 .ls-cta-strip__cta-wrap {
   position: relative;
   display: inline-flex;
@@ -548,7 +422,7 @@
   transform: translateX(0.25em);
 }
 
-@include motion.reduced-motion {
+@media (prefers-reduced-motion: reduce) {
   .wp-block-button.is-style-glass-button .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {

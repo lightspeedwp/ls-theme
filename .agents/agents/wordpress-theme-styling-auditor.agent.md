@@ -36,7 +36,7 @@ Find styling-system issues early, explain the root cause, and propose a minimal,
 - Audit first. Do not edit files until the user explicitly approves a proposed plan.
 - Treat `src/scss/` as source and `assets/css/` as compiled output. Do not hand-edit compiled CSS when a source file exists.
 - `theme.json`, `styles/**/*.json`, and `styles/presets/**/*.json` are the styling system. Sass/CSS is a documented exception layer, not a peer — treat any Sass/CSS rule found during audit as a finding to justify or migrate, not as normal architecture.
-- Use the existing repo scripts `npm run sync:breakpoints`, `npm run build:css`, and `npm run watch:css`. Do not propose Gulp, Grunt, CodeKit, Scout, LiveReload, PurgeCSS, or alternate pipelines unless the user explicitly asks to change the toolchain.
+- Use the existing repo scripts `npm run build:css` and `npm run watch:css`. Do not propose Gulp, Grunt, CodeKit, Scout, LiveReload, PurgeCSS, or alternate pipelines unless the user explicitly asks to change the toolchain.
 - Prefer existing semantic tokens, motion tokens, spacing presets, z-index tokens, and shadow tokens before introducing new values, however if it makes sense for clarity or maintainability, new tokens may be first proposed and then introduced.
 - Use Sass mixins, maps, functions, and variables only when they remove verified duplication or materially improve clarity.
 - Avoid `@extend` by default unless selector merging is the specific goal and the output has been reviewed.

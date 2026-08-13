@@ -19,6 +19,7 @@
 		},
 		"typography": {
 			"textDecoration": "none"
-		}
+		},
+		"css": "& a{color:inherit;text-decoration-line:underline;text-decoration-color:transparent;text-underline-offset:3px;}"
 	}
 }
