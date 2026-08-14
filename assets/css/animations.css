@@ -9,6 +9,21 @@
  * confirmed JSON limitation instead.
  */
 /*
+ * Card - Divider Both (folded in from styles/sections/cards/card-divider-both.json, single
+ * consumer patterns/section-stats-grid.php, LS-2341). Rest-state border/margin are inline block
+ * attributes on that consumer; stretching each column's own child to the column's full
+ * (flexbox-equalised) height has no block-supports equivalent — it's what makes a per-segment
+ * border-inline-end divider span the whole row instead of stopping at its own content height.
+ */
+.ls-card-divider-both > .wp-block-column {
+  display: flex;
+  flex-direction: column;
+}
+.ls-card-divider-both > .wp-block-column > * {
+  flex: 1 1 auto;
+}
+
+/*
  * Card - Work Category (folded in from styles/sections/cards/card-category.json, single consumer
  * patterns/sections/work-categories.php, LS-2341). Rest-state border/background/shadow/spacing are
  * inline block attributes on that consumer; position/overflow and the nested
@@ -199,7 +214,9 @@
 
 /*
  * Icon Frame Glow (folded in from styles/blocks/groups/icon-frame-glow.json, single consumer
- * Card - Solutions' icon shell, LS-2341). border-color/background and the nested icon/svg
+ * Card - Solutions' icon shell, LS-2341). border-style/width/radius and padding are real supported
+ * block attributes now (style.border, style.spacing.padding on the consumer's core/group block),
+ * per AGENTS.md's structural-properties rule. border-color/background and the nested icon/svg
  * selectors have no block-supports equivalent (custom-property-driven colour, descendant
  * selectors). border-color is the same value at rest and on hover — nothing changes there, so
  * it's set once here; only the shadow and rotate transform on hover are real motion.
@@ -214,10 +231,6 @@
   box-sizing: border-box;
   overflow: hidden;
   line-height: 0;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: var(--wp--preset--border-radius--200);
-  padding: var(--wp--preset--spacing--20);
   --ls-icon-frame-accent-colour: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
   --ls-icon-frame-shadow-active: 0 0 4px 4px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
   --ls-icon-frame-inset-shadow-active: inset 0 0 4px 3px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
@@ -242,7 +255,7 @@
   color: var(--ls-icon-frame-accent-colour) !important;
 }
 .ls-icon-frame-glow .icon-container svg {
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 /*
@@ -296,7 +309,10 @@
  * variant is swapped in programmatically by inc/portfolio-card-colors.php based on the post's
  * project-group taxonomy term, so they shouldn't have been discoverable in the style picker.
  * Layout (flex/wrap/box-sizing/border-radius/padding), the nested `a`/separator resets, and
- * background-color have no block-supports equivalent as a per-post-conditional swap.
+ * background-color have no block-supports equivalent as a per-post-conditional swap. border-radius
+ * and padding are identical across both variants and are real supported block attributes on the
+ * consumer's core/post-terms block (style.border.radius, style.spacing.padding), so they're set
+ * there instead of duplicated here, per AGENTS.md's structural-properties rule.
  */
 .ls-badge-brand,
 .ls-badge-woocommerce {
@@ -306,8 +322,6 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  border-radius: var(--wp--preset--border-radius--200);
-  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
   letter-spacing: 1px;
   font-family: var(--wp--preset--font-family--monospace);
   font-size: var(--wp--preset--font-size--100);
@@ -377,12 +391,12 @@
 
 .ls-card-banner-tint {
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
 }
 
 .ls-card-banner-tint-woocommerce {
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
 }
 
 /********** Footer Structural Overrides **********/
@@ -400,6 +414,12 @@
   text-underline-offset: 3px;
 }
 
+.ls-footer-nav-link a:hover,
+.ls-footer-nav-link a:focus-visible {
+  color: var(--wp--custom--color--phase--create);
+  text-decoration-color: var(--wp--custom--color--phase--create);
+}
+
 /*
  * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
  * hover colour swap. Not a motion property — the shared transition (timing) stays in
@@ -414,6 +434,15 @@
 .ls-footer-social-icon:focus-within {
   background-color: var(--wp--custom--color--surface--card-raised) !important;
   border-color: var(--wp--custom--color--phase--create) !important;
+}
+
+/*
+ * Social icon circle (.ls-footer-social-icon): min-inline-size has no block-supports equivalent —
+ * core/group's dimensions support only offers minHeight, not a width counterpart — so without this
+ * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
+ */
+.ls-footer-social-icon {
+  min-inline-size: 44px;
 }
 
 /********** Home Hero Section Structural Overrides **********/
@@ -498,21 +527,25 @@
  * 767.98px mirrors settings.custom.layout.break-points.tablet-portrait (768px) in theme.json,
  * offset by 0.02px so it stops just short of the next breakpoint — the same convention the
  * retired src/scss/abstracts/mixins/_mq.scss mixin used to generate.
+ *
+ * Selectors below are scoped under .ls-home-hero-section (not bare) to match the rest-state
+ * selectors' specificity above — otherwise the rest-state declarations win regardless of media
+ * query and these mobile overrides silently never apply.
  */
 @media (max-width: 767.98px) {
-  .ls-home-hero-section__network {
+  .ls-home-hero-section .ls-home-hero-section__network {
     opacity: 1;
   }
-  .ls-home-hero-section__orb {
+  .ls-home-hero-section .ls-home-hero-section__orb {
     filter: blur(64px);
     opacity: 0.62;
   }
-  .ls-home-hero-section__orb--brand {
+  .ls-home-hero-section .ls-home-hero-section__orb--brand {
     left: -10rem;
     width: 18rem;
     height: 18rem;
   }
-  .ls-home-hero-section__orb--cta {
+  .ls-home-hero-section .ls-home-hero-section__orb--cta {
     right: -8rem;
     width: 16rem;
     height: 16rem;
@@ -588,14 +621,16 @@
 .ls-glass-button .wp-block-button__link {
   /*
    * Hover colour swap. Not a motion property — the transition (timing) and lift transform live in
-   * _button-motion.scss; this state swap lives here.
+   * _button-motion.scss; this state swap lives here. !important is required: rest-state
+   * color/background/border-color are serialized as an inline style="" attribute on the consumer's
+   * block attrs, and inline styles always beat stylesheet rules regardless of specificity.
    */
 }
 .ls-glass-button .wp-block-button__link:hover, .ls-glass-button .wp-block-button__link:focus-visible {
-  background: var(--ls-glass-button-background-hover);
-  border-color: var(--ls-glass-button-border-hover);
-  box-shadow: var(--ls-glass-button-shadow-hover);
-  color: var(--ls-glass-button-text-hover);
+  background: var(--ls-glass-button-background-hover) !important;
+  border-color: var(--ls-glass-button-border-hover) !important;
+  box-shadow: var(--ls-glass-button-shadow-hover) !important;
+  color: var(--ls-glass-button-text-hover) !important;
 }
 .ls-glass-button .wp-block-button__link:focus-visible {
   outline-color: var(--ls-glass-button-focus-colour);
@@ -939,7 +974,7 @@
   .ls-card-services .ls-card__icon-shell,
   .ls-icon-frame-glow,
   .ls-card-solutions,
-  .ls-card-solutions .wp-block-heading,
+  .ls-card-solutions .ls-card-solutions__content .wp-block-heading,
   .ls-card-case-study {
     transition: none;
   }
@@ -1725,17 +1760,11 @@
  * animating decoration-colour from transparent, rather than toggling text-decoration-line itself.
  * Matches the approved reference screenshot. Rest-state colour/spacing/textDecoration are inline
  * block attributes on the paragraph; the nested `a`'s static decoration setup (line/colour/offset,
- * colour:inherit) lives in src/scss/structural/_footer.scss — only the transition it shares with
- * the hover rule below is real motion.
+ * colour:inherit) and the hover/focus colour swap live in src/scss/structural/_footer.scss — only
+ * the transition (timing) it shares with that hover rule is real motion.
  */
 .ls-footer-nav-link a {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-
-.ls-footer-nav-link a:hover,
-.ls-footer-nav-link a:focus-visible {
-  color: var(--wp--custom--color--phase--create);
-  text-decoration-color: var(--wp--custom--color--phase--create);
 }
 
 /*

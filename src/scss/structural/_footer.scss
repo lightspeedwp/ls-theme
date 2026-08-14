@@ -15,6 +15,12 @@
   text-underline-offset: 3px;
 }
 
+.ls-footer-nav-link a:hover,
+.ls-footer-nav-link a:focus-visible {
+  color: var(--wp--custom--color--phase--create);
+  text-decoration-color: var(--wp--custom--color--phase--create);
+}
+
 /*
  * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
  * hover colour swap. Not a motion property — the shared transition (timing) stays in
@@ -29,4 +35,13 @@
 .ls-footer-social-icon:focus-within {
   background-color: var(--wp--custom--color--surface--card-raised) !important;
   border-color: var(--wp--custom--color--phase--create) !important;
+}
+
+/*
+ * Social icon circle (.ls-footer-social-icon): min-inline-size has no block-supports equivalent —
+ * core/group's dimensions support only offers minHeight, not a width counterpart — so without this
+ * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
+ */
+.ls-footer-social-icon {
+  min-inline-size: 44px;
 }

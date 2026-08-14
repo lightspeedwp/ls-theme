@@ -114,18 +114,12 @@
  * animating decoration-colour from transparent, rather than toggling text-decoration-line itself.
  * Matches the approved reference screenshot. Rest-state colour/spacing/textDecoration are inline
  * block attributes on the paragraph; the nested `a`'s static decoration setup (line/colour/offset,
- * colour:inherit) lives in src/scss/structural/_footer.scss — only the transition it shares with
- * the hover rule below is real motion.
+ * colour:inherit) and the hover/focus colour swap live in src/scss/structural/_footer.scss — only
+ * the transition (timing) it shares with that hover rule is real motion.
  */
 .ls-footer-nav-link a {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-
-.ls-footer-nav-link a:hover,
-.ls-footer-nav-link a:focus-visible {
-  color: var(--wp--custom--color--phase--create);
-  text-decoration-color: var(--wp--custom--color--phase--create);
 }
 
 /*

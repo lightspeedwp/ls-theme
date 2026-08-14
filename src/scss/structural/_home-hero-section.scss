@@ -19,6 +19,7 @@
   --ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
   --ls-home-hero-cta: var(--wp--custom--color--effect--hero--cta);
   --ls-home-hero-accent: var(--wp--custom--color--effect--hero--accent);
+
   background:
     radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%, transparent 34%),
     radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--ls-home-hero-cta) 14%, transparent) 0%, transparent 28%),
@@ -94,24 +95,28 @@
  * 767.98px mirrors settings.custom.layout.break-points.tablet-portrait (768px) in theme.json,
  * offset by 0.02px so it stops just short of the next breakpoint — the same convention the
  * retired src/scss/abstracts/mixins/_mq.scss mixin used to generate.
+ *
+ * Selectors below are scoped under .ls-home-hero-section (not bare) to match the rest-state
+ * selectors' specificity above — otherwise the rest-state declarations win regardless of media
+ * query and these mobile overrides silently never apply.
  */
 @media (max-width: 767.98px) {
-  .ls-home-hero-section__network {
+  .ls-home-hero-section .ls-home-hero-section__network {
     opacity: 1;
   }
 
-  .ls-home-hero-section__orb {
+  .ls-home-hero-section .ls-home-hero-section__orb {
     filter: blur(64px);
     opacity: 0.62;
   }
 
-  .ls-home-hero-section__orb--brand {
+  .ls-home-hero-section .ls-home-hero-section__orb--brand {
     left: -10rem;
     width: 18rem;
     height: 18rem;
   }
 
-  .ls-home-hero-section__orb--cta {
+  .ls-home-hero-section .ls-home-hero-section__orb--cta {
     right: -8rem;
     width: 16rem;
     height: 16rem;

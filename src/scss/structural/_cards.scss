@@ -12,6 +12,22 @@
  */
 
 /*
+ * Card - Divider Both (folded in from styles/sections/cards/card-divider-both.json, single
+ * consumer patterns/section-stats-grid.php, LS-2341). Rest-state border/margin are inline block
+ * attributes on that consumer; stretching each column's own child to the column's full
+ * (flexbox-equalised) height has no block-supports equivalent — it's what makes a per-segment
+ * border-inline-end divider span the whole row instead of stopping at its own content height.
+ */
+.ls-card-divider-both > .wp-block-column {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 1 1 auto;
+  }
+}
+
+/*
  * Card - Work Category (folded in from styles/sections/cards/card-category.json, single consumer
  * patterns/sections/work-categories.php, LS-2341). Rest-state border/background/shadow/spacing are
  * inline block attributes on that consumer; position/overflow and the nested
@@ -217,7 +233,9 @@
 
 /*
  * Icon Frame Glow (folded in from styles/blocks/groups/icon-frame-glow.json, single consumer
- * Card - Solutions' icon shell, LS-2341). border-color/background and the nested icon/svg
+ * Card - Solutions' icon shell, LS-2341). border-style/width/radius and padding are real supported
+ * block attributes now (style.border, style.spacing.padding on the consumer's core/group block),
+ * per AGENTS.md's structural-properties rule. border-color/background and the nested icon/svg
  * selectors have no block-supports equivalent (custom-property-driven colour, descendant
  * selectors). border-color is the same value at rest and on hover — nothing changes there, so
  * it's set once here; only the shadow and rotate transform on hover are real motion.
@@ -232,14 +250,11 @@
   box-sizing: border-box;
   overflow: hidden;
   line-height: 0;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: var(--wp--preset--border-radius--200);
-  padding: var(--wp--preset--spacing--20);
   --ls-icon-frame-accent-colour: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
   --ls-icon-frame-shadow-active: 0 0 4px 4px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
   --ls-icon-frame-inset-shadow-active: inset 0 0 4px 3px color-mix(in srgb, var(--ls-icon-frame-accent-colour) 50%, transparent);
   --ls-icon-frame-tilt: -3deg;
+
   border-color: var(--ls-icon-frame-accent-colour);
   background: color-mix(in srgb, var(--ls-icon-frame-accent-colour) 10%, transparent);
 
@@ -261,7 +276,7 @@
     color: var(--ls-icon-frame-accent-colour) !important;
 
     svg {
-      fill: currentColor;
+      fill: currentcolor;
     }
   }
 }
@@ -322,7 +337,10 @@
  * variant is swapped in programmatically by inc/portfolio-card-colors.php based on the post's
  * project-group taxonomy term, so they shouldn't have been discoverable in the style picker.
  * Layout (flex/wrap/box-sizing/border-radius/padding), the nested `a`/separator resets, and
- * background-color have no block-supports equivalent as a per-post-conditional swap.
+ * background-color have no block-supports equivalent as a per-post-conditional swap. border-radius
+ * and padding are identical across both variants and are real supported block attributes on the
+ * consumer's core/post-terms block (style.border.radius, style.spacing.padding), so they're set
+ * there instead of duplicated here, per AGENTS.md's structural-properties rule.
  */
 .ls-badge-brand,
 .ls-badge-woocommerce {
@@ -332,8 +350,6 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  border-radius: var(--wp--preset--border-radius--200);
-  padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
   letter-spacing: 1px;
   font-family: var(--wp--preset--font-family--monospace);
   font-size: var(--wp--preset--font-size--100);
@@ -404,13 +420,13 @@
 .ls-card-banner-tint {
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
 }
 
 .ls-card-banner-tint-woocommerce {
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
 }

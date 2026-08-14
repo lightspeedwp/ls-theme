@@ -31,6 +31,7 @@
   --ls-glass-button-focus-offset: 4px;
   --ls-glass-button-lift: -2px;
   --ls-button-active-scale: var(--wp--custom--animation--scale--active);
+
   position: relative;
   overflow: hidden;
   display: inline-flex;
@@ -71,14 +72,16 @@
 
   /*
    * Hover colour swap. Not a motion property — the transition (timing) and lift transform live in
-   * _button-motion.scss; this state swap lives here.
+   * _button-motion.scss; this state swap lives here. !important is required: rest-state
+   * color/background/border-color are serialized as an inline style="" attribute on the consumer's
+   * block attrs, and inline styles always beat stylesheet rules regardless of specificity.
    */
   &:hover,
   &:focus-visible {
-    background: var(--ls-glass-button-background-hover);
-    border-color: var(--ls-glass-button-border-hover);
-    box-shadow: var(--ls-glass-button-shadow-hover);
-    color: var(--ls-glass-button-text-hover);
+    background: var(--ls-glass-button-background-hover) !important;
+    border-color: var(--ls-glass-button-border-hover) !important;
+    box-shadow: var(--ls-glass-button-shadow-hover) !important;
+    color: var(--ls-glass-button-text-hover) !important;
   }
 
   &:focus-visible {

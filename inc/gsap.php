@@ -16,13 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array<string, array<string, mixed>>
  */
 function ls_theme_get_gsap_styles( $context = 'front' ) {
-	$styles = array(
-		'gsap-effects' => array(
-			'handle'   => 'ls-theme-gsap-effects',
-			'path'     => 'assets/css/gsap-animations.css',
-			'contexts' => array( 'front', 'editor' ),
-		),
-	);
+	/*
+	 * No GSAP-driven CSS motion currently registered (LS-2341) — src/scss/gsap-animations.scss and
+	 * its compiled output are kept as an empty placeholder entrypoint for the next GSAP-powered
+	 * component that needs CSS-level motion, rather than enqueueing a comment-only stylesheet on
+	 * every request in the meantime.
+	 */
+	$styles = array();
 
 	/**
 	 * Filters the registered GSAP styles.
