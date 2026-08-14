@@ -173,12 +173,13 @@ function ls_theme_flag_gsap_needed( $block_content, $block ) {
 add_filter( 'render_block', 'ls_theme_flag_gsap_needed', 10, 2 );
 
 /**
- * Enqueues and prints GSAP assets in the footer, only when a GSAP-powered
+ * Enqueues and prints GSAP scripts in the footer, only when a GSAP-powered
  * block style was actually rendered on the page.
  *
- * Printed in wp_footer rather than via the normal wp_head style queue,
- * because detection happens during block rendering, which runs after
- * wp_head has already fired.
+ * Printed in wp_footer rather than via the normal wp_head queue, because
+ * detection happens during block rendering, which runs after wp_head has
+ * already fired. No stylesheet is registered/printed here (LS-2341) — see
+ * ls_theme_get_gsap_styles()'s docblock.
  */
 function ls_theme_maybe_print_gsap_assets() {
 	if ( ! apply_filters( 'ls_theme_gsap_needed', false ) ) {
@@ -188,7 +189,6 @@ function ls_theme_maybe_print_gsap_assets() {
 	ls_theme_enqueue_gsap_styles( 'front' );
 	ls_theme_enqueue_gsap_scripts( 'front' );
 
-	wp_print_styles( array( 'ls-theme-gsap-effects' ) );
 	wp_print_scripts( array( 'ls-theme-gsap', 'ls-theme-gsap-core-effects' ) );
 }
 add_action( 'wp_footer', 'ls_theme_maybe_print_gsap_assets' );
