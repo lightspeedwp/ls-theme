@@ -405,7 +405,8 @@
  * styles/blocks/paragraphs/footer-nav-link.json — LS-2341). Rest-state colour/spacing/
  * textDecoration are inline block attributes on the paragraph; the nested `a`'s static decoration
  * setup (line/colour/offset, colour:inherit) has no block-supports equivalent for a descendant
- * selector, so it lives here. The transition and hover swap live in _footer-motion.scss.
+ * selector, so it lives here. The transition (timing) lives in _footer-motion.scss; the hover
+ * colour swap lives here below, alongside the rest-state it modifies.
  */
 .ls-footer-nav-link a {
   color: inherit;
@@ -1770,9 +1771,11 @@
 /*
  * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon): both
  * folded in from styles/blocks/groups/*.json (LS-2341) as inline block attributes on
- * patterns/footer.php. Their hover/transition contract lives in _shared-hover.scss — shared
- * byte-for-byte with the header search button and the mobile-menu close button. WordPress doesn't
- * generate :hover/:focus CSS for arbitrary block style variations, so it stays real CSS there.
+ * patterns/footer.php. The shared transition (timing) lives in _shared-hover.scss — shared
+ * byte-for-byte with the header search button and the mobile-menu close button; the hover colour
+ * swap itself lives in structural/_footer.scss, alongside the rest-state it modifies. WordPress
+ * doesn't generate :hover/:focus CSS for arbitrary block style variations, so neither can move
+ * back into JSON.
  */
 @media (prefers-reduced-motion: reduce) {
   .ls-footer-nav-link a {
