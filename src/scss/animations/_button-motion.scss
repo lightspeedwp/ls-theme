@@ -287,16 +287,16 @@
 
   &:hover,
   &:focus-visible,
-  .ls-card-solutions:hover &,
-  .ls-card-solutions:focus-within & {
+  .is-style-card-solutions:hover &,
+  .is-style-card-solutions:focus-within & {
     background: var(--ls-button-arrow-compact-background-active);
     border-color: var(--ls-button-arrow-compact-border-active);
   }
 
   &:hover::after,
   &:focus-visible::after,
-  .ls-card-solutions:hover &::after,
-  .ls-card-solutions:focus-within &::after {
+  .is-style-card-solutions:hover &::after,
+  .is-style-card-solutions:focus-within &::after {
     color: var(--ls-button-arrow-compact-colour-active);
   }
 }
@@ -368,10 +368,10 @@
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
   .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  .ls-card-solutions:hover
+  .is-style-card-solutions:hover
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after,
-  .ls-card-solutions:focus-within
+  .is-style-card-solutions:focus-within
     .wp-block-button.is-style-button-arrow-compact
     .wp-block-button__link::after {
     transform: none;

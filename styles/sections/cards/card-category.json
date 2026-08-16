@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Category",
+	"slug": "card-category",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact card shell with a tinted icon well, H3 heading, supporting copy, and inline CTA sitting close to the copy (no bottom-anchored CTA, unlike Card - Feature). Used by the Work archive's category row. Non-expressible structural properties (position, overflow, the nested content flex rule) and the hover state stay in src/scss/structural/_cards.scss.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "var:preset|shadow|100",
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-category-border-active: var(--wp--custom--color--link--accent);\n--ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);\n--ls-card-category-lift: var(--wp--custom--animation--lift--md);\n\n& .ls-card-category__content {\n\tflex: 1 1 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--10);\n}"
+	}
+}

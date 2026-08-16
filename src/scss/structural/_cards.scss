@@ -12,6 +12,91 @@
  */
 
 /*
+ * Icon wells (folded in from styles/blocks/groups/icon-well-*.json and
+ * styles/sections/cards/card-icon-shell.json). These are internal card components (icons living
+ * inside a card/list row), not full cards or buttons — per AGENTS.md they must not have their own
+ * JSON is-style entry showing up as a selectable Style in the block editor. Plain classes here
+ * instead. inline-size/block-size/flex-shrink and the descendant icon selectors have no
+ * block-supports equivalent.
+ */
+.ls-icon-well-accent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--wp--preset--border-radius--300);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--solutions--accent) 12%, transparent);
+  color: var(--wp--custom--color--card--solutions--accent);
+}
+
+.ls-icon-well-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--wp--preset--border-radius--300);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--solutions--brand) 10%, transparent);
+  color: var(--wp--custom--color--card--solutions--brand);
+}
+
+.ls-icon-well-commerce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--wp--preset--border-radius--300);
+  background-color: color-mix(in srgb, var(--wp--custom--color--icon--commerce) 10%, transparent);
+  color: var(--wp--custom--color--icon--commerce);
+}
+
+/*
+ * Card Icon Shell (folded in from styles/sections/cards/card-icon-shell.json, consumers
+ * thank-you-consultation.php, cards/section-card-feature.php, cards/section-card-services.php).
+ * The border-color/hover-lift transition stays in src/scss/animations/_card-motion.scss — it's
+ * real motion, not structural.
+ */
+.ls-card__icon-shell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--wp--preset--spacing--20);
+  border: 1px solid color-mix(in srgb, var(--wp--custom--color--icon--background) 35%, transparent);
+  border-radius: var(--wp--preset--border-radius--200);
+  background: var(--wp--custom--color--icon--background);
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 0;
+
+  .wp-block-outermost-icon-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
+    color: var(--wp--custom--color--icon--color);
+  }
+
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    color: var(--wp--custom--color--icon--color) !important;
+
+    svg {
+      fill: currentcolor;
+    }
+  }
+}
+
+/*
  * Card - Divider Both (folded in from styles/sections/cards/card-divider-both.json, single
  * consumer patterns/section-stats-grid.php, LS-2341). Rest-state border/margin are inline block
  * attributes on that consumer; stretching each column's own child to the column's full
@@ -24,77 +109,6 @@
 
   > * {
     flex: 1 1 auto;
-  }
-}
-
-/*
- * Card - Work Category (folded in from styles/sections/cards/card-category.json, single consumer
- * patterns/sections/work-categories.php, LS-2341). Rest-state border/background/shadow/spacing are
- * inline block attributes on that consumer; position/overflow and the nested
- * .ls-card-category__content flex rule have no block-supports equivalent.
- */
-.ls-card-category {
-  position: relative;
-  overflow: hidden;
-  --ls-card-category-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-category-lift: var(--wp--custom--animation--lift--md);
-
-  .ls-card-category__content {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-  }
-
-  /*
-   * Hover colour swap. Not a motion property — AGENTS.md restricts
-   * src/scss/animations/** to @keyframes/transition/transform/animation/will-change only, so the
-   * transition (timing) stays there and this state swap lives here. !important is required: the
-   * rest-state border-color/box-shadow are serialized as an inline style="" attribute (from
-   * folding into block-supports attrs), and inline styles always beat stylesheet rules regardless
-   * of specificity.
-   */
-  &:hover,
-  &:focus-within {
-    border-color: var(--ls-card-category-border-active) !important;
-    box-shadow: var(--ls-card-category-shadow-active) !important;
-  }
-}
-
-/*
- * Card - List Shell (folded in from styles/sections/cards/card-list-shell.json, single consumer
- * patterns/cards/work-capability-list.php, LS-2341). Rest-state border/background/spacing are
- * inline block attributes; inline-size:100% and the last-child descendant rule have no
- * block-supports equivalent.
- */
-.ls-card-list-shell {
-  inline-size: 100%;
-
-  > .wp-block-group > *:last-child {
-    min-width: 0;
-    flex: 1 1 auto;
-  }
-}
-
-/*
- * Card - Case Study (folded in from styles/sections/cards/card-case-study.json, single consumer
- * patterns/cards/work-project-card.php, LS-2341). Rest-state border/background/shadow/spacing are
- * inline block attributes; overflow:hidden has no block-supports equivalent. The hover-only custom
- * properties consumed by _card-motion.scss's transition/hover logic live here too — a custom
- * property declaration isn't a motion property, only the transition/hover swap referencing it is.
- */
-.ls-card-case-study {
-  overflow: hidden;
-  --ls-card-case-study-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-case-study-lift: var(--wp--custom--animation--lift--md);
-
-  /* Hover colour swap — see the identical note on Card - Work Category above. */
-  &:hover,
-  &:focus-within {
-    border-color: var(--ls-card-case-study-border-active) !important;
-    box-shadow: var(--ls-card-case-study-shadow-active) !important;
   }
 }
 
@@ -123,111 +137,6 @@
     border-radius: var(--wp--preset--border-radius--100);
     padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
     text-decoration: none;
-  }
-}
-
-/*
- * Card - Services (folded in from styles/sections/cards/card-services.json, single consumer
- * patterns/cards/section-card-services.php, LS-2341). Rest-state border/background/shadow/spacing
- * are inline block attributes; position/overflow/align-items/max-inline-size/text-align/
- * transform-origin, the content/list/cta layout, and the icon-shell's align-self have no
- * block-supports equivalent. The accent-gradient bar's rest-state pseudo-element (content,
- * position, background-image) and its custom-property recipe live here too — only the
- * @keyframes-triggering animation on hover is real motion, which stays in _card-motion.scss.
- */
-.ls-card-services {
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  max-inline-size: 24.167rem;
-  text-align: center;
-  transform-origin: top center;
-  --ls-card-services-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
-  --ls-card-services-scale: 1.05;
-  --ls-card-services-accent-thickness: 8px;
-  --ls-link-arrow-offset: 0;
-  --ls-accent-gradient-image: linear-gradient(
-    90deg,
-    var(--wp--custom--color--effect--spotlight--secondary) 0%,
-    var(--wp--custom--color--effect--spotlight--primary) 50%,
-    var(--wp--custom--color--effect--spotlight--secondary) 100%
-  );
-  --ls-accent-gradient-size: 200% auto;
-  --ls-accent-gradient-start-position: 0%;
-  --ls-accent-gradient-end-position: 100%;
-  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
-  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
-  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
-  --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-reduced-position: 100%;
-
-  .ls-card__icon-shell {
-    align-self: center;
-  }
-
-  .ls-card-services__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--wp--preset--spacing--20);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-  }
-
-  .ls-card-services__list {
-    inline-size: 100%;
-    margin-block: 0;
-  }
-
-  .ls-card-services__cta {
-    position: static;
-    margin-top: auto;
-    margin-bottom: 0;
-
-    a::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline: 0;
-    block-size: var(--ls-card-services-accent-thickness);
-    background-image: var(--ls-accent-gradient-image);
-    background-position: var(--ls-accent-gradient-start-position) center;
-    background-repeat: no-repeat;
-    background-size: var(--ls-accent-gradient-size);
-    z-index: var(--wp--custom--z-index--base);
-  }
-
-  > * {
-    position: relative;
-    z-index: var(--wp--custom--z-index--content);
-  }
-
-  /* Hover colour swap — see the identical note on Card - Work Category above. */
-  &:hover,
-  &:focus-within {
-    border-color: var(--ls-card-services-border-active) !important;
-    box-shadow: var(--ls-card-services-shadow-active) !important;
-  }
-
-  &:hover .ls-card__icon-shell,
-  &:focus-within .ls-card__icon-shell {
-    border-color: var(--ls-card-services-icon-border-active);
-    box-shadow: var(--ls-card-services-icon-shadow-active);
   }
 }
 
@@ -278,55 +187,6 @@
     svg {
       fill: currentcolor;
     }
-  }
-}
-
-/*
- * Card - Solutions (folded in from styles/sections/cards/card-solutions.json, single consumer
- * patterns/cards/section-card-solutions.php, LS-2341). Rest-state border/background/shadow/spacing
- * are inline block attributes; position/overflow/max-inline-size and the content/cta layout have
- * no block-supports equivalent. The hover-only custom-property recipe consumed by
- * _card-motion.scss's transition/hover logic lives here too.
- */
-.ls-card-solutions {
-  position: relative;
-  overflow: hidden;
-  max-inline-size: 22.5rem;
-  --ls-card-solutions-accent-colour: var(--wp--custom--color--card--solutions--brand);
-  --ls-card-solutions-accent-resolved: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));
-  --ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);
-  --ls-card-solutions-shadow-active: 1px 4px 12px 4px color-mix(in srgb, var(--ls-card-solutions-accent-resolved) 50%, transparent);
-
-  .ls-card-solutions__content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    gap: var(--wp--preset--spacing--10);
-    inline-size: 100%;
-
-    > * {
-      margin-block: 0;
-    }
-
-    .wp-block-heading {
-      color: var(--wp--custom--color--text--default);
-    }
-  }
-
-  .ls-card-solutions__cta {
-    margin-top: auto;
-    margin-bottom: 0;
-
-    .wp-block-button {
-      margin: 0;
-    }
-  }
-
-  /* Hover colour swap — see the identical note on Card - Work Category above. */
-  &:hover,
-  &:focus-within {
-    border-color: var(--ls-card-solutions-border-active) !important;
-    box-shadow: var(--ls-card-solutions-shadow-active) !important;
   }
 }
 

@@ -75,14 +75,11 @@
 }
 
 /*
- * Card - Work Category. Rest-state box model lives on the pattern's block attributes; every
- * non-motion property (position/overflow/layout) lives in src/scss/structural/_cards.scss. The
- * hover border-color/box-shadow swap is likewise not a motion property (per AGENTS.md, this file
- * may only contain @keyframes/transition/transform/animation/will-change) — it lives in
- * src/scss/structural/_cards.scss too. Only the transition (the timing) and the transform-bearing
- * hover rule stay here as real motion.
+ * Card - Work Category. Rest-state look and the hover custom-property recipe live in
+ * styles/sections/cards/card-category.json, matching Card - Feature's convention above. Only the
+ * transition and the transform/color-swap-bearing hover rule stay here as real motion.
  */
-.ls-card-category {
+.is-style-card-category {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -93,20 +90,20 @@
 
   &:hover,
   &:focus-within {
+    border-color: var(--ls-card-category-border-active);
+    box-shadow: var(--ls-card-category-shadow-active);
     transform: translateY(var(--ls-card-category-lift));
   }
 }
 
 /*
- * Card - Case Study. Rest-state box model lives on the pattern's block attributes; every
- * non-motion property lives in src/scss/structural/_cards.scss. Hover treatment reuses Card -
- * Work Category's exact pattern (border-color, shadow, lift) for consistency across the Work
- * archive's card family — this card had no hover treatment at all before Phase 3 (confirmed
- * 2026-08-12, unrelated pre-existing gap). The hover border-color/box-shadow swap lives in
- * src/scss/structural/_cards.scss (not a motion property, per AGENTS.md) — only the transition and
- * the transform-bearing hover rule stay here.
+ * Card - Case Study. Rest-state look and the hover custom-property recipe live in
+ * styles/sections/cards/card-case-study.json, matching Card - Feature's convention above. Hover
+ * treatment reuses Card - Work Category's exact pattern (border-color, shadow, lift) for
+ * consistency across the Work archive's card family. Only the transition and the
+ * transform/color-swap-bearing hover rule stay here as real motion.
  */
-.ls-card-case-study {
+.is-style-card-case-study {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -117,17 +114,19 @@
 
   &:hover,
   &:focus-within {
+    border-color: var(--ls-card-case-study-border-active);
+    box-shadow: var(--ls-card-case-study-shadow-active);
     transform: translateY(var(--ls-card-case-study-lift));
   }
 }
 
 /*
- * Card - Services. Rest-state box model, layout, and the accent-gradient bar's rest-state
- * pseudo-element all live in src/scss/structural/_cards.scss. The hover border-color/box-shadow
- * swap lives there too (not a motion property, per AGENTS.md). Only the transition and the
- * @keyframes-triggering hover animation are real motion, so only those stay here.
+ * Card - Services. Rest-state look, layout, and the accent-gradient bar's rest-state pseudo-element
+ * all live in styles/sections/cards/card-services.json, matching Card - Feature's convention above.
+ * Only the transition and the @keyframes-triggering hover animation are real motion, so only those
+ * stay here.
  */
-.ls-card-services {
+.is-style-card-services {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
@@ -138,6 +137,8 @@
 
   &:hover,
   &:focus-within {
+    border-color: var(--ls-card-services-border-active);
+    box-shadow: var(--ls-card-services-shadow-active);
     transform: scale(var(--ls-card-services-scale));
 
     &::before {
@@ -149,6 +150,12 @@
         infinite
         var(--ls-accent-gradient-direction);
     }
+  }
+
+  &:hover .ls-card__icon-shell,
+  &:focus-within .ls-card__icon-shell {
+    border-color: var(--ls-card-services-icon-border-active);
+    box-shadow: var(--ls-card-services-icon-shadow-active);
   }
 }
 
@@ -168,8 +175,8 @@
 
   &:hover,
   &:focus-within,
-  .ls-card-solutions:hover &,
-  .ls-card-solutions:focus-within & {
+  .is-style-card-solutions:hover &,
+  .is-style-card-solutions:focus-within & {
     box-shadow:
       var(--ls-icon-frame-shadow-active),
       var(--ls-icon-frame-inset-shadow-active);
@@ -178,16 +185,22 @@
 }
 
 /*
- * Card - Solutions. Rest-state box model and layout live in src/scss/structural/_cards.scss. The
- * hover border-color/box-shadow swap lives there too (not a motion property, per AGENTS.md). Only
- * the transition stays here as real motion.
+ * Card - Solutions. Rest-state look, layout, and the hover custom-property recipe live in
+ * styles/sections/cards/card-solutions.json, matching Card - Feature's convention above. Only the
+ * transition and the color-swap-bearing hover rules stay here as real motion.
  */
-.ls-card-solutions {
+.is-style-card-solutions {
   transition:
     border-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-solutions-border-active);
+    box-shadow: var(--ls-card-solutions-shadow-active);
+  }
 
   .ls-card-solutions__content .wp-block-heading {
     transition: color var(--wp--custom--animation--duration--base)
@@ -230,15 +243,15 @@
   .is-style-glass-card,
   .is-style-card-feature,
   .is-style-card-feature .ls-card__icon-shell,
-  .ls-card-category,
+  .is-style-card-category,
   .is-style-card-link-row,
-  .ls-card-services,
-  .ls-card-services::before,
-  .ls-card-services .ls-card__icon-shell,
+  .is-style-card-services,
+  .is-style-card-services::before,
+  .is-style-card-services .ls-card__icon-shell,
   .ls-icon-frame-glow,
-  .ls-card-solutions,
-  .ls-card-solutions .ls-card-solutions__content .wp-block-heading,
-  .ls-card-case-study {
+  .is-style-card-solutions,
+  .is-style-card-solutions .ls-card-solutions__content .wp-block-heading,
+  .is-style-card-case-study {
     transition: none;
   }
 
@@ -246,12 +259,12 @@
   .is-style-glass-card:focus-within,
   .is-style-card-feature:hover,
   .is-style-card-feature:focus-within,
-  .ls-card-category:hover,
-  .ls-card-category:focus-within,
-  .ls-card-services:hover,
-  .ls-card-services:focus-within,
-  .ls-card-case-study:hover,
-  .ls-card-case-study:focus-within {
+  .is-style-card-category:hover,
+  .is-style-card-category:focus-within,
+  .is-style-card-services:hover,
+  .is-style-card-services:focus-within,
+  .is-style-card-case-study:hover,
+  .is-style-card-case-study:focus-within {
     transform: none;
   }
 
@@ -260,21 +273,21 @@
   .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
   .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
   .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .ls-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .ls-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
+  .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
     transform: none;
   }
 
-  .ls-card-services:hover::before,
-  .ls-card-services:focus-within::before {
+  .is-style-card-services:hover::before,
+  .is-style-card-services:focus-within::before {
     animation: none;
     background-position: var(--ls-accent-gradient-reduced-position) center;
   }
 
   .ls-icon-frame-glow:hover,
   .ls-icon-frame-glow:focus-within,
-  .ls-card-solutions:hover .ls-icon-frame-glow,
-  .ls-card-solutions:focus-within .ls-icon-frame-glow {
+  .is-style-card-solutions:hover .ls-icon-frame-glow,
+  .is-style-card-solutions:focus-within .ls-icon-frame-glow {
     transform: none;
   }
 }
@@ -297,7 +310,7 @@
  *    substitution silently drops the trailing `&`, and the declaration ends up applying to
  *    EVERY instance unconditionally instead of just the intended one. `&` must be the first
  *    token in a css-field selector; ancestor-context selectors with `&` at the end (unlike
- *    icon-frame-glow's `.ls-card-solutions:hover &`, which stays in this same file for
+ *    icon-frame-glow's `.is-style-card-solutions:hover &`, which stays in this same file for
  *    the same reason) cannot go in JSON at all.
  */
 @media (max-width: 781.98px) {
