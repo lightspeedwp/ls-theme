@@ -14,6 +14,7 @@
 		"watch:css": "sass --watch --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.13.0",
 		"@playwright/test": "^1.62.1",
 		"@types/node": "^26.1.2",
 		"ajv": "^8.17.1",
