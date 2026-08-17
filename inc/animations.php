@@ -33,17 +33,65 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
-		'effects'    => array(
+		'effects'               => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		// Page-specific component styles (cards, buttons, home hero, work hero) that can't live in
-		// animations.css because that bundle is reserved for genuinely global, sitewide styling.
-		// Loaded unconditionally rather than gated per page/template, same as animations.css.
-		'components' => array(
-			'handle'   => 'ls-theme-components',
-			'path'     => 'assets/css/components.css',
+		// Structural bundles (LS-2615): styles that can't live in animations.css because that
+		// bundle is reserved for genuinely global, sitewide styling. Split into small,
+		// semantically-scoped files instead of one large components.css, so a future conditional-
+		// loading pass only has to add a `condition` callback to the relevant entry below rather
+		// than re-splitting CSS. All entries are unconditional for now, same as animations.css.
+		//
+		// Two different loading strategies will apply once conditions are added:
+		// - Template-bound (taxonomy-filter, work-project-card, work-archive-sections, work-hero):
+		//   only ever render through template-work-archive.php — a simple
+		//   is_post_type_archive( 'project' ) condition will cover all of them.
+		// - Insertable, page-agnostic (card-shells, cta-buttons, faq): these patterns have no
+		//   template reference at all — editors paste them into arbitrary page content — so a
+		//   page-based condition can't detect them reliably. These will need a render_block-filter
+		//   approach instead (see ls_theme_enqueue_faq_accordion_script() below for the existing
+		//   precedent), not a template check.
+		// - home-hero is template-bound to the front page specifically (is_front_page()).
+		'taxonomy-filter'       => array(
+			'handle'   => 'ls-theme-taxonomy-filter',
+			'path'     => 'assets/css/taxonomy-filter.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'work-project-card'     => array(
+			'handle'   => 'ls-theme-work-project-card',
+			'path'     => 'assets/css/work-project-card.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'work-archive-sections' => array(
+			'handle'   => 'ls-theme-work-archive-sections',
+			'path'     => 'assets/css/work-archive-sections.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'card-shells'           => array(
+			'handle'   => 'ls-theme-card-shells',
+			'path'     => 'assets/css/card-shells.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'cta-buttons'           => array(
+			'handle'   => 'ls-theme-cta-buttons',
+			'path'     => 'assets/css/cta-buttons.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'home-hero'             => array(
+			'handle'   => 'ls-theme-home-hero',
+			'path'     => 'assets/css/home-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'work-hero'             => array(
+			'handle'   => 'ls-theme-work-hero',
+			'path'     => 'assets/css/work-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'faq'                   => array(
+			'handle'   => 'ls-theme-faq',
+			'path'     => 'assets/css/faq.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);

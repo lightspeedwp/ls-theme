@@ -43,10 +43,20 @@ function ls_theme_setup() {
 
 	// Enqueue editor styles. These must be listed here (not just enqueued via
 	// enqueue_block_editor_assets) so the interactive-control CSS — the collapsed search field,
-	// the icon-toggle button shell — reliably reaches the Site Editor's iframed canvas.
+	// the icon-toggle button shell — reliably reaches the Site Editor's iframed canvas. Every
+	// structural bundle is listed unconditionally here (not just the ones with a front-end
+	// condition) since the Site Editor's iframed canvas can be editing any page or pattern
+	// regardless of which template it's viewed through.
 	add_editor_style( 'style.css' );
 	add_editor_style( 'assets/css/animations.css' );
-	add_editor_style( 'assets/css/components.css' );
+	add_editor_style( 'assets/css/taxonomy-filter.css' );
+	add_editor_style( 'assets/css/work-project-card.css' );
+	add_editor_style( 'assets/css/work-archive-sections.css' );
+	add_editor_style( 'assets/css/card-shells.css' );
+	add_editor_style( 'assets/css/cta-buttons.css' );
+	add_editor_style( 'assets/css/home-hero.css' );
+	add_editor_style( 'assets/css/work-hero.css' );
+	add_editor_style( 'assets/css/faq.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

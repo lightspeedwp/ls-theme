@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact card shell for a replaceable icon, H3 heading, supporting copy, and inline CTA. The hover state stays in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
+	"description": "Compact card shell for a replaceable icon, H3 heading, supporting copy, and inline CTA. The hover state stays in src/scss/structural/card-shells.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",

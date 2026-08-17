@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Bordered card shell wrapping a 3-row icon/title/description capability list, for the Work archive hero. Non-expressible structural properties (inline-size, the last-child descendant rule) stay in src/scss/components.scss.",
+	"description": "Bordered card shell wrapping a 3-row icon/title/description capability list, for the Work archive hero. Non-expressible structural properties (inline-size, the last-child descendant rule) are authored directly in this file's own css field below.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",

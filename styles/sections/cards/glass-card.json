@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Rest-state look lives here; the hover state (background/border-color/box-shadow/outline swap), the transition/transform, and the backdrop-filter blur all stay in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as the already-documented @media/@supports stripping.",
+	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Rest-state look lives here; the hover state (background/border-color/box-shadow/outline swap), the transition/transform, and the backdrop-filter blur all stay in src/scss/structural/card-shells.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as the already-documented @media/@supports stripping.",
 	"styles": {
 		"border": {
 			"radius": "var:preset|border-radius|300",
