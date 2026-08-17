@@ -6,6 +6,9 @@
             "contentSize": "800px",
             "wideSize": "1370px"
         },
+        "spacing": {
+            "blockGap": true
+        },
         "color": {
             "defaultPalette": false,
             "defaultGradients": false,
