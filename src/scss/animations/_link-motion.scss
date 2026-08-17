@@ -50,3 +50,16 @@
     transform: translateX(var(--ls-link-arrow-offset, 0.35em));
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-paragraph.is-style-link-arrow-accent a,
+  .wp-block-paragraph.is-style-link-arrow-accent a::after {
+    transition: none;
+  }
+
+  .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after {
+    transform: none;
+  }
+}

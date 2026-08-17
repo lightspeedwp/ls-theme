@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Case-study card shell for the Work archive: banner zone, content body, and tag row. Adapts between light and dark mode like every other card style — border uses a translucent tint of the shared card border token. Non-expressible structural properties (overflow) and the hover state stay in src/scss/structural/_cards.scss.",
+	"description": "Case-study card shell for the Work archive: banner zone, content body, and tag row. Adapts between light and dark mode like every other card style \u2014 border uses a translucent tint of the shared card border token. Non-expressible structural properties (overflow) and the hover state stay in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",

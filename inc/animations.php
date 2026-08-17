@@ -33,9 +33,17 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
-		'effects' => array(
+		'effects'    => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		// Page-specific component styles (cards, buttons, home hero, work hero) that can't live in
+		// animations.css because that bundle is reserved for genuinely global, sitewide styling.
+		// Loaded unconditionally rather than gated per page/template, same as animations.css.
+		'components' => array(
+			'handle'   => 'ls-theme-components',
+			'path'     => 'assets/css/components.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);
@@ -94,9 +102,10 @@ add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_style
 /**
  * Enqueues the FAQ accordion script when the Yoast FAQ block is actually rendered.
  *
- * Uses render_block rather than has_block() so the script still loads when the
- * block is rendered via a template part, query loop, or other context that
- * has_block() can't see (it only inspects the current post's content).
+ * Uses render_block rather than has_block() so the script still loads when the block is rendered
+ * via a template part, query loop, or other context that has_block() can't see (it only inspects
+ * the current post's content). The FAQ's CSS ships unconditionally via components.css instead of
+ * being enqueued here, since it's already loaded on every page.
  *
  * @param string $block_content The block content.
  * @param array  $block         The full block data.
@@ -107,13 +116,13 @@ function ls_theme_enqueue_faq_accordion_script( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$path = 'assets/js/faq-accordion.js';
+	$script_path = 'assets/js/faq-accordion.js';
 
 	wp_enqueue_script(
 		'ls-theme-faq-accordion',
-		get_theme_file_uri( $path ),
+		get_theme_file_uri( $script_path ),
 		array(),
-		ls_theme_get_local_asset_version( $path ),
+		ls_theme_get_local_asset_version( $script_path ),
 		true
 	);
 

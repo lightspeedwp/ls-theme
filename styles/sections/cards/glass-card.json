@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Rest-state look lives here; the hover/focus-within transition/transform (real motion) and the backdrop-filter blur stay in src/scss/animations/_card-motion.scss. JSON limitation confirmed empirically 2026-08-11: @supports has the identical bug @media does — silently stripped, its declarations leak out unconditionally at every viewport regardless of feature support.",
+	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Rest-state look lives here; the hover state (background/border-color/box-shadow/outline swap), the transition/transform, and the backdrop-filter blur all stay in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as the already-documented @media/@supports stripping.",
 	"styles": {
 		"border": {
 			"radius": "var:preset|border-radius|300",

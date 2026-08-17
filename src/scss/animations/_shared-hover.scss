@@ -61,19 +61,6 @@
   }
 }
 
-/*
- * Frosted-glass blur (Glass Button, Glass Card): identical @supports-gated backdrop-filter pair,
- * confirmed empirically (2026-08-11) that @supports is silently stripped from the styles/**.json
- * css field, same bug as @media — so this stays real CSS for both consumers.
- */
-.wp-block-button.ls-glass-button .wp-block-button__link,
-.is-style-glass-card {
-  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .site-header__search .wp-block-search__button,
   .site-header .wp-block-navigation__responsive-container-close,

@@ -41,11 +41,12 @@ function ls_theme_setup() {
 	// the block outputs nothing even when a Site Logo is set via the Site Editor.
 	add_theme_support( 'custom-logo' );
 
-	// Enqueue editor styles. animations.css must be listed here (not just enqueued via
-	// enqueue_block_editor_assets) so the header/footer interactive-control CSS — the collapsed
-	// search field, the icon-toggle button shell — reliably reaches the Site Editor's iframed canvas.
+	// Enqueue editor styles. These must be listed here (not just enqueued via
+	// enqueue_block_editor_assets) so the interactive-control CSS — the collapsed search field,
+	// the icon-toggle button shell — reliably reaches the Site Editor's iframed canvas.
 	add_editor_style( 'style.css' );
 	add_editor_style( 'assets/css/animations.css' );
+	add_editor_style( 'assets/css/components.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

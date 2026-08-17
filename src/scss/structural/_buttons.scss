@@ -1,98 +1,10 @@
-
-/********** Button Structural Overrides **********/
-
-/*
- * Glass Button (LS-2341 Group 5: folded in from styles/blocks/buttons/glass-button.json, single
- * consumer patterns/cta/section-cta-consultation-strip.php). Rest-state border/color/spacing/
- * typography are inline block attributes now. Everything below has no block-supports equivalent:
- * the wrapper-level max-inline-size rule (core/button's `&` in a JSON css field resolves to the
- * link, not the wrapper — confirmed empirically, see core-button.json/glass-button.json history),
- * the custom-property recipe, the non-interactive edge-highlight pseudo-elements, and the
- * position/overflow/display/outline rest-state setup.
- */
-.wp-block-button.ls-glass-button {
-  max-inline-size: 100%;
-}
-
-.ls-glass-button .wp-block-button__link {
-  --ls-glass-button-background-rest: color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent);
-  --ls-glass-button-background-hover: color-mix(in srgb, var(--wp--custom--color--surface--card) 36%, transparent);
-  --ls-glass-button-border-rest: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent);
-  --ls-glass-button-border-hover: color-mix(in srgb, var(--wp--custom--color--link--accent) 38%, var(--wp--custom--color--surface--highlight) 34%, transparent);
-  --ls-glass-button-text-rest: var(--wp--custom--color--text--default);
-  --ls-glass-button-text-hover: var(--wp--custom--color--text--brand);
-  --ls-glass-button-shadow-rest: var(--wp--custom--shadow--elevation--200);
-  --ls-glass-button-shadow-hover: var(--wp--custom--shadow--elevation--300), var(--wp--custom--shadow--interactive--accent);
-  --ls-glass-button-top-highlight: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 80%, transparent);
-  --ls-glass-button-side-highlight: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 68%, transparent);
-  --ls-glass-button-side-tail: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 26%, transparent);
-  --ls-glass-button-focus-width: 2px;
-  --ls-glass-button-focus-colour: var(--wp--custom--color--focus--ring);
-  --ls-glass-button-focus-offset: 4px;
-  --ls-glass-button-lift: -2px;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  max-inline-size: 100%;
-  white-space: nowrap;
-  isolation: isolate;
-  text-align: center;
-  color: var(--ls-glass-button-text-rest);
-  background: var(--ls-glass-button-background-rest);
-  border-color: var(--ls-glass-button-border-rest);
-  box-shadow: var(--ls-glass-button-shadow-rest);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: auto 0 auto 0;
-    top: 0;
-    height: 1px;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(90deg, transparent, var(--ls-glass-button-top-highlight), transparent);
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 1px;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(180deg, var(--ls-glass-button-side-highlight), transparent, var(--ls-glass-button-side-tail));
-  }
-
-  /*
-   * Hover colour swap. Not a motion property — the transition (timing) and lift transform live in
-   * _button-motion.scss; this state swap lives here. !important is required: rest-state
-   * color/background/border-color are serialized as an inline style="" attribute on the consumer's
-   * block attrs, and inline styles always beat stylesheet rules regardless of specificity.
-   */
-  &:hover,
-  &:focus-visible {
-    background: var(--ls-glass-button-background-hover) !important;
-    border-color: var(--ls-glass-button-border-hover) !important;
-    box-shadow: var(--ls-glass-button-shadow-hover) !important;
-    color: var(--ls-glass-button-text-hover) !important;
-  }
-
-  &:focus-visible {
-    outline-color: var(--ls-glass-button-focus-colour);
-  }
-}
+/********** Button Structural Overrides (global) **********/
 
 /*
  * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
- * single consumer patterns/header.php). Hover box-shadow swap — not a motion property, per
- * AGENTS.md. The transition and the transform-bearing hover rule live in _header-motion.scss.
+ * single consumer patterns/header.php — genuinely global, the header loads on every page). Hover
+ * box-shadow swap — not a motion property, per AGENTS.md. The transition and the transform-bearing
+ * hover rule live in _header-motion.scss.
  */
 .ls-button-cta-gradient .wp-block-button__link:hover,
 .ls-button-cta-gradient .wp-block-button__link:focus-visible {

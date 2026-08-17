@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact card shell with a tinted icon well, H3 heading, supporting copy, and inline CTA sitting close to the copy (no bottom-anchored CTA, unlike Card - Feature). Used by the Work archive's category row. Non-expressible structural properties (position, overflow, the nested content flex rule) and the hover state stay in src/scss/structural/_cards.scss.",
+	"description": "Compact card shell with a tinted icon well, H3 heading, supporting copy, and inline CTA sitting close to the copy (no bottom-anchored CTA, unlike Card - Feature). Used by the Work archive's category row. Non-expressible structural properties (position, overflow, the nested content flex rule) and the hover state stay in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",

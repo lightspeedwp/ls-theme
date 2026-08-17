@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact white card shell for a replaceable icon, supporting copy, and an icon-only CTA. Non-expressible structural properties (position, overflow, max-inline-size, the content/cta layout) and the hover state stay in src/scss/structural/_cards.scss.",
+	"description": "Compact white card shell for a replaceable icon, supporting copy, and an icon-only CTA. Non-expressible structural properties (position, overflow, max-inline-size, the content/cta layout) and the hover state stay in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",

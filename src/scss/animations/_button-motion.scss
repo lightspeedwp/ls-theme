@@ -1,6 +1,6 @@
 @use "icons";
 
-/********** Button Motion **********/
+/********** Button Motion (global) **********/
 
 /* Shared button motion primitives */
 .wp-element-button,
@@ -40,7 +40,8 @@
  * and the default-fill / outline custom-property "recipes" all live in
  * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
  * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
- * stays here.
+ * stays here. Fill and Outline are WP-core's own built-in button styles, usable on any button
+ * anywhere on the site — genuinely global infrastructure, not tied to any one page or pattern.
  *
  * The default-fill selector's `:not([class*="is-style-"])` exclusion only catches registered
  * is-style variants. LS-2341 Group 5 folded `glass-button`/`button-cta-gradient` from is-styles
@@ -212,7 +213,7 @@
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
-/* Button - Secondary */
+/* Button - Secondary: genuinely global, confirmed used in the sitewide mobile menu. */
 .wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
 .wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
   background-color: var(--wp--custom--color--button--fill--background-hover);
@@ -228,161 +229,4 @@
   background-color: var(--wp--custom--color--button--outline--background-hover);
   border-color: var(--wp--custom--color--button--outline--background-hover);
   color: var(--wp--custom--color--button--outline--text-hover);
-}
-
-/*
- * Glass Button (LS-2341 Group 5: folded in from styles/blocks/buttons/glass-button.json). Rest-state
- * background/border/shadow/outline, the recipe custom properties, and the non-interactive top/side
- * edge-highlight pseudo-elements all live in src/scss/structural/_buttons.scss now — none of that
- * is a motion property, per AGENTS.md. The hover/focus colour swap lives there too. Only the
- * transition (timing) and the lift transform stay here as real motion.
- */
-.wp-block-button.ls-glass-button .wp-block-button__link {
-  transition:
-    background-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    box-shadow var(--wp--custom--animation--duration--medium)
-      var(--wp--custom--animation--easing--standard),
-    color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    outline-color var(--wp--custom--animation--duration--focus)
-      var(--wp--custom--animation--easing--standard),
-    outline-offset var(--wp--custom--animation--duration--focus)
-      var(--wp--custom--animation--easing--standard),
-    transform var(--wp--custom--animation--duration--medium)
-      var(--wp--custom--animation--easing--emphasised);
-  transition-delay: var(--wp--custom--animation--delay--none);
-
-  &:hover,
-  &:focus-visible {
-    transform: translateY(var(--ls-glass-button-lift));
-  }
-}
-
-/*
- * Button Arrow Compact (styles/blocks/buttons/button-arrow-compact.json): rest-state size/shape,
- * the recipe custom properties, and the arrow glyph's non-hover appearance all live in the JSON
- * file's css field now. `content:` must stay here — it references a Sass icon variable, which JSON
- * can't resolve — so the ::after rule below carries only content + transition + hover overrides.
- */
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  transition:
-    background-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    box-shadow var(--wp--custom--animation--duration--medium)
-      var(--wp--custom--animation--easing--standard);
-
-  &::after {
-    content: icons.$ls-icon-arrow-right;
-    transition:
-      transform var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--emphasised),
-      color var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--standard);
-  }
-
-  &:hover,
-  &:focus-visible,
-  .is-style-card-solutions:hover &,
-  .is-style-card-solutions:focus-within & {
-    background: var(--ls-button-arrow-compact-background-active);
-    border-color: var(--ls-button-arrow-compact-border-active);
-  }
-
-  &:hover::after,
-  &:focus-visible::after,
-  .is-style-card-solutions:hover &::after,
-  .is-style-card-solutions:focus-within &::after {
-    color: var(--ls-button-arrow-compact-colour-active);
-  }
-}
-
-/*
- * CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark tokens so the fill
- * button's rest and hover states stay readable regardless of the site's light/dark style
- * variation. Was briefly moved to inline style attributes during Phase 3, reverted after code
- * review confirmed that breaks block validation — core/button's save() only regenerates a style
- * attribute from registered block attributes (color/border/spacing tokens), never from arbitrary
- * custom properties, so the stored markup wouldn't match what save() reproduces on the next
- * editor open.
- */
-.ls-cta-band__button .wp-block-button__link,
-.ls-cta-inline__button .wp-block-button__link,
-.ls-cta-reassurance__button .wp-block-button__link {
-  color: var(--wp--custom--color--text--on-dark);
-  --ls-button-fill-background: var(--wp--custom--color--surface--on-dark-card);
-  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
-  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
-}
-
-/* CTA band: the secondary link's arrow colours aren't part of the group's
-   saved block attributes, so they're defined here instead of as an inline
-   style on the wrapper (which would be dropped on save). */
-.ls-cta-band__actions {
-  --ls-link-arrow-colour: var(--wp--custom--color--text--on-dark);
-  --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
-}
-
-/*
- * CTA strip: the arrow sits next to the glass button rather than nested in its rich text, so it
- * needs its own hover contract tied to the shared wrapper. The wrapper's position/display were
- * also briefly inlined during Phase 3 — reverted for the same block-validation reason as above
- * (core/group's save() doesn't regenerate arbitrary style properties either).
- */
-.ls-cta-strip__cta-wrap {
-  position: relative;
-  display: inline-flex;
-}
-
-.ls-cta-strip__button-arrow {
-  transition:
-    transform var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--emphasised),
-    color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard);
-}
-
-.ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
-.ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
-  color: var(--wp--custom--color--text--brand);
-  transform: translateX(0.25em);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-button.ls-glass-button .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-    transition: none;
-  }
-
-  .wp-block-button.ls-glass-button .wp-block-button__link:hover,
-  .wp-block-button.ls-glass-button .wp-block-button__link:focus-visible,
-  .wp-block-button.ls-glass-button .wp-block-button__link:active {
-    transform: none;
-  }
-
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  .is-style-card-solutions:hover
-    .wp-block-button.is-style-button-arrow-compact
-    .wp-block-button__link::after,
-  .is-style-card-solutions:focus-within
-    .wp-block-button.is-style-button-arrow-compact
-    .wp-block-button__link::after {
-    transform: none;
-  }
-
-  .ls-cta-strip__button-arrow {
-    transition: none;
-  }
-
-  .ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
-  .ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
-    transform: none;
-  }
 }

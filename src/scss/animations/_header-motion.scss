@@ -79,8 +79,15 @@
  * field instead of submitting immediately.
  */
 .site-header__search {
-  /* Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
-   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles. */
+  /*
+   * Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles.
+   * border-color/radius, background-color, and color are real inline block attributes on the
+   * wp:search block in patterns/header.php now (core/search's border/color supports are real,
+   * just not auto-serialized — confirmed via wp-includes/blocks/search.php). min-inline-size/
+   * min-block-size/padding/display/align-items/justify-content have no block-supports
+   * equivalent (search has no dimensions or spacing.padding support at all) and stay here.
+   */
   .wp-block-search__button {
     display: flex;
     align-items: center;
@@ -88,10 +95,6 @@
     min-inline-size: 44px;
     min-block-size: 44px;
     padding: var(--wp--preset--spacing--10);
-    border: 1px solid var(--wp--custom--color--border--card);
-    border-radius: var(--wp--preset--border-radius--500);
-    background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-    color: var(--wp--custom--color--text--default);
   }
 
   .wp-block-search__input {

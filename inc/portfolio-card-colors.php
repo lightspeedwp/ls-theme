@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * variant.
  *
  * These are plain classes (LS-2341 Group 4) styled in
- * src/scss/structural/_cards.scss, not registered is-style variations, so
+ * src/scss/components.scss, not registered is-style variations, so
  * there's no core CSS-generation timing to race against.
  *
  * Hooked on `render_block` (post-render HTML string), not `render_block_data`

@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Centred services card shell with a reusable animated accent border, replaceable icon well, tick list, and inline CTA. Shared interaction contract lives in src/scss/animations.scss. Non-expressible structural properties (position, overflow, align-items, max-inline-size, text-align, transform-origin, the content/list/cta layout, the accent-gradient bar) and the hover state stay in src/scss/structural/_cards.scss — the accent gradient bar was added after the original fold and is left in SCSS since it is closely tied to the hover-triggered animation.",
+	"description": "Centred services card shell with a reusable animated accent border, replaceable icon well, tick list, and inline CTA. Non-expressible structural properties (position, overflow, align-items, max-inline-size, text-align, transform-origin, the content/list/cta layout, the accent-gradient bar) and the hover state stay in src/scss/components.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
