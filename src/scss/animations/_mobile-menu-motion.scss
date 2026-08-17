@@ -74,7 +74,7 @@
   padding: var(--wp--preset--spacing--10);
   border: 1px solid var(--wp--custom--color--border--card);
   border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
 
   svg {
     inline-size: 20px;

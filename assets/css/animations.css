@@ -622,7 +622,7 @@
   padding: var(--wp--preset--spacing--10);
   border: 1px solid var(--wp--custom--color--border--card);
   border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
 }
 .site-header .wp-block-navigation__responsive-container-close svg {
   inline-size: 20px;
@@ -865,11 +865,21 @@
   /*
    * Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
    * byte-for-byte with the mobile-menu close button and both footer icon-shell styles.
-   * border-color/radius, background-color, and color are real inline block attributes on the
-   * wp:search block in patterns/header.php now (core/search's border/color supports are real,
-   * just not auto-serialized — confirmed via wp-includes/blocks/search.php). min-inline-size/
+   * border-color/radius and color are real inline block attributes on the wp:search block in
+   * patterns/header.php (core/search's border/color supports are real, just not
+   * auto-serialized — confirmed via wp-includes/blocks/search.php). min-inline-size/
    * min-block-size/padding/display/align-items/justify-content have no block-supports
    * equivalent (search has no dimensions or spacing.padding support at all) and stay here.
+   *
+   * JSON limitation confirmed empirically 2026-08-17: the rest-state background CANNOT be a
+   * block attribute here — core/search's render_block_core_search() runs every inline style
+   * value (background included) through WordPress's own safecss_filter_attr(), which only
+   * recognises var()/calc()/min()/max()/minmax()/clamp()/repeat() as safe functions. color-mix()
+   * isn't on that allowlist, so any declaration containing it is silently dropped from the
+   * generated style="" attribute entirely — not resolved incorrectly, just missing outright,
+   * which is why the button had no themed background in either light or dark mode. Real CSS
+   * (compiled to a stylesheet, never passed through kses) is the only route color-mix() can
+   * take here.
    */
 }
 .site-header__search .wp-block-search__button {
@@ -879,6 +889,7 @@
   min-inline-size: 44px;
   min-block-size: 44px;
   padding: var(--wp--preset--spacing--10);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
 }
 .site-header__search .wp-block-search__input {
   inline-size: 0;
