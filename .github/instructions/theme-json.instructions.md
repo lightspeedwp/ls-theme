@@ -189,8 +189,10 @@ Reference them from authored CSS or style JSON with `var(--wp--custom--animation
 
 - `styles/light.json` and `styles/dark.json` are registered style variations.
 - Additional variations can be added as `styles/*.json`.
-- `styles/blocks/` and `styles/sections/` are organisational conventions —
-  WordPress does not auto-consume these as global style variations.
+- `styles/blocks/` and `styles/sections/` files carry the `blockTypes` + `slug`
+  schema, which WordPress 6.6+ auto-discovers recursively and registers as live,
+  editor-facing style-picker entries. Every file here is a real, user-visible
+  option — do not add one as a one-off hack for a single pattern.
 - Keep variation files focused — only override what differs from the base `theme.json`.
 - `styles/dark.json` must mirror the semantic colour token paths from `theme.json`.
 - Shared non-colour token families such as `settings.custom.animation` and `settings.custom.z-index` do not need matching paths in `styles/dark.json`.

@@ -27,6 +27,7 @@
 				"bottom": "var:preset|spacing|20",
 				"left": "var:preset|spacing|20"
 			}
-		}
+		},
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-category-border-active:var(--wp--custom--color--link--accent);\n--ls-card-category-shadow-active:var(--wp--custom--shadow--card--hover);\n--ls-card-category-lift:var(--wp--custom--animation--lift--md);\n\n& .ls-card-category__content {\n\tflex: 1 1 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--10);\n}"
 	}
 }

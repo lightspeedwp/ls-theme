@@ -26,6 +26,7 @@
 				"bottom": "var:preset|spacing|20",
 				"left": "var:preset|spacing|20"
 			}
-		}
+		},
+		"css": "position: relative;\n--ls-card-link-row-border-active: var(--wp--custom--color--link--accent);\n--ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);\n--ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);\n\n& .ls-card-link-row__link {\n\tcolor: inherit;\n\ttext-decoration: none;\n}\n\n& .ls-card-link-row__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-card-link-row__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
 	}
 }

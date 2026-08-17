@@ -28,8 +28,8 @@
 				<div class="wp-block-group ls-cta-band__badge-dot" style="background-color:var(--wp--custom--color--icon--background);border-radius:var(--wp--preset--border-radius--500)"></div>
 				<!-- /wp:group -->
 
-				<!-- wp:paragraph {"className":"ls-cta-band__badge-label","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"typography":{"textTransform":"uppercase","letterSpacing":"1.2px"}},"fontSize":"x-small"} -->
-				<p class="ls-cta-band__badge-label has-x-small-font-size" style="color:var(--wp--custom--color--text--brand);letter-spacing:1.2px;text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
+				<!-- wp:paragraph {"className":"ls-cta-band__badge-label","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"}},"fontSize":"100"} -->
+				<p class="ls-cta-band__badge-label has-100-font-size" style="color:var(--wp--custom--color--text--brand);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
 				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->

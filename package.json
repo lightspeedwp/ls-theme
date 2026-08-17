@@ -4,15 +4,14 @@
 	"description": "LightSpeed Theme is a custom WordPress block theme built by LightSpeed for fast, accessible, maintainable websites using the WordPress Site Editor and block editor.",
 	"type": "module",
 	"scripts": {
-		"sync:breakpoints": "node theme-utils.mjs sync-breakpoints",
-		"build:css": "npm run sync:breakpoints && sass --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css",
+		"build:css": "sass --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css",
 		"schema:validate": "node theme-utils.mjs validate-schema",
 		"theme:validate": "node theme-utils.mjs validate-theme",
 		"patterns:escape": "node theme-utils.mjs escape-patterns",
 		"security:scan": "node theme-utils.mjs security-scan",
 		"lint": "npm run lint:json",
 		"lint:json": "node --input-type=module --eval \"import { readFileSync } from 'fs'; import { glob } from 'glob'; const files = await glob(['theme.json', 'styles/**/*.json']); let ok = true; for (const f of files) { try { JSON.parse(readFileSync(f, 'utf8')); } catch (e) { console.error('Invalid JSON:', f, e.message); ok = false; } } if (ok) console.log('All JSON files are valid.'); else process.exit(1);\"",
-		"watch:css": "npm run sync:breakpoints && sass --watch --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css"
+		"watch:css": "sass --watch --no-source-map --no-charset --style=expanded src/scss/animations.scss:assets/css/animations.css src/scss/gsap-animations.scss:assets/css/gsap-animations.css"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.62.1",

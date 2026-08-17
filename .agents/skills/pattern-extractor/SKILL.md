@@ -11,7 +11,7 @@ Use this skill when importing a Figma design into `patterns/` as a production-re
 
 Whenever this skill creates or updates authored UI files such as pattern PHP, block style JSON, section style JSON, or theme CSS, it must also load and follow the `theme-color-token-enforcer` skill for those files. Treat `theme-color-token-enforcer` as the authoritative rule set for semantic colour token reuse, token creation, dark-mode parity, and contrast validation.
 
-Whenever this skill decides that a pattern needs GSAP-powered motion, it must also load and follow the `wordpress-gsap` skill. Treat `wordpress-gsap` as the authoritative workflow for WordPress enqueueing, GSAP plugin registration, runtime scoping, and reduced-motion-safe effect architecture.
+Whenever the JSON-First Gate below determines that a pattern genuinely needs GSAP-powered motion, this skill must also load and follow the `wordpress-gsap` skill. Treat `wordpress-gsap` as the authoritative workflow for WordPress enqueueing, GSAP plugin registration, runtime scoping, and reduced-motion-safe effect architecture. GSAP is never a default choice — it is only used once the gate confirms CSS cannot do the job.
 
 Patterns should be grouped into taxonomy subfolders rather than stored flat at the top level. For example, a single featured card pattern should live at `patterns/cards/feature-card.php`.
 
@@ -128,6 +128,29 @@ Record state deltas explicitly:
 - base -> hover
 - base -> focus-visible
 - base -> active
+
+### Phase 2.5a — JSON-First Gate (mandatory, before any Sass/CSS/GSAP/is-style work)
+
+For every visual property identified in Phase 2, check in this order before writing
+any authored CSS:
+
+1. Does an existing `styles/**/*.json` partial already cover this? Check sibling
+   files in the same subfolder first — reuse before creating.
+2. Can it be expressed as a new block-style/section-style JSON partial using
+   `elements.*`, `blocks.*`, pseudo-state keys, or block attributes? Use
+   `.agents/skills/wp-block-style-audit/references/block-style-json-anatomy.md` as
+   the JSON-vs-CSS decision table.
+3. Only if neither applies, and the property has no JSON equivalent (transitions,
+   transform, `content:""`, aria-selectors, SVG fill, comma-separated selectors), is
+   authored Sass/CSS permitted — and it must carry a comment naming the specific
+   limitation, per `AGENTS.md` Theme-First Approach.
+4. Do not register a new is-style variant for a single-use, one-off treatment with
+   no second option ever offered. If it's used in exactly one place, style it inline
+   on the pattern's block attributes instead of registering a global style-picker
+   entry.
+5. GSAP is permitted only for JS-driven interaction that CSS transition/animation
+   structurally cannot achieve (e.g. scroll-triggered sequencing, cursor-tracked
+   spotlight effects) — not as a default for "this pattern has motion."
 
 ### Phase 2.5 — Context-Aware Block Selection
 

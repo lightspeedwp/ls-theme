@@ -69,73 +69,17 @@
     transition: none;
   }
 }
-/********** Home Hero Section **********/
-/* Home Hero Section: background-only Group block style. */
-.is-style-home-hero-section {
-  --ls-home-hero-surface: var(--wp--custom--color--surface--canvas);
-  --ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
-  --ls-home-hero-cta: var(--wp--custom--color--effect--hero--cta);
-  --ls-home-hero-accent: var(--wp--custom--color--effect--hero--accent);
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%, transparent 34%), radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--ls-home-hero-cta) 14%, transparent) 0%, transparent 28%), radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--ls-home-hero-accent) 7%, transparent) 0%, transparent 36%), linear-gradient(180deg, color-mix(in srgb, var(--ls-home-hero-surface) 98%, var(--wp--custom--color--surface--highlight) 2%) 0%, var(--ls-home-hero-surface) 100%);
-}
-.is-style-home-hero-section > :not(.ls-home-hero-section__background) {
-  position: relative;
-  z-index: var(--wp--custom--z-index--content);
-}
-
-.ls-home-hero-section__background,
-.ls-home-hero-section__network {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.ls-home-hero-section__background {
-  z-index: var(--wp--custom--z-index--base);
-}
-
-.ls-home-hero-section__network {
-  z-index: var(--wp--custom--z-index--content);
-  opacity: 0.92;
-}
-
-.ls-home-hero-section__orb {
-  position: absolute;
-  border-radius: 999px;
-  filter: blur(80px);
-  opacity: 0.8;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-  z-index: var(--wp--custom--z-index--base);
-}
-
-.ls-home-hero-section__orb--brand {
-  top: 8%;
-  left: -8rem;
-  width: 24rem;
-  height: 24rem;
-  background: color-mix(in srgb, var(--ls-home-hero-brand) 24%, transparent);
-}
-
-.ls-home-hero-section__orb--cta {
-  right: -6rem;
-  bottom: 10%;
-  width: 20rem;
-  height: 20rem;
-  background: color-mix(in srgb, var(--ls-home-hero-cta) 22%, transparent);
-}
-
-.ls-home-hero-section__canvas {
-  display: block;
-  inline-size: 100%;
-  block-size: 100%;
-}
-
-/* Breakpoint names such as `tablet-portrait` are auto-generated from theme.json via the shared mq mixin setup. */
+/********** Home Hero Section — responsive override **********/
+/*
+ * JSON limitation: confirmed empirically (2026-08-11) that the styles/**.json `css` field does
+ * not support @media — WordPress's style engine strips the @media wrapper and leaks its
+ * declarations out unconditionally, applying them at every viewport instead of just this one.
+ * Everything else this component needs lives in styles/sections/home-hero-section.json.
+ *
+ * 767.98px mirrors settings.custom.layout.break-points.tablet-portrait (768px) in theme.json,
+ * offset by 0.02px so it stops just short of the next breakpoint — the same convention the
+ * retired src/scss/abstracts/mixins/_mq.scss mixin used to generate.
+ */
 @media (max-width: 767.98px) {
   .ls-home-hero-section__network {
     opacity: 1;
