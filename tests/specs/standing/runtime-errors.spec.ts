@@ -12,8 +12,8 @@ test.describe('Runtime errors', () => {
 				const errors = watchBrowserErrors(page);
 				await page.goto(url);
 
-				expect(errors.consoleErrors, `Console errors on ${url}`).toEqual([]);
-				expect(errors.pageErrors, `Uncaught exceptions on ${url}`).toEqual([]);
+				expect.soft(errors.consoleErrors, `Console errors on ${url}`).toEqual([]);
+				expect.soft(errors.pageErrors, `Uncaught exceptions on ${url}`).toEqual([]);
 			});
 		}
 	});

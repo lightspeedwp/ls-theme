@@ -4,6 +4,10 @@ import { expect, type Page } from '@playwright/test';
  * Generic page-health checks for the standing site-crawl suite. These know
  * nothing about any specific page's content — only that a real, working
  * WordPress response was produced.
+ *
+ * Assertions use expect.soft() so a failure on one URL doesn't abort the
+ * rest of the loop in the calling spec — every discovered URL gets checked
+ * and every real failure gets recorded, instead of only the first one found.
  */
 
 // Specific PHP error signatures, not a naive "warning"/"error" substring
@@ -26,13 +30,20 @@ export async function expectHealthyPage(
 	expectedStatus?: number
 ): Promise<void> {
 	const response = await page.goto(url);
-	expect(response, `Expected a response when navigating to ${url}`).not.toBeNull();
+	if (!response) {
+		expect.soft(response, `Expected a response when navigating to ${url}`).not.toBeNull();
+		return;
+	}
 
-	const status = response!.status();
+	const status = response.status();
 	if (expectedStatus !== undefined) {
-		expect(status, `Expected ${url} to return status ${expectedStatus}`).toBe(expectedStatus);
+		expect
+			.soft(status, `Expected ${url} to return status ${expectedStatus}`)
+			.toBe(expectedStatus);
 	} else {
-		expect(status, `Expected ${url} to return a healthy status (< 400)`).toBeLessThan(400);
+		expect
+			.soft(status, `Expected ${url} to return a healthy status (< 400)`)
+			.toBeLessThan(400);
 	}
 }
 
@@ -41,6 +52,8 @@ export async function expectNoPhpErrors(page: Page): Promise<void> {
 	const html = await page.content();
 	for (const pattern of PHP_ERROR_PATTERNS) {
 		const match = html.match(pattern);
-		expect(match, `Found a PHP error signature on ${page.url()}: "${match?.[0]}"`).toBeNull();
+		expect
+			.soft(match, `Found a PHP error signature on ${page.url()}: "${match?.[0]}"`)
+			.toBeNull();
 	}
 }

@@ -37,9 +37,11 @@ export async function expectNoHorizontalOverflow(page: Page, viewportWidth: numb
 		.map((o) => `${o.selector} right edge = ${o.rightEdge}px`)
 		.join('\n');
 
-	expect(
-		scrollWidth,
-		`Horizontal overflow at ${viewportWidth}px on ${page.url()} ` +
-			`(scrollWidth ${scrollWidth} > clientWidth ${clientWidth}). Likely offenders:\n${summary}`
-	).toBeLessThanOrEqual(clientWidth + 1);
+	expect
+		.soft(
+			scrollWidth,
+			`Horizontal overflow at ${viewportWidth}px on ${page.url()} ` +
+				`(scrollWidth ${scrollWidth} > clientWidth ${clientWidth}). Likely offenders:\n${summary}`
+		)
+		.toBeLessThanOrEqual(clientWidth + 1);
 }

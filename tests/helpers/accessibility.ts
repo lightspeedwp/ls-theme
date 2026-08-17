@@ -29,9 +29,11 @@ export async function expectNoSeriousAccessibilityViolations(
 		BLOCKING_IMPACTS.includes(impact ?? '')
 	);
 
-	expect(
-		blocking,
-		`Serious/critical accessibility violations on ${page.url()}:\n` +
-			blocking.map((v) => `- ${v.id}: ${v.help} (${v.nodes.length} node(s))`).join('\n')
-	).toEqual([]);
+	expect
+		.soft(
+			blocking,
+			`Serious/critical accessibility violations on ${page.url()}:\n` +
+				blocking.map((v) => `- ${v.id}: ${v.help} (${v.nodes.length} node(s))`).join('\n')
+		)
+		.toEqual([]);
 }

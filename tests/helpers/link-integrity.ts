@@ -23,5 +23,5 @@ export async function extractInternalLinks(page: Page, baseURL: string): Promise
 /** Asserts `url` resolves with a healthy final status (following redirects). */
 export async function checkUrlStatus(request: APIRequestContext, url: string): Promise<void> {
 	const response = await request.get(url);
-	expect(response.status(), `Expected ${url} to resolve healthily`).toBeLessThan(400);
+	expect.soft(response.status(), `Expected ${url} to resolve healthily`).toBeLessThan(400);
 }

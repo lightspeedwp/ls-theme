@@ -12,8 +12,8 @@ test.describe('Network errors', () => {
 				const errors = watchNetworkErrors(page, process.env.BASE_URL!);
 				await page.goto(url);
 
-				expect(errors.failedRequests, `Failed requests on ${url}`).toEqual([]);
-				expect(errors.httpErrors, `HTTP errors on ${url}`).toEqual([]);
+				expect.soft(errors.failedRequests, `Failed requests on ${url}`).toEqual([]);
+				expect.soft(errors.httpErrors, `HTTP errors on ${url}`).toEqual([]);
 			});
 		}
 	});
