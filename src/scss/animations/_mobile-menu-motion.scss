@@ -57,30 +57,10 @@
 }
 
 /*
- * JSON limitation: the responsive-container-close button is entirely WP core-generated
- * markup (wp-includes/blocks/navigation) with no className we control and no registrable
- * block-style slug. Its hover/transition contract lives in _shared-hover.scss — shared
- * byte-for-byte with the header search button and both footer icon-shell styles.
+ * The responsive-container-close button's structural chrome (position, sizing, border,
+ * background) lives in src/scss/structural/_mobile-menu.scss instead — none of it is motion.
+ * Its hover/transition contract stays in _shared-hover.scss.
  */
-.site-header .wp-block-navigation__responsive-container-close {
-  position: absolute;
-  top: var(--wp--preset--spacing--20);
-  right: var(--wp--preset--spacing--20);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
-
-  svg {
-    inline-size: 20px;
-    block-size: 20px;
-  }
-}
 
 /*
  * JSON limitation: this component is single-use (one instance in this file), so AGENTS.md's

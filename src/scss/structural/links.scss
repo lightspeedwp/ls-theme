@@ -1,6 +1,6 @@
-@use "icons";
+@use "../animations/icons";
 
-/********** Link Motion **********/
+/********** Link Arrow Accent (multi-page insertable: cards, mega menus, footer, mobile menu) **********/
 
 /*
  * Link Arrow Accent (styles/blocks/paragraphs/link-arrow-accent.json): rest-state layout
@@ -9,8 +9,12 @@
  * elements.link. Rest colour stays here rather than on elements.link: it needs the
  * --ls-link-arrow-colour custom-property-with-fallback pattern so consumers (e.g. the CTA band's
  * on-dark override) can override it, which the elements schema can't express. `content:` also
- * stays here (Sass icon variable). Only real motion (transitions, hover/focus states, the
- * cross-card-hover compound selectors) stays below otherwise.
+ * stays here (Sass icon variable).
+ *
+ * Not part of the global animations bundle: despite appearing in every mega-menu part, the
+ * footer, and the mobile menu, it's equally used in ordinary content patterns (Card Feature/
+ * Services, Work Categories, the CTA band, the thank-you page) — not exclusively sitewide chrome
+ * — so per architecture review it gets its own dedicated bundle instead.
  */
 .wp-block-paragraph.is-style-link-arrow-accent a {
   color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));

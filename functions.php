@@ -57,6 +57,8 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/home-hero.css' );
 	add_editor_style( 'assets/css/work-hero.css' );
 	add_editor_style( 'assets/css/faq.css' );
+	add_editor_style( 'assets/css/links.css' );
+	add_editor_style( 'assets/css/button-secondary.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

@@ -94,6 +94,20 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/faq.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		// Not sitewide-exclusive despite appearing in every mega-menu part, the footer, and the
+		// mobile menu — both also render in ordinary content patterns (cards, the CTA band, the
+		// Work archive's discuss-project section), so per architecture review they were pulled out
+		// of animations.css rather than kept there under the header/footer exception.
+		'links'                 => array(
+			'handle'   => 'ls-theme-links',
+			'path'     => 'assets/css/links.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'button-secondary'      => array(
+			'handle'   => 'ls-theme-button-secondary',
+			'path'     => 'assets/css/button-secondary.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 	);
 
 	/**

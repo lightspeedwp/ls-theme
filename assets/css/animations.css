@@ -57,6 +57,34 @@
   box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
 }
 
+/********** Mobile Menu Structural Overrides **********/
+/*
+ * JSON limitation: the responsive-container-close button is entirely WP core-generated markup
+ * (wp-includes/blocks/navigation) with no className we control and no registrable block-style
+ * slug, so none of this can move to a styles/** JSON partial. Structural chrome only — position,
+ * sizing, border, and background are not motion properties, per AGENTS.md. Its hover/transition
+ * contract lives in _shared-hover.scss, shared byte-for-byte with the header search button and
+ * both footer icon-shell styles.
+ */
+.site-header .wp-block-navigation__responsive-container-close {
+  position: absolute;
+  top: var(--wp--preset--spacing--20);
+  right: var(--wp--preset--spacing--20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: var(--wp--preset--spacing--10);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--500);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
+}
+.site-header .wp-block-navigation__responsive-container-close svg {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
 /********** Shared Keyframes **********/
 @keyframes ls-accent-gradient-shift {
   to {
@@ -131,46 +159,6 @@
   .is-style-mega-menu-item-default,
   .wp-block-paragraph.is-style-mega-menu-item-service {
     transition: none;
-  }
-}
-/********** Link Motion **********/
-/*
- * Link Arrow Accent (styles/blocks/paragraphs/link-arrow-accent.json): rest-state layout
- * (display/align-items/gap on the link, display/baseline transform on the arrow glyph) lives in
- * the JSON file's css field now — font-weight/text-decoration were already on the JSON's
- * elements.link. Rest colour stays here rather than on elements.link: it needs the
- * --ls-link-arrow-colour custom-property-with-fallback pattern so consumers (e.g. the CTA band's
- * on-dark override) can override it, which the elements schema can't express. `content:` also
- * stays here (Sass icon variable). Only real motion (transitions, hover/focus states, the
- * cross-card-hover compound selectors) stays below otherwise.
- */
-.wp-block-paragraph.is-style-link-arrow-accent a {
-  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
-  transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), gap var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-}
-.wp-block-paragraph.is-style-link-arrow-accent a::after {
-  content: "\2192";
-  display: inline-block;
-  transform: translateX(0);
-  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
-  color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
-}
-.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
-  transform: translateX(var(--ls-link-arrow-offset, 0.35em));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-paragraph.is-style-link-arrow-accent a,
-  .wp-block-paragraph.is-style-link-arrow-accent a::after {
-    transition: none;
-  }
-  .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after {
-    transform: none;
   }
 }
 /********** Details / Accordion **********/
@@ -366,24 +354,13 @@
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
-/* Button - Secondary: genuinely global, confirmed used in the sitewide mobile menu. */
-.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
-  background-color: var(--wp--custom--color--button--fill--background-hover);
-  border-color: var(--wp--custom--color--button--fill--border-hover);
-  color: var(--wp--custom--color--button--fill--text-hover);
-}
-
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
-  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
-   * the border matches the solid fill it's transitioning to, same as the filled variant's border
-   * matching its own background-hover above. */
-  background-color: var(--wp--custom--color--button--outline--background-hover);
-  border-color: var(--wp--custom--color--button--outline--background-hover);
-  color: var(--wp--custom--color--button--outline--text-hover);
-}
-
+/*
+ * Button - Secondary: not sitewide-exclusive — also used as a normal CTA button on
+ * patterns/sections/work-discuss-project.php, not just the mobile menu — so per architecture
+ * review it doesn't belong in the global animations bundle at all. Its rest-of-shared-button
+ * transition above still applies (that's genuinely universal); the hover colour swap itself
+ * lives in src/scss/structural/button-secondary.scss, its own standalone bundle.
+ */
 /********** Mega Menu Item **********/
 /*
  * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json)
@@ -605,30 +582,10 @@
 }
 
 /*
- * JSON limitation: the responsive-container-close button is entirely WP core-generated
- * markup (wp-includes/blocks/navigation) with no className we control and no registrable
- * block-style slug. Its hover/transition contract lives in _shared-hover.scss — shared
- * byte-for-byte with the header search button and both footer icon-shell styles.
+ * The responsive-container-close button's structural chrome (position, sizing, border,
+ * background) lives in src/scss/structural/_mobile-menu.scss instead — none of it is motion.
+ * Its hover/transition contract stays in _shared-hover.scss.
  */
-.site-header .wp-block-navigation__responsive-container-close {
-  position: absolute;
-  top: var(--wp--preset--spacing--20);
-  right: var(--wp--preset--spacing--20);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
-}
-.site-header .wp-block-navigation__responsive-container-close svg {
-  inline-size: 20px;
-  block-size: 20px;
-}
-
 /*
  * JSON limitation: this component is single-use (one instance in this file), so AGENTS.md's
  * single-use rule rules out registering an is-style for it — the border/min-height that WOULD

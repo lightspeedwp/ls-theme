@@ -213,20 +213,10 @@
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
-/* Button - Secondary: genuinely global, confirmed used in the sitewide mobile menu. */
-.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
-  background-color: var(--wp--custom--color--button--fill--background-hover);
-  border-color: var(--wp--custom--color--button--fill--border-hover);
-  color: var(--wp--custom--color--button--fill--text-hover);
-}
-
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
-  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
-   * the border matches the solid fill it's transitioning to, same as the filled variant's border
-   * matching its own background-hover above. */
-  background-color: var(--wp--custom--color--button--outline--background-hover);
-  border-color: var(--wp--custom--color--button--outline--background-hover);
-  color: var(--wp--custom--color--button--outline--text-hover);
-}
+/*
+ * Button - Secondary: not sitewide-exclusive — also used as a normal CTA button on
+ * patterns/sections/work-discuss-project.php, not just the mobile menu — so per architecture
+ * review it doesn't belong in the global animations bundle at all. Its rest-of-shared-button
+ * transition above still applies (that's genuinely universal); the hover colour swap itself
+ * lives in src/scss/structural/button-secondary.scss, its own standalone bundle.
+ */

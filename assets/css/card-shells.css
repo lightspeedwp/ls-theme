@@ -2,14 +2,16 @@
 /*
  * Card Icon Shell (folded in from styles/sections/cards/card-icon-shell.json, consumers
  * thank-you-consultation.php, cards/section-card-feature.php, cards/section-card-services.php).
- * border-color/hover-lift transition is real motion; the rest is structural chrome with no
- * block-supports equivalent for a descendant selector.
+ * Padding is a static preset-spacing value with a real block-supports equivalent, so it's a real
+ * inline block attribute on each consumer instance now instead of living here. border-color/
+ * hover-lift transition is real motion; the rest is structural chrome with no block-supports
+ * equivalent for a descendant selector — border-color itself stays here since it's computed via
+ * color-mix(), which a static block attribute can't express.
  */
 .ls-card__icon-shell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--wp--preset--spacing--20);
   border: 1px solid color-mix(in srgb, var(--wp--custom--color--icon--background) 35%, transparent);
   border-radius: var(--wp--preset--border-radius--200);
   background: var(--wp--custom--color--icon--background);
