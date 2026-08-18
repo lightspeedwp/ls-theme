@@ -9,13 +9,18 @@ export async function extractInternalLinks(page: Page, baseURL: string): Promise
 		links.map((link) => link.getAttribute('href') ?? '')
 	);
 
+	// Resolve against the current page's own URL, not the site root — a
+	// relative href like "child" on /work/archive/ must resolve to
+	// /work/archive/child, not /child.
+	const currentUrl = page.url();
+
 	const internal = new Set<string>();
 	for (const href of hrefs) {
 		if (!href || IGNORED_HREF_PREFIXES.some((prefix) => href.startsWith(prefix))) continue;
-		if (!isSameOrigin(href, baseURL)) continue;
+		if (!isSameOrigin(href, currentUrl)) continue;
 
-		const normalized = normalizeUrl(href, baseURL);
-		if (normalized) internal.add(normalized);
+		const normalized = normalizeUrl(href, currentUrl);
+		if (normalized && isSameOrigin(normalized, baseURL)) internal.add(normalized);
 	}
 	return [...internal];
 }

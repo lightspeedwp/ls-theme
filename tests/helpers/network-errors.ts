@@ -36,12 +36,14 @@ export function watchNetworkErrors(page: Page, baseURL: string): NetworkErrorCol
 	});
 
 	page.on('response', (response) => {
-		// Skip the main navigation response itself — a route can legitimately
-		// be expected to return a non-2xx status (e.g. the 404 template in
-		// special-routes.spec.ts). This only flags *sub-resources* on the
-		// page (broken images, scripts, CSS, etc.), not the page's own,
-		// possibly-intentional, status code.
-		if (response.request().isNavigationRequest()) return;
+		// Skip the main-FRAME navigation response only — a route can
+		// legitimately be expected to return a non-2xx status (e.g. the 404
+		// template in special-routes.spec.ts). isNavigationRequest() alone
+		// also matches same-origin iframe navigations, which would wrongly
+		// hide a broken embedded page; restricting to page.mainFrame() keeps
+		// this exemption to the page's own top-level status only.
+		const request = response.request();
+		if (request.isNavigationRequest() && request.frame() === page.mainFrame()) return;
 		if (isAllowedUrl(response.url())) return;
 
 		if (isSameOrigin(response.url(), baseURL) && response.status() >= 400) {

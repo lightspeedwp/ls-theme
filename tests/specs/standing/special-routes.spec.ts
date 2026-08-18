@@ -12,10 +12,38 @@ import { expect } from '@playwright/test';
 const SEARCH_URL = '/?s=__playwright_no_match_sentinel__';
 const MISSING_URL = '/this-path-is-guaranteed-not-to-exist-8f3c1a7e';
 
-// A real search term with exactly one confirmed match, verified live on the
-// dev site before writing this spec — see LS-2335.
-const KNOWN_SEARCH_TERM = 'Recap of webinar with BugHerd';
-const KNOWN_SEARCH_RESULT_TITLE = 'From Design to Launch: Recap of webinar with BugHerd and LightSpeed';
+/**
+ * Finds a real, distinctive word from an actual published post via the public
+ * REST API, rather than hardcoding a specific title — a hardcoded term only
+ * exists on whichever database happened to have it at the time this spec was
+ * written, so it would falsely fail (and file a BugHerd task) against any
+ * other developer's own environment, contradicting the standing suite's
+ * "runs against any BASE_URL, no per-developer setup" design. Returns null if
+ * no suitable post/word is found, so the test can skip instead of failing.
+ */
+async function findRealSearchableTitle(
+	request: import('@playwright/test').APIRequestContext,
+	baseURL: string
+): Promise<{ word: string; title: string } | null> {
+	const res = await request.get(new URL('/wp-json/wp/v2/posts?per_page=5', baseURL).href);
+	if (!res.ok()) return null;
+
+	const posts: Array<{ title?: { rendered?: string } }> = await res.json();
+	for (const post of posts) {
+		const rendered = post.title?.rendered;
+		if (!rendered) continue;
+
+		// Strip tags and skip words containing HTML-entity artifacts (&, ;, #) —
+		// keeps the chosen search term free of encoding edge cases.
+		const plainText = rendered.replace(/<[^>]*>/g, '');
+		const word = plainText
+			.split(/\s+/)
+			.find((candidate) => candidate.length >= 6 && /^[A-Za-z]+$/.test(candidate));
+
+		if (word) return { word, title: plainText.trim() };
+	}
+	return null;
+}
 
 test.describe('Special routes', () => {
 	test('search renders without error', async ({ page, request }, testInfo) => {
@@ -36,15 +64,22 @@ test.describe('Special routes', () => {
 		await expectNoHorizontalOverflow(page, 375);
 	});
 
-	test('search for a known term returns the expected result', async ({ page }) => {
-		const url = new URL(
-			`/?s=${encodeURIComponent(KNOWN_SEARCH_TERM)}`,
-			process.env.BASE_URL!
-		).href;
+	test('search for a real, discovered term returns a matching result', async ({ page, request }) => {
+		const baseURL = process.env.BASE_URL!;
+		const found = await findRealSearchableTitle(request, baseURL);
+		if (!found) {
+			test.skip(true, 'No published posts with a suitable searchable word were found.');
+			return;
+		}
+
+		const url = new URL(`/?s=${encodeURIComponent(found.word)}`, baseURL).href;
 		await page.goto(url);
 
+		// The chosen word isn't guaranteed unique across posts — .first() is
+		// intentional here; the goal is confirming search surfaces a real,
+		// relevant result, not exclusivity of the match.
 		await expect(
-			page.locator('.wp-block-post-title', { hasText: KNOWN_SEARCH_RESULT_TITLE })
+			page.locator('.wp-block-post-title', { hasText: found.word }).first()
 		).toBeVisible();
 	});
 

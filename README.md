@@ -201,18 +201,25 @@ Requires a `.env` file in the theme root (gitignored) with at least:
 BASE_URL=<the site to test against>
 ```
 
+First-time setup also needs Playwright's browser binaries (not installed by `npm install` alone):
+
+```bash
+npx playwright install
+```
+
 | Command | Runs |
 | --- | --- |
 | `npx playwright test` | Everything (feature specs + standing suite) |
 | `npx playwright test tests/specs/standing` | Only the standing regression suite |
-| `npx playwright test tests/specs/work-archive.spec.ts` | A single feature spec |
+| `npx playwright test tests/specs/header-search.spec.ts` | A single feature spec |
 
-**Feature specs** (`tests/specs/work-archive.spec.ts`, `tests/specs/work-single.spec.ts`) test specific templates/patterns and use the generic assertion helpers in `tests/helpers/assertions.ts`.
+**Feature specs** (`header-search.spec.ts`, `navigation.spec.ts`, `keyboard-navigation.spec.ts`, `reduced-motion.spec.ts`) test reusable, site-wide components and behaviors — not one specific page/template — and use the generic assertion helpers in `tests/helpers/assertions.ts` where applicable.
 
 **Standing suite** (`tests/specs/standing/`) is content-agnostic — it discovers every reachable page on `BASE_URL` (via sitemap, REST, or crawl fallback) and runs a fixed set of checks against all of them: page health/PHP errors, console/runtime errors, broken same-origin resources, accessibility (axe), internal link integrity, horizontal overflow at common widths, image alt attributes, and the search/404 routes. It requires no per-template setup — new pages are covered automatically.
 
 - The number of URLs actually tested is currently throttled by `MAX_TEST_URLS` in `tests/fixtures/site.ts` while the suite is being verified — raise this before relying on it for full site coverage.
 - Failures in the standing suite are automatically logged as BugHerd tasks (deduplicated, so re-running doesn't create duplicates). This requires `BUGHERD_API_KEY` and `BUGHERD_PROJECT_ID` in `.env`. Feature specs never create BugHerd tasks.
+- Each created task is attributed to whoever ran the suite, via your local `git config user.email` — so your name/email will show up as the reporter on any task your run creates.
 - No CI wiring — run manually, after `develop` has been merged and the target site has redeployed.
 
 ---

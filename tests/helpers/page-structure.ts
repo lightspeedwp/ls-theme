@@ -17,20 +17,23 @@ export async function expectSensibleHeadingHierarchy(page: Page): Promise<void> 
 		.locator('h1, h2, h3, h4, h5, h6')
 		.evaluateAll((headings) => headings.map((h) => Number(h.tagName[1])));
 
-	let maxLevelSeen = 0;
+	let previousLevel = 0;
 	for (const level of levels) {
-		// The first heading on the page may reasonably start at any level (e.g. h2 if the page
-		// title itself isn't rendered as a heading) — only flag a skip relative to the deepest
-		// level already seen, once there's a prior heading to compare against.
-		if (maxLevelSeen > 0) {
+		// Compare against the immediately PRECEDING heading, not the deepest
+		// ever seen on the page — a global-template-part heading (e.g. an h4/h5
+		// in the header's mega-menu) would otherwise permanently raise the
+		// "deepest so far" ceiling and silently disable this check for every
+		// heading in the actual main content that follows it. Going shallower
+		// is always fine; going deeper is only fine by one level at a time.
+		if (previousLevel > 0 && level > previousLevel) {
 			expect
 				.soft(
 					level,
-					`Heading level jumped to h${level} on ${page.url()} without an intermediate ` +
-						`h${maxLevelSeen + 1} (deepest so far: h${maxLevelSeen})`
+					`Heading level jumped from h${previousLevel} to h${level} on ${page.url()} ` +
+						`without an intermediate h${previousLevel + 1}`
 				)
-				.toBeLessThanOrEqual(maxLevelSeen + 1);
+				.toBeLessThanOrEqual(previousLevel + 1);
 		}
-		maxLevelSeen = Math.max(maxLevelSeen, level);
+		previousLevel = level;
 	}
 }

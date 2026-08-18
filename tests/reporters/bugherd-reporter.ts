@@ -10,7 +10,7 @@ import {
 import { getLocalReporterEmail } from '../helpers/reporter-identity';
 
 // Only tests under this directory can ever create a BugHerd task. Anything
-// outside it (e.g. work-archive.spec.ts, work-single.spec.ts) is ignored
+// outside it (e.g. header-search.spec.ts, navigation.spec.ts) is ignored
 // completely, even on failure.
 const STANDING_SPECS_DIR = path.join('tests', 'specs', 'standing');
 
@@ -19,8 +19,19 @@ function isStandingSpec(test: TestCase): boolean {
 	return relativePath.startsWith(STANDING_SPECS_DIR + path.sep);
 }
 
+/**
+ * path.relative() returns backslashes on Windows and forward slashes on
+ * macOS/Linux — normalize before hashing so the same failure produces the
+ * same external_id (and dedupes correctly) regardless of which OS ran it.
+ */
+function toPosixPath(p: string): string {
+	return p.split(path.sep).join('/');
+}
+
 function stableExternalId(specRelativePath: string, signature: string): string {
-	const hash = createHash('sha256').update(`${specRelativePath}::${signature}`).digest('hex');
+	const hash = createHash('sha256')
+		.update(`${toPosixPath(specRelativePath)}::${signature}`)
+		.digest('hex');
 	return `playwright-standing-${hash.slice(0, 16)}`;
 }
 

@@ -4,9 +4,10 @@ import { test, expect } from '@playwright/test';
  * Generic keyboard-only focus-journey check: tabbing through the page should never land on a
  * hidden/invisible element (e.g. the collapsed header search input, which carries tabindex="-1"
  * for exactly this reason) and should never lose focus into the void (document.activeElement
- * falling back to <body>).
+ * falling back to <body>) before every focusable element has actually been reached.
  */
-const TAB_STEPS = 40;
+const FOCUSABLE_SELECTOR =
+	'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 test.describe('Keyboard focus journey', () => {
 	test('tabbing forward through the homepage never lands on a hidden element', async ({
@@ -15,7 +16,13 @@ test.describe('Keyboard focus journey', () => {
 		await page.goto('/');
 		await page.locator('body').click({ position: { x: 1, y: 1 } });
 
-		for (let i = 0; i < TAB_STEPS; i++) {
+		// Bound the loop by the page's own actual focusable-element count, not a fixed
+		// guess — so landing on <body> before that count is exhausted is unambiguously a
+		// focus-loss bug, not just "we happened to reach the end of a fixed 40 steps."
+		const focusableCount = await page.locator(FOCUSABLE_SELECTOR).count();
+		expect(focusableCount, 'Expected the homepage to have at least one focusable element').toBeGreaterThan(0);
+
+		for (let i = 0; i < focusableCount; i++) {
 			await page.keyboard.press('Tab');
 
 			const activeElementInfo = await page.evaluate(() => {
@@ -33,11 +40,11 @@ test.describe('Keyboard focus journey', () => {
 				return { isBody: false, visible, tag: el.tagName };
 			});
 
-			if (activeElementInfo.isBody) {
-				// Focus fell back to <body> — acceptable only if we've already tabbed past
-				// every focusable element (end of the natural tab order), not mid-journey.
-				continue;
-			}
+			expect(
+				activeElementInfo.isBody,
+				`Tab stop ${i + 1} unexpectedly lost focus to <body> before reaching all ` +
+					`${focusableCount} counted focusable elements — a focus-loss regression, not the end of tab order`
+			).toBe(false);
 
 			expect(
 				activeElementInfo.visible,

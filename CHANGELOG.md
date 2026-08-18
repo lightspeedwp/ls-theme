@@ -112,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the section style contract loader for `styles/sections/*.json` runtime CSS generation.
 - Removed the temporary experimental button variation and its temporary selector path.
 - Removed the temporary CSS/JS light-dark toggle built for the header (`inc/theme-toggle.php`, `assets/js/theme-toggle.js`, `assets/css/theme-toggle.css`, the `generate-theme-toggle` command in `theme-utils.mjs`, and the toggle button markup in `patterns/header.php`). This was a workaround built before discovering the site already has a proper, native light/dark switcher — the `ls-plugin/style-switcher` block registered by the LightSpeed Site Plugin, which reads `styles/*.json` variations directly and needs no theme-side duplicate. The header currently has no light/dark toggle until that block is wired in as follow-up work; fully recoverable from git history if needed sooner (LS-1618).
+- Removed `tests/specs/work-archive.spec.ts`, `tests/specs/work-single.spec.ts`, and `tests/specs/archive-pagination.spec.ts` (LS-2335) — these tested one specific page/template's identity rather than a reusable, generic component or behavior, which doesn't fit this suite's intended shape. Fully recoverable from git history if a page-specific spec is wanted again later. `tests/helpers/assertions.ts` is kept, since `media-integrity.spec.ts` (standing suite) still uses `expectElementCount` from it.
 
 ### Fixed
 

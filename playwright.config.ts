@@ -34,8 +34,8 @@ export default defineConfig({
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	// bugherd-reporter self-filters to tests/specs/standing/ only — content
-	// specs (work-archive.spec.ts etc.) never reach it, even on failure.
+	// bugherd-reporter self-filters to tests/specs/standing/ only — feature
+	// specs (header-search.spec.ts etc.) never reach it, even on failure.
 	reporter: [['html'], ['./tests/reporters/bugherd-reporter.ts']],
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
