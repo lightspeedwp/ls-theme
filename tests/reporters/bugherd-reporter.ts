@@ -2,7 +2,12 @@ import type { FullResult, Reporter, TestCase, TestResult } from '@playwright/tes
 import { createHash } from 'crypto';
 import * as path from 'path';
 import { addComment, createTask, findTaskByExternalId } from '../helpers/bugherd-client';
-import { extractFailureSignature, humanizeSignature } from '../helpers/failure-signature';
+import {
+	determinePriority,
+	extractFailureSignature,
+	humanizeSignature,
+} from '../helpers/failure-signature';
+import { getLocalReporterEmail } from '../helpers/reporter-identity';
 
 // Only tests under this directory can ever create a BugHerd task. Anything
 // outside it (e.g. work-archive.spec.ts, work-single.spec.ts) is ignored
@@ -82,12 +87,15 @@ export default class BugherdReporter implements Reporter {
 		}
 
 		const description = this.buildDescription(test, specRelativePath, signature, messages);
+		const priority = determinePriority(specRelativePath, signature, messages);
+		const requesterEmail = getLocalReporterEmail();
 
 		const created = await createTask({
 			description,
 			external_id: externalId,
 			tag_names: ['playwright', 'standing-suite'],
-			priority: 'normal',
+			priority,
+			...(requesterEmail ? { requester_email: requesterEmail } : {}),
 		});
 
 		if (existing && existing.closed_at) {

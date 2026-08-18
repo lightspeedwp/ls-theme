@@ -19,6 +19,7 @@ export type CreateTaskPayload = {
 	external_id: string;
 	tag_names: string[];
 	priority?: 'critical' | 'important' | 'normal' | 'minor';
+	requester_email?: string;
 };
 
 function getConfig() {

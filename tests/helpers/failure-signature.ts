@@ -68,3 +68,43 @@ export function humanizeSignature(signature: string): string {
 	const firstLine = signature.split('\n')[0].trim();
 	return firstLine || 'Standing suite failure';
 }
+
+export type BugherdPriority = 'critical' | 'important' | 'normal' | 'minor';
+
+/**
+ * Maps a failure to a BugHerd priority. This is a judgment-call heuristic,
+ * not true severity analysis — based on which spec found the issue and,
+ * for accessibility, the axe-reported impact level (which IS a real
+ * severity signal, so it's used directly rather than re-guessed).
+ */
+export function determinePriority(
+	specRelativePath: string,
+	signature: string,
+	messages: string[]
+): BugherdPriority {
+	// site-health: the page itself is broken/unreachable — highest impact.
+	if (specRelativePath.includes('site-health')) {
+		return 'critical';
+	}
+
+	if (signature.startsWith('axe:')) {
+		const hasCritical = messages.some((m) => /"impact":\s*"critical"/.test(m));
+		return hasCritical ? 'important' : 'normal';
+	}
+
+	if (signature.startsWith('broken-link:')) {
+		return 'important';
+	}
+
+	// runtime-errors / network-errors: broken JS/CSS/resources sitewide.
+	if (specRelativePath.includes('runtime-errors') || specRelativePath.includes('network-errors')) {
+		return 'important';
+	}
+
+	// responsive-overflow: usually cosmetic, rarely blocks a user outright.
+	if (signature.startsWith('overflow:')) {
+		return 'normal';
+	}
+
+	return 'normal';
+}
