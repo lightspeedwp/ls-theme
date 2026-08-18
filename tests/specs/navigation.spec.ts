@@ -60,5 +60,6 @@ test.describe('Responsive navigation', () => {
 		await closeButton.click();
 
 		await expect(page.locator('.mobile-menu')).toBeHidden();
+		await expect(page.getByRole('button', { name: /open menu/i })).toBeFocused();
 	});
 });

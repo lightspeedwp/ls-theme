@@ -6,6 +6,15 @@ export type NetworkErrorCollector = {
 	httpErrors: string[];
 };
 
+// Mirrors browser-errors.ts's ALLOWED_ERROR_PATTERNS — known, unavoidable
+// third-party network noise (e.g. a tracking beacon that legitimately 4xxs)
+// shouldn't fail the theme's own network-health check.
+const ALLOWED_URL_PATTERNS = [/bugherd/i];
+
+function isAllowedUrl(url: string): boolean {
+	return ALLOWED_URL_PATTERNS.some((pattern) => pattern.test(url));
+}
+
 /**
  * Installs request/response listeners on `page` and returns a collector of
  * same-origin network failures — both transport-level failures
@@ -18,6 +27,7 @@ export function watchNetworkErrors(page: Page, baseURL: string): NetworkErrorCol
 	const collector: NetworkErrorCollector = { failedRequests: [], httpErrors: [] };
 
 	page.on('requestfailed', (request) => {
+		if (isAllowedUrl(request.url())) return;
 		if (isSameOrigin(request.url(), baseURL)) {
 			collector.failedRequests.push(
 				`${request.url()} (${request.failure()?.errorText ?? 'unknown error'})`
@@ -32,6 +42,7 @@ export function watchNetworkErrors(page: Page, baseURL: string): NetworkErrorCol
 		// page (broken images, scripts, CSS, etc.), not the page's own,
 		// possibly-intentional, status code.
 		if (response.request().isNavigationRequest()) return;
+		if (isAllowedUrl(response.url())) return;
 
 		if (isSameOrigin(response.url(), baseURL) && response.status() >= 400) {
 			collector.httpErrors.push(`${response.url()} (${response.status()})`);

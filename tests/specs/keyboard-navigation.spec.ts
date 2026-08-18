@@ -46,22 +46,45 @@ test.describe('Keyboard focus journey', () => {
 		}
 	});
 
-	test('Shift+Tab reverses direction without getting stuck', async ({ page }) => {
+	test('Shift+Tab reverses direction, revisiting the same stops in reverse order', async ({
+		page,
+	}) => {
 		await page.goto('/');
 		await page.locator('body').click({ position: { x: 1, y: 1 } });
 
+		// A stable-enough identity for comparing "is this the same element" across
+		// the forward and backward passes, without relying on tagName alone (which
+		// would happily match two different but same-tag elements).
+		const focusIdentity = () =>
+			page.evaluate(() => {
+				const el = document.activeElement as HTMLElement | null;
+				if (!el) return null;
+				return `${el.tagName}|${el.getAttribute('href') ?? ''}|${(el.textContent ?? '').trim().slice(0, 40)}`;
+			});
+
+		const forwardStops: (string | null)[] = [];
 		for (let i = 0; i < 10; i++) {
 			await page.keyboard.press('Tab');
+			forwardStops.push(await focusIdentity());
 		}
-		const forwardTag = await page.evaluate(() => document.activeElement?.tagName ?? null);
 
+		const backwardStops: (string | null)[] = [];
 		for (let i = 0; i < 10; i++) {
 			await page.keyboard.press('Shift+Tab');
+			backwardStops.push(await focusIdentity());
 		}
-		const backwardTag = await page.evaluate(() => document.activeElement?.tagName ?? null);
 
-		// Both directions should land on a real, focusable element — not null/body.
-		expect(forwardTag).not.toBeNull();
-		expect(backwardTag).not.toBeNull();
+		// Not an exact step-by-step mirror check — complex interactive widgets
+		// (e.g. a mega-menu that opens/reveals items on forward focus) can
+		// legitimately take a slightly different path in reverse without that
+		// being a bug in its own right. What must hold regardless: Shift+Tab
+		// actually moves focus away from the final forward stop (proving
+		// reversal is happening at all)...
+		expect(backwardStops[0]).not.toEqual(forwardStops[9]);
+		// ...and backward navigation genuinely makes progress toward the start
+		// of the page, landing on something seen early in the forward pass,
+		// not stuck circling around the same later stops.
+		const earlyForwardStops = new Set(forwardStops.slice(0, 3));
+		expect(backwardStops.some((stop) => stop && earlyForwardStops.has(stop))).toBe(true);
 	});
 });

@@ -7,9 +7,16 @@ test.describe('Runtime errors', () => {
 		page,
 		siteUrls,
 	}) => {
+		// Installed once, outside the loop — one call per URL would stack a
+		// fresh page.on() handler each iteration without ever removing the
+		// previous one.
+		const errors = watchBrowserErrors(page);
+
 		for (const { url } of siteUrls) {
 			await test.step(url, async () => {
-				const errors = watchBrowserErrors(page);
+				errors.consoleErrors.length = 0;
+				errors.pageErrors.length = 0;
+
 				await page.goto(url);
 
 				expect.soft(errors.consoleErrors, `Console errors on ${url}`).toEqual([]);

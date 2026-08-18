@@ -100,7 +100,7 @@ async function discoverFromSitemap(baseURL: string): Promise<string[]> {
  * or empty. Introspects registered types via /wp/v2/types, then paginates
  * each type's collection endpoint, reading each item's front-end `link`.
  */
-async function discoverFromRest(baseURL: string): Promise<string[]> {
+async function discoverFromRest(baseURL: string, crawlBudget: number): Promise<string[]> {
 	const typesUrl = new URL('/wp-json/wp/v2/types', baseURL).href;
 	const typesJson = await fetchText(typesUrl);
 	if (!typesJson) return [];
@@ -120,8 +120,11 @@ async function discoverFromRest(baseURL: string): Promise<string[]> {
 		let page = 1;
 		// A handful of pages per type is enough for the REST fallback; the
 		// sitemap path is the primary discovery mechanism for large corpora.
+		// Also bounded by the overall crawlBudget (with headroom) below, so a
+		// single large post type can't blow past the budget on its own before
+		// discoverSiteUrls even gets to compare the combined total.
 		const maxPagesPerType = 10;
-		while (page <= maxPagesPerType) {
+		while (page <= maxPagesPerType && urls.length < crawlBudget * 1.5) {
 			const collectionUrl = new URL(
 				`/wp-json/wp/v2/${restBase}?per_page=100&page=${page}`,
 				baseURL
@@ -205,7 +208,7 @@ export async function discoverSiteUrls(
 
 	if (rawUrls.length === 0) {
 		source = 'rest';
-		rawUrls = await discoverFromRest(baseURL);
+		rawUrls = await discoverFromRest(baseURL, crawlBudget);
 	}
 
 	if (rawUrls.length === 0) {

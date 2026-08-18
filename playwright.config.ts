@@ -15,12 +15,6 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-if (!process.env.BASE_URL) {
-	throw new Error(
-		'BASE_URL is not set. Create a .env file in the theme root with BASE_URL=<your local site URL>.'
-	);
-}
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -28,6 +22,9 @@ export default defineConfig({
 	// Deviation from the installer default ('./tests'): this repo's tests
 	// live under tests/specs (established in LS-2244, before this ticket).
 	testDir: './tests/specs',
+	// Validates BASE_URL only when tests actually run, not when the config is
+	// merely loaded (e.g. `--list`, IDE test discovery) — see tests/global-setup.ts.
+	globalSetup: './tests/global-setup.ts',
 	/* Run tests in files in parallel */
 	fullyParallel: true,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
