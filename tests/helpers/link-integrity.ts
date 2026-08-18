@@ -25,3 +25,16 @@ export async function checkUrlStatus(request: APIRequestContext, url: string): P
 	const response = await request.get(url);
 	expect.soft(response.status(), `Expected ${url} to resolve healthily`).toBeLessThan(400);
 }
+
+/**
+ * Returns every bare `href="#"` placeholder link on the current page — a real, clickable-looking
+ * anchor that goes nowhere. Distinct from extractInternalLinks(), which deliberately ignores these
+ * (they can't be "resolved") — this instead flags them as a content/implementation defect in
+ * their own right: a production link should point somewhere real, or the element shouldn't be an
+ * `<a>` at all (e.g. a JS-driven toggle should be a <button>).
+ */
+export async function findPlaceholderLinks(page: Page): Promise<string[]> {
+	return page.locator('a[href="#"]').evaluateAll((links) =>
+		links.map((link) => link.textContent?.trim() || '(no visible text)')
+	);
+}

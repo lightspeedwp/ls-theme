@@ -12,6 +12,11 @@ import { expect } from '@playwright/test';
 const SEARCH_URL = '/?s=__playwright_no_match_sentinel__';
 const MISSING_URL = '/this-path-is-guaranteed-not-to-exist-8f3c1a7e';
 
+// A real search term with exactly one confirmed match, verified live on the
+// dev site before writing this spec — see LS-2335.
+const KNOWN_SEARCH_TERM = 'Recap of webinar with BugHerd';
+const KNOWN_SEARCH_RESULT_TITLE = 'From Design to Launch: Recap of webinar with BugHerd and LightSpeed';
+
 test.describe('Special routes', () => {
 	test('search renders without error', async ({ page, request }, testInfo) => {
 		const baseURL = process.env.BASE_URL!;
@@ -29,6 +34,25 @@ test.describe('Special routes', () => {
 		await expectNoSeriousAccessibilityViolations(page, testInfo);
 		await page.setViewportSize({ width: 375, height: 900 });
 		await expectNoHorizontalOverflow(page, 375);
+	});
+
+	test('search for a known term returns the expected result', async ({ page }) => {
+		const url = new URL(
+			`/?s=${encodeURIComponent(KNOWN_SEARCH_TERM)}`,
+			process.env.BASE_URL!
+		).href;
+		await page.goto(url);
+
+		await expect(
+			page.locator('.wp-block-post-title', { hasText: KNOWN_SEARCH_RESULT_TITLE })
+		).toBeVisible();
+	});
+
+	test('search for an unmatched term shows the no-results message', async ({ page }) => {
+		const url = new URL(SEARCH_URL, process.env.BASE_URL!).href;
+		await page.goto(url);
+
+		await expect(page.getByText('No results found for your search.')).toBeVisible();
 	});
 
 	test('a missing page renders the 404 template correctly', async ({ page }, testInfo) => {

@@ -1,5 +1,6 @@
+import { expect } from '@playwright/test';
 import { test } from '../../fixtures/site';
-import { checkUrlStatus, extractInternalLinks } from '../../helpers/link-integrity';
+import { checkUrlStatus, extractInternalLinks, findPlaceholderLinks } from '../../helpers/link-integrity';
 import { dedupeUrls } from '../../helpers/url-utils';
 
 test.describe('Internal link integrity', () => {
@@ -37,6 +38,21 @@ test.describe('Internal link integrity', () => {
 					})
 				)
 			);
+		}
+	});
+
+	test('no discovered page has bare href="#" placeholder links', async ({ page, siteUrls }) => {
+		for (const { url } of siteUrls) {
+			await test.step(url, async () => {
+				await page.goto(url);
+				const placeholders = await findPlaceholderLinks(page);
+				expect
+					.soft(
+						placeholders,
+						`Found ${placeholders.length} placeholder href="#" link(s) on ${url}`
+					)
+					.toEqual([]);
+			});
 		}
 	});
 });

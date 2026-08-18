@@ -35,6 +35,13 @@ export function extractFailureSignature(message: string): string {
 		return `overflow:${firstOffender || 'unspecified'}`;
 	}
 
+	// internal-links: placeholder href="#" links are a single class of
+	// content defect (shared header/nav markup, not a per-page bug) — group
+	// every page's occurrences into one task rather than one per page.
+	if (/placeholder href="#" link/.test(message)) {
+		return 'placeholder-links';
+	}
+
 	// Fallback (page-health, runtime-errors, network-errors): these
 	// messages are shaped "<check> on <page-url>\n<actual diff content>".
 	// Strip the page-URL wrapper so the same underlying diff (e.g. the same
@@ -61,6 +68,9 @@ export function humanizeSignature(signature: string): string {
 	}
 	if (signature.startsWith('overflow:')) {
 		return `Horizontal overflow: ${signature.slice('overflow:'.length)}`;
+	}
+	if (signature === 'placeholder-links') {
+		return 'Placeholder href="#" links found (real destinations needed)';
 	}
 	// Fallback signatures are already the stripped diff content — take the
 	// first line as the label, since it's usually the specific broken
@@ -92,7 +102,7 @@ export function determinePriority(
 		return hasCritical ? 'important' : 'normal';
 	}
 
-	if (signature.startsWith('broken-link:')) {
+	if (signature.startsWith('broken-link:') || signature === 'placeholder-links') {
 		return 'important';
 	}
 
