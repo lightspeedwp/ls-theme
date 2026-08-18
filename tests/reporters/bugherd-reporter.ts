@@ -42,6 +42,12 @@ function groupErrorsBySignature(result: TestResult): Map<string, string[]> {
 
 export default class BugherdReporter implements Reporter {
 	private pending: Promise<void>[] = [];
+	// Serializes find-then-create per external_id. Without this, two tests
+	// with the same failure signature running in different Playwright
+	// workers can both see "no existing task" at the same moment and both
+	// create one — this chains same-key calls so the second always sees the
+	// first's result before deciding whether to create.
+	private locksByExternalId = new Map<string, Promise<void>>();
 
 	onTestEnd(test: TestCase, result: TestResult): void {
 		if (!isStandingSpec(test)) return;
@@ -79,6 +85,33 @@ export default class BugherdReporter implements Reporter {
 		messages: string[]
 	): Promise<void> {
 		const externalId = stableExternalId(specRelativePath, signature);
+
+		// Chain onto any in-flight report for this same external_id so the
+		// find-then-create sequence below never overlaps with itself.
+		const previous = this.locksByExternalId.get(externalId) ?? Promise.resolve();
+		const next = previous.then(() =>
+			this.reportSignatureLocked(test, specRelativePath, externalId, signature, messages)
+		);
+		// Swallow errors here so one failed report doesn't permanently wedge
+		// the lock chain for that key — the real error is still logged by
+		// reportTest's own try/catch around this call.
+		this.locksByExternalId.set(
+			externalId,
+			next.then(
+				() => undefined,
+				() => undefined
+			)
+		);
+		return next;
+	}
+
+	private async reportSignatureLocked(
+		test: TestCase,
+		specRelativePath: string,
+		externalId: string,
+		signature: string,
+		messages: string[]
+	): Promise<void> {
 		const existing = await findTaskByExternalId(externalId);
 
 		if (existing && !existing.closed_at) {

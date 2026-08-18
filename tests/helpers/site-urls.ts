@@ -168,9 +168,16 @@ async function discoverFromCrawl(baseURL: string, maxPages: number): Promise<str
 		const html = await fetchText(normalized);
 		if (!html) continue;
 
-		const hrefMatches = [...html.matchAll(/href=["']([^"']+)["']/gi)];
+		// Only <a href> — not every href in the document (e.g. <link
+		// rel="stylesheet">) — since those aren't navigable pages.
+		const hrefMatches = [...html.matchAll(/<a\s[^>]*href=["']([^"']+)["']/gi)];
 		for (const match of hrefMatches) {
-			const candidate = normalizeUrl(match[1], baseURL);
+			// Resolve against the page the link was found on, not the site
+			// root, so a relative link like "child" on /work/archive/
+			// resolves to /work/archive/child rather than /child.
+			// normalizeUrl already same-origin-filters against `normalized`,
+			// which shares an origin with baseURL, so no separate check needed.
+			const candidate = normalizeUrl(match[1], normalized);
 			if (candidate && !seen.has(candidate) && !isCrawlExcluded(candidate)) {
 				queue.push(candidate);
 			}

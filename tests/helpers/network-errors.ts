@@ -26,6 +26,13 @@ export function watchNetworkErrors(page: Page, baseURL: string): NetworkErrorCol
 	});
 
 	page.on('response', (response) => {
+		// Skip the main navigation response itself — a route can legitimately
+		// be expected to return a non-2xx status (e.g. the 404 template in
+		// special-routes.spec.ts). This only flags *sub-resources* on the
+		// page (broken images, scripts, CSS, etc.), not the page's own,
+		// possibly-intentional, status code.
+		if (response.request().isNavigationRequest()) return;
+
 		if (isSameOrigin(response.url(), baseURL) && response.status() >= 400) {
 			collector.httpErrors.push(`${response.url()} (${response.status()})`);
 		}

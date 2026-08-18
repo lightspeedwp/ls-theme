@@ -16,7 +16,12 @@ export async function expectNoHorizontalOverflow(page: Page, viewportWidth: numb
 
 	if (scrollWidth <= clientWidth + 1) return;
 
-	const offenders: Offender[] = await page.evaluate((viewport) => {
+	// Measure clientWidth directly rather than trusting the requested
+	// viewportWidth — a browser that reserves scrollbar width can make the
+	// two differ, which would otherwise make a real overflow report zero
+	// offenders.
+	const offenders: Offender[] = await page.evaluate(() => {
+		const viewport = document.documentElement.clientWidth;
 		const results: Offender[] = [];
 		document.querySelectorAll('body *').forEach((el) => {
 			const rect = el.getBoundingClientRect();
@@ -31,7 +36,7 @@ export async function expectNoHorizontalOverflow(page: Page, viewportWidth: numb
 			}
 		});
 		return results.slice(0, 10);
-	}, viewportWidth);
+	});
 
 	const summary = offenders
 		.map((o) => `${o.selector} right edge = ${o.rightEdge}px`)
