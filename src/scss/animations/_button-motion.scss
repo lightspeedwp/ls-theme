@@ -1,6 +1,6 @@
 @use "icons";
 
-/********** Button Motion **********/
+/********** Button Motion (global) **********/
 
 /* Shared button motion primitives */
 .wp-element-button,
@@ -40,12 +40,20 @@
  * and the default-fill / outline custom-property "recipes" all live in
  * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
  * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
- * stays here.
+ * stays here. Fill and Outline are WP-core's own built-in button styles, usable on any button
+ * anywhere on the site — genuinely global infrastructure, not tied to any one page or pattern.
+ *
+ * The default-fill selector's `:not([class*="is-style-"])` exclusion only catches registered
+ * is-style variants. LS-2341 Group 5 folded `glass-button`/`button-cta-gradient` from is-styles
+ * into plain classes (`.ls-glass-button`/`.ls-button-cta-gradient`), which stopped matching that
+ * exclusion and started picking up the default fill button's own arrow-icon `::after` on top of
+ * their own content — explicit `:not(.ls-glass-button):not(.ls-button-cta-gradient)` restores the
+ * exclusion for both.
  */
 
 /* Fill button motion */
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link {
   --ls-button-fill-icon-well-size: 3rem;
@@ -67,7 +75,7 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link::before {
   content: "";
@@ -93,7 +101,7 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link::after {
   content: icons.$ls-icon-arrow-right;
@@ -113,22 +121,22 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover,
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover::before {
   transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover::before,
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:focus-visible::before {
   inset-block: var(--ls-button-fill-icon-block-inset);
@@ -138,11 +146,11 @@
 }
 
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:hover,
 :is(
-  .wp-block-button:not([class*="is-style-"]),
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
   .wp-block-button.is-style-fill
 ) .wp-block-button__link:focus-visible {
   color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
@@ -205,254 +213,10 @@
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
-/* Button - Secondary */
-.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
-  background-color: var(--wp--custom--color--button--fill--background-hover);
-  border-color: var(--wp--custom--color--button--fill--border-hover);
-  color: var(--wp--custom--color--button--fill--text-hover);
-}
-
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
-  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
-   * the border matches the solid fill it's transitioning to, same as the filled variant's border
-   * matching its own background-hover above. */
-  background-color: var(--wp--custom--color--button--outline--background-hover);
-  border-color: var(--wp--custom--color--button--outline--background-hover);
-  color: var(--wp--custom--color--button--outline--text-hover);
-}
-
 /*
- * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
- * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
- * live in the JSON file's css field now. backdrop-filter's @supports block lives in
- * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
- * hover/focus states + the lift transform.
+ * Button - Secondary: not sitewide-exclusive — also used as a normal CTA button on
+ * patterns/sections/work-discuss-project.php, not just the mobile menu — so per architecture
+ * review it doesn't belong in the global animations bundle at all. Its rest-of-shared-button
+ * transition above still applies (that's genuinely universal); the hover colour swap itself
+ * lives in src/scss/structural/button-secondary.scss, its own standalone bundle.
  */
-.wp-block-button.is-style-glass-button .wp-block-button__link {
-  transition:
-    background-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    box-shadow var(--wp--custom--animation--duration--medium)
-      var(--wp--custom--animation--easing--standard),
-    color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    outline-color var(--wp--custom--animation--duration--focus)
-      var(--wp--custom--animation--easing--standard),
-    outline-offset var(--wp--custom--animation--duration--focus)
-      var(--wp--custom--animation--easing--standard),
-    transform var(--wp--custom--animation--duration--medium)
-      var(--wp--custom--animation--easing--emphasised);
-  transition-delay: var(--wp--custom--animation--delay--none);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
-
-  &:hover,
-  &:focus-visible {
-    background: var(--ls-glass-button-background-hover);
-    border-color: var(--ls-glass-button-border-hover);
-    box-shadow: var(--ls-glass-button-shadow-hover);
-    color: var(--ls-glass-button-text-hover);
-    transform: translateY(var(--ls-glass-button-lift));
-  }
-
-  &:focus-visible {
-    outline-color: var(--ls-glass-button-focus-colour);
-    outline-offset: var(--ls-glass-button-focus-offset);
-  }
-}
-
-/* Button Glow Accent */
-.wp-block-button.is-style-button-glow-accent {
-  --ls-button-glow-colour: var(--wp--custom--color--button--outline--border);
-  --ls-button-glow-hover-background: var(--wp--custom--color--button--outline--background-hover);
-  --ls-button-glow-hover-text: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-glow-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-glow-outline-width: 1px;
-  --ls-button-glow-outline-offset: 12px;
-  --ls-button-glow-resting-strength: 0%;
-  --ls-button-glow-outline-strength: 45%;
-  --ls-button-glow-inner-strength: 35%;
-  --ls-button-glow-outer-strength: 20%;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link {
-  transition:
-    box-shadow var(--wp--custom--animation--duration--dramatic)
-      var(--wp--custom--animation--easing--dramatic),
-    outline-color var(--wp--custom--animation--duration--dramatic)
-      var(--wp--custom--animation--easing--dramatic),
-    outline-offset var(--wp--custom--animation--duration--dramatic)
-      var(--wp--custom--animation--easing--dramatic),
-    transform var(--wp--custom--animation--duration--fast)
-      var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-  box-shadow: inset 0 0 20px
-    color-mix(
-      in srgb,
-      var(--ls-button-glow-colour) var(--ls-button-glow-resting-strength),
-      transparent
-    );
-  outline: var(--ls-button-glow-outline-width) solid
-    color-mix(
-      in srgb,
-      var(--ls-button-glow-colour) var(--ls-button-glow-outline-strength),
-      transparent
-    );
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-  transition-delay: var(--ls-button-glow-enter-delay);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
-.wp-block-button.is-style-button-glow-accent
-  .wp-block-button__link:focus-visible {
-  background-color: var(--ls-button-glow-hover-background);
-  color: var(--ls-button-glow-hover-text);
-  box-shadow:
-    inset 0 0 20px
-      color-mix(
-        in srgb,
-        var(--ls-button-glow-colour) var(--ls-button-glow-inner-strength),
-        transparent
-      ),
-    0 0 20px
-      color-mix(
-        in srgb,
-        var(--ls-button-glow-colour) var(--ls-button-glow-outer-strength),
-        transparent
-      );
-  outline-color: transparent;
-  outline-offset: var(--ls-button-glow-outline-offset);
-}
-
-/*
- * Button Arrow Compact (styles/blocks/buttons/button-arrow-compact.json): rest-state size/shape,
- * the recipe custom properties, and the arrow glyph's non-hover appearance all live in the JSON
- * file's css field now. `content:` must stay here — it references a Sass icon variable, which JSON
- * can't resolve — so the ::after rule below carries only content + transition + hover overrides.
- */
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  transition:
-    background-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard),
-    box-shadow var(--wp--custom--animation--duration--medium)
-      var(--wp--custom--animation--easing--standard);
-
-  &::after {
-    content: icons.$ls-icon-arrow-right;
-    transition:
-      transform var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--emphasised),
-      color var(--wp--custom--animation--duration--base)
-        var(--wp--custom--animation--easing--standard);
-  }
-
-  &:hover,
-  &:focus-visible,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within & {
-    background: var(--ls-button-arrow-compact-background-active);
-    border-color: var(--ls-button-arrow-compact-border-active);
-  }
-
-  &:hover::after,
-  &:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover &::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within &::after {
-    color: var(--ls-button-arrow-compact-colour-active);
-  }
-}
-
-/*
- * CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark tokens so the fill
- * button's rest and hover states stay readable regardless of the site's light/dark style
- * variation. Was briefly moved to inline style attributes during Phase 3, reverted after code
- * review confirmed that breaks block validation — core/button's save() only regenerates a style
- * attribute from registered block attributes (color/border/spacing tokens), never from arbitrary
- * custom properties, so the stored markup wouldn't match what save() reproduces on the next
- * editor open.
- */
-.ls-cta-band__button .wp-block-button__link,
-.ls-cta-inline__button .wp-block-button__link,
-.ls-cta-reassurance__button .wp-block-button__link {
-  color: var(--wp--custom--color--text--on-dark);
-  --ls-button-fill-background: var(--wp--custom--color--surface--on-dark-card);
-  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
-  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
-}
-
-/* CTA band: the secondary link's arrow colours aren't part of the group's
-   saved block attributes, so they're defined here instead of as an inline
-   style on the wrapper (which would be dropped on save). */
-.ls-cta-band__actions {
-  --ls-link-arrow-colour: var(--wp--custom--color--text--on-dark);
-  --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
-}
-
-/*
- * CTA strip: the arrow sits next to the glass button rather than nested in its rich text, so it
- * needs its own hover contract tied to the shared wrapper. The wrapper's position/display were
- * also briefly inlined during Phase 3 — reverted for the same block-validation reason as above
- * (core/group's save() doesn't regenerate arbitrary style properties either).
- */
-.ls-cta-strip__cta-wrap {
-  position: relative;
-  display: inline-flex;
-}
-
-.ls-cta-strip__button-arrow {
-  transition:
-    transform var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--emphasised),
-    color var(--wp--custom--animation--duration--base)
-      var(--wp--custom--animation--easing--standard);
-}
-
-.ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
-.ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
-  color: var(--wp--custom--color--text--brand);
-  transform: translateX(0.25em);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-    transition: none;
-  }
-
-  .wp-block-button.is-style-glass-button .wp-block-button__link:hover,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:active {
-    transform: none;
-  }
-
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover
-    .wp-block-button.is-style-button-arrow-compact
-    .wp-block-button__link::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within
-    .wp-block-button.is-style-button-arrow-compact
-    .wp-block-button__link::after {
-    transform: none;
-  }
-
-  .ls-cta-strip__button-arrow {
-    transition: none;
-  }
-
-  .ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
-  .ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
-    transform: none;
-  }
-}

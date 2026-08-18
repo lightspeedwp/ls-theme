@@ -1,3 +1,90 @@
+/********** Footer Structural Overrides **********/
+/*
+ * Footer nav link (.ls-footer-nav-link, folded in from
+ * styles/blocks/paragraphs/footer-nav-link.json — LS-2341). Rest-state colour/spacing/
+ * textDecoration are inline block attributes on the paragraph; the nested `a`'s static decoration
+ * setup (line/colour/offset, colour:inherit) has no block-supports equivalent for a descendant
+ * selector, so it lives here. The transition (timing) lives in _footer-motion.scss; the hover
+ * colour swap lives here below, alongside the rest-state it modifies.
+ */
+.ls-footer-nav-link a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.ls-footer-nav-link a:hover,
+.ls-footer-nav-link a:focus-visible {
+  color: var(--wp--custom--color--phase--create);
+  text-decoration-color: var(--wp--custom--color--phase--create);
+}
+
+/*
+ * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
+ * hover colour swap. Not a motion property — the shared transition (timing) stays in
+ * _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
+ * background-color/border-color are serialized as an inline style="" attribute (from folding an
+ * is-style into block-supports attrs), and inline styles always beat stylesheet rules regardless
+ * of specificity.
+ */
+.ls-footer-proof-card:hover,
+.ls-footer-proof-card:focus-within,
+.ls-footer-social-icon:hover,
+.ls-footer-social-icon:focus-within {
+  background-color: var(--wp--custom--color--surface--card-raised) !important;
+  border-color: var(--wp--custom--color--phase--create) !important;
+}
+
+/*
+ * Social icon circle (.ls-footer-social-icon): min-inline-size has no block-supports equivalent —
+ * core/group's dimensions support only offers minHeight, not a width counterpart — so without this
+ * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
+ */
+.ls-footer-social-icon {
+  min-inline-size: 44px;
+}
+
+/********** Button Structural Overrides (global) **********/
+/*
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php — genuinely global, the header loads on every page). Hover
+ * box-shadow swap — not a motion property, per AGENTS.md. The transition and the transform-bearing
+ * hover rule live in _header-motion.scss.
+ */
+.ls-button-cta-gradient .wp-block-button__link:hover,
+.ls-button-cta-gradient .wp-block-button__link:focus-visible {
+  box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
+}
+
+/********** Mobile Menu Structural Overrides **********/
+/*
+ * JSON limitation: the responsive-container-close button is entirely WP core-generated markup
+ * (wp-includes/blocks/navigation) with no className we control and no registrable block-style
+ * slug, so none of this can move to a styles/** JSON partial. Structural chrome only — position,
+ * sizing, border, and background are not motion properties, per AGENTS.md. Its hover/transition
+ * contract lives in _shared-hover.scss, shared byte-for-byte with the header search button and
+ * both footer icon-shell styles.
+ */
+.site-header .wp-block-navigation__responsive-container-close {
+  position: absolute;
+  top: var(--wp--preset--spacing--20);
+  right: var(--wp--preset--spacing--20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: var(--wp--preset--spacing--10);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--500);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
+}
+.site-header .wp-block-navigation__responsive-container-close svg {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
 /********** Shared Keyframes **********/
 @keyframes ls-accent-gradient-shift {
   to {
@@ -15,27 +102,29 @@
  * with no registrable block-style slug at all — both are genuine JSON limitations, not a styling
  * preference.
  *
- * The two groups below share identical transition + hover declarations but keep their original,
- * different focus pseudo-class: the header search button and mobile-menu close button used
- * :focus-visible (plain buttons — keyboard-only focus indication), footer proof-card/social-icon
- * used :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation
- * would silently change which interactions trigger the raise, so they stay split.
+ * The two groups share an identical transition (the timing) but keep their original, different
+ * focus pseudo-class: the header search button and mobile-menu close button use :focus-visible
+ * (plain buttons — keyboard-only focus indication), footer proof-card/social-icon use
+ * :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation would
+ * silently change which interactions trigger the raise, so they stay split.
+ *
+ * The actual background-color/border-color hover swap for .ls-footer-proof-card/
+ * .ls-footer-social-icon lives in src/scss/structural/_footer.scss, not here — per AGENTS.md this
+ * file may only contain @keyframes/transition/transform/animation/will-change. The header search
+ * button/mobile-menu close button's own swap has no block-supports-attrs consumer competing with
+ * it, so it stays here as the one exception genuinely tied to this shared transition contract.
  */
 .site-header__search .wp-block-search__button,
 .site-header .wp-block-navigation__responsive-container-close,
-.is-style-footer-proof-card,
-.is-style-footer-social-icon {
+.ls-footer-proof-card,
+.ls-footer-social-icon {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 
 .site-header__search .wp-block-search__button:hover,
 .site-header__search .wp-block-search__button:focus-visible,
 .site-header .wp-block-navigation__responsive-container-close:hover,
-.site-header .wp-block-navigation__responsive-container-close:focus-visible,
-.is-style-footer-proof-card:hover,
-.is-style-footer-proof-card:focus-within,
-.is-style-footer-social-icon:hover,
-.is-style-footer-social-icon:focus-within {
+.site-header .wp-block-navigation__responsive-container-close:focus-visible {
   background-color: var(--wp--custom--color--surface--card-raised);
   border-color: var(--wp--custom--color--phase--create);
 }
@@ -62,149 +151,16 @@
   background-color: var(--wp--custom--color--surface--card-raised);
 }
 
-/*
- * Frosted-glass blur (Glass Button, Glass Card): identical @supports-gated backdrop-filter pair,
- * confirmed empirically (2026-08-11) that @supports is silently stripped from the styles/**.json
- * css field, same bug as @media — so this stays real CSS for both consumers.
- */
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link,
-  .is-style-glass-card {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .site-header__search .wp-block-search__button,
   .site-header .wp-block-navigation__responsive-container-close,
-  .is-style-footer-proof-card,
-  .is-style-footer-social-icon,
+  .ls-footer-proof-card,
+  .ls-footer-social-icon,
   .is-style-mega-menu-item-default,
   .wp-block-paragraph.is-style-mega-menu-item-service {
     transition: none;
   }
 }
-/********** Text Motion **********/
-/* Gradient Accent */
-.wp-block-heading.is-style-gradient-accent {
-  --ls-accent-gradient-width: fit-content;
-  --ls-accent-gradient-image: linear-gradient(
-    to right,
-    var(--wp--custom--color--text--brand) 0%,
-    var(--wp--custom--color--text--default) 25%,
-    var(--wp--custom--color--text--brand-strong) 50%,
-    var(--wp--custom--color--text--default) 75%,
-    var(--wp--custom--color--text--brand) 100%
-  );
-  --ls-accent-gradient-size: 200% auto;
-  --ls-accent-gradient-start-position: 0%;
-  --ls-accent-gradient-end-position: 100%;
-  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
-  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
-  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
-  --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-focus-width: 2px;
-  --ls-accent-gradient-focus-color: var(--wp--custom--color--focus--ring);
-  --ls-accent-gradient-focus-offset: 4px;
-  --ls-accent-gradient-reduced-position: 100%;
-  width: var(--ls-accent-gradient-width);
-  max-width: 100%;
-}
-.wp-block-heading.is-style-gradient-accent.has-text-align-center {
-  margin-inline: auto;
-}
-.wp-block-heading.is-style-gradient-accent.has-text-align-right {
-  margin-inline-start: auto;
-}
-
-@supports (-webkit-background-clip: text) or (background-clip: text) {
-  .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
-    background-image: var(--ls-accent-gradient-image);
-    background-position: var(--ls-accent-gradient-start-position) center;
-    background-repeat: no-repeat;
-    background-size: var(--ls-accent-gradient-size);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  }
-  .wp-block-heading.is-style-gradient-accent {
-    animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
-  }
-  .wp-block-heading.is-style-gradient-accent a {
-    animation: inherit;
-  }
-}
-.wp-block-heading.is-style-gradient-accent a:focus-visible {
-  outline: var(--ls-accent-gradient-focus-width) solid var(--ls-accent-gradient-focus-color);
-  outline-offset: var(--ls-accent-gradient-focus-offset);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-heading.is-style-gradient-accent,
-  .wp-block-heading.is-style-gradient-accent a {
-    animation: none;
-    background-position: var(--ls-accent-gradient-reduced-position) center;
-  }
-}
-/********** Link Motion **********/
-/* Link Underline Accent */
-.wp-block-paragraph.is-style-link-underline-accent {
-  --ls-link-underline-image: linear-gradient(
-    var(--wp--custom--color--link--decoration-start),
-    var(--wp--custom--color--link--decoration-end)
-  );
-  --ls-link-underline-padding-bottom: 3px;
-  --ls-link-underline-thickness: 2px;
-  --ls-link-underline-enter-delay: var(--wp--custom--animation--delay--enter);
-}
-
-.wp-block-paragraph.is-style-link-underline-accent a {
-  padding-bottom: var(--ls-link-underline-padding-bottom);
-  background-image: var(--ls-link-underline-image);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0 var(--ls-link-underline-thickness);
-  transition: background-size var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-}
-.wp-block-paragraph.is-style-link-underline-accent a:hover {
-  transition-delay: var(--ls-link-underline-enter-delay);
-}
-.wp-block-paragraph.is-style-link-underline-accent a:hover, .wp-block-paragraph.is-style-link-underline-accent a:focus-visible {
-  background-size: 100% var(--ls-link-underline-thickness);
-}
-
-/*
- * Link Arrow Accent (styles/blocks/paragraphs/link-arrow-accent.json): rest-state layout
- * (display/align-items/gap on the link, display/baseline transform on the arrow glyph) lives in
- * the JSON file's css field now — font-weight/text-decoration were already on the JSON's
- * elements.link. Rest colour stays here rather than on elements.link: it needs the
- * --ls-link-arrow-colour custom-property-with-fallback pattern so consumers (e.g. the CTA band's
- * on-dark override) can override it, which the elements schema can't express. `content:` also
- * stays here (Sass icon variable). Only real motion (transitions, hover/focus states, the
- * cross-card-hover compound selectors) stays below otherwise.
- */
-.wp-block-paragraph.is-style-link-arrow-accent a {
-  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
-  transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), gap var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-}
-.wp-block-paragraph.is-style-link-arrow-accent a::after {
-  content: "\2192";
-  display: inline-block;
-  transform: translateX(0);
-  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.wp-block-paragraph.is-style-link-arrow-accent a:hover, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a {
-  color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
-}
-.wp-block-paragraph.is-style-link-arrow-accent a:hover::after, .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after, .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after, .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
-  transform: translateX(var(--ls-link-arrow-offset, 0.35em));
-}
-
 /********** Details / Accordion **********/
 /*
  * Rest-state structural CSS (overflow, summary layout/marker-reset/arrow-shape, content spacing)
@@ -253,283 +209,7 @@
   box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
 }
 
-/********** Card Motion **********/
-.ls-card__icon-shell {
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-
-/*
- * Glass Card: rest-state look (background, border, edge highlights, outline) lives in
- * styles/sections/cards/glass-card.json. Only what's genuinely motion or a confirmed JSON
- * limitation stays here.
- */
-.is-style-glass-card {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), outline-color var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-glass-card:hover, .is-style-glass-card:focus-within {
-  background: var(--ls-glass-card-background-hover);
-  border-color: var(--ls-glass-card-border-hover);
-  box-shadow: var(--ls-glass-card-shadow-hover);
-  transform: translateY(var(--ls-glass-card-lift));
-}
-.is-style-glass-card:focus-within {
-  outline-color: var(--ls-glass-card-focus-colour);
-}
-.is-style-glass-card {
-  /* backdrop-filter's @supports block lives in _shared-hover.scss, shared with Glass Button. */
-}
-
-/*
- * Card - Feature: rest-state border/background/shadow/spacing, the content/cta layout, and the
- * icon-shell's align-self all live in styles/sections/cards/card-feature.json. Hover-state
- * custom properties are declared in that same JSON file; only the transition and the
- * transform-bearing hover rule stay here as real motion.
- */
-.is-style-card-feature {
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-card-feature:hover, .is-style-card-feature:focus-within {
-  border-color: var(--ls-card-feature-border-active);
-  box-shadow: var(--ls-card-feature-shadow-active);
-  transform: translateY(var(--ls-card-feature-lift));
-}
-.is-style-card-feature:hover .ls-card__icon-shell, .is-style-card-feature:focus-within .ls-card__icon-shell {
-  border-color: var(--ls-card-feature-icon-border-active);
-  box-shadow: var(--ls-card-feature-icon-shadow-active);
-  transform: rotate(-5deg) scale(0.98);
-}
-
-/*
- * Card - Work Category: rest-state border/background/shadow/spacing and the content layout live
- * in styles/sections/cards/card-category.json. Hover-state custom properties are declared in
- * that same JSON file; only the transition and the transform-bearing hover rule stay here as
- * real motion.
- */
-.is-style-card-category {
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-card-category:hover, .is-style-card-category:focus-within {
-  border-color: var(--ls-card-category-border-active);
-  box-shadow: var(--ls-card-category-shadow-active);
-  transform: translateY(var(--ls-card-category-lift));
-}
-
-/*
- * Card - Case Study: had no hover treatment at all (pre-existing gap, confirmed 2026-08-12 —
- * never present anywhere in src/scss/, unrelated to this phase's migration work). Reuses Card -
- * Work Category's exact hover pattern (border-color, shadow, lift) for consistency across the
- * Work archive's card family. Rest-state look and the hover-only custom properties live in
- * styles/sections/cards/card-case-study.json; only the transition and the transform-bearing
- * hover rule stay here as real motion.
- */
-.is-style-card-case-study {
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-card-case-study:hover, .is-style-card-case-study:focus-within {
-  border-color: var(--ls-card-case-study-border-active);
-  box-shadow: var(--ls-card-case-study-shadow-active);
-  transform: translateY(var(--ls-card-case-study-lift));
-}
-
-/*
- * Card - Services: rest-state border/background/shadow/spacing, align-items/max-inline-size/
- * text-align/transform-origin, the content/list/cta layout, and the icon-shell's align-self all
- * live in styles/sections/cards/card-services.json. The accent-gradient bar animates via
- * @keyframes on hover, so everything below (including its own thickness/gradient custom
- * properties, kept together as one cohesive animated unit) stays real motion.
- */
-.is-style-card-services {
-  --ls-card-services-border-active: var(--wp--custom--color--link--accent);
-  --ls-card-services-icon-border-active: var(--wp--custom--color--icon--background);
-  --ls-card-services-shadow-active: var(--wp--custom--shadow--card--hover);
-  --ls-card-services-icon-shadow-active: var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);
-  --ls-card-services-scale: 1.05;
-  --ls-card-services-accent-thickness: 8px;
-  --ls-link-arrow-offset: 0;
-  --ls-accent-gradient-image: linear-gradient(
-    90deg,
-    var(--wp--custom--color--effect--spotlight--secondary) 0%,
-    var(--wp--custom--color--effect--spotlight--primary) 50%,
-    var(--wp--custom--color--effect--spotlight--secondary) 100%
-  );
-  --ls-accent-gradient-size: 200% auto;
-  --ls-accent-gradient-start-position: 0%;
-  --ls-accent-gradient-end-position: 100%;
-  --ls-accent-gradient-duration: var(--wp--custom--animation--duration--loop);
-  --ls-accent-gradient-delay: var(--wp--custom--animation--delay--none);
-  --ls-accent-gradient-timing: var(--wp--custom--animation--easing--smooth);
-  --ls-accent-gradient-direction: alternate;
-  --ls-accent-gradient-reduced-position: 100%;
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-card-services::before {
-  content: "";
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline: 0;
-  block-size: var(--ls-card-services-accent-thickness);
-  background-image: var(--ls-accent-gradient-image);
-  background-position: var(--ls-accent-gradient-start-position) center;
-  background-repeat: no-repeat;
-  background-size: var(--ls-accent-gradient-size);
-  z-index: var(--wp--custom--z-index--base);
-}
-.is-style-card-services > * {
-  position: relative;
-  z-index: var(--wp--custom--z-index--content);
-}
-.is-style-card-services:hover, .is-style-card-services:focus-within {
-  border-color: var(--ls-card-services-border-active);
-  box-shadow: var(--ls-card-services-shadow-active);
-  transform: scale(var(--ls-card-services-scale));
-}
-.is-style-card-services:hover::before, .is-style-card-services:focus-within::before {
-  animation: ls-accent-gradient-shift var(--ls-accent-gradient-duration) var(--ls-accent-gradient-timing) var(--ls-accent-gradient-delay) infinite var(--ls-accent-gradient-direction);
-}
-.is-style-card-services:hover .ls-card__icon-shell, .is-style-card-services:focus-within .ls-card__icon-shell {
-  border-color: var(--ls-card-services-icon-border-active);
-  box-shadow: var(--ls-card-services-icon-shadow-active);
-}
-
-/*
- * Icon Frame Glow: rest-state look (accent colour, border, background, icon nesting) lives in
- * styles/blocks/groups/icon-frame-glow.json. border-color is the same value at rest and on hover
- * (both were --ls-icon-frame-accent-colour) — nothing actually changes there, so it's set once in
- * JSON and dropped from this rule entirely. Only the shadow and rotate transform are real
- * changes, and those stay here as real motion. Drops the dead is-style-card-solutions-accent
- * reference (LS-2341, zero consumers).
- */
-.is-style-icon-frame-glow {
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-}
-.is-style-icon-frame-glow:hover, .is-style-icon-frame-glow:focus-within, .is-style-card-solutions:hover .is-style-icon-frame-glow, .is-style-card-solutions:focus-within .is-style-icon-frame-glow {
-  box-shadow: var(--ls-icon-frame-shadow-active), var(--ls-icon-frame-inset-shadow-active);
-  transform: rotate(var(--ls-icon-frame-tilt));
-}
-
-/*
- * Card - Solutions: rest-state border/background/shadow/spacing/max-inline-size, the content/cta
- * layout, and the hover-only custom properties all live in styles/sections/cards/card-solutions.json.
- * Drops the dead is-style-card-solutions-accent reference (LS-2341, zero consumers) from the selector.
- */
-.is-style-card-solutions {
-  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
-}
-.is-style-card-solutions:hover, .is-style-card-solutions:focus-within {
-  border-color: var(--ls-card-solutions-border-active);
-  box-shadow: var(--ls-card-solutions-shadow-active);
-}
-.is-style-card-solutions .ls-card-solutions__content .wp-block-heading {
-  transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-card-solutions:hover .ls-card-solutions__content .wp-block-heading, .is-style-card-solutions:focus-within .ls-card-solutions__content .wp-block-heading {
-  color: var(--ls-card-solutions-accent-resolved);
-}
-
-/*
- * Card - Link Row: rest-state look, hover-only custom properties, stretched-link ::before, base
- * link style, and :focus-visible all live in styles/sections/cards/card-link-row.json. Only the
- * background/border-color transition and its hover-state swap stay here as real motion.
- */
-.is-style-card-link-row {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-card-link-row:hover, .is-style-card-link-row:focus-within {
-  background-color: var(--ls-card-link-row-background-active);
-  border-color: var(--ls-card-link-row-border-active);
-}
-.is-style-card-link-row:hover .wp-block-outermost-icon-block .icon-container, .is-style-card-link-row:focus-within .wp-block-outermost-icon-block .icon-container {
-  color: var(--ls-card-link-row-icon-active) !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-paragraph.is-style-link-arrow-accent a,
-  .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-glass-card,
-  .is-style-card-feature,
-  .is-style-card-feature .ls-card__icon-shell,
-  .is-style-card-category,
-  .is-style-card-link-row,
-  .is-style-card-services,
-  .is-style-card-services::before,
-  .is-style-card-services .ls-card__icon-shell,
-  .is-style-icon-frame-glow,
-  .is-style-card-solutions,
-  .is-style-card-solutions .wp-block-heading,
-  .is-style-card-case-study {
-    transition: none;
-  }
-  .is-style-glass-card:hover,
-  .is-style-glass-card:focus-within,
-  .is-style-card-feature:hover,
-  .is-style-card-feature:focus-within,
-  .is-style-card-category:hover,
-  .is-style-card-category:focus-within,
-  .is-style-card-services:hover,
-  .is-style-card-services:focus-within,
-  .is-style-card-case-study:hover,
-  .is-style-card-case-study:focus-within {
-    transform: none;
-  }
-  .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
-  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after,
-  .is-style-card-feature:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-feature:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:hover .wp-block-paragraph.is-style-link-arrow-accent a::after,
-  .is-style-card-services:focus-within .wp-block-paragraph.is-style-link-arrow-accent a::after {
-    transform: none;
-  }
-  .is-style-card-services:hover::before,
-  .is-style-card-services:focus-within::before {
-    animation: none;
-    background-position: var(--ls-accent-gradient-reduced-position) center;
-  }
-  .is-style-icon-frame-glow:hover,
-  .is-style-icon-frame-glow:focus-within,
-  .is-style-card-solutions:hover .is-style-icon-frame-glow,
-  .is-style-card-solutions:focus-within .is-style-icon-frame-glow {
-    transform: none;
-  }
-}
-/*
- * Stat Segment: base border-inline-end divider lives in styles/sections/cards/stat-segment.json.
- * Both suppression rules below stay here as confirmed JSON limitations:
- *
- * 1. JSON limitation: @media can't go in the css field (confirmed empirically, see
- *    home-hero-section.json). Below core/columns' own native stacking breakpoint (WP core
- *    hardcodes this at `max-width: 781px` in wp-includes/blocks/columns/style.css — mirrored
- *    here as the `columns-stack` entry in theme.json's settings.custom.layout.break-points),
- *    each column becomes full-width, so the divider would just show as a stray line down the
- *    right edge of every stacked segment. 781.98px = 782px minus the same 0.02px offset the
- *    retired mq mixin used, so this stops just short of the next breakpoint.
- *
- * 2. JSON limitation, confirmed empirically 2026-08-11 (via a temporary throwaway test page):
- *    a css-field selector with `&` anywhere other than the leading token — e.g.
- *    ".wp-block-columns > .wp-block-column:last-child > &" — breaks. WordPress's `&`
- *    substitution silently drops the trailing `&`, and the declaration ends up applying to
- *    EVERY instance unconditionally instead of just the intended one. `&` must be the first
- *    token in a css-field selector; ancestor-context selectors with `&` at the end (unlike
- *    icon-frame-glow's `.is-style-card-solutions:hover &`, which stays in this same file for
- *    the same reason) cannot go in JSON at all.
- */
-@media (max-width: 781.98px) {
-  .is-style-stat-segment {
-    border-inline-end: none;
-  }
-}
-.wp-block-columns > .wp-block-column:last-child > .is-style-stat-segment {
-  border-inline-end: none;
-}
-
-/*
- * WooCommerce lockstep pair (card-banner-tint/-woocommerce, badge-brand/-woocommerce): already
- * fully authored in styles/sections/cards/card-banner-tint*.json and
- * styles/blocks/post-terms/badge-*.json, confirmed matching this file's former content
- * property-for-property. Nothing left to migrate — this block only ever duplicated JSON that
- * already existed.
- */
-/********** Button Motion **********/
+/********** Button Motion (global) **********/
 /* Shared button motion primitives */
 .wp-element-button,
 .wp-block-button__link {
@@ -554,10 +234,18 @@
  * and the default-fill / outline custom-property "recipes" all live in
  * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
  * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
- * stays here.
+ * stays here. Fill and Outline are WP-core's own built-in button styles, usable on any button
+ * anywhere on the site — genuinely global infrastructure, not tied to any one page or pattern.
+ *
+ * The default-fill selector's `:not([class*="is-style-"])` exclusion only catches registered
+ * is-style variants. LS-2341 Group 5 folded `glass-button`/`button-cta-gradient` from is-styles
+ * into plain classes (`.ls-glass-button`/`.ls-button-cta-gradient`), which stopped matching that
+ * exclusion and started picking up the default fill button's own arrow-icon `::after` on top of
+ * their own content — explicit `:not(.ls-glass-button):not(.ls-button-cta-gradient)` restores the
+ * exclusion for both.
  */
 /* Fill button motion */
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link {
   --ls-button-fill-icon-well-size: 3rem;
   --ls-button-fill-icon-inline-end: 0.625rem;
@@ -573,7 +261,7 @@
   transition: transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised)) var(--wp--custom--animation--easing--emphasised), color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised)) var(--wp--custom--animation--easing--emphasised);
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link::before {
   content: "";
   position: absolute;
@@ -584,7 +272,7 @@
   z-index: var(--wp--custom--z-index--behind);
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link::after {
   content: "\2192";
   position: absolute;
@@ -600,16 +288,16 @@
   transition: color var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover,
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover::before {
   transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover::before,
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:focus-visible::before {
   inset-block: var(--ls-button-fill-icon-block-inset);
   inset-inline-end: var(--ls-button-fill-icon-inline-end);
@@ -617,9 +305,9 @@
   border-radius: inherit;
 }
 
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:hover,
-:is(.wp-block-button:not([class*=is-style-]),
+:is(.wp-block-button:not([class*=is-style-]):not(.ls-glass-button):not(.ls-button-cta-gradient),
 .wp-block-button.is-style-fill) .wp-block-button__link:focus-visible {
   color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
 }
@@ -666,258 +354,13 @@
   inset-inline-end: var(--ls-button-outline-icon-inline-start);
 }
 
-/* Button - Secondary */
-.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
-  background-color: var(--wp--custom--color--button--fill--background-hover);
-  border-color: var(--wp--custom--color--button--fill--border-hover);
-  color: var(--wp--custom--color--button--fill--text-hover);
-}
-
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
-.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
-  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
-   * the border matches the solid fill it's transitioning to, same as the filled variant's border
-   * matching its own background-hover above. */
-  background-color: var(--wp--custom--color--button--outline--background-hover);
-  border-color: var(--wp--custom--color--button--outline--background-hover);
-  color: var(--wp--custom--color--button--outline--text-hover);
-}
-
 /*
- * Glass Button (styles/blocks/buttons/glass-button.json): rest-state background/border/shadow, the
- * recipe custom properties, and the non-interactive top/side edge-highlight pseudo-elements all
- * live in the JSON file's css field now. backdrop-filter's @supports block lives in
- * _shared-hover.scss, shared with Glass Card. Everything below is real motion: transition +
- * hover/focus states + the lift transform.
+ * Button - Secondary: not sitewide-exclusive — also used as a normal CTA button on
+ * patterns/sections/work-discuss-project.php, not just the mobile menu — so per architecture
+ * review it doesn't belong in the global animations bundle at all. Its rest-of-shared-button
+ * transition above still applies (that's genuinely universal); the hover colour swap itself
+ * lives in src/scss/structural/button-secondary.scss, its own standalone bundle.
  */
-.wp-block-button.is-style-glass-button .wp-block-button__link {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), outline-color var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), outline-offset var(--wp--custom--animation--duration--focus) var(--wp--custom--animation--easing--standard), transform var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--emphasised);
-  transition-delay: var(--wp--custom--animation--delay--none);
-  outline: var(--ls-glass-button-focus-width) solid transparent;
-  outline-offset: var(--ls-glass-button-focus-offset);
-}
-.wp-block-button.is-style-glass-button .wp-block-button__link:hover, .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible {
-  background: var(--ls-glass-button-background-hover);
-  border-color: var(--ls-glass-button-border-hover);
-  box-shadow: var(--ls-glass-button-shadow-hover);
-  color: var(--ls-glass-button-text-hover);
-  transform: translateY(var(--ls-glass-button-lift));
-}
-.wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible {
-  outline-color: var(--ls-glass-button-focus-colour);
-  outline-offset: var(--ls-glass-button-focus-offset);
-}
-
-/* Button Glow Accent */
-.wp-block-button.is-style-button-glow-accent {
-  --ls-button-glow-colour: var(--wp--custom--color--button--outline--border);
-  --ls-button-glow-hover-background: var(--wp--custom--color--button--outline--background-hover);
-  --ls-button-glow-hover-text: var(--wp--custom--color--button--outline--text-hover);
-  --ls-button-glow-enter-delay: var(--wp--custom--animation--delay--enter);
-  --ls-button-glow-outline-width: 1px;
-  --ls-button-glow-outline-offset: 12px;
-  --ls-button-glow-resting-strength: 0%;
-  --ls-button-glow-outline-strength: 45%;
-  --ls-button-glow-inner-strength: 35%;
-  --ls-button-glow-outer-strength: 20%;
-  --ls-button-active-scale: var(--wp--custom--animation--scale--active);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link {
-  transition: box-shadow var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), outline-color var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), outline-offset var(--wp--custom--animation--duration--dramatic) var(--wp--custom--animation--easing--dramatic), transform var(--wp--custom--animation--duration--fast) var(--wp--custom--animation--easing--standard);
-  transition-delay: var(--wp--custom--animation--delay--none);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-resting-strength), transparent);
-  outline: var(--ls-button-glow-outline-width) solid color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-outline-strength), transparent);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover {
-  transition-delay: var(--ls-button-glow-enter-delay);
-}
-
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:hover,
-.wp-block-button.is-style-button-glow-accent .wp-block-button__link:focus-visible {
-  background-color: var(--ls-button-glow-hover-background);
-  color: var(--ls-button-glow-hover-text);
-  box-shadow: inset 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-inner-strength), transparent), 0 0 20px color-mix(in srgb, var(--ls-button-glow-colour) var(--ls-button-glow-outer-strength), transparent);
-  outline-color: transparent;
-  outline-offset: var(--ls-button-glow-outline-offset);
-}
-
-/*
- * Button Arrow Compact (styles/blocks/buttons/button-arrow-compact.json): rest-state size/shape,
- * the recipe custom properties, and the arrow glyph's non-hover appearance all live in the JSON
- * file's css field now. `content:` must stay here — it references a Sass icon variable, which JSON
- * can't resolve — so the ::after rule below carries only content + transition + hover overrides.
- */
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
-}
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-  content: "\2192";
-  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link {
-  background: var(--ls-button-arrow-compact-background-active);
-  border-color: var(--ls-button-arrow-compact-border-active);
-}
-.wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after, .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after, :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after, :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-  color: var(--ls-button-arrow-compact-colour-active);
-}
-
-/*
- * CTA fill buttons on fixed-dark cards: pin text/icon colour to the on-dark tokens so the fill
- * button's rest and hover states stay readable regardless of the site's light/dark style
- * variation. Was briefly moved to inline style attributes during Phase 3, reverted after code
- * review confirmed that breaks block validation — core/button's save() only regenerates a style
- * attribute from registered block attributes (color/border/spacing tokens), never from arbitrary
- * custom properties, so the stored markup wouldn't match what save() reproduces on the next
- * editor open.
- */
-.ls-cta-band__button .wp-block-button__link,
-.ls-cta-inline__button .wp-block-button__link,
-.ls-cta-reassurance__button .wp-block-button__link {
-  color: var(--wp--custom--color--text--on-dark);
-  --ls-button-fill-background: var(--wp--custom--color--surface--on-dark-card);
-  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-dark);
-  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
-}
-
-/* CTA band: the secondary link's arrow colours aren't part of the group's
-   saved block attributes, so they're defined here instead of as an inline
-   style on the wrapper (which would be dropped on save). */
-.ls-cta-band__actions {
-  --ls-link-arrow-colour: var(--wp--custom--color--text--on-dark);
-  --ls-link-arrow-hover-colour: var(--wp--custom--color--text--brand);
-}
-
-/*
- * CTA strip: the arrow sits next to the glass button rather than nested in its rich text, so it
- * needs its own hover contract tied to the shared wrapper. The wrapper's position/display were
- * also briefly inlined during Phase 3 — reverted for the same block-validation reason as above
- * (core/group's save() doesn't regenerate arbitrary style properties either).
- */
-.ls-cta-strip__cta-wrap {
-  position: relative;
-  display: inline-flex;
-}
-
-.ls-cta-strip__button-arrow {
-  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-
-.ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
-.ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
-  color: var(--wp--custom--color--text--brand);
-  transform: translateX(0.25em);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-button.is-style-glass-button .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-    transition: none;
-  }
-  .wp-block-button.is-style-glass-button .wp-block-button__link:hover,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:focus-visible,
-  .wp-block-button.is-style-glass-button .wp-block-button__link:active {
-    transform: none;
-  }
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:hover::after,
-  .wp-block-button.is-style-button-arrow-compact .wp-block-button__link:focus-visible::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):hover .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after,
-  :is(.is-style-card-solutions, .is-style-card-solutions-accent):focus-within .wp-block-button.is-style-button-arrow-compact .wp-block-button__link::after {
-    transform: none;
-  }
-  .ls-cta-strip__button-arrow {
-    transition: none;
-  }
-  .ls-cta-strip__cta-wrap:hover .ls-cta-strip__button-arrow,
-  .ls-cta-strip__cta-wrap:focus-within .ls-cta-strip__button-arrow {
-    transform: none;
-  }
-}
-/********** Yoast FAQ Accordion **********/
-.schema-faq {
-  display: flex;
-  flex-direction: column;
-  gap: var(--wp--preset--spacing--20);
-}
-.schema-faq.is-accordion .schema-faq-section {
-  --ls-faq-border-rest: var(--wp--custom--color--border--card);
-  --ls-faq-border-active: var(--wp--custom--color--link--accent);
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--ls-faq-border-rest);
-  border-radius: var(--wp--preset--border-radius--200);
-  background: var(--wp--custom--color--surface--card);
-  box-shadow: none;
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.schema-faq.is-accordion .schema-faq-section:hover {
-  border-color: var(--ls-faq-border-active);
-}
-.schema-faq.is-accordion .schema-faq-section.is-open {
-  background: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--ls-faq-border-active);
-}
-.schema-faq.is-accordion .schema-faq-section:focus-within {
-  border-color: var(--ls-faq-border-active);
-  box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
-}
-.schema-faq.is-accordion .schema-faq-question {
-  display: flex;
-  align-items: center;
-  gap: var(--wp--preset--spacing--20);
-  margin: 0;
-  padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
-  font-weight: var(--wp--custom--typography--font-weight--bold);
-  cursor: pointer;
-  transition: inherit;
-}
-.schema-faq.is-accordion .schema-faq-question::after {
-  content: "";
-  display: block;
-  flex: none;
-  width: 0.625rem;
-  height: 0.625rem;
-  margin-inline-start: auto;
-  border-right: 2px solid var(--wp--custom--color--link--accent);
-  border-bottom: 2px solid var(--wp--custom--color--link--accent);
-  transform: translateY(-1px) rotate(45deg);
-  transform-origin: center;
-  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.schema-faq.is-accordion .schema-faq-question:focus-visible {
-  outline: 2px solid var(--wp--custom--color--focus--ring);
-  outline-offset: -2px;
-}
-.schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-question::after {
-  transform: translateY(1px) rotate(-135deg);
-}
-.schema-faq.is-accordion .schema-faq-answer {
-  display: grid;
-  grid-template-rows: 0fr;
-  margin: 0;
-  padding: 0 var(--wp--preset--spacing--30);
-  overflow: hidden;
-  opacity: 0;
-  transition: grid-template-rows var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), opacity var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), padding var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-answer {
-  grid-template-rows: 1fr;
-  padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--20);
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .schema-faq.is-accordion .schema-faq-section,
-  .schema-faq.is-accordion .schema-faq-question::after,
-  .schema-faq.is-accordion .schema-faq-answer {
-    transition: none;
-  }
-}
 /********** Mega Menu Item **********/
 /*
  * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json)
@@ -1099,8 +542,8 @@
  * default padding-top: calc(2rem + 24px) (wp-includes/blocks/navigation/style.css) is what was
  * producing the oversized gap above the logo; both are overridden to the same spacing token here
  * so the logo row and the close button land on the same line. Styled with the same circular
- * icon-button language as the header's search/theme-toggle buttons
- * (styles/blocks/groups/header-icon-button.json) for visual consistency.
+ * icon-button language as the header search button and footer icon-shells
+ * (src/scss/animations/_shared-hover.scss) for visual consistency.
  *
  * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
  * but these are otherwise generic core class names that would restyle any Navigation block's
@@ -1139,30 +582,10 @@
 }
 
 /*
- * JSON limitation: the responsive-container-close button is entirely WP core-generated
- * markup (wp-includes/blocks/navigation) with no className we control and no registrable
- * block-style slug. Its hover/transition contract lives in _shared-hover.scss — shared
- * byte-for-byte with the header search button and both footer icon-shell styles.
+ * The responsive-container-close button's structural chrome (position, sizing, border,
+ * background) lives in src/scss/structural/_mobile-menu.scss instead — none of it is motion.
+ * Its hover/transition contract stays in _shared-hover.scss.
  */
-.site-header .wp-block-navigation__responsive-container-close {
-  position: absolute;
-  top: var(--wp--preset--spacing--20);
-  right: var(--wp--preset--spacing--20);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-}
-.site-header .wp-block-navigation__responsive-container-close svg {
-  inline-size: 20px;
-  block-size: 20px;
-}
-
 /*
  * JSON limitation: this component is single-use (one instance in this file), so AGENTS.md's
  * single-use rule rules out registering an is-style for it — the border/min-height that WOULD
@@ -1267,40 +690,36 @@
  * — solid black — because none of their <svg> markup declares fill="currentColor". That means the
  * `color` set via their inline style (the semantic phase/text colour token) was never actually
  * reaching the icon glyph, in either light or dark mode. Same fix already applied to
- * is-style-icon-frame-glow and the Services card icon shell elsewhere in this file family.
+ * .ls-icon-frame-glow and the Services card icon shell elsewhere in this file family.
  */
 .site-footer .icon-container svg {
   fill: currentColor;
 }
 
 /*
- * Footer nav links (is-style-footer-nav-link, styles/blocks/paragraphs/footer-nav-link.json):
- * underline reveals on hover/focus by animating decoration-colour from transparent, rather than
- * toggling text-decoration-line itself. Matches the approved reference screenshot, and matches the
- * pattern already used for is-style-link-underline-accent elsewhere in this file family. Static
- * decoration setup (line/colour/offset, colour:inherit) lives in
- * styles/blocks/paragraphs/footer-nav-link.json; only the transition stays here since it targets
- * the same `a` the hover rule below does.
+ * Footer nav links (.ls-footer-nav-link, folded in from
+ * styles/blocks/paragraphs/footer-nav-link.json — LS-2341): underline reveals on hover/focus by
+ * animating decoration-colour from transparent, rather than toggling text-decoration-line itself.
+ * Matches the approved reference screenshot. Rest-state colour/spacing/textDecoration are inline
+ * block attributes on the paragraph; the nested `a`'s static decoration setup (line/colour/offset,
+ * colour:inherit) and the hover/focus colour swap live in src/scss/structural/_footer.scss — only
+ * the transition (timing) it shares with that hover rule is real motion.
  */
-.is-style-footer-nav-link a {
+.ls-footer-nav-link a {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 
-.is-style-footer-nav-link a:hover,
-.is-style-footer-nav-link a:focus-visible {
-  color: var(--wp--custom--color--phase--create);
-  text-decoration-color: var(--wp--custom--color--phase--create);
-}
-
 /*
- * Proof-point card (styles/blocks/groups/footer-proof-card.json) and social icon circle
- * (styles/blocks/groups/footer-social-icon.json): base structural CSS lives in their JSON files.
- * Their hover/transition contract lives in _shared-hover.scss — shared byte-for-byte with the
- * header search button and the mobile-menu close button. WordPress doesn't generate :hover/:focus
- * CSS for arbitrary block style variations, so it can't move to either JSON file.
+ * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon): both
+ * folded in from styles/blocks/groups/*.json (LS-2341) as inline block attributes on
+ * patterns/footer.php. The shared transition (timing) lives in _shared-hover.scss — shared
+ * byte-for-byte with the header search button and the mobile-menu close button; the hover colour
+ * swap itself lives in structural/_footer.scss, alongside the rest-state it modifies. WordPress
+ * doesn't generate :hover/:focus CSS for arbitrary block style variations, so neither can move
+ * back into JSON.
  */
 @media (prefers-reduced-motion: reduce) {
-  .is-style-footer-nav-link a {
+  .ls-footer-nav-link a {
     transition: none;
   }
 }
@@ -1376,35 +795,18 @@
   }
 }
 /*
- * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
- * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept
- * here rather than as a registered block style because it needs to sit alongside the hover
- * treatment, and WordPress doesn't generate :hover CSS for arbitrary block style variations.
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php). Rest-state gradient/border/shadow/spacing/typography are
+ * inline block attributes now. box-shadow isn't a motion property (per AGENTS.md, this file may
+ * only contain @keyframes/transition/transform/animation/will-change) — its hover swap lives in
+ * src/scss/structural/_buttons.scss; only the transition and the transform-bearing hover rule
+ * stay here.
  */
-.is-style-header-icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  color: var(--wp--custom--color--text--default);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-header-icon-button:hover, .is-style-header-icon-button:focus-within {
-  background-color: var(--wp--custom--color--surface--card-raised);
-  border-color: var(--wp--custom--color--phase--create);
-}
-
-.is-style-button-cta-gradient .wp-block-button__link {
+.ls-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.is-style-button-cta-gradient .wp-block-button__link:hover, .is-style-button-cta-gradient .wp-block-button__link:focus-visible {
+.ls-button-cta-gradient .wp-block-button__link:hover, .ls-button-cta-gradient .wp-block-button__link:focus-visible {
   transform: translateY(-1px);
-  box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
 }
 
 /*
@@ -1417,8 +819,25 @@
  * field instead of submitting immediately.
  */
 .site-header__search {
-  /* Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
-   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles. */
+  /*
+   * Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles.
+   * border-color/radius and color are real inline block attributes on the wp:search block in
+   * patterns/header.php (core/search's border/color supports are real, just not
+   * auto-serialized — confirmed via wp-includes/blocks/search.php). min-inline-size/
+   * min-block-size/padding/display/align-items/justify-content have no block-supports
+   * equivalent (search has no dimensions or spacing.padding support at all) and stay here.
+   *
+   * JSON limitation confirmed empirically 2026-08-17: the rest-state background CANNOT be a
+   * block attribute here — core/search's render_block_core_search() runs every inline style
+   * value (background included) through WordPress's own safecss_filter_attr(), which only
+   * recognises var()/calc()/min()/max()/minmax()/clamp()/repeat() as safe functions. color-mix()
+   * isn't on that allowlist, so any declaration containing it is silently dropped from the
+   * generated style="" attribute entirely — not resolved incorrectly, just missing outright,
+   * which is why the button had no themed background in either light or dark mode. Real CSS
+   * (compiled to a stylesheet, never passed through kses) is the only route color-mix() can
+   * take here.
+   */
 }
 .site-header__search .wp-block-search__button {
   display: flex;
@@ -1427,10 +846,7 @@
   min-inline-size: 44px;
   min-block-size: 44px;
   padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  color: var(--wp--custom--color--text--default);
+  background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
 }
 .site-header__search .wp-block-search__input {
   inline-size: 0;
@@ -1448,46 +864,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-header-icon-button,
-  .is-style-button-cta-gradient .wp-block-button__link,
+  .ls-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;
   }
-}
-/********** Taxonomy Filter (ls-plugin/taxonomy-filter) **********/
-.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--wp--preset--spacing--10);
-}
-.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--wp--preset--color--neutral-200);
-  border-radius: var(--wp--preset--border-radius--500);
-  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
-  background: transparent;
-  color: var(--wp--custom--color--text--muted);
-  font-family: var(--wp--preset--font-family--body);
-  font-weight: var(--wp--custom--typography--font-weight--semibold);
-  font-size: var(--wp--preset--font-size--100);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button:hover, .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button:focus-visible {
-  border-color: var(--wp--custom--color--link--accent);
-  background-color: transparent;
-  color: var(--wp--custom--color--link--accent);
-}
-.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current {
-  border-color: var(--wp--custom--color--card--platform--wordpress);
-  background-color: var(--wp--custom--color--card--platform--wordpress);
-  color: var(--wp--custom--color--text--on-dark);
-}
-.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current:hover, .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons .wp-element-button.taxonomy-filter-current:focus-visible {
-  border-color: var(--wp--custom--color--card--platform--wordpress);
-  background-color: var(--wp--custom--color--card--platform--wordpress);
-  color: var(--wp--custom--color--text--on-dark);
 }

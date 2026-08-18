@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Bordered card shell wrapping a 3-row icon/title/description capability list, for the Work archive hero.",
+	"description": "Bordered card shell wrapping a 3-row icon/title/description capability list, for the Work archive hero. Non-expressible structural properties (inline-size, the last-child descendant rule) are authored directly in this file's own css field below.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -26,6 +26,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{inline-size:100%;} & > .wp-block-group > *:last-child{min-width:0;flex:1 1 auto;}"
+		"css": "inline-size: 100%;\n\n& > .wp-block-group > *:last-child {\n\tmin-width: 0;\n\tflex: 1 1 auto;\n}"
 	}
 }

@@ -102,42 +102,38 @@
  * — solid black — because none of their <svg> markup declares fill="currentColor". That means the
  * `color` set via their inline style (the semantic phase/text colour token) was never actually
  * reaching the icon glyph, in either light or dark mode. Same fix already applied to
- * is-style-icon-frame-glow and the Services card icon shell elsewhere in this file family.
+ * .ls-icon-frame-glow and the Services card icon shell elsewhere in this file family.
  */
 .site-footer .icon-container svg {
   fill: currentColor;
 }
 
 /*
- * Footer nav links (is-style-footer-nav-link, styles/blocks/paragraphs/footer-nav-link.json):
- * underline reveals on hover/focus by animating decoration-colour from transparent, rather than
- * toggling text-decoration-line itself. Matches the approved reference screenshot, and matches the
- * pattern already used for is-style-link-underline-accent elsewhere in this file family. Static
- * decoration setup (line/colour/offset, colour:inherit) lives in
- * styles/blocks/paragraphs/footer-nav-link.json; only the transition stays here since it targets
- * the same `a` the hover rule below does.
+ * Footer nav links (.ls-footer-nav-link, folded in from
+ * styles/blocks/paragraphs/footer-nav-link.json — LS-2341): underline reveals on hover/focus by
+ * animating decoration-colour from transparent, rather than toggling text-decoration-line itself.
+ * Matches the approved reference screenshot. Rest-state colour/spacing/textDecoration are inline
+ * block attributes on the paragraph; the nested `a`'s static decoration setup (line/colour/offset,
+ * colour:inherit) and the hover/focus colour swap live in src/scss/structural/_footer.scss — only
+ * the transition (timing) it shares with that hover rule is real motion.
  */
-.is-style-footer-nav-link a {
+.ls-footer-nav-link a {
   transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 
-.is-style-footer-nav-link a:hover,
-.is-style-footer-nav-link a:focus-visible {
-  color: var(--wp--custom--color--phase--create);
-  text-decoration-color: var(--wp--custom--color--phase--create);
-}
-
 /*
- * Proof-point card (styles/blocks/groups/footer-proof-card.json) and social icon circle
- * (styles/blocks/groups/footer-social-icon.json): base structural CSS lives in their JSON files.
- * Their hover/transition contract lives in _shared-hover.scss — shared byte-for-byte with the
- * header search button and the mobile-menu close button. WordPress doesn't generate :hover/:focus
- * CSS for arbitrary block style variations, so it can't move to either JSON file.
+ * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon): both
+ * folded in from styles/blocks/groups/*.json (LS-2341) as inline block attributes on
+ * patterns/footer.php. The shared transition (timing) lives in _shared-hover.scss — shared
+ * byte-for-byte with the header search button and the mobile-menu close button; the hover colour
+ * swap itself lives in structural/_footer.scss, alongside the rest-state it modifies. WordPress
+ * doesn't generate :hover/:focus CSS for arbitrary block style variations, so neither can move
+ * back into JSON.
  */
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-footer-nav-link a {
+  .ls-footer-nav-link a {
     transition: none;
   }
 }

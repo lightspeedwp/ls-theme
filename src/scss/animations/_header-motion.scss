@@ -52,40 +52,20 @@
 }
 
 /*
- * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
- * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept
- * here rather than as a registered block style because it needs to sit alongside the hover
- * treatment, and WordPress doesn't generate :hover CSS for arbitrary block style variations.
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php). Rest-state gradient/border/shadow/spacing/typography are
+ * inline block attributes now. box-shadow isn't a motion property (per AGENTS.md, this file may
+ * only contain @keyframes/transition/transform/animation/will-change) — its hover swap lives in
+ * src/scss/structural/_buttons.scss; only the transition and the transform-bearing hover rule
+ * stay here.
  */
-.is-style-header-icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  color: var(--wp--custom--color--text--default);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
-  }
-}
-
-.is-style-button-cta-gradient .wp-block-button__link {
+.ls-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
   &:hover,
   &:focus-visible {
     transform: translateY(-1px);
-    box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
   }
 }
 
@@ -99,8 +79,25 @@
  * field instead of submitting immediately.
  */
 .site-header__search {
-  /* Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
-   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles. */
+  /*
+   * Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles.
+   * border-color/radius and color are real inline block attributes on the wp:search block in
+   * patterns/header.php (core/search's border/color supports are real, just not
+   * auto-serialized — confirmed via wp-includes/blocks/search.php). min-inline-size/
+   * min-block-size/padding/display/align-items/justify-content have no block-supports
+   * equivalent (search has no dimensions or spacing.padding support at all) and stay here.
+   *
+   * JSON limitation confirmed empirically 2026-08-17: the rest-state background CANNOT be a
+   * block attribute here — core/search's render_block_core_search() runs every inline style
+   * value (background included) through WordPress's own safecss_filter_attr(), which only
+   * recognises var()/calc()/min()/max()/minmax()/clamp()/repeat() as safe functions. color-mix()
+   * isn't on that allowlist, so any declaration containing it is silently dropped from the
+   * generated style="" attribute entirely — not resolved incorrectly, just missing outright,
+   * which is why the button had no themed background in either light or dark mode. Real CSS
+   * (compiled to a stylesheet, never passed through kses) is the only route color-mix() can
+   * take here.
+   */
   .wp-block-search__button {
     display: flex;
     align-items: center;
@@ -108,10 +105,7 @@
     min-inline-size: 44px;
     min-block-size: 44px;
     padding: var(--wp--preset--spacing--10);
-    border: 1px solid var(--wp--custom--color--border--card);
-    border-radius: var(--wp--preset--border-radius--500);
-    background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-    color: var(--wp--custom--color--text--default);
+    background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
   }
 
   .wp-block-search__input {
@@ -134,8 +128,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-header-icon-button,
-  .is-style-button-cta-gradient .wp-block-button__link,
+  .ls-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;
   }

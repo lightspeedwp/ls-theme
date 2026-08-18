@@ -1,0 +1,123 @@
+/********** Home Hero (front page only) **********/
+
+/*
+ * Light full-width group style with the animated network background used for the homepage hero.
+ * Single consumer (patterns/home-hero.php), folded in from styles/sections/home-hero-section.json
+ * (LS-2341) — layered gradients, custom properties, and the descendant selectors for the
+ * JS-injected background/network/orb/canvas elements have no block-supports equivalent, so the
+ * full rest-state lives here as a scoped rule on the plain .ls-home-hero-section classname. No
+ * CSS-level motion is involved at all — the animated network/canvas is driven imperatively by
+ * assets/js/gsap-effects.js, not by any CSS transition/animation/keyframes — so none of this
+ * belongs under src/scss/animations/** or src/scss/gsap/**, both motion-only per AGENTS.md.
+ */
+.ls-home-hero-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  --ls-home-hero-surface: var(--wp--custom--color--surface--canvas);
+  --ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
+  --ls-home-hero-cta: var(--wp--custom--color--effect--hero--cta);
+  --ls-home-hero-accent: var(--wp--custom--color--effect--hero--accent);
+
+  background:
+    radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%, transparent 34%),
+    radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--ls-home-hero-cta) 14%, transparent) 0%, transparent 28%),
+    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--ls-home-hero-accent) 7%, transparent) 0%, transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--ls-home-hero-surface) 98%, var(--wp--custom--color--surface--highlight) 2%) 0%, var(--ls-home-hero-surface) 100%);
+
+  > :not(.ls-home-hero-section__background) {
+    position: relative;
+    z-index: var(--wp--custom--z-index--content);
+  }
+
+  .ls-home-hero-section__background {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  .ls-home-hero-section__network {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: var(--wp--custom--z-index--content);
+    opacity: 0.92;
+  }
+
+  .ls-home-hero-section__orb {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(80px);
+    opacity: 0.8;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  .ls-home-hero-section__orb--brand {
+    top: 8%;
+    left: -8rem;
+    width: 24rem;
+    height: 24rem;
+    background: color-mix(in srgb, var(--ls-home-hero-brand) 24%, transparent);
+  }
+
+  .ls-home-hero-section__orb--cta {
+    right: -6rem;
+    bottom: 10%;
+    width: 20rem;
+    height: 20rem;
+    background: color-mix(in srgb, var(--ls-home-hero-cta) 22%, transparent);
+  }
+
+  .ls-home-hero-section__canvas {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .wp-block-heading {
+    overflow-wrap: anywhere;
+  }
+}
+
+/*
+ * Responsive override. JSON limitation: confirmed empirically (2026-08-11) that the
+ * styles/**.json `css` field does not support @media — WordPress's style engine strips the
+ * @media wrapper and leaks its declarations out unconditionally, applying them at every viewport
+ * instead of just this one — so this has to be real CSS regardless of the rest-state above now
+ * living here too.
+ *
+ * 767.98px mirrors settings.custom.layout.break-points.tablet-portrait (768px) in theme.json,
+ * offset by 0.02px so it stops just short of the next breakpoint — the same convention the
+ * retired src/scss/abstracts/mixins/_mq.scss mixin used to generate.
+ *
+ * Selectors below are scoped under .ls-home-hero-section (not bare) to match the rest-state
+ * selectors' specificity above — otherwise the rest-state declarations win regardless of media
+ * query and these mobile overrides silently never apply.
+ */
+@media (max-width: 767.98px) {
+  .ls-home-hero-section .ls-home-hero-section__network {
+    opacity: 1;
+  }
+
+  .ls-home-hero-section .ls-home-hero-section__orb {
+    filter: blur(64px);
+    opacity: 0.62;
+  }
+
+  .ls-home-hero-section .ls-home-hero-section__orb--brand {
+    left: -10rem;
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .ls-home-hero-section .ls-home-hero-section__orb--cta {
+    right: -8rem;
+    width: 16rem;
+    height: 16rem;
+  }
+}

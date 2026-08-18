@@ -1,0 +1,25 @@
+/********** Button - Secondary (not sitewide-exclusive: mobile menu + Work archive CTA) **********/
+/*
+ * Button - Secondary: used in the sitewide mobile menu (parts/mobile-menu.html) AND as a normal
+ * CTA button on patterns/sections/work-discuss-project.php — not exclusively nested in header/
+ * footer chrome, so per architecture review this doesn't belong in the global animations bundle.
+ * The shared button transition (background-color/border-color/color/etc.) in
+ * src/scss/animations/_button-motion.scss still applies to this style — that rule is genuinely
+ * universal to every button on the site. Only the hover colour swap itself lives here.
+ */
+.wp-block-button.is-style-button-secondary .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary .wp-block-button__link:focus-visible {
+  background-color: var(--wp--custom--color--button--fill--background-hover);
+  border-color: var(--wp--custom--color--button--fill--border-hover);
+  color: var(--wp--custom--color--button--fill--text-hover);
+}
+
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-button-secondary-outline .wp-block-button__link:focus-visible {
+  /* button.outline has no dedicated border-hover token — reuse background-hover (brand-500) so
+   * the border matches the solid fill it's transitioning to, same as the filled variant's border
+   * matching its own background-hover above. */
+  background-color: var(--wp--custom--color--button--outline--background-hover);
+  border-color: var(--wp--custom--color--button--outline--background-hover);
+  color: var(--wp--custom--color--button--outline--text-hover);
+}

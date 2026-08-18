@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"aside","className":"is-style-cta-inline-card ls-cta-inline","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-<aside class="wp-block-group is-style-cta-inline-card ls-cta-inline">
+<!-- wp:group {"tagName":"aside","className":"ls-cta-inline-card ls-cta-inline","style":{"color":{"background":"var:custom|color|surface|on-dark-card","text":"var:custom|color|text|on-dark"},"border":{"top":{"color":"var:custom|color|text|brand","style":"solid","width":"1px"},"right":{"color":"var:custom|color|text|brand","style":"solid","width":"1px"},"bottom":{"color":"var:custom|color|text|brand","style":"solid","width":"1px"},"left":{"color":"var:custom|color|text|brand","style":"solid","width":"3px"},"radius":"var:preset|border-radius|200"},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+<aside class="wp-block-group ls-cta-inline-card ls-cta-inline has-text-color has-background" style="border-top-color:var(--wp--custom--color--text--brand);border-top-style:solid;border-top-width:1px;border-right-color:var(--wp--custom--color--text--brand);border-right-style:solid;border-right-width:1px;border-bottom-color:var(--wp--custom--color--text--brand);border-bottom-style:solid;border-bottom-width:1px;border-left-color:var(--wp--custom--color--text--brand);border-left-style:solid;border-left-width:3px;border-radius:var(--wp--preset--border-radius--200);color:var(--wp--custom--color--text--on-dark);background-color:var(--wp--custom--color--surface--on-dark-card);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 
 	<!-- wp:group {"className":"ls-cta-inline__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-cta-inline__content">

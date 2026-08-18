@@ -2,8 +2,8 @@
 /**
  * Portfolio Card Platform Colours.
  *
- * The Work Project Card colours its banner and badge by the post's
- * project-group term (WordPress/WooCommerce/etc). Since a Query Loop
+ * The Work Project Card colours its banner, platform tag, and badge by the
+ * post's project-group term (WordPress/WooCommerce/etc). Since a Query Loop
  * renders identical block markup for every post, the WooCommerce variant
  * class has to be swapped in per-post at render time — it can't be set
  * statically in the pattern.
@@ -16,58 +16,64 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Swap the Work Project Card's banner/badge class to the WooCommerce
- * variant when the current post's project-group term is WooCommerce.
- * Every other term falls back to the default (WordPress-tinted) variant.
+ * Swap the Work Project Card's banner/platform-tag/badge class to the
+ * WooCommerce variant when the current post's project-group term is
+ * WooCommerce. Every other term falls back to the default (WordPress-tinted)
+ * variant.
  *
- * Hooked on `render_block_data` at priority 9 — one step before core's own
- * `wp_render_block_style_variation_support_styles` (priority 10, registered
- * in wp-includes/block-supports/block-style-variations.php), which decides
- * which is-style-* variation to generate CSS for and stamps a numbered
- * instance class (e.g. is-style-card-banner-tint--175) based on whatever
- * className is present at that point. Swapping the className here, on the
- * parsed block attrs, means core sees the WooCommerce classname before it
- * makes that decision. Swapping later via a `render_block` string-replace
- * (the previous approach) edits the rendered HTML text only — core had
- * already generated CSS for the un-swapped classname's numbered instance,
- * so the final class in the HTML no longer matched any compiled rule at
- * all, confirmed empirically 2026-08-12.
+ * These are plain classes (LS-2341 Group 4) styled in
+ * src/scss/structural/work-project-card.scss, not registered is-style variations, so
+ * there's no core CSS-generation timing to race against.
  *
- * @param array $block Parsed block data.
- * @return array
+ * Hooked on `render_block` (post-render HTML string), not `render_block_data`
+ * (pre-render attrs): confirmed empirically that get_the_ID()/post context
+ * for a `core/group` block's `render_block_data` pass inside a Post Template
+ * loop doesn't reliably reflect the current iteration's post for every block
+ * — the badge (a dynamic core/post-terms block) swapped correctly there, but
+ * the banner and platform-tag (static core/group blocks) didn't. By the time
+ * `render_block` fires, the block's own inner content (including its
+ * post-terms text) has already rendered against the correct post, so post
+ * context here is provably reliable.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
  */
-function ls_theme_portfolio_card_platform_class( $block ) {
+function ls_theme_portfolio_card_platform_class( $block_content, $block ) {
 	if ( 'core/group' !== $block['blockName'] && 'core/post-terms' !== $block['blockName'] ) {
-		return $block;
+		return $block_content;
 	}
 
 	$class_name = $block['attrs']['className'] ?? '';
 
-	$is_banner = false !== strpos( $class_name, 'is-style-card-banner-tint' );
-	$is_badge  = false !== strpos( $class_name, 'is-style-badge-brand' );
+	$is_banner = false !== strpos( $class_name, 'ls-card-banner-tint' );
+	$is_tag    = false !== strpos( $class_name, 'ls-platform-tag-brand' );
+	$is_badge  = false !== strpos( $class_name, 'ls-badge-brand' );
 
-	if ( ! $is_banner && ! $is_badge ) {
-		return $block;
+	if ( ! $is_banner && ! $is_tag && ! $is_badge ) {
+		return $block_content;
 	}
 
 	$post_id = get_the_ID();
 
 	if ( ! $post_id ) {
-		return $block;
+		return $block_content;
 	}
 
 	$terms = wp_get_post_terms( $post_id, 'project-group', array( 'fields' => 'slugs' ) );
 
 	if ( is_wp_error( $terms ) || empty( $terms ) || ! in_array( 'woocommerce', $terms, true ) ) {
-		return $block;
+		return $block_content;
 	}
 
 	if ( $is_banner ) {
-		$block['attrs']['className'] = str_replace( 'is-style-card-banner-tint', 'is-style-card-banner-tint-woocommerce', $class_name );
-	} else {
-		$block['attrs']['className'] = str_replace( 'is-style-badge-brand', 'is-style-badge-woocommerce', $class_name );
+		return str_replace( 'ls-card-banner-tint', 'ls-card-banner-tint-woocommerce', $block_content );
 	}
 
-	return $block;
+	if ( $is_tag ) {
+		return str_replace( 'ls-platform-tag-brand', 'ls-platform-tag-woocommerce', $block_content );
+	}
+
+	return str_replace( 'ls-badge-brand', 'ls-badge-woocommerce', $block_content );
 }
-add_filter( 'render_block_data', 'ls_theme_portfolio_card_platform_class', 9 );
+add_filter( 'render_block', 'ls_theme_portfolio_card_platform_class', 10, 2 );

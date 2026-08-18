@@ -101,6 +101,11 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
   **only** `@keyframes`, `transition`, `transform`, `animation`, and `will-change`
   rules, plus their `prefers-reduced-motion` companions. Any other property in those
   files is a defect and must be moved to a JSON style partial or removed.
+- `assets/css/animations.css` (and the SCSS it's compiled from) may only contain
+  genuinely **global** styling — content that loads sitewide through the header or
+  footer template parts (including anything nested in them, e.g. the mobile menu or
+  mega menus). Styling tied to a specific page or pattern does not belong there, no
+  matter how small, and must live in its own dedicated file instead.
 - GSAP is permitted only for JS-driven interaction that CSS transition/animation
   structurally cannot achieve (e.g. scroll-triggered sequencing, cursor-tracked
   effects) — never as a default choice for "this pattern has motion."

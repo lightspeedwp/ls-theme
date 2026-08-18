@@ -1,0 +1,50 @@
+/********** Taxonomy Filter (Work archive) **********/
+
+/*
+ * Taxonomy Filter (ls-plugin/taxonomy-filter, single consumer
+ * patterns/sections/work-selected-projects.php — part of the Work archive chain). This is a
+ * third-party plugin block; a theme.json "styles.blocks" preset for it was tried and confirmed
+ * unreliable (WordPress resolves theme.json before this plugin's block finishes registering, in
+ * this environment at least, silently dropping the block's styles from the compiled stylesheet),
+ * so real CSS is used instead. The plugin's own bundled stylesheet already provides the
+ * transition — nothing here duplicates it.
+ */
+.wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons {
+  gap: var(--wp--preset--spacing--10);
+
+  .wp-element-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--wp--custom--color--border--card);
+    border-radius: var(--wp--preset--border-radius--500);
+    padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+    background: transparent;
+    color: var(--wp--custom--color--text--muted);
+    font-family: var(--wp--preset--font-family--body);
+    font-weight: var(--wp--custom--typography--font-weight--semibold);
+    font-size: var(--wp--preset--font-size--100);
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--wp--custom--color--link--accent);
+      background-color: transparent;
+      color: var(--wp--custom--color--link--accent);
+    }
+
+    &.taxonomy-filter-current {
+      border-color: var(--wp--custom--color--card--platform--wordpress);
+      background-color: var(--wp--custom--color--card--platform--wordpress);
+      color: var(--wp--custom--color--text--on-dark);
+
+      &:hover,
+      &:focus-visible {
+        border-color: var(--wp--custom--color--card--platform--wordpress);
+        background-color: var(--wp--custom--color--card--platform--wordpress);
+        color: var(--wp--custom--color--text--on-dark);
+      }
+    }
+  }
+}

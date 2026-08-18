@@ -44,8 +44,8 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:columns {"align":"wide","className":"is-style-card-divider-both","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
-		<div class="wp-block-columns alignwide is-style-card-divider-both" style="margin-top:var(--wp--preset--spacing--40)">
+		<!-- wp:columns {"align":"wide","className":"ls-card-divider-both","style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"},"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
+		<div class="wp-block-columns alignwide ls-card-divider-both" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;margin-top:var(--wp--preset--spacing--40)">
 
 			<!-- wp:column -->
 			<div class="wp-block-column">

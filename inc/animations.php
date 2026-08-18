@@ -33,9 +33,79 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
-		'effects' => array(
+		'effects'               => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		// Structural bundles (LS-2615): styles that can't live in animations.css because that
+		// bundle is reserved for genuinely global, sitewide styling. Split into small,
+		// semantically-scoped files instead of one large components.css, so a future conditional-
+		// loading pass only has to add a `condition` callback to the relevant entry below rather
+		// than re-splitting CSS. All entries are unconditional for now, same as animations.css.
+		//
+		// Two different loading strategies will apply once conditions are added:
+		// - Template-bound (taxonomy-filter, work-project-card, work-archive-sections, work-hero):
+		//   only ever render through template-work-archive.php — a simple
+		//   is_post_type_archive( 'project' ) condition will cover all of them.
+		// - Insertable, page-agnostic (card-shells, cta-buttons, faq): these patterns have no
+		//   template reference at all — editors paste them into arbitrary page content — so a
+		//   page-based condition can't detect them reliably. These will need a render_block-filter
+		//   approach instead (see ls_theme_enqueue_faq_accordion_script() below for the existing
+		//   precedent), not a template check.
+		// - home-hero is template-bound to the front page specifically (is_front_page()).
+		'taxonomy-filter'       => array(
+			'handle'   => 'ls-theme-taxonomy-filter',
+			'path'     => 'assets/css/taxonomy-filter.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'work-project-card'     => array(
+			'handle'   => 'ls-theme-work-project-card',
+			'path'     => 'assets/css/work-project-card.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'work-archive-sections' => array(
+			'handle'   => 'ls-theme-work-archive-sections',
+			'path'     => 'assets/css/work-archive-sections.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'card-shells'           => array(
+			'handle'   => 'ls-theme-card-shells',
+			'path'     => 'assets/css/card-shells.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'cta-buttons'           => array(
+			'handle'   => 'ls-theme-cta-buttons',
+			'path'     => 'assets/css/cta-buttons.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'home-hero'             => array(
+			'handle'   => 'ls-theme-home-hero',
+			'path'     => 'assets/css/home-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'work-hero'             => array(
+			'handle'   => 'ls-theme-work-hero',
+			'path'     => 'assets/css/work-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'faq'                   => array(
+			'handle'   => 'ls-theme-faq',
+			'path'     => 'assets/css/faq.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		// Not sitewide-exclusive despite appearing in every mega-menu part, the footer, and the
+		// mobile menu — both also render in ordinary content patterns (cards, the CTA band, the
+		// Work archive's discuss-project section), so per architecture review they were pulled out
+		// of animations.css rather than kept there under the header/footer exception.
+		'links'                 => array(
+			'handle'   => 'ls-theme-links',
+			'path'     => 'assets/css/links.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'button-secondary'      => array(
+			'handle'   => 'ls-theme-button-secondary',
+			'path'     => 'assets/css/button-secondary.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);
@@ -94,9 +164,10 @@ add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_style
 /**
  * Enqueues the FAQ accordion script when the Yoast FAQ block is actually rendered.
  *
- * Uses render_block rather than has_block() so the script still loads when the
- * block is rendered via a template part, query loop, or other context that
- * has_block() can't see (it only inspects the current post's content).
+ * Uses render_block rather than has_block() so the script still loads when the block is rendered
+ * via a template part, query loop, or other context that has_block() can't see (it only inspects
+ * the current post's content). The FAQ's CSS ships unconditionally via components.css instead of
+ * being enqueued here, since it's already loaded on every page.
  *
  * @param string $block_content The block content.
  * @param array  $block         The full block data.
@@ -107,13 +178,13 @@ function ls_theme_enqueue_faq_accordion_script( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$path = 'assets/js/faq-accordion.js';
+	$script_path = 'assets/js/faq-accordion.js';
 
 	wp_enqueue_script(
 		'ls-theme-faq-accordion',
-		get_theme_file_uri( $path ),
+		get_theme_file_uri( $script_path ),
 		array(),
-		ls_theme_get_local_asset_version( $path ),
+		ls_theme_get_local_asset_version( $script_path ),
 		true
 	);
 
@@ -136,26 +207,6 @@ function ls_theme_register_effect_block_styles() {
 			'block_name' => 'core/group',
 			'name'       => 'card-feature',
 			'label'      => __( 'Card - Feature', 'ls-theme' ),
-		),
-		array(
-			'block_name' => 'core/group',
-			'name'       => 'card-category',
-			'label'      => __( 'Card - Category', 'ls-theme' ),
-		),
-		array(
-			'block_name' => 'core/group',
-			'name'       => 'card-solutions',
-			'label'      => __( 'Card - Solutions', 'ls-theme' ),
-		),
-		array(
-			'block_name' => 'core/group',
-			'name'       => 'card-solutions-accent',
-			'label'      => __( 'Card - Solutions Accent', 'ls-theme' ),
-		),
-		array(
-			'block_name' => 'core/group',
-			'name'       => 'icon-frame-glow',
-			'label'      => __( 'Icon Frame Glow', 'ls-theme' ),
 		),
 		array(
 			'block_name' => 'core/button',
