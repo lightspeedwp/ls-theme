@@ -64,7 +64,7 @@
 						<!-- /wp:heading -->
 
 						<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-						<p style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Examples grouped around platform structure, maintainability and redesign decisions.', 'ls-theme' ); ?></p>
+						<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Examples grouped around platform structure, maintainability and redesign decisions.', 'ls-theme' ); ?></p>
 						<!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->
@@ -96,7 +96,7 @@
 						<!-- /wp:heading -->
 
 						<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-						<p style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Examples grouped around ecommerce complexity, conversion and operational pressure.', 'ls-theme' ); ?></p>
+						<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Examples grouped around ecommerce complexity, conversion and operational pressure.', 'ls-theme' ); ?></p>
 						<!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->
@@ -128,7 +128,7 @@
 						<!-- /wp:heading -->
 
 						<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-						<p style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Examples that connect design consistency to implementation and long-term governance.', 'ls-theme' ); ?></p>
+						<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Examples that connect design consistency to implementation and long-term governance.', 'ls-theme' ); ?></p>
 						<!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->

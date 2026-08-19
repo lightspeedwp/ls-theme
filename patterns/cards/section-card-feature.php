@@ -8,6 +8,8 @@
  * Keywords: card, feature, cta
  * Viewport Width: 480
  * Inserter: true
+ *
+ * @package ls-theme
  */
 
 ?>
@@ -26,7 +28,7 @@
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-		<p style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Ship faster with accessible, block-first sites and plugins designed around reusable patterns, semantic tokens, and maintainable editorial workflows.', 'ls-theme' ); ?></p>
+		<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Ship faster with accessible, block-first sites and plugins designed around reusable patterns, semantic tokens, and maintainable editorial workflows.', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->

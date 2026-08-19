@@ -6,13 +6,15 @@
  * Block Types: core/template-part
  * Description: Main-content pattern for the All Archives template — archive title, description, and a paginated post query loop.
  * Inserter: false
+ *
+ * @package ls-theme
  */
 
 ?>
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|x-small"}}} -->
+	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}}} -->
 	<div class="wp-block-group">
 		<!-- wp:query-title {"type":"archive","showPrefix":true} /-->
 		<!-- wp:term-description /-->

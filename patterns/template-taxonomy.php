@@ -6,13 +6,15 @@
  * Block Types: core/template-part
  * Description: Main-content pattern for the Taxonomy template — shared across every Portfolio taxonomy (Industry, Project types, Service, Software). Shows the term title/description and a paginated grid of matching case studies.
  * Inserter: false
+ *
+ * @package ls-theme
  */
 
 ?>
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|x-small"}}} -->
+	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}}} -->
 	<div class="wp-block-group">
 		<!-- wp:query-title {"type":"archive","showPrefix":true} /-->
 		<!-- wp:term-description /-->
