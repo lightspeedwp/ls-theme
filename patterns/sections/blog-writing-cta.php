@@ -6,8 +6,9 @@
  * Block Types: core/pattern
  * Description: The Blog archive's closing CTA: a bordered, monospace code-comment-style eyebrow
  * pill, a two-line heading (plain white first line, on-dark-accent second line), supporting
- * paragraph, and a primary/outline button pair on the left; a decorative code-snippet card on
- * the right. Two-column layout via core/columns, which stacks automatically on mobile.
+ * paragraph, and a single primary CTA button on the left; a decorative code-snippet card on
+ * the right. A second, outline "Read the resources" button was removed — it linked back to
+ * `/blog/`, the same page this section renders on, so it never had a distinct destination. Two-column layout via core/columns, which stacks automatically on mobile.
  * Permanently dark, independent of the light/dark style variation toggle, using the same on-dark
  * tokens as the Blog Hero. Rendered as a bounded, rounded card within the page margins (align:wide
  * + border + radius + padding), capped to a narrower max width than the theme's own wideSize —
@@ -59,10 +60,6 @@
 				<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
 					<!-- wp:button {"className":"is-style-button-primary-on-dark"} -->
 					<div class="wp-block-button is-style-button-primary-on-dark"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
-					<!-- /wp:button -->
-
-					<!-- wp:button {"className":"is-style-button-outline-on-dark"} -->
-					<div class="wp-block-button is-style-button-outline-on-dark"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/blog/' ) ); ?>"><?php echo esc_html__( 'Read the resources', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->

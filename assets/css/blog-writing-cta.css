@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /********** Blog Writing CTA (Blog archive only) **********/
 /*
  * Card max-width cap: align:wide already resolves to the theme's wideSize (1370px), but the
@@ -36,7 +37,6 @@
  */
 .ls-writing-cta pre.wp-block-code {
   white-space: pre-wrap;
-  word-break: break-word;
   overflow-wrap: anywhere;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .ls-code-value {
-  color: #ffb86e;
+  color: var(--wp--custom--color--text--code-value);
 }
 
 /*

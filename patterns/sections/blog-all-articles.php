@@ -19,6 +19,10 @@
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
 
+		<!-- wp:heading {"level":2,"className":"screen-reader-text"} -->
+		<h2 class="wp-block-heading screen-reader-text"><?php echo esc_html__( 'All Articles', 'ls-theme' ); ?></h2>
+		<!-- /wp:heading -->
+
 		<!-- wp:query {"queryId":2,"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":false},"align":"wide","enhancedPagination":true,"style":{"spacing":{"blockGap":"var:preset|spacing|60"}}} -->
 		<div class="wp-block-query alignwide">
 
@@ -35,6 +39,12 @@
 			<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
 				<!-- wp:pattern {"slug":"ls-theme/blog-post-card"} /-->
 			<!-- /wp:post-template -->
+
+			<!-- wp:query-no-results -->
+			<!-- wp:paragraph -->
+			<p><?php echo esc_html__( 'No articles found. Try a different search or category.', 'ls-theme' ); ?></p>
+			<!-- /wp:paragraph -->
+			<!-- /wp:query-no-results -->
 
 			<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
 				<!-- wp:query-pagination-previous /-->

@@ -1,12 +1,20 @@
 /********** Blog All Articles (Blog archive only) **********/
 
 /*
- * Category Badge (Blog All Articles' post card): background tint has no block-supports
- * equivalent — core/group doesn't support a computed color-mix() background, same limitation
- * already documented for Card - Work Project's badge classes in work-project-card.scss. Uses
- * currentColor rather than a repeated custom property, since the pattern already sets the
- * group's own text colour inline (swapped per-post by inc/blog-card-colors.php) and color-mix
- * can read that directly. Rest-state only, no motion.
+ * Category Badge (Blog All Articles' post card): border tint has no block-supports equivalent —
+ * core/group doesn't support a computed color-mix() border, same limitation already documented
+ * for Card - Work Project's badge classes in work-project-card.scss. Uses currentColor rather
+ * than a repeated custom property, since the pattern already sets the group's own text colour
+ * inline (swapped per-post by inc/blog-card-colors.php) and color-mix can read that directly.
+ * Rest-state only, no motion.
+ *
+ * Deliberately no background tint: the `category.*` tokens were calibrated for exactly 4.5:1
+ * against the plain card surface (see theme.json's category token comments), and tinting the
+ * background with the same hue as the text pulls the two colours closer together, not further
+ * apart — confirmed empirically to fail AA (as low as 3.67:1) at any tint percentage tried,
+ * since it converges toward the text-vs-card ratio as the tint approaches 0% anyway. A border
+ * instead of a fill keeps the chip's shape without touching the text's contrast against its
+ * actual background (the card surface).
  *
  * The post-terms label deliberately carries no colour of its own in the pattern — a block-level
  * `elements.link` colour override renders as one deduped, shared stylesheet rule reused across
@@ -21,7 +29,7 @@
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  background-color: color-mix(in srgb, currentColor 12%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
   border-radius: var(--wp--preset--border-radius--200);
   padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--20);
 

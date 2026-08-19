@@ -62,12 +62,17 @@
  * cascade over a plain override (confirmed empirically, same class of bug as the Writing CTA
  * card's max-width fight with `.alignwide`), so both the compound selector and `!important` are
  * required here, not just one or the other.
+ *
+ * The fade's own width (2.5rem) is added back as inline-end padding, so the last button has
+ * somewhere to scroll to before the fade — without it, the last button's final 2.5rem always
+ * sits under the mask and can never reach full opacity, even at the maximum scroll offset.
  */
 @media (max-width: 789.98px) {
   .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons.wp-block-buttons {
     flex-wrap: nowrap !important;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    padding-inline-end: 2.5rem;
     mask-image: linear-gradient(90deg, black calc(100% - 2.5rem), transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, black calc(100% - 2.5rem), transparent 100%);
 

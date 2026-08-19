@@ -6,10 +6,10 @@
 	"blockTypes": [
 		"core/search"
 	],
-	"description": "Rounded pill wrapper for the Blog All Articles search box, no-button — a leading magnifying-glass icon replaces the submit button (a real accessibility win for an instant-filter search, not just a style choice). Only overrides what `styles/presets/blocks/core-search.json` (the site-wide core/search default) doesn't already set. With no button, core/search renders the input directly on the block root (no `.wp-block-search__inside-wrapper`), so the pill border/background/icon all target the root and the input itself rather than that wrapper. The icon glyph has no block-supports equivalent — no icon slot exists on core/search — so it's a mask-image data URI tinted via text.muted, the same JSON-limitation class as other pseudo-element glyphs in this theme.",
+	"description": "Rounded pill wrapper for the Blog All Articles search box, no-button — a leading magnifying-glass icon replaces the submit button (a real accessibility win for an instant-filter search, not just a style choice). Only overrides what `styles/presets/blocks/core-search.json` (the site-wide core/search default) doesn't already set. With no button, core/search renders the input directly on the block root (no `.wp-block-search__inside-wrapper`), so the pill border/background/icon all target the root and the input itself rather than that wrapper. The icon glyph has no block-supports equivalent — no icon slot exists on core/search — so it's a mask-image data URI tinted via text.muted, the same JSON-limitation class as other pseudo-element glyphs in this theme. Border uses the new border.field token (neutral-600, both modes) rather than border.card (neutral-300/800) — this border is the input's only visible field boundary (no inner input border, per the CSS below), and border.card only reaches ~1.3:1 against the card surface, well under WCAG 1.4.11's 3:1 non-text minimum; border.field is verified at 4.5:1 light / 3.59:1 dark.",
 	"styles": {
 		"border": {
-			"color": "var:custom|color|border|card",
+			"color": "var:custom|color|border|field",
 			"radius": "var:preset|border-radius|500",
 			"style": "solid",
 			"width": "1px"

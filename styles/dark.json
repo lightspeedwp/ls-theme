@@ -16,7 +16,8 @@
 					"on-dark-muted": "var:preset|color|neutral-400",
 					"brand-on-dark": "var:preset|color|cta-500",
 					"on-dark-accent": "var:preset|color|cta-400",
-					"on-light": "var:preset|color|contrast"
+					"on-light": "var:preset|color|contrast",
+					"code-value": "var:preset|color|warning-foreground"
 				},
 				"surface": {
 					"canvas": "var:preset|color|contrast",
@@ -37,7 +38,8 @@
 				},
 				"border": {
 					"card": "var:preset|color|neutral-800",
-					"on-dark": "var:preset|color|neutral-800"
+					"on-dark": "var:preset|color|neutral-800",
+					"field": "var:preset|color|neutral-600"
 				},
 				"icon": {
 					"background": "var:preset|color|cta-500",
