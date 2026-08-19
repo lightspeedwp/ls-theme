@@ -16,13 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array<string, array<string, mixed>>
  */
 function ls_theme_get_gsap_styles( $context = 'front' ) {
-	$styles = array(
-		'gsap-effects' => array(
-			'handle'   => 'ls-theme-gsap-effects',
-			'path'     => 'assets/css/gsap-animations.css',
-			'contexts' => array( 'front', 'editor' ),
-		),
-	);
+	/*
+	 * No GSAP-driven CSS motion currently registered (LS-2341) — src/scss/gsap-animations.scss and
+	 * its compiled output are kept as an empty placeholder entrypoint for the next GSAP-powered
+	 * component that needs CSS-level motion, rather than enqueueing a comment-only stylesheet on
+	 * every request in the meantime.
+	 */
+	$styles = array();
 
 	/**
 	 * Filters the registered GSAP styles.
@@ -136,39 +136,62 @@ function ls_theme_enqueue_gsap_styles( $context = 'front' ) {
 }
 
 /**
-	* Registers GSAP-related block styles.
-	*/
-function ls_theme_register_gsap_block_styles() {
-	if ( ! function_exists( 'register_block_style' ) ) {
+ * Detects whether the block currently being rendered needs GSAP, and flags
+ * it for the front-end footer enqueue below.
+ *
+ * Uses render_block (not has_block()) so GSAP-styled blocks are detected
+ * regardless of whether they come from post content, a template, or a
+ * template-embedded pattern — has_block() only inspects the queried post's
+ * own content and would miss template-embedded blocks such as Home Hero.
+ * This also means a future GSAP-powered component never needs a new
+ * page/template check added here — only its class name added to
+ * $gsap_styles below.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_flag_gsap_needed( $block_content, $block ) {
+	$classname = $block['attrs']['className'] ?? '';
+
+	if ( '' === $classname ) {
+		return $block_content;
+	}
+
+	$gsap_styles = array( 'ls-home-hero-section' );
+	$classes     = preg_split( '/\s+/', trim( $classname ) );
+
+	foreach ( $gsap_styles as $style ) {
+		if ( in_array( $style, $classes, true ) ) {
+			add_filter( 'ls_theme_gsap_needed', '__return_true' );
+			break;
+		}
+	}
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_flag_gsap_needed', 10, 2 );
+
+/**
+ * Enqueues and prints GSAP scripts in the footer, only when a GSAP-powered
+ * block style was actually rendered on the page.
+ *
+ * Printed in wp_footer rather than via the normal wp_head queue, because
+ * detection happens during block rendering, which runs after wp_head has
+ * already fired. No stylesheet is registered/printed here (LS-2341) — see
+ * ls_theme_get_gsap_styles()'s docblock.
+ */
+function ls_theme_maybe_print_gsap_assets() {
+	if ( ! apply_filters( 'ls_theme_gsap_needed', false ) ) {
 		return;
 	}
 
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'home-hero-section',
-			'label' => __( 'Home Hero Section', 'ls-theme' ),
-		)
-	);
-
-	register_block_style(
-		'core/group',
-		array(
-			'name'  => 'card-spotlight',
-			'label' => __( 'Card Spotlight', 'ls-theme' ),
-		)
-	);
-}
-add_action( 'init', 'ls_theme_register_gsap_block_styles' );
-
-/**
- * Enqueues shared GSAP scripts for the front end.
- */
-function ls_theme_enqueue_frontend_gsap_scripts() {
 	ls_theme_enqueue_gsap_styles( 'front' );
 	ls_theme_enqueue_gsap_scripts( 'front' );
+
+	wp_print_scripts( array( 'ls-theme-gsap', 'ls-theme-gsap-core-effects' ) );
 }
-add_action( 'wp_enqueue_scripts', 'ls_theme_enqueue_frontend_gsap_scripts' );
+add_action( 'wp_footer', 'ls_theme_maybe_print_gsap_assets' );
 
 /**
  * Enqueues shared GSAP scripts for the block editor.

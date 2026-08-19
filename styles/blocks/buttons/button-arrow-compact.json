@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/button"
 	],
-	"description": "Compact square button with the shared arrow glyph for card CTAs. Shared interaction contract lives in src/scss/animations.scss.",
+	"description": "Compact square button with the shared arrow glyph for card CTAs. Rest-state size/shape, the recipe custom properties, and the arrow glyph's non-hover appearance all live here. Hover/focus contract (real motion, including the cross-card-hover-triggered states from Card - Solutions) lives in src/scss/animations/_button-motion.scss.",
 	"styles": {
 		"border": {
 			"radius": "var:preset|border-radius|100",
@@ -20,6 +20,7 @@
 				"bottom": "0",
 				"left": "0"
 			}
-		}
+		},
+		"css": "&{line-height:0;--ls-button-arrow-compact-size:2.5rem;--ls-button-arrow-compact-accent-colour:var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));--ls-button-arrow-compact-border-rest:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-border-active:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-background-rest:color-mix(in srgb, var(--ls-button-arrow-compact-accent-colour) 10%, transparent);--ls-button-arrow-compact-background-active:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-colour-rest:var(--ls-button-arrow-compact-accent-colour);--ls-button-arrow-compact-colour-active:var(--wp--custom--color--button--fill--text);justify-content:center;inline-size:var(--ls-button-arrow-compact-size);min-inline-size:var(--ls-button-arrow-compact-size);block-size:var(--ls-button-arrow-compact-size);min-block-size:var(--ls-button-arrow-compact-size);border-color:var(--ls-button-arrow-compact-border-rest);background:var(--ls-button-arrow-compact-background-rest);color:transparent;overflow:hidden;}\n\n&::after{position:static;display:grid;place-items:center;color:var(--ls-button-arrow-compact-colour-rest);font-size:1.25rem;font-weight:700;line-height:1;}"
 	}
 }

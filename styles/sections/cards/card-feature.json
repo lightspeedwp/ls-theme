@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact card shell for a replaceable icon, H3 heading, supporting copy, and inline CTA.",
+	"description": "Compact card shell for a replaceable icon, H3 heading, supporting copy, and inline CTA. The hover state stays in src/scss/structural/card-shells.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{--ls-card-feature-shadow-active:var(--wp--custom--shadow--card--hover);--ls-card-feature-lift:-4px;}"
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-feature-border-active:var(--wp--custom--color--link--accent);\n--ls-card-feature-icon-border-active:var(--wp--custom--color--icon--background);\n--ls-card-feature-shadow-active:var(--wp--custom--shadow--card--hover);\n--ls-card-feature-icon-shadow-active:var(--wp--custom--shadow--elevation--300), 0 22px 44px -22px color-mix(in srgb, var(--wp--custom--color--icon--background) 76%, transparent);\n--ls-card-feature-lift:var(--wp--custom--animation--lift--lg);\n\n& .ls-card-feature__content {\n\tflex: 1 1 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--20);\n}\n\n& .ls-card-feature__cta {\n\tmargin-top: auto;\n\tmargin-bottom: 0;\n}\n\n& .ls-card__icon-shell {\n\talign-self: flex-start;\n}"
 	}
 }

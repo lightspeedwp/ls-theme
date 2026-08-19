@@ -21,8 +21,8 @@
 
 		<!-- wp:group {"className":"ls-cta-reassurance__content","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group ls-cta-reassurance__content">
-			<!-- wp:paragraph {"className":"ls-cta-reassurance__badge","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"typography":{"textTransform":"uppercase","letterSpacing":"1.2px"}},"fontSize":"100"} -->
-			<p class="ls-cta-reassurance__badge has-100-font-size" style="color:var(--wp--custom--color--text--brand);letter-spacing:1.2px;text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
+			<!-- wp:paragraph {"className":"ls-cta-reassurance__badge","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"}},"fontSize":"100"} -->
+			<p class="ls-cta-reassurance__badge has-100-font-size" style="color:var(--wp--custom--color--text--brand);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:heading {"level":2,"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"500"} -->

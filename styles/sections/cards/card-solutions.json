@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact white card shell for a replaceable icon, supporting copy, and an icon-only CTA.",
+	"description": "Compact white card shell for a replaceable icon, supporting copy, and an icon-only CTA. Non-expressible structural properties (position, overflow, max-inline-size, the content/cta layout) and the hover state stay in src/scss/structural/card-shells.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -28,6 +28,6 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"css": "&{--ls-card-solutions-accent-colour:var(--wp--custom--color--card--solutions--brand);}"
+		"css": "position: relative;\noverflow: hidden;\nmax-inline-size: 22.5rem;\n--ls-card-solutions-accent-colour: var(--wp--custom--color--card--solutions--brand);\n--ls-card-solutions-accent-resolved: var(--ls-card-solutions-accent-colour, var(--wp--custom--color--card--solutions--brand));\n--ls-card-solutions-border-active: var(--ls-card-solutions-accent-resolved);\n--ls-card-solutions-shadow-active: 1px 4px 12px 4px color-mix(in srgb, var(--ls-card-solutions-accent-resolved) 50%, transparent);\n\n& .ls-card-solutions__content {\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--10);\n\tinline-size: 100%;\n}\n\n& .ls-card-solutions__content > * {\n\tmargin-block: 0;\n}\n\n& .ls-card-solutions__content .wp-block-heading {\n\tcolor: var(--wp--custom--color--text--default);\n}\n\n& .ls-card-solutions__cta {\n\tmargin-top: auto;\n\tmargin-bottom: 0;\n}\n\n& .ls-card-solutions__cta .wp-block-button {\n\tmargin: 0;\n}"
 	}
 }

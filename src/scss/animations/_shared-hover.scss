@@ -1,0 +1,73 @@
+/********** Shared Hover Contracts **********/
+
+/*
+ * Circular icon-button hover (header search button, mobile-menu close button, footer proof-card,
+ * footer social-icon): identical background/border-color raise-on-hover treatment and identical
+ * transition, previously duplicated once per file. Consolidated 2026-08-12 after a full duplicate
+ * sweep across every animation partial. Each consumer's rest-state box model stays in its own file
+ * (or JSON) — only this shared contract lives here. WordPress doesn't generate :hover CSS for
+ * arbitrary block style variations, and the Navigation close button is WP-core-generated markup
+ * with no registrable block-style slug at all — both are genuine JSON limitations, not a styling
+ * preference.
+ *
+ * The two groups share an identical transition (the timing) but keep their original, different
+ * focus pseudo-class: the header search button and mobile-menu close button use :focus-visible
+ * (plain buttons — keyboard-only focus indication), footer proof-card/social-icon use
+ * :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation would
+ * silently change which interactions trigger the raise, so they stay split.
+ *
+ * The actual background-color/border-color hover swap for .ls-footer-proof-card/
+ * .ls-footer-social-icon lives in src/scss/structural/_footer.scss, not here — per AGENTS.md this
+ * file may only contain @keyframes/transition/transform/animation/will-change. The header search
+ * button/mobile-menu close button's own swap has no block-supports-attrs consumer competing with
+ * it, so it stays here as the one exception genuinely tied to this shared transition contract.
+ */
+.site-header__search .wp-block-search__button,
+.site-header .wp-block-navigation__responsive-container-close,
+.ls-footer-proof-card,
+.ls-footer-social-icon {
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
+.site-header__search .wp-block-search__button:hover,
+.site-header__search .wp-block-search__button:focus-visible,
+.site-header .wp-block-navigation__responsive-container-close:hover,
+.site-header .wp-block-navigation__responsive-container-close:focus-visible {
+  background-color: var(--wp--custom--color--surface--card-raised);
+  border-color: var(--wp--custom--color--phase--create);
+}
+
+/*
+ * Mega-menu row hover (Default + Service items): same background-raise idea as the contract above,
+ * deliberately kept separate rather than merged into it — these rows were never designed to also
+ * change border-color on hover, and merging would silently add that.
+ *
+ * is-style-mega-menu-item-service is qualified to .wp-block-paragraph specifically: the same class
+ * is also applied once to the mobile Services accordion's core/columns grid wrapper
+ * (parts/mobile-menu.html), which contains all 6 phase columns. Left unscoped, :focus-within
+ * bubbles up from any focused descendant, so focusing a single service row would raise the
+ * background of the entire grid instead of just that row. is-style-mega-menu-item-default has no
+ * such conflict (always a core/group), so it stays unqualified.
+ */
+.is-style-mega-menu-item-default,
+.wp-block-paragraph.is-style-mega-menu-item-service {
+  transition: background-color var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__search .wp-block-search__button,
+  .site-header .wp-block-navigation__responsive-container-close,
+  .ls-footer-proof-card,
+  .ls-footer-social-icon,
+  .is-style-mega-menu-item-default,
+  .wp-block-paragraph.is-style-mega-menu-item-service {
+    transition: none;
+  }
+}

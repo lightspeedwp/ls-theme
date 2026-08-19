@@ -1,0 +1,142 @@
+/********** Work Archive Sections (categories, stats, related routes, capability list) **********/
+
+/*
+ * Icon wells (folded in from styles/blocks/groups/icon-well-*.json and
+ * styles/sections/cards/card-icon-shell.json). These are internal card components (icons living
+ * inside a card/list row), not full cards or buttons — per AGENTS.md they must not have their own
+ * JSON is-style entry showing up as a selectable Style in the block editor. Plain classes here
+ * instead. inline-size/block-size/flex-shrink and the descendant icon selectors have no
+ * block-supports equivalent.
+ */
+.ls-icon-well-accent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--wp--preset--border-radius--300);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--solutions--accent) 12%, transparent);
+  color: var(--wp--custom--color--card--solutions--accent);
+}
+
+.ls-icon-well-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--wp--preset--border-radius--300);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--solutions--brand) 10%, transparent);
+  color: var(--wp--custom--color--card--solutions--brand);
+}
+
+.ls-icon-well-commerce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--wp--preset--border-radius--300);
+  background-color: color-mix(in srgb, var(--wp--custom--color--icon--commerce) 10%, transparent);
+  color: var(--wp--custom--color--icon--commerce);
+}
+
+/*
+ * Card - Divider Both (folded in from styles/sections/cards/card-divider-both.json, single
+ * consumer patterns/section-stats-grid.php). Rest-state border/margin are inline block attributes
+ * on that consumer; stretching each column's own child to the column's full height has no
+ * block-supports equivalent.
+ */
+.ls-card-divider-both > .wp-block-column {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 1 1 auto;
+  }
+}
+
+/*
+ * Card - Category: rest-state look and hover custom-property recipe live in
+ * styles/sections/cards/card-category.json. The hover border-color/box-shadow swap itself lives
+ * here as real SCSS, not in JSON — see work-project-card.scss's Card - Case Study comment for why.
+ */
+.is-style-card-category {
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-category-border-active) !important;
+    box-shadow: var(--ls-card-category-shadow-active) !important;
+    transform: translateY(var(--ls-card-category-lift));
+  }
+}
+
+/*
+ * Card - Link Row (work-related-routes / work-next-steps-card consumers): rest-state look,
+ * hover-only custom properties, stretched-link ::before, base link style, and :focus-visible all
+ * live in styles/sections/cards/card-link-row.json. Only the background/border-color transition
+ * and its hover-state swap stay here as real motion.
+ */
+.is-style-card-link-row {
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--ls-card-link-row-background-active);
+    border-color: var(--ls-card-link-row-border-active);
+  }
+
+  &:hover .wp-block-outermost-icon-block .icon-container,
+  &:focus-within .wp-block-outermost-icon-block .icon-container {
+    color: var(--ls-card-link-row-icon-active) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-style-card-category,
+  .is-style-card-link-row {
+    transition: none;
+  }
+
+  .is-style-card-category:hover,
+  .is-style-card-category:focus-within {
+    transform: none;
+  }
+}
+
+/*
+ * Stat Segment: base border-inline-end divider lives in styles/sections/cards/stat-segment.json.
+ * Both suppression rules below stay here as confirmed JSON limitations:
+ *
+ * 1. JSON limitation: @media can't go in the css field. Below core/columns' own native stacking
+ *    breakpoint (WP core hardcodes this at max-width: 781px in
+ *    wp-includes/blocks/columns/style.css), each column becomes full-width, so the divider would
+ *    just show as a stray line down the right edge of every stacked segment. 781.98px = 782px
+ *    minus the same 0.02px offset the retired mq mixin used.
+ *
+ * 2. JSON limitation, confirmed empirically: a css-field selector with `&` anywhere other than
+ *    the leading token breaks (WordPress's `&` substitution silently drops the trailing `&`).
+ */
+@media (max-width: 781.98px) {
+  .is-style-stat-segment {
+    border-inline-end: none;
+  }
+}
+
+.wp-block-columns > .wp-block-column:last-child > .is-style-stat-segment {
+  border-inline-end: none;
+}

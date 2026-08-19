@@ -1,0 +1,12 @@
+/********** Button Structural Overrides (global) **********/
+
+/*
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php — genuinely global, the header loads on every page). Hover
+ * box-shadow swap — not a motion property, per AGENTS.md. The transition and the transform-bearing
+ * hover rule live in _header-motion.scss.
+ */
+.ls-button-cta-gradient .wp-block-button__link:hover,
+.ls-button-cta-gradient .wp-block-button__link:focus-visible {
+  box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
+}

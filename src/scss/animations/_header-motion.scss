@@ -1,7 +1,16 @@
-@use "../abstracts/mixins/motion";
-@use "../abstracts/mixins/mq";
 
 /********** Site Header **********/
+
+/*
+ * The header's own top/bottom padding (spacing token 20) is symmetric — 14px both sides. But
+ * the root layout's blockGap (spacing token 30, ~20px) applies as margin-top on whatever section
+ * follows the header, stacking with the header's own bottom padding (14px + 20px = 34px) against
+ * just the header's 14px above. Targeting "whatever follows .site-header" rather than any one
+ * section by name makes this apply everywhere the header appears, not just the homepage.
+ */
+.site-header + * {
+  margin-block-start: 0;
+}
 
 /*
  * Below core/navigation's own native overlay-menu breakpoint (core WP hardcodes this at
@@ -12,48 +21,51 @@
  * the site's only search entry point on mobile (the nav overlay drawer doesn't include it).
  * With `justifyContent:"space-between"` already set on the header row, hiding just the buttons
  * still leaves enough room for the collapsed nav's hamburger to sit at the far right.
+ *
+ * JSON limitation: @media is confirmed stripped from the styles/**.json css field, so this stays
+ * real CSS. Inlined literal from the mq mixin (Phase 3 Group 5, mixin teardown): nav-toggle is
+ * 600px in theme.json, minus the mixin's own 0.02px offset so adjacent breakpoint ranges don't
+ * overlap at the exact value.
  */
-@include mq.mq($until: "nav-toggle") {
+@media (max-width: 599.98px) {
   .site-header__actions .wp-block-buttons {
     display: none;
   }
 }
 
 /*
- * Header icon buttons (search, light/dark toggle) and the gradient CTA. The base circular-button
- * shell (border/background/sizing) matches styles/blocks/groups/header-icon-button.json — kept
- * here rather than as a registered block style because it needs to sit alongside the hover
- * treatment, and WordPress doesn't generate :hover CSS for arbitrary block style variations.
+ * Below the nav's own `mobileMenuBreakpoint` (1024, matching the "tablet-landscape" breakpoint),
+ * core/navigation collapses to a single hamburger toggle. With the header row's own
+ * `justifyContent:"space-between"` and 3 top-level items (logo, nav, actions), the hamburger
+ * — now much narrower than the full nav — lands wherever equal-gap math puts it, which is close
+ * to dead centre, not next to the actions group where it visually belongs. Scoping the fix to
+ * this breakpoint only (rather than restructuring the header's markup) keeps the desktop nav's
+ * spacing exactly as designed and only changes the collapsed state.
+ *
+ * Inlined literal from the mq mixin: tablet-landscape is 1024px in theme.json, minus the same
+ * 0.02px offset.
  */
-.is-style-header-icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
-  padding: var(--wp--preset--spacing--10);
-  border: 1px solid var(--wp--custom--color--border--card);
-  border-radius: var(--wp--preset--border-radius--500);
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-  color: var(--wp--custom--color--text--default);
-  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
+@media (max-width: 1023.98px) {
+  .site-header .wp-block-navigation {
+    margin-inline-start: auto;
   }
 }
 
-.is-style-button-cta-gradient .wp-block-button__link {
+/*
+ * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
+ * single consumer patterns/header.php). Rest-state gradient/border/shadow/spacing/typography are
+ * inline block attributes now. box-shadow isn't a motion property (per AGENTS.md, this file may
+ * only contain @keyframes/transition/transform/animation/will-change) — its hover swap lives in
+ * src/scss/structural/_buttons.scss; only the transition and the transform-bearing hover rule
+ * stay here.
+ */
+.ls-button-cta-gradient .wp-block-button__link {
   transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 
   &:hover,
   &:focus-visible {
     transform: translateY(-1px);
-    box-shadow: var(--wp--custom--shadow--interactive--accent), var(--wp--custom--shadow--elevation--300);
   }
 }
 
@@ -67,6 +79,25 @@
  * field instead of submitting immediately.
  */
 .site-header__search {
+  /*
+   * Hover/transition contract for .wp-block-search__button lives in _shared-hover.scss — shared
+   * byte-for-byte with the mobile-menu close button and both footer icon-shell styles.
+   * border-color/radius and color are real inline block attributes on the wp:search block in
+   * patterns/header.php (core/search's border/color supports are real, just not
+   * auto-serialized — confirmed via wp-includes/blocks/search.php). min-inline-size/
+   * min-block-size/padding/display/align-items/justify-content have no block-supports
+   * equivalent (search has no dimensions or spacing.padding support at all) and stay here.
+   *
+   * JSON limitation confirmed empirically 2026-08-17: the rest-state background CANNOT be a
+   * block attribute here — core/search's render_block_core_search() runs every inline style
+   * value (background included) through WordPress's own safecss_filter_attr(), which only
+   * recognises var()/calc()/min()/max()/minmax()/clamp()/repeat() as safe functions. color-mix()
+   * isn't on that allowlist, so any declaration containing it is silently dropped from the
+   * generated style="" attribute entirely — not resolved incorrectly, just missing outright,
+   * which is why the button had no themed background in either light or dark mode. Real CSS
+   * (compiled to a stylesheet, never passed through kses) is the only route color-mix() can
+   * take here.
+   */
   .wp-block-search__button {
     display: flex;
     align-items: center;
@@ -74,18 +105,7 @@
     min-inline-size: 44px;
     min-block-size: 44px;
     padding: var(--wp--preset--spacing--10);
-    border: 1px solid var(--wp--custom--color--border--card);
-    border-radius: var(--wp--preset--border-radius--500);
-    background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 4%, transparent);
-    color: var(--wp--custom--color--text--default);
-    transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
-      border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-  }
-
-  .wp-block-search__button:hover,
-  .wp-block-search__button:focus-visible {
-    background-color: var(--wp--custom--color--surface--card-raised);
-    border-color: var(--wp--custom--color--phase--create);
+    background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
   }
 
   .wp-block-search__input {
@@ -107,10 +127,8 @@
   }
 }
 
-@include motion.reduced-motion {
-  .is-style-header-icon-button,
-  .is-style-button-cta-gradient .wp-block-button__link,
-  .site-header__search .wp-block-search__button,
+@media (prefers-reduced-motion: reduce) {
+  .ls-button-cta-gradient .wp-block-button__link,
   .site-header__search .wp-block-search__input {
     transition: none;
   }

@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Panel — Services",
+	"slug": "mega-menu-panel-services",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Services mega menu panel. Combines the shared card shell (styles/sections/menu/mega-menu-panel.json: background/border/shadow/padding) with this panel's own 2-column, 3-row phase-pair grid layout in ONE variation, rather than two coexisting ones. JSON limitation confirmed empirically 2026-08-11 against wp-includes/block-supports/block-style-variations.php:92 (\"Only the first block style variation with data is supported\") — WordPress only ever renders the FIRST is-style-* class with registered data found on a block; a second style-variation className on the same element is silently ignored, full stop, regardless of how it's authored. This pattern's root group therefore carries only is-style-mega-menu-panel-services, not is-style-mega-menu-panel alongside it. If the shared shell styling in mega-menu-panel.json ever changes, update both files — WordPress core has no way to compose two block-style variations on one block. Uses CSS grid rather than the columns block's native flex-wrap: flex-wrap sized each wrapped row's two columns independently from that row's own content, so shorter labels (Discover/Create) and longer ones (Build/Launch) produced visibly inconsistent gaps between rows. Grid tracks are shared across all rows, so column widths — and the phase pairing itself — stay fixed regardless of label length or viewport width.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "var:preset|shadow|popover",
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"css": "width: fit-content;\nmax-width: 100vw;\nbox-sizing: border-box;\n\n& .wp-block-columns {\n\tdisplay: grid;\n\tgrid-template-columns: repeat(2, 1fr);\n\tgap: var(--wp--style--block-gap);\n}\n\n& .wp-block-column {\n\twidth: auto;\n}\n\n& .wp-block-column > .wp-block-group p {\n\twhite-space: nowrap;\n}"
+	}
+}

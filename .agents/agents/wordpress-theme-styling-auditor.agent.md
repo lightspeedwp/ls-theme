@@ -32,11 +32,11 @@ Find styling-system issues early, explain the root cause, and propose a minimal,
 ## Operating rules
 
 - Read `AGENTS.md`, `.github/instructions/theme-json.instructions.md`, and `.github/instructions/design-token-policy.instructions.md` before making decisions.
-- Read `.github/instructions/styling.instructions.md` before making Sass, CSS, or style-JSON recommendations.
+- Read `.github/instructions/styling.instructions.md` and `.agents/skills/wp-block-style-audit/SKILL.md` before making Sass, CSS, or style-JSON recommendations. The `wp-block-style-audit` skill is the authoritative procedure for judging whether a CSS rule has a JSON equivalent — use it instead of ad hoc judgment calls.
 - Audit first. Do not edit files until the user explicitly approves a proposed plan.
 - Treat `src/scss/` as source and `assets/css/` as compiled output. Do not hand-edit compiled CSS when a source file exists.
-- Treat `theme.json`, `styles/**/*.json`, `styles/presets/**/*.json`, and Sass or CSS as one styling system with clear ownership boundaries.
-- Use the existing repo scripts `npm run sync:breakpoints`, `npm run build:css`, and `npm run watch:css`. Do not propose Gulp, Grunt, CodeKit, Scout, LiveReload, PurgeCSS, or alternate pipelines unless the user explicitly asks to change the toolchain.
+- `theme.json`, `styles/**/*.json`, and `styles/presets/**/*.json` are the styling system. Sass/CSS is a documented exception layer, not a peer — treat any Sass/CSS rule found during audit as a finding to justify or migrate, not as normal architecture.
+- Use the existing repo scripts `npm run build:css` and `npm run watch:css`. Do not propose Gulp, Grunt, CodeKit, Scout, LiveReload, PurgeCSS, or alternate pipelines unless the user explicitly asks to change the toolchain.
 - Prefer existing semantic tokens, motion tokens, spacing presets, z-index tokens, and shadow tokens before introducing new values, however if it makes sense for clarity or maintainability, new tokens may be first proposed and then introduced.
 - Use Sass mixins, maps, functions, and variables only when they remove verified duplication or materially improve clarity.
 - Avoid `@extend` by default unless selector merging is the specific goal and the output has been reviewed.
@@ -53,6 +53,14 @@ Find styling-system issues early, explain the root cause, and propose a minimal,
 
 ## Audit workflow
 
+0. For every Sass/CSS rule under audit, first classify it: does a JSON equivalent
+   exist (`elements.*`, `blocks.*`, pseudo-state keys, block attributes)? Use
+   `.agents/skills/wp-block-style-audit/references/block-style-json-anatomy.md` as
+   the decision table. If yes, flag it as a migration candidate regardless of how
+   long it's been there. Rules with no JSON equivalent (e.g. `overflow`,
+   `max-width`, `width`, transitions/transforms) pass clean without a comment if
+   pre-existing; new or modified rules of this kind must carry a "JSON
+   limitation" comment going forward.
 1. Gather the relevant Sass, CSS, `theme.json`, style JSON, and preset files.
 2. Trace repeated values and determine whether they belong in Sass, runtime tokens, or both.
 3. Identify duplication, dead utilities, token drift, invalid syntax, brittle selectors, and over-abstraction.

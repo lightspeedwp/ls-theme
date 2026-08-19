@@ -1,0 +1,154 @@
+/********** Work Project Card (Work archive query loop) **********/
+
+/*
+ * Tag Pills (folded in from styles/blocks/post-terms/tag-pills.json, single consumer
+ * patterns/cards/work-project-card.php). Rest-state color/typography are inline block attributes
+ * on the post-terms block; the wrapper's flex-wrap layout and each pill's chrome have no
+ * block-supports equivalent for a descendant selector. No motion involved at all.
+ */
+.ls-tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wp--preset--spacing--5);
+  max-width: 100%;
+
+  a {
+    display: inline-block;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    background-color: var(--wp--custom--color--surface--card-raised);
+    color: var(--wp--custom--color--text--muted);
+    border-radius: var(--wp--preset--border-radius--100);
+    padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+    text-decoration: none;
+  }
+}
+
+/*
+ * Platform badge/banner-tint pair (LS-2341 Group 4): converted from registered is-style
+ * variations into plain classes. These were never a real editorial choice — the WooCommerce
+ * variant is swapped in programmatically by inc/portfolio-card-colors.php based on the post's
+ * project-group taxonomy term, so they shouldn't have been discoverable in the style picker.
+ * Layout, the nested `a`/separator resets, and background-color have no block-supports
+ * equivalent as a per-post-conditional swap. border-radius and padding are real supported block
+ * attributes on the consumer's core/post-terms block, so they're set there instead.
+ */
+.ls-badge-brand,
+.ls-badge-woocommerce {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  text-transform: uppercase;
+
+  a {
+    display: inline;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .wp-block-post-terms__separator {
+    margin-inline-end: var(--wp--preset--spacing--5);
+  }
+}
+
+.ls-badge-brand {
+  color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
+}
+
+.ls-badge-woocommerce {
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+}
+
+.ls-platform-tag-brand {
+  color: var(--wp--custom--color--card--platform--wordpress);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
+}
+
+.ls-platform-tag-woocommerce {
+  color: var(--wp--custom--color--card--platform--woocommerce);
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+}
+
+.ls-platform-tag-brand a,
+.ls-platform-tag-woocommerce a {
+  color: inherit;
+}
+
+/*
+ * width:100% has no block-supports equivalent (core/group's dimensions support doesn't offer a
+ * relative-width key). min-height is a real supported block attribute set inline on the two
+ * consumer group instances in patterns/cards/work-project-card.php instead.
+ */
+.ls-card-banner-tint,
+.ls-card-banner-tint-woocommerce {
+  width: 100%;
+  background-size: 24px 24px;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.ls-card-banner-tint {
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
+}
+
+.ls-card-banner-tint-woocommerce {
+  background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
+}
+
+/*
+ * Card - Case Study: rest-state look and hover custom-property recipe live in
+ * styles/sections/cards/card-case-study.json. The hover border-color/box-shadow swap itself lives
+ * here as real SCSS, not in JSON — JSON's css field silently drops a bare `&:hover`/
+ * `&:focus-within` rule (confirmed empirically, same class of bug as the already-documented
+ * @media/@supports stripping), so the swap has to be real CSS regardless of the
+ * transition/transform living alongside it.
+ */
+.is-style-card-case-study {
+  transition:
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--emphasised);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--ls-card-case-study-border-active) !important;
+    box-shadow: var(--ls-card-case-study-shadow-active) !important;
+    transform: translateY(var(--ls-card-case-study-lift));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-style-card-case-study {
+    transition: none;
+  }
+
+  .is-style-card-case-study:hover,
+  .is-style-card-case-study:focus-within {
+    transform: none;
+  }
+}

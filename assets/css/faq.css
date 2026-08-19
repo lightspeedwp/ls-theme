@@ -1,0 +1,80 @@
+/********** FAQ Accordion (Yoast, multi-page insertable) **********/
+.schema-faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--20);
+}
+.schema-faq.is-accordion .schema-faq-section {
+  --ls-faq-border-rest: var(--wp--custom--color--border--card);
+  --ls-faq-border-active: var(--wp--custom--color--link--accent);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ls-faq-border-rest);
+  border-radius: var(--wp--preset--border-radius--200);
+  background: var(--wp--custom--color--surface--card);
+  box-shadow: none;
+  transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.schema-faq.is-accordion .schema-faq-section:hover {
+  border-color: var(--ls-faq-border-active);
+}
+.schema-faq.is-accordion .schema-faq-section.is-open {
+  background: var(--wp--custom--color--surface--card-raised);
+  border-color: var(--ls-faq-border-active);
+}
+.schema-faq.is-accordion .schema-faq-section:focus-within {
+  border-color: var(--ls-faq-border-active);
+  box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
+}
+.schema-faq.is-accordion .schema-faq-question {
+  display: flex;
+  align-items: center;
+  gap: var(--wp--preset--spacing--20);
+  margin: 0;
+  padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  cursor: pointer;
+  transition: inherit;
+}
+.schema-faq.is-accordion .schema-faq-question::after {
+  content: "";
+  display: block;
+  flex: none;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin-inline-start: auto;
+  border-right: 2px solid var(--wp--custom--color--link--accent);
+  border-bottom: 2px solid var(--wp--custom--color--link--accent);
+  transform: translateY(-1px) rotate(45deg);
+  transform-origin: center;
+  transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised), border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.schema-faq.is-accordion .schema-faq-question:focus-visible {
+  outline: 2px solid var(--wp--custom--color--focus--ring);
+  outline-offset: -2px;
+}
+.schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-question::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+.schema-faq.is-accordion .schema-faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin: 0;
+  padding: 0 var(--wp--preset--spacing--30);
+  overflow: hidden;
+  opacity: 0;
+  transition: grid-template-rows var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), opacity var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), padding var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+.schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-answer {
+  grid-template-rows: 1fr;
+  padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--20);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schema-faq.is-accordion .schema-faq-section,
+  .schema-faq.is-accordion .schema-faq-question::after,
+  .schema-faq.is-accordion .schema-faq-answer {
+    transition: none;
+  }
+}

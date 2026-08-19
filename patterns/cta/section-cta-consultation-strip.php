@@ -45,8 +45,8 @@
 	<div class="wp-block-group ls-cta-strip__cta-wrap">
 	<!-- wp:buttons -->
 	<div class="wp-block-buttons">
-		<!-- wp:button {"className":"is-style-glass-button ls-cta-strip__button"} -->
-		<div class="wp-block-button is-style-glass-button ls-cta-strip__button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
+		<!-- wp:button {"className":"ls-glass-button ls-cta-strip__button","style":{"border":{"radius":"var:preset|border-radius|200","style":"solid","width":"1px"},"color":{"text":"var:custom|color|text|default"},"spacing":{"padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|40","bottom":"var:preset|spacing|20","left":"var:preset|spacing|40"}},"typography":{"fontSize":"var:preset|font-size|200","fontWeight":"var:custom|typography|font-weight|semibold","letterSpacing":"0.08em"}}} -->
+		<div class="wp-block-button ls-glass-button ls-cta-strip__button"><a class="wp-block-button__link has-text-color has-custom-font-size wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>" style="border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--200);color:var(--wp--custom--color--text--default);padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--40);font-size:var(--wp--preset--font-size--200);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:0.08em"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->

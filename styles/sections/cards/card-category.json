@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Compact card shell with a tinted icon well, H3 heading, supporting copy, and inline CTA sitting close to the copy (no bottom-anchored CTA, unlike Card - Feature). Used by the Work archive's category row.",
+	"description": "Compact card shell with a tinted icon well, H3 heading, supporting copy, and inline CTA sitting close to the copy (no bottom-anchored CTA, unlike Card - Feature). Used by the Work archive's category row. Non-expressible structural properties (position, overflow, the nested content flex rule) and the hover state stay in src/scss/structural/work-archive-sections.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -27,6 +27,7 @@
 				"bottom": "var:preset|spacing|20",
 				"left": "var:preset|spacing|20"
 			}
-		}
+		},
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-category-border-active: var(--wp--custom--color--link--accent);\n--ls-card-category-shadow-active: var(--wp--custom--shadow--card--hover);\n--ls-card-category-lift: var(--wp--custom--animation--lift--md);\n\n& .ls-card-category__content {\n\tflex: 1 1 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--10);\n}"
 	}
 }

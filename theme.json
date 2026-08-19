@@ -6,6 +6,9 @@
             "contentSize": "800px",
             "wideSize": "1370px"
         },
+        "spacing": {
+            "blockGap": true
+        },
         "color": {
             "defaultPalette": false,
             "defaultGradients": false,
@@ -485,8 +488,7 @@
                     "brand": "var:preset|color|brand-500",
                     "brand-strong": "var:preset|color|brand-800",
                     "on-dark": "var:preset|color|base",
-                    "on-dark-muted": "var:preset|color|neutral-400",
-                    "on-light": "var:preset|color|contrast"
+                    "on-dark-muted": "var:preset|color|neutral-400"
                 },
                 "surface": {
                     "canvas": "var:preset|color|base",
@@ -521,13 +523,6 @@
                         "wordpress": "var:preset|color|brand-500",
                         "woocommerce": "var:preset|color|cta-800"
                     }
-                },
-                "category": {
-                    "wordpress": "var:preset|color|brand-500",
-                    "woocommerce": "var:preset|color|cta-800",
-                    "design-systems": "var:preset|color|accent-600",
-                    "performance": "var:preset|color|accent-two-600",
-                    "accessibility": "var:preset|color|accent-four-600"
                 },
                 "phase": {
                     "discover": "var:preset|color|phase-one-strong",
@@ -669,6 +664,11 @@
                 },
                 "scale": {
                     "active": "0.98"
+                },
+                "lift": {
+                    "sm": "-2px",
+                    "md": "-4px",
+                    "lg": "-6px"
                 }
             },
             "z-index": {
@@ -736,13 +736,6 @@
         {
             "name": "page-no-title",
             "title": "Page (No Title)",
-            "postTypes": [
-                "page"
-            ]
-        },
-        {
-            "name": "page-work-archive",
-            "title": "Work Archive",
             "postTypes": [
                 "page"
             ]

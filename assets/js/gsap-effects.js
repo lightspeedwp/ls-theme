@@ -1,14 +1,8 @@
 ( function() {
 	const gsapInstance = window.gsap;
-	const pointerQuery = window.matchMedia ? window.matchMedia( '(pointer: fine)' ) : { matches: true };
-	const reducedMotionQuery = window.matchMedia ? window.matchMedia( '(prefers-reduced-motion: reduce)' ) : { matches: false };
 
 	if ( ! gsapInstance ) {
 		return;
-	}
-
-	function canTrackPointer() {
-		return pointerQuery.matches && ! reducedMotionQuery.matches;
 	}
 
 	function resolveCssCustomPropertyValue( styles, value, depth = 0 ) {
@@ -102,50 +96,6 @@
 				emphasised: readRootCustomProperty( '--wp--custom--animation--runtime--easing--emphasised', 'power3.out' ),
 			},
 		};
-	}
-
-	function getCardPosition( card, event ) {
-		const bounds = card.getBoundingClientRect();
-
-		return {
-			x: event.clientX - bounds.left,
-			y: event.clientY - bounds.top,
-		};
-	}
-
-	function setEffectPosition( card, x, y ) {
-		gsapInstance.set( card, {
-			'--ls-effect-x': `${ x.toFixed( 2 ) }px`,
-			'--ls-effect-y': `${ y.toFixed( 2 ) }px`,
-		} );
-	}
-
-	function showEffect( card, settings = {} ) {
-		const motionTokens = getRuntimeMotionTokens();
-		const duration = reducedMotionQuery.matches ? 0 : ( settings.duration ?? motionTokens.duration.reveal );
-
-		gsapInstance.to( card, {
-			'--ls-effect-opacity': settings.opacity ?? 1,
-			'--ls-effect-border-opacity': settings.borderOpacity ?? 1,
-			'--ls-effect-scale': settings.scale ?? 1,
-			duration,
-			ease: settings.ease ?? motionTokens.easing.standard,
-			overwrite: 'auto',
-		} );
-	}
-
-	function hideEffect( card ) {
-		const motionTokens = getRuntimeMotionTokens();
-		const duration = reducedMotionQuery.matches ? 0 : motionTokens.duration.medium;
-
-		gsapInstance.to( card, {
-			'--ls-effect-opacity': 0,
-			'--ls-effect-border-opacity': 0,
-			'--ls-effect-scale': 0.94,
-			duration,
-			ease: motionTokens.easing.standard,
-			overwrite: 'auto',
-		} );
 	}
 
 	function parseCssColour( value ) {
@@ -548,74 +498,8 @@
 		);
 	}
 
-	function setFocusState( card ) {
-		const motionTokens = getRuntimeMotionTokens();
-		const bounds = card.getBoundingClientRect();
-
-		setEffectPosition( card, bounds.width / 2, bounds.height / 2 );
-		showEffect( card, {
-			opacity: 0.72,
-			borderOpacity: 0.62,
-			scale: 1,
-			duration: motionTokens.duration.focus,
-			ease: motionTokens.easing.standard,
-		} );
-	}
-
-	function initSpotlightCard( card ) {
-		if ( card.dataset.lsGsapSpotlight === 'true' ) {
-			return;
-		}
-
-		card.dataset.lsGsapSpotlight = 'true';
-
-		gsapInstance.set( card, {
-			'--ls-effect-opacity': 0,
-			'--ls-effect-border-opacity': 0,
-			'--ls-effect-scale': 0.94,
-		} );
-
-		card.addEventListener( 'pointerenter', ( event ) => {
-			if ( ! canTrackPointer() ) {
-				return;
-			}
-
-			const position = getCardPosition( card, event );
-
-			setEffectPosition( card, position.x, position.y );
-			showEffect( card );
-		} );
-
-		card.addEventListener( 'pointermove', ( event ) => {
-			if ( ! canTrackPointer() ) {
-				return;
-			}
-
-			const position = getCardPosition( card, event );
-
-			setEffectPosition( card, position.x, position.y );
-		} );
-
-		card.addEventListener( 'pointerleave', () => {
-			if ( ! canTrackPointer() ) {
-				return;
-			}
-
-			hideEffect( card );
-		} );
-
-		card.addEventListener( 'focusin', () => {
-			setFocusState( card );
-		} );
-
-		card.addEventListener( 'focusout', () => {
-			hideEffect( card );
-		} );
-	}
-
 	function initEffects() {
-		document.querySelectorAll( '.is-style-card-spotlight' ).forEach( initSpotlightCard );
-		document.querySelectorAll( '.is-style-home-hero-section' ).forEach( initHomeHeroSection );
+		document.querySelectorAll( '.ls-home-hero-section' ).forEach( initHomeHeroSection );
 	}
 
 	function boot() {

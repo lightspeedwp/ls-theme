@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Shared interaction contract lives in src/scss/animations.scss.",
+	"description": "Reusable frosted-glass surface for content groups with subtle lift and focus treatment. Rest-state look lives here; the hover state (background/border-color/box-shadow/outline swap), the transition/transform, and the backdrop-filter blur all stay in src/scss/structural/card-shells.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as the already-documented @media/@supports stripping.",
 	"styles": {
 		"border": {
 			"radius": "var:preset|border-radius|300",
@@ -24,6 +24,7 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		}
+		},
+		"css": "position: relative;\noverflow: hidden;\nisolation: isolate;\n--ls-glass-card-background-rest: color-mix(in srgb, var(--wp--custom--color--surface--card) 24%, transparent);\n--ls-glass-card-border-rest: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 35%, transparent);\n--ls-glass-card-top-highlight: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 82%, transparent);\n--ls-glass-card-side-highlight: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 72%, transparent);\n--ls-glass-card-side-tail: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 30%, transparent);\n--ls-glass-card-focus-width: 2px;\n--ls-glass-card-focus-offset: 4px;\n--ls-glass-card-background-hover: color-mix(in srgb, var(--wp--custom--color--surface--card) 34%, transparent);\n--ls-glass-card-border-hover: color-mix(in srgb, var(--wp--custom--color--link--accent) 32%, var(--wp--custom--color--surface--highlight) 30%, transparent);\n--ls-glass-card-shadow-hover: var(--wp--custom--shadow--elevation--300), var(--wp--custom--shadow--interactive--accent);\n--ls-glass-card-focus-colour: var(--wp--custom--color--focus--ring);\n--ls-glass-card-lift: var(--wp--custom--animation--lift--md);\nbackground: var(--ls-glass-card-background-rest);\nborder-color: var(--ls-glass-card-border-rest);\nbox-shadow: var(--wp--custom--shadow--elevation--200);\noutline: var(--ls-glass-card-focus-width) solid transparent;\noutline-offset: var(--ls-glass-card-focus-offset);\n\n& > * {\n\tposition: relative;\n\tz-index: var(--wp--custom--z-index--content);\n}\n\n&::before {\n\tcontent: \"\";\n\tpointer-events: none;\n\tborder-radius: inherit;\n\tz-index: var(--wp--custom--z-index--base);\n\tposition: absolute;\n\tinset: auto 0 auto 0;\n\ttop: 0;\n\theight: 1px;\n\tbackground: linear-gradient(90deg, transparent, var(--ls-glass-card-top-highlight), transparent);\n}\n\n&::after {\n\tcontent: \"\";\n\tpointer-events: none;\n\tborder-radius: inherit;\n\tz-index: var(--wp--custom--z-index--base);\n\tposition: absolute;\n\tinset: 0 auto 0 0;\n\twidth: 1px;\n\tbackground: linear-gradient(180deg, var(--ls-glass-card-side-highlight), transparent, var(--ls-glass-card-side-tail));\n}"
 	}
 }
