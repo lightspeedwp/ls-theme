@@ -26,7 +26,7 @@
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"align":"center","style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-		<p class="has-text-align-center" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Design, development, and deployment of your WordPress solution.', 'ls-theme' ); ?></p>
+		<p class="has-text-align-center has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Design, development, and deployment of your WordPress solution.', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:list {"className":"ls-card-services__list is-style-tick-accent"} -->
