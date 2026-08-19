@@ -8,6 +8,8 @@
  * Keywords: card, feature, cta
  * Viewport Width: 480
  * Inserter: true
+ *
+ * @package ls-theme
  */
 
 ?>

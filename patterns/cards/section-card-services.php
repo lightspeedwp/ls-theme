@@ -8,6 +8,8 @@
  * Keywords: card, services, cta
  * Viewport Width: 428
  * Inserter: true
+ *
+ * @package ls-theme
  */
 
 ?>

@@ -6,6 +6,8 @@
  * Block Types: core/template-part
  * Description: Main-content pattern for the All Archives template — archive title, description, and a paginated post query loop.
  * Inserter: false
+ *
+ * @package ls-theme
  */
 
 ?>

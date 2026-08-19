@@ -29,7 +29,7 @@
                     "accent-two-light": "var:preset|color|accent-two-900",
                     "accent-three-light": "var:preset|color|accent-three-900",
                     "band-start": "var:preset|color|neutral-800",
-                    "band-end": "var:preset|color|neutral-700",
+                    "band-end": "var:preset|color|neutral-900",
                     "on-dark-card": "var:preset|color|neutral-800"
 				},
 				"border": {

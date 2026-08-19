@@ -8,6 +8,8 @@
  * Keywords: card, solution, cta
  * Viewport Width: 360
  * Inserter: true
+ *
+ * @package ls-theme
  */
 
 ?>

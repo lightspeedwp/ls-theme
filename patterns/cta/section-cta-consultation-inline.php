@@ -30,7 +30,7 @@
 			<!-- /wp:group -->
 
 			<!-- wp:paragraph {"className":"ls-cta-inline__badge-label","style":{"color":{"text":"var(--wp--custom--color--text--brand-on-dark)"},"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"}},"fontSize":"100"} -->
-			<p class="ls-cta-inline__badge-label has-100-font-size" style="color:var(--wp--custom--color--text--brand-on-dark);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
+			<p class="ls-cta-inline__badge-label has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand-on-dark);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Free consultation', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->

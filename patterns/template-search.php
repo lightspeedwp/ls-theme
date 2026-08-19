@@ -6,6 +6,8 @@
  * Block Types: core/template-part
  * Description: Main-content pattern for the Search Results template — a search field, the search term title, and a paginated results query loop.
  * Inserter: false
+ *
+ * @package ls-theme
  */
 
 ?>
