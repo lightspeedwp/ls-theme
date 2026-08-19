@@ -17,11 +17,17 @@
 .ls-badge-category-dynamic {
   display: flex;
   justify-content: flex-start;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   background-color: color-mix(in srgb, currentColor 12%, transparent);
   border-radius: var(--wp--preset--border-radius--200);
   padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--20);
 }
 .ls-badge-category-dynamic a {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
   color: inherit;
 }
 

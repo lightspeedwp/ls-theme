@@ -1,13 +1,13 @@
 /********** Taxonomy Filter (Work archive) **********/
 
 /*
- * Taxonomy Filter (ls-plugin/taxonomy-filter, single consumer
- * patterns/sections/work-selected-projects.php — part of the Work archive chain). This is a
- * third-party plugin block; a theme.json "styles.blocks" preset for it was tried and confirmed
- * unreliable (WordPress resolves theme.json before this plugin's block finishes registering, in
- * this environment at least, silently dropping the block's styles from the compiled stylesheet),
- * so real CSS is used instead. The plugin's own bundled stylesheet already provides the
- * transition — nothing here duplicates it.
+ * Taxonomy Filter (ls-plugin/taxonomy-filter, two consumers: patterns/sections/
+ * work-selected-projects.php on the Work archive, and patterns/sections/blog-all-articles.php
+ * on the Blog archive). This is a third-party plugin block; a theme.json "styles.blocks" preset
+ * for it was tried and confirmed unreliable (WordPress resolves theme.json before this plugin's
+ * block finishes registering, in this environment at least, silently dropping the block's styles
+ * from the compiled stylesheet), so real CSS is used instead. The plugin's own bundled
+ * stylesheet already provides the transition — nothing here duplicates it.
  */
 .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons {
   gap: var(--wp--preset--spacing--10);
@@ -45,6 +45,34 @@
         background-color: var(--wp--custom--color--card--platform--wordpress);
         color: var(--wp--custom--color--text--on-dark);
       }
+    }
+  }
+}
+
+/*
+ * Below 790px, the Blog archive's 9-category (real slugs, longer labels than the Work archive's
+ * project-group family) filter row no longer reliably fits wrapped across two or three lines
+ * without looking broken. Below that width the row scrolls horizontally instead of wrapping —
+ * no block-supports equivalent for a breakpoint-conditional flex-wrap swap on a third-party
+ * plugin block, so this is real CSS. The 781.98px breakpoint used elsewhere in this theme is
+ * core/columns' own hardcoded mobile-stack point; 789.98px here is this component's own,
+ * deliberately different, threshold (789.98 = 790 minus the same 0.02px boundary-inclusive
+ * offset). The block also carries WP core's own `.wp-block-buttons` class (this plugin borrows
+ * core's button-row markup); core's own flex-wrap:wrap rule for that class reliably won the
+ * cascade over a plain override (confirmed empirically, same class of bug as the Writing CTA
+ * card's max-width fight with `.alignwide`), so both the compound selector and `!important` are
+ * required here, not just one or the other.
+ */
+@media (max-width: 789.98px) {
+  .wp-block-ls-plugin-taxonomy-filter.taxonomy-filter--buttons.wp-block-buttons {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(90deg, black calc(100% - 2.5rem), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, black calc(100% - 2.5rem), transparent 100%);
+
+    .wp-element-button {
+      flex-shrink: 0 !important;
     }
   }
 }
