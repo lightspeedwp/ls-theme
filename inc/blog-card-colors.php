@@ -1,12 +1,14 @@
 <?php
 /**
- * Blog Category Dot Colours.
+ * Blog Category Colours.
  *
- * The Blog archive's category dot (Hero featured/latest cards, All Articles
- * post card) is coloured by the post's real `category` term. Since a Query
- * Loop renders identical block markup for every post, the actual category
- * colour has to be swapped in per-post at render time — it can't be set
- * statically in the pattern.
+ * The All Articles post card's badge chip is coloured by the post's real
+ * `category` term — the site's 6 highest-volume real categories each get
+ * their own phase-family colour, with the remaining lower-volume categories
+ * sharing the existing dark-blue/cyan fallback pair. Since a Query Loop
+ * renders identical block markup for every post, the actual category colour
+ * has to be swapped in per-post at render time — it can't be set statically
+ * in the pattern.
  *
  * @package ls-theme
  */
@@ -16,22 +18,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Swap the Blog card's category dot colour to match the current post's
+ * Swap the Blog card's category badge colour to match the current post's
  * `category` term. Falls back to the pattern's default placeholder colour
- * (WordPress) when the post has none of the five known category slugs.
+ * (News) when the post has none of the known category slugs.
  *
  * @param string $block_content Rendered block HTML.
  * @param array  $block         Parsed block data.
  * @return string
  */
 function ls_theme_blog_card_category_dot_color( $block_content, $block ) {
-	if ( 'outermost/icon-block' !== $block['blockName'] ) {
-		return $block_content;
-	}
-
 	$class_name = $block['attrs']['className'] ?? '';
 
-	if ( false === strpos( $class_name, 'ls-category-dot' ) ) {
+	if ( 'core/group' !== $block['blockName'] || false === strpos( $class_name, 'ls-badge-category-dynamic' ) ) {
 		return $block_content;
 	}
 
@@ -41,7 +39,9 @@ function ls_theme_blog_card_category_dot_color( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$known_categories = array( 'wordpress', 'woocommerce', 'design-systems', 'performance', 'accessibility' );
+	// Ordered highest-to-lowest post count on the live site; the first 6 each carry
+	// their own phase-family token, the rest share the brand/cta fallback pair.
+	$known_categories = array( 'news', 'tour-operators', 'lsx', 'design-systems', 'project-workflows', 'content', 'release-notes', 'design', 'wordcamp' );
 
 	$terms = wp_get_post_terms( $post_id, 'category', array( 'fields' => 'slugs' ) );
 
@@ -58,12 +58,12 @@ function ls_theme_blog_card_category_dot_color( $block_content, $block ) {
 		}
 	}
 
-	if ( null === $matched_category || 'wordpress' === $matched_category ) {
+	if ( null === $matched_category || 'news' === $matched_category ) {
 		return $block_content;
 	}
 
 	return str_replace(
-		'--wp--custom--color--category--wordpress',
+		'--wp--custom--color--category--news',
 		'--wp--custom--color--category--' . $matched_category,
 		$block_content
 	);

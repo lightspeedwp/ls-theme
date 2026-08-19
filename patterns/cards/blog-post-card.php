@@ -4,7 +4,13 @@
  * Slug: ls-theme/blog-post-card
  * Categories: featured
  * Block Types: core/pattern
- * Description: A single Blog All Articles card: category dot + label, post title, excerpt, tag pills (post_tag taxonomy), and a "Read article" link to the post permalink. Intended as the Post Template content inside a Query Loop scoped to the `post` post type, filterable by category via ls-plugin/taxonomy-filter. No image, by design. Adapts between light and dark mode using existing semantic tokens.
+ * Description: A single Blog All Articles card: category badge chip, post title, excerpt, a
+ * divider, date + reading time, and an icon-only "Read article" link to the post permalink
+ * (real link text kept for screen readers, hidden visually — same footer shape as Card - Blog
+ * Featured Article, adapted for this card's light/dark-adaptive surface). Intended as the Post
+ * Template content inside a Query Loop scoped to the `post` post type, filterable by category
+ * via ls-plugin/taxonomy-filter. No image, by design. Adapts between light and dark mode using
+ * existing semantic tokens.
  * Keywords: blog, post, card, query loop, block bindings
  * Viewport Width: 380
  * Inserter: true
@@ -13,29 +19,33 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"article","className":"is-style-card-post","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+<!-- wp:group {"tagName":"article","className":"is-style-card-post","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 <article class="wp-block-group is-style-card-post">
 
-	<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-	<div class="wp-block-group">
-		<!-- wp:outermost/icon-block {"iconName":"","className":"ls-category-dot has-text-color","width":"8px","style":{"color":{"text":"var(--wp--custom--color--category--wordpress)"}}} -->
-		<div class="wp-block-outermost-icon-block ls-category-dot has-text-color"><div class="icon-container" style="color:var(--wp--custom--color--category--wordpress);width:8px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"></circle></svg></div></div>
-		<!-- /wp:outermost/icon-block -->
-
-		<!-- wp:post-terms {"term":"category","style":{"typography":{"textTransform":"uppercase","letterSpacing":"1.2px"},"color":{"text":"var(--wp--custom--color--text--subtle)"}}} /-->
+	<!-- wp:group {"className":"ls-badge-category-dynamic","style":{"color":{"text":"var(--wp--custom--color--category--news)"}}} -->
+	<div class="wp-block-group ls-badge-category-dynamic has-text-color" style="color:var(--wp--custom--color--category--news)">
+		<!-- wp:post-terms {"term":"category","style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide","fontWeight":"var:custom|typography|font-weight|semibold"}},"fontSize":"100"} /-->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:post-title {"level":3,"isLink":true,"fontSize":"300"} /-->
+	<!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"300"} /-->
 
-	<!-- wp:post-excerpt /-->
+	<!-- wp:post-excerpt {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} /-->
 
-	<!-- wp:group {"className":"is-style-card-divider-top"} -->
-	<div class="wp-block-group is-style-card-divider-top">
-		<!-- wp:post-terms {"term":"post_tag","separator":" ","className":"is-style-tag-pills"} /-->
+	<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"},"style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|20"},"margin":{"top":"auto"}}}} -->
+	<div class="wp-block-group" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--20);margin-top:auto">
+		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:post-date {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} /-->
+
+			<!-- wp:paragraph {"className":"ls-reading-time","style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
+			<p class="ls-reading-time has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( sprintf( /* translators: %s: reading time in minutes. */ __( '%s min read', 'ls-theme' ), '0' ) ); ?></p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'Read article', 'ls-theme' ) ); ?>,"className":"ls-post-card-cta"} /-->
 	</div>
 	<!-- /wp:group -->
-
-	<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'Read article', 'ls-theme' ) ); ?>,"className":"is-style-link-arrow-accent","fontSize":"100"} /-->
 </article>
 <!-- /wp:group -->

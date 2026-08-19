@@ -530,11 +530,15 @@
                     }
                 },
                 "category": {
-                    "wordpress": "var:preset|color|brand-600",
-                    "woocommerce": "var:preset|color|cta-800",
-                    "design-systems": "var:preset|color|accent-800",
-                    "performance": "var:preset|color|accent-two-700",
-                    "accessibility": "var:preset|color|accent-four-900"
+                    "news": "var:preset|color|phase-two-strong",
+                    "tour-operators": "var:preset|color|phase-one-strong",
+                    "lsx": "var:preset|color|phase-six-strong",
+                    "design-systems": "var:preset|color|phase-five-strong",
+                    "project-workflows": "var:preset|color|phase-four-strong",
+                    "content": "var:preset|color|phase-three-strong",
+                    "release-notes": "var:preset|color|brand-600",
+                    "design": "var:preset|color|cta-800",
+                    "wordcamp": "var:preset|color|brand-600"
                 },
                 "phase": {
                     "discover": "var:preset|color|phase-one-strong",

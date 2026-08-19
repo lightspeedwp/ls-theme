@@ -12,7 +12,7 @@
 
 ?>
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
 	<!-- wp:pattern {"slug":"ls-theme/blog-hero"} /-->
 	<!-- wp:pattern {"slug":"ls-theme/blog-all-articles"} /-->

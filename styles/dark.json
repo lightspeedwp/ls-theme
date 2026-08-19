@@ -55,11 +55,15 @@
 					}
 				},
 				"category": {
-					"wordpress": "var:preset|color|brand-400",
-					"woocommerce": "var:preset|color|cta-400",
-					"design-systems": "var:preset|color|accent-400",
-					"performance": "var:preset|color|accent-two-400",
-					"accessibility": "var:preset|color|accent-four-400"
+					"news": "var:preset|color|phase-two",
+					"tour-operators": "var:preset|color|phase-one",
+					"lsx": "var:preset|color|phase-six",
+					"design-systems": "var:preset|color|phase-five",
+					"project-workflows": "var:preset|color|phase-four",
+					"content": "var:preset|color|phase-three",
+					"release-notes": "var:preset|color|brand-400",
+					"design": "var:preset|color|cta-400",
+					"wordcamp": "var:preset|color|brand-400"
 				},
 				"phase": {
 					"discover": "var:preset|color|phase-one",

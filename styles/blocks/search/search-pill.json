@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/search"
 	],
-	"description": "Rounded pill wrapper for the Blog All Articles search box. Only overrides what `styles/presets/blocks/core-search.json` (the site-wide core/search default) doesn't already set — that file already provides fontSize:200, the button's own radius/margin, and the button-inside border removal, so none of that is repeated here. This variation only adds a border/background/radius to the block's own wrapper, which the base preset leaves unstyled.",
+	"description": "Rounded pill wrapper for the Blog All Articles search box, no-button — a leading magnifying-glass icon replaces the submit button (a real accessibility win for an instant-filter search, not just a style choice). Only overrides what `styles/presets/blocks/core-search.json` (the site-wide core/search default) doesn't already set. With no button, core/search renders the input directly on the block root (no `.wp-block-search__inside-wrapper`), so the pill border/background/icon all target the root and the input itself rather than that wrapper. The icon glyph has no block-supports equivalent — no icon slot exists on core/search — so it's a mask-image data URI tinted via text.muted, the same JSON-limitation class as other pseudo-element glyphs in this theme.",
 	"styles": {
 		"border": {
 			"color": "var:custom|color|border|card",
@@ -14,6 +14,6 @@
 			"style": "solid",
 			"width": "1px"
 		},
-		"css": "&{background-color:var(--wp--custom--color--surface--card);} & .wp-block-search__inside-wrapper{border-radius:var(--wp--preset--border-radius--500);}"
+		"css": "&{background-color:var(--wp--custom--color--surface--card);overflow:hidden;position:relative;}&::before{content:\"\";position:absolute;top:50%;left:1.25rem;width:1.1rem;height:1.1rem;transform:translateY(-50%);background-color:var(--wp--custom--color--text--muted);mask-repeat:no-repeat;mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-size:contain;mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Ccircle cx='112' cy='112' r='80' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cline x1='168.57' y1='168.57' x2='224' y2='224' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E\");-webkit-mask-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Ccircle cx='112' cy='112' r='80' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cline x1='168.57' y1='168.57' x2='224' y2='224' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E\");pointer-events:none;}& .wp-block-search__input{padding-inline-start:2.75rem;border:none;box-shadow:none;background-color:transparent;}"
 	}
 }
