@@ -64,6 +64,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/work-hero.css' );
 	add_editor_style( 'assets/css/blog-hero.css' );
 	add_editor_style( 'assets/css/blog-all-articles.css' );
+	add_editor_style( 'assets/css/blog-writing-cta.css' );
 	add_editor_style( 'assets/css/faq.css' );
 	add_editor_style( 'assets/css/links.css' );
 	add_editor_style( 'assets/css/button-secondary.css' );

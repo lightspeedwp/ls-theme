@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Fixed-dark highlight card shell for the Blog Hero's featured-article tile, reusing the same on-dark-card surface pairing as Card - CTA Inline. Radius matches Card - Post (the other new card family added for the Blog archive) so both new cards read as one consistent shape language. Border uses border.on-dark (constant across the light/dark toggle) rather than border.card, which flips and would go low-contrast against this always-dark card in light mode.",
+	"description": "Fixed-dark card shell shared by the Blog Hero's featured-article tile and the Writing CTA's decorative code-snippet card, reusing the same on-dark-card surface pairing as Card - CTA Inline. Radius matches Card - Post (the other new card family added for the Blog archive) so all these cards read as one consistent shape language. Border uses border.on-dark (constant across the light/dark toggle) rather than border.card, which flips and would go low-contrast against this always-dark card in light mode. The featured-article-only rainbow top border and hover state live in src/scss/structural/blog-hero.scss, scoped to .ls-blog-hero, since this shell is also reused by a non-interactive card that shouldn't inherit either.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|on-dark-card",
@@ -27,7 +27,6 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		},
-		"css": "&{position:relative;overflow:hidden;}&::before{content:\"\";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg, var(--wp--custom--color--effect--hero--brand), var(--wp--custom--color--effect--hero--accent), var(--wp--custom--color--effect--spotlight--secondary), var(--wp--custom--color--icon--commerce));}"
+		}
 	}
 }

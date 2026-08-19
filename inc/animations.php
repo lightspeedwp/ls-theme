@@ -99,6 +99,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/blog-all-articles.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		'blog-writing-cta'      => array(
+			'handle'   => 'ls-theme-blog-writing-cta',
+			'path'     => 'assets/css/blog-writing-cta.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 		'faq'                   => array(
 			'handle'   => 'ls-theme-faq',
 			'path'     => 'assets/css/faq.css',

@@ -4,7 +4,16 @@
  * Slug: ls-theme/blog-code-snippet
  * Categories: featured
  * Block Types: core/pattern
- * Description: A decorative code-panel card for the Writing CTA section: traffic-light window dots, a filename label, and a short code sample. Reuses Card - Highlight Dark verbatim for the shell (checked against it first — same radius/shadow/surface needs, so no separate card-code-panel style was created). The window dots reuse the existing error/warning/success palette colours; the filename label's orange accent (#FFB86E) is a single, literal, scoped use per the project's token policy — one component, not worth a new semantic token.
+ * Description: A decorative code-panel card for the Writing CTA section: a line-numbered,
+ * hand-syntax-coloured design-token sample. Reuses Card - Highlight Dark verbatim for the shell
+ * (checked against it first — same radius/shadow/surface needs, so no separate card-code-panel
+ * style was created). The code sample is authored as raw HTML (core/html, not core/code) so its
+ * manual comment/keyword/value colour spans, and the CSS-counter line numbers, don't get flagged
+ * as invalid RichText content by the block editor's validator — comments and property/directive
+ * names use existing on-dark tokens, string/hex values reuse the same orange accent used
+ * elsewhere in this card family (a single, literal, scoped use per the project's token policy —
+ * one component, not worth a new semantic token), matching the reference design's
+ * syntax-highlighted look as closely as existing tokens allow.
  * Keywords: blog, cta, code, snippet, card
  * Viewport Width: 420
  * Inserter: true
@@ -16,28 +25,14 @@
 <!-- wp:group {"tagName":"article","className":"is-style-card-highlight-dark","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 <article class="wp-block-group is-style-card-highlight-dark">
 
-	<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-	<div class="wp-block-group">
-		<!-- wp:html -->
-		<span aria-hidden="true" style="display:inline-flex;width:10px;height:10px;border-radius:9999px;background-color:var(--wp--preset--color--error-foreground)"></span>
-		<!-- /wp:html -->
-
-		<!-- wp:html -->
-		<span aria-hidden="true" style="display:inline-flex;width:10px;height:10px;border-radius:9999px;background-color:var(--wp--preset--color--warning-foreground)"></span>
-		<!-- /wp:html -->
-
-		<!-- wp:html -->
-		<span aria-hidden="true" style="display:inline-flex;width:10px;height:10px;border-radius:9999px;background-color:var(--wp--preset--color--success-foreground)"></span>
-		<!-- /wp:html -->
-	</div>
-	<!-- /wp:group -->
-
-	<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"1px"},"color":{"text":"#FFB86E"}},"fontSize":"100"} -->
-	<p class="has-text-color has-100-font-size" style="color:#FFB86E;font-family:var(--wp--preset--font-family--monospace);letter-spacing:1px;text-transform:uppercase"><?php echo esc_html__( 'inc/blog-card-colors.php', 'ls-theme' ); ?></p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:code {"style":{"color":{"background":"transparent","text":"var(--wp--custom--color--text--on-dark)"}}} -->
-	<pre class="wp-block-code has-text-color has-background" style="color:var(--wp--custom--color--text--on-dark);background-color:transparent"><code><?php echo esc_html( "add_filter( 'render_block', function ( \$content, \$block ) {\n\t\$terms = wp_get_post_terms( get_the_ID(), 'category', [ 'fields' => 'slugs' ] );\n\treturn ls_theme_tint_by_category( \$content, \$terms );\n} );" ); ?></code></pre>
-	<!-- /wp:code -->
+	<!-- wp:html -->
+	<pre class="wp-block-code has-text-color has-background has-100-font-size ls-code-panel" style="color:var(--wp--custom--color--text--on-dark);background-color:transparent;font-size:var(--wp--preset--font-size--100)"><code><span class="ls-code-line"><span class="ls-code-comment">// design tokens — single source of truth</span></span>
+<span class="ls-code-line"><span class="ls-code-key">--c-brand-blue</span>: <span class="ls-code-value">#1E6AFF</span>;</span>
+<span class="ls-code-line"><span class="ls-code-key">--c-light-blue</span>: <span class="ls-code-value">#7BE7FF</span>;</span>
+<span class="ls-code-line"><span class="ls-code-key">--font-display</span>: <span class="ls-code-value">"Inter"</span>;</span>
+<span class="ls-code-line"><span class="ls-code-comment">// governance: WCAG 2.2 AA, GPL, AI-disclosed</span></span>
+<span class="ls-code-line"><span class="ls-code-key">@audit</span> <span class="ls-code-value">"contrast"</span>, <span class="ls-code-value">"focus"</span>, <span class="ls-code-value">"motion"</span>;</span>
+<span class="ls-code-line"><span class="ls-code-key">@ship</span> design-system → production;</span></code></pre>
+	<!-- /wp:html -->
 </article>
 <!-- /wp:group -->

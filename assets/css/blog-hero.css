@@ -108,21 +108,38 @@
   }
 }
 /*
- * Featured Article card hover: a bare &:hover in a style JSON's css field is silently dropped
- * (confirmed empirically, same class of bug as the @media/@supports stripping documented for
- * Card - Category), so the swap has to be real CSS. Deliberately no lift/transform — background
- * and shadow only, one step up from the card's own rest-state shadow|300.
+ * Featured Article card — rainbow top border and hover: is-style-card-highlight-dark's shell is
+ * also reused by the Writing CTA's decorative, non-interactive code-snippet card
+ * (patterns/cards/blog-code-snippet.php), which shouldn't inherit either — so both are scoped to
+ * .ls-blog-hero rather than living unconditionally in the style JSON. The border itself lives
+ * here rather than in card-highlight-dark.json's css field for the same reason: that field has no
+ * ancestor-selector context to scope it with. Hover is deliberately no lift/transform — background
+ * and shadow only, one step up from the card's own rest-state shadow|300. A bare &:hover in a
+ * style JSON's css field is silently dropped (confirmed empirically, same class of bug as the
+ * @media/@supports stripping documented for Card - Category), so the hover swap has to be real
+ * CSS regardless.
  */
-.is-style-card-highlight-dark {
+.ls-blog-hero .is-style-card-highlight-dark {
+  position: relative;
+  overflow: hidden;
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.is-style-card-highlight-dark:hover, .is-style-card-highlight-dark:focus-within {
+.ls-blog-hero .is-style-card-highlight-dark::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--wp--custom--color--effect--hero--brand), var(--wp--custom--color--effect--hero--accent), var(--wp--custom--color--effect--spotlight--secondary), var(--wp--custom--color--icon--commerce));
+}
+.ls-blog-hero .is-style-card-highlight-dark:hover, .ls-blog-hero .is-style-card-highlight-dark:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--on-dark-card) 92%, white);
   box-shadow: var(--wp--custom--shadow--elevation--400);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-card-highlight-dark {
+  .ls-blog-hero .is-style-card-highlight-dark {
     transition: none;
   }
 }
