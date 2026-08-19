@@ -489,6 +489,7 @@
                     "brand-strong": "var:preset|color|brand-800",
                     "on-dark": "var:preset|color|base",
                     "on-dark-muted": "var:preset|color|neutral-400",
+                    "brand-on-dark": "var:preset|color|brand-300",
                     "on-dark-accent": "var:preset|color|cta-400",
                     "on-light": "var:preset|color|contrast"
                 },
