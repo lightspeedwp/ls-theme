@@ -6,14 +6,14 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Fixed-dark highlight card shell for the Blog Hero's featured-article tile, reusing the same on-dark-card surface pairing as Card - CTA Inline. Radius matches Card - Post (the other new card family added for the Blog archive) so both new cards read as one consistent shape language.",
+	"description": "Fixed-dark highlight card shell for the Blog Hero's featured-article tile, reusing the same on-dark-card surface pairing as Card - CTA Inline. Radius matches Card - Post (the other new card family added for the Blog archive) so both new cards read as one consistent shape language. Border uses border.on-dark (constant across the light/dark toggle) rather than border.card, which flips and would go low-contrast against this always-dark card in light mode.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|on-dark-card",
 			"text": "var:custom|color|text|on-dark"
 		},
 		"border": {
-			"color": "var:custom|color|border|card",
+			"color": "var:custom|color|border|on-dark",
 			"radius": "var:preset|border-radius|400",
 			"style": "solid",
 			"width": "1px"
@@ -27,6 +27,7 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		}
+		},
+		"css": "&{position:relative;overflow:hidden;}&::before{content:\"\";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg, var(--wp--custom--color--effect--hero--brand), var(--wp--custom--color--effect--hero--accent), var(--wp--custom--color--effect--spotlight--secondary), var(--wp--custom--color--icon--commerce));}"
 	}
 }

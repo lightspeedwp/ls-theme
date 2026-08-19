@@ -89,6 +89,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/work-hero.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		'blog-hero'             => array(
+			'handle'   => 'ls-theme-blog-hero',
+			'path'     => 'assets/css/blog-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 		'faq'                   => array(
 			'handle'   => 'ls-theme-faq',
 			'path'     => 'assets/css/faq.css',

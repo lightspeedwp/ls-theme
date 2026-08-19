@@ -488,7 +488,9 @@
                     "brand": "var:preset|color|brand-500",
                     "brand-strong": "var:preset|color|brand-800",
                     "on-dark": "var:preset|color|base",
-                    "on-dark-muted": "var:preset|color|neutral-400"
+                    "on-dark-muted": "var:preset|color|neutral-400",
+                    "on-dark-accent": "var:preset|color|cta-400",
+                    "on-light": "var:preset|color|contrast"
                 },
                 "surface": {
                     "canvas": "var:preset|color|base",
@@ -504,15 +506,18 @@
                     "accent-three-light": "var:preset|color|accent-three-100",
                     "band-start": "var:preset|color|surface-700",
                     "band-end": "var:preset|color|surface-300",
-                    "on-dark-card": "var:preset|color|surface-200"
+                    "on-dark-card": "var:preset|color|surface-200",
+                    "on-dark-accent-tint": "var:preset|color|brand-900"
                 },
                 "border": {
-                    "card": "var:preset|color|neutral-300"
+                    "card": "var:preset|color|neutral-300",
+                    "on-dark": "var:preset|color|neutral-800"
                 },
                 "icon": {
                     "background": "var:preset|color|brand-500",
                     "color": "var:preset|color|base",
-                    "commerce": "var:preset|color|warning-foreground"
+                    "commerce": "var:preset|color|warning-foreground",
+                    "on-dark": "var:preset|color|cta-500"
                 },
                 "card": {
                     "solutions": {
@@ -523,6 +528,13 @@
                         "wordpress": "var:preset|color|brand-500",
                         "woocommerce": "var:preset|color|cta-800"
                     }
+                },
+                "category": {
+                    "wordpress": "var:preset|color|brand-600",
+                    "woocommerce": "var:preset|color|cta-800",
+                    "design-systems": "var:preset|color|accent-800",
+                    "performance": "var:preset|color|accent-two-700",
+                    "accessibility": "var:preset|color|accent-four-900"
                 },
                 "phase": {
                     "discover": "var:preset|color|phase-one-strong",
