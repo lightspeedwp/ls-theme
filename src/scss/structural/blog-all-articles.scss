@@ -75,7 +75,10 @@
  * empirically, same class of bug as the @media/@supports stripping documented for Card -
  * Category). Border/shadow/lift reuse the same recipe as Card - Case Study's hover on the Work
  * archive (border.color -> link.accent, shadow -> the shared card.hover token, a small lift),
- * for consistency across the theme's interactive card language.
+ * for consistency across the theme's interactive card language. Scoped to `.wp-block-post-template`
+ * rather than the bare style class, since `is-style-card-post` is also reused by the Engagement
+ * section's static stat cards (patterns/sections/blog-engagement.php) — those have no link/control
+ * of their own, so a bare selector would falsely imply they're clickable on hover.
  */
 .is-style-card-post {
   transition:
@@ -85,7 +88,9 @@
       var(--wp--custom--animation--easing--standard),
     transform var(--wp--custom--animation--duration--medium)
       var(--wp--custom--animation--easing--emphasised);
+}
 
+.wp-block-post-template .is-style-card-post {
   &:hover,
   &:focus-within {
     border-color: var(--wp--custom--color--link--accent);
@@ -99,8 +104,8 @@
     transition: none;
   }
 
-  .is-style-card-post:hover,
-  .is-style-card-post:focus-within {
+  .wp-block-post-template .is-style-card-post:hover,
+  .wp-block-post-template .is-style-card-post:focus-within {
     transform: none;
   }
 }
