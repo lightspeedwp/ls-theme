@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a 9-slug `category.*` semantic colour token family (`theme.json`/`dark.json`), mapped to the existing `phase-*` token family by post-volume rank, replacing 5 placeholder categories that didn't match the real site taxonomy.
 - Added `text.on-dark-accent`, `surface.on-dark-accent-tint`, `icon.on-dark`, and `border.on-dark` tokens for the permanently-dark Hero and Writing CTA sections.
 - Added `inc/blog-reading-time.php`, a `render_block` filter that computes and injects real per-post reading time into Query Loop cards.
-- Added `Button - Primary/Outline On Dark` block styles and a `Card - Post` section style for the archive's post grid.
+- Added a `Button - Primary On Dark` block style and a `Card - Post` section style for the archive's post grid.
 - Added a `search-pill.json` no-button search variant for the All Articles filter row.
 - Added horizontal-scroll behaviour for the taxonomy filter pills below 790px (`src/scss/structural/taxonomy-filter.scss`), now shared by both the Work and Blog archives.
 
