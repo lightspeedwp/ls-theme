@@ -11,10 +11,11 @@
  * - #8B5CF6 16%->0% at 60%, ellipse 35.4%/43.9% at 88%/110%
  * - #7BE7FF 10%->0% at 70%, ellipse 28.6%/31.7% at 78%/8%
  * #1E6AFF is an exact match for the existing brand-500 preset (effect.hero.brand already points
- * to it). #8B5CF6 and #7BE7FF have no exact preset match — phase-six (#7A7CF9) and cta-300
- * (#8DEEFF) are the closest existing presets (checked against the full palette before reuse), and
- * at these opacities over a dark surface the hue difference isn't perceptible, so no new tokens
- * were added for a one-off decorative glow. Combined into one background-image, same technique as
+ * to it). #8B5CF6 and #7BE7FF have no exact preset match — phase-six/phase-six-strong and cta-300/
+ * cta-400 are the closest existing presets (checked against the full palette before reuse), so
+ * new effect.hero.violet/cyan custom tokens were added (theme.json + dark.json) pointing to them,
+ * rather than referencing those presets raw here — every other colour in this stylesheet goes
+ * through the custom semantic layer, and these should too. Combined into one background-image, same technique as
  * src/scss/structural/work-hero.scss (color.gradient block support only accepts a single gradient
  * value, not layered gradients of any kind) — this is the only content that stays here, no motion
  * involved at all. The base band gradient specifically can't be left as the block's own inline
@@ -26,7 +27,7 @@
  * the block's own style attribute now carries no background of its own.
  */
 .ls-blog-hero {
-  background-image: radial-gradient(49% 58.5% at 12% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 18%, transparent) 0%, transparent 60%), radial-gradient(35.4% 43.9% at 88% 110%, color-mix(in srgb, var(--wp--preset--color--phase-six) 16%, transparent) 0%, transparent 60%), radial-gradient(28.6% 31.7% at 78% 8%, color-mix(in srgb, var(--wp--preset--color--cta-300) 10%, transparent) 0%, transparent 70%), linear-gradient(158deg, var(--wp--custom--color--surface--band-start) 0%, var(--wp--custom--color--surface--band-end) 100%);
+  background-image: radial-gradient(49% 58.5% at 12% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 18%, transparent) 0%, transparent 60%), radial-gradient(35.4% 43.9% at 88% 110%, color-mix(in srgb, var(--wp--custom--color--effect--hero--violet) 16%, transparent) 0%, transparent 60%), radial-gradient(28.6% 31.7% at 78% 8%, color-mix(in srgb, var(--wp--custom--color--effect--hero--cyan) 10%, transparent) 0%, transparent 70%), linear-gradient(158deg, var(--wp--custom--color--surface--band-start) 0%, var(--wp--custom--color--surface--band-end) 100%);
   background-position: 0 0;
   background-repeat: no-repeat;
 }
@@ -120,7 +121,7 @@
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
 .is-style-card-highlight-dark .wp-block-read-more:hover, .is-style-card-highlight-dark .wp-block-read-more:focus-visible {
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--highlight) 92%, black);
+  background-color: var(--wp--custom--color--surface--highlight-hover);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -155,7 +156,7 @@
   background: linear-gradient(90deg, var(--wp--custom--color--effect--hero--brand), var(--wp--custom--color--effect--hero--accent), var(--wp--custom--color--effect--spotlight--secondary), var(--wp--custom--color--icon--commerce));
 }
 .ls-blog-hero .is-style-card-highlight-dark:hover, .ls-blog-hero .is-style-card-highlight-dark:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--surface--on-dark-card) 92%, white);
+  background-color: var(--wp--custom--color--surface--on-dark-card-hover);
   box-shadow: var(--wp--custom--shadow--elevation--400);
 }
 

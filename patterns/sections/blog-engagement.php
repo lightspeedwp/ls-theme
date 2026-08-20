@@ -44,7 +44,7 @@
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"300"} -->
-			<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted);margin-top:var(--wp--preset--spacing--10)"><?php echo esc_html__( 'Each card tracks the topics we write about most often. The shape of the line tells you where our team has been spending its energy in the last year.', 'ls-theme' ); ?></p>
+			<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted);margin-top:var(--wp--preset--spacing--10)"><?php echo esc_html__( 'Each card tracks the topics we write about most often, with the year-over-year change in output alongside the total.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->

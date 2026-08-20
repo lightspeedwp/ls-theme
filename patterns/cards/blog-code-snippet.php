@@ -10,10 +10,8 @@
  * style was created). The code sample is authored as raw HTML (core/html, not core/code) so its
  * manual comment/keyword/value colour spans, and the CSS-counter line numbers, don't get flagged
  * as invalid RichText content by the block editor's validator — comments and property/directive
- * names use existing on-dark tokens, string/hex values reuse the same orange accent used
- * elsewhere in this card family (a single, literal, scoped use per the project's token policy —
- * one component, not worth a new semantic token), matching the reference design's
- * syntax-highlighted look as closely as existing tokens allow.
+ * names use existing on-dark tokens, string/hex values use the `text.code-value` semantic token
+ * (theme.json/dark.json), matching the reference design's syntax-highlighted look.
  * Keywords: blog, cta, code, snippet, card
  * Viewport Width: 420
  * Inserter: true

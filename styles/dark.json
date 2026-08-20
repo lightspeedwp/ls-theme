@@ -24,6 +24,7 @@
 					"card": "var:preset|color|neutral-900",
 					"card-raised": "var:preset|color|neutral-800",
 					"highlight": "var:preset|color|base",
+					"highlight-hover": "var:preset|color|neutral-200",
 					"brand-light": "var:preset|color|brand-900",
                     "brand": "var:preset|color|cta-500",
                     "cta-light": "var:preset|color|cta-900",
@@ -34,6 +35,7 @@
                     "band-start": "var:preset|color|neutral-800",
                     "band-end": "var:preset|color|neutral-900",
                     "on-dark-card": "var:preset|color|neutral-800",
+                    "on-dark-card-hover": "var:preset|color|neutral-750",
                     "on-dark-accent-tint": "var:preset|color|brand-900"
 				},
 				"border": {
@@ -118,7 +120,9 @@
 					"hero": {
 						"brand": "var:preset|color|brand-300",
 						"cta": "var:preset|color|cta-300",
-						"accent": "var:preset|color|accent-two-300"
+						"accent": "var:preset|color|accent-two-300",
+						"violet": "var:preset|color|phase-six",
+						"cyan": "var:preset|color|cta-300"
 					}
 				}
 			},

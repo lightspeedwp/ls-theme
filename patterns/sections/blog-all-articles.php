@@ -42,7 +42,7 @@
 
 			<!-- wp:query-no-results -->
 			<!-- wp:paragraph -->
-			<p><?php echo esc_html__( 'No articles found. Try a different search or category.', 'ls-theme' ); ?></p>
+			<p><?php echo esc_html__( 'No articles found. Try a different category.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 			<!-- /wp:query-no-results -->
 

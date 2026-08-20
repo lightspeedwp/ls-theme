@@ -59,6 +59,11 @@
                     "color": "#505050"
                 },
                 {
+                    "name": "Neutral 750",
+                    "slug": "neutral-750",
+                    "color": "#414141"
+                },
+                {
                     "name": "Neutral 800",
                     "slug": "neutral-800",
                     "color": "#303030"
@@ -72,6 +77,11 @@
                     "name": "Surface 100",
                     "slug": "surface-100",
                     "color": "#2A2A30"
+                },
+                {
+                    "name": "Surface 150",
+                    "slug": "surface-150",
+                    "color": "#323239"
                 },
                 {
                     "name": "Surface 200",
@@ -499,6 +509,7 @@
                     "card": "var:preset|color|neutral-100",
                     "card-raised": "var:preset|color|neutral-200",
                     "highlight": "var:preset|color|base",
+                    "highlight-hover": "var:preset|color|neutral-200",
                     "brand-light": "var:preset|color|brand-100",
                     "brand": "var:preset|color|brand-500",
                     "cta-light": "var:preset|color|cta-100",
@@ -509,6 +520,7 @@
                     "band-start": "var:preset|color|surface-700",
                     "band-end": "var:preset|color|surface-300",
                     "on-dark-card": "var:preset|color|surface-200",
+                    "on-dark-card-hover": "var:preset|color|surface-150",
                     "on-dark-accent-tint": "var:preset|color|brand-900"
                 },
                 "border": {
@@ -593,7 +605,9 @@
                     "hero": {
                         "brand": "var:preset|color|brand-500",
                         "cta": "var:preset|color|cta-500",
-                        "accent": "var:preset|color|accent-two-500"
+                        "accent": "var:preset|color|accent-two-500",
+                        "violet": "var:preset|color|phase-six-strong",
+                        "cyan": "var:preset|color|cta-400"
                     }
                 }
             },
