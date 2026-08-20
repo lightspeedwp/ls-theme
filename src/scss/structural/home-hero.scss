@@ -14,10 +14,25 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  --ls-home-hero-surface: var(--wp--custom--color--surface--canvas);
-  --ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
-  --ls-home-hero-cta: var(--wp--custom--color--effect--hero--cta);
-  --ls-home-hero-accent: var(--wp--custom--color--effect--hero--accent);
+  /*
+   * JSON limitation: forced permanently-dark, independent of the site's light/dark style
+   * variation — same mechanism as blog-hero (see AGENTS.md Theme-First Approach). Pinned to the
+   * raw `contrast` palette swatch (always #080808) rather than the `surface.canvas` semantic
+   * token, which flips to a light background in light mode — every text element in this Hero
+   * uses the `on-dark` token family (always light), so a flipping background made the text
+   * unreadable in light mode.
+   */
+  --ls-home-hero-surface: var(--wp--preset--color--contrast);
+  /*
+   * Pinned to the light-mode resolution of effect.hero.brand/cta/accent (brand-500/cta-500/
+   * accent-two-500), not the shared semantic token itself — that token is also consumed by
+   * blog-hero.scss and work-hero.scss, which should keep flipping with the style variation as
+   * before. Referencing the raw palette presets here keeps this Hero's gradient tint fixed on
+   * request, without changing the other two heroes' behaviour.
+   */
+  --ls-home-hero-brand: var(--wp--preset--color--brand-500);
+  --ls-home-hero-cta: var(--wp--preset--color--cta-500);
+  --ls-home-hero-accent: var(--wp--preset--color--accent-two-500);
 
   background:
     radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%, transparent 34%),
@@ -28,6 +43,31 @@
   > :not(.ls-home-hero-section__background) {
     position: relative;
     z-index: var(--wp--custom--z-index--content);
+  }
+
+  /*
+   * JSON limitation: decorative 5-stop linear-gradient bar pinned to the section's bottom edge
+   * has no theme.json equivalent (border-color only accepts a single colour). Uses raw palette
+   * presets, not semantic tokens, so it stays fixed regardless of style variation, matching the
+   * rest of this permanently-dark Hero — the Stats Bar section that follows immediately in
+   * templates/front-page.html already touches this edge directly, no extra spacing needed.
+   */
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: var(--wp--custom--z-index--content);
+    background: linear-gradient(
+      90deg,
+      var(--wp--preset--color--brand-500) 0%,
+      var(--wp--preset--color--phase-six) 25%,
+      var(--wp--preset--color--phase-two) 50%,
+      var(--wp--preset--color--phase-five) 75%,
+      var(--wp--preset--color--phase-four) 100%
+    );
   }
 
   .ls-home-hero-section__background {
@@ -126,8 +166,10 @@
  * Homepage Hero content (LS-1616) — badge, prompt row and suggestion pills.
  * JSON limitation: translucent "glass" surfaces need border-color plus background-color pairs
  * that theme.json's border/background style keys can't combine with a comma-separated
- * multi-layer box-shadow glow on the same element, and the pill row needs `:hover` background
- * changes with no elements.* pseudo-state key — see AGENTS.md Theme-First Approach.
+ * multi-layer box-shadow glow on the same element, the pill row needs `:hover` background
+ * changes with no elements.* pseudo-state key, and the prompt row needs `backdrop-filter` (to
+ * stay legible over the GSAP network background behind it) which theme.json has no key for at
+ * all — see AGENTS.md Theme-First Approach.
  */
 .ls-hero-badge-neon > div {
   background-color: var(--wp--custom--color--surface--glass-subtle);
@@ -142,6 +184,8 @@
   border: 1px solid var(--wp--custom--color--border--glass);
   border-radius: var(--wp--preset--border-radius--300);
   padding: var(--wp--preset--spacing--20);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .ls-hero-prompt-text {
