@@ -121,3 +121,41 @@
     height: 16rem;
   }
 }
+
+/*
+ * Homepage Hero content (LS-1616) — badge, prompt row and suggestion pills.
+ * JSON limitation: translucent "glass" surfaces need border-color plus background-color pairs
+ * that theme.json's border/background style keys can't combine with a comma-separated
+ * multi-layer box-shadow glow on the same element, and the pill row needs `:hover` background
+ * changes with no elements.* pseudo-state key — see AGENTS.md Theme-First Approach.
+ */
+.ls-hero-badge-neon > div {
+  background-color: var(--wp--custom--color--surface--glass-subtle);
+  border: 1px solid var(--wp--custom--color--border--glass);
+  border-radius: var(--wp--preset--border-radius--500);
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  box-shadow: 0 0 8.73px 0 var(--wp--custom--color--text--on-dark-accent);
+}
+
+.ls-hero-prompt-row {
+  background-color: var(--wp--custom--color--surface--glass);
+  border: 1px solid var(--wp--custom--color--border--glass);
+  border-radius: var(--wp--preset--border-radius--300);
+  padding: var(--wp--preset--spacing--20);
+}
+
+.ls-hero-prompt-text {
+  flex-grow: 1;
+}
+
+.ls-hero-pill {
+  background-color: var(--wp--custom--color--surface--glass-lighter);
+  border: 1px solid var(--wp--custom--color--border--glass);
+  border-radius: var(--wp--preset--border-radius--500);
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  margin: 0;
+
+  &:hover {
+    background-color: var(--wp--custom--color--surface--glass);
+  }
+}

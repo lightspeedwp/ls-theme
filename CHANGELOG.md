@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Homepage Hero, Stats Bar, Where to Start (LS-1616)
+
+### Added
+
+- Rebuilt the Homepage Hero (`patterns/home-hero.php`) to match Figma: AI-planner intro, decorative prompt-input row, project-type suggestion pills, and a consultation link. Kept the existing GSAP network background system (`.ls-home-hero-section`) untouched and layered new content on top.
+- Added `patterns/section-stats-bar.php`, a 4-figure stat strip with vertical dividers, placed directly beneath the Hero.
+- Added `patterns/sections/homepage-where-to-start.php` ("Three honest routes into LightSpeed"), reusing the Work archive's `is-style-card-category` / `.ls-icon-well-brand` / `is-style-link-arrow-accent` styling so both pages now share one improved card treatment.
+- Wired all 3 new patterns into `templates/front-page.html`.
+- Added 4 new mode-invariant custom colour tokens for the Hero's translucent "glass" badges/borders, following the existing `on-dark` family convention (defined in `theme.json`, intentionally not overridden in `styles/dark.json`): `surface.glass`, `surface.glass-lighter`, `surface.glass-subtle`, `border.glass`.
+- Added scoped `ls-hero-badge-neon` / `ls-hero-prompt-row` / `ls-hero-pill` rules to `src/scss/structural/home-hero.scss` for the glass-panel styling with a `JSON limitation` comment (comma-separated background+border+box-shadow combination and hover-state background swap have no theme.json equivalent).
+
+### Notes
+
+- No new `is-style` variants were registered, per the LS-2341 cleanup (PR #24) — single-use Hero treatments use scoped `ls-*` classes; the Where to Start cards reuse the already multi-use `is-style-card-category`.
+- Hero prompt input is decorative only (no functional wiring) per current scope.
+- `assets/css/animations.css` was not touched.
+
+---
+
 ## [PR #26](https://github.com/lightspeedwp/ls-theme/pull/26) — Build Blog Archive page (Hero, All Articles, Engagement, Writing CTA) - 2026-08-19
 
 ### Added

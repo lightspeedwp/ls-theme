@@ -521,12 +521,16 @@
                     "band-end": "var:preset|color|surface-300",
                     "on-dark-card": "var:preset|color|surface-200",
                     "on-dark-card-hover": "var:preset|color|surface-150",
-                    "on-dark-accent-tint": "var:preset|color|brand-900"
+                    "on-dark-accent-tint": "var:preset|color|brand-900",
+                    "glass": "color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent)",
+                    "glass-lighter": "color-mix(in srgb, var(--wp--custom--color--text--on-dark) 5%, transparent)",
+                    "glass-subtle": "color-mix(in srgb, var(--wp--preset--color--surface-500) 9%, transparent)"
                 },
                 "border": {
                     "card": "var:preset|color|neutral-300",
                     "on-dark": "var:preset|color|neutral-500",
-                    "field": "var:preset|color|neutral-600"
+                    "field": "var:preset|color|neutral-600",
+                    "glass": "color-mix(in srgb, var(--wp--custom--color--text--on-dark) 50%, transparent)"
                 },
                 "icon": {
                     "background": "var:preset|color|brand-500",
