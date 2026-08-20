@@ -24,6 +24,12 @@ require get_template_directory() . '/inc/header.php';
 /** Loads Portfolio card platform-colour swapping */
 require get_template_directory() . '/inc/portfolio-card-colors.php';
 
+/** Loads Blog card category-colour swapping */
+require get_template_directory() . '/inc/blog-card-colors.php';
+
+/** Loads breadcrumb separator customisation */
+require get_template_directory() . '/inc/breadcrumbs.php';
+
 /**
  * Sets up theme supports.
  */
@@ -56,6 +62,9 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/cta-buttons.css' );
 	add_editor_style( 'assets/css/home-hero.css' );
 	add_editor_style( 'assets/css/work-hero.css' );
+	add_editor_style( 'assets/css/blog-hero.css' );
+	add_editor_style( 'assets/css/blog-all-articles.css' );
+	add_editor_style( 'assets/css/blog-writing-cta.css' );
 	add_editor_style( 'assets/css/faq.css' );
 	add_editor_style( 'assets/css/links.css' );
 	add_editor_style( 'assets/css/button-secondary.css' );

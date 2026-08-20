@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Button - Primary On Dark",
+	"slug": "button-primary-on-dark",
+	"blockTypes": [
+		"core/button",
+		"core/read-more"
+	],
+	"description": "White pill button for hero-caliber CTAs inside permanently-dark sections. Used as a real core/button for Writing CTA's \"Book a consultation\", and applied to core/read-more for the Blog Hero featured-article card's \"Read article\" link (dynamic, bound to the Query Loop's current post, same core/read-more convention as Card - Work Project's \"View project\"). Background/text stay constant across the light/dark style variation toggle, matching the on-dark token family. Hover contract in src/scss/animations/_button-motion.scss.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|highlight",
+			"text": "var:custom|color|text|on-light"
+		},
+		"border": {
+			"radius": "var:preset|border-radius|500",
+			"style": "none",
+			"width": "0"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|40",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|40"
+			}
+		},
+		"typography": {
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "var:custom|typography|font-weight|bold",
+			"letterSpacing": "normal"
+		}
+	}
+}

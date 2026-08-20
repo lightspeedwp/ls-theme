@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Post",
+	"slug": "card-post",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Flat blog post card shell — no banner/image zone (unlike Card - Case Study, whose radius/blockGap/border-mix values this was checked against and found genuinely different: 300/16px vs this card's 400/24px, and blockGap:0 for a banner layout vs this card's real blockGap since content isn't split into separate zones). Radius matches Card - Highlight Dark so both new Blog Archive card shells read as one family.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|400",
+			"style": "solid",
+			"width": "1px"
+		},
+		"shadow": "var:preset|shadow|100",
+		"spacing": {
+			"blockGap": "var:preset|spacing|10",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}

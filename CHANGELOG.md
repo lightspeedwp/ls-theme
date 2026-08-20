@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [PR #26](https://github.com/lightspeedwp/ls-theme/pull/26) — Build Blog Archive page (Hero, All Articles, Engagement, Writing CTA) - 2026-08-19
+
+### Added
+
+- Built the Blog Archive template's 4 sections to match Figma (LS-1616): `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`, `patterns/sections/blog-writing-cta.php`, plus supporting card patterns (`blog-featured-article.php`, `blog-latest-item.php`, `blog-post-card.php`, `blog-code-snippet.php`).
+- Added a 9-slug `category.*` semantic colour token family (`theme.json`/`dark.json`), mapped to the existing `phase-*` token family by post-volume rank, replacing 5 placeholder categories that didn't match the real site taxonomy.
+- Added `text.on-dark-accent`, `surface.on-dark-accent-tint`, `icon.on-dark`, and `border.on-dark` tokens for the permanently-dark Hero and Writing CTA sections.
+- Added the `core/post-time-to-read` block to the Blog card patterns for per-post reading time in Query Loop cards.
+- Added a `Button - Primary On Dark` block style and a `Card - Post` section style for the archive's post grid.
+- Added a `search-pill.json` no-button search variant for the All Articles filter row.
+- Added horizontal-scroll behaviour for the taxonomy filter pills below 790px (`src/scss/structural/taxonomy-filter.scss`), now shared by both the Work and Blog archives.
+
+### Fixed
+
+- Fixed category badge and post-title text rendering black instead of the correct on-dark/on-light colour — caused by `elements.link` styles winning the cascade over inherited heading colour on `isLink` blocks (post-title, post-terms).
+- Fixed the category badge colour not swapping per post in the Query Loop — `elements.link` renders as one deduped, shared rule, not per-instance — replaced with a plain class + `color: inherit`.
+- Fixed long category names overflowing the post card edge.
+- Fixed the Writing CTA card's max-width and taxonomy-filter's mobile flex-wrap both silently no-op'ing against WordPress core's own `.alignwide`/`.wp-block-buttons` cascade.
+- Fixed the `ls-plugin/taxonomy-filter` block rendering an editor "invalid content" error due to a self-closing pattern comment.
+- Removed the Blog Archive template's top padding so the Hero sits flush against the header; kept bottom padding for consistent spacing above the footer.
+
 ## [Unreleased]
 
 ### Added

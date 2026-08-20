@@ -59,6 +59,11 @@
                     "color": "#505050"
                 },
                 {
+                    "name": "Neutral 750",
+                    "slug": "neutral-750",
+                    "color": "#414141"
+                },
+                {
                     "name": "Neutral 800",
                     "slug": "neutral-800",
                     "color": "#303030"
@@ -72,6 +77,11 @@
                     "name": "Surface 100",
                     "slug": "surface-100",
                     "color": "#2A2A30"
+                },
+                {
+                    "name": "Surface 150",
+                    "slug": "surface-150",
+                    "color": "#323239"
                 },
                 {
                     "name": "Surface 200",
@@ -489,13 +499,17 @@
                     "brand-strong": "var:preset|color|brand-800",
                     "on-dark": "var:preset|color|base",
                     "on-dark-muted": "var:preset|color|neutral-400",
-                    "brand-on-dark": "var:preset|color|brand-300"
+                    "brand-on-dark": "var:preset|color|brand-300",
+                    "on-dark-accent": "var:preset|color|cta-400",
+                    "on-light": "var:preset|color|contrast",
+                    "code-value": "var:preset|color|warning-foreground"
                 },
                 "surface": {
                     "canvas": "var:preset|color|base",
                     "card": "var:preset|color|neutral-100",
                     "card-raised": "var:preset|color|neutral-200",
                     "highlight": "var:preset|color|base",
+                    "highlight-hover": "var:preset|color|neutral-200",
                     "brand-light": "var:preset|color|brand-100",
                     "brand": "var:preset|color|brand-500",
                     "cta-light": "var:preset|color|cta-100",
@@ -505,15 +519,20 @@
                     "accent-three-light": "var:preset|color|accent-three-100",
                     "band-start": "var:preset|color|surface-700",
                     "band-end": "var:preset|color|surface-300",
-                    "on-dark-card": "var:preset|color|surface-200"
+                    "on-dark-card": "var:preset|color|surface-200",
+                    "on-dark-card-hover": "var:preset|color|surface-150",
+                    "on-dark-accent-tint": "var:preset|color|brand-900"
                 },
                 "border": {
-                    "card": "var:preset|color|neutral-300"
+                    "card": "var:preset|color|neutral-300",
+                    "on-dark": "var:preset|color|neutral-500",
+                    "field": "var:preset|color|neutral-600"
                 },
                 "icon": {
                     "background": "var:preset|color|brand-500",
                     "color": "var:preset|color|base",
-                    "commerce": "var:preset|color|warning-foreground"
+                    "commerce": "var:preset|color|warning-foreground",
+                    "on-dark": "var:preset|color|cta-500"
                 },
                 "card": {
                     "solutions": {
@@ -524,6 +543,17 @@
                         "wordpress": "var:preset|color|brand-500",
                         "woocommerce": "var:preset|color|cta-800"
                     }
+                },
+                "category": {
+                    "news": "var:preset|color|phase-two-strong",
+                    "tour-operators": "var:preset|color|phase-one-strong",
+                    "lsx": "var:preset|color|phase-six-strong",
+                    "design-systems": "var:preset|color|phase-five-strong",
+                    "project-workflows": "var:preset|color|phase-four-strong",
+                    "content": "var:preset|color|phase-three-strong",
+                    "release-notes": "var:preset|color|brand-600",
+                    "design": "var:preset|color|cta-800",
+                    "wordcamp": "var:preset|color|brand-600"
                 },
                 "phase": {
                     "discover": "var:preset|color|phase-one-strong",
@@ -575,7 +605,9 @@
                     "hero": {
                         "brand": "var:preset|color|brand-500",
                         "cta": "var:preset|color|cta-500",
-                        "accent": "var:preset|color|accent-two-500"
+                        "accent": "var:preset|color|accent-two-500",
+                        "violet": "var:preset|color|phase-six-strong",
+                        "cyan": "var:preset|color|cta-400"
                     }
                 }
             },
@@ -737,6 +769,13 @@
         {
             "name": "page-no-title",
             "title": "Page (No Title)",
+            "postTypes": [
+                "page"
+            ]
+        },
+        {
+            "name": "page-blog-archive",
+            "title": "Blog Archive",
             "postTypes": [
                 "page"
             ]

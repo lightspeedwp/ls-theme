@@ -14,13 +14,17 @@
 					"brand-strong": "var:preset|color|cta-200",
 					"on-dark": "var:preset|color|base",
 					"on-dark-muted": "var:preset|color|neutral-400",
-					"brand-on-dark": "var:preset|color|cta-500"
+					"brand-on-dark": "var:preset|color|cta-500",
+					"on-dark-accent": "var:preset|color|cta-400",
+					"on-light": "var:preset|color|contrast",
+					"code-value": "var:preset|color|warning-foreground"
 				},
 				"surface": {
 					"canvas": "var:preset|color|contrast",
 					"card": "var:preset|color|neutral-900",
 					"card-raised": "var:preset|color|neutral-800",
 					"highlight": "var:preset|color|base",
+					"highlight-hover": "var:preset|color|neutral-200",
 					"brand-light": "var:preset|color|brand-900",
                     "brand": "var:preset|color|cta-500",
                     "cta-light": "var:preset|color|cta-900",
@@ -30,15 +34,20 @@
                     "accent-three-light": "var:preset|color|accent-three-900",
                     "band-start": "var:preset|color|neutral-800",
                     "band-end": "var:preset|color|neutral-900",
-                    "on-dark-card": "var:preset|color|neutral-800"
+                    "on-dark-card": "var:preset|color|neutral-800",
+                    "on-dark-card-hover": "var:preset|color|neutral-750",
+                    "on-dark-accent-tint": "var:preset|color|brand-900"
 				},
 				"border": {
-					"card": "var:preset|color|neutral-800"
+					"card": "var:preset|color|neutral-800",
+					"on-dark": "var:preset|color|neutral-500",
+					"field": "var:preset|color|neutral-600"
 				},
 				"icon": {
 					"background": "var:preset|color|cta-500",
 					"color": "var:preset|color|contrast",
-					"commerce": "var:preset|color|warning-foreground"
+					"commerce": "var:preset|color|warning-foreground",
+					"on-dark": "var:preset|color|cta-500"
 				},
 				"card": {
 					"solutions": {
@@ -49,6 +58,17 @@
 						"wordpress": "var:preset|color|brand-400",
 						"woocommerce": "var:preset|color|cta-400"
 					}
+				},
+				"category": {
+					"news": "var:preset|color|phase-two",
+					"tour-operators": "var:preset|color|phase-one",
+					"lsx": "var:preset|color|phase-six",
+					"design-systems": "var:preset|color|phase-five",
+					"project-workflows": "var:preset|color|phase-four",
+					"content": "var:preset|color|phase-three",
+					"release-notes": "var:preset|color|brand-400",
+					"design": "var:preset|color|cta-400",
+					"wordcamp": "var:preset|color|brand-400"
 				},
 				"phase": {
 					"discover": "var:preset|color|phase-one",
@@ -100,7 +120,9 @@
 					"hero": {
 						"brand": "var:preset|color|brand-300",
 						"cta": "var:preset|color|cta-300",
-						"accent": "var:preset|color|accent-two-300"
+						"accent": "var:preset|color|accent-two-300",
+						"violet": "var:preset|color|phase-six",
+						"cyan": "var:preset|color|cta-300"
 					}
 				}
 			},
