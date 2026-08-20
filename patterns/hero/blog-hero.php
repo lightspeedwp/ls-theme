@@ -7,7 +7,11 @@
  * Description: The Blog archive's hero section: a full-width eyebrow/heading/paragraph block up
  * top, then a row with the live Featured Article tile on the left and a "Latest" list of the
  * next 3 posts on the right. Two-column row via core/columns, which stacks automatically on
- * mobile. Permanently dark, independent of the site's light/dark style variation toggle.
+ * mobile. Permanently dark, independent of the site's light/dark style variation toggle. The
+ * section's own base gradient plus its decorative radial-glow and corner-wedge accents are all
+ * defined together in src/scss/structural/blog-hero.scss (className ls-blog-hero) rather than as
+ * a block-level color.gradient attribute — an inline background style always wins the cascade
+ * over an external stylesheet's background-image, so the two can't coexist on this block.
  * Keywords: blog, hero, archive, section, query loop
  * Viewport Width: 1280
  * Inserter: true
@@ -16,11 +20,19 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"ls-blog-hero","style":{"color":{"gradient":"linear-gradient(158deg,var(--wp--custom--color--surface--band-start) 0%,var(--wp--custom--color--surface--band-end) 100%)"},"spacing":{"padding":{"top":"var:preset|spacing|80","right":"var:preset|spacing|30","bottom":"var:preset|spacing|90","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull ls-blog-hero has-background" style="background:linear-gradient(158deg,var(--wp--custom--color--surface--band-start) 0%,var(--wp--custom--color--surface--band-end) 100%);padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--30)">
+<!-- wp:group {"align":"full","tagName":"section","className":"ls-blog-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","right":"var:preset|spacing|30","bottom":"var:preset|spacing|90","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ls-blog-hero" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--30)">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
+
+		<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
+		<!-- wp:group {"align":"wide","className":"ls-breadcrumbs-on-dark","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+		<div class="wp-block-group alignwide ls-breadcrumbs-on-dark has-text-color" style="color:var(--wp--custom--color--text--on-dark-muted)">
+			<!-- wp:yoast-seo/breadcrumbs /-->
+		</div>
+		<!-- /wp:group -->
+		<?php endif; ?>
 
 		<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"800px","justifyContent":"left"}} -->
 		<div class="wp-block-group alignwide">

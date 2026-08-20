@@ -27,8 +27,8 @@ require get_template_directory() . '/inc/portfolio-card-colors.php';
 /** Loads Blog card category-colour swapping */
 require get_template_directory() . '/inc/blog-card-colors.php';
 
-/** Loads Blog card reading-time calculation */
-require get_template_directory() . '/inc/blog-reading-time.php';
+/** Loads breadcrumb separator customisation */
+require get_template_directory() . '/inc/breadcrumbs.php';
 
 /**
  * Sets up theme supports.

@@ -38,9 +38,7 @@
 		<div class="wp-block-group">
 			<!-- wp:post-date {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} /-->
 
-			<!-- wp:paragraph {"className":"ls-reading-time","style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
-			<p class="ls-reading-time has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( sprintf( /* translators: %s: reading time in minutes. */ __( '%s min read', 'ls-theme' ), '0' ) ); ?></p>
-			<!-- /wp:paragraph -->
+			<!-- wp:post-time-to-read {"displayAsRange":false,"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} /-->
 		</div>
 		<!-- /wp:group -->
 

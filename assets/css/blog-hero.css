@@ -1,12 +1,33 @@
 /********** Blog Hero (Blog archive only) **********/
 /*
- * Blog Hero background: layered radial-gradient glow behind the section, same technique as
- * src/scss/structural/work-hero.scss (color.gradient block support only accepts a single
- * gradient value, not layered radial stops) — this is the only content that stays here, no
- * motion involved at all.
+ * Blog Hero background: the base 158deg band-start/band-end diagonal, plus a 3-colour aurora
+ * glow pulled directly from the Figma source via the Figma MCP's get_design_context (LightSpeedWP
+ * Design System, node 7926:130928) — 3 stacked elliptical radial fills, each a single colour
+ * fading to transparent. Position/size/stop values below are the exact numbers decoded from
+ * Figma's SVG gradientTransform matrices (center and x/y radius as a fraction of the design's
+ * 1470x820.59 frame — CSS's percentage-based radial-gradient sizing resolves against this
+ * element's own box the same way, so the proportions carry over responsively):
+ * - #1E6AFF 18%->0% at 60%, ellipse 49%/58.5% at 12%/-10%
+ * - #8B5CF6 16%->0% at 60%, ellipse 35.4%/43.9% at 88%/110%
+ * - #7BE7FF 10%->0% at 70%, ellipse 28.6%/31.7% at 78%/8%
+ * #1E6AFF is an exact match for the existing brand-500 preset (effect.hero.brand already points
+ * to it). #8B5CF6 and #7BE7FF have no exact preset match — phase-six (#7A7CF9) and cta-300
+ * (#8DEEFF) are the closest existing presets (checked against the full palette before reuse), and
+ * at these opacities over a dark surface the hue difference isn't perceptible, so no new tokens
+ * were added for a one-off decorative glow. Combined into one background-image, same technique as
+ * src/scss/structural/work-hero.scss (color.gradient block support only accepts a single gradient
+ * value, not layered gradients of any kind) — this is the only content that stays here, no motion
+ * involved at all. The base band gradient specifically can't be left as the block's own inline
+ * color.gradient attribute the way most other sections do it: an inline `style="background:..."`
+ * always wins the cascade over any external stylesheet rule for the same property (confirmed
+ * empirically — with the gradient set inline, none of this file's background-image layers painted
+ * at all, this component's own version of the `!important`-vs-core-class fights already documented
+ * elsewhere in this theme), so the band gradient moved here as this list's base layer instead, and
+ * the block's own style attribute now carries no background of its own.
  */
 .ls-blog-hero {
-  background-image: radial-gradient(circle at 10% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 14%, transparent) 0%, transparent 55%), radial-gradient(circle at 90% 60%, color-mix(in srgb, var(--wp--custom--color--effect--hero--accent) 16%, transparent) 0%, transparent 60%);
+  background-image: radial-gradient(49% 58.5% at 12% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 18%, transparent) 0%, transparent 60%), radial-gradient(35.4% 43.9% at 88% 110%, color-mix(in srgb, var(--wp--preset--color--phase-six) 16%, transparent) 0%, transparent 60%), radial-gradient(28.6% 31.7% at 78% 8%, color-mix(in srgb, var(--wp--preset--color--cta-300) 10%, transparent) 0%, transparent 70%), linear-gradient(158deg, var(--wp--custom--color--surface--band-start) 0%, var(--wp--custom--color--surface--band-end) 100%);
+  background-position: 0 0;
   background-repeat: no-repeat;
 }
 
@@ -142,4 +163,16 @@
   .ls-blog-hero .is-style-card-highlight-dark {
     transition: none;
   }
+}
+/*
+ * Yoast Breadcrumbs (Blog Hero): yoast-seo/breadcrumbs has no color or typography block-supports
+ * at all (confirmed in its own block.json — only a plain className attribute), so unlike every
+ * other block in this pattern its text colour can't be set as a block attribute. The wrapping
+ * group's inherited colour already covers the plain separator/current-page text, but the trail's
+ * `<a>` links still need an explicit override — the theme's global elements.link colour otherwise
+ * wins the cascade over inherited colour on an anchor, the same class of bug already fixed for
+ * the category badge and post-title links elsewhere in this pattern.
+ */
+.ls-breadcrumbs-on-dark a {
+  color: var(--wp--custom--color--text--on-dark-muted);
 }
