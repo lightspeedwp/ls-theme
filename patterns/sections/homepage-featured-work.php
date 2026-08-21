@@ -87,8 +87,8 @@
 
 		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
 		<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--60)">
-			<!-- wp:button {"className":"is-style-button-secondary-outline ls-has-arrow-reveal"} -->
-			<div class="wp-block-button is-style-button-secondary-outline ls-has-arrow-reveal"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'All Case Studies', 'ls-theme' ); ?></a></div>
+			<!-- wp:button -->
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'All Case Studies', 'ls-theme' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

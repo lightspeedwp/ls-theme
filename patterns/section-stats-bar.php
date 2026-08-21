@@ -16,8 +16,8 @@
 <!-- wp:group {"align":"full","tagName":"section","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-background" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;background-color:var(--wp--custom--color--surface--card);margin-top:0;padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"className":"ls-stats-row","align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center","verticalAlignment":"center"}} -->
-	<div class="wp-block-group ls-stats-row alignwide">
+	<!-- wp:group {"className":"ls-stats-row","align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+	<div class="wp-block-group ls-stats-row alignwide is-content-justification-space-between">
 
 		<!-- wp:group {"className":"ls-stat-item","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","justifyContent":"center"},"style":{"spacing":{"padding":{"left":"var:preset|spacing|60","right":"var:preset|spacing|60"}}}} -->
 		<div class="wp-block-group ls-stat-item" style="padding-right:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)">

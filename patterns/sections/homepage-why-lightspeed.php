@@ -43,12 +43,12 @@
 
 			<!-- wp:buttons {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 			<div class="wp-block-buttons">
-				<!-- wp:button {"className":"is-style-button-secondary"} -->
-				<div class="wp-block-button is-style-button-secondary"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/why-lightspeed/' ) ); ?>"><?php echo esc_html__( 'Read the full positioning', 'ls-theme' ); ?></a></div>
+				<!-- wp:button -->
+				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/why-lightspeed/' ) ); ?>"><?php echo esc_html__( 'Read the full positioning', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 
-				<!-- wp:button {"className":"is-style-button-secondary-outline ls-has-arrow-reveal"} -->
-				<div class="wp-block-button is-style-button-secondary-outline ls-has-arrow-reveal"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/commitments/' ) ); ?>"><?php echo esc_html__( 'What we commit to', 'ls-theme' ); ?></a></div>
+				<!-- wp:button {"className":"is-style-outline"} -->
+				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/commitments/' ) ); ?>"><?php echo esc_html__( 'What we commit to', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->

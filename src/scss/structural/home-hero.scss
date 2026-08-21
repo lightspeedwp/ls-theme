@@ -224,3 +224,35 @@
     -webkit-mask-image: linear-gradient(180deg, black calc(100% - 1.5rem), transparent 100%);
   }
 }
+
+/*
+ * CTA buttons for permanently-dark hero sections (LS-1597) — reusable across every dark-only
+ * Hero variant, not just this one pattern. The default fill/outline button colours
+ * (--wp--custom--color--button--fill/outline--*) are deliberately mode-aware (brand-500 in light,
+ * cta-500 in dark), so plain buttons flip between blue and cyan depending on a toggle these
+ * sections otherwise ignore. Pinned here to fixed cta-500/contrast values — the same combination
+ * the dark style variation already uses, just constant regardless of which variation is active —
+ * via the override custom properties src/scss/animations/_button-motion.scss already exposes for
+ * exactly this. No new is-style variant needed: the fill button stays a bare `core/button` (so it
+ * keeps matching that motion file's default-fill selector) and the outline button stays
+ * `is-style-outline` (so it keeps that style's arrow-well motion) — only these two plain,
+ * shareable marker classes pin the colours. `!important` on the outline's border/text/background
+ * is required because those specific properties come from `is-style-outline`'s own registered
+ * block style (core-button.json), which core prints into `global-styles-inline-css` — a
+ * same-specificity class selector whose cascade position isn't guaranteed relative to this
+ * enqueued stylesheet.
+ */
+.wp-block-button.ls-hero-cta-fill .wp-block-button__link {
+  --ls-button-fill-background: var(--wp--preset--color--cta-500);
+  --ls-button-fill-icon-colour: var(--wp--preset--color--contrast);
+  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+  color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-button.ls-hero-cta-outline .wp-block-button__link {
+  --ls-button-outline-accent-background: var(--wp--preset--color--cta-500);
+  --ls-button-outline-accent-colour: var(--wp--preset--color--contrast);
+  border-color: var(--wp--preset--color--cta-500) !important;
+  color: var(--wp--custom--color--text--on-dark) !important;
+  background-color: transparent !important;
+}
