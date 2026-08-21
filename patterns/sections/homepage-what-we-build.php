@@ -39,8 +39,8 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
-		<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--60)">
+		<!-- wp:columns {"align":"wide","className":"ls-what-we-build-row","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
+		<div class="wp-block-columns alignwide ls-what-we-build-row" style="margin-top:var(--wp--preset--spacing--60)">
 
 			<!-- wp:column -->
 			<div class="wp-block-column">

@@ -138,6 +138,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/homepage-cta.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		'stats-bar'             => array(
+			'handle'   => 'ls-theme-stats-bar',
+			'path'     => 'assets/css/stats-bar.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'homepage-card-rows'    => array(
+			'handle'   => 'ls-theme-homepage-card-rows',
+			'path'     => 'assets/css/homepage-card-rows.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 	);
 
 	/**

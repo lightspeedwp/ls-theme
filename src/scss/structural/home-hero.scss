@@ -203,3 +203,24 @@
     background-color: var(--wp--custom--color--surface--glass);
   }
 }
+
+/*
+ * Below 600px, all 6 suggestion pills stacking one per line reads as a wall of pills rather than
+ * a hero. Capped to a fixed height showing ~3 pills, with the rest reachable by scrolling
+ * vertically inside that box (an edge fade signals there's more below) — no block-supports
+ * equivalent for a breakpoint-conditional max-height + scroll swap, so this is real CSS.
+ * `!important` on flex-wrap is required because WP's own generated unique-class rule for this
+ * group otherwise wins the cascade over a plain override (confirmed elsewhere in this theme,
+ * e.g. taxonomy-filter.scss).
+ */
+@media (max-width: 599.98px) {
+  .ls-hero-pills {
+    flex-wrap: wrap !important;
+    max-height: 9.5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-block-end: 1.5rem;
+    mask-image: linear-gradient(180deg, black calc(100% - 1.5rem), transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, black calc(100% - 1.5rem), transparent 100%);
+  }
+}

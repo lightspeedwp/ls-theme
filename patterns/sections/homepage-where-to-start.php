@@ -43,8 +43,8 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|90"}}}} -->
-		<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--90)">
+		<!-- wp:columns {"align":"wide","className":"ls-homepage-card-row","style":{"spacing":{"margin":{"top":"var:preset|spacing|90"}}}} -->
+		<div class="wp-block-columns alignwide ls-homepage-card-row" style="margin-top:var(--wp--preset--spacing--90)">
 
 			<!-- wp:column -->
 			<div class="wp-block-column">
