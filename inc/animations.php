@@ -123,6 +123,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/button-secondary.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		'featured-work'         => array(
+			'handle'   => 'ls-theme-featured-work',
+			'path'     => 'assets/css/featured-work.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 	);
 
 	/**

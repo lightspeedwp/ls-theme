@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Convert Featured Work cards to a dynamic Query Loop (LS-1616)
+
+### Changed
+
+- Rebuilt Featured Work's card row as a real `wp:query` Query Loop (`project` post type, 3 per page) filtered to the existing "Featured" `project-tag` term, replacing the 3 hand-written static cards. Editors control which case studies appear by tagging/untagging posts as "Featured" in the post editor — no code changes needed.
+- Tagged 3 real project posts ("Modernising African Safari Consultants' Website", "Novus Media", "Drive Botswana") with the "Featured" term so the section has real content on load.
+- Card markup is inlined directly inside the Post Template rather than referenced via `wp:pattern {"slug":...}` — a `wp:pattern` reference does not forward the Post Template's block context to nested dynamic blocks (`post-title`/`post-excerpt`/`post-terms`), so referencing it by slug rendered every card empty. Confirmed via live HTML inspection.
+- **Superseded the custom horizontal "list view" card entirely** (from the entry below) in favour of reusing the Work archive's existing `is-style-card-case-study` card in a 3-column grid (`wp:post-template {"layout":{"type":"grid","columnCount":3}}`), matching `work-selected-projects.php`'s convention — the custom card had no real per-post data for its stat row and looked sparse once the fabricated numbers were removed. `src/scss/structural/featured-work.scss` now only contains the equal-card-height fix (`.ls-featured-work-grid`, scoped so the Work archive's own grid is unaffected) — the old thumbnail-texture and flex-grow rules were removed as dead code.
+- Excerpt/title/tag-pill content is now genuinely dynamic per post (via `post-terms`/`post-title`/`post-excerpt`), not fabricated placeholder copy.
+
+---
+
+## [Unreleased] — Build Homepage What We Build, Why LightSpeed, Featured Work (LS-1616)
+
+### Added
+
+- Added `patterns/sections/homepage-what-we-build.php`: eyebrow, heading, a 4-card row (WordPress platforms/WooCommerce/Design systems/Migrations) reusing the shared `is-style-card-category` shell, and an "All services" `core/button is-style-outline` CTA.
+- Added `patterns/sections/homepage-why-lightspeed.php`: two-column section with positioning copy + two `core/button` CTAs (filled + outline) on the left, a 5-item checklist card on the right.
+- Added `patterns/sections/homepage-featured-work.php`: a new horizontal "list view" case-study card (thumbnail, heading/description, 3-figure stat row, trailing arrow) — genuinely new, not reused from the existing vertical `is-style-card-case-study` Query Loop card.
+- Added `src/scss/structural/featured-work.scss` for the case-study card's flex-grow content column and the thumbnail's decorative diagonal-line texture, both genuine `theme.json` limitations (documented inline).
+- Wired all 3 new patterns into `templates/front-page.html`, after Where to Start.
+- Registered `featured-work.css` in `package.json`'s `build:css`/`watch:css` scripts, `inc/animations.php`'s effect-styles list, and `functions.php`'s editor styles, matching the existing per-pattern CSS convention.
+
+### Notes
+
+- No new colour tokens were needed — all colours map to existing `surface.card`/`border.card`/`text.brand`/`text.muted` tokens (already flip correctly between light/dark) or the established `color-mix()` convention for tinted badge backgrounds.
+- No new `is-style` variants were registered; `is-style-card-category` and `is-style-link-arrow-accent` are reused as already-established multi-use styles, per LS-2341.
+- All pill-shaped CTAs use the native `core/button` block (default fill + `is-style-outline`), both already registered/token-driven — no new button styling needed.
+- `assets/css/animations.css` was not touched.
+
+---
+
 ## [Unreleased] — Build Homepage Hero, Stats Bar, Where to Start (LS-1616)
 
 ### Added

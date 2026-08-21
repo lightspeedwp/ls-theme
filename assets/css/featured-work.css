@@ -1,0 +1,113 @@
+/********** Featured Work case-study card (LS-1616, homepage) **********/
+/*
+ * Homepage Featured Work grid (LS-1616) — reuses the Work archive's shared
+ * `is-style-card-case-study` card (styles/sections/cards/card-case-study.json), rendered inside
+ * a 3-column Query Loop grid scoped to the `project` post type's "Featured" project-tag term.
+ * JSON limitation: forcing every card in a CSS Grid row to the same height regardless of content
+ * length has no theme.json/block-attribute equivalent — WP's grid layout support doesn't expose
+ * align-items/stretch controls, so this is scoped to `.ls-featured-work-grid` only, rather than
+ * changing `is-style-card-case-study` globally (it's also used by the Work archive, which this
+ * must not affect).
+ */
+.ls-featured-work-grid .wp-block-post-template.is-layout-grid > li {
+  height: 100%;
+}
+.ls-featured-work-grid .is-style-card-case-study {
+  height: 100%;
+}
+.ls-featured-work-grid {
+  /*
+   * The shared hover effect (src/scss/structural/work-project-card.scss) also lifts the card and
+   * adds a box-shadow — on this grid that reads as too much. Scoped override (needs !important
+   * to beat the shared rule's own !important; wins on specificity since this selector has an
+   * extra class) rather than changing the shared style, which the Work archive also relies on.
+   */
+}
+.ls-featured-work-grid .is-style-card-case-study:hover,
+.ls-featured-work-grid .is-style-card-case-study:focus-within {
+  box-shadow: none !important;
+}
+.ls-featured-work-grid {
+  /*
+   * JSON limitation: capping an excerpt to a fixed number of visible lines (with a trailing
+   * ellipsis) has no theme.json/block-attribute equivalent — WP's typography settings only
+   * control font size/line-height, not line count. -webkit-line-clamp is a de facto standard
+   * despite the vendor prefix, supported in all current major browsers.
+   */
+}
+.ls-featured-work-grid .wp-block-post-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/*
+ * Homepage pill-button arrow reveal (LS-1616) — is-style-button-secondary/-outline are shared,
+ * multi-use styles (also consumed by the mobile menu and Work archive's "discuss project" CTA,
+ * per src/scss/structural/button-secondary.scss), which deliberately carry no arrow icon. Rather
+ * than add one globally to every consumer, this reuses the same icon-well hover-reveal language
+ * as is-style-outline's motion (src/scss/animations/_button-motion.scss) but scoped to a marker
+ * class applied only on the specific homepage CTA instances that need it.
+ */
+.wp-block-button.ls-has-arrow-reveal .wp-block-button__link {
+  position: relative;
+  overflow: hidden;
+  padding-inline-end: calc(3rem + var(--wp--preset--spacing--10)) !important;
+  transition: padding-inline-start var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), padding-inline-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
+}
+
+.wp-block-button.ls-has-arrow-reveal .wp-block-button__link::after {
+  content: "\2192";
+  position: absolute;
+  inset-block: 4px;
+  inset-inline-end: 4px;
+  width: calc(3rem - 4px);
+  display: grid;
+  place-items: center;
+  border-radius: var(--wp--preset--border-radius--500);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: inset-inline-end var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised), background-color var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard), color var(--wp--custom--animation--duration--medium) var(--wp--custom--animation--easing--standard);
+}
+
+.wp-block-button.ls-has-arrow-reveal.is-style-button-secondary .wp-block-button__link::after {
+  background-color: var(--wp--custom--color--button--fill--text);
+  color: var(--wp--custom--color--button--fill--background);
+}
+
+.wp-block-button.ls-has-arrow-reveal.is-style-button-secondary-outline .wp-block-button__link::after {
+  background-color: var(--wp--custom--color--button--outline--border);
+  color: var(--wp--custom--color--button--outline--text-hover);
+}
+
+.wp-block-button.ls-has-arrow-reveal .wp-block-button__link:hover,
+.wp-block-button.ls-has-arrow-reveal .wp-block-button__link:focus-visible {
+  padding-inline-start: calc(4rem - 4px);
+  padding-inline-end: 1.5rem;
+}
+
+.wp-block-button.ls-has-arrow-reveal .wp-block-button__link:hover::after,
+.wp-block-button.ls-has-arrow-reveal .wp-block-button__link:focus-visible::after {
+  inset-inline-end: calc(100% - (3rem - 4px) - 4px);
+}
+
+/*
+ * On hover the button's own background swaps to button.fill/outline.background-hover — the
+ * same accent-colour family as the well's rest-state fill above, so a filled well becomes
+ * low-contrast against it (cyan-on-cyan). Dropping the well's fill on hover leaves only the
+ * bare arrow glyph in the button's own hover text colour, which is already guaranteed
+ * accessible against background-hover by the existing text-hover token pairing.
+ */
+.wp-block-button.ls-has-arrow-reveal.is-style-button-secondary .wp-block-button__link:hover::after,
+.wp-block-button.ls-has-arrow-reveal.is-style-button-secondary .wp-block-button__link:focus-visible::after {
+  background-color: transparent;
+  color: var(--wp--custom--color--button--fill--text-hover);
+}
+
+.wp-block-button.ls-has-arrow-reveal.is-style-button-secondary-outline .wp-block-button__link:hover::after,
+.wp-block-button.ls-has-arrow-reveal.is-style-button-secondary-outline .wp-block-button__link:focus-visible::after {
+  background-color: transparent;
+  color: var(--wp--custom--color--button--outline--text-hover);
+}
