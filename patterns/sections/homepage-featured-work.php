@@ -67,15 +67,15 @@
 
 						<!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|semibold"}},"fontSize":"300"} /-->
 
-						<!-- wp:post-excerpt {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} /-->
+						<!-- wp:post-excerpt {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} /-->
 
-						<!-- wp:group {"style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|10","bottom":"var:preset|spacing|10"}}}} -->
-						<div class="wp-block-group" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10)">
+						<!-- wp:group {"className":"ls-featured-work-card__divider","style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"var:preset|spacing|10"},"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}}} -->
+						<div class="wp-block-group ls-featured-work-card__divider" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;margin-top:var(--wp--preset--spacing--10);padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
 							<!-- wp:post-terms {"term":"project-tag","separator":" ","className":"ls-tag-pills","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"fontFamily":"var:preset|font-family|monospace","fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"100"} /-->
 						</div>
 						<!-- /wp:group -->
 
-						<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'View project', 'ls-theme' ) ); ?>,"className":"is-style-link-arrow-accent","fontSize":"100"} /-->
+						<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'View project', 'ls-theme' ) ); ?>,"className":"is-style-link-arrow-accent","fontSize":"200"} /-->
 					</div>
 					<!-- /wp:group -->
 				</article>

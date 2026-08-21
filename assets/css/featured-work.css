@@ -41,6 +41,21 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.ls-featured-work-grid {
+  /*
+   * JSON limitation: the divider's parent (`.ls-card-case-study__content`) is a vertical flex
+   * layout with no explicit cross-axis alignment attribute, which WP defaults to
+   * align-items:flex-start — so the divider shrinks to the width of the tag pills' text instead
+   * of the card's full width, varying per post. Same root cause and fix as the "Most chosen"
+   * badge row in where-to-fit.scss: no block-attribute exists for a flex child's own cross-axis
+   * stretch, and a hand-written inline `style="align-self:stretch"` was confirmed (on that same
+   * bug, via live HTML inspection) to get silently dropped by WP's dynamic layout block-support
+   * when it rewrites the tag — so this has to be a real, class-scoped CSS rule.
+   */
+}
+.ls-featured-work-grid .ls-featured-work-card__divider {
+  align-self: stretch;
+}
 
 /*
  * Homepage pill-button arrow reveal (LS-1616) — is-style-button-secondary/-outline are shared,

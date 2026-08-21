@@ -128,6 +128,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/featured-work.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		'where-to-fit'          => array(
+			'handle'   => 'ls-theme-where-to-fit',
+			'path'     => 'assets/css/where-to-fit.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'homepage-cta'          => array(
+			'handle'   => 'ls-theme-homepage-cta',
+			'path'     => 'assets/css/homepage-cta.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 	);
 
 	/**

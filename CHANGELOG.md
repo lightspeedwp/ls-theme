@@ -7,7 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] — Convert Featured Work cards to a dynamic Query Loop (LS-1616)
+## [Unreleased] — Build Homepage Where to Fit and Homepage CTA (LS-1616)
+
+### Added
+
+- Added `patterns/sections/homepage-where-to-fit.php`: eyebrow, heading, copy, and a 3-card package row (Foundation/Growth/Enterprise). The middle "Growth" card is pre-styled with its border/shadow as a permanent rest-state (it's the featured package, not literally hovered); the other two cards gain that border/shadow only on hover. All 3 lift slightly on hover and share an equal height regardless of content length.
+- Added `patterns/sections/homepage-cta.php`: the homepage's closing CTA, mirroring `blog-writing-cta.php`'s structure/max-width-cap convention — eyebrow, two-line heading, copy, two buttons ("Book a free consultation" reusing the existing `is-style-button-primary-on-dark`; "Send a brief first" a plain-bordered on-dark outline with no arrow), and a "What you'll leave with" definition-list panel on the right.
+- Added `src/scss/structural/where-to-fit.scss` (equal card height, hover border/shadow/lift motion) and `src/scss/structural/homepage-cta.scss` (max-width cap, decorative glow, panel label column width, arrow-reveal on the primary button, and neutralising `is-style-outline`'s built-in arrow-well for the one button that shouldn't have it) — all genuine `theme.json` limitations, documented inline.
+- Wired both into `templates/front-page.html`: Where to Fit after Featured Work, Homepage CTA as the final section before the footer.
+
+### Notes
+
+- No new colour tokens needed. Where to Fit flips normally with the style variation (`surface.card`/`border.card`/`text.brand`, same as other homepage card sections); Homepage CTA is permanently dark, reusing the exact `surface.band-start`/`band-end` gradient and `on-dark` token family already established by `blog-writing-cta.php` — confirmed this matches the "light mode still looks dark, dark mode is a lighter shade" behavior requested, since those tokens already resolve that way.
+- "Send a brief first" needed its pill shape from `is-style-outline` but not that style's built-in arrow icon — rather than edit the shared `is-style-outline`/`_button-motion.scss` (global, used site-wide, and touching it would have compiled into `animations.css`), the arrow/hover-reveal is neutralised via a scoped override in `homepage-cta.scss` targeting only this button's class. `animations.css` was not touched.
+- All CTA buttons across Where to Fit reuse the existing pill button styles (`is-style-button-secondary`/`-outline`) and the `ls-has-arrow-reveal` marker class already established for the other homepage sections, and flip with the style variation as requested.
 
 ### Changed
 
