@@ -30,6 +30,9 @@ require get_template_directory() . '/inc/blog-card-colors.php';
 /** Loads breadcrumb separator customisation */
 require get_template_directory() . '/inc/breadcrumbs.php';
 
+/** Loads Homepage Featured Work query filtering */
+require get_template_directory() . '/inc/featured-work-query.php';
+
 /**
  * Sets up theme supports.
  */
@@ -73,6 +76,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/homepage-cta.css' );
 	add_editor_style( 'assets/css/stats-bar.css' );
 	add_editor_style( 'assets/css/homepage-card-rows.css' );
+	add_editor_style( 'assets/css/homepage-why-lightspeed.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

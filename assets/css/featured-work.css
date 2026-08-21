@@ -126,3 +126,10 @@
   background-color: transparent;
   color: var(--wp--custom--color--button--outline--text-hover);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-button.ls-has-arrow-reveal .wp-block-button__link,
+  .wp-block-button.ls-has-arrow-reveal .wp-block-button__link::after {
+    transition: none;
+  }
+}
