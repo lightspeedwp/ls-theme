@@ -44,7 +44,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:group {"className":"ls-hero-prompt-row","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"},"blockGap":"12px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+		<!-- wp:group {"className":"ls-hero-prompt-row","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 		<div class="wp-block-group ls-hero-prompt-row" style="margin-top:var(--wp--preset--spacing--60)">
 			<!-- wp:outermost/icon-block {"iconName":"","className":"has-text-color","width":"17px","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"}}} -->
 			<div class="wp-block-outermost-icon-block has-text-color"><div class="icon-container" style="color:var(--wp--custom--color--text--on-dark-muted);width:17px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"></path></svg></div></div>
@@ -68,7 +68,7 @@
 		<p class="has-text-align-center has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--on-dark-muted);margin-top:var(--wp--preset--spacing--20);font-family:var(--wp--preset--font-family--monospace);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Project direction · Content structure · WooCommerce · LMS · Migration · AI readiness', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:group {"className":"ls-hero-pills","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"10px"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
+		<!-- wp:group {"className":"ls-hero-pills","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 		<div class="wp-block-group ls-hero-pills" style="margin-top:var(--wp--preset--spacing--20)">
 			<!-- wp:paragraph {"className":"ls-hero-pill","style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"}},"fontSize":"200"} -->
 			<p class="ls-hero-pill has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--on-dark)"><?php echo esc_html__( 'Plan a WordPress website', 'ls-theme' ); ?></p>

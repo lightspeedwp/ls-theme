@@ -19,8 +19,8 @@
 	<!-- wp:group {"align":"wide"} -->
 	<div class="wp-block-group alignwide">
 
-		<!-- wp:group {"style":{"dimensions":{"maxWidth":"800px"}},"layout":{"type":"flow"}} -->
-		<div class="wp-block-group" style="max-width:800px">
+		<!-- wp:group {"style":{"dimensions":{"maxWidth":"var(--wp--style--global--content-size)"}},"layout":{"type":"flow"}} -->
+		<div class="wp-block-group" style="max-width:var(--wp--style--global--content-size)">
 			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 			<div class="wp-block-group">
 				<!-- wp:outermost/icon-block {"iconName":"","className":"has-text-color","width":"8px","style":{"color":{"text":"var(--wp--custom--color--icon--background)"}}} -->

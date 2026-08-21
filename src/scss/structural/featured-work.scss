@@ -92,7 +92,7 @@
   place-items: center;
   border-radius: var(--wp--preset--border-radius--500);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: var(--wp--custom--typography--font-weight--bold);
   line-height: 1;
   transition:
     inset-inline-end var(--wp--custom--animation--duration--emphasised)
