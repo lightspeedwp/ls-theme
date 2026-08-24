@@ -22,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "Send a brief first" needed its pill shape from `is-style-outline` but not that style's built-in arrow icon — rather than edit the shared `is-style-outline`/`_button-motion.scss` (global, used site-wide, and touching it would have compiled into `animations.css`), the arrow/hover-reveal is neutralised via a scoped override in `homepage-cta.scss` targeting only this button's class. `animations.css` was not touched.
 - All CTA buttons across Where to Fit reuse the existing pill button styles (`is-style-button-secondary`/`-outline`) and the `ls-has-arrow-reveal` marker class already established for the other homepage sections, and flip with the style variation as requested.
 
+### Fixed
+
+- Fixed editor crashes on the Why LightSpeed, Featured Work, What We Build, and Where to Start sections (and the mobile menu part): `"layout":{"type":"flow"}` is not a registered Gutenberg layout type (the valid value is `"default"`) — the editor threw `Cannot read properties of undefined (reading 'getOrientation')` and the block failed to render.
+- Fixed a block validation "unexpected or invalid content" error on Where to Fit's featured "Growth" card — its shadow style pointed at a nonexistent theme.json preset (`var:preset|shadow|400`) instead of the real custom token (`var:custom|shadow|elevation|400`) already used in the rendered markup.
+- Fixed a block validation error on the homepage CTA's "Send a brief first" button — missing `has-custom-font-size` class caused by combining a named `fontSize` with a custom inline style on a `core/button`.
+
 ### Changed
 
 - Rebuilt Featured Work's card row as a real `wp:query` Query Loop (`project` post type, 3 per page) filtered to the existing "Featured" `project-tag` term, replacing the 3 hand-written static cards. Editors control which case studies appear by tagging/untagging posts as "Featured" in the post editor — no code changes needed.
