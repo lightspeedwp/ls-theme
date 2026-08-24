@@ -7,6 +7,76 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Homepage Where to Fit and Homepage CTA (LS-1616)
+
+### Added
+
+- Added `patterns/sections/homepage-where-to-fit.php`: eyebrow, heading, copy, and a 3-card package row (Foundation/Growth/Enterprise). The middle "Growth" card is pre-styled with its border/shadow as a permanent rest-state (it's the featured package, not literally hovered); the other two cards gain that border/shadow only on hover. All 3 lift slightly on hover and share an equal height regardless of content length.
+- Added `patterns/sections/homepage-cta.php`: the homepage's closing CTA, mirroring `blog-writing-cta.php`'s structure/max-width-cap convention — eyebrow, two-line heading, copy, two buttons ("Book a free consultation" reusing the existing `is-style-button-primary-on-dark`; "Send a brief first" a plain-bordered on-dark outline with no arrow), and a "What you'll leave with" definition-list panel on the right.
+- Added `src/scss/structural/where-to-fit.scss` (equal card height, hover border/shadow/lift motion) and `src/scss/structural/homepage-cta.scss` (max-width cap, decorative glow, panel label column width, arrow-reveal on the primary button, and neutralising `is-style-outline`'s built-in arrow-well for the one button that shouldn't have it) — all genuine `theme.json` limitations, documented inline.
+- Wired both into `templates/front-page.html`: Where to Fit after Featured Work, Homepage CTA as the final section before the footer.
+
+### Notes
+
+- No new colour tokens needed. Where to Fit flips normally with the style variation (`surface.card`/`border.card`/`text.brand`, same as other homepage card sections); Homepage CTA is permanently dark, reusing the exact `surface.band-start`/`band-end` gradient and `on-dark` token family already established by `blog-writing-cta.php` — confirmed this matches the "light mode still looks dark, dark mode is a lighter shade" behavior requested, since those tokens already resolve that way.
+- "Send a brief first" needed its pill shape from `is-style-outline` but not that style's built-in arrow icon — rather than edit the shared `is-style-outline`/`_button-motion.scss` (global, used site-wide, and touching it would have compiled into `animations.css`), the arrow/hover-reveal is neutralised via a scoped override in `homepage-cta.scss` targeting only this button's class. `animations.css` was not touched.
+- All CTA buttons across Where to Fit reuse the existing pill button styles (`is-style-button-secondary`/`-outline`) and the `ls-has-arrow-reveal` marker class already established for the other homepage sections, and flip with the style variation as requested.
+
+### Fixed
+
+- Fixed editor crashes on the Why LightSpeed, Featured Work, What We Build, and Where to Start sections (and the mobile menu part): `"layout":{"type":"flow"}` is not a registered Gutenberg layout type (the valid value is `"default"`) — the editor threw `Cannot read properties of undefined (reading 'getOrientation')` and the block failed to render.
+- Fixed a block validation "unexpected or invalid content" error on Where to Fit's featured "Growth" card — its shadow style pointed at a nonexistent theme.json preset (`var:preset|shadow|400`) instead of the real custom token (`var:custom|shadow|elevation|400`) already used in the rendered markup.
+- Fixed a block validation error on the homepage CTA's "Send a brief first" button — missing `has-custom-font-size` class caused by combining a named `fontSize` with a custom inline style on a `core/button`.
+
+### Changed
+
+- Rebuilt Featured Work's card row as a real `wp:query` Query Loop (`project` post type, 3 per page) filtered to the existing "Featured" `project-tag` term, replacing the 3 hand-written static cards. Editors control which case studies appear by tagging/untagging posts as "Featured" in the post editor — no code changes needed.
+- Tagged 3 real project posts ("Modernising African Safari Consultants' Website", "Novus Media", "Drive Botswana") with the "Featured" term so the section has real content on load.
+- Card markup is inlined directly inside the Post Template rather than referenced via `wp:pattern {"slug":...}` — a `wp:pattern` reference does not forward the Post Template's block context to nested dynamic blocks (`post-title`/`post-excerpt`/`post-terms`), so referencing it by slug rendered every card empty. Confirmed via live HTML inspection.
+- **Superseded the custom horizontal "list view" card entirely** (from the entry below) in favour of reusing the Work archive's existing `is-style-card-case-study` card in a 3-column grid (`wp:post-template {"layout":{"type":"grid","columnCount":3}}`), matching `work-selected-projects.php`'s convention — the custom card had no real per-post data for its stat row and looked sparse once the fabricated numbers were removed. `src/scss/structural/featured-work.scss` now only contains the equal-card-height fix (`.ls-featured-work-grid`, scoped so the Work archive's own grid is unaffected) — the old thumbnail-texture and flex-grow rules were removed as dead code.
+- Excerpt/title/tag-pill content is now genuinely dynamic per post (via `post-terms`/`post-title`/`post-excerpt`), not fabricated placeholder copy.
+
+---
+
+## [Unreleased] — Build Homepage What We Build, Why LightSpeed, Featured Work (LS-1616)
+
+### Added
+
+- Added `patterns/sections/homepage-what-we-build.php`: eyebrow, heading, a 4-card row (WordPress platforms/WooCommerce/Design systems/Migrations) reusing the shared `is-style-card-category` shell, and an "All services" `core/button is-style-outline` CTA.
+- Added `patterns/sections/homepage-why-lightspeed.php`: two-column section with positioning copy + two `core/button` CTAs (filled + outline) on the left, a 5-item checklist card on the right.
+- Added `patterns/sections/homepage-featured-work.php`: a new horizontal "list view" case-study card (thumbnail, heading/description, 3-figure stat row, trailing arrow) — genuinely new, not reused from the existing vertical `is-style-card-case-study` Query Loop card.
+- Added `src/scss/structural/featured-work.scss` for the case-study card's flex-grow content column and the thumbnail's decorative diagonal-line texture, both genuine `theme.json` limitations (documented inline).
+- Wired all 3 new patterns into `templates/front-page.html`, after Where to Start.
+- Registered `featured-work.css` in `package.json`'s `build:css`/`watch:css` scripts, `inc/animations.php`'s effect-styles list, and `functions.php`'s editor styles, matching the existing per-pattern CSS convention.
+
+### Notes
+
+- No new colour tokens were needed — all colours map to existing `surface.card`/`border.card`/`text.brand`/`text.muted` tokens (already flip correctly between light/dark) or the established `color-mix()` convention for tinted badge backgrounds.
+- No new `is-style` variants were registered; `is-style-card-category` and `is-style-link-arrow-accent` are reused as already-established multi-use styles, per LS-2341.
+- All pill-shaped CTAs use the native `core/button` block (default fill + `is-style-outline`), both already registered/token-driven — no new button styling needed.
+- `assets/css/animations.css` was not touched.
+
+---
+
+## [Unreleased] — Build Homepage Hero, Stats Bar, Where to Start (LS-1616)
+
+### Added
+
+- Rebuilt the Homepage Hero (`patterns/home-hero.php`) to match Figma: AI-planner intro, decorative prompt-input row, project-type suggestion pills, and a consultation link. Kept the existing GSAP network background system (`.ls-home-hero-section`) untouched and layered new content on top.
+- Added `patterns/section-stats-bar.php`, a 4-figure stat strip with vertical dividers, placed directly beneath the Hero.
+- Added `patterns/sections/homepage-where-to-start.php` ("Three honest routes into LightSpeed"), reusing the Work archive's `is-style-card-category` / `.ls-icon-well-brand` / `is-style-link-arrow-accent` styling so both pages now share one improved card treatment.
+- Wired all 3 new patterns into `templates/front-page.html`.
+- Added 4 new mode-invariant custom colour tokens for the Hero's translucent "glass" badges/borders, following the existing `on-dark` family convention (defined in `theme.json`, intentionally not overridden in `styles/dark.json`): `surface.glass`, `surface.glass-lighter`, `surface.glass-subtle`, `border.glass`.
+- Added scoped `ls-hero-badge-neon` / `ls-hero-prompt-row` / `ls-hero-pill` rules to `src/scss/structural/home-hero.scss` for the glass-panel styling with a `JSON limitation` comment (comma-separated background+border+box-shadow combination and hover-state background swap have no theme.json equivalent).
+
+### Notes
+
+- No new `is-style` variants were registered, per the LS-2341 cleanup (PR #24) — single-use Hero treatments use scoped `ls-*` classes; the Where to Start cards reuse the already multi-use `is-style-card-category`.
+- Hero prompt input is decorative only (no functional wiring) per current scope.
+- `assets/css/animations.css` was not touched.
+
+---
+
 ## [PR #26](https://github.com/lightspeedwp/ls-theme/pull/26) — Build Blog Archive page (Hero, All Articles, Engagement, Writing CTA) - 2026-08-19
 
 ### Added

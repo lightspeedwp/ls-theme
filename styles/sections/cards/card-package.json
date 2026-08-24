@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Package",
+	"slug": "card-package",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Package/pricing-tier card shell with a larger corner radius and no rest-state shadow (unlike Card - Category). Used by the homepage \"Where to fit\" package row. The featured tier's brand border and elevated shadow are a per-instance rest-state override, not a shared style, so they stay as an inline block style on that one card rather than in this JSON (a shared style slug can't express a value that differs for a single instance).",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|400",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|40",
+				"right": "var:preset|spacing|40",
+				"bottom": "var:preset|spacing|40",
+				"left": "var:preset|spacing|40"
+			}
+		}
+	}
+}

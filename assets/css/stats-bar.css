@@ -1,0 +1,66 @@
+/********** Stats Bar (homepage, beneath the Hero) **********/
+/*
+ * Below 1020px, the 4 stat items switch from a single row to a 2x2 grid (2 per row, fits down to
+ * a 350px viewport). 1020px is where the single-row desktop layout (4 items + 3 dividers + their
+ * padding) genuinely stops fitting — confirmed empirically: at 1000px it still wraps 3-then-1
+ * with an orphaned divider, at 1030px it sits cleanly on one row. This isn't the same 800px
+ * cutover used by the other homepage sections (Where to Start, What We Build, Where to Fit,
+ * Featured Work; see homepage-card-rows.scss) because this section's content genuinely needs
+ * more room before a single row works — matching those sections' breakpoint here would leave
+ * the same 3-then-1 wrapping bug in the 800–1020px gap. No block-supports equivalent for a
+ * 2-column grid layout or for drawing a fixed cross of divider lines independent of cell content
+ * height, so this is real CSS.
+ *
+ * The desktop dividers are borders on each item, which only ever span that item's own content
+ * height — fine in a single row where every item is the same height, but once stats wrap to a
+ * 2x2 grid, cells with differently-wrapping text (e.g. "Block-first" vs "5★") end up different
+ * heights and the borders stop lining up into a clean grid. Fixed by switching to CSS Grid (equal
+ * column widths and row heights are automatic) and drawing the dividers as two lines on the grid
+ * container itself — a vertical line down the middle and a horizontal line across the middle —
+ * instead of borders on the individual, variable-height cells. `!important` is required on
+ * `display`/`flex-basis`-equivalent overrides because WP's own generated unique-class rule for
+ * this group (`is-layout-flex`) otherwise wins the cascade over a plain override (confirmed
+ * elsewhere in this theme, e.g. taxonomy-filter.scss); the original inline border-left styles on
+ * `.ls-stat-item--divider` come from the block's own `style` attribute, which also needs
+ * `!important` to be overridden by a class selector.
+ */
+@media (max-width: 1020px) {
+  .ls-stats-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .ls-stats-row::before,
+  .ls-stats-row::after {
+    content: "";
+    position: absolute;
+    background-color: var(--wp--custom--color--border--card);
+  }
+  /* Vertical divider, centred between the two columns, spanning the full grid height. */
+  .ls-stats-row::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+  }
+  /* Horizontal divider, centred between the two rows, spanning the full grid width. */
+  .ls-stats-row::after {
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+  .ls-stat-item,
+  .ls-stat-item--divider {
+    flex: unset;
+    max-width: none;
+    border: 0 !important;
+    box-sizing: border-box;
+    padding-left: var(--wp--preset--spacing--30) !important;
+    padding-right: var(--wp--preset--spacing--30) !important;
+    padding-top: var(--wp--preset--spacing--30) !important;
+    padding-bottom: var(--wp--preset--spacing--30) !important;
+  }
+}

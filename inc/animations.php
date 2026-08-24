@@ -33,7 +33,7 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
-		'effects'               => array(
+		'effects'                 => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
@@ -46,65 +46,65 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		//
 		// Two different loading strategies will apply once conditions are added:
 		// - Template-bound (taxonomy-filter, work-project-card, work-archive-sections, work-hero):
-		//   only ever render through template-work-archive.php — a simple
-		//   is_post_type_archive( 'project' ) condition will cover all of them.
+		// only ever render through template-work-archive.php — a simple
+		// is_post_type_archive( 'project' ) condition will cover all of them.
 		// - Insertable, page-agnostic (card-shells, cta-buttons, faq): these patterns have no
-		//   template reference at all — editors paste them into arbitrary page content — so a
-		//   page-based condition can't detect them reliably. These will need a render_block-filter
-		//   approach instead (see ls_theme_enqueue_faq_accordion_script() below for the existing
-		//   precedent), not a template check.
+		// template reference at all — editors paste them into arbitrary page content — so a
+		// page-based condition can't detect them reliably. These will need a render_block-filter
+		// approach instead (see ls_theme_enqueue_faq_accordion_script() below for the existing
+		// precedent), not a template check.
 		// - home-hero is template-bound to the front page specifically (is_front_page()).
-		'taxonomy-filter'       => array(
+		'taxonomy-filter'         => array(
 			'handle'   => 'ls-theme-taxonomy-filter',
 			'path'     => 'assets/css/taxonomy-filter.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'work-project-card'     => array(
+		'work-project-card'       => array(
 			'handle'   => 'ls-theme-work-project-card',
 			'path'     => 'assets/css/work-project-card.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'work-archive-sections' => array(
+		'work-archive-sections'   => array(
 			'handle'   => 'ls-theme-work-archive-sections',
 			'path'     => 'assets/css/work-archive-sections.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'card-shells'           => array(
+		'card-shells'             => array(
 			'handle'   => 'ls-theme-card-shells',
 			'path'     => 'assets/css/card-shells.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'cta-buttons'           => array(
+		'cta-buttons'             => array(
 			'handle'   => 'ls-theme-cta-buttons',
 			'path'     => 'assets/css/cta-buttons.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'home-hero'             => array(
+		'home-hero'               => array(
 			'handle'   => 'ls-theme-home-hero',
 			'path'     => 'assets/css/home-hero.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'work-hero'             => array(
+		'work-hero'               => array(
 			'handle'   => 'ls-theme-work-hero',
 			'path'     => 'assets/css/work-hero.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'blog-hero'             => array(
+		'blog-hero'               => array(
 			'handle'   => 'ls-theme-blog-hero',
 			'path'     => 'assets/css/blog-hero.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'blog-all-articles'     => array(
+		'blog-all-articles'       => array(
 			'handle'   => 'ls-theme-blog-all-articles',
 			'path'     => 'assets/css/blog-all-articles.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'blog-writing-cta'      => array(
+		'blog-writing-cta'        => array(
 			'handle'   => 'ls-theme-blog-writing-cta',
 			'path'     => 'assets/css/blog-writing-cta.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'faq'                   => array(
+		'faq'                     => array(
 			'handle'   => 'ls-theme-faq',
 			'path'     => 'assets/css/faq.css',
 			'contexts' => array( 'front', 'editor' ),
@@ -113,14 +113,44 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		// mobile menu — both also render in ordinary content patterns (cards, the CTA band, the
 		// Work archive's discuss-project section), so per architecture review they were pulled out
 		// of animations.css rather than kept there under the header/footer exception.
-		'links'                 => array(
+		'links'                   => array(
 			'handle'   => 'ls-theme-links',
 			'path'     => 'assets/css/links.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'button-secondary'      => array(
+		'button-secondary'        => array(
 			'handle'   => 'ls-theme-button-secondary',
 			'path'     => 'assets/css/button-secondary.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'featured-work'           => array(
+			'handle'   => 'ls-theme-featured-work',
+			'path'     => 'assets/css/featured-work.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'where-to-fit'            => array(
+			'handle'   => 'ls-theme-where-to-fit',
+			'path'     => 'assets/css/where-to-fit.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'homepage-cta'            => array(
+			'handle'   => 'ls-theme-homepage-cta',
+			'path'     => 'assets/css/homepage-cta.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'stats-bar'               => array(
+			'handle'   => 'ls-theme-stats-bar',
+			'path'     => 'assets/css/stats-bar.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'homepage-card-rows'      => array(
+			'handle'   => 'ls-theme-homepage-card-rows',
+			'path'     => 'assets/css/homepage-card-rows.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
+		'homepage-why-lightspeed' => array(
+			'handle'   => 'ls-theme-homepage-why-lightspeed',
+			'path'     => 'assets/css/homepage-why-lightspeed.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 	);
@@ -210,8 +240,8 @@ function ls_theme_enqueue_faq_accordion_script( $block_content, $block ) {
 add_filter( 'render_block', 'ls_theme_enqueue_faq_accordion_script', 10, 2 );
 
 /**
-	* Registers CSS-driven block styles.
-	*/
+ * Registers CSS-driven block styles.
+ */
 function ls_theme_register_effect_block_styles() {
 	if ( ! function_exists( 'register_block_style' ) ) {
 		return;

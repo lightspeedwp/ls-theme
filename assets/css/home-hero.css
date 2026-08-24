@@ -13,15 +13,49 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  --ls-home-hero-surface: var(--wp--custom--color--surface--canvas);
-  --ls-home-hero-brand: var(--wp--custom--color--effect--hero--brand);
-  --ls-home-hero-cta: var(--wp--custom--color--effect--hero--cta);
-  --ls-home-hero-accent: var(--wp--custom--color--effect--hero--accent);
+  /*
+   * JSON limitation: forced permanently-dark, independent of the site's light/dark style
+   * variation — same mechanism as blog-hero (see AGENTS.md Theme-First Approach). Pinned to the
+   * raw `contrast` palette swatch (always #080808) rather than the `surface.canvas` semantic
+   * token, which flips to a light background in light mode — every text element in this Hero
+   * uses the `on-dark` token family (always light), so a flipping background made the text
+   * unreadable in light mode.
+   */
+  --ls-home-hero-surface: var(--wp--preset--color--contrast);
+  /*
+   * Pinned to the light-mode resolution of effect.hero.brand/cta/accent (brand-500/cta-500/
+   * accent-two-500), not the shared semantic token itself — that token is also consumed by
+   * blog-hero.scss and work-hero.scss, which should keep flipping with the style variation as
+   * before. Referencing the raw palette presets here keeps this Hero's gradient tint fixed on
+   * request, without changing the other two heroes' behaviour.
+   */
+  --ls-home-hero-brand: var(--wp--preset--color--brand-500);
+  --ls-home-hero-cta: var(--wp--preset--color--cta-500);
+  --ls-home-hero-accent: var(--wp--preset--color--accent-two-500);
   background: radial-gradient(circle at 16% 14%, color-mix(in srgb, var(--ls-home-hero-brand) 12%, transparent) 0%, transparent 34%), radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--ls-home-hero-cta) 14%, transparent) 0%, transparent 28%), radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--ls-home-hero-accent) 7%, transparent) 0%, transparent 36%), linear-gradient(180deg, color-mix(in srgb, var(--ls-home-hero-surface) 98%, var(--wp--custom--color--surface--highlight) 2%) 0%, var(--ls-home-hero-surface) 100%);
 }
 .ls-home-hero-section > :not(.ls-home-hero-section__background) {
   position: relative;
   z-index: var(--wp--custom--z-index--content);
+}
+.ls-home-hero-section {
+  /*
+   * JSON limitation: decorative 5-stop linear-gradient bar pinned to the section's bottom edge
+   * has no theme.json equivalent (border-color only accepts a single colour). Uses raw palette
+   * presets, not semantic tokens, so it stays fixed regardless of style variation, matching the
+   * rest of this permanently-dark Hero — the Stats Bar section that follows immediately in
+   * templates/front-page.html already touches this edge directly, no extra spacing needed.
+   */
+}
+.ls-home-hero-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: var(--wp--custom--z-index--content);
+  background: linear-gradient(90deg, var(--wp--preset--color--brand-500) 0%, var(--wp--preset--color--phase-six) 25%, var(--wp--preset--color--phase-two) 50%, var(--wp--preset--color--phase-five) 75%, var(--wp--preset--color--phase-four) 100%);
 }
 .ls-home-hero-section .ls-home-hero-section__background {
   position: absolute;
@@ -103,4 +137,96 @@
     width: 16rem;
     height: 16rem;
   }
+}
+/*
+ * Homepage Hero content (LS-1616) — badge, prompt row and suggestion pills.
+ * JSON limitation: translucent "glass" surfaces need border-color plus background-color pairs
+ * that theme.json's border/background style keys can't combine with a comma-separated
+ * multi-layer box-shadow glow on the same element, the pill row needs `:hover` background
+ * changes with no elements.* pseudo-state key, and the prompt row needs `backdrop-filter` (to
+ * stay legible over the GSAP network background behind it) which theme.json has no key for at
+ * all — see AGENTS.md Theme-First Approach.
+ */
+.ls-hero-badge-neon > div {
+  background-color: var(--wp--custom--color--surface--glass-subtle);
+  border: 1px solid var(--wp--custom--color--border--glass);
+  border-radius: var(--wp--preset--border-radius--500);
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  box-shadow: 0 0 8.73px 0 var(--wp--custom--color--text--on-dark-accent);
+}
+
+.ls-hero-prompt-row {
+  background-color: var(--wp--custom--color--surface--glass);
+  border: 1px solid var(--wp--custom--color--border--glass);
+  border-radius: var(--wp--preset--border-radius--300);
+  padding: var(--wp--preset--spacing--20);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ls-hero-prompt-text {
+  flex-grow: 1;
+}
+
+.ls-hero-pill {
+  background-color: var(--wp--custom--color--surface--glass-lighter);
+  border: 1px solid var(--wp--custom--color--border--glass);
+  border-radius: var(--wp--preset--border-radius--500);
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  margin: 0;
+}
+.ls-hero-pill:hover {
+  background-color: var(--wp--custom--color--surface--glass);
+}
+
+/*
+ * Below 600px, all 6 suggestion pills stacking one per line reads as a wall of pills rather than
+ * a hero. Capped to a fixed height showing ~3 pills, with the rest reachable by scrolling
+ * vertically inside that box (an edge fade signals there's more below) — no block-supports
+ * equivalent for a breakpoint-conditional max-height + scroll swap, so this is real CSS.
+ * `!important` on flex-wrap is required because WP's own generated unique-class rule for this
+ * group otherwise wins the cascade over a plain override (confirmed elsewhere in this theme,
+ * e.g. taxonomy-filter.scss).
+ */
+@media (max-width: 599.98px) {
+  .ls-hero-pills {
+    flex-wrap: wrap !important;
+    max-height: 9.5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-block-end: 1.5rem;
+    mask-image: linear-gradient(180deg, black calc(100% - 1.5rem), transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, black calc(100% - 1.5rem), transparent 100%);
+  }
+}
+/*
+ * CTA buttons for permanently-dark hero sections (LS-1597) — reusable across every dark-only
+ * Hero variant, not just this one pattern. The default fill/outline button colours
+ * (--wp--custom--color--button--fill/outline--*) are deliberately mode-aware (brand-500 in light,
+ * cta-500 in dark), so plain buttons flip between blue and cyan depending on a toggle these
+ * sections otherwise ignore. Pinned here to fixed cta-500/contrast values — the same combination
+ * the dark style variation already uses, just constant regardless of which variation is active —
+ * via the override custom properties src/scss/animations/_button-motion.scss already exposes for
+ * exactly this. No new is-style variant needed: the fill button stays a bare `core/button` (so it
+ * keeps matching that motion file's default-fill selector) and the outline button stays
+ * `is-style-outline` (so it keeps that style's arrow-well motion) — only these two plain,
+ * shareable marker classes pin the colours. `!important` on the outline's border/text/background
+ * is required because those specific properties come from `is-style-outline`'s own registered
+ * block style (core-button.json), which core prints into `global-styles-inline-css` — a
+ * same-specificity class selector whose cascade position isn't guaranteed relative to this
+ * enqueued stylesheet.
+ */
+.wp-block-button.ls-hero-cta-fill .wp-block-button__link {
+  --ls-button-fill-background: var(--wp--preset--color--cta-500);
+  --ls-button-fill-icon-colour: var(--wp--preset--color--contrast);
+  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+  color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-button.ls-hero-cta-outline .wp-block-button__link {
+  --ls-button-outline-accent-background: var(--wp--preset--color--cta-500);
+  --ls-button-outline-accent-colour: var(--wp--preset--color--contrast);
+  border-color: var(--wp--preset--color--cta-500) !important;
+  color: var(--wp--custom--color--text--on-dark) !important;
+  background-color: transparent !important;
 }
