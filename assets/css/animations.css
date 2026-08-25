@@ -191,6 +191,17 @@
   }
 }
 /*
+ * .ls-services-phase-links only: its links are short single words (Content, Design, Hosting) unlike
+ * .ls-simple-submenu-links' full phrases (Travel publisher rebuild), so the shared 50/50 fr columns
+ * above leave a huge visual gap between them even though the real column-gap value is identical —
+ * the label just doesn't fill its half of the row. Sizing columns to their content instead keeps the
+ * same real gap value while closing that visual gap, matching the tighter look of the other accordions.
+ */
+.ls-services-phase-links {
+  grid-template-columns: repeat(2, max-content);
+}
+
+/*
  * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
  * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--10 is the
  * header row's own icon-to-label gap — not an arbitrary offset, the two real values that produce
