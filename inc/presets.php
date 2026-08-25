@@ -94,3 +94,111 @@ function get_preset_files_recursive( $directory ) {
 }
 
 add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_preset_files' );
+
+/**
+ * Merges block/section style-variation JSON files into the theme's theme.json data.
+ *
+ * /styles/blocks/**.json and /styles/sections/**.json are authored as standalone block
+ * style variation files ({slug, blockTypes, styles}), not raw theme.json fragments — unlike
+ * /styles/presets/, nothing was loading them at all, so every is-style-<slug> class referenced
+ * in patterns/parts (mega-menu-item-service, mega-menu-panel, mobile-menu-accordion,
+ * mobile-menu-list, etc.) had no matching CSS. This converts each file into the
+ * `styles.blocks.<blockType>.variations.<slug>` shape WP_Theme_JSON expects, for every
+ * blockType the file declares, then merges via the same update_with() WordPress uses for
+ * /styles/presets/.
+ *
+ * @since ls_theme 1.2
+ *
+ * @param WP_Theme_JSON_Data $theme_json The theme JSON data object.
+ * @return WP_Theme_JSON_Data The modified theme JSON data object.
+ */
+function merge_block_style_variations( $theme_json ) {
+	$variation_dirs = array(
+		get_template_directory() . '/styles/blocks/',
+		get_template_directory() . '/styles/sections/',
+	);
+
+	$variation_files = array();
+	foreach ( $variation_dirs as $dir ) {
+		if ( is_dir( $dir ) ) {
+			$variation_files = array_merge( $variation_files, get_preset_files_recursive( $dir ) );
+		}
+	}
+
+	if ( empty( $variation_files ) ) {
+		return $theme_json;
+	}
+
+	sort( $variation_files );
+
+	foreach ( $variation_files as $file ) {
+		$variation_data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( ! is_array( $variation_data ) || empty( $variation_data['slug'] ) || empty( $variation_data['blockTypes'] ) || empty( $variation_data['styles'] ) ) {
+			continue;
+		}
+
+		$slug  = $variation_data['slug'];
+		$patch = array( 'styles' => array( 'blocks' => array() ) );
+
+		foreach ( (array) $variation_data['blockTypes'] as $block_type ) {
+			$patch['styles']['blocks'][ $block_type ] = array(
+				'variations' => array(
+					$slug => $variation_data['styles'],
+				),
+			);
+		}
+
+		$theme_json->update_with( $patch );
+	}
+
+	return $theme_json;
+}
+add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_block_style_variations' );
+
+/**
+ * Registers each /styles/blocks/ and /styles/sections/ variation as a block style.
+ *
+ * merge_block_style_variations() above puts the actual CSS into theme.json's
+ * styles.blocks.<blockType>.variations.<slug> — but WP_Theme_JSON only emits CSS for a
+ * variation slug that is ALSO present in WP_Block_Styles_Registry; theme.json data alone
+ * isn't enough. This performs that registration (name + label only — no 'style_data' /
+ * inline styles, since the real styles already come from the theme.json merge).
+ *
+ * @since ls_theme 1.2
+ */
+function register_block_style_variations() {
+	$variation_dirs = array(
+		get_template_directory() . '/styles/blocks/',
+		get_template_directory() . '/styles/sections/',
+	);
+
+	$variation_files = array();
+	foreach ( $variation_dirs as $dir ) {
+		if ( is_dir( $dir ) ) {
+			$variation_files = array_merge( $variation_files, get_preset_files_recursive( $dir ) );
+		}
+	}
+
+	foreach ( $variation_files as $file ) {
+		$variation_data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( ! is_array( $variation_data ) || empty( $variation_data['slug'] ) || empty( $variation_data['blockTypes'] ) ) {
+			continue;
+		}
+
+		$slug  = $variation_data['slug'];
+		$label = ! empty( $variation_data['title'] ) ? $variation_data['title'] : $slug;
+
+		foreach ( (array) $variation_data['blockTypes'] as $block_type ) {
+			register_block_style(
+				$block_type,
+				array(
+					'name'  => $slug,
+					'label' => $label,
+				)
+			);
+		}
+	}
+}
+add_action( 'init', __NAMESPACE__ . '\register_block_style_variations' );

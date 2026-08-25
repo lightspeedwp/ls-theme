@@ -23,6 +23,7 @@
 					"canvas": "var:preset|color|contrast",
 					"card": "var:preset|color|neutral-900",
 					"card-raised": "var:preset|color|neutral-800",
+					"card-strong": "var:preset|color|neutral-800",
 					"highlight": "var:preset|color|base",
 					"highlight-hover": "var:preset|color|neutral-200",
 					"brand-light": "var:preset|color|brand-900",

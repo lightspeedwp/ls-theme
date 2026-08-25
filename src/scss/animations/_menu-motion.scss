@@ -44,7 +44,7 @@ $ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
   $index: list.nth($pair, 1);
   $phase: list.nth($pair, 2);
 
-  .is-style-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
+  .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
     > .wp-block-group:first-child {
       border-radius: var(--wp--preset--border-radius--300);
       transition: background-color var(--wp--custom--animation--duration--base)
@@ -79,7 +79,7 @@ $ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-mega-menu-panel-services .wp-block-column > .wp-block-group:first-child {
+  .ls-mega-menu-panel-services .wp-block-column > .wp-block-group:first-child {
     transition: none;
   }
 }
@@ -94,7 +94,7 @@ $ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
  * declarations out unconditionally at every viewport, so a responsive column count genuinely
  * cannot be authored in JSON at all.
  *
- * CSS grid rather than flex-wrap, for the same reason as styles/sections/menu/mega-menu-panel-services.json's
+ * CSS grid rather than flex-wrap, for the same reason as src/scss/structural/_mega-menu.scss's
  * desktop equivalent: flex-wrap sizes each wrapped row independently from that row's own content,
  * producing inconsistent column widths row-to-row (confirmed bug, fixed 2026-08-11) — grid tracks
  * are shared across every row, so this can't recur here. The divider between visual rows is drawn

@@ -1,0 +1,120 @@
+/********** Mega Menu Structural Overrides **********/
+
+/*
+ * Desktop mega-menu dropdown centering: WP core's Navigation submenu is position:absolute against
+ * its own trigger <li> (a narrow single word like "About"), not the full nav bar — no theme.json
+ * key exists for a core-generated submenu's position/transform, a genuine JSON limitation. Left
+ * uncorrected, a trigger near the right edge (About, Insights, Pricing) pushes its much-wider
+ * mega-menu content off-balance toward the screen edge instead of sitting centred with even space
+ * either side. Making the trigger position:static lets the submenu's absolute positioning resolve
+ * against the next positioned ancestor up (the nav bar) instead, so left:50%/translateX(-50%)
+ * centres it against the whole bar rather than one word.
+ *
+ * Scoped to .site-header specifically — if a second wp:navigation block is ever added elsewhere
+ * (e.g. a footer nav), it should not automatically inherit header-specific mega-menu centering.
+ */
+.site-header .wp-block-navigation-item {
+  position: static;
+}
+
+.site-header .wp-block-navigation__submenu-container {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+/*
+ * .ls-mega-menu-panel-services (parts/services-mega-menu.html): plain classname, not a registered
+ * is-style — this panel already carries is-style-mega-menu-panel for its shared card shell
+ * (background/border/shadow/spacing, styles/sections/menu/mega-menu-panel.json) and only needs
+ * this one extra rule: its 6-column, single-row phase grid layout. Previously authored as its own
+ * is-style-mega-menu-panel-services variation duplicating the whole shell, but that variation had
+ * exactly one consumer — folded per the Group 2/3 precedent in PR #24 (LS-2341) rather than keep a
+ * single-use entry in the block-style picker.
+ *
+ * JSON limitation: arbitrary CSS (the "css" field) is only available on a registered style
+ * variation's "styles.css", never as an inline block "style" attribute — so this rule cannot move
+ * into the pattern's block attributes and has to live here instead.
+ *
+ * CSS grid rather than the columns block's native flex-wrap: flex-wrap sized each wrapped row's
+ * columns independently from that row's own content, so shorter labels (Discover/Create) and
+ * longer ones (Build/Launch) produced visibly inconsistent gaps. Grid tracks are shared across the
+ * row, so column widths stay fixed regardless of label length. Fixed at 6 columns rather than a
+ * responsive column count: this panel is core Navigation's desktop hover dropdown, which only ever
+ * renders at/above the theme's own mobileMenuBreakpoint (1024px, patterns/header.php) — below that,
+ * the header swaps to the mobile hamburger menu entirely, so there is no narrower context for this
+ * specific markup to ever appear in.
+ */
+.ls-mega-menu-panel-services {
+  width: fit-content;
+  max-width: 100vw;
+  box-sizing: border-box;
+
+  .wp-block-columns {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--wp--style--block-gap);
+  }
+
+  .wp-block-column {
+    width: auto;
+  }
+
+  .wp-block-column > .wp-block-group p {
+    white-space: nowrap;
+  }
+}
+
+/*
+ * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html) and
+ * .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About accordions, same file): both are
+ * a plain 2-column grid of is-style-mega-menu-item-service links, differing only in whether the
+ * grid needs to indent under a preceding lifecycle heading. Shared base rules live in this one
+ * selector list rather than being duplicated per class — plain classnames, not registered is-styles,
+ * since this is per-instance layout on inline markup, not a reusable block-style variation.
+ *
+ * JSON limitation: grid-template-columns/gap have no block-supports equivalent, and the narrow-
+ * screen single-column fallback needs a real @media query — confirmed elsewhere in this codebase
+ * (src/scss/animations/_menu-motion.scss) that inline "style" attributes and the styles/**.json
+ * "css" field can't express either, so this has to be real CSS.
+ *
+ * The wrapping block's own "layout":{"type":"default"} makes WordPress inject its usual
+ * consecutive-sibling margin-top onto the child paragraphs (core's blockGap fallback for the
+ * "default" layout type assumes vertical stacking) — that's what staggered column 2 lower than
+ * column 1, since the margin only applies from the second paragraph onward regardless of which
+ * grid cell it lands in. Reset to margin:0 here rather than switching the block's own layout type,
+ * since "default" is what makes this a plain wp:group with no block-supports layout UI fighting
+ * the grid.
+ *
+ * minmax(0, 1fr) rather than plain 1fr keeps a long label ("Email marketing") from blowing out its
+ * column's width past the grid track, which plain 1fr allows.
+ */
+.ls-services-phase-links,
+.ls-simple-submenu-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--wp--preset--spacing--20);
+  row-gap: var(--wp--preset--spacing--20);
+
+  > * {
+    margin: 0;
+  }
+}
+
+@media (max-width: 340px) {
+  .ls-services-phase-links,
+  .ls-simple-submenu-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
+ * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--10 is the
+ * header row's own icon-to-label gap — not an arbitrary offset, the two real values that produce
+ * alignment with the "C" in "CREATE". .ls-simple-submenu-links has no heading/dot to align under,
+ * so it doesn't need this.
+ */
+.ls-services-phase-links {
+  padding-left: calc(8px + var(--wp--preset--spacing--10));
+}

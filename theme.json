@@ -508,6 +508,7 @@
                     "canvas": "var:preset|color|base",
                     "card": "var:preset|color|neutral-100",
                     "card-raised": "var:preset|color|neutral-200",
+                    "card-strong": "var:preset|color|neutral-300",
                     "highlight": "var:preset|color|base",
                     "highlight-hover": "var:preset|color|neutral-200",
                     "brand-light": "var:preset|color|brand-100",
@@ -713,6 +714,13 @@
                 "base": "0",
                 "content": "1",
                 "overlay": "10"
+            },
+            "icon": {
+                "size": {
+                    "sm": "24px",
+                    "md": "30px",
+                    "lg": "36px"
+                }
             }
         }
     },
