@@ -42,7 +42,7 @@
  * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
  */
 .ls-footer-social-icon {
-  min-inline-size: 44px;
+  min-inline-size: var(--wp--custom--spacing--tap-target-min);
 }
 
 /********** Button Structural Overrides (global) **********/
@@ -73,8 +73,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
+  min-inline-size: var(--wp--custom--spacing--tap-target-min);
+  min-block-size: var(--wp--custom--spacing--tap-target-min);
   padding: var(--wp--preset--spacing--10);
   border: 1px solid var(--wp--custom--color--border--card);
   border-radius: var(--wp--preset--border-radius--500);
@@ -1019,8 +1019,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-inline-size: 44px;
-  min-block-size: 44px;
+  min-inline-size: var(--wp--custom--spacing--tap-target-min);
+  min-block-size: var(--wp--custom--spacing--tap-target-min);
   padding: var(--wp--preset--spacing--10);
   background-color: color-mix(in srgb, var(--wp--custom--color--surface--card) 4%, transparent);
 }

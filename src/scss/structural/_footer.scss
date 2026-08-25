@@ -44,5 +44,5 @@
  * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
  */
 .ls-footer-social-icon {
-  min-inline-size: 44px;
+  min-inline-size: var(--wp--custom--spacing--tap-target-min);
 }
