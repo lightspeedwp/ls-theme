@@ -110,6 +110,22 @@
 }
 
 /*
+ * Ollie Menu Designer's own wrapper (.wp-block-ollie-mega-menu__menu-container, plugin CSS, not
+ * ours to edit) ships a hardcoded white background and no border-radius. It sits exactly flush
+ * against our rounded is-style-mega-menu-panel (same width/height, confirmed via computed
+ * getBoundingClientRect) — a square white box directly behind a rounded one of identical size
+ * always leaves its four corners' triangular slivers showing outside the panel's rounded arc,
+ * regardless of the panel's own radius value. Overriding the plugin's background to transparent
+ * here lets only the panel's own (correctly rounded, dark/light-aware) background show.
+ *
+ * JSON limitation: this class belongs to a plugin block (ollie/mega-menu), not a core block or one
+ * of our own registered style variations — there is no theme.json/block-attribute surface for it.
+ */
+.site-header .wp-block-ollie-mega-menu__menu-container {
+  background: transparent;
+}
+
+/*
  * .ls-mega-menu-panel-services (parts/services-mega-menu.html): plain classname, not a registered
  * is-style — this panel already carries is-style-mega-menu-panel for its shared card shell
  * (background/border/shadow/spacing, styles/sections/menu/mega-menu-panel.json) and only needs
@@ -149,17 +165,38 @@
 }
 
 /*
- * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html) and
- * .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About accordions, same file): both are
- * a plain 2-column grid of is-style-mega-menu-item-service links, differing only in whether the
- * grid needs to indent under a preceding lifecycle heading. Shared base rules live in this one
- * selector list rather than being duplicated per class — plain classnames, not registered is-styles,
- * since this is per-instance layout on inline markup, not a reusable block-style variation.
+ * .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About accordions,
+ * parts/mobile-menu.html): a plain 2-column grid of is-style-mega-menu-item-service links. This
+ * block now uses WordPress core's own "layout":{"type":"grid","columnCount":2} block support
+ * (with "style":{"spacing":{"blockGap":...}} for the gap) instead of hand-authored CSS — core
+ * generates equal-fraction grid-template-columns itself, which is exactly right here since every
+ * label in these five menus is a full phrase ("Travel publisher rebuild") that fills its column.
+ * .ls-simple-submenu-links itself is now just a stable hook for the narrow-screen fallback below;
+ * it carries no grid CSS of its own.
  *
- * JSON limitation: grid-template-columns/gap have no block-supports equivalent, and the narrow-
- * screen single-column fallback needs a real @media query — confirmed elsewhere in this codebase
- * (src/scss/animations/_menu-motion.scss) that inline "style" attributes and the styles/**.json
- * "css" field can't express either, so this has to be real CSS.
+ * JSON limitation: core's grid layout support has no per-instance container class name (WordPress
+ * generates a numbered wp-container-core-group-is-layout-* class per render), so there's no stable
+ * selector to target for the narrow-screen single-column override — .ls-simple-submenu-links (this
+ * theme's own class, always present) is what the media query below hooks into instead. Doubled to
+ * bump specificity above core's single-class per-instance rule, which the source-order between the
+ * two stylesheets otherwise leaves ambiguous.
+ */
+@media (max-width: 340px) {
+  .ls-simple-submenu-links.ls-simple-submenu-links {
+    grid-template-columns: 1fr;
+  }
+}
+/*
+ * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): stays a hand-
+ * authored CSS grid rather than core's native "layout":{"type":"grid"} block support.
+ *
+ * JSON limitation, confirmed empirically 2026-08-25 (wp_get_layout_style()): core's grid layout
+ * support only ever emits equal-fraction columns (`grid-template-columns:repeat(N, minmax(0, 1fr))`)
+ * — there is no block attribute for content-sized columns. This class's links are short single
+ * words (Content, Design, Hosting), and equal-fraction columns leave each one stranded at the left
+ * edge of its own half-width track — the exact bug fixed earlier in this branch by sizing columns
+ * to content (max-content) instead. Switching this class to core's grid support would silently
+ * reintroduce that already-fixed, already-tested bug, so it stays custom CSS here.
  *
  * The wrapping block's own "layout":{"type":"default"} makes WordPress inject its usual
  * consecutive-sibling margin-top onto the child paragraphs (core's blockGap fallback for the
@@ -168,39 +205,22 @@
  * grid cell it lands in. Reset to margin:0 here rather than switching the block's own layout type,
  * since "default" is what makes this a plain wp:group with no block-supports layout UI fighting
  * the grid.
- *
- * minmax(0, 1fr) rather than plain 1fr keeps a long label ("Email marketing") from blowing out its
- * column's width past the grid track, which plain 1fr allows.
  */
-.ls-services-phase-links,
-.ls-simple-submenu-links {
+.ls-services-phase-links {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, max-content);
   column-gap: var(--wp--preset--spacing--20);
   row-gap: var(--wp--preset--spacing--20);
 }
-.ls-services-phase-links > *,
-.ls-simple-submenu-links > * {
+.ls-services-phase-links > * {
   margin: 0;
 }
 
 @media (max-width: 340px) {
-  .ls-services-phase-links,
-  .ls-simple-submenu-links {
+  .ls-services-phase-links {
     grid-template-columns: 1fr;
   }
 }
-/*
- * .ls-services-phase-links only: its links are short single words (Content, Design, Hosting) unlike
- * .ls-simple-submenu-links' full phrases (Travel publisher rebuild), so the shared 50/50 fr columns
- * above leave a huge visual gap between them even though the real column-gap value is identical —
- * the label just doesn't fill its half of the row. Sizing columns to their content instead keeps the
- * same real gap value while closing that visual gap, matching the tighter look of the other accordions.
- */
-.ls-services-phase-links {
-  grid-template-columns: repeat(2, max-content);
-}
-
 /*
  * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
  * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--10 is the
@@ -583,6 +603,7 @@
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--phase--discover) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--discover);
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:focus-within a {
   color: var(--wp--custom--color--phase--discover);
@@ -597,6 +618,7 @@
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--phase--create) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--create);
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:focus-within a {
   color: var(--wp--custom--color--phase--create);
@@ -611,6 +633,7 @@
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--phase--build) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--build);
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:focus-within a {
   color: var(--wp--custom--color--phase--build);
@@ -625,6 +648,7 @@
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--phase--launch) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--launch);
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:focus-within a {
   color: var(--wp--custom--color--phase--launch);
@@ -639,6 +663,7 @@
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--phase--grow) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--grow);
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:focus-within a {
   color: var(--wp--custom--color--phase--grow);
@@ -653,6 +678,7 @@
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--phase--evolve) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--evolve);
 }
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:focus-within a {
   color: var(--wp--custom--color--phase--evolve);

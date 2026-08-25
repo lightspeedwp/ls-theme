@@ -68,6 +68,7 @@ $ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
           var(--wp--custom--color--phase--#{$phase}) 15%,
           transparent
         );
+        border-left-color: var(--wp--custom--color--phase--#{$phase});
       }
 
       &:hover a,

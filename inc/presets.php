@@ -96,6 +96,54 @@ function get_preset_files_recursive( $directory ) {
 add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_preset_files' );
 
 /**
+ * Resolves and parses every /styles/blocks/ and /styles/sections/ variation file once per request.
+ *
+ * merge_block_style_variations() (wp_theme_json_data_theme) and register_block_style_variations()
+ * (init) both need the same parsed file list — without this, each independently re-walked both
+ * directories and re-parsed every file a second time, on every request that resolves global styles.
+ * A static cache keeps that walk-and-parse to a single pass, shared by both consumers.
+ *
+ * @since ls_theme 1.3
+ *
+ * @return array Array of decoded variation data, each with its source file path added under 'file'.
+ */
+function get_block_style_variation_data() {
+	static $variations = null;
+
+	if ( null !== $variations ) {
+		return $variations;
+	}
+
+	$variation_dirs = array(
+		get_template_directory() . '/styles/blocks/',
+		get_template_directory() . '/styles/sections/',
+	);
+
+	$variation_files = array();
+	foreach ( $variation_dirs as $dir ) {
+		if ( is_dir( $dir ) ) {
+			$variation_files = array_merge( $variation_files, get_preset_files_recursive( $dir ) );
+		}
+	}
+
+	sort( $variation_files );
+
+	$variations = array();
+	foreach ( $variation_files as $file ) {
+		$variation_data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( ! is_array( $variation_data ) || empty( $variation_data['slug'] ) || empty( $variation_data['blockTypes'] ) ) {
+			continue;
+		}
+
+		$variation_data['file'] = $file;
+		$variations[]           = $variation_data;
+	}
+
+	return $variations;
+}
+
+/**
  * Merges block/section style-variation JSON files into the theme's theme.json data.
  *
  * /styles/blocks/**.json and /styles/sections/**.json are authored as standalone block
@@ -113,28 +161,8 @@ add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_preset_files' );
  * @return WP_Theme_JSON_Data The modified theme JSON data object.
  */
 function merge_block_style_variations( $theme_json ) {
-	$variation_dirs = array(
-		get_template_directory() . '/styles/blocks/',
-		get_template_directory() . '/styles/sections/',
-	);
-
-	$variation_files = array();
-	foreach ( $variation_dirs as $dir ) {
-		if ( is_dir( $dir ) ) {
-			$variation_files = array_merge( $variation_files, get_preset_files_recursive( $dir ) );
-		}
-	}
-
-	if ( empty( $variation_files ) ) {
-		return $theme_json;
-	}
-
-	sort( $variation_files );
-
-	foreach ( $variation_files as $file ) {
-		$variation_data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-
-		if ( ! is_array( $variation_data ) || empty( $variation_data['slug'] ) || empty( $variation_data['blockTypes'] ) || empty( $variation_data['styles'] ) ) {
+	foreach ( get_block_style_variation_data() as $variation_data ) {
+		if ( empty( $variation_data['styles'] ) ) {
 			continue;
 		}
 
@@ -168,25 +196,7 @@ add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_block_style_vari
  * @since ls_theme 1.2
  */
 function register_block_style_variations() {
-	$variation_dirs = array(
-		get_template_directory() . '/styles/blocks/',
-		get_template_directory() . '/styles/sections/',
-	);
-
-	$variation_files = array();
-	foreach ( $variation_dirs as $dir ) {
-		if ( is_dir( $dir ) ) {
-			$variation_files = array_merge( $variation_files, get_preset_files_recursive( $dir ) );
-		}
-	}
-
-	foreach ( $variation_files as $file ) {
-		$variation_data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-
-		if ( ! is_array( $variation_data ) || empty( $variation_data['slug'] ) || empty( $variation_data['blockTypes'] ) ) {
-			continue;
-		}
-
+	foreach ( get_block_style_variation_data() as $variation_data ) {
 		$slug  = $variation_data['slug'];
 		$label = ! empty( $variation_data['title'] ) ? $variation_data['title'] : $slug;
 
