@@ -1,6 +1,4 @@
 <?php
-namespace ls_theme\includes;
-
 /**
  * Register Modular Theme.json Presets.
  *
@@ -14,6 +12,8 @@ namespace ls_theme\includes;
  * @package ls_theme\includes
  * @since   1.0.0
  */
+
+namespace ls_theme\includes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -98,8 +98,8 @@ add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_preset_files' );
 /**
  * Resolves and parses every /styles/blocks/ and /styles/sections/ variation file once per request.
  *
- * merge_block_style_variations() (wp_theme_json_data_theme) and register_block_style_variations()
- * (init) both need the same parsed file list — without this, each independently re-walked both
+ * Both merge_block_style_variations() (wp_theme_json_data_theme) and register_block_style_variations()
+ * (init) need the same parsed file list — without this, each independently re-walked both
  * directories and re-parsed every file a second time, on every request that resolves global styles.
  * A static cache keeps that walk-and-parse to a single pass, shared by both consumers.
  *
@@ -187,7 +187,7 @@ add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_block_style_vari
 /**
  * Registers each /styles/blocks/ and /styles/sections/ variation as a block style.
  *
- * merge_block_style_variations() above puts the actual CSS into theme.json's
+ * The merge_block_style_variations() function above puts the actual CSS into theme.json's
  * styles.blocks.<blockType>.variations.<slug> — but WP_Theme_JSON only emits CSS for a
  * variation slug that is ALSO present in WP_Block_Styles_Registry; theme.json data alone
  * isn't enough. This performs that registration (name + label only — no 'style_data' /

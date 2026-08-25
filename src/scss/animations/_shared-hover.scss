@@ -67,17 +67,15 @@
  * never renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme
  * (confirmed via repo-wide grep), so a prefixed selector never matched anything: every Service row's
  * hover/focus tint and accent rail were silently inert until this fix.
+ *
+ * Only the transition timing lives here — the actual hover/focus background-color and
+ * border-left-color values are structural (not motion) properties, so per AGENTS.md they're set in
+ * src/scss/structural/_mega-menu.scss instead.
  */
 .is-style-mega-menu-item-service {
   transition: background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
     border-left-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-
-  &:hover,
-  &:focus-within {
-    background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
-    border-left-color: var(--wp--custom--color--link--accent);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

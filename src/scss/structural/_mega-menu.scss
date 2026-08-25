@@ -1,3 +1,5 @@
+@use "sass:list";
+
 /********** Mega Menu Structural Overrides **********/
 
 /*
@@ -193,5 +195,62 @@
     position: absolute;
     inset: 0;
     z-index: 1;
+  }
+}
+
+/*
+ * Neutral hover/focus colour fallback for .is-style-mega-menu-item-service — the mobile Services
+ * accordion (stacked phase groups, no core/columns nesting) has no phase-column ancestor for the
+ * per-phase rule below to key off, so it needs this generic accent-colour version. The desktop
+ * Services grid also matches this by default, then the more specific per-phase selector further
+ * down overrides it with that column's own phase colour. Only the colour values moved here from
+ * src/scss/animations/_shared-hover.scss, which keeps just the transition timing.
+ */
+.is-style-mega-menu-item-service:hover,
+.is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
+  border-left-color: var(--wp--custom--color--link--accent);
+}
+
+/*
+ * Per-phase hover colour values for the Services mega menu (src/scss/animations/_menu-motion.scss
+ * has this same phase list, but only for the transition timing and rest-state border-radius —
+ * background-color/border-left-color/link color are structural, not motion, properties per
+ * AGENTS.md, so they live here instead. Two small copies of the same 6-item list rather than one
+ * shared partial, since Sass variables don't cross file boundaries without @use/@forward and this
+ * list is trivial to keep in sync.
+ */
+$ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
+
+@each $pair in $ls-mega-menu-phases {
+  $index: list.nth($pair, 1);
+  $phase: list.nth($pair, 2);
+
+  .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
+    > .wp-block-group:first-child:hover,
+    > .wp-block-group:first-child:focus-within {
+      background-color: color-mix(
+        in srgb,
+        var(--wp--custom--color--phase--#{$phase}) 15%,
+        transparent
+      );
+    }
+
+    .is-style-mega-menu-item-service {
+      &:hover,
+      &:focus-within {
+        background-color: color-mix(
+          in srgb,
+          var(--wp--custom--color--phase--#{$phase}) 15%,
+          transparent
+        );
+        border-left-color: var(--wp--custom--color--phase--#{$phase});
+      }
+
+      &:hover a,
+      &:focus-within a {
+        color: var(--wp--custom--color--phase--#{$phase});
+      }
+    }
   }
 }

@@ -274,6 +274,100 @@
   z-index: 1;
 }
 
+/*
+ * Neutral hover/focus colour fallback for .is-style-mega-menu-item-service — the mobile Services
+ * accordion (stacked phase groups, no core/columns nesting) has no phase-column ancestor for the
+ * per-phase rule below to key off, so it needs this generic accent-colour version. The desktop
+ * Services grid also matches this by default, then the more specific per-phase selector further
+ * down overrides it with that column's own phase colour. Only the colour values moved here from
+ * src/scss/animations/_shared-hover.scss, which keeps just the transition timing.
+ */
+.is-style-mega-menu-item-service:hover,
+.is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
+  border-left-color: var(--wp--custom--color--link--accent);
+}
+
+/*
+ * Per-phase hover colour values for the Services mega menu (src/scss/animations/_menu-motion.scss
+ * has this same phase list, but only for the transition timing and rest-state border-radius —
+ * background-color/border-left-color/link color are structural, not motion, properties per
+ * AGENTS.md, so they live here instead. Two small copies of the same 6-item list rather than one
+ * shared partial, since Sass variables don't cross file boundaries without @use/@forward and this
+ * list is trivial to keep in sync.
+ */
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) > .wp-block-group:first-child:hover,
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) > .wp-block-group:first-child:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--discover) 15%, transparent);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--discover) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--discover);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:focus-within a {
+  color: var(--wp--custom--color--phase--discover);
+}
+
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) > .wp-block-group:first-child:hover,
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) > .wp-block-group:first-child:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--create) 15%, transparent);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--create) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--create);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:focus-within a {
+  color: var(--wp--custom--color--phase--create);
+}
+
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) > .wp-block-group:first-child:hover,
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) > .wp-block-group:first-child:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--build) 15%, transparent);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--build) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--build);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:focus-within a {
+  color: var(--wp--custom--color--phase--build);
+}
+
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) > .wp-block-group:first-child:hover,
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) > .wp-block-group:first-child:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--launch) 15%, transparent);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--launch) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--launch);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:focus-within a {
+  color: var(--wp--custom--color--phase--launch);
+}
+
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) > .wp-block-group:first-child:hover,
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) > .wp-block-group:first-child:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--grow) 15%, transparent);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--grow) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--grow);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:focus-within a {
+  color: var(--wp--custom--color--phase--grow);
+}
+
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) > .wp-block-group:first-child:hover,
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) > .wp-block-group:first-child:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--evolve) 15%, transparent);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--phase--evolve) 15%, transparent);
+  border-left-color: var(--wp--custom--color--phase--evolve);
+}
+.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:focus-within a {
+  color: var(--wp--custom--color--phase--evolve);
+}
+
 /********** Shared Keyframes **********/
 @keyframes ls-accent-gradient-shift {
   to {
@@ -344,13 +438,13 @@
  * never renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme
  * (confirmed via repo-wide grep), so a prefixed selector never matched anything: every Service row's
  * hover/focus tint and accent rail were silently inert until this fix.
+ *
+ * Only the transition timing lives here — the actual hover/focus background-color and
+ * border-left-color values are structural (not motion) properties, so per AGENTS.md they're set in
+ * src/scss/structural/_mega-menu.scss instead.
  */
 .is-style-mega-menu-item-service {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-left-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.is-style-mega-menu-item-service:hover, .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
-  border-left-color: var(--wp--custom--color--link--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -586,102 +680,45 @@
   }
 }
 /*
- * Per-phase hover colour for the Services mega menu: the phase-header group (dot + label + arrow)
- * and every service row underneath it hover in that same column's phase colour. Each phase always
+ * Per-phase hover for the Services mega menu: the phase-header group (dot + label + arrow) and
+ * every service row underneath it hover in that same column's phase colour. Each phase always
  * occupies the same column position (Discover 1st ... Evolve 6th), so this is targeted structurally
  * via :nth-child rather than adding a per-instance custom property to the markup — the same custom
- * hover mechanic that broke block validation earlier in this file. var(--wp--custom--color--phase--*)
- * already resolves to the "strong" preset in light mode and the plain preset in dark mode, so one
- * token covers both the header hover and the "Phase X strong" row hover in a single declaration.
+ * hover mechanic that broke block validation earlier in this file.
+ *
+ * Only the transition timing and rest-state border-radius live here — the actual hover/focus
+ * colour values (background-color, border-left-color, link color) are structural, not motion,
+ * properties, so per AGENTS.md they're set in src/scss/structural/_mega-menu.scss instead, via its
+ * own copy of this same phase list.
  */
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) > .wp-block-group:first-child {
   border-radius: var(--wp--preset--border-radius--300);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) > .wp-block-group:first-child:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) > .wp-block-group:first-child:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--discover) 15%, transparent);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--discover) 15%, transparent);
-  border-left-color: var(--wp--custom--color--phase--discover);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(1) .is-style-mega-menu-item-service:focus-within a {
-  color: var(--wp--custom--color--phase--discover);
 }
 
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) > .wp-block-group:first-child {
   border-radius: var(--wp--preset--border-radius--300);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) > .wp-block-group:first-child:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) > .wp-block-group:first-child:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--create) 15%, transparent);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--create) 15%, transparent);
-  border-left-color: var(--wp--custom--color--phase--create);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(2) .is-style-mega-menu-item-service:focus-within a {
-  color: var(--wp--custom--color--phase--create);
-}
 
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) > .wp-block-group:first-child {
   border-radius: var(--wp--preset--border-radius--300);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) > .wp-block-group:first-child:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) > .wp-block-group:first-child:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--build) 15%, transparent);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--build) 15%, transparent);
-  border-left-color: var(--wp--custom--color--phase--build);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(3) .is-style-mega-menu-item-service:focus-within a {
-  color: var(--wp--custom--color--phase--build);
 }
 
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) > .wp-block-group:first-child {
   border-radius: var(--wp--preset--border-radius--300);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) > .wp-block-group:first-child:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) > .wp-block-group:first-child:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--launch) 15%, transparent);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--launch) 15%, transparent);
-  border-left-color: var(--wp--custom--color--phase--launch);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(4) .is-style-mega-menu-item-service:focus-within a {
-  color: var(--wp--custom--color--phase--launch);
-}
 
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) > .wp-block-group:first-child {
   border-radius: var(--wp--preset--border-radius--300);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) > .wp-block-group:first-child:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) > .wp-block-group:first-child:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--grow) 15%, transparent);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--grow) 15%, transparent);
-  border-left-color: var(--wp--custom--color--phase--grow);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(5) .is-style-mega-menu-item-service:focus-within a {
-  color: var(--wp--custom--color--phase--grow);
-}
 
 .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) > .wp-block-group:first-child {
   border-radius: var(--wp--preset--border-radius--300);
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) > .wp-block-group:first-child:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) > .wp-block-group:first-child:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--evolve) 15%, transparent);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:hover, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--phase--evolve) 15%, transparent);
-  border-left-color: var(--wp--custom--color--phase--evolve);
-}
-.ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:hover a, .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(6) .is-style-mega-menu-item-service:focus-within a {
-  color: var(--wp--custom--color--phase--evolve);
 }
 
 @media (prefers-reduced-motion: reduce) {
