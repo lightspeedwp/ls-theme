@@ -201,6 +201,44 @@
   padding-left: calc(8px + var(--wp--preset--spacing--10));
 }
 
+/*
+ * Stretched-link pattern: makes the entire row clickable (icon, description, whitespace — not
+ * just the title text), matching the hover highlight that already covers the full row. The real,
+ * only link stays the title's own <a> — this just expands its clickable hit area to fill the
+ * whole parent via an absolutely-positioned ::after, rather than adding a second link or wrapping
+ * everything in one giant <a> (which would be invalid once a row ever needs a second interactive
+ * child). JSON limitation: neither `position` nor a `content:""` pseudo-element has a theme.json/
+ * block-supports equivalent.
+ *
+ * .is-style-mega-menu-item-default (desktop Work/Solutions/Pricing/Insights/About rows): the title
+ * link lives several levels deep (icon-well is a sibling, title+description share a nested group)
+ * — position:relative on the outer row is the containing block the ::after resolves against
+ * regardless of that nesting.
+ *
+ * .wp-block-paragraph.is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and
+ * the mobile simple-dropdown rows that reuse the same style): the row already *is* the link's
+ * direct parent, so this covers Services without touching its distinct visual design at all.
+ */
+.is-style-mega-menu-item-default {
+  position: relative;
+}
+.is-style-mega-menu-item-default h5 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.wp-block-paragraph.is-style-mega-menu-item-service {
+  position: relative;
+}
+.wp-block-paragraph.is-style-mega-menu-item-service a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 /********** Shared Keyframes **********/
 @keyframes ls-accent-gradient-shift {
   to {
