@@ -226,9 +226,13 @@
  * — position:relative on the outer row is the containing block the ::after resolves against
  * regardless of that nesting.
  *
- * .wp-block-paragraph.is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and
- * the mobile simple-dropdown rows that reuse the same style): the row already *is* the link's
- * direct parent, so this covers Services without touching its distinct visual design at all.
+ * .is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and the mobile
+ * simple-dropdown rows that reuse the same style): the row already *is* the link's direct parent,
+ * so this covers Services without touching its distinct visual design at all. Selector has no
+ * .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress never
+ * renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme, so a
+ * prefixed selector never matched anything (confirmed via repo-wide grep) and the stretched-link
+ * behaviour was silently inert for every Services-style row.
  */
 .is-style-mega-menu-item-default {
   position: relative;
@@ -240,10 +244,10 @@
   z-index: 1;
 }
 
-.wp-block-paragraph.is-style-mega-menu-item-service {
+.is-style-mega-menu-item-service {
   position: relative;
 }
-.wp-block-paragraph.is-style-mega-menu-item-service a::after {
+.is-style-mega-menu-item-service a::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -316,13 +320,15 @@
  * fallback for every other consumer, including the mobile Services accordion (which stacks its
  * phase groups vertically rather than in a core/columns grid, so it uses this neutral hover too).
  *
- * Qualified to .wp-block-paragraph rather than left bare so a future consumer with nested
- * paragraphs (e.g. a link wrapping other content) can't accidentally match at the wrong level.
+ * No .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress
+ * never renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme
+ * (confirmed via repo-wide grep), so a prefixed selector never matched anything: every Service row's
+ * hover/focus tint and accent rail were silently inert until this fix.
  */
-.wp-block-paragraph.is-style-mega-menu-item-service {
+.is-style-mega-menu-item-service {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard), border-left-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
-.wp-block-paragraph.is-style-mega-menu-item-service:hover, .wp-block-paragraph.is-style-mega-menu-item-service:focus-within {
+.is-style-mega-menu-item-service:hover, .is-style-mega-menu-item-service:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
   border-left-color: var(--wp--custom--color--link--accent);
 }
@@ -333,7 +339,7 @@
   .ls-footer-proof-card,
   .ls-footer-social-icon,
   .is-style-mega-menu-item-default,
-  .wp-block-paragraph.is-style-mega-menu-item-service {
+  .is-style-mega-menu-item-service {
     transition: none;
   }
 }

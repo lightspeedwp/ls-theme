@@ -63,10 +63,12 @@
  * fallback for every other consumer, including the mobile Services accordion (which stacks its
  * phase groups vertically rather than in a core/columns grid, so it uses this neutral hover too).
  *
- * Qualified to .wp-block-paragraph rather than left bare so a future consumer with nested
- * paragraphs (e.g. a link wrapping other content) can't accidentally match at the wrong level.
+ * No .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress
+ * never renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme
+ * (confirmed via repo-wide grep), so a prefixed selector never matched anything: every Service row's
+ * hover/focus tint and accent rail were silently inert until this fix.
  */
-.wp-block-paragraph.is-style-mega-menu-item-service {
+.is-style-mega-menu-item-service {
   transition: background-color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard),
     border-left-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
@@ -84,7 +86,7 @@
   .ls-footer-proof-card,
   .ls-footer-social-icon,
   .is-style-mega-menu-item-default,
-  .wp-block-paragraph.is-style-mega-menu-item-service {
+  .is-style-mega-menu-item-service {
     transition: none;
   }
 }

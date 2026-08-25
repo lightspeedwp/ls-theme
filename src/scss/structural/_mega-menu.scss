@@ -144,9 +144,13 @@
  * — position:relative on the outer row is the containing block the ::after resolves against
  * regardless of that nesting.
  *
- * .wp-block-paragraph.is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and
- * the mobile simple-dropdown rows that reuse the same style): the row already *is* the link's
- * direct parent, so this covers Services without touching its distinct visual design at all.
+ * .is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and the mobile
+ * simple-dropdown rows that reuse the same style): the row already *is* the link's direct parent,
+ * so this covers Services without touching its distinct visual design at all. Selector has no
+ * .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress never
+ * renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme, so a
+ * prefixed selector never matched anything (confirmed via repo-wide grep) and the stretched-link
+ * behaviour was silently inert for every Services-style row.
  */
 .is-style-mega-menu-item-default {
   position: relative;
@@ -159,7 +163,7 @@
   }
 }
 
-.wp-block-paragraph.is-style-mega-menu-item-service {
+.is-style-mega-menu-item-service {
   position: relative;
 
   a::after {
