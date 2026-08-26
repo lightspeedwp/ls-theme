@@ -5,6 +5,8 @@
  * Categories: footer
  * Block Types: core/template-part/footer
  * Description: Full site footer — editorial notes panel, company summary with proof points, 5-column link grid, and legal/social bottom bar.
+ *
+ * @package ls-theme
  */
 
 ?>

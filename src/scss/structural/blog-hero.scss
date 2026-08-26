@@ -194,6 +194,16 @@
     inset: 0;
   }
 
+  /*
+   * The card also renders a real post-terms category link above the excerpt — it needs its own
+   * stacking layer so it stays clickable above the stretched read-more overlay instead of being
+   * swallowed by it (same fix as Card - Case Study / Card - Post).
+   */
+  & a:not(.wp-block-read-more) {
+    position: relative;
+    z-index: 1;
+  }
+
   & .wp-block-read-more:focus-visible {
     outline: 2px solid var(--wp--custom--color--focus--ring);
     outline-offset: 2px;

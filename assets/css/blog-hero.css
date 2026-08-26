@@ -172,6 +172,17 @@
   position: absolute;
   inset: 0;
 }
+.ls-blog-hero .is-style-card-highlight-dark {
+  /*
+   * The card also renders a real post-terms category link above the excerpt — it needs its own
+   * stacking layer so it stays clickable above the stretched read-more overlay instead of being
+   * swallowed by it (same fix as Card - Case Study / Card - Post).
+   */
+}
+.ls-blog-hero .is-style-card-highlight-dark a:not(.wp-block-read-more) {
+  position: relative;
+  z-index: 1;
+}
 .ls-blog-hero .is-style-card-highlight-dark .wp-block-read-more:focus-visible {
   outline: 2px solid var(--wp--custom--color--focus--ring);
   outline-offset: 2px;
