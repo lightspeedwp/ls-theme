@@ -116,6 +116,9 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 - Keep `functions.php` minimal. Only register block supports, enqueue assets, or add editor styles there.
 - Use `inc/` only for genuine PHP logic that does not belong in `functions.php`.
 - Do not invent PHP architecture that `theme.json` can handle.
+- Before using an attribute or attribute value on a core WordPress block,
+  verify it is actually supported by that block (check the block's registered
+  attributes/supports or an existing working usage) rather than guessing.
 
 ---
 

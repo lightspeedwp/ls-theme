@@ -1,0 +1,37 @@
+/*
+ * Light/dark logo switching (patterns/header.php): both .site-logo--for-light and
+ * .site-logo--for-dark are always present in the markup — which one is visible is controlled
+ * purely by the display value of --wp--custom--visibility--logo-for-light/-dark, which
+ * theme.json and styles/dark.json each set to opposite "block"/"none" pairs, exactly like every
+ * other light/dark difference in this theme (a value differs between the two style-variation
+ * files, consumed here via var()). There is no runtime class/attribute toggle for which global
+ * style variation is active — WordPress only ever outputs the CSS for whichever one is currently
+ * selected — so this is the only mechanism available, and it needs no new toggle system: it
+ * reuses the theme's existing "different value per variation" pattern for a display property
+ * instead of a colour.
+ *
+ * JSON limitation: `display` has no block-supports/style-engine key on core/image.
+ */
+.site-logo--for-light {
+  display: var(--wp--custom--visibility--logo-for-light);
+}
+
+.site-logo--for-dark {
+  display: var(--wp--custom--visibility--logo-for-dark);
+}
+
+/*
+ * Sizing lives here rather than the block's own "width" attribute: core/image's save() only
+ * serializes width/height as an inline img style when BOTH are set together (for aspect-ratio
+ * intrinsic sizing); a lone "width" attribute like the theme.json default site-logo used doesn't
+ * round-trip through save() the same way and fails block validation in the Site Editor ("Block
+ * validation failed" / "cannot be previewed") because the saved markup no longer matches what
+ * save() regenerates. Width comes from a real token (custom.layout.logo-width) rather than a
+ * literal value so the logo size can be tuned in one place.
+ */
+.site-logo--for-light img,
+.site-logo--for-dark img {
+  display: block;
+  width: var(--wp--custom--layout--logo-width);
+  height: auto;
+}

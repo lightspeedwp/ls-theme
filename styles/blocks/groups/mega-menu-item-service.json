@@ -6,10 +6,15 @@
 	"blockTypes": [
 		"core/paragraph"
 	],
-	"description": "Menu-item row for the Service mega menu's phase columns. Structural padding/radius live here; the row background-on-hover/focus treatment (matching the Default menu's convention) is authored in src/scss/animations/_menu-motion.scss, since WordPress doesn't generate :hover/:focus CSS for arbitrary block style variations.",
+	"description": "List row for the Service mega menu's phase columns, and every plain link row across the mobile menu's Work/Solutions/Pricing/Insights/About accordions (parts/mobile-menu.html) — this is the single shared row style behind both, not a Services-only style. Rows are direct children of a 2-column grid (.ls-services-phase-links or .ls-simple-submenu-links, src/scss/structural/_mega-menu.scss) with no divider of their own — a transparent left rail reserves space for the accent bar that src/scss/animations/_shared-hover.scss and _menu-motion.scss paint in on hover/focus.",
 	"styles": {
 		"border": {
-			"radius": "var:preset|border-radius|300"
+			"radius": "var:preset|border-radius|300",
+			"left": {
+				"color": "transparent",
+				"style": "solid",
+				"width": "3px"
+			}
 		},
 		"spacing": {
 			"padding": {
@@ -17,6 +22,13 @@
 				"right": "var:preset|spacing|10",
 				"bottom": "var:preset|spacing|10",
 				"left": "var:preset|spacing|10"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:custom|color|text|muted"
+				}
 			}
 		}
 	}

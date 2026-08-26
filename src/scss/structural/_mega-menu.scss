@@ -1,0 +1,256 @@
+@use "sass:list";
+
+/********** Mega Menu Structural Overrides **********/
+
+/*
+ * Desktop mega-menu dropdown centering: WP core's Navigation submenu is position:absolute against
+ * its own trigger <li> (a narrow single word like "About"), not the full nav bar — no theme.json
+ * key exists for a core-generated submenu's position/transform, a genuine JSON limitation. Left
+ * uncorrected, a trigger near the right edge (About, Insights, Pricing) pushes its much-wider
+ * mega-menu content off-balance toward the screen edge instead of sitting centred with even space
+ * either side. Making the trigger position:static lets the submenu's absolute positioning resolve
+ * against the next positioned ancestor up (the nav bar) instead, so left:50%/translateX(-50%)
+ * centres it against the whole bar rather than one word.
+ *
+ * Scoped to .site-header specifically — if a second wp:navigation block is ever added elsewhere
+ * (e.g. a footer nav), it should not automatically inherit header-specific mega-menu centering.
+ */
+.site-header .wp-block-navigation-item {
+  position: static;
+}
+
+.site-header .wp-block-navigation__submenu-container {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+/*
+ * Ollie Menu Designer's own wrapper (.wp-block-ollie-mega-menu__menu-container, plugin CSS, not
+ * ours to edit) ships a hardcoded white background and no border-radius. It sits exactly flush
+ * against our rounded is-style-mega-menu-panel (same width/height, confirmed via computed
+ * getBoundingClientRect) — a square white box directly behind a rounded one of identical size
+ * always leaves its four corners' triangular slivers showing outside the panel's rounded arc,
+ * regardless of the panel's own radius value. Overriding the plugin's background to transparent
+ * here lets only the panel's own (correctly rounded, dark/light-aware) background show.
+ *
+ * JSON limitation: this class belongs to a plugin block (ollie/mega-menu), not a core block or one
+ * of our own registered style variations — there is no theme.json/block-attribute surface for it.
+ */
+.site-header .wp-block-ollie-mega-menu__menu-container {
+  background: transparent;
+}
+
+/*
+ * .ls-mega-menu-panel-services (parts/services-mega-menu.html): plain classname, not a registered
+ * is-style — this panel already carries is-style-mega-menu-panel for its shared card shell
+ * (background/border/shadow/spacing, styles/sections/menu/mega-menu-panel.json) and only needs
+ * this one extra rule: its 6-column, single-row phase grid layout. Previously authored as its own
+ * is-style-mega-menu-panel-services variation duplicating the whole shell, but that variation had
+ * exactly one consumer — folded per the Group 2/3 precedent in PR #24 (LS-2341) rather than keep a
+ * single-use entry in the block-style picker.
+ *
+ * JSON limitation: arbitrary CSS (the "css" field) is only available on a registered style
+ * variation's "styles.css", never as an inline block "style" attribute — so this rule cannot move
+ * into the pattern's block attributes and has to live here instead.
+ *
+ * CSS grid rather than the columns block's native flex-wrap: flex-wrap sized each wrapped row's
+ * columns independently from that row's own content, so shorter labels (Discover/Create) and
+ * longer ones (Build/Launch) produced visibly inconsistent gaps. Grid tracks are shared across the
+ * row, so column widths stay fixed regardless of label length. Fixed at 6 columns rather than a
+ * responsive column count: this panel is core Navigation's desktop hover dropdown, which only ever
+ * renders at/above the theme's own mobileMenuBreakpoint (1024px, patterns/header.php) — below that,
+ * the header swaps to the mobile hamburger menu entirely, so there is no narrower context for this
+ * specific markup to ever appear in.
+ */
+.ls-mega-menu-panel-services {
+  width: fit-content;
+  max-width: 100vw;
+  box-sizing: border-box;
+
+  .wp-block-columns {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--wp--style--block-gap);
+  }
+
+  .wp-block-column {
+    width: auto;
+  }
+
+  .wp-block-column > .wp-block-group p {
+    white-space: nowrap;
+  }
+}
+
+/*
+ * .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About accordions,
+ * parts/mobile-menu.html): a plain 2-column grid of is-style-mega-menu-item-service links. This
+ * block now uses WordPress core's own "layout":{"type":"grid","columnCount":2} block support
+ * (with "style":{"spacing":{"blockGap":...}} for the gap) instead of hand-authored CSS — core
+ * generates equal-fraction grid-template-columns itself, which is exactly right here since every
+ * label in these five menus is a full phrase ("Travel publisher rebuild") that fills its column.
+ * .ls-simple-submenu-links itself is now just a stable hook for the narrow-screen fallback below;
+ * it carries no grid CSS of its own.
+ *
+ * JSON limitation: core's grid layout support has no per-instance container class name (WordPress
+ * generates a numbered wp-container-core-group-is-layout-* class per render), so there's no stable
+ * selector to target for the narrow-screen single-column override — .ls-simple-submenu-links (this
+ * theme's own class, always present) is what the media query below hooks into instead. Doubled to
+ * bump specificity above core's single-class per-instance rule, which the source-order between the
+ * two stylesheets otherwise leaves ambiguous.
+ */
+@media (max-width: 340px) {
+  .ls-simple-submenu-links.ls-simple-submenu-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): stays a hand-
+ * authored CSS grid rather than core's native "layout":{"type":"grid"} block support.
+ *
+ * JSON limitation, confirmed empirically 2026-08-25 (wp_get_layout_style()): core's grid layout
+ * support only ever emits equal-fraction columns (`grid-template-columns:repeat(N, minmax(0, 1fr))`)
+ * — there is no block attribute for content-sized columns. This class's links are short single
+ * words (Content, Design, Hosting), and equal-fraction columns leave each one stranded at the left
+ * edge of its own half-width track — the exact bug fixed earlier in this branch by sizing columns
+ * to content (max-content) instead. Switching this class to core's grid support would silently
+ * reintroduce that already-fixed, already-tested bug, so it stays custom CSS here.
+ *
+ * The wrapping block's own "layout":{"type":"default"} makes WordPress inject its usual
+ * consecutive-sibling margin-top onto the child paragraphs (core's blockGap fallback for the
+ * "default" layout type assumes vertical stacking) — that's what staggered column 2 lower than
+ * column 1, since the margin only applies from the second paragraph onward regardless of which
+ * grid cell it lands in. Reset to margin:0 here rather than switching the block's own layout type,
+ * since "default" is what makes this a plain wp:group with no block-supports layout UI fighting
+ * the grid.
+ */
+.ls-services-phase-links {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  column-gap: var(--wp--preset--spacing--20);
+  row-gap: var(--wp--preset--spacing--20);
+
+  > * {
+    margin: 0;
+  }
+}
+
+@media (max-width: 340px) {
+  .ls-services-phase-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
+ * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--10 is the
+ * header row's own icon-to-label gap — not an arbitrary offset, the two real values that produce
+ * alignment with the "C" in "CREATE". .ls-simple-submenu-links has no heading/dot to align under,
+ * so it doesn't need this.
+ */
+.ls-services-phase-links {
+  padding-left: calc(8px + var(--wp--preset--spacing--10));
+}
+
+/*
+ * Stretched-link pattern: makes the entire row clickable (icon, description, whitespace — not
+ * just the title text), matching the hover highlight that already covers the full row. The real,
+ * only link stays the title's own <a> — this just expands its clickable hit area to fill the
+ * whole parent via an absolutely-positioned ::after, rather than adding a second link or wrapping
+ * everything in one giant <a> (which would be invalid once a row ever needs a second interactive
+ * child). JSON limitation: neither `position` nor a `content:""` pseudo-element has a theme.json/
+ * block-supports equivalent.
+ *
+ * .is-style-mega-menu-item-default (desktop Work/Solutions/Pricing/Insights/About rows): the title
+ * link lives several levels deep (icon-well is a sibling, title+description share a nested group)
+ * — position:relative on the outer row is the containing block the ::after resolves against
+ * regardless of that nesting.
+ *
+ * .is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and the mobile
+ * simple-dropdown rows that reuse the same style): the row already *is* the link's direct parent,
+ * so this covers Services without touching its distinct visual design at all. Selector has no
+ * .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress never
+ * renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme, so a
+ * prefixed selector never matched anything (confirmed via repo-wide grep) and the stretched-link
+ * behaviour was silently inert for every Services-style row.
+ */
+.is-style-mega-menu-item-default {
+  position: relative;
+
+  h5 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+}
+
+.is-style-mega-menu-item-service {
+  position: relative;
+
+  a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+}
+
+/*
+ * Neutral hover/focus colour fallback for .is-style-mega-menu-item-service — the mobile Services
+ * accordion (stacked phase groups, no core/columns nesting) has no phase-column ancestor for the
+ * per-phase rule below to key off, so it needs this generic accent-colour version. The desktop
+ * Services grid also matches this by default, then the more specific per-phase selector further
+ * down overrides it with that column's own phase colour. Only the colour values moved here from
+ * src/scss/animations/_shared-hover.scss, which keeps just the transition timing.
+ */
+.is-style-mega-menu-item-service:hover,
+.is-style-mega-menu-item-service:focus-within {
+  background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
+  border-left-color: var(--wp--custom--color--link--accent);
+}
+
+/*
+ * Per-phase hover colour values for the Services mega menu (src/scss/animations/_menu-motion.scss
+ * has this same phase list, but only for the transition timing and rest-state border-radius —
+ * background-color/border-left-color/link color are structural, not motion, properties per
+ * AGENTS.md, so they live here instead. Two small copies of the same 6-item list rather than one
+ * shared partial, since Sass variables don't cross file boundaries without @use/@forward and this
+ * list is trivial to keep in sync.
+ */
+$ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
+
+@each $pair in $ls-mega-menu-phases {
+  $index: list.nth($pair, 1);
+  $phase: list.nth($pair, 2);
+
+  .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
+    > .wp-block-group:first-child:hover,
+    > .wp-block-group:first-child:focus-within {
+      background-color: color-mix(
+        in srgb,
+        var(--wp--custom--color--phase--#{$phase}) 15%,
+        transparent
+      );
+    }
+
+    .is-style-mega-menu-item-service {
+      &:hover,
+      &:focus-within {
+        background-color: color-mix(
+          in srgb,
+          var(--wp--custom--color--phase--#{$phase}) 15%,
+          transparent
+        );
+        border-left-color: var(--wp--custom--color--phase--#{$phase});
+      }
+
+      &:hover a,
+      &:focus-within a {
+        color: var(--wp--custom--color--phase--#{$phase});
+      }
+    }
+  }
+}

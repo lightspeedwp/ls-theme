@@ -487,7 +487,8 @@
                     "mobile-compact": "320px",
                     "nav-toggle": "600px",
                     "columns-stack": "782px"
-                }
+                },
+                "logo-width": "150px"
             },
             "color": {
                 "text": {
@@ -508,6 +509,7 @@
                     "canvas": "var:preset|color|base",
                     "card": "var:preset|color|neutral-100",
                     "card-raised": "var:preset|color|neutral-200",
+                    "card-strong": "var:preset|color|neutral-300",
                     "highlight": "var:preset|color|base",
                     "highlight-hover": "var:preset|color|neutral-200",
                     "brand-light": "var:preset|color|brand-100",
@@ -642,7 +644,8 @@
                     "padding-right": "4rem",
                     "padding-bottom": "1rem",
                     "padding-left": "1.5rem"
-                }
+                },
+                "tap-target-min": "44px"
             },
             "shadow": {
                 "elevation": {
@@ -713,6 +716,17 @@
                 "base": "0",
                 "content": "1",
                 "overlay": "10"
+            },
+            "icon": {
+                "size": {
+                    "sm": "24px",
+                    "md": "30px",
+                    "lg": "36px"
+                }
+            },
+            "visibility": {
+                "logo-for-light": "block",
+                "logo-for-dark": "none"
             }
         }
     },

@@ -6,14 +6,8 @@
 	"blockTypes": [
 		"core/paragraph"
 	],
-	"description": "Full-width divider row for a plain link inside the mobile navigation drawer (parts/mobile-menu.html), matching the height/typography of the drawer's accordion rows (styles/blocks/details/mobile-menu-accordion.json).",
+	"description": "Full-width divider row for a plain link inside the mobile navigation drawer (parts/mobile-menu.html), matching the height/typography/vertical rhythm of the drawer's accordion rows (styles/blocks/details/mobile-menu-accordion.json). No margin override — the accordion rows get their inter-row spacing purely from the theme's default blockGap (settings.spacing.blockGap, styles/presets/spacing.json, spacing--30) on the wrapping .mobile-menu group's flow layout; this style used to zero that same margin out and rely on an ad-hoc per-instance padding-top instead, which is exactly the arbitrary-value drift this style exists to prevent.",
 	"styles": {
-		"spacing": {
-			"margin": {
-				"top": "0",
-				"bottom": "0"
-			}
-		},
 		"border": {
 			"bottom": { "color": "var:custom|color|border|card", "style": "solid", "width": "1px" }
 		},
