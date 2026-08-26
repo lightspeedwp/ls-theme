@@ -1,6 +1,4 @@
 <?php
-namespace ls_theme\includes;
-
 /**
  * Register Modular Theme.json Presets.
  *
@@ -14,6 +12,8 @@ namespace ls_theme\includes;
  * @package ls_theme\includes
  * @since   1.0.0
  */
+
+namespace ls_theme\includes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -94,3 +94,121 @@ function get_preset_files_recursive( $directory ) {
 }
 
 add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_preset_files' );
+
+/**
+ * Resolves and parses every /styles/blocks/ and /styles/sections/ variation file once per request.
+ *
+ * Both merge_block_style_variations() (wp_theme_json_data_theme) and register_block_style_variations()
+ * (init) need the same parsed file list — without this, each independently re-walked both
+ * directories and re-parsed every file a second time, on every request that resolves global styles.
+ * A static cache keeps that walk-and-parse to a single pass, shared by both consumers.
+ *
+ * @since ls_theme 1.3
+ *
+ * @return array Array of decoded variation data, each with its source file path added under 'file'.
+ */
+function get_block_style_variation_data() {
+	static $variations = null;
+
+	if ( null !== $variations ) {
+		return $variations;
+	}
+
+	$variation_dirs = array(
+		get_template_directory() . '/styles/blocks/',
+		get_template_directory() . '/styles/sections/',
+	);
+
+	$variation_files = array();
+	foreach ( $variation_dirs as $dir ) {
+		if ( is_dir( $dir ) ) {
+			$variation_files = array_merge( $variation_files, get_preset_files_recursive( $dir ) );
+		}
+	}
+
+	sort( $variation_files );
+
+	$variations = array();
+	foreach ( $variation_files as $file ) {
+		$variation_data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( ! is_array( $variation_data ) || empty( $variation_data['slug'] ) || empty( $variation_data['blockTypes'] ) ) {
+			continue;
+		}
+
+		$variation_data['file'] = $file;
+		$variations[]           = $variation_data;
+	}
+
+	return $variations;
+}
+
+/**
+ * Merges block/section style-variation JSON files into the theme's theme.json data.
+ *
+ * /styles/blocks/**.json and /styles/sections/**.json are authored as standalone block
+ * style variation files ({slug, blockTypes, styles}), not raw theme.json fragments — unlike
+ * /styles/presets/, nothing was loading them at all, so every is-style-<slug> class referenced
+ * in patterns/parts (mega-menu-item-service, mega-menu-panel, mobile-menu-accordion,
+ * mobile-menu-list, etc.) had no matching CSS. This converts each file into the
+ * `styles.blocks.<blockType>.variations.<slug>` shape WP_Theme_JSON expects, for every
+ * blockType the file declares, then merges via the same update_with() WordPress uses for
+ * /styles/presets/.
+ *
+ * @since ls_theme 1.2
+ *
+ * @param WP_Theme_JSON_Data $theme_json The theme JSON data object.
+ * @return WP_Theme_JSON_Data The modified theme JSON data object.
+ */
+function merge_block_style_variations( $theme_json ) {
+	foreach ( get_block_style_variation_data() as $variation_data ) {
+		if ( empty( $variation_data['styles'] ) ) {
+			continue;
+		}
+
+		$slug  = $variation_data['slug'];
+		$patch = array( 'styles' => array( 'blocks' => array() ) );
+
+		foreach ( (array) $variation_data['blockTypes'] as $block_type ) {
+			$patch['styles']['blocks'][ $block_type ] = array(
+				'variations' => array(
+					$slug => $variation_data['styles'],
+				),
+			);
+		}
+
+		$theme_json->update_with( $patch );
+	}
+
+	return $theme_json;
+}
+add_filter( 'wp_theme_json_data_theme', __NAMESPACE__ . '\merge_block_style_variations' );
+
+/**
+ * Registers each /styles/blocks/ and /styles/sections/ variation as a block style.
+ *
+ * The merge_block_style_variations() function above puts the actual CSS into theme.json's
+ * styles.blocks.<blockType>.variations.<slug> — but WP_Theme_JSON only emits CSS for a
+ * variation slug that is ALSO present in WP_Block_Styles_Registry; theme.json data alone
+ * isn't enough. This performs that registration (name + label only — no 'style_data' /
+ * inline styles, since the real styles already come from the theme.json merge).
+ *
+ * @since ls_theme 1.2
+ */
+function register_block_style_variations() {
+	foreach ( get_block_style_variation_data() as $variation_data ) {
+		$slug  = $variation_data['slug'];
+		$label = ! empty( $variation_data['title'] ) ? $variation_data['title'] : $slug;
+
+		foreach ( (array) $variation_data['blockTypes'] as $block_type ) {
+			register_block_style(
+				$block_type,
+				array(
+					'name'  => $slug,
+					'label' => $label,
+				)
+			);
+		}
+	}
+}
+add_action( 'init', __NAMESPACE__ . '\register_block_style_variations' );

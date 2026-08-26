@@ -39,19 +39,11 @@
 }
 
 /*
- * Mega-menu row hover (Default + Service items): same background-raise idea as the contract above,
- * deliberately kept separate rather than merged into it — these rows were never designed to also
- * change border-color on hover, and merging would silently add that.
- *
- * is-style-mega-menu-item-service is qualified to .wp-block-paragraph specifically: the same class
- * is also applied once to the mobile Services accordion's core/columns grid wrapper
- * (parts/mobile-menu.html), which contains all 6 phase columns. Left unscoped, :focus-within
- * bubbles up from any focused descendant, so focusing a single service row would raise the
- * background of the entire grid instead of just that row. is-style-mega-menu-item-default has no
- * such conflict (always a core/group), so it stays unqualified.
+ * Mega-menu row hover — Default items (styles/blocks/groups/mega-menu-item-default.json) have no
+ * rest-state background of their own, so a flat raise to surface--card-raised is real, visible
+ * feedback.
  */
-.is-style-mega-menu-item-default,
-.wp-block-paragraph.is-style-mega-menu-item-service {
+.is-style-mega-menu-item-default {
   transition: background-color var(--wp--custom--animation--duration--base)
     var(--wp--custom--animation--easing--standard);
 
@@ -61,13 +53,38 @@
   }
 }
 
+/*
+ * Service items (styles/blocks/groups/mega-menu-item-service.json) are plain rows inside a bounded
+ * list card (is-style-mobile-menu-list) — a left rail is reserved via a 3px transparent border-left
+ * in the JSON so hover/focus can paint it in as an accent bar (the Slack/Message-app
+ * navigation-drawer pattern: selected row = accent rail + soft tint, not a boxed pill) rather than
+ * every row carrying its own permanent box. The desktop Services grid overrides the accent colour
+ * to that column's own phase colour a few lines away in _menu-motion.scss; this is the neutral
+ * fallback for every other consumer, including the mobile Services accordion (which stacks its
+ * phase groups vertically rather than in a core/columns grid, so it uses this neutral hover too).
+ *
+ * No .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress
+ * never renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme
+ * (confirmed via repo-wide grep), so a prefixed selector never matched anything: every Service row's
+ * hover/focus tint and accent rail were silently inert until this fix.
+ *
+ * Only the transition timing lives here — the actual hover/focus background-color and
+ * border-left-color values are structural (not motion) properties, so per AGENTS.md they're set in
+ * src/scss/structural/_mega-menu.scss instead.
+ */
+.is-style-mega-menu-item-service {
+  transition: background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-left-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-header__search .wp-block-search__button,
   .site-header .wp-block-navigation__responsive-container-close,
   .ls-footer-proof-card,
   .ls-footer-social-icon,
   .is-style-mega-menu-item-default,
-  .wp-block-paragraph.is-style-mega-menu-item-service {
+  .is-style-mega-menu-item-service {
     transition: none;
   }
 }

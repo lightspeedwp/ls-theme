@@ -239,35 +239,12 @@ function ls_theme_enqueue_faq_accordion_script( $block_content, $block ) {
 }
 add_filter( 'render_block', 'ls_theme_enqueue_faq_accordion_script', 10, 2 );
 
-/**
- * Registers CSS-driven block styles.
+/*
+ * 'card-feature' (core/group) and 'button-arrow-compact' (core/button) used to be
+ * hardcoded here via register_block_style(). Both now live as real style-variation
+ * JSON files (styles/sections/cards/card-feature.json, styles/blocks/buttons/
+ * button-arrow-compact.json) and are registered generically by
+ * inc/presets.php::register_block_style_variations() — keeping both meant two
+ * register_block_style() calls for the same block+name pair, which WordPress
+ * flags via _doing_it_wrong() and silently drops the second call's label.
  */
-function ls_theme_register_effect_block_styles() {
-	if ( ! function_exists( 'register_block_style' ) ) {
-		return;
-	}
-
-	$block_styles = array(
-		array(
-			'block_name' => 'core/group',
-			'name'       => 'card-feature',
-			'label'      => __( 'Card - Feature', 'ls-theme' ),
-		),
-		array(
-			'block_name' => 'core/button',
-			'name'       => 'button-arrow-compact',
-			'label'      => __( 'Button Arrow Compact', 'ls-theme' ),
-		),
-	);
-
-	foreach ( $block_styles as $block_style ) {
-		register_block_style(
-			$block_style['block_name'],
-			array(
-				'name'  => $block_style['name'],
-				'label' => $block_style['label'],
-			)
-		);
-	}
-}
-add_action( 'init', 'ls_theme_register_effect_block_styles' );
