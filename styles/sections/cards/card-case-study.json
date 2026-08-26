@@ -28,6 +28,6 @@
 				"left": "0"
 			}
 		},
-		"css": "overflow: hidden;\n--ls-card-case-study-border-active: var(--wp--custom--color--link--accent);\n--ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);\n--ls-card-case-study-lift: var(--wp--custom--animation--lift--md);"
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-case-study-border-active: var(--wp--custom--color--link--accent);\n--ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);\n--ls-card-case-study-lift: var(--wp--custom--animation--lift--md);\n\n& .ls-card-case-study__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-card-case-study__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
 	}
 }

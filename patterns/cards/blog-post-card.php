@@ -42,7 +42,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'Read article', 'ls-theme' ) ); ?>,"className":"ls-post-card-cta"} /-->
+		<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'Read article', 'ls-theme' ) ); ?>,"className":"ls-post-card-cta ls-card-post__link"} /-->
 	</div>
 	<!-- /wp:group -->
 </article>
