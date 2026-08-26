@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Audit link cursor behaviour across theme patterns and templates (LS-2804)
+
+### Fixed
+
+- Fixed clickable cards across the theme where only a small inner link (e.g. "See the work →") had the pointer cursor / clickable hit area, not the whole card, despite hover styling implying the entire card was interactive. Applied the existing stretched-link technique (`::before`/`::after` with `inset:0` over a `position:relative` card, already used by `is-style-card-link-row`) to: `is-style-card-category` (Homepage "Where to start", "What we build", Work archive categories), `is-style-card-feature`, `is-style-card-solutions`, `is-style-card-package` (Homepage "Where to fit" packages), `is-style-card-case-study` (Work archive project cards, Homepage Featured Work), `is-style-card-post` (Blog All Articles), and `is-style-card-highlight-dark` (Blog Hero featured tile). Added a `:focus-visible` outline to each so keyboard users see where focus lands.
+- Fixed the same underlying issue on the mega-menu item rows (`is-style-mega-menu-item-default`, `is-style-mega-menu-item-service`) by adding a `:focus-visible` outline — the stretched-link hit area itself already existed via `src/scss/structural/_mega-menu.scss` from LS-2801, which this branch's own JSON-based stretched-link addition was found to duplicate during code review and was removed in favour of the existing SCSS implementation.
+- Fixed 10 icon SVGs in `patterns/footer.php` missing `fill="currentColor"`, plus a stale `iconColor`/`has-icon-color` class conflict on the availability badge icon — both caused "Block contains unexpected or invalid content" errors in the Site Editor.
+- Fixed a block validation error on the Work archive's "Ready to discuss a project?" CTA (`patterns/sections/work-discuss-project.php`): the columns wrapper had a hand-authored inline `--wp--style--block-gap` style that `core/columns`' actual save output never produces.
+
+### Notes
+
+- Every card audited has either exactly one link, or two links to the same destination (post title + "read more"/"view project"), so a single stretched link is safe everywhere it was applied — no card required per-link disambiguation.
+- `card-package.json` and `card-post.json` had no `css` field at all before this change; `card-case-study.json` had no `position: relative`. Added both from scratch where missing.
+
+---
+
 ## [Unreleased] — Build Homepage Where to Fit and Homepage CTA (LS-1616)
 
 ### Added
