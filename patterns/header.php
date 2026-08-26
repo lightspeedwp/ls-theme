@@ -15,12 +15,12 @@
 <header class="wp-block-group site-header" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--100);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--100)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group"><!-- wp:group {"className":"site-logo-switcher","layout":{"type":"default"}} -->
 <div class="wp-block-group site-logo-switcher">
-<!-- wp:image {"id":458,"linkDestination":"custom","className":"site-logo--for-light","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<figure class="wp-block-image site-logo--for-light" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( wp_get_attachment_url( 458 ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>" class="wp-image-458"/></a></figure>
+<!-- wp:image {"linkDestination":"custom","className":"site-logo--for-light","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<figure class="wp-block-image site-logo--for-light" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/logos/ls-blue-logo.svg' ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>"/></a></figure>
 <!-- /wp:image -->
 
-<!-- wp:image {"id":459,"linkDestination":"custom","className":"site-logo--for-dark","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<figure class="wp-block-image site-logo--for-dark" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( wp_get_attachment_url( 459 ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>" class="wp-image-459"/></a></figure>
+<!-- wp:image {"linkDestination":"custom","className":"site-logo--for-dark","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<figure class="wp-block-image site-logo--for-dark" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/logos/ls-white-logo.svg' ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>"/></a></figure>
 <!-- /wp:image -->
 </div>
 <!-- /wp:group -->
