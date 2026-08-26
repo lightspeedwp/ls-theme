@@ -25,6 +25,7 @@
 					"text": "transparent"
 				}
 			}
-		}
+		},
+		"css": "position: relative;\n\n& a::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& a:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
 	}
 }
