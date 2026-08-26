@@ -34,7 +34,7 @@
 	<!-- /wp:group -->
 
 	<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent"} -->
-	<p class="ls-card-feature__cta is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Learn More', 'ls-theme' ); ?></a></p>
+	<p class="ls-card-feature__cta is-style-link-arrow-accent"><a class="ls-card-feature__link" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Learn More', 'ls-theme' ); ?></a></p>
 	<!-- /wp:paragraph -->
 </article>
 <!-- /wp:group -->

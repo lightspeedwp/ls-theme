@@ -36,7 +36,7 @@
 	<!-- wp:buttons {"className":"ls-card-solutions__cta"} -->
 	<div class="wp-block-buttons ls-card-solutions__cta">
 		<!-- wp:button {"className":"is-style-button-arrow-compact"} -->
-		<div class="wp-block-button is-style-button-arrow-compact"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/' ) ); ?>"><span class="screen-reader-text"><?php echo esc_html__( 'Learn more about prototyping', 'ls-theme' ); ?></span></a></div>
+		<div class="wp-block-button is-style-button-arrow-compact"><a class="wp-block-button__link wp-element-button ls-card-solutions__link" href="<?php echo esc_url( home_url( '/' ) ); ?>"><span class="screen-reader-text"><?php echo esc_html__( 'Learn more about prototyping', 'ls-theme' ); ?></span></a></div>
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->

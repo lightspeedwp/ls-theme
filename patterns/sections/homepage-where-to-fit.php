@@ -139,7 +139,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
-					<p class="is-style-link-arrow-accent" style="margin-top:var(--wp--preset--spacing--20)"><a href="<?php echo esc_url( home_url( '/packages/foundation/' ) ); ?>"><?php echo esc_html__( 'Read about Foundation', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent" style="margin-top:var(--wp--preset--spacing--20)"><a class="ls-package-card__link" href="<?php echo esc_url( home_url( '/packages/foundation/' ) ); ?>"><?php echo esc_html__( 'Read about Foundation', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -243,7 +243,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
-					<p class="is-style-link-arrow-accent" style="margin-top:var(--wp--preset--spacing--20)"><a href="<?php echo esc_url( home_url( '/packages/growth/' ) ); ?>"><?php echo esc_html__( 'Read about Growth', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent" style="margin-top:var(--wp--preset--spacing--20)"><a class="ls-package-card__link" href="<?php echo esc_url( home_url( '/packages/growth/' ) ); ?>"><?php echo esc_html__( 'Read about Growth', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -339,7 +339,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
-					<p class="is-style-link-arrow-accent" style="margin-top:var(--wp--preset--spacing--20)"><a href="<?php echo esc_url( home_url( '/packages/enterprise/' ) ); ?>"><?php echo esc_html__( 'Read about Enterprise', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent" style="margin-top:var(--wp--preset--spacing--20)"><a class="ls-package-card__link" href="<?php echo esc_url( home_url( '/packages/enterprise/' ) ); ?>"><?php echo esc_html__( 'Read about Enterprise', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->

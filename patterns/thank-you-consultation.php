@@ -140,7 +140,7 @@
 			<!-- /wp:group -->
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","fontSize":"100"} -->
-			<p class="ls-card-feature__cta is-style-link-arrow-accent has-100-font-size"><a href="<?php echo esc_url( home_url( '/about/team/' ) ); ?>"><?php echo esc_html__( 'Say hello', 'ls-theme' ); ?></a></p>
+			<p class="ls-card-feature__cta is-style-link-arrow-accent has-100-font-size"><a class="ls-card-feature__link" href="<?php echo esc_url( home_url( '/about/team/' ) ); ?>"><?php echo esc_html__( 'Say hello', 'ls-theme' ); ?></a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -166,7 +166,7 @@
 			<!-- /wp:group -->
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","fontSize":"100"} -->
-			<p class="ls-card-feature__cta is-style-link-arrow-accent has-100-font-size"><a href="<?php echo esc_url( home_url( '/about/culture/' ) ); ?>"><?php echo esc_html__( 'Take a look', 'ls-theme' ); ?></a></p>
+			<p class="ls-card-feature__cta is-style-link-arrow-accent has-100-font-size"><a class="ls-card-feature__link" href="<?php echo esc_url( home_url( '/about/culture/' ) ); ?>"><?php echo esc_html__( 'Take a look', 'ls-theme' ); ?></a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
@@ -192,7 +192,7 @@
 			<!-- /wp:group -->
 
 			<!-- wp:paragraph {"className":"ls-card-feature__cta is-style-link-arrow-accent","fontSize":"100"} -->
-			<p class="ls-card-feature__cta is-style-link-arrow-accent has-100-font-size"><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php echo esc_html__( 'Read more', 'ls-theme' ); ?></a></p>
+			<p class="ls-card-feature__cta is-style-link-arrow-accent has-100-font-size"><a class="ls-card-feature__link" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php echo esc_html__( 'Read more', 'ls-theme' ); ?></a></p>
 			<!-- /wp:paragraph -->
 		</article>
 		<!-- /wp:group -->
