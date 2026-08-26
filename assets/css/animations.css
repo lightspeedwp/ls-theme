@@ -83,6 +83,27 @@
   height: auto;
 }
 
+/*
+ * Side padding at tablet/mobile: patterns/header.php sets the header's left/right padding as a
+ * literal inline style (spacing--100, a clamp(4rem, ..., 6.25rem) token) — correct at desktop, but
+ * its clamp floor (4rem/64px) is still too wide once the layout drops to tablet/mobile widths,
+ * where the mobile menu takes over (mobileMenuBreakpoint:1024 on the header's Navigation block, same
+ * breakpoint used here). Desktop is untouched; only these two smaller breakpoints override it.
+ * !important is required to beat the inline style — same pattern as the padding overrides in
+ * featured-work.scss.
+ */
+@media (max-width: 1023.98px) {
+  .site-header {
+    padding-left: var(--wp--preset--spacing--60) !important;
+    padding-right: var(--wp--preset--spacing--60) !important;
+  }
+}
+@media (max-width: 599.98px) {
+  .site-header {
+    padding-left: var(--wp--preset--spacing--20) !important;
+    padding-right: var(--wp--preset--spacing--20) !important;
+  }
+}
 /********** Button Structural Overrides (global) **********/
 /*
  * Button CTA Gradient (LS-2341 Group 5: folded in from styles/blocks/buttons/button-cta-gradient.json,
@@ -875,10 +896,16 @@
  * justify a style-picker entry are inline block attributes on this instance instead. What's left
  * here is only the one thing inline attributes structurally cannot express at all: sizing a
  * descendant element (the logo <img>, not the group itself).
+ *
+ * The logo itself is the shared ls-theme/site-logo-switcher pattern (same light/dark image pair
+ * as the header, see src/scss/structural/_header.scss) — this only overrides its width for the
+ * mobile menu's smaller brand row, without touching the light/dark display switching.
  */
-.mobile-menu-brand .wp-block-site-logo img {
+.mobile-menu-brand .site-logo--for-light img,
+.mobile-menu-brand .site-logo--for-dark img {
   display: block;
   max-block-size: 32px;
+  width: auto;
   inline-size: auto;
 }
 

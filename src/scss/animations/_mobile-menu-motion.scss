@@ -68,10 +68,16 @@
  * justify a style-picker entry are inline block attributes on this instance instead. What's left
  * here is only the one thing inline attributes structurally cannot express at all: sizing a
  * descendant element (the logo <img>, not the group itself).
+ *
+ * The logo itself is the shared ls-theme/site-logo-switcher pattern (same light/dark image pair
+ * as the header, see src/scss/structural/_header.scss) — this only overrides its width for the
+ * mobile menu's smaller brand row, without touching the light/dark display switching.
  */
-.mobile-menu-brand .wp-block-site-logo img {
+.mobile-menu-brand .site-logo--for-light img,
+.mobile-menu-brand .site-logo--for-dark img {
   display: block;
   max-block-size: 32px;
+  width: auto;
   inline-size: auto;
 }
 
