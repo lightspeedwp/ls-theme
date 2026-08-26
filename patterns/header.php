@@ -5,6 +5,8 @@
  * Categories: header
  * Block Types: core/template-part/header
  * Description: Site header — logo, primary navigation, search, light/dark toggle, and "Start a project" CTA.
+ *
+ * @package ls-theme
  */
 
 ?>
