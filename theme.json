@@ -487,7 +487,8 @@
                     "mobile-compact": "320px",
                     "nav-toggle": "600px",
                     "columns-stack": "782px"
-                }
+                },
+                "logo-width": "150px"
             },
             "color": {
                 "text": {
@@ -722,6 +723,10 @@
                     "md": "30px",
                     "lg": "36px"
                 }
+            },
+            "visibility": {
+                "logo-for-light": "block",
+                "logo-for-dark": "none"
             }
         }
     },

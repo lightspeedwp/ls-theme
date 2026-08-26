@@ -116,6 +116,24 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 - Keep `functions.php` minimal. Only register block supports, enqueue assets, or add editor styles there.
 - Use `inc/` only for genuine PHP logic that does not belong in `functions.php`.
 - Do not invent PHP architecture that `theme.json` can handle.
+- **Never guess a core block's attribute values or supported keys.** Writing a
+  plausible-looking value that turns out to be invalid (e.g. a `"layout":{"type":"flow"}`
+  that isn't a real WordPress layout type — the real values are `default`,
+  `constrained`, `flex`, `grid`) causes a silent JS crash in the block editor
+  ("This block has encountered an error and cannot be previewed") with no PHP
+  error and no obvious link back to the bad value, which is expensive to debug.
+  Before hand-authoring any core block's JSON attributes (not just `layout`,
+  also things like `dimensions`, `spacing.padding`, `linkDestination`, image
+  `id`/`width`/`height`), verify the value against one of:
+  1. An existing, already-working usage of that exact block/attribute
+     elsewhere in this codebase (`grep` for the block name first).
+  2. The block's real registered attributes/supports, e.g.
+     `wp eval "echo json_encode(WP_Block_Type_Registry::get_instance()->get_registered('core/group')->attributes);"`.
+  3. WordPress core source (e.g. `wp-includes/block-supports/layout.php` for
+     valid layout types) when neither of the above is available.
+  Never ship a block attribute value you have not confirmed against one of
+  these three sources, even if it "looks right" or compiles without a PHP
+  error — invalid block attributes fail silently in the editor, not loudly.
 
 ---
 
@@ -296,3 +314,6 @@ procedure for migrating CSS-selector-soup into proper theme.json-style JSON
 13. **Do not modify `.github/workflows/` without understanding CI impacts.**
 14. **Always update `CHANGELOG.md`** when making meaningful changes.
 15. **Keep slug and text domain consistent** — use `ls-theme` as both the theme slug and text domain.
+16. **Verify core block attribute values before shipping them** — never guess a
+    `layout` type, `supports` key, or other core block attribute. See
+    "Theme-First Approach" above for the three ways to verify one.

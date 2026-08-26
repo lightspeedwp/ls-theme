@@ -148,6 +148,10 @@
 				"footer": {
 					"notes": "0 0 0 1px color-mix(in srgb, var(--wp--custom--color--phase--create) 24%, transparent), 0 0 34px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 18%, transparent)"
 				}
+			},
+			"visibility": {
+				"logo-for-light": "none",
+				"logo-for-dark": "block"
 			}
 		}
 	},
