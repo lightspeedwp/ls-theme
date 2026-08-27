@@ -3,6 +3,7 @@ import { createHash } from 'crypto';
 import * as path from 'path';
 import { addComment, createTask, findTaskByExternalId } from '../helpers/bugherd-client';
 import {
+	deriveCategoryTags,
 	determinePriority,
 	extractFailureSignature,
 	humanizeSignature,
@@ -134,10 +135,12 @@ export default class BugherdReporter implements Reporter {
 		const priority = determinePriority(specRelativePath, signature, messages);
 		const requesterEmail = getLocalReporterEmail();
 
+		const categoryTags = deriveCategoryTags(specRelativePath, test.title, signature);
+
 		const created = await createTask({
 			description,
 			external_id: externalId,
-			tag_names: ['playwright', 'standing-suite'],
+			tag_names: [...new Set(['playwright', 'standing-suite', ...categoryTags])],
 			priority,
 			...(requesterEmail ? { requester_email: requesterEmail } : {}),
 		});
