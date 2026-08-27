@@ -17,7 +17,7 @@
 	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":1} -->
-		<h1><?php echo esc_html__( 'Page not found', 'ls-theme' ); ?></h1>
+		<h1 class="wp-block-heading"><?php echo esc_html__( 'Page not found', 'ls-theme' ); ?></h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph -->
