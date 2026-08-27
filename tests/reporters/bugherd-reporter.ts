@@ -80,6 +80,17 @@ export default class BugherdReporter implements Reporter {
 	// create one — this chains same-key calls so the second always sees the
 	// first's result before deciding whether to create.
 	private locksByExternalId = new Map<string, Promise<void>>();
+	// Records every external_id already resolved (created or found-open)
+	// during THIS run. The lock above already guarantees these calls run one
+	// at a time, but BugHerd's own lookup endpoint may not immediately return
+	// a task this same run just created a moment earlier (read-after-write
+	// lag) — a second browser project hitting the identical failure could
+	// still ask "does this exist?" and wrongly hear "no". Once we know the
+	// answer for an external_id this run, trust that instead of asking
+	// BugHerd again. Reset per run (per BugherdReporter instance) — this is
+	// a plain in-memory Set, not a file or a persisted store, so it never
+	// grows across runs.
+	private handledExternalIdsThisRun = new Set<string>();
 
 	onTestEnd(test: TestCase, result: TestResult): void {
 		if (!isStandingSpec(test)) return;
@@ -144,10 +155,16 @@ export default class BugherdReporter implements Reporter {
 		signature: string,
 		messages: string[]
 	): Promise<void> {
+		if (this.handledExternalIdsThisRun.has(externalId)) {
+			console.log(`[bugherd-reporter] Already handled this run: ${externalId}`);
+			return;
+		}
+
 		const existing = await findTaskByExternalId(externalId);
 
 		if (existing && !existing.closed_at) {
 			console.log(`[bugherd-reporter] Already tracked (open): ${externalId}`);
+			this.handledExternalIdsThisRun.add(externalId);
 			return;
 		}
 
@@ -164,6 +181,10 @@ export default class BugherdReporter implements Reporter {
 			priority,
 			...(requesterEmail ? { requester_email: requesterEmail } : {}),
 		});
+		// Mark handled only after a successful create — if createTask throws,
+		// leave this unmarked so a later occurrence of the same signature this
+		// run still gets a genuine retry rather than being silently skipped.
+		this.handledExternalIdsThisRun.add(externalId);
 
 		if (existing && existing.closed_at) {
 			// Previously closed, now reappeared: create a fresh task rather than
