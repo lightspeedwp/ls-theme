@@ -70,7 +70,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a href="<?php echo esc_url( add_query_arg( 'filter-0-project-group', 'wordpress', home_url( '/work/' ) ) ); ?>"><?php echo esc_html__( 'See WordPress work', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( add_query_arg( 'filter-0-project-group', 'wordpress', home_url( '/work/' ) ) ); ?>"><?php echo esc_html__( 'See WordPress work', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -102,7 +102,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a href="<?php echo esc_url( add_query_arg( 'filter-0-project-group', 'woocommerce', home_url( '/work/' ) ) ); ?>"><?php echo esc_html__( 'See WooCommerce work', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( add_query_arg( 'filter-0-project-group', 'woocommerce', home_url( '/work/' ) ) ); ?>"><?php echo esc_html__( 'See WooCommerce work', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -134,7 +134,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'See Design-System work', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'See Design-System work', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->

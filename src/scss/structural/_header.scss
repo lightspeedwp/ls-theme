@@ -35,3 +35,26 @@
   width: var(--wp--custom--layout--logo-width);
   height: auto;
 }
+
+/*
+ * Side padding at tablet/mobile: patterns/header.php sets the header's left/right padding as a
+ * literal inline style (spacing--100, a clamp(4rem, ..., 6.25rem) token) — correct at desktop, but
+ * its clamp floor (4rem/64px) is still too wide once the layout drops to tablet/mobile widths,
+ * where the mobile menu takes over (mobileMenuBreakpoint:1024 on the header's Navigation block, same
+ * breakpoint used here). Desktop is untouched; only these two smaller breakpoints override it.
+ * !important is required to beat the inline style — same pattern as the padding overrides in
+ * featured-work.scss.
+ */
+@media (max-width: 1023.98px) {
+  .site-header {
+    padding-left: var(--wp--preset--spacing--60) !important;
+    padding-right: var(--wp--preset--spacing--60) !important;
+  }
+}
+
+@media (max-width: 599.98px) {
+  .site-header {
+    padding-left: var(--wp--preset--spacing--20) !important;
+    padding-right: var(--wp--preset--spacing--20) !important;
+  }
+}

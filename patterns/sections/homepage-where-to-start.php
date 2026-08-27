@@ -75,7 +75,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/why-lightspeed/' ) ); ?>"><?php echo esc_html__( 'Why LightSpeed', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/why-lightspeed/' ) ); ?>"><?php echo esc_html__( 'Why LightSpeed', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -107,7 +107,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'See the work', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'See the work', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -139,7 +139,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a href="<?php echo esc_url( home_url( '/get-started/' ) ); ?>"><?php echo esc_html__( 'How to get started', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/get-started/' ) ); ?>"><?php echo esc_html__( 'How to get started', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->

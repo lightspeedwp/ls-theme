@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Case-study card shell for the Work archive: banner zone, content body, and tag row. Adapts between light and dark mode like every other card style \u2014 border uses a translucent tint of the shared card border token. Non-expressible structural properties (overflow) and the hover state stay in src/scss/structural/work-project-card.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
+	"description": "Case-study card shell for the Work archive: banner zone, content body, and tag row. Adapts between light and dark mode like every other card style \u2014 border uses a translucent tint of the shared card border token. Non-expressible structural properties (overflow) and the hover state stay in src/scss/structural/work-project-card.scss \u2014 a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping. The card also renders real post-terms links (platform badge, tag pills) alongside the stretched read-more link \u2014 those get their own stacking layer so they stay clickable above the full-card overlay instead of being swallowed by it.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -28,6 +28,6 @@
 				"left": "0"
 			}
 		},
-		"css": "overflow: hidden;\n--ls-card-case-study-border-active: var(--wp--custom--color--link--accent);\n--ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);\n--ls-card-case-study-lift: var(--wp--custom--animation--lift--md);"
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-case-study-border-active: var(--wp--custom--color--link--accent);\n--ls-card-case-study-shadow-active: var(--wp--custom--shadow--card--hover);\n--ls-card-case-study-lift: var(--wp--custom--animation--lift--md);\n\n& .ls-card-case-study__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-card-case-study__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}\n\n& a:not(.ls-card-case-study__link) {\n\tposition: relative;\n\tz-index: 1;\n}"
 	}
 }

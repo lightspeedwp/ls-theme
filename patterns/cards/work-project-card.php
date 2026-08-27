@@ -41,7 +41,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'View project', 'ls-theme' ) ); ?>,"className":"is-style-link-arrow-accent","fontSize":"100"} /-->
+		<!-- wp:read-more {"content":<?php echo wp_json_encode( __( 'View project', 'ls-theme' ) ); ?>,"className":"is-style-link-arrow-accent ls-card-case-study__link","fontSize":"100"} /-->
 	</div>
 	<!-- /wp:group -->
 </article>

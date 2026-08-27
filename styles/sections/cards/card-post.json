@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Flat blog post card shell — no banner/image zone (unlike Card - Case Study, whose radius/blockGap/border-mix values this was checked against and found genuinely different: 300/16px vs this card's 400/24px, and blockGap:0 for a banner layout vs this card's real blockGap since content isn't split into separate zones). Radius matches Card - Highlight Dark so both new Blog Archive card shells read as one family.",
+	"description": "Flat blog post card shell — no banner/image zone (unlike Card - Case Study, whose radius/blockGap/border-mix values this was checked against and found genuinely different: 300/16px vs this card's 400/24px, and blockGap:0 for a banner layout vs this card's real blockGap since content isn't split into separate zones). Radius matches Card - Highlight Dark so both new Blog Archive card shells read as one family. The card also renders a real post-terms category link alongside the stretched read-more link — it gets its own stacking layer so it stays clickable above the full-card overlay instead of being swallowed by it.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -27,6 +27,7 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
-		}
+		},
+		"css": "position: relative;\n\n& .ls-card-post__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-card-post__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}\n\n& a:not(.ls-card-post__link) {\n\tposition: relative;\n\tz-index: 1;\n}"
 	}
 }
