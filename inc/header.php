@@ -34,6 +34,12 @@ add_action( 'wp_enqueue_scripts', 'ls_theme_enqueue_header_search_script' );
  * post here, look one up by title instead, so the header keeps working without a manual
  * per-environment ref update or reattachment in the Site Editor.
  *
+ * Scoped to only the header's Navigation block via its `mobileMenuSlug` attribute (set solely
+ * in patterns/header.php) — render_block_data fires for every core/navigation block site-wide,
+ * so without this an authored, inline navigation block (no `ref` at all, e.g. a future footer
+ * nav) would get hijacked into rendering "Main Navigation" instead of its own content. A block
+ * with no `ref` key isn't this one, so it's left untouched before the scoping check even runs.
+ *
  * @param array $parsed_block The block being rendered.
  * @return array The (possibly modified) block.
  */
@@ -42,7 +48,15 @@ function ls_theme_resolve_portable_navigation_ref( $parsed_block ) {
 		return $parsed_block;
 	}
 
-	$ref = $parsed_block['attrs']['ref'] ?? null;
+	if ( ! array_key_exists( 'ref', $parsed_block['attrs'] ?? array() ) ) {
+		return $parsed_block;
+	}
+
+	if ( 'mobile-menu' !== ( $parsed_block['attrs']['mobileMenuSlug'] ?? '' ) ) {
+		return $parsed_block;
+	}
+
+	$ref = $parsed_block['attrs']['ref'];
 
 	if ( $ref && 'wp_navigation' === get_post_type( $ref ) && 'publish' === get_post_status( $ref ) ) {
 		return $parsed_block;
