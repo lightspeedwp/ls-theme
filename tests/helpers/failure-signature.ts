@@ -42,13 +42,25 @@ export function extractFailureSignature(message: string): string {
 		return 'placeholder-links';
 	}
 
-	// Fallback (page-health, runtime-errors, network-errors): these
-	// messages are shaped "<check> on <page-url>\n<actual diff content>".
-	// Strip the page-URL wrapper so the same underlying diff (e.g. the same
-	// broken CSS file referenced in a console error) collapses across every
-	// page it appears on, while a genuinely different diff still produces a
-	// different signature.
+	// Fallback (page-health, runtime-errors, network-errors): strip the
+	// specific page URL being checked so the same underlying defect (e.g. a
+	// shared template throwing a 500, or a PHP notice present on every
+	// archive page) collapses into one task across every page it appears on,
+	// instead of one task per page. This only strips the URL of the page
+	// *being checked* — it deliberately does NOT touch URLs that appear
+	// inside a toEqual diff's actual values (e.g. a specific broken resource
+	// referenced in a network-error array), since two different broken
+	// resources really are two different bugs and must stay separate.
+	//
+	// Matched against the real message shapes in helpers/page-health.ts —
+	// if that file's wording changes, these patterns need updating too.
 	return message
+		.replace(
+			/^(Expected a response when navigating to )https?:\/\/\S+$/,
+			'$1<page-url>'
+		)
+		.replace(/^(Expected )https?:\/\/\S+( to return )/, '$1<page-url>$2')
+		.replace(/^(Found a PHP error signature on )https?:\/\/\S+(: )/, '$1<page-url>$2')
 		.replace(/^[A-Za-z0-9 ]+ (?:on|at \d+px on) https?:\/\/\S+\n?/, '')
 		.trim();
 }
