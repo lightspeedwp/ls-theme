@@ -153,6 +153,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/homepage-why-lightspeed.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		'search-results'          => array(
+			'handle'   => 'ls-theme-search-results',
+			'path'     => 'assets/css/search-results.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 	);
 
 	/**

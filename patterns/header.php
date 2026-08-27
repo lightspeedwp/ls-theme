@@ -25,7 +25,7 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:navigation {"ref":226,"mobileMenuSlug":"mobile-menu","mobileMenuBreakpointEnabled":true,"mobileMenuBreakpoint":1024,"layout":{"type":"flex","justifyContent":"left","flexWrap":"nowrap"}} /-->
+<!-- wp:navigation {"ref":53534,"mobileMenuSlug":"mobile-menu","mobileMenuBreakpointEnabled":true,"mobileMenuBreakpoint":1024,"layout":{"type":"flex","justifyContent":"left","flexWrap":"nowrap"}} /-->
 
 <!-- wp:group {"className":"site-header__actions","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group site-header__actions"><!-- wp:group {"className":"site-header__search","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
@@ -34,7 +34,7 @@
 
 <!-- wp:buttons {"style":{"spacing":{"blockGap":"0"}}} -->
 <div class="wp-block-buttons"><!-- wp:button {"className":"ls-button-cta-gradient","style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"color":{"gradient":"linear-gradient(135deg, var(--wp--custom--color--phase--create) 0%, var(--wp--custom--color--link--accent) 60%, var(--wp--custom--color--link--accent) 100%)","text":"var:custom|color|button|fill|text"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|20","bottom":"var:preset|spacing|10","left":"var:preset|spacing|20"}},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"},"dimensions":{"minHeight":"var:custom|spacing|tap-target-min"}},"fontSize":"200"} -->
-<div class="wp-block-button ls-button-cta-gradient"><a class="wp-block-button__link has-text-color has-background has-border-color has-200-font-size has-custom-font-size wp-element-button" href="#" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);color:var(--wp--custom--color--button--fill--text);background:linear-gradient(135deg, var(--wp--custom--color--phase--create) 0%, var(--wp--custom--color--link--accent) 60%, var(--wp--custom--color--link--accent) 100%);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--bold);min-height:var(--wp--custom--spacing--tap-target-min)"><?php echo esc_html__( 'Start a project →', 'ls-theme' ); ?></a></div>
+<div class="wp-block-button ls-button-cta-gradient" style="min-height:var(--wp--custom--spacing--tap-target-min)"><a class="wp-block-button__link has-text-color has-background has-border-color has-200-font-size has-custom-font-size wp-element-button" href="#" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);color:var(--wp--custom--color--button--fill--text);background:linear-gradient(135deg, var(--wp--custom--color--phase--create) 0%, var(--wp--custom--color--link--accent) 60%, var(--wp--custom--color--link--accent) 100%);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--20);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Start a project →', 'ls-theme' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

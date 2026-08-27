@@ -77,6 +77,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/stats-bar.css' );
 	add_editor_style( 'assets/css/homepage-card-rows.css' );
 	add_editor_style( 'assets/css/homepage-why-lightspeed.css' );
+	add_editor_style( 'assets/css/search-results.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 
