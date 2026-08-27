@@ -15,6 +15,26 @@ import { getLocalReporterEmail } from '../helpers/reporter-identity';
 // completely, even on failure.
 const STANDING_SPECS_DIR = path.join('tests', 'specs', 'standing');
 
+// BugHerd task descriptions have a hard length limit; stay safely under it
+// rather than risk the create-task API call failing outright.
+const MAX_DESCRIPTION_LENGTH = 1900;
+const TRUNCATION_SUFFIX = '\n… (description truncated)';
+
+// Enough lines to show the real diff (the actual expected/received values,
+// the actual console or network error text) without letting one huge stack
+// trace consume the whole task description.
+const MAX_LINES_PER_OCCURRENCE = 12;
+
+/**
+ * Strips ANSI SGR escape codes — Playwright's own error formatting adds
+ * these for terminal colour/bold, but BugHerd's UI renders them as either
+ * garbage characters or invisible control codes, never as actual colour.
+ */
+function stripAnsi(text: string): string {
+	// eslint-disable-next-line no-control-regex
+	return text.replace(/\x1b\[[0-9;]*m/g, '');
+}
+
 function isStandingSpec(test: TestCase): boolean {
 	const relativePath = path.relative(process.cwd(), test.location.file);
 	return relativePath.startsWith(STANDING_SPECS_DIR + path.sep);
@@ -172,12 +192,42 @@ export default class BugherdReporter implements Reporter {
 	): string {
 		const uniqueMessages = [...new Set(messages)];
 		const label = humanizeSignature(signature);
-		return (
+		const header =
 			`${label}\n\n` +
 			`Found by the standing Playwright suite — Spec: ${specRelativePath} — Test: ${test.title}\n\n` +
-			`Occurrences (${messages.length}):\n` +
-			uniqueMessages.map((m) => `- ${m.split('\n')[0]}`).join('\n')
-		);
+			`Occurrences (${messages.length}):\n`;
+
+		const occurrenceBlocks = uniqueMessages.map((m) => this.formatOccurrence(m));
+
+		let description = header + occurrenceBlocks.join('\n\n');
+		if (description.length > MAX_DESCRIPTION_LENGTH) {
+			description =
+				description.slice(0, MAX_DESCRIPTION_LENGTH - TRUNCATION_SUFFIX.length).trimEnd() +
+				TRUNCATION_SUFFIX;
+		}
+		return description;
+	}
+
+	/**
+	 * Keeps the real assertion diff (the actual expected-vs-received content,
+	 * the actual console/network error text) instead of the previous
+	 * behaviour of keeping only the generic first line. That first line is
+	 * near-identical boilerplate across unrelated bugs (e.g. every `toEqual`
+	 * mismatch reads "expect(received).toEqual(expected) // deep equality"
+	 * regardless of what actually differed) — showing only that line is what
+	 * made genuinely distinct failures look like duplicates to BugHerd's own
+	 * similarity detection and to a human reviewing the task list.
+	 *
+	 * Still caps per-occurrence length so one runaway stack trace can't
+	 * consume the entire task description.
+	 */
+	private formatOccurrence(message: string): string {
+		const cleanedLines = stripAnsi(message).trim().split('\n');
+		const shown = cleanedLines.slice(0, MAX_LINES_PER_OCCURRENCE);
+		const indented = shown.map((line, i) => (i === 0 ? line : `  ${line}`)).join('\n');
+		const truncated =
+			cleanedLines.length > MAX_LINES_PER_OCCURRENCE ? '\n  … (occurrence truncated)' : '';
+		return `- ${indented}${truncated}`;
 	}
 
 	async onEnd(_result: FullResult): Promise<void> {
