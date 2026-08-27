@@ -580,7 +580,7 @@
                     "default": "var:preset|color|contrast",
                     "decoration-start": "var:preset|color|brand-600",
                     "decoration-end": "var:preset|color|accent-700",
-                    "accent": "var:preset|color|brand-500",
+                    "accent": "var:preset|color|brand-600",
                     "accent-hover": "var:preset|color|brand-700"
                 },
 				"button": {

@@ -1,0 +1,6 @@
+// JSON limitation: overflow-wrap has no theme.json/block-supports key — see AGENTS.md Theme-First Approach.
+// Long, unbroken search queries echoed back in the query-title heading can force
+// horizontal overflow on narrow viewports; this keeps the string wrapping inside its container.
+.search .wp-block-query-title {
+	overflow-wrap: anywhere;
+}
