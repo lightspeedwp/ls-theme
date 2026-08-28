@@ -7,6 +7,7 @@ import {
 	determinePriority,
 	extractFailureSignature,
 	humanizeSignature,
+	stripAnsi,
 } from '../helpers/failure-signature';
 import { getLocalReporterEmail } from '../helpers/reporter-identity';
 
@@ -24,16 +25,6 @@ const TRUNCATION_SUFFIX = '\n… (description truncated)';
 // the actual console or network error text) without letting one huge stack
 // trace consume the whole task description.
 const MAX_LINES_PER_OCCURRENCE = 12;
-
-/**
- * Strips ANSI SGR escape codes — Playwright's own error formatting adds
- * these for terminal colour/bold, but BugHerd's UI renders them as either
- * garbage characters or invisible control codes, never as actual colour.
- */
-function stripAnsi(text: string): string {
-	// eslint-disable-next-line no-control-regex
-	return text.replace(/\x1b\[[0-9;]*m/g, '');
-}
 
 function isStandingSpec(test: TestCase): boolean {
 	const relativePath = path.relative(process.cwd(), test.location.file);

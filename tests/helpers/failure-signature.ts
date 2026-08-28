@@ -1,4 +1,16 @@
 /**
+ * Strips ANSI SGR escape codes — Playwright/Jest's own error formatting adds
+ * these for terminal colour/bold, but BugHerd's UI renders them as either
+ * garbage characters or invisible control codes, never as actual colour.
+ * Single source of truth: used both when computing the failure signature
+ * (below) and when formatting the occurrence text shown in the task body.
+ */
+export function stripAnsi(text: string): string {
+	// eslint-disable-next-line no-control-regex
+	return text.replace(/\x1b\[[0-9;]*m/g, '');
+}
+
+/**
  * Groups a raw Playwright assertion error message into a stable "bug
  * identity" signature, so 10 pages failing on the same underlying issue
  * collapse into one BugHerd task, while genuinely distinct bugs (e.g. two
@@ -10,7 +22,19 @@
  * If a helper's message wording changes, the matching pattern here needs
  * updating too.
  */
-export function extractFailureSignature(message: string): string {
+export function extractFailureSignature(rawMessage: string): string {
+	// Strip ANSI first, before any pattern below runs. A handful of checks
+	// (special-routes.spec.ts's bare `expect.soft(array).toEqual([])` calls,
+	// with no custom message) produce raw Jest output with no recognizable
+	// text at the very start — ANSI codes were sitting right where every
+	// pattern below expects to find "Expected "/"Found "/etc, so none of them
+	// ever matched, and the raw colour codes leaked straight into the
+	// signature and the task's visible label. Stripping first also means
+	// these particular messages can still collapse correctly across pages
+	// when their (now-clean) diff content is identical, even without a
+	// custom message to URL-normalize.
+	const message = stripAnsi(rawMessage);
+
 	// internal-links: the broken URL itself IS the bug identity — two
 	// different broken links are two different bugs, never merge these.
 	const brokenLinkMatch = message.match(/Expected (\S+) to resolve healthily/);
