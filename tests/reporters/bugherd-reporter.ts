@@ -148,7 +148,12 @@ export default class BugherdReporter implements Reporter {
 		const description = this.buildDescription(group);
 		const priority = determinePriority(group.specRelativePath, group.signature, group.messages);
 		const requesterEmail = getLocalReporterEmail();
-		const categoryTags = deriveCategoryTags(group.specRelativePath, group.title, group.signature);
+		const categoryTags = deriveCategoryTags(
+			group.specRelativePath,
+			group.title,
+			group.signature,
+			group.messages
+		);
 
 		const created = await createTask({
 			description,

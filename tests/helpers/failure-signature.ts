@@ -63,7 +63,7 @@ export function extractFailureSignature(message: string): string {
 	// wrongly stayed as two separate tasks instead of collapsing into one.
 	return message
 		.replace(
-			/^(?:Error: )?(Expected a response when navigating to )https?:\/\/\S+$/,
+			/^(?:Error: )?(Expected a response when navigating to )https?:\/\/\S+/,
 			'$1<page-url>'
 		)
 		.replace(/^(?:Error: )?(Expected )https?:\/\/\S+( to return )/, '$1<page-url>$2')
@@ -308,11 +308,26 @@ export const APPROVED_TAGS: ReadonlySet<string> = new Set([
 ]);
 
 /**
+ * Maps a Playwright viewport width (as tested by responsive-overflow.spec.ts
+ * and special-routes.spec.ts's own overflow check — widths 320, 375, 768,
+ * 1024, 1440) to the matching approved device tag. Returns null for a width
+ * outside this known set, so an unrecognized width is omitted rather than
+ * guessed.
+ */
+function deviceTagForWidth(width: number): string | null {
+	if (width <= 480) return 'device:mobile';
+	if (width <= 800) return 'device:tablet-portrait';
+	if (width <= 1200) return 'device:tablet-landscape';
+	return 'device:desktop';
+}
+
+/**
  * Derives BugHerd category tags for a failure from information already
- * computed elsewhere (the failure signature, the spec path, the test title)
- * — never from free text or an AI suggestion. Every candidate tag is
- * filtered against APPROVED_TAGS before being returned, so this function
- * structurally cannot emit a tag BugHerd doesn't already have saved.
+ * computed elsewhere (the failure signature, the spec path, the test title,
+ * the raw occurrence messages) — never from free text or an AI suggestion.
+ * Every candidate tag is filtered against APPROVED_TAGS before being
+ * returned, so this function structurally cannot emit a tag BugHerd doesn't
+ * already have saved.
  *
  * Deliberately conservative: only adds a tag when the signature/spec/title
  * give a confident, unambiguous signal. When in doubt, it's better to under-
@@ -322,7 +337,8 @@ export const APPROVED_TAGS: ReadonlySet<string> = new Set([
 export function deriveCategoryTags(
 	specRelativePath: string,
 	testTitle: string,
-	signature: string
+	signature: string,
+	messages: string[] = []
 ): string[] {
 	const tags = new Set<string>(['type:bug']);
 	const title = testTitle.toLowerCase();
@@ -332,10 +348,23 @@ export function deriveCategoryTags(
 	} else if (signature.startsWith('axe:')) {
 		tags.add('type:a11y');
 	} else if (signature.startsWith('overflow:')) {
-		// The standing suite's overflow check only ever runs at the 375px
-		// mobile viewport (see special-routes.spec.ts / responsive-overflow
-		// spec) — the failure is inherently a mobile-only defect.
-		tags.add('device:mobile');
+		// The overflow check runs at several widths — mobile, tablet, and
+		// desktop (see responsive-overflow.spec.ts's VIEWPORT_WIDTHS and
+		// special-routes.spec.ts's own 375px check) — so the width has to be
+		// read from the actual occurrence messages, not assumed. If a single
+		// group's occurrences span more than one distinct width (the same
+		// offending selector failing at, say, both 768px and 1024px), no
+		// single device tag would be accurate, so none is added.
+		const widths = new Set(
+			messages
+				.map((m) => m.match(/Horizontal overflow at (\d+)px/)?.[1])
+				.filter((w): w is string => Boolean(w))
+				.map(Number)
+		);
+		if (widths.size === 1) {
+			const deviceTag = deviceTagForWidth([...widths][0]);
+			if (deviceTag) tags.add(deviceTag);
+		}
 	}
 
 	// Route/page-specific tags: only added when the test title makes the
