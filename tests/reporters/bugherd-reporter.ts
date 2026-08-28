@@ -56,123 +56,99 @@ function stableExternalId(specRelativePath: string, signature: string): string {
 	return `playwright-standing-${hash.slice(0, 16)}`;
 }
 
-/**
- * Groups this test's errors by failure signature, so 10 pages failing on
- * the same underlying bug become one entry, not ten.
- */
-function groupErrorsBySignature(result: TestResult): Map<string, string[]> {
-	const groups = new Map<string, string[]>();
-	for (const error of result.errors) {
-		if (!error.message) continue;
-		const signature = extractFailureSignature(error.message);
-		const existing = groups.get(signature) ?? [];
-		existing.push(error.message);
-		groups.set(signature, existing);
-	}
-	return groups;
-}
+type FailureGroup = {
+	specRelativePath: string;
+	signature: string;
+	// Title of the first test that hit this signature — used for tag
+	// derivation (e.g. detecting "404"/"search" in the title) and for the
+	// description header. When several different pages/tests share a
+	// signature, they're the same underlying bug, so one representative
+	// title is enough context.
+	title: string;
+	messages: string[];
+};
 
 export default class BugherdReporter implements Reporter {
-	private pending: Promise<void>[] = [];
-	// Serializes find-then-create per external_id. Without this, two tests
-	// with the same failure signature running in different Playwright
-	// workers can both see "no existing task" at the same moment and both
-	// create one — this chains same-key calls so the second always sees the
-	// first's result before deciding whether to create.
-	private locksByExternalId = new Map<string, Promise<void>>();
-	// Records every external_id already resolved (created or found-open)
-	// during THIS run. The lock above already guarantees these calls run one
-	// at a time, but BugHerd's own lookup endpoint may not immediately return
-	// a task this same run just created a moment earlier (read-after-write
-	// lag) — a second browser project hitting the identical failure could
-	// still ask "does this exist?" and wrongly hear "no". Once we know the
-	// answer for an external_id this run, trust that instead of asking
-	// BugHerd again. Reset per run (per BugherdReporter instance) — this is
-	// a plain in-memory Set, not a file or a persisted store, so it never
-	// grows across runs.
-	private handledExternalIdsThisRun = new Set<string>();
+	// Every failed standing-spec test result, collected as the run goes —
+	// nothing is reported to BugHerd until the whole run is finished. This
+	// means every task is created with the COMPLETE set of pages it affects
+	// from the start, instead of the first page to fail "winning" and every
+	// other affected page being silently lost. It also removes the need for
+	// any in-run locking/dedup cache: reporting happens once, in one
+	// sequential pass, after every worker/browser project has already
+	// finished — there's nothing left to race against.
+	private collected: Array<{ test: TestCase; result: TestResult }> = [];
 
 	onTestEnd(test: TestCase, result: TestResult): void {
 		if (!isStandingSpec(test)) return;
 		if (result.status !== 'failed' && result.status !== 'timedOut') return;
-
-		// Queue the work rather than awaiting inline — onTestEnd itself isn't
-		// async-awaited by Playwright, so we track promises and settle them
-		// in onEnd to make sure nothing is dropped when the run finishes.
-		this.pending.push(this.reportTest(test, result));
+		this.collected.push({ test, result });
 	}
 
-	private async reportTest(test: TestCase, result: TestResult): Promise<void> {
-		const specRelativePath = path.relative(process.cwd(), test.location.file);
-		const groups = groupErrorsBySignature(result);
+	async onEnd(_result: FullResult): Promise<void> {
+		const groups = this.groupAllFailures();
 
-		for (const [signature, messages] of groups) {
+		for (const [externalId, group] of groups) {
 			try {
-				await this.reportSignature(test, specRelativePath, signature, messages);
+				await this.reportGroup(externalId, group);
 			} catch (err) {
 				// A BugHerd API failure must never crash the test run itself —
 				// log and move on, same as any other reporter-side side effect.
 				console.error(
-					`[bugherd-reporter] Failed to report "${test.title}" (${signature}): ${
-						(err as Error).message
-					}`
+					`[bugherd-reporter] Failed to report ${externalId}: ${(err as Error).message}`
 				);
 			}
 		}
 	}
 
-	private async reportSignature(
-		test: TestCase,
-		specRelativePath: string,
-		signature: string,
-		messages: string[]
-	): Promise<void> {
-		const externalId = stableExternalId(specRelativePath, signature);
+	/**
+	 * Groups every failure from every test in the run by failure signature —
+	 * across ALL pages/tests, not just within a single test's own errors.
+	 * This is what makes "the same bug on 5 pages" collapse into one group
+	 * with 5 occurrences, computed once the full picture is known, rather
+	 * than relying on a live BugHerd lookup mid-run to catch repeats.
+	 */
+	private groupAllFailures(): Map<string, FailureGroup> {
+		const groups = new Map<string, FailureGroup>();
 
-		// Chain onto any in-flight report for this same external_id so the
-		// find-then-create sequence below never overlaps with itself.
-		const previous = this.locksByExternalId.get(externalId) ?? Promise.resolve();
-		const next = previous.then(() =>
-			this.reportSignatureLocked(test, specRelativePath, externalId, signature, messages)
-		);
-		// Swallow errors here so one failed report doesn't permanently wedge
-		// the lock chain for that key — the real error is still logged by
-		// reportTest's own try/catch around this call.
-		this.locksByExternalId.set(
-			externalId,
-			next.then(
-				() => undefined,
-				() => undefined
-			)
-		);
-		return next;
-	}
+		for (const { test, result } of this.collected) {
+			const specRelativePath = path.relative(process.cwd(), test.location.file);
 
-	private async reportSignatureLocked(
-		test: TestCase,
-		specRelativePath: string,
-		externalId: string,
-		signature: string,
-		messages: string[]
-	): Promise<void> {
-		if (this.handledExternalIdsThisRun.has(externalId)) {
-			console.log(`[bugherd-reporter] Already handled this run: ${externalId}`);
-			return;
+			for (const error of result.errors) {
+				if (!error.message) continue;
+
+				const signature = extractFailureSignature(error.message);
+				const externalId = stableExternalId(specRelativePath, signature);
+
+				const existing = groups.get(externalId);
+				if (existing) {
+					existing.messages.push(error.message);
+				} else {
+					groups.set(externalId, {
+						specRelativePath,
+						signature,
+						title: test.title,
+						messages: [error.message],
+					});
+				}
+			}
 		}
 
+		return groups;
+	}
+
+	private async reportGroup(externalId: string, group: FailureGroup): Promise<void> {
 		const existing = await findTaskByExternalId(externalId);
 
 		if (existing && !existing.closed_at) {
 			console.log(`[bugherd-reporter] Already tracked (open): ${externalId}`);
-			this.handledExternalIdsThisRun.add(externalId);
 			return;
 		}
 
-		const description = this.buildDescription(test, specRelativePath, signature, messages);
-		const priority = determinePriority(specRelativePath, signature, messages);
+		const description = this.buildDescription(group);
+		const priority = determinePriority(group.specRelativePath, group.signature, group.messages);
 		const requesterEmail = getLocalReporterEmail();
-
-		const categoryTags = deriveCategoryTags(specRelativePath, test.title, signature);
+		const categoryTags = deriveCategoryTags(group.specRelativePath, group.title, group.signature);
 
 		const created = await createTask({
 			description,
@@ -181,10 +157,6 @@ export default class BugherdReporter implements Reporter {
 			priority,
 			...(requesterEmail ? { requester_email: requesterEmail } : {}),
 		});
-		// Mark handled only after a successful create — if createTask throws,
-		// leave this unmarked so a later occurrence of the same signature this
-		// run still gets a genuine retry rather than being silently skipped.
-		this.handledExternalIdsThisRun.add(externalId);
 
 		if (existing && existing.closed_at) {
 			// Previously closed, now reappeared: create a fresh task rather than
@@ -205,18 +177,13 @@ export default class BugherdReporter implements Reporter {
 		}
 	}
 
-	private buildDescription(
-		test: TestCase,
-		specRelativePath: string,
-		signature: string,
-		messages: string[]
-	): string {
-		const uniqueMessages = [...new Set(messages)];
-		const label = humanizeSignature(signature);
+	private buildDescription(group: FailureGroup): string {
+		const uniqueMessages = [...new Set(group.messages)];
+		const label = humanizeSignature(group.signature);
 		const header =
 			`${label}\n\n` +
-			`Found by the standing Playwright suite — Spec: ${specRelativePath} — Test: ${test.title}\n\n` +
-			`Occurrences (${messages.length}):\n`;
+			`Found by the standing Playwright suite — Spec: ${group.specRelativePath} — Test: ${group.title}\n\n` +
+			`Occurrences (${group.messages.length}):\n`;
 
 		const occurrenceBlocks = uniqueMessages.map((m) => this.formatOccurrence(m));
 
@@ -231,16 +198,10 @@ export default class BugherdReporter implements Reporter {
 
 	/**
 	 * Keeps the real assertion diff (the actual expected-vs-received content,
-	 * the actual console/network error text) instead of the previous
-	 * behaviour of keeping only the generic first line. That first line is
-	 * near-identical boilerplate across unrelated bugs (e.g. every `toEqual`
-	 * mismatch reads "expect(received).toEqual(expected) // deep equality"
-	 * regardless of what actually differed) — showing only that line is what
-	 * made genuinely distinct failures look like duplicates to BugHerd's own
-	 * similarity detection and to a human reviewing the task list.
-	 *
-	 * Still caps per-occurrence length so one runaway stack trace can't
-	 * consume the entire task description.
+	 * the actual console/network error text) instead of only a generic first
+	 * line, and strips ANSI colour codes that would otherwise render as
+	 * garbage in BugHerd's UI. Still caps per-occurrence length so one
+	 * runaway stack trace can't consume the entire task description.
 	 */
 	private formatOccurrence(message: string): string {
 		const cleanedLines = stripAnsi(message).trim().split('\n');
@@ -249,9 +210,5 @@ export default class BugherdReporter implements Reporter {
 		const truncated =
 			cleanedLines.length > MAX_LINES_PER_OCCURRENCE ? '\n  … (occurrence truncated)' : '';
 		return `- ${indented}${truncated}`;
-	}
-
-	async onEnd(_result: FullResult): Promise<void> {
-		await Promise.all(this.pending);
 	}
 }

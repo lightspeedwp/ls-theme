@@ -54,14 +54,24 @@ export function extractFailureSignature(message: string): string {
 	//
 	// Matched against the real message shapes in helpers/page-health.ts —
 	// if that file's wording changes, these patterns need updating too.
+	//
+	// Playwright prepends "Error: " to every expect() failure message
+	// (confirmed against real BugHerd task output, not assumed) — every
+	// pattern below tolerates that optional prefix. The earlier version of
+	// this code didn't, so it silently never matched real Playwright output
+	// and two occurrences of the same underlying bug on different fake pages
+	// wrongly stayed as two separate tasks instead of collapsing into one.
 	return message
 		.replace(
-			/^(Expected a response when navigating to )https?:\/\/\S+$/,
+			/^(?:Error: )?(Expected a response when navigating to )https?:\/\/\S+$/,
 			'$1<page-url>'
 		)
-		.replace(/^(Expected )https?:\/\/\S+( to return )/, '$1<page-url>$2')
-		.replace(/^(Found a PHP error signature on )https?:\/\/\S+(: )/, '$1<page-url>$2')
-		.replace(/^[A-Za-z0-9 ]+ (?:on|at \d+px on) https?:\/\/\S+\n?/, '')
+		.replace(/^(?:Error: )?(Expected )https?:\/\/\S+( to return )/, '$1<page-url>$2')
+		.replace(
+			/^(?:Error: )?(Found a PHP error signature on )https?:\/\/\S+(: )/,
+			'$1<page-url>$2'
+		)
+		.replace(/^(?:Error: )?[A-Za-z0-9 ]+ (?:on|at \d+px on) https?:\/\/\S+\n?/, '')
 		.trim();
 }
 
