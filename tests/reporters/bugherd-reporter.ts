@@ -7,6 +7,7 @@ import {
 	determinePriority,
 	extractFailureSignature,
 	humanizeSignature,
+	isTestInfrastructureNoise,
 	stripAnsi,
 } from '../helpers/failure-signature';
 import { getLocalReporterEmail } from '../helpers/reporter-identity';
@@ -107,6 +108,14 @@ export default class BugherdReporter implements Reporter {
 
 			for (const error of result.errors) {
 				if (!error.message) continue;
+				if (isTestInfrastructureNoise(error.message)) {
+					console.log(
+						`[bugherd-reporter] Skipping test-infrastructure noise (not a site bug): ${error.message
+							.split('\n')[0]
+							.trim()}`
+					);
+					continue;
+				}
 
 				const signature = extractFailureSignature(error.message);
 				const externalId = stableExternalId(specRelativePath, signature);

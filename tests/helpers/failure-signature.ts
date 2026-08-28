@@ -11,6 +11,27 @@ export function stripAnsi(text: string): string {
 }
 
 /**
+ * Patterns that mean "the test runner itself had a problem," not "the site
+ * has a bug" — a timeout, a browser/context closing mid-test, a run being
+ * killed. These must never become BugHerd tasks: a timeout says nothing
+ * about the site being tested, and reporting it as a "bug" is actively
+ * misleading. Confirmed against real examples that were wrongly created as
+ * tasks (e.g. "Test timeout of 30000ms exceeded.",
+ * "apiRequestContext.get: Target page, context or browser has been closed").
+ */
+const INFRASTRUCTURE_NOISE_PATTERNS = [
+	/^Test timeout of \d+ms exceeded\.?$/,
+	/Target page, context or browser has been closed/,
+	/^(?:Error: )?page\.goto: Test ended\.?$/,
+];
+
+/** True if `message` is test-runner noise rather than a real site failure. */
+export function isTestInfrastructureNoise(rawMessage: string): boolean {
+	const message = stripAnsi(rawMessage).trim();
+	return INFRASTRUCTURE_NOISE_PATTERNS.some((pattern) => pattern.test(message));
+}
+
+/**
  * Groups a raw Playwright assertion error message into a stable "bug
  * identity" signature, so 10 pages failing on the same underlying issue
  * collapse into one BugHerd task, while genuinely distinct bugs (e.g. two
@@ -85,6 +106,35 @@ export function extractFailureSignature(rawMessage: string): string {
 		return 'placeholder-links';
 	}
 
+	// network/console errors: a single broken static asset (a CSS/JS file
+	// returning the wrong content, a missing image, etc.) shows up in
+	// completely different message shapes depending on which spec caught it
+	// (network-errors.spec.ts's "Failed requests", runtime-errors.spec.ts's
+	// "Console errors", special-routes.spec.ts's 4 separate bare checks) and
+	// which browser reported it (Chromium: "Refused to apply style...",
+	// Firefox: "[JavaScript Error: ...]", WebKit: a plain 404). None of that
+	// wording overlaps, so without this, one broken file fragments into a
+	// task per spec × per check × per browser — confirmed on a real run: one
+	// broken CSS file produced 16 separate tasks.
+	//
+	// Fix: pull out the actual broken asset's URL (a concrete, verifiable
+	// fact) and group by that instead of the surrounding prose. Scoped
+	// deliberately narrow — only URLs ending in a known static-asset
+	// extension match, with the query string stripped (a cache-busting
+	// ?ver= must not fragment grouping, but also must never be trusted to
+	// disambiguate two genuinely different files). This intentionally does
+	// NOT match dynamic/tokenised URLs (e.g. Cloudflare's
+	// /cdn-cgi/challenge-platform/.../<random-token> paths) since those
+	// don't end in a static extension — merging those would risk treating
+	// genuinely different per-page challenge requests as one bug, which is
+	// a real but separate, harder problem left alone here.
+	const staticResourceUrls = [...message.matchAll(/https?:\/\/\S+/g)]
+		.map((m) => m[0].replace(/["'\]).,]+$/, '').split('?')[0])
+		.filter((url) => /\.(?:css|js|mjs|png|jpe?g|svg|webp|gif|ico|woff2?|ttf|eot)$/i.test(url));
+	if (staticResourceUrls.length > 0) {
+		return `resource:${[...new Set(staticResourceUrls)].sort().join(',')}`;
+	}
+
 	// Fallback (page-health, runtime-errors, network-errors): strip the
 	// specific page URL being checked so the same underlying defect (e.g. a
 	// shared template throwing a 500, or a PHP notice present on every
@@ -136,6 +186,9 @@ export function humanizeSignature(signature: string): string {
 	}
 	if (signature === 'placeholder-links') {
 		return 'Placeholder href="#" links found (real destinations needed)';
+	}
+	if (signature.startsWith('resource:')) {
+		return `Broken resource: ${signature.slice('resource:'.length)}`;
 	}
 	// Fallback signatures are already the stripped diff content — take the
 	// first line as the label, since it's usually the specific broken
