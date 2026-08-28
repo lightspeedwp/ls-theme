@@ -33,7 +33,15 @@ export function extractFailureSignature(rawMessage: string): string {
 	// these particular messages can still collapse correctly across pages
 	// when their (now-clean) diff content is identical, even without a
 	// custom message to URL-normalize.
-	const message = stripAnsi(rawMessage);
+	// Firefox appends "{file: "<page-url>" line: N}" to console-error text —
+	// its own debugging metadata repeating the current page's URL, not part
+	// of the actual error. Chromium doesn't add this, so without stripping
+	// it, the identical underlying bug groups correctly across pages in
+	// Chromium (identical message) but never groups at all in Firefox (every
+	// page's message differs only in this trailing, meaningless fragment).
+	// Always safe to strip: it's a fixed, recognizable devtools-metadata
+	// pattern, never part of the actual diagnostic content.
+	const message = stripAnsi(rawMessage).replace(/\s*\{file:\s*"[^"]*"\s*line:\s*\d+\}/g, '');
 
 	// internal-links: the broken URL itself IS the bug identity — two
 	// different broken links are two different bugs, never merge these.
