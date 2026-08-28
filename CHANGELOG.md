@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Sync mobile menu links with desktop mega menus (LS-2801)
+
+### Fixed
+
+- Fixed `parts/mobile-menu.html` still using the original placeholder titles and `href="#"` links across all 6 dropdowns (Work, Solutions, Services, Pricing, Insights, About) — these were never updated when the desktop mega menus were wired to real pages/posts. Every item now matches its desktop equivalent's label and real URL exactly.
+- Fixed the mobile menu's two footer action buttons ("Book a consultation" and "Start a project") both linking to `#` and pointing at the same destination as each other. "Start a project" is now the primary button, linking to `/free-consultation/` to match the desktop header's CTA; the secondary button now reads "Explore case studies" and links to `/work/`, reusing the same pairing already established on the homepage hero.
+
+### Notes
+
+- Confirmed mobile and desktop are otherwise in full parity — every link/label pair cross-checked programmatically. Desktop's secondary per-dropdown CTAs (e.g. "Book a free consultation" on Work, "Tell us about your project" on Pricing) were deliberately not added to mobile, since they'd duplicate the persistent "Start a project" button already visible at all times in the mobile menu.
+
+---
+
 ## [Unreleased] — Audit link cursor behaviour across theme patterns and templates (LS-2804)
 
 ### Fixed
