@@ -260,8 +260,16 @@ export default class BugherdReporter implements Reporter {
 		}
 
 		if (signature.startsWith('broken-link:')) {
-			const reasonMatch = message.match(/\(([^)]+)\)\s*$/m);
-			return `- ${page}${reasonMatch ? ` — ${reasonMatch[1]}` : ''}`;
+			// checkUrlStatus() checks the link itself, not a page it was found
+			// on, so there's no separate "page" — the URL in the message IS
+			// what's being reported. A generic trailing-parenthetical regex
+			// here would wrongly match Jest's own boilerplate
+			// (`expect(received).toBeLessThan(expected)`) instead of the real
+			// received status code, so this looks for that specifically.
+			const brokenUrlMatch = message.match(/Expected (\S+) to resolve healthily/);
+			const receivedMatch = message.match(/Received:\s*(\d+)/);
+			const target = brokenUrlMatch ? brokenUrlMatch[1] : page;
+			return `- ${target}${receivedMatch ? ` — received ${receivedMatch[1]}` : ''}`;
 		}
 
 		// Generic fallback: no dedicated extractor for this signature shape —

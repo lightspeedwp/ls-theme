@@ -30,8 +30,12 @@ const INFRASTRUCTURE_NOISE_PATTERNS = [
 	// timeout wrapper. Root cause is fixed by the testInfo.setTimeout(...)
 	// budgets added to every standing spec that loops over siteUrls; this is
 	// the safety net for when a genuinely slow dev site still runs over.
-	/^(?:Error: )?page\.goto: net::ERR_ABORTED; maybe frame was detached\?$/,
-	/^(?:Error: )?apiRequestContext\.get: Request context disposed\.?$/,
+	// Not anchored to the end of the message — the real rejection is
+	// usually followed by Playwright's own call-log block, which a `$`
+	// anchor would wrongly refuse to match (confirmed: this slipped
+	// through on the first version of this fix — task #186, "unknown page").
+	/page\.goto: net::ERR_ABORTED; maybe frame was detached\?/,
+	/apiRequestContext\.get: Request context disposed\.?/,
 ];
 
 /** True if `message` is test-runner noise rather than a real site failure. */
