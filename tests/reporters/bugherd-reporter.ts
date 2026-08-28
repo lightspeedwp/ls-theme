@@ -22,10 +22,11 @@ const STANDING_SPECS_DIR = path.join('tests', 'specs', 'standing');
 const MAX_DESCRIPTION_LENGTH = 1900;
 const TRUNCATION_SUFFIX = '\n… (description truncated)';
 
-// Enough lines to show the real diff (the actual expected/received values,
-// the actual console or network error text) without letting one huge stack
-// trace consume the whole task description.
-const MAX_LINES_PER_OCCURRENCE = 12;
+// BugHerd's description field renders plain text, not Markdown — "## " or
+// "**bold**" would show up as literal characters. ALL-CAPS section labels and
+// "- " bullet lines are the closest thing to real headings/bullets it has.
+const MAX_ARRAY_ITEMS_SHOWN = 5;
+const MAX_FALLBACK_SUMMARY_LENGTH = 150;
 
 function isStandingSpec(test: TestCase): boolean {
 	const relativePath = path.relative(process.cwd(), test.location.file);
@@ -182,38 +183,124 @@ export default class BugherdReporter implements Reporter {
 		}
 	}
 
+	/**
+	 * Plain-text pseudo-headings (BugHerd's description field has no Markdown
+	 * rendering — "## "/"**" would show up as literal characters) followed by
+	 * one "- " bullet per affected page. Replaces the old approach of
+	 * repeating the full Jest diff boilerplate (identical across every
+	 * occurrence) once per page — that added no information after the first
+	 * repetition and pushed the actually-useful content past the truncation
+	 * cap.
+	 */
 	private buildDescription(group: FailureGroup): string {
 		const uniqueMessages = [...new Set(group.messages)];
-		const label = humanizeSignature(group.signature);
+		const label = humanizeSignature(group.signature).toUpperCase();
 		const header =
-			`${label}\n\n` +
-			`Found by the standing Playwright suite — Spec: ${group.specRelativePath} — Test: ${group.title}\n\n` +
-			`Occurrences (${group.messages.length}):\n`;
+			`${label}\n` +
+			`Spec: ${group.specRelativePath} — Test: ${group.title}\n` +
+			`Occurrences: ${group.messages.length}\n\n` +
+			`AFFECTED PAGES\n`;
 
-		const occurrenceBlocks = uniqueMessages.map((m) => this.formatOccurrence(m));
+		const bulletLines = uniqueMessages.map((m) => this.summarizeOccurrence(group.signature, m));
 
-		let description = header + occurrenceBlocks.join('\n\n');
+		let description = header + bulletLines.join('\n');
 		if (description.length > MAX_DESCRIPTION_LENGTH) {
-			description =
-				description.slice(0, MAX_DESCRIPTION_LENGTH - TRUNCATION_SUFFIX.length).trimEnd() +
-				TRUNCATION_SUFFIX;
+			const budget = MAX_DESCRIPTION_LENGTH - TRUNCATION_SUFFIX.length;
+			// Cut on a line boundary rather than mid-bullet, so a truncated
+			// description never ends on a half-written page/URL.
+			const truncatable = description.slice(0, budget);
+			const lastNewline = truncatable.lastIndexOf('\n');
+			description = (lastNewline > header.length ? truncatable.slice(0, lastNewline) : truncatable)
+				.trimEnd() + TRUNCATION_SUFFIX;
 		}
 		return description;
 	}
 
 	/**
-	 * Keeps the real assertion diff (the actual expected-vs-received content,
-	 * the actual console/network error text) instead of only a generic first
-	 * line, and strips ANSI colour codes that would otherwise render as
-	 * garbage in BugHerd's UI. Still caps per-occurrence length so one
-	 * runaway stack trace can't consume the entire task description.
+	 * Reduces one raw occurrence message down to a single scannable bullet:
+	 * the affected page, plus whatever category-specific detail is actually
+	 * useful (which links, which resource, which viewport, how many a11y
+	 * nodes). Falls back to a short first-line summary for signature shapes
+	 * with no dedicated extractor, rather than guessing at a format that
+	 * might not match the real message.
 	 */
-	private formatOccurrence(message: string): string {
-		const cleanedLines = stripAnsi(message).trim().split('\n');
-		const shown = cleanedLines.slice(0, MAX_LINES_PER_OCCURRENCE);
-		const indented = shown.map((line, i) => (i === 0 ? line : `  ${line}`)).join('\n');
-		const truncated =
-			cleanedLines.length > MAX_LINES_PER_OCCURRENCE ? '\n  … (occurrence truncated)' : '';
-		return `- ${indented}${truncated}`;
+	private summarizeOccurrence(signature: string, rawMessage: string): string {
+		const message = stripAnsi(rawMessage);
+		const page = this.extractPageUrl(message) ?? 'unknown page';
+		const arrayItems = this.extractArrayItems(message);
+
+		if (signature === 'placeholder-links') {
+			const items = arrayItems.slice(0, MAX_ARRAY_ITEMS_SHOWN);
+			const suffix = items.length > 0 ? ` — ${items.join(', ')}` : '';
+			return `- ${page}${suffix}`;
+		}
+
+		if (signature.startsWith('resource:')) {
+			const items = arrayItems.slice(0, MAX_ARRAY_ITEMS_SHOWN);
+			const suffix = items.length > 0 ? ` — ${items.join('; ')}` : '';
+			return `- ${page}${suffix}`;
+		}
+
+		if (signature.startsWith('axe:')) {
+			const nodeCount = [...message.matchAll(/"html":/g)].length || 1;
+			return `- ${page} — ${nodeCount} affected node${nodeCount === 1 ? '' : 's'}`;
+		}
+
+		if (signature.startsWith('overflow:')) {
+			const widthMatch = message.match(/Horizontal overflow at (\d+)px/);
+			return `- ${page}${widthMatch ? ` @ ${widthMatch[1]}px` : ''}`;
+		}
+
+		if (signature.startsWith('broken-link:')) {
+			const reasonMatch = message.match(/\(([^)]+)\)\s*$/m);
+			return `- ${page}${reasonMatch ? ` — ${reasonMatch[1]}` : ''}`;
+		}
+
+		// Generic fallback: no dedicated extractor for this signature shape —
+		// show the page plus the first non-boilerplate line of the diff,
+		// rather than the whole message.
+		const firstLine = message
+			.trim()
+			.split('\n')
+			.map((l) => l.trim())
+			.find((l) => l.length > 0 && !/^(?:Error: )?expect\(/.test(l) && l !== '- Array []' && l !== '+ Array [');
+		const trimmedLine = firstLine
+			? firstLine.length > MAX_FALLBACK_SUMMARY_LENGTH
+				? `${firstLine.slice(0, MAX_FALLBACK_SUMMARY_LENGTH)}…`
+				: firstLine
+			: '';
+		return `- ${page}${trimmedLine ? ` — ${trimmedLine}` : ''}`;
+	}
+
+	/** Best-effort extraction of the page URL a message is about — tries the
+	 * specific phrasings this repo's standing-suite helpers use before
+	 * falling back to the first "on <url>" it can find. */
+	private extractPageUrl(message: string): string | null {
+		const patterns = [
+			/Failed requests on (\S+)/,
+			/Console errors on (\S+)/,
+			/HTTP errors on (\S+)/,
+			/Horizontal overflow at \d+px on (\S+)/,
+			/placeholder href="#" links? found on (\S+)/i,
+			/navigating to (https?:\/\/\S+)/,
+			/(?:Error: )?[A-Za-z0-9 ]+ on (https?:\/\/\S+)/,
+		];
+		for (const pattern of patterns) {
+			const match = message.match(pattern);
+			if (match) return match[1].replace(/[:.,]+$/, '');
+		}
+		return null;
+	}
+
+	/** Pulls the quoted string entries out of a Jest array-diff block (the
+	 * `+ Array [ "...", "...", ]` shape every `toEqual([])` assertion in this
+	 * suite produces), unescaping doubled quotes. */
+	private extractArrayItems(message: string): string[] {
+		const arrayBlock = message.match(/Array \[([\s\S]*?)\n\s*[+-]?\s*\]/);
+		if (!arrayBlock) return [];
+		const items = [...arrayBlock[1].matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) =>
+			m[1].replace(/\\"/g, '"')
+		);
+		return [...new Set(items)];
 	}
 }
