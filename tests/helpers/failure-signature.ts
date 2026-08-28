@@ -41,7 +41,18 @@ export function extractFailureSignature(rawMessage: string): string {
 	// page's message differs only in this trailing, meaningless fragment).
 	// Always safe to strip: it's a fixed, recognizable devtools-metadata
 	// pattern, never part of the actual diagnostic content.
-	const message = stripAnsi(rawMessage).replace(/\s*\{file:\s*"[^"]*"\s*line:\s*\d+\}/g, '');
+	//
+	// The quotes around the URL arrive as a literal backslash + quote
+	// (`\"`, two characters), not a plain `"` — Firefox's console message is
+	// itself embedded inside Jest's array-diff printer, which escapes the
+	// message's own internal quotes when rendering it as a printable array
+	// element. Verified directly against a real captured task description;
+	// the original version of this pattern only matched a bare `"` and
+	// never fired on real output, so the fix silently did nothing.
+	const message = stripAnsi(rawMessage).replace(
+		/\s*\{file:\s*\\?"[^"]*\\?"\s*line:\s*\d+\}/g,
+		''
+	);
 
 	// internal-links: the broken URL itself IS the bug identity — two
 	// different broken links are two different bugs, never merge these.
