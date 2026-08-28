@@ -9,7 +9,8 @@ test.describe('Page structure', () => {
 	test('every discovered page has a single main landmark and a sensible heading hierarchy', async ({
 		page,
 		siteUrls,
-	}) => {
+	}, testInfo) => {
+		testInfo.setTimeout(testInfo.timeout + siteUrls.length * 1500);
 		for (const { url } of siteUrls) {
 			await test.step(url, async () => {
 				await page.goto(url);

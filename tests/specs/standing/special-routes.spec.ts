@@ -55,10 +55,10 @@ test.describe('Special routes', () => {
 
 		await expectHealthyPage(page, url);
 		await expectNoPhpErrors(page);
-		expect.soft(browserErrors.consoleErrors).toEqual([]);
-		expect.soft(browserErrors.pageErrors).toEqual([]);
-		expect.soft(networkErrors.failedRequests).toEqual([]);
-		expect.soft(networkErrors.httpErrors).toEqual([]);
+		expect.soft(browserErrors.consoleErrors, `Console errors on ${url}`).toEqual([]);
+		expect.soft(browserErrors.pageErrors, `Uncaught exceptions on ${url}`).toEqual([]);
+		expect.soft(networkErrors.failedRequests, `Failed requests on ${url}`).toEqual([]);
+		expect.soft(networkErrors.httpErrors, `HTTP errors on ${url}`).toEqual([]);
 		await expectNoSeriousAccessibilityViolations(page, testInfo);
 		await page.setViewportSize({ width: 375, height: 900 });
 		await expectNoHorizontalOverflow(page, 375);
@@ -101,10 +101,10 @@ test.describe('Special routes', () => {
 		// "status < 400" corpus used by site-health.spec.ts.
 		await expectHealthyPage(page, url, 404);
 		await expectNoPhpErrors(page);
-		expect.soft(browserErrors.consoleErrors).toEqual([]);
-		expect.soft(browserErrors.pageErrors).toEqual([]);
-		expect.soft(networkErrors.failedRequests).toEqual([]);
-		expect.soft(networkErrors.httpErrors).toEqual([]);
+		expect.soft(browserErrors.consoleErrors, `Console errors on ${url}`).toEqual([]);
+		expect.soft(browserErrors.pageErrors, `Uncaught exceptions on ${url}`).toEqual([]);
+		expect.soft(networkErrors.failedRequests, `Failed requests on ${url}`).toEqual([]);
+		expect.soft(networkErrors.httpErrors, `HTTP errors on ${url}`).toEqual([]);
 		await expectNoSeriousAccessibilityViolations(page, testInfo);
 		await page.setViewportSize({ width: 375, height: 900 });
 		await expectNoHorizontalOverflow(page, 375);

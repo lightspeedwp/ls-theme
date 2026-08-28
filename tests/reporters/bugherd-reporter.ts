@@ -81,7 +81,15 @@ export default class BugherdReporter implements Reporter {
 	async onEnd(_result: FullResult): Promise<void> {
 		const groups = this.groupAllFailures();
 
+		// A small gap between groups, not just within fetchWithRetry's own
+		// backoff — spreads out the burst of create-task calls a large run
+		// with many distinct failure groups would otherwise send back-to-back,
+		// reducing how often the 429 path gets hit in the first place.
+		let isFirst = true;
 		for (const [externalId, group] of groups) {
+			if (!isFirst) await new Promise((resolve) => setTimeout(resolve, 300));
+			isFirst = false;
+
 			try {
 				await this.reportGroup(externalId, group);
 			} catch (err) {
@@ -281,7 +289,7 @@ export default class BugherdReporter implements Reporter {
 			/Console errors on (\S+)/,
 			/HTTP errors on (\S+)/,
 			/Horizontal overflow at \d+px on (\S+)/,
-			/placeholder href="#" links? found on (\S+)/i,
+			/placeholder href="#" link\(s\) on (\S+)/i,
 			/navigating to (https?:\/\/\S+)/,
 			/(?:Error: )?[A-Za-z0-9 ]+ on (https?:\/\/\S+)/,
 		];

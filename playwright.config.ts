@@ -32,7 +32,12 @@ export default defineConfig({
 	/* Retry on CI only */
 	retries: process.env.CI ? 2 : 0,
 	/* Opt out of parallel tests on CI. */
-	workers: process.env.CI ? 1 : undefined,
+	workers: process.env.CI ? 1 : 4,
+	// Config-level safety net: the standing suite's own specs extend this
+	// per-test via testInfo.setTimeout() based on how many pages they visit,
+	// but a spec that forgets to call it falls back to this instead of the
+	// bare Playwright default (30s), which is too tight for a real site.
+	timeout: 60_000,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	// bugherd-reporter self-filters to tests/specs/standing/ only — feature
 	// specs (header-search.spec.ts etc.) never reach it, even on failure.

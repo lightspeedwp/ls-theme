@@ -23,6 +23,15 @@ const INFRASTRUCTURE_NOISE_PATTERNS = [
 	/^Test timeout of \d+ms exceeded\.?$/,
 	/Target page, context or browser has been closed/,
 	/^(?:Error: )?page\.goto: Test ended\.?$/,
+	// Both of these are downstream symptoms of the SAME timeout-kill event as
+	// "Test timeout of Xms exceeded" — Playwright aborts whichever async call
+	// (page.goto / apiRequestContext.get) was in-flight at the moment a test
+	// is killed, and that call's own rejection surfaces instead of the outer
+	// timeout wrapper. Root cause is fixed by the testInfo.setTimeout(...)
+	// budgets added to every standing spec that loops over siteUrls; this is
+	// the safety net for when a genuinely slow dev site still runs over.
+	/^(?:Error: )?page\.goto: net::ERR_ABORTED; maybe frame was detached\?$/,
+	/^(?:Error: )?apiRequestContext\.get: Request context disposed\.?$/,
 ];
 
 /** True if `message` is test-runner noise rather than a real site failure. */
