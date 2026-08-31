@@ -119,6 +119,11 @@ function ls_theme_register_late_bundle_style( $key ) {
 	);
 
 	global $ls_theme_late_style_handles;
+
+	if ( ! isset( $ls_theme_late_style_handles ) ) {
+		$ls_theme_late_style_handles = array();
+	}
+
 	$ls_theme_late_style_handles[] = $effect['handle'];
 }
 
@@ -131,13 +136,24 @@ function ls_theme_register_late_bundle_style( $key ) {
  * or a raw post_content string search can reliably cover for an individually-insertable
  * pattern. See ls_theme_get_bundle_render_markers() for why this exists.
  *
+ * Skips a bundle's markers entirely once it's already been detected once this request — on a
+ * page with many blocks, there's no reason to keep running strpos() against every one of its
+ * classes on every subsequent block after the first match.
+ *
  * @param string $block_content The block content.
  * @param array  $block         The full block data.
  * @return string
  */
 function ls_theme_detect_bundles_via_render_block( $block_content, $block ) {
+	static $detected = array();
+
 	foreach ( ls_theme_get_bundle_render_markers() as $key => $markers ) {
+		if ( isset( $detected[ $key ] ) ) {
+			continue;
+		}
+
 		if ( ! empty( $markers['blocks'] ) && isset( $block['blockName'] ) && in_array( $block['blockName'], $markers['blocks'], true ) ) {
+			$detected[ $key ] = true;
 			ls_theme_register_late_bundle_style( $key );
 			continue;
 		}
@@ -145,6 +161,7 @@ function ls_theme_detect_bundles_via_render_block( $block_content, $block ) {
 		if ( ! empty( $markers['classes'] ) ) {
 			foreach ( $markers['classes'] as $class ) {
 				if ( false !== strpos( $block_content, $class ) ) {
+					$detected[ $key ] = true;
 					ls_theme_register_late_bundle_style( $key );
 					break;
 				}
