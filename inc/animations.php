@@ -45,6 +45,12 @@ function ls_theme_get_local_asset_version( $path ) {
  * (pre-existing, unrelated to this fix), so there's no reliable marker to detect — it relies
  * on its `is_front_page()` condition alone, which matches its one real usage today.
  *
+ * `card-shells`, `cta-buttons`, and `faq` also have no entry, deliberately: they have no head-
+ * time condition at all (see ls_theme_get_effect_styles()), so every use of them would always
+ * go through this safety net's footer fallback, not just the rare off-template case — a
+ * guaranteed, not edge-case, flash of unstyled content. Given their small compressed size
+ * (~10 KB, ~5 KB, ~3 KB), they're loaded unconditionally instead, same as `links`/`effects`.
+ *
  * @return array<string, array{blocks?: string[], classes?: string[]}>
  */
 function ls_theme_get_bundle_render_markers() {
@@ -64,18 +70,11 @@ function ls_theme_get_bundle_render_markers() {
 				'ls-card-divider-both',
 			),
 		),
-		'card-shells'           => array(
-			'classes' => array( 'is-style-card-feature', 'is-style-card-services', 'is-style-card-solutions', 'is-style-glass-card' ),
-		),
-		'cta-buttons'           => array(
-			'classes' => array( 'ls-cta-band', 'ls-cta-inline', 'ls-cta-strip', 'ls-cta-reassurance' ),
-		),
 		'home-hero'             => array( 'classes' => array( 'ls-home-hero-section' ) ),
 		'work-hero'             => array( 'classes' => array( 'ls-work-hero' ) ),
 		'blog-hero'             => array( 'classes' => array( 'ls-blog-hero' ) ),
 		'blog-all-articles'     => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
 		'blog-writing-cta'      => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
-		'faq'                   => array( 'blocks' => array( 'yoast/faq-block' ) ),
 		'button-secondary'      => array( 'classes' => array( 'is-style-button-secondary' ) ),
 		'featured-work'         => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'          => array( 'classes' => array( 'ls-package-card' ) ),
@@ -223,21 +222,20 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			},
 		),
 		'card-shells'             => array(
-			'handle'    => 'ls-theme-card-shells',
-			'path'      => 'assets/css/card-shells.css',
-			'contexts'  => array( 'front', 'editor' ),
-			// No template reference at all, so there's no cheap head-time condition worth
-			// having — a post_content string search misses the normal case of a pattern
-			// inserted as a `wp:pattern` reference (it stores only the slug, not the expanded
-			// markup). Relies entirely on the render_block-based safety net below.
-			'condition' => '__return_false',
+			'handle'   => 'ls-theme-card-shells',
+			'path'     => 'assets/css/card-shells.css',
+			'contexts' => array( 'front', 'editor' ),
+			// No template reference at all — used by patterns pasted into arbitrary page
+			// content, so no head-time condition can reliably cover it. Unlike the other
+			// insertable bundles, this one has no fallback condition at all — it would flash
+			// unstyled on every single use, not just a rare off-template case — so at ~10 KB
+			// compressed it's cheaper to load unconditionally than to risk that.
 		),
 		'cta-buttons'             => array(
-			'handle'    => 'ls-theme-cta-buttons',
-			'path'      => 'assets/css/cta-buttons.css',
-			'contexts'  => array( 'front', 'editor' ),
-			// Same reasoning as card-shells above.
-			'condition' => '__return_false',
+			'handle'   => 'ls-theme-cta-buttons',
+			'path'     => 'assets/css/cta-buttons.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as card-shells above (~5 KB compressed).
 		),
 		'home-hero'               => array(
 			'handle'    => 'ls-theme-home-hero',
@@ -278,14 +276,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			},
 		),
 		'faq'                     => array(
-			'handle'    => 'ls-theme-faq',
-			'path'      => 'assets/css/faq.css',
-			'contexts'  => array( 'front', 'editor' ),
-			// No cheap, reliable head-time condition — the FAQ block can appear anywhere, and
-			// has_block() only sees the queried post's own content, not a template part, a
-			// `wp:pattern` reference, or a query loop. Relies entirely on the render_block-based
-			// safety net below, same mechanism already used for the FAQ accordion script.
-			'condition' => '__return_false',
+			'handle'   => 'ls-theme-faq',
+			'path'     => 'assets/css/faq.css',
+			'contexts' => array( 'front', 'editor' ),
+			// The FAQ block can appear anywhere, so no head-time condition can reliably cover
+			// it — same reasoning as card-shells above (~3 KB compressed). The FAQ accordion
+			// script still uses a render_block-based check (see below), since deferring a
+			// script has no FOUC/CLS cost the way deferring CSS would.
 		),
 		// Not sitewide-exclusive despite appearing in every mega-menu part, the footer, and the
 		// mobile menu — both also render in ordinary content patterns (cards, the CTA band, the
