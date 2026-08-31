@@ -52,12 +52,15 @@ function stableExternalId(specRelativePath: string, signature: string): string {
 type FailureGroup = {
 	specRelativePath: string;
 	signature: string;
-	// Title of the first test that hit this signature — used for tag
-	// derivation (e.g. detecting "404"/"search" in the title) and for the
-	// description header. When several different pages/tests share a
-	// signature, they're the same underlying bug, so one representative
-	// title is enough context.
+	// Title of the first test that hit this signature — used for the
+	// description header, where one representative title is enough context.
 	title: string;
+	// Every distinct test title that contributed to this signature — a
+	// shared signature can span more than one test (e.g. the same broken
+	// CSS resource failing both the "search" and "404" checks in
+	// special-routes.spec.ts), and route tags below must only fire when
+	// ALL of them agree, not just whichever test happened to report first.
+	titles: Set<string>;
 	messages: string[];
 };
 
@@ -132,11 +135,13 @@ export default class BugherdReporter implements Reporter {
 				const existing = groups.get(externalId);
 				if (existing) {
 					existing.messages.push(error.message);
+					existing.titles.add(test.title);
 				} else {
 					groups.set(externalId, {
 						specRelativePath,
 						signature,
 						title: test.title,
+						titles: new Set([test.title]),
 						messages: [error.message],
 					});
 				}
@@ -159,7 +164,7 @@ export default class BugherdReporter implements Reporter {
 		const requesterEmail = getLocalReporterEmail();
 		const categoryTags = deriveCategoryTags(
 			group.specRelativePath,
-			group.title,
+			[...group.titles],
 			group.signature,
 			group.messages
 		);
@@ -202,7 +207,13 @@ export default class BugherdReporter implements Reporter {
 	 */
 	private buildDescription(group: FailureGroup): string {
 		const uniqueMessages = [...new Set(group.messages)];
-		const label = humanizeSignature(group.signature).toUpperCase();
+		// Not uppercased: a "resource:"/"broken-link:" label embeds the
+		// actual broken URL, and file paths on a real server are
+		// case-sensitive — uppercasing it would show a URL that 404s if
+		// someone pastes it back to verify the fix (confirmed against a
+		// real task: "cropped-LSdev-Favi-Blue-192x192.png" became
+		// unrecoverable as "CROPPED-LSDEV-FAVI-BLUE-192X192.PNG").
+		const label = humanizeSignature(group.signature);
 		const header =
 			`${label}\n` +
 			`Spec: ${group.specRelativePath} — Test: ${group.title}\n` +

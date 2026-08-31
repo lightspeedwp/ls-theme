@@ -5,11 +5,13 @@ type SiteFixtures = {
 	siteUrls: SiteUrl[];
 };
 
-// TEMPORARY ROLLOUT THROTTLE — the standing suite is still being verified
-// against staging, so only the first N discovered URLs are actually tested,
-// to avoid flooding BugHerd with tasks while specs are being confirmed.
-// Raise this back to a value that covers the full site (~326 URLs found via
-// sitemap at time of writing) before merging the PR.
+// DELIBERATE, LONGER-LIVED COVERAGE CAP — not a temporary rollout throttle.
+// Most of the site's ~326 URLs (verified via the live sitemap) belong to
+// pages that are still being redone; running the standing suite against
+// them now would just generate BugHerd tasks for content that's about to
+// change anyway. Raise this once most pages are in their final state and
+// worth testing in full — until then, a fixed sample is the safer choice
+// over either 10 (too little real coverage) or all 326 (floods BugHerd).
 const MAX_TEST_URLS = 30;
 
 /**

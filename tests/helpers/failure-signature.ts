@@ -31,7 +31,14 @@ const INFRASTRUCTURE_NOISE_PATTERNS = [
 	/Test timeout of \d+ms exceeded/,
 	/Test was interrupted/,
 	/Target page, context or browser has been closed/,
-	/Test ended/,
+	// Scoped to Playwright's actual shape (start-of-line, or after the
+	// "<call>: " prefix any API call gets when it's in-flight during a
+	// kill) with an end-of-line anchor — unlike the other patterns here,
+	// "Test ended" alone is generic enough that a bare substring match
+	// could plausibly swallow real page content that happens to contain
+	// that phrase. The others are distinctive internal Playwright wording
+	// with no realistic collision risk, so they stay unanchored.
+	/(?:^|: )Test ended\.?$/m,
 	// All of these are downstream symptoms of the SAME timeout-kill event as
 	// "Test timeout of Xms exceeded" — Playwright aborts whichever async call
 	// (page.goto, apiRequestContext.get, a locator call, etc.) was in-flight
@@ -452,12 +459,12 @@ function deviceTagForWidth(width: number): string | null {
  */
 export function deriveCategoryTags(
 	specRelativePath: string,
-	testTitle: string,
+	testTitles: string[],
 	signature: string,
 	messages: string[] = []
 ): string[] {
 	const tags = new Set<string>(['type:bug']);
-	const title = testTitle.toLowerCase();
+	const titles = testTitles.map((t) => t.toLowerCase());
 
 	if (signature.startsWith('broken-link:') || signature === 'placeholder-links') {
 		tags.add('issue:broken-link');
@@ -483,13 +490,17 @@ export function deriveCategoryTags(
 		}
 	}
 
-	// Route/page-specific tags: only added when the test title makes the
-	// route unambiguous, never guessed from the spec file name alone.
-	if (title.includes('404')) {
+	// Route/page-specific tags: only added when EVERY title contributing to
+	// this group agrees — a shared signature can span more than one test
+	// (e.g. the same broken CSS resource failing both the "search" and
+	// "404" checks in special-routes.spec.ts), and tagging from only
+	// whichever title happened to arrive first would silently mislabel the
+	// occurrences that came from the other test.
+	if (titles.every((t) => t.includes('404'))) {
 		tags.add('issue:404-error');
 		tags.add('template:404');
 	}
-	if (title.includes('search')) {
+	if (titles.every((t) => t.includes('search'))) {
 		tags.add('area:search');
 		tags.add('template:search-results');
 	}
