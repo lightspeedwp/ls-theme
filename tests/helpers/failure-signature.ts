@@ -19,23 +19,30 @@ export function stripAnsi(text: string): string {
  * tasks (e.g. "Test timeout of 30000ms exceeded.",
  * "apiRequestContext.get: Target page, context or browser has been closed").
  */
+// None of these are anchored to the start or end of the message. Playwright
+// prefixes the actual rejection with whatever API call was in-flight when a
+// test was killed (e.g. "locator.evaluateAll: Test timeout of 105000ms
+// exceeded.", not just "Test timeout of 105000ms exceeded.") and usually
+// follows it with its own call-log block — an anchored pattern silently
+// fails to match either variation. Confirmed live: an anchored version of
+// this list let 9 of 28 tasks through as noise on one real run (6x
+// "page.goto: Test ended.", 3x a prefixed "Test timeout... exceeded").
 const INFRASTRUCTURE_NOISE_PATTERNS = [
-	/^Test timeout of \d+ms exceeded\.?$/,
+	/Test timeout of \d+ms exceeded/,
+	/Test was interrupted/,
 	/Target page, context or browser has been closed/,
-	/^(?:Error: )?page\.goto: Test ended\.?$/,
-	// Both of these are downstream symptoms of the SAME timeout-kill event as
+	/Test ended/,
+	// All of these are downstream symptoms of the SAME timeout-kill event as
 	// "Test timeout of Xms exceeded" — Playwright aborts whichever async call
-	// (page.goto / apiRequestContext.get) was in-flight at the moment a test
-	// is killed, and that call's own rejection surfaces instead of the outer
-	// timeout wrapper. Root cause is fixed by the testInfo.setTimeout(...)
-	// budgets added to every standing spec that loops over siteUrls; this is
-	// the safety net for when a genuinely slow dev site still runs over.
-	// Not anchored to the end of the message — the real rejection is
-	// usually followed by Playwright's own call-log block, which a `$`
-	// anchor would wrongly refuse to match (confirmed: this slipped
-	// through on the first version of this fix — task #186, "unknown page").
-	/page\.goto: net::ERR_ABORTED; maybe frame was detached\?/,
-	/apiRequestContext\.get: Request context disposed\.?/,
+	// (page.goto, apiRequestContext.get, a locator call, etc.) was in-flight
+	// at the moment a test is killed, and that call's own rejection surfaces
+	// instead of the outer timeout wrapper. Not scoped to a specific call
+	// name (e.g. "page.goto:") — the same rejection text can follow any call.
+	// Root cause is fixed by the testInfo.setTimeout(...) budgets added to
+	// every standing spec that loops over siteUrls; this is the safety net
+	// for when a genuinely slow dev site still runs over.
+	/net::ERR_ABORTED; maybe frame was detached\?/,
+	/Request context disposed/,
 ];
 
 /** True if `message` is test-runner noise rather than a real site failure. */
