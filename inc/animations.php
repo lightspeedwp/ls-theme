@@ -26,32 +26,144 @@ function ls_theme_get_local_asset_version( $path ) {
 }
 
 /**
- * Checks the current queried post's raw content for any of the given marker strings.
+ * Returns, per structural bundle, the block names and/or CSS classes that indicate its styles
+ * are actually needed on the current page.
  *
- * Used as a `has_block()`-style presence check for patterns that are pasted directly into
- * page/post content (rather than pulled in via a template or template part), where the marker
- * is a block className rather than a registered block name that has_block() could match on.
- * Shares has_block()'s own known limitation of not resolving content referenced by ID (e.g. a
- * synced pattern), which is an acceptable trade-off already accepted elsewhere in this codebase.
+ * The `condition` callbacks on ls_theme_get_effect_styles() cover the common, expected
+ * placement of each pattern cheaply and correctly (e.g. `is_front_page()` for the homepage
+ * hero) — but every one of these patterns is individually insertable via the block inserter
+ * (`Inserter: true`), so an editor can place any of them on a page those conditions don't
+ * anticipate. This table backs a `render_block`-based safety net (see
+ * ls_theme_detect_bundles_via_render_block() below) that catches that case by inspecting what
+ * actually rendered — the same mechanism already used for the FAQ accordion script, and for
+ * the same reason: it sees blocks wherever they came from (post content, a `wp:pattern`
+ * reference, a template part, a synced pattern), unlike a template check or a raw
+ * post_content string search.
  *
- * @param string[] $needles Class names or strings to look for in the post content.
- * @return bool
+ * `homepage-why-lightspeed` has no entry: its only defined CSS selector,
+ * `.ls-why-lightspeed-checklist`, isn't present anywhere in the pattern's current markup
+ * (pre-existing, unrelated to this fix), so there's no reliable marker to detect — it relies
+ * on its `is_front_page()` condition alone, which matches its one real usage today.
+ *
+ * @return array<string, array{blocks?: string[], classes?: string[]}>
  */
-function ls_theme_post_content_has_marker( array $needles ) {
-	$post = get_post();
+function ls_theme_get_bundle_render_markers() {
+	return array(
+		'taxonomy-filter'     => array( 'blocks' => array( 'ls-plugin/taxonomy-filter' ) ),
+		'work-project-card'   => array(
+			'classes' => array( 'is-style-card-case-study', 'ls-tag-pills', 'ls-card-banner-tint', 'ls-platform-tag-brand', 'ls-platform-tag-woocommerce' ),
+		),
+		'work-archive-sections' => array(
+			'classes' => array( 'ls-icon-well-accent', 'ls-icon-well-brand', 'ls-icon-well-commerce' ),
+		),
+		'card-shells'         => array(
+			'classes' => array( 'is-style-card-feature', 'is-style-card-services', 'is-style-card-solutions', 'is-style-glass-card' ),
+		),
+		'cta-buttons'         => array(
+			'classes' => array( 'ls-cta-band', 'ls-cta-inline', 'ls-cta-strip', 'ls-cta-reassurance' ),
+		),
+		'home-hero'           => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'work-hero'           => array( 'classes' => array( 'ls-work-hero' ) ),
+		'blog-hero'           => array( 'classes' => array( 'ls-blog-hero' ) ),
+		'blog-all-articles'   => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
+		'blog-writing-cta'    => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
+		'faq'                 => array( 'blocks' => array( 'yoast/faq-block' ) ),
+		'button-secondary'    => array( 'classes' => array( 'is-style-button-secondary' ) ),
+		'featured-work'       => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
+		'where-to-fit'        => array( 'classes' => array( 'ls-package-card' ) ),
+		'homepage-cta'        => array( 'classes' => array( 'ls-homepage-cta' ) ),
+		'stats-bar'           => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
+		'homepage-card-rows'  => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
+	);
+}
 
-	if ( ! $post instanceof WP_Post ) {
-		return false;
+/**
+ * Enqueues a bundle's stylesheet (if not already queued) and marks it for a footer print pass.
+ *
+ * Called once a render_block pass confirms a bundle's markers are actually present. Safe to
+ * call more than once per request for the same bundle, or after the bundle was already
+ * enqueued via its head-time condition — wp_enqueue_style() and the dedup below are both
+ * idempotent, and WP_Styles::do_items() skips handles already printed, so this never produces
+ * a duplicate <link>.
+ *
+ * @param string $key Bundle key, matching ls_theme_get_effect_styles()'s array keys.
+ */
+function ls_theme_register_late_bundle_style( $key ) {
+	static $registered = array();
+
+	if ( isset( $registered[ $key ] ) ) {
+		return;
 	}
 
-	foreach ( $needles as $needle ) {
-		if ( false !== strpos( $post->post_content, $needle ) ) {
-			return true;
+	$effects = ls_theme_get_effect_styles( 'front' );
+	$effect  = $effects[ $key ] ?? null;
+
+	if ( ! $effect || empty( $effect['handle'] ) || empty( $effect['path'] ) ) {
+		return;
+	}
+
+	$registered[ $key ] = true;
+
+	wp_enqueue_style(
+		$effect['handle'],
+		get_theme_file_uri( $effect['path'] ),
+		array(),
+		ls_theme_get_local_asset_version( $effect['path'] )
+	);
+
+	global $ls_theme_late_style_handles;
+	$ls_theme_late_style_handles[] = $effect['handle'];
+}
+
+/**
+ * Detects structural bundles actually rendered on the page and queues their styles.
+ *
+ * Runs on every block render (matching the FAQ accordion script's existing precedent) so it
+ * sees patterns regardless of how they reached the page — post content, a `wp:pattern`
+ * reference, a template part, or a synced pattern — none of which a template conditional tag
+ * or a raw post_content string search can reliably cover for an individually-insertable
+ * pattern. See ls_theme_get_bundle_render_markers() for why this exists.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_detect_bundles_via_render_block( $block_content, $block ) {
+	foreach ( ls_theme_get_bundle_render_markers() as $key => $markers ) {
+		if ( ! empty( $markers['blocks'] ) && isset( $block['blockName'] ) && in_array( $block['blockName'], $markers['blocks'], true ) ) {
+			ls_theme_register_late_bundle_style( $key );
+			continue;
+		}
+
+		if ( ! empty( $markers['classes'] ) ) {
+			foreach ( $markers['classes'] as $class ) {
+				if ( false !== strpos( $block_content, $class ) ) {
+					ls_theme_register_late_bundle_style( $key );
+					break;
+				}
+			}
 		}
 	}
 
-	return false;
+	return $block_content;
 }
+add_filter( 'render_block', 'ls_theme_detect_bundles_via_render_block', 10, 2 );
+
+/**
+ * Prints any bundle stylesheets only discovered via render_block detection.
+ *
+ * These were enqueued after wp_head() already ran, so they were never printed there.
+ * wp_print_styles() skips any handle already printed (e.g. one also matched by its head-time
+ * condition), so this only ever outputs the ones that genuinely needed the fallback.
+ */
+function ls_theme_print_late_effect_styles() {
+	global $ls_theme_late_style_handles;
+
+	if ( ! empty( $ls_theme_late_style_handles ) ) {
+		wp_print_styles( array_unique( $ls_theme_late_style_handles ) );
+	}
+}
+add_action( 'wp_footer', 'ls_theme_print_late_effect_styles', 1 );
 
 /**
  * Returns effect stylesheet definitions.
@@ -106,46 +218,18 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-card-shells',
 			'path'      => 'assets/css/card-shells.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// No template reference at all — only ever pasted into arbitrary page content. Checks
-			// both the pattern's registered slug (how `wp:pattern` block-comment references store
-			// it in post_content — the normal way of inserting a pattern from the inserter) and
-			// its CSS class markers (in case the pattern was inserted "detached" into raw blocks).
-			'condition' => static function () {
-				return ls_theme_post_content_has_marker(
-					array(
-						'ls-theme/thank-you-consultation',
-						'ls-theme/section-card-feature',
-						'ls-theme/section-card-services',
-						'ls-theme/section-card-solutions',
-						'is-style-card-feature',
-						'is-style-card-services',
-						'is-style-card-solutions',
-						'is-style-glass-card',
-					)
-				);
-			},
+			// No template reference at all, so there's no cheap head-time condition worth
+			// having — a post_content string search misses the normal case of a pattern
+			// inserted as a `wp:pattern` reference (it stores only the slug, not the expanded
+			// markup). Relies entirely on the render_block-based safety net below.
+			'condition' => '__return_false',
 		),
 		'cta-buttons'             => array(
 			'handle'    => 'ls-theme-cta-buttons',
 			'path'      => 'assets/css/cta-buttons.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// No template reference at all — only ever pasted into arbitrary page content. Checks
-			// both the pattern's registered slug and its CSS class markers, for the same reason
-			// as card-shells above.
-			'condition' => static function () {
-				return ls_theme_post_content_has_marker(
-					array(
-						'ls-theme/section-cta-consultation-band',
-						'ls-theme/section-cta-consultation-strip',
-						'ls-theme/section-cta-consultation-reassurance',
-						'ls-theme/section-cta-consultation-inline',
-						'ls-cta-band',
-						'ls-cta-inline',
-						'ls-cta-strip',
-						'ls-cta-reassurance',
-					)
-				);
-			},
+			// Same reasoning as card-shells above.
+			'condition' => '__return_false',
 		),
 		'home-hero'               => array(
 			'handle'    => 'ls-theme-home-hero',
@@ -189,10 +273,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-faq',
 			'path'      => 'assets/css/faq.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Matches the existing has_block() precedent used for the FAQ accordion script below.
-			'condition' => static function () {
-				return has_block( 'yoast/faq-block', get_post() );
-			},
+			// No cheap, reliable head-time condition — the FAQ block can appear anywhere, and
+			// has_block() only sees the queried post's own content, not a template part, a
+			// `wp:pattern` reference, or a query loop. Relies entirely on the render_block-based
+			// safety net below, same mechanism already used for the FAQ accordion script.
+			'condition' => '__return_false',
 		),
 		// Not sitewide-exclusive despite appearing in every mega-menu part, the footer, and the
 		// mobile menu — both also render in ordinary content patterns (cards, the CTA band, the
@@ -209,11 +294,14 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-button-secondary',
 			'path'      => 'assets/css/button-secondary.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Used by the homepage's Featured Work section, the Work archive's discuss-project
-			// section, the 404 template, and potentially pasted into arbitrary page content.
+			// Fast path for its known, common placements: the homepage's Featured Work section,
+			// the Work archive's discuss-project section, and the 404 template. It's also used
+			// sitewide in the mobile menu template part (parts/mobile-menu.html) and can be
+			// pasted into arbitrary page content — both cases are covered by the render_block
+			// safety net below, since a template part's markup never appears in any page's own
+			// post_content.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' ) || is_404()
-					|| ls_theme_post_content_has_marker( array( 'is-style-button-secondary' ) );
+				return is_front_page() || is_post_type_archive( 'project' ) || is_404();
 			},
 		),
 		'featured-work'           => array(
@@ -323,8 +411,8 @@ add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_editor_effect_style
  *
  * Uses render_block rather than has_block() so the script still loads when the block is rendered
  * via a template part, query loop, or other context that has_block() can't see (it only inspects
- * the current post's content). The FAQ's CSS ships unconditionally via components.css instead of
- * being enqueued here, since it's already loaded on every page.
+ * the current post's content). The FAQ's CSS is enqueued the same way, via the render_block-based
+ * safety net in ls_theme_detect_bundles_via_render_block() above, for the same reason.
  *
  * @param string $block_content The block content.
  * @param array  $block         The full block data.
