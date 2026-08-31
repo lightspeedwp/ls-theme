@@ -26,6 +26,34 @@ function ls_theme_get_local_asset_version( $path ) {
 }
 
 /**
+ * Checks the current queried post's raw content for any of the given marker strings.
+ *
+ * Used as a `has_block()`-style presence check for patterns that are pasted directly into
+ * page/post content (rather than pulled in via a template or template part), where the marker
+ * is a block className rather than a registered block name that has_block() could match on.
+ * Shares has_block()'s own known limitation of not resolving content referenced by ID (e.g. a
+ * synced pattern), which is an acceptable trade-off already accepted elsewhere in this codebase.
+ *
+ * @param string[] $needles Class names or strings to look for in the post content.
+ * @return bool
+ */
+function ls_theme_post_content_has_marker( array $needles ) {
+	$post = get_post();
+
+	if ( ! $post instanceof WP_Post ) {
+		return false;
+	}
+
+	foreach ( $needles as $needle ) {
+		if ( false !== strpos( $post->post_content, $needle ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
  * Returns effect stylesheet definitions.
  *
  * @param string $context Load context. Accepts 'front' or 'editor'.
@@ -33,130 +61,202 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
+		// Genuinely global, sitewide styling — always loads, no condition.
 		'effects'                 => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		// Structural bundles (LS-2615): styles that can't live in animations.css because that
-		// bundle is reserved for genuinely global, sitewide styling. Split into small,
-		// semantically-scoped files instead of one large components.css, so a future conditional-
-		// loading pass only has to add a `condition` callback to the relevant entry below rather
-		// than re-splitting CSS. All entries are unconditional for now, same as animations.css.
-		//
-		// Two different loading strategies will apply once conditions are added:
-		// - Template-bound (taxonomy-filter, work-project-card, work-archive-sections, work-hero):
-		// only ever render through template-work-archive.php — a simple
-		// is_post_type_archive( 'project' ) condition will cover all of them.
-		// - Insertable, page-agnostic (card-shells, cta-buttons, faq): these patterns have no
-		// template reference at all — editors paste them into arbitrary page content — so a
-		// page-based condition can't detect them reliably. These will need a render_block-filter
-		// approach instead (see ls_theme_enqueue_faq_accordion_script() below for the existing
-		// precedent), not a template check.
-		// - home-hero is template-bound to the front page specifically (is_front_page()).
+		// Structural bundles (LS-2615, gated LS-2922): each `condition` reflects verified actual
+		// usage (grepped against every pattern that references the bundle's CSS classes), not an
+		// assumed template mapping — some bundles turned out not to be template-exclusive (e.g.
+		// work-archive-sections' icon-well classes are also used by three homepage sections).
+		// Conditions only apply in the 'front' context; the editor keeps loading every bundle
+		// unconditionally so any pattern still looks correct when edited in isolation.
 		'taxonomy-filter'         => array(
-			'handle'   => 'ls-theme-taxonomy-filter',
-			'path'     => 'assets/css/taxonomy-filter.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-taxonomy-filter',
+			'path'      => 'assets/css/taxonomy-filter.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Used by the Work archive's filter and the Blog archive's category filter.
+			'condition' => static function () {
+				return is_post_type_archive( 'project' ) || is_page_template( 'page-blog-archive' );
+			},
 		),
 		'work-project-card'       => array(
-			'handle'   => 'ls-theme-work-project-card',
-			'path'     => 'assets/css/work-project-card.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-work-project-card',
+			'path'      => 'assets/css/work-project-card.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same "project card" component is reused by the homepage's Featured Work section
+			// in addition to the Work archive — not archive-exclusive.
+			'condition' => static function () {
+				return is_front_page() || is_post_type_archive( 'project' );
+			},
 		),
 		'work-archive-sections'   => array(
-			'handle'   => 'ls-theme-work-archive-sections',
-			'path'     => 'assets/css/work-archive-sections.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-work-archive-sections',
+			'path'      => 'assets/css/work-archive-sections.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Icon-well classes are also used by 3 homepage sections (what-we-build,
+			// where-to-start, where-to-fit) in addition to the Work archive.
+			'condition' => static function () {
+				return is_front_page() || is_post_type_archive( 'project' );
+			},
 		),
 		'card-shells'             => array(
-			'handle'   => 'ls-theme-card-shells',
-			'path'     => 'assets/css/card-shells.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-card-shells',
+			'path'      => 'assets/css/card-shells.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// No template reference at all — only ever pasted into arbitrary page content. Checks
+			// both the pattern's registered slug (how `wp:pattern` block-comment references store
+			// it in post_content — the normal way of inserting a pattern from the inserter) and
+			// its CSS class markers (in case the pattern was inserted "detached" into raw blocks).
+			'condition' => static function () {
+				return ls_theme_post_content_has_marker(
+					array(
+						'ls-theme/thank-you-consultation',
+						'ls-theme/section-card-feature',
+						'ls-theme/section-card-services',
+						'ls-theme/section-card-solutions',
+						'is-style-card-feature',
+						'is-style-card-services',
+						'is-style-card-solutions',
+						'is-style-glass-card',
+					)
+				);
+			},
 		),
 		'cta-buttons'             => array(
-			'handle'   => 'ls-theme-cta-buttons',
-			'path'     => 'assets/css/cta-buttons.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-cta-buttons',
+			'path'      => 'assets/css/cta-buttons.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// No template reference at all — only ever pasted into arbitrary page content. Checks
+			// both the pattern's registered slug and its CSS class markers, for the same reason
+			// as card-shells above.
+			'condition' => static function () {
+				return ls_theme_post_content_has_marker(
+					array(
+						'ls-theme/section-cta-consultation-band',
+						'ls-theme/section-cta-consultation-strip',
+						'ls-theme/section-cta-consultation-reassurance',
+						'ls-theme/section-cta-consultation-inline',
+						'ls-cta-band',
+						'ls-cta-inline',
+						'ls-cta-strip',
+						'ls-cta-reassurance',
+					)
+				);
+			},
 		),
 		'home-hero'               => array(
-			'handle'   => 'ls-theme-home-hero',
-			'path'     => 'assets/css/home-hero.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-home-hero',
+			'path'      => 'assets/css/home-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'work-hero'               => array(
-			'handle'   => 'ls-theme-work-hero',
-			'path'     => 'assets/css/work-hero.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-work-hero',
+			'path'      => 'assets/css/work-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_post_type_archive( 'project' );
+			},
 		),
 		'blog-hero'               => array(
-			'handle'   => 'ls-theme-blog-hero',
-			'path'     => 'assets/css/blog-hero.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-blog-hero',
+			'path'      => 'assets/css/blog-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_page_template( 'page-blog-archive' );
+			},
 		),
 		'blog-all-articles'       => array(
-			'handle'   => 'ls-theme-blog-all-articles',
-			'path'     => 'assets/css/blog-all-articles.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-blog-all-articles',
+			'path'      => 'assets/css/blog-all-articles.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_page_template( 'page-blog-archive' );
+			},
 		),
 		'blog-writing-cta'        => array(
-			'handle'   => 'ls-theme-blog-writing-cta',
-			'path'     => 'assets/css/blog-writing-cta.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-blog-writing-cta',
+			'path'      => 'assets/css/blog-writing-cta.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_page_template( 'page-blog-archive' );
+			},
 		),
 		'faq'                     => array(
-			'handle'   => 'ls-theme-faq',
-			'path'     => 'assets/css/faq.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-faq',
+			'path'      => 'assets/css/faq.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Matches the existing has_block() precedent used for the FAQ accordion script below.
+			'condition' => static function () {
+				return has_block( 'yoast/faq-block', get_post() );
+			},
 		),
 		// Not sitewide-exclusive despite appearing in every mega-menu part, the footer, and the
 		// mobile menu — both also render in ordinary content patterns (cards, the CTA band, the
 		// Work archive's discuss-project section), so per architecture review they were pulled out
-		// of animations.css rather than kept there under the header/footer exception.
+		// of animations.css rather than kept there under the header/footer exception. The header
+		// and footer template parts render on every page anyway, so a presence condition would
+		// never actually skip loading this bundle — left unconditional.
 		'links'                   => array(
 			'handle'   => 'ls-theme-links',
 			'path'     => 'assets/css/links.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 		'button-secondary'        => array(
-			'handle'   => 'ls-theme-button-secondary',
-			'path'     => 'assets/css/button-secondary.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-button-secondary',
+			'path'      => 'assets/css/button-secondary.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Used by the homepage's Featured Work section, the Work archive's discuss-project
+			// section, the 404 template, and potentially pasted into arbitrary page content.
+			'condition' => static function () {
+				return is_front_page() || is_post_type_archive( 'project' ) || is_404()
+					|| ls_theme_post_content_has_marker( array( 'is-style-button-secondary' ) );
+			},
 		),
 		'featured-work'           => array(
-			'handle'   => 'ls-theme-featured-work',
-			'path'     => 'assets/css/featured-work.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-featured-work',
+			'path'      => 'assets/css/featured-work.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'where-to-fit'            => array(
-			'handle'   => 'ls-theme-where-to-fit',
-			'path'     => 'assets/css/where-to-fit.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-where-to-fit',
+			'path'      => 'assets/css/where-to-fit.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'homepage-cta'            => array(
-			'handle'   => 'ls-theme-homepage-cta',
-			'path'     => 'assets/css/homepage-cta.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-homepage-cta',
+			'path'      => 'assets/css/homepage-cta.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'stats-bar'               => array(
-			'handle'   => 'ls-theme-stats-bar',
-			'path'     => 'assets/css/stats-bar.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-stats-bar',
+			'path'      => 'assets/css/stats-bar.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'homepage-card-rows'      => array(
-			'handle'   => 'ls-theme-homepage-card-rows',
-			'path'     => 'assets/css/homepage-card-rows.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-homepage-card-rows',
+			'path'      => 'assets/css/homepage-card-rows.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'homepage-why-lightspeed' => array(
-			'handle'   => 'ls-theme-homepage-why-lightspeed',
-			'path'     => 'assets/css/homepage-why-lightspeed.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-homepage-why-lightspeed',
+			'path'      => 'assets/css/homepage-why-lightspeed.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_front_page',
 		),
 		'search-results'          => array(
-			'handle'   => 'ls-theme-search-results',
-			'path'     => 'assets/css/search-results.css',
-			'contexts' => array( 'front', 'editor' ),
+			'handle'    => 'ls-theme-search-results',
+			'path'      => 'assets/css/search-results.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_search',
 		),
 	);
 
@@ -178,11 +278,18 @@ function ls_theme_enqueue_effect_styles( $context = 'front' ) {
 	$effects = ls_theme_get_effect_styles( $context );
 
 	foreach ( $effects as $effect ) {
-		$handle   = $effect['handle'] ?? null;
-		$path     = $effect['path'] ?? null;
-		$contexts = $effect['contexts'] ?? array();
+		$handle    = $effect['handle'] ?? null;
+		$path      = $effect['path'] ?? null;
+		$contexts  = $effect['contexts'] ?? array();
+		$condition = $effect['condition'] ?? null;
 
 		if ( ! $handle || ! $path || ! in_array( $context, $contexts, true ) ) {
+			continue;
+		}
+
+		// Presence conditions only gate the front end; the editor always loads every bundle so
+		// patterns look correct when edited outside their usual page context.
+		if ( 'front' === $context && is_callable( $condition ) && ! call_user_func( $condition ) ) {
 			continue;
 		}
 

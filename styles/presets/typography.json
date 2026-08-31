@@ -15,6 +15,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "200",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-200-normal.woff2"
@@ -23,6 +24,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "300",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-300-normal.woff2"
@@ -31,6 +33,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "400",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-400-normal.woff2"
@@ -39,6 +42,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "500",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-500-normal.woff2"
@@ -47,6 +51,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "600",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-600-normal.woff2"
@@ -55,6 +60,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "700",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-700-normal.woff2"
@@ -63,6 +69,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "800",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-800-normal.woff2"
@@ -71,6 +78,7 @@
                         {
                             "fontFamily": "Lexend",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "900",
                             "src": [
                                 "file:./assets/fonts/lexend/Lexend-900-normal.woff2"
@@ -86,6 +94,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "200",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-200-normal.woff2"
@@ -94,6 +103,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "300",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-300-normal.woff2"
@@ -102,6 +112,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "400",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-400-normal.woff2"
@@ -110,6 +121,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "500",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-500-normal.woff2"
@@ -118,6 +130,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "600",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-600-normal.woff2"
@@ -126,6 +139,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "700",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-700-normal.woff2"
@@ -134,6 +148,7 @@
                         {
                             "fontFamily": "Manrope",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "800",
                             "src": [
                                 "file:./assets/fonts/manrope/Manrope-800-normal.woff2"
@@ -149,6 +164,7 @@
                         {
                             "fontFamily": "Roboto Mono",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "100 700",
                             "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF",
                             "src": [
@@ -158,6 +174,7 @@
                         {
                             "fontFamily": "Roboto Mono",
                             "fontStyle": "normal",
+                            "fontDisplay": "swap",
                             "fontWeight": "100 700",
                             "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
                             "src": [
