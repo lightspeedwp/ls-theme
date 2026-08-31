@@ -49,31 +49,39 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_bundle_render_markers() {
 	return array(
-		'taxonomy-filter'     => array( 'blocks' => array( 'ls-plugin/taxonomy-filter' ) ),
-		'work-project-card'   => array(
+		'taxonomy-filter'       => array( 'blocks' => array( 'ls-plugin/taxonomy-filter' ) ),
+		'work-project-card'     => array(
 			'classes' => array( 'is-style-card-case-study', 'ls-tag-pills', 'ls-card-banner-tint', 'ls-platform-tag-brand', 'ls-platform-tag-woocommerce' ),
 		),
 		'work-archive-sections' => array(
-			'classes' => array( 'ls-icon-well-accent', 'ls-icon-well-brand', 'ls-icon-well-commerce' ),
+			'classes' => array(
+				'ls-icon-well-accent',
+				'ls-icon-well-brand',
+				'ls-icon-well-commerce',
+				'is-style-card-category',
+				'is-style-card-link-row',
+				'is-style-stat-segment',
+				'ls-card-divider-both',
+			),
 		),
-		'card-shells'         => array(
+		'card-shells'           => array(
 			'classes' => array( 'is-style-card-feature', 'is-style-card-services', 'is-style-card-solutions', 'is-style-glass-card' ),
 		),
-		'cta-buttons'         => array(
+		'cta-buttons'           => array(
 			'classes' => array( 'ls-cta-band', 'ls-cta-inline', 'ls-cta-strip', 'ls-cta-reassurance' ),
 		),
-		'home-hero'           => array( 'classes' => array( 'ls-home-hero-section' ) ),
-		'work-hero'           => array( 'classes' => array( 'ls-work-hero' ) ),
-		'blog-hero'           => array( 'classes' => array( 'ls-blog-hero' ) ),
-		'blog-all-articles'   => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
-		'blog-writing-cta'    => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
-		'faq'                 => array( 'blocks' => array( 'yoast/faq-block' ) ),
-		'button-secondary'    => array( 'classes' => array( 'is-style-button-secondary' ) ),
-		'featured-work'       => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
-		'where-to-fit'        => array( 'classes' => array( 'ls-package-card' ) ),
-		'homepage-cta'        => array( 'classes' => array( 'ls-homepage-cta' ) ),
-		'stats-bar'           => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
-		'homepage-card-rows'  => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
+		'home-hero'             => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'work-hero'             => array( 'classes' => array( 'ls-work-hero' ) ),
+		'blog-hero'             => array( 'classes' => array( 'ls-blog-hero' ) ),
+		'blog-all-articles'     => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
+		'blog-writing-cta'      => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
+		'faq'                   => array( 'blocks' => array( 'yoast/faq-block' ) ),
+		'button-secondary'      => array( 'classes' => array( 'is-style-button-secondary' ) ),
+		'featured-work'         => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
+		'where-to-fit'          => array( 'classes' => array( 'ls-package-card' ) ),
+		'homepage-cta'          => array( 'classes' => array( 'ls-homepage-cta' ) ),
+		'stats-bar'             => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
+		'homepage-card-rows'    => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
 	);
 }
 
