@@ -6,7 +6,8 @@ test.describe('Runtime errors', () => {
 	test('every discovered page loads with no console errors or uncaught exceptions', async ({
 		page,
 		siteUrls,
-	}) => {
+	}, testInfo) => {
+		testInfo.setTimeout(testInfo.timeout + siteUrls.length * 1500);
 		// Installed once, outside the loop — one call per URL would stack a
 		// fresh page.on() handler each iteration without ever removing the
 		// previous one.

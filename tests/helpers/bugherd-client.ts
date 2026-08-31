@@ -34,10 +34,40 @@ function getConfig() {
 	return { projectId, headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/json' } };
 }
 
+const MAX_RATE_LIMIT_RETRIES = 3;
+
+function sleep(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Wraps fetch() with retry-with-backoff specifically for HTTP 429. Without
+ * this, a rate-limited burst during a run with many distinct failure groups
+ * silently drops those specific bug reports — the caller's generic
+ * `!res.ok` handling treats a 429 exactly like any other failure (auth
+ * error, malformed payload) and gives up immediately. Honors the API's own
+ * Retry-After header when present; otherwise backs off exponentially.
+ */
+async function fetchWithRetry(url: string, init: RequestInit): Promise<Response> {
+	for (let attempt = 0; ; attempt++) {
+		const res = await fetch(url, init);
+		if (res.status !== 429 || attempt >= MAX_RATE_LIMIT_RETRIES) {
+			return res;
+		}
+		const retryAfterHeader = res.headers.get('Retry-After');
+		const retryAfterMs = retryAfterHeader ? Number(retryAfterHeader) * 1000 : NaN;
+		const delayMs = Number.isFinite(retryAfterMs) ? retryAfterMs : 1000 * 2 ** attempt;
+		console.log(
+			`[bugherd-client] Rate limited (429) — retrying in ${delayMs}ms (attempt ${attempt + 1}/${MAX_RATE_LIMIT_RETRIES})`
+		);
+		await sleep(delayMs);
+	}
+}
+
 /** Looks up an existing task by its external_id. Returns null if none exists. */
 export async function findTaskByExternalId(externalId: string): Promise<BugherdTask | null> {
 	const { projectId, headers } = getConfig();
-	const res = await fetch(
+	const res = await fetchWithRetry(
 		`${API_BASE}/projects/${projectId}/tasks.json?external_id=${encodeURIComponent(externalId)}`,
 		{ headers }
 	);
@@ -51,7 +81,7 @@ export async function findTaskByExternalId(externalId: string): Promise<BugherdT
 /** Creates a new BugHerd task. */
 export async function createTask(payload: CreateTaskPayload): Promise<BugherdTask> {
 	const { projectId, headers } = getConfig();
-	const res = await fetch(`${API_BASE}/projects/${projectId}/tasks.json`, {
+	const res = await fetchWithRetry(`${API_BASE}/projects/${projectId}/tasks.json`, {
 		method: 'POST',
 		headers,
 		body: JSON.stringify({ task: payload }),
@@ -66,7 +96,7 @@ export async function createTask(payload: CreateTaskPayload): Promise<BugherdTas
 /** Adds a comment to an existing task. */
 export async function addComment(taskId: number, text: string): Promise<void> {
 	const { projectId, headers } = getConfig();
-	const res = await fetch(`${API_BASE}/projects/${projectId}/tasks/${taskId}/comments.json`, {
+	const res = await fetchWithRetry(`${API_BASE}/projects/${projectId}/tasks/${taskId}/comments.json`, {
 		method: 'POST',
 		headers,
 		body: JSON.stringify({ text }),

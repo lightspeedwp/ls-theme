@@ -13,6 +13,13 @@ test.describe('Internal link integrity', () => {
 		// then check each unique link once. Checking per-page would re-verify
 		// the same nav/footer links on every single page, wasting most of the
 		// run on redundant requests.
+		// Covers the page.goto() loop below too, not just the link-check phase
+		// further down — that loop previously ran under the bare default
+		// timeout and could be killed mid-navigation on a real site with many
+		// discovered pages, surfacing as "net::ERR_ABORTED; maybe frame was
+		// detached?" instead of a recognizable timeout.
+		testInfo.setTimeout(testInfo.timeout + siteUrls.length * 1500);
+
 		const allLinks = new Set<string>();
 		for (const { url } of siteUrls) {
 			await test.step(`collect links: ${url}`, async () => {
@@ -41,7 +48,8 @@ test.describe('Internal link integrity', () => {
 		}
 	});
 
-	test('no discovered page has bare href="#" placeholder links', async ({ page, siteUrls }) => {
+	test('no discovered page has bare href="#" placeholder links', async ({ page, siteUrls }, testInfo) => {
+		testInfo.setTimeout(testInfo.timeout + siteUrls.length * 1500);
 		for (const { url } of siteUrls) {
 			await test.step(url, async () => {
 				await page.goto(url);

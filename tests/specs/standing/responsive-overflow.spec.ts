@@ -7,7 +7,8 @@ test.describe('Responsive overflow', () => {
 	test('no discovered page overflows horizontally at representative widths', async ({
 		page,
 		siteUrls,
-	}) => {
+	}, testInfo) => {
+		testInfo.setTimeout(testInfo.timeout + siteUrls.length * VIEWPORT_WIDTHS.length * 800);
 		for (const { url } of siteUrls) {
 			await test.step(url, async () => {
 				await page.goto(url);
