@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — PageSpeed: Fix mobile performance on Homepage (LS-2922)
+
+### Fixed
+
+- Fixed the homepage loading every structural CSS bundle in the theme unconditionally (~20 files), regardless of whether the page actually used them — the root cause behind PageSpeed's "render-blocking requests" and "unused CSS" findings on mobile. `inc/animations.php` now gates most bundles behind a `condition` reflecting their real, verified usage (e.g. `is_front_page()`, `is_post_type_archive('project')`, `is_page_template('page-blog-archive')`) instead of loading everywhere.
+- Fixed several of those bundles being gated too narrowly at first: `work-project-card`, `work-archive-sections`, and `taxonomy-filter` are also used by patterns outside their assumed "home" template (e.g. homepage sections, the Blog archive's filter), not just the Work archive.
+- Fixed a `render_block`-based safety net for every pattern that's individually insertable via the block inserter (`Inserter: true`), since a template-only condition can't detect a pattern placed somewhere the condition doesn't anticipate. This uncovered and fixed a live bug: the mobile menu's two CTA buttons (`parts/mobile-menu.html`) were unstyled on every page except the homepage/Work archive/404, since template-part markup never appears in a page's own `post_content`.
+- Fixed missing `font-display: swap` on all 17 `fontFace` entries in `styles/presets/typography.json`, so text renders in a fallback font instead of staying invisible while a custom font loads.
+- Fixed the Featured Work card grid overlay being invisible in light mode: `work-project-card.scss` was tinting the grid lines from `--wp--custom--color--surface--highlight`, a token pinned to the same near-white value in both `theme.json` and `styles/dark.json` (unlike its sibling `canvas`, which correctly flips per mode). Switched to `--wp--custom--color--text--default`, which already adapts correctly, instead of changing the shared token — that token also drives the glass-card/glass-button sheen effect elsewhere and needs to stay light-colored in both modes.
+
+### Added
+
+- Added a `build:css:dev`/`build:css` split in `package.json`: `build:css` now outputs the compressed CSS that's actually committed and shipped; the old expanded output is preserved as `build:css:dev` for local debugging.
+
+### Notes
+
+- `card-shells`, `cta-buttons`, and `faq` are loaded unconditionally rather than through the `render_block` safety net — they have no head-time condition at all, so every use would otherwise flash unstyled (not just a rare off-template case). At ~10 KB/~5 KB/~3 KB compressed combined, that's a better trade than the FOUC/CLS risk.
+- `homepage-why-lightspeed` is a known, deliberate gap in the `render_block` safety net: its only defined CSS selector isn't present anywhere in the pattern's current markup (pre-existing, unrelated to this fix), so there's no reliable marker to detect yet.
+- Header search expand animation, JS minification, and the GSAP "legacy JavaScript" PageSpeed flag were investigated and deliberately left out of scope — see LS-2922 for reasoning.
+- Forced-reflow/long-task profiling and an LCP font preload hint were flagged by the original PageSpeed report but not implemented in this pass.
+
+---
+
 ## [Unreleased] — Sync mobile menu links with desktop mega menus (LS-2801)
 
 ### Fixed
