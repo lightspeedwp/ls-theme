@@ -106,15 +106,15 @@
 .ls-card-banner-tint {
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, transparent);
   background-image:
-    linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--text--default) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--text--default) 5%, transparent) 1px, transparent 1px);
 }
 
 .ls-card-banner-tint-woocommerce {
   background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, transparent);
   background-image:
-    linear-gradient(color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--surface--highlight) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--text--default) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--text--default) 5%, transparent) 1px, transparent 1px);
 }
 
 /*
