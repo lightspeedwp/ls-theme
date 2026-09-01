@@ -1,5 +1,6 @@
 import { test as base } from '@playwright/test';
 import { discoverSiteUrls, type SiteUrl } from '../helpers/site-urls';
+import { normalizeUrl } from '../helpers/url-utils';
 
 type SiteFixtures = {
 	siteUrls: SiteUrl[];
@@ -32,7 +33,23 @@ export const test = base.extend<{}, SiteFixtures>({
 			// after fixing something on it — without running (or filing BugHerd
 			// tasks for) the full sampled corpus. Bypasses discovery entirely.
 			if (process.env.SINGLE_PAGE_URL) {
-				await use([{ url: process.env.SINGLE_PAGE_URL, source: 'synthetic' }]);
+				// Several standing-suite helpers (e.g. network-errors.ts's
+				// same-origin filter) assume every tested page shares BASE_URL's
+				// origin. An off-origin or malformed SINGLE_PAGE_URL wouldn't just
+				// fail loudly — it could make those checks silently filter out
+				// everything and report a false "all clean" result. Reuse the same
+				// validate-and-normalize helper the discovery pipeline itself uses,
+				// so a typo or wrong-environment URL fails fast with a clear reason
+				// instead of passing through unchecked.
+				const normalized = normalizeUrl(process.env.SINGLE_PAGE_URL, process.env.BASE_URL);
+				if (!normalized) {
+					throw new Error(
+						`SINGLE_PAGE_URL ("${process.env.SINGLE_PAGE_URL}") is not a valid, ` +
+							`same-origin URL relative to BASE_URL ("${process.env.BASE_URL}"). ` +
+							`Check for a typo, or that both point at the same site.`
+					);
+				}
+				await use([{ url: normalized, source: 'synthetic' }]);
 				return;
 			}
 
