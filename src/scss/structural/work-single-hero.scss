@@ -1,0 +1,23 @@
+/********** Work Single Hero: metadata row responsive dividers **********/
+
+/*
+ * JSON limitation: block-supports styles aren't responsive-conditional, so a divider that must
+ * be a vertical border between columns on desktop and a horizontal border between stacked rows
+ * on mobile has no JSON equivalent — see AGENTS.md Theme-First Approach. WordPress core hardcodes
+ * its own `.wp-block-columns` stacking breakpoint at 782px directly in block-library CSS (not
+ * theme.json's settings.custom.layout, which core columns don't read), so this mirrors that exact
+ * breakpoint rather than introducing a different one.
+ */
+@media (max-width: 781px) {
+  .ls-work-single-meta.wp-block-columns > .ls-work-single-meta__col {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-left: none !important;
+  }
+
+  .ls-work-single-meta.wp-block-columns > .ls-work-single-meta__col + .ls-work-single-meta__col {
+    border-top: 1px solid var(--wp--custom--color--border--card);
+    padding-top: var(--wp--preset--spacing--20);
+    margin-top: var(--wp--preset--spacing--10);
+  }
+}
