@@ -27,6 +27,15 @@ export const test = base.extend<{}, SiteFixtures>({
 					'BASE_URL is not set. Create a .env file in the theme root with BASE_URL=<target site URL>.'
 				);
 			}
+
+			// Escape hatch for testing/reviewing one specific page — e.g. right
+			// after fixing something on it — without running (or filing BugHerd
+			// tasks for) the full sampled corpus. Bypasses discovery entirely.
+			if (process.env.SINGLE_PAGE_URL) {
+				await use([{ url: process.env.SINGLE_PAGE_URL, source: 'synthetic' }]);
+				return;
+			}
+
 			const urls = await discoverSiteUrls(process.env.BASE_URL);
 			await use(urls.slice(0, MAX_TEST_URLS));
 		},

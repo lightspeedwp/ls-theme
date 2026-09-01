@@ -78,6 +78,11 @@ export default class BugherdReporter implements Reporter {
 	onTestEnd(test: TestCase, result: TestResult): void {
 		if (!isStandingSpec(test)) return;
 		if (result.status !== 'failed' && result.status !== 'timedOut') return;
+		// SINGLE_PAGE_URL runs are for local/one-off review (often against a
+		// local site nobody else can reach) — never let them create a real
+		// BugHerd task, regardless of --reporter flags. Structural, not just
+		// a documented convention, so it can't be forgotten.
+		if (process.env.SINGLE_PAGE_URL) return;
 		this.collected.push({ test, result });
 	}
 
