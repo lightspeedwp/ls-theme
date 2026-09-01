@@ -11,8 +11,13 @@
  * conditional in the pattern file itself.
  *
  * The button ships with a `ls-view-site-button` marker class and a `href="#"`
- * placeholder. This filter swaps in the post's `ls_plugin_portfolio_website`
- * meta value, or removes the button entirely when that meta is empty.
+ * placeholder. This filter sets the button's href to the post's
+ * `ls_plugin_portfolio_website` meta value via `WP_HTML_Tag_Processor` (falling
+ * back to a string replace only if that class or the anchor tag isn't
+ * available), or removes the button entirely when that meta is empty. When
+ * there's no post context at all (e.g. a Site Editor canvas render with no
+ * bound post), the block is left untouched rather than removed, matching
+ * `inc/portfolio-card-colors.php` and `inc/blog-card-colors.php`.
  *
  * @package ls-theme
  */
@@ -42,7 +47,7 @@ function ls_theme_work_single_view_site_button( $block_content, $block ) {
 	$post_id = get_the_ID();
 
 	if ( ! $post_id ) {
-		return '';
+		return $block_content;
 	}
 
 	$project_url = get_post_meta( $post_id, 'ls_plugin_portfolio_website', true );
@@ -51,6 +56,31 @@ function ls_theme_work_single_view_site_button( $block_content, $block ) {
 		return '';
 	}
 
-	return str_replace( 'href="#"', 'href="' . esc_url( $project_url ) . '"', $block_content );
+	return ls_theme_set_view_site_href( $block_content, $project_url );
+}
+
+/**
+ * Sets the "View site" button's href, preferring WP_HTML_Tag_Processor over a
+ * raw string replace so this doesn't depend on the exact serialised markup of
+ * the placeholder href.
+ *
+ * @param string $block_content The block content.
+ * @param string $project_url   The post's `ls_plugin_portfolio_website` meta value.
+ * @return string
+ */
+function ls_theme_set_view_site_href( $block_content, $project_url ) {
+	if ( ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
+		return str_replace( 'href="#"', 'href="' . esc_url( $project_url ) . '"', $block_content );
+	}
+
+	$tags = new WP_HTML_Tag_Processor( $block_content );
+
+	if ( ! $tags->next_tag( 'a' ) ) {
+		return str_replace( 'href="#"', 'href="' . esc_url( $project_url ) . '"', $block_content );
+	}
+
+	$tags->set_attribute( 'href', esc_url( $project_url ) );
+
+	return $tags->get_updated_html();
 }
 add_filter( 'render_block', 'ls_theme_work_single_view_site_button', 10, 2 );

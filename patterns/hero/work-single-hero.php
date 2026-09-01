@@ -98,10 +98,6 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"align":"wide","style":{"border":{"color":"var:custom|color|border|field","width":"1px","style":"solid","radius":"var:preset|border-radius|400"},"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
-	<div class="wp-block-group alignwide has-border-color" style="margin-top:var(--wp--preset--spacing--40);border-color:var(--wp--custom--color--border--field);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400)">
-		<!-- wp:post-featured-image {"style":{"border":{"radius":"var:preset|border-radius|400"}}} /-->
-	</div>
-	<!-- /wp:group -->
+	<!-- wp:post-featured-image {"align":"wide","style":{"border":{"color":"var(--wp--custom--color--border--field)","width":"1px","style":"solid","radius":"var:preset|border-radius|400"},"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} /-->
 </section>
 <!-- /wp:group -->
