@@ -546,7 +546,7 @@
                         "accent": "var:preset|color|accent-500"
                     },
                     "platform": {
-                        "wordpress": "var:preset|color|brand-500",
+                        "wordpress": "var:preset|color|brand-600",
                         "woocommerce": "var:preset|color|cta-800"
                     }
                 },
