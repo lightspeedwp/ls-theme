@@ -12,12 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed 25 `href="#"` placeholder links across `patterns/footer.php` (Services, Solutions, Systems, Company, Studio, and legal-bar columns), `patterns/header.php` ("Start a project →" CTA), and `patterns/sections/work-related-routes.php` (6 card links) — all now point to their real destination pages, verified against the live page list on ls-agency.lightspeedwp.dev.
-- Fixed a `/contact-us/` 404. The link didn't exist anywhere in theme source — it was hardcoded directly in the content of two blog posts ("Tour Operator Websites: Promoting Experiences" and "Marketing your Tour Operator Business Online"), corrected on the site to point to `/contact/` instead; not part of this diff.
 - Fixed a heading hierarchy skip (h1 straight to h3, no intermediate h2) caused by reusable patterns whose lead heading is hard-coded at `level: 3`, designed to sit under an existing h2 section heading but used standalone in several places. Promoted `patterns/cta/section-cta-consultation-inline.php` and `section-cta-consultation-strip.php` from h3 to h2. `patterns/thank-you-consultation.php` has its own embedded h1 and jumped straight to h3 card headings; converted its "While you wait" intro from a plain paragraph to a proper h2.
 
 ### Notes
 
 - `section-card-feature.php`, `section-card-services.php`, and `section-card-solutions.php` were deliberately left at h3 — they're grid-card patterns correctly nested under an existing h2 section heading elsewhere (e.g. `work-related-routes.php`'s "Where to go next" h2), so changing them would have broken correctly structured pages.
+- A related `/contact-us/` 404 was also fixed as part of this work, but not in this repo: the link didn't exist anywhere in theme source — it was hardcoded directly in the content of two blog posts ("Tour Operator Websites: Promoting Experiences" and "Marketing your Tour Operator Business Online"), corrected on the live site to point to `/contact/` instead.
 
 ---
 
