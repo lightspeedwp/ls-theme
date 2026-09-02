@@ -12,8 +12,8 @@
 
 ?>
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:0">
 	<!-- wp:pattern {"slug":"ls-theme/work-hero"} /-->
 	<!-- wp:pattern {"slug":"ls-theme/work-categories"} /-->
 	<!-- wp:pattern {"slug":"ls-theme/work-selected-projects"} /-->

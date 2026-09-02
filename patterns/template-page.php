@@ -10,8 +10,8 @@
 
 ?>
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:0">
 	<!-- wp:post-title {"level":1} /-->
 	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
 </main>
