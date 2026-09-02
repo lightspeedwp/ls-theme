@@ -12,8 +12,8 @@
 
 ?>
 
-<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
-<main class="wp-block-group" style="padding-bottom:var(--wp--preset--spacing--90)">
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"},"padding":{"bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:0;padding-bottom:var(--wp--preset--spacing--90)">
 	<!-- wp:pattern {"slug":"ls-theme/blog-hero"} /-->
 	<!-- wp:pattern {"slug":"ls-theme/blog-all-articles"} /-->
 	<!-- wp:pattern {"slug":"ls-theme/blog-engagement"} /-->
