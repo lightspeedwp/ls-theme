@@ -106,9 +106,9 @@
 
 	<!-- wp:group {"className":"ls-thank-you__waiting-intro","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group ls-thank-you__waiting-intro">
-		<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"},"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"}},"fontSize":"100"} -->
-		<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'While you wait', 'ls-theme' ); ?></p>
-		<!-- /wp:paragraph -->
+		<!-- wp:heading {"level":2,"style":{"color":{"text":"var(--wp--custom--color--text--muted)"},"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"}},"fontSize":"100"} -->
+		<h2 class="wp-block-heading has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'While you wait', 'ls-theme' ); ?></h2>
+		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
 		<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( "A few things worth a look before we're in touch.", 'ls-theme' ); ?></p>
