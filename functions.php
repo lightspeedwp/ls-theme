@@ -33,6 +33,9 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 /** Loads Homepage Featured Work query filtering */
 require get_template_directory() . '/inc/featured-work-query.php';
 
+/** Loads Blog Single "Related Reading" query filtering */
+require get_template_directory() . '/inc/blog-single-related-query.php';
+
 /**
  * Sets up theme supports.
  */
