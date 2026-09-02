@@ -56,7 +56,16 @@ function ls_theme_work_single_view_site_button( $block_content, $block ) {
 		return '';
 	}
 
-	return ls_theme_set_view_site_href( $block_content, $project_url );
+	// Validate once up front: if the stored meta is malformed or uses a
+	// disallowed scheme, esc_url() returns '' — remove the button rather than
+	// leave it pointing at an empty/broken href.
+	$safe_url = esc_url( $project_url );
+
+	if ( empty( $safe_url ) ) {
+		return '';
+	}
+
+	return ls_theme_set_view_site_href( $block_content, $project_url, $safe_url );
 }
 
 /**
@@ -65,21 +74,28 @@ function ls_theme_work_single_view_site_button( $block_content, $block ) {
  * the placeholder href.
  *
  * @param string $block_content The block content.
- * @param string $project_url   The post's `ls_plugin_portfolio_website` meta value.
+ * @param string $raw_url       The post meta value, unescaped. Passed to
+ *                               WP_HTML_Tag_Processor::set_attribute(), which
+ *                               already runs esc_url() itself for URI
+ *                               attributes — passing a pre-escaped value here
+ *                               would double-escape it.
+ * @param string $safe_url      The same value already run through esc_url(),
+ *                               for the str_replace() fallback only, which
+ *                               does no escaping of its own.
  * @return string
  */
-function ls_theme_set_view_site_href( $block_content, $project_url ) {
+function ls_theme_set_view_site_href( $block_content, $raw_url, $safe_url ) {
 	if ( ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
-		return str_replace( 'href="#"', 'href="' . esc_url( $project_url ) . '"', $block_content );
+		return str_replace( 'href="#"', 'href="' . $safe_url . '"', $block_content );
 	}
 
 	$tags = new WP_HTML_Tag_Processor( $block_content );
 
 	if ( ! $tags->next_tag( 'a' ) ) {
-		return str_replace( 'href="#"', 'href="' . esc_url( $project_url ) . '"', $block_content );
+		return str_replace( 'href="#"', 'href="' . $safe_url . '"', $block_content );
 	}
 
-	$tags->set_attribute( 'href', esc_url( $project_url ) );
+	$tags->set_attribute( 'href', $raw_url );
 
 	return $tags->get_updated_html();
 }

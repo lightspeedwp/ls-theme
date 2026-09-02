@@ -16,8 +16,11 @@
   }
 
   .ls-work-single-meta.wp-block-columns > .ls-work-single-meta__col + .ls-work-single-meta__col {
-    border-top: 1px solid var(--wp--custom--color--border--card);
-    padding-top: var(--wp--preset--spacing--20);
+    // !important required: every column already carries its own inline
+    // border-top/padding-top (from the desktop divider fix), and inline
+    // styles always beat a class selector regardless of specificity.
+    border-top: 1px solid var(--wp--custom--color--border--card) !important;
+    padding-top: var(--wp--preset--spacing--20) !important;
     margin-top: var(--wp--preset--spacing--10);
   }
 }
