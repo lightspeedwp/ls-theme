@@ -12,8 +12,8 @@
 
 ?>
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:0">
 	<!-- wp:pattern {"slug":"ls-theme/work-single-hero"} /-->
 	<!-- wp:post-content {"align":"wide","layout":{"type":"constrained"}} /-->
 </main>
