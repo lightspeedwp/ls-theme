@@ -19,6 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Scoped to this specific block via its `ls-blog-single-related` className so no other Query
  * Loop on the site is affected.
  *
+ * A post with no categories has no basis for "related" — rather than falling through to an
+ * unfiltered, unrelated set of posts, the query is forced to return zero results via the
+ * standard `post__in => [0]` trick (no post can ever have ID 0).
+ *
  * @param array    $query Query args for the block.
  * @param WP_Block $block Block instance.
  * @return array
@@ -36,13 +40,15 @@ function ls_theme_filter_blog_single_related_query( $query, $block ) {
 		return $query;
 	}
 
-	$query['post__not_in'] = array( $post_id );
-
 	$categories = get_the_category( $post_id );
 
-	if ( ! empty( $categories ) ) {
-		$query['category__in'] = wp_list_pluck( $categories, 'term_id' );
+	if ( empty( $categories ) ) {
+		$query['post__in'] = array( 0 );
+		return $query;
 	}
+
+	$query['post__not_in'] = array( $post_id );
+	$query['category__in'] = wp_list_pluck( $categories, 'term_id' );
 
 	return $query;
 }

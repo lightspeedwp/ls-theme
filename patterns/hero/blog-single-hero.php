@@ -5,9 +5,10 @@
  * Categories: hero
  * Block Types: core/pattern
  * Description: The Blog single (article) hero: breadcrumb trail, category eyebrow, post title,
- * excerpt, and a metadata row (author, date, reading time) on a bordered strip, all confined to
- * the theme's default 800px content width like the post content below it, then the post's
- * featured image full wide. The breadcrumb sits in its own align-wide, left-justified row (no
+ * excerpt, and a metadata row (author, date, reading time, tags) on a bordered strip, all
+ * confined to the theme's default 800px content width like the post content below it, then the
+ * post's featured image full wide. Tags use post-terms' own `prefix` attribute rather than a
+ * static label, so nothing renders at all when a post has no tags. The breadcrumb sits in its own align-wide, left-justified row (no
  * contentSize) ahead of the 800px column, matching the Blog Archive hero's own breadcrumb
  * convention — templates/single.html does not render the shared parts/breadcrumbs.html template
  * part for this template, so this is the page's only breadcrumb. Adapts between light and dark
@@ -25,7 +26,7 @@
 <section class="wp-block-group alignfull ls-blog-single-hero" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30)">
 
 	<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
-	<!-- wp:group {"align":"wide","style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+	<!-- wp:group {"align":"wide","style":{"color":{"text":"var(--wp--custom--color--text--muted)"},"elements":{"link":{"color":{"text":"var(--wp--custom--color--text--muted)"}}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide has-text-color" style="color:var(--wp--custom--color--text--muted)">
 		<!-- wp:yoast-seo/breadcrumbs /-->
 	</div>
@@ -69,6 +70,8 @@
 			<!-- wp:post-date {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
 
 			<!-- wp:post-time-to-read {"displayAsRange":false,"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
+
+			<!-- wp:post-terms {"term":"post_tag","prefix":<?php echo wp_json_encode( __( 'Tags: ', 'ls-theme' ) ); ?>,"separator":" · ","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
