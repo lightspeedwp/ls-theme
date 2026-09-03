@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — 404 template rebuild (LS-2596)
+
+### Added
+
+- Added `patterns/sections/404-best-next-routes.php`, the "Five useful destinations" section: eyebrow, heading, and a 5-card grid (Homepage, Pricing, Website packages, FAQ, Contact) reusing the existing Card - Category style and Phosphor icons. Wired into `templates/404.html` alongside the existing 404 pattern.
+- Added the `1000` ("Display") font-size preset to `styles/presets/typography.json` (fluid `4.5rem`–`10rem`), used by the 404 numeral — the previous largest preset (`900`, `4.5rem`) was too small for the design's display-scale treatment.
+- Added the `effect.watermark.brand` semantic colour token to `theme.json` and `styles/dark.json`, backed by two new palette presets (`brand-450`, `cta-150`), for the 404 numeral's colour.
+
+### Changed
+
+- Rebuilt `patterns/template-404.php` in place: large 404 numeral, not-found heading, supporting copy, and Homepage/Search CTAs, replacing the previous minimal search-field version.
+
+### Fixed
+
+- Fixed the routes section rendering with no gap before the footer by applying the existing `is-style-content-band` section style (padding, not margin — WordPress core zeroes `margin-top` on template-part wrappers, so root `blockGap` alone can't create space against the footer).
+- Fixed missing card icons: `outermost/icon-block` is a static block that reads its SVG from serialized HTML content, not the `iconName` attribute alone — embedded real Phosphor "regular" SVG markup for each card icon.
+- Fixed a Gutenberg editor crash on the routes section caused by an invalid `core/group` layout type (`"flow"` is not a real layout type; corrected to `"default"`).
+
+---
+
 ## [Unreleased] — Work Single (Portfolio) page rebuild (LS-2277)
 
 ### Added
