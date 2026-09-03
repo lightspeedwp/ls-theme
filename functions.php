@@ -36,6 +36,9 @@ require get_template_directory() . '/inc/featured-work-query.php';
 /** Loads Work Single hero "View site" button resolution */
 require get_template_directory() . '/inc/work-single-hero.php';
 
+/** Loads Blog Single "Related Reading" query filtering */
+require get_template_directory() . '/inc/blog-single-related-query.php';
+
 /**
  * Sets up theme supports.
  */

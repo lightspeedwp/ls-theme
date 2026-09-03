@@ -40,6 +40,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Single Blog template (LS-2932)
+
+### Added
+
+- Added `ls-theme/blog-single-hero` (`patterns/hero/blog-single-hero.php`): breadcrumb, dot-icon category eyebrow, `post-title`, `post-excerpt`, and a bordered author/date/read-time meta strip, all left-aligned and wide, then a full-wide featured image capped to a `21/9` aspect ratio. Adapted from the Work Single hero's structure, using existing semantic tokens only.
+- Added `inc/blog-single-related-query.php`: scopes the new "Related Reading" Query Loop to the current post's own category and excludes the post itself, resolved at render time via `query_loop_block_query_vars` (a pattern's own `wp:query` attributes can't express "the current post").
+
+### Changed
+
+- Rewired `template-single.php` (the Single Blog main-content pattern): hero → `post-content` (unchanged, default 800px width) → share row → wide "Related Reading" grid (reusing the existing `blog-post-card` pattern) → the existing `blog-writing-cta` pattern as the closing CTA.
+- Removed the shared `parts/breadcrumbs.html` template-part reference from `templates/single.html` — the hero pattern now renders its own breadcrumb, matching the Blog Archive hero's convention, avoiding a duplicate breadcrumb.
+
+### Docs
+
+- Added a "Core WordPress blocks first" rule to `AGENTS.md`, documenting the existing practice of preferring semantic core blocks (`post-title`, `post-excerpt`, `post-terms`, `query`/`post-template`, etc.) over generic `group`/`columns` markup.
+
+---
+
 ## [Unreleased] — PageSpeed: Fix mobile performance on Homepage (LS-2922)
 
 ### Fixed
