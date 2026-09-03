@@ -38,5 +38,7 @@
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->
+
+	<!-- wp:pattern {"slug":"ls-theme/404-best-next-routes"} /-->
 </main>
 <!-- /wp:group -->
