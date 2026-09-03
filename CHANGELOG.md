@@ -7,6 +7,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Work Single (Portfolio) page rebuild (LS-2277)
+
+### Added
+
+- Added `templates/single-project.html`, a dedicated single template for the `project` custom post type. Previously `project` posts fell back to the generic `templates/single.html` used for blog posts, which had no eyebrow, CTA buttons, or meta row.
+- Added `patterns/template-work-single.php`, the Work Single main-content pattern: the new hero followed by `wp:post-content` rendered exactly as authored, so every existing case study's body (headings, columns, image/gallery blocks) keeps rendering unchanged.
+- Added `patterns/hero/work-single-hero.php`, the redesigned hero: breadcrumb trail, "Case Study" eyebrow, post title/excerpt, CTA buttons ("Talk to us about a similar project" + a "View site" button sourced from the `ls_plugin_portfolio_website` post meta), a three-column meta row (Software / Project Type / Services, from the existing `project-group` / `project-type` / `project-tag` taxonomies), and the post's featured image, bordered so it reads clearly against the page background regardless of the image's own colours.
+- Added `inc/work-single-hero.php`, a `render_block` filter that resolves the "View site" button's real URL (or removes the button) at actual render time. A pattern file's top-level PHP runs once at registration (`init`, no post context), so `get_post_meta( get_the_ID(), ... )` called directly in the pattern always returned empty — the button never appeared regardless of whether the post meta was set.
+- Added `src/scss/structural/work-single-hero.scss` (compiled to `assets/css/work-single-hero.css`, loaded only when `is_singular('project')` via the same conditional-bundle system as `work-hero`/`blog-hero`), for the meta row's mobile divider swap — see Changed below. No JSON block-supports equivalent exists for a divider that must be a vertical border on desktop and a horizontal one once columns stack.
+
+### Changed
+
+- Refined the metadata row's spacing and grouping, design-only — no taxonomy values, links, block bindings, or dynamic data changed: tightened the row's vertical padding and reduced the label-to-value gap to `spacing|10` (within the requested 12–16px range); added a 1px vertical divider between columns (reusing the existing `border.card` token) with consistent horizontal padding per column, while the first and last columns keep 0 padding on their outer edge so their content still aligns with the hero content above; gave every meta value (`wp:post-terms`) explicit, consistent typography (regular weight, `fontSize:200`) without touching their existing link colour; moved the featured image closer to the metadata row (margin-top `spacing|60` → `spacing|40`, matching the same reduction applied to the meta row's own top margin). On mobile (below WordPress core's own 782px `wp-block-columns` stacking breakpoint), the vertical dividers switch to horizontal dividers between the stacked blocks instead of an oddly full-height left border.
+
+### Fixed
+
+- Fixed the hero's title/excerpt/buttons/meta-row rendering narrower and centred instead of left-aligned with the breadcrumb: the inner wrapper group used `layout:"constrained"`, which restricts un-aligned children to content-width, while the breadcrumb block forced itself to `alignwide`. Removed the group's `layout` override entirely so all children fill the same wide width via the block's own default.
+- Increased the gap between the hero content and the featured-image panel from `spacing|60` to `spacing|80` for clearer visual separation.
+- Fixed the Site Editor throwing "This block has encountered an error and cannot be previewed" on the `single-project` template, caused by a `TypeError: Cannot read properties of undefined (reading 'getAlignments')`. Root cause: an intermediate fix for the alignment bug above used `layout:{"type":"flow"}` — `"flow"` is not a registered Gutenberg layout type (valid values are `default`, `constrained`, `flex`, `grid`), so resolving it returned `undefined` and calling `.getAlignments()` on that threw. Frontend rendering was never affected (block themes just ignore an unrecognised layout type there), but the pattern is unusable in the Site Editor until fixed. Removed the invalid `layout` attribute.
+- Fixed the breadcrumb, meta row, and CTA column using a 850px-fixed / flex-wrap layout combination untested elsewhere in this theme; reverted to the same `wp:columns`/`wp:column` shape (percentage widths) already proven throughout the codebase.
+- Fixed the "View site" button's meta key: initially wired to `lsx_project_url`, sourced from a different remote environment's plugin version. Confirmed via WP-CLI (`wp post meta list`) that this site's actual key is `ls_plugin_portfolio_website`.
+- Fixed the metadata row's two divided columns rendering a bold black box around all four sides instead of a subtle single-side divider. Their `style` only declared `border-left-*`; WordPress core's block-library CSS applies `border-style: solid` to every side once any border colour is set on a block (via `.has-border-color`), so the other three sides fell back to the browser's default border-width (`medium`, ~3px) and `currentColor` (black) — a real border, not a rendering glitch. Fixed by explicitly zeroing out the top/right/bottom sides (`width:0; style:none`) alongside the intended `border.card`-coloured 1px left divider, so nothing is left to a browser default.
+- Fixed the "View site" button's hover animation rendering the arrow icon on top of the button text instead of masking it. Two compounding causes: (1) an earlier attempt to lighten the icon well set `--ls-button-outline-accent-background: transparent` — that background is what visually covers the text as the icon slides from the button's right edge to its left edge on hover, not a decorative fill; (2) both hero buttons had custom, smaller `spacing.padding` overrides (an earlier "reduce button dominance" pass), but the outline button's hover slide uses fixed padding/positioning constants in `src/scss/animations/_button-motion.scss` calibrated for the theme's default button padding — shrinking the rest-state padding left the slide with less room than it needs, so the icon overlapped the text regardless of the well's background colour. Fixed by removing both hero buttons' padding overrides entirely, matching every other hero/CTA button in the theme (none of which override button padding) and letting the built-in hover animation work as designed.
+- Fixed case-study body content (`wp:post-content` in `patterns/template-work-single.php`) rendering capped at the theme's 800px `contentSize` instead of the 1370px `wideSize`, even though every section band inside a case study's own content already carries an `alignwide` class. Root cause: the `wp:post-content` block itself had no `align` attribute, so its own box was an unaligned child of `<main>` and rendered at 800px regardless of what alignment its children requested — a child can't be wider than its own parent's box. Added `"align":"wide"` to the block, matching how every other wide-content pattern in this theme is wired. No post content or per-post structure changes needed.
+
+### Notes
+
+- Only the hero is new design. The meta row deliberately reuses the three taxonomies that already exist on LIVE (`project-group`, `project-type`, `project-tag`) rather than introducing new fields like "Client Type" or "Platform" seen in the Figma reference — adding new taxonomies/meta would leave existing LIVE posts with blank data once this template ships.
+- The hero's featured-image panel renders the plain featured image with no caption/browser-chrome treatment — the Figma frame's caption chip is a design annotation, not real post content.
+- Drive Botswana's own post content (not a theme file — edited directly via WP-CLI/`wp_update_post`, same as the other post-content fixes above) needed several further passes: its mini-heading labels (e.g. "About Drive Botswana") were authored as plain paragraphs with `is-style-subheading-2`/`-3` classes that were never registered in this theme, so they rendered as unstyled text. Converted every instance to real `core/heading` blocks (`h3`/`h4`), which already get correct weight and size from the theme's existing heading styles — no new theme code needed. Also standardized every section's label-column width (`40%` → `30%`), removed each section's per-instance `wp:columns` `blockGap` override (falling back to the theme's own default, `spacing|50`), and gave each section equal top/bottom padding (`spacing|20`) for consistent vertical rhythm. Separately, several inner content groups had `"blockGap":"0"`, which WordPress renders as a hard `margin-block: 0px` reset on every child regardless of that child's own margin — changed to a real token (`spacing|10`) so WordPress's own flow-gap mechanism (margin-top on each subsequent sibling) produces a real gap between each label and the copy below it.
+
+---
+
+## [Unreleased] — Build Single Blog template (LS-2932)
+
+### Added
+
+- Added `ls-theme/blog-single-hero` (`patterns/hero/blog-single-hero.php`): breadcrumb, dot-icon category eyebrow, `post-title`, `post-excerpt`, and a bordered author/date/read-time meta strip, all left-aligned and wide, then a full-wide featured image capped to a `21/9` aspect ratio. Adapted from the Work Single hero's structure, using existing semantic tokens only.
+- Added `inc/blog-single-related-query.php`: scopes the new "Related Reading" Query Loop to the current post's own category and excludes the post itself, resolved at render time via `query_loop_block_query_vars` (a pattern's own `wp:query` attributes can't express "the current post").
+
+### Changed
+
+- Rewired `template-single.php` (the Single Blog main-content pattern): hero → `post-content` (unchanged, default 800px width) → share row → wide "Related Reading" grid (reusing the existing `blog-post-card` pattern) → the existing `blog-writing-cta` pattern as the closing CTA.
+- Removed the shared `parts/breadcrumbs.html` template-part reference from `templates/single.html` — the hero pattern now renders its own breadcrumb, matching the Blog Archive hero's convention, avoiding a duplicate breadcrumb.
+
+### Docs
+
+- Added a "Core WordPress blocks first" rule to `AGENTS.md`, documenting the existing practice of preferring semantic core blocks (`post-title`, `post-excerpt`, `post-terms`, `query`/`post-template`, etc.) over generic `group`/`columns` markup.
+
+---
+
 ## [Unreleased] — Fix broken placeholder links and heading hierarchy skips (LS-2936, LS-2938)
 
 ### Fixed
