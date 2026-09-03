@@ -33,6 +33,12 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 /** Loads Homepage Featured Work query filtering */
 require get_template_directory() . '/inc/featured-work-query.php';
 
+/** Loads Work Single hero "View site" button resolution */
+require get_template_directory() . '/inc/work-single-hero.php';
+
+/** Loads Blog Single "Related Reading" query filtering */
+require get_template_directory() . '/inc/blog-single-related-query.php';
+
 /**
  * Sets up theme supports.
  */
@@ -65,6 +71,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/cta-buttons.css' );
 	add_editor_style( 'assets/css/home-hero.css' );
 	add_editor_style( 'assets/css/work-hero.css' );
+	add_editor_style( 'assets/css/work-single-hero.css' );
 	add_editor_style( 'assets/css/blog-hero.css' );
 	add_editor_style( 'assets/css/blog-all-articles.css' );
 	add_editor_style( 'assets/css/blog-writing-cta.css' );
