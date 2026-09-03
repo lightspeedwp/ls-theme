@@ -119,6 +119,19 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 - Before using an attribute or attribute value on a core WordPress block,
   verify it is actually supported by that block (check the block's registered
   attributes/supports or an existing working usage) rather than guessing.
+- **Core WordPress blocks first.** Prefer the most semantic core block available
+  before reaching for a generic layout block. Post-aware content uses
+  `core/post-title`, `core/post-excerpt`, `core/post-date`, `core/post-terms`,
+  `core/post-featured-image`, `core/post-time-to-read`, and `core/query` +
+  `core/post-template` for listings — not a `core/group`/`core/columns`
+  hand-rolled substitute. Site identity uses `core/site-logo`,
+  `core/site-title`, `core/site-tagline`; navigation uses `core/navigation`;
+  calls to action use `core/buttons` + `core/button`. Fall back to
+  `core/group`, `core/columns`, `core/heading`, `core/paragraph`, `core/image`,
+  or `core/cover` only when no semantic core block fits the design intent, and
+  note the fallback in the pattern's description. See the
+  [Core Blocks reference](https://developer.wordpress.org/block-editor/reference-guides/core-blocks/)
+  for the full inventory.
 
 ---
 

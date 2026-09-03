@@ -46,3 +46,15 @@
 .ls-footer-social-icon {
   min-inline-size: var(--wp--custom--spacing--tap-target-min);
 }
+
+/*
+ * Proof-point card (.ls-footer-proof-card): the 3 cards sit in a wp:columns row that already
+ * stretches its columns to equal height by default, but each card's own background/border box
+ * only wraps its own content height, so a card with shorter text visibly looks shorter than one
+ * whose text wraps to more lines. JSON limitation: core/group's dimensions support only offers
+ * minHeight, not a "stretch to fill parent" key, so there's no block-attribute equivalent for
+ * making the card's box match its already-equal-height column.
+ */
+.ls-footer-proof-card {
+  height: 100%;
+}

@@ -72,6 +72,7 @@ function ls_theme_get_bundle_render_markers() {
 		),
 		'home-hero'             => array( 'classes' => array( 'ls-home-hero-section' ) ),
 		'work-hero'             => array( 'classes' => array( 'ls-work-hero' ) ),
+		'work-single-hero'      => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'             => array( 'classes' => array( 'ls-blog-hero' ) ),
 		'blog-all-articles'     => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
 		'blog-writing-cta'      => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
@@ -266,6 +267,14 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => static function () {
 				return is_post_type_archive( 'project' );
+			},
+		),
+		'work-single-hero'        => array(
+			'handle'    => 'ls-theme-work-single-hero',
+			'path'      => 'assets/css/work-single-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_singular( 'project' );
 			},
 		),
 		'blog-hero'               => array(

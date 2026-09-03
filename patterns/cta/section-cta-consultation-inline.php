@@ -35,8 +35,8 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:heading {"level":3,"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"300"} -->
-		<h3 class="wp-block-heading has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Want to talk this through for your site?', 'ls-theme' ); ?></h3>
+		<!-- wp:heading {"level":2,"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"},"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"300"} -->
+		<h2 class="wp-block-heading has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Want to talk this through for your site?', 'ls-theme' ); ?></h2>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark)"}}} -->

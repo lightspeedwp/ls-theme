@@ -29,8 +29,8 @@
 
 		<!-- wp:group {"className":"ls-cta-strip__text","style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group ls-cta-strip__text">
-			<!-- wp:heading {"level":3,"style":{"color":{"text":"var(--wp--custom--color--text--default)"},"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"300"} -->
-			<h3 class="wp-block-heading has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--default);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Prefer to talk it through first?', 'ls-theme' ); ?></h3>
+			<!-- wp:heading {"level":2,"style":{"color":{"text":"var(--wp--custom--color--text--default)"},"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"300"} -->
+			<h2 class="wp-block-heading has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--default);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Prefer to talk it through first?', 'ls-theme' ); ?></h2>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
