@@ -16,7 +16,7 @@
 <!-- wp:group {"align":"wide","tagName":"section","className":"is-style-content-band","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignwide is-style-content-band">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"flow"}} -->
+	<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 	<div class="wp-block-group alignwide">
 
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
