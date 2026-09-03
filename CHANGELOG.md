@@ -13,9 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed the footer's newsletter heading and paragraph overflowing horizontally at 320-380px viewports. `.ls-footer-notes-panel` is a vertical flex container with no explicit alignment set, so WordPress's default `align-items: flex-start` let the heading/paragraph size to their own unwrapped content width instead of the panel's actual available width. Added `"layout":{"selfStretch":"fill"}` (and the resulting `width:100%`) to both blocks in `patterns/footer.php` so they stretch to fit and wrap normally. The "LightSpeed notes" badge pill above them was left untouched since it's meant to hug its own content.
 - Fixed the footer logo not responding to light/dark mode. It used WordPress's core `wp:site-logo` block (a single static logo from Site Identity), unlike the header's `ls-theme/site-logo-switcher` pattern (a light/dark image pair toggled via existing global CSS in `_header.scss`). Swapped the footer to reference the same shared pattern already used by the header and mobile menu — no new CSS needed since the switching selectors aren't scoped to the header.
-
-### Improved
-
 - Fixed the footer's 3 stat cards (`.ls-footer-proof-card`) having visibly uneven heights when their text wrapped to a different number of lines. The columns they sit in already stretch to equal height by default, but each card's own background/border box only wrapped its own content. Added `height: 100%` to `.ls-footer-proof-card` in `src/scss/structural/_footer.scss` — a genuine JSON limitation, since `core/group`'s dimensions support only offers `minHeight`, not a "stretch to fill parent" key.
 
 ---
