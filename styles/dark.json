@@ -126,7 +126,7 @@
 						"cyan": "var:preset|color|cta-300"
 					},
 					"watermark": {
-						"brand": "var:preset|color|brand-300"
+						"brand": "var:preset|color|cta-150"
 					}
 				}
 			},

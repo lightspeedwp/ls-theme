@@ -4,7 +4,7 @@
  * Slug: ls-theme/template-404
  * Categories: template
  * Block Types: core/template-part
- * Description: Main-content pattern for the 404 template — a faded 404 watermark, a not-found heading, supporting copy, and Homepage/Search CTAs.
+ * Description: Main-content pattern for the 404 template — a large 404 numeral (effect.watermark.brand token), a not-found heading, supporting copy, and Homepage/Search CTAs.
  * Inserter: false
  *
  * @package ls-theme
@@ -15,8 +15,8 @@
 <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}},"blockGap":"var:preset|spacing|30"},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:0;padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
 
-	<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|extrabold","fontSize":"clamp(4.5rem, 12vw, 10rem)","lineHeight":"1"},"color":{"text":"color-mix(in srgb, var(--wp--custom--color--effect--watermark--brand) 15%, transparent)"}}} -->
-	<p class="has-text-align-center has-text-color" style="color:color-mix(in srgb, var(--wp--custom--color--effect--watermark--brand) 15%, transparent);font-family:var(--wp--preset--font-family--heading);font-size:clamp(4.5rem, 12vw, 10rem);font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:1"><?php echo esc_html__( '404', 'ls-theme' ); ?></p>
+	<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|extrabold","fontSize":"clamp(4.5rem, 12vw, 10rem)","lineHeight":"1"},"color":{"text":"var(--wp--custom--color--effect--watermark--brand)"}}} -->
+	<p class="has-text-align-center has-text-color" style="color:var(--wp--custom--color--effect--watermark--brand);font-family:var(--wp--preset--font-family--heading);font-size:clamp(4.5rem, 12vw, 10rem);font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:1"><?php echo esc_html__( '404', 'ls-theme' ); ?></p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"700"} -->
