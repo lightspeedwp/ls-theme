@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Search template (LS-2594)
+
+### Added
+
+- Added `patterns/hero/search-hero.php`: the Search template's hero — eyebrow, a static "Search LightSpeed" heading (intentionally not bound to the query term), supporting copy, and a no-button pill search field (`is-style-search-pill`, reused from the existing Blog All Articles search box).
+- Added `patterns/sections/search-useful-destinations.php`: the "Useful destinations" section — eyebrow, heading, and a 4-card grid (FAQ, Pricing, Website packages, Contact), reusing the existing `is-style-card-category`/`ls-icon-well-brand`/`is-style-link-arrow-accent` styles and the same Phosphor icon markup already used by `404-best-next-routes.php`. Kept as a separate, self-contained file per this repo's one-pattern-per-file convention rather than a shared cross-pattern reference. Always shown below the results list regardless of result count.
+
+### Changed
+
+- Rebuilt `patterns/template-search.php`: hero → results query loop → useful destinations. Each result now shows a category eyebrow (`core/post-terms`) above the title, plus a hairline divider (`border.card`) between items. Removed the query loop's unused `postType`/`search`/`exclude` args, which `inherit:true` was already ignoring in favor of the main search query — pages now correctly appear in results alongside posts, matching core behavior.
+
+### Notes
+
+- No new colour tokens or font-size presets were needed — every value maps to an existing semantic token or preset, and every reused block style already carries dark-mode parity.
+- The results-list "eyebrow" shows the post's category term rather than a post-type label, since WordPress core has no block for rendering a post-type name and this site has no custom taxonomy resembling the Figma mock's placeholder labels (e.g. "Trust", "Commercial").
+
+---
+
 ## [Unreleased] — Fix button.fill color contrast (LS-2937)
 
 ### Fixed
