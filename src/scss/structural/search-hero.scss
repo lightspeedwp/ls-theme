@@ -31,3 +31,28 @@
   background-position: 0 0;
   background-repeat: no-repeat;
 }
+
+/*
+ * Optical leading trim (Search Useful Destinations heading): no block-supports attribute exists
+ * for CSS's text-box-trim/text-box-edge or for a font-metric-derived transform (confirmed JSON
+ * limitation, AGENTS.md Theme-First Approach) — line-height alone can't fully remove a font's own
+ * built-in internal leading (the ascent/descent metrics baked into the font file itself), which
+ * differs between the eyebrow's body font (Manrope) and this heading's display font (Lexend).
+ * That residual, font-specific leading was making the gap above the heading read visibly larger
+ * than the gap below it even with identical margin-top values and line-height:1 on both.
+ *
+ * text-box-trim/text-box-edge are the "correct" future-facing CSS fix but are still landing in
+ * browsers, so they're kept here as a harmless enhancement (unsupported browsers just ignore
+ * them). The translateY below is the actual, broadly-supported fix: cap and lh are real CSS units
+ * (not a guessed pixel value) that the browser resolves against the element's own font — 1lh is
+ * this element's resolved line-height, 1cap is its font's actual cap-height — so
+ * (1cap - 1lh) / 2 is the browser calculating precisely half the font's own leading and shifting
+ * the text up by exactly that amount. It's a transform, not a margin change, so it doesn't affect
+ * the box model or collide with the element's own margin-top (the real design-spacing value,
+ * which stays a plain inline block attribute).
+ */
+.ls-optical-trim {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  transform: translateY(calc((1cap - 1lh) / 2));
+}
