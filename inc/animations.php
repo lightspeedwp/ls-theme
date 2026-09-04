@@ -377,6 +377,12 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_search',
 		),
+		'search-hero'             => array(
+			'handle'    => 'ls-theme-search-hero',
+			'path'      => 'assets/css/search-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => 'is_search',
+		),
 	);
 
 	/**

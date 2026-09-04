@@ -4,3 +4,85 @@
 .search .wp-block-query-title {
 	overflow-wrap: anywhere;
 }
+
+// Search result row: whole-row link + hover. Same stretched-link recipe already used by Card -
+// Post/Card - Category/Card - Link Row (a real core/read-more link with a content:"" ::before
+// covering the row) — a bare &:hover in a style JSON's css field is silently dropped, so this has
+// to be real CSS regardless, and this pattern is single-use to this template's results list
+// rather than a global editor-facing style-picker entry, so it lives here rather than as a new
+// styles/sections/cards/*.json file. The read-more link is hidden with font-size:0 (Card - Post's
+// .ls-post-card-cta technique), NOT the core screen-reader-text utility — screen-reader-text sets
+// position:absolute on the anchor itself, which clips it to a 1px box and breaks the stretched
+// link: the ::before's inset:0 then resolves against that 1px anchor box instead of this card,
+// since the anchor itself would become the nearest positioned ancestor. font-size:0 keeps the
+// anchor a normal, non-positioned, in-flow element, so its ::before correctly sizes against
+// .ls-search-result (position:relative) instead — this is also why hovering anywhere on the card
+// (not just the title text) now shows a pointer cursor, the actual reported bug. Unlike those
+// tile-shaped cards this is a flat list row, so the hover motion is a small rightward shift
+// instead of a lift, plus the title switching to the accent-hover link colour — post-title has no
+// block-supports colour override for :hover specifically, and the theme's global elements.link
+// carries no hover colour of its own to inherit, so both need setting explicitly here. Uses
+// link.accent-hover, not link.accent — link.accent is the resting-state link colour (dark mode:
+// cta-500, the same saturated cyan as the CTA buttons, too loud for a hover-only state on
+// heading-sized text); accent-hover exists specifically for this role (dark mode: cta-300, same
+// family, softer) and is already paired for both modes.
+.ls-search-result {
+	position: relative;
+	transition:
+		transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+	& .wp-block-post-title a {
+		position: relative;
+		z-index: 1;
+		transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+	}
+
+	&:hover,
+	&:focus-within {
+		transform: translateX(var(--wp--preset--spacing--10));
+	}
+
+	&:hover .wp-block-post-title a,
+	&:focus-within .wp-block-post-title a {
+		color: var(--wp--custom--color--link--accent-hover);
+	}
+
+	& .ls-search-result__link {
+		font-size: 0;
+		line-height: 1;
+	}
+
+	& .ls-search-result__link::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+	}
+
+	& .ls-search-result__link:focus-visible {
+		outline: 2px solid var(--wp--custom--color--focus--ring);
+		outline-offset: 2px;
+	}
+
+	// post-terms renders its own real link (the category term) — give it its own stacking layer
+	// so it stays clickable above the stretched read-more overlay instead of being swallowed by
+	// it, same fix already applied to Card - Post/Card - Case Study for the same reason.
+	& .wp-block-post-terms a {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ls-search-result {
+		transition: none;
+
+		& .wp-block-post-title a {
+			transition: none;
+		}
+
+		&:hover,
+		&:focus-within {
+			transform: none;
+		}
+	}
+}
