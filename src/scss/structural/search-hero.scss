@@ -1,0 +1,33 @@
+/********** Search Hero (Search template only) **********/
+
+/*
+ * Search Hero background: two soft corner glows pulled directly from the Figma source via the
+ * Figma MCP's get_design_context (LightSpeedWP Design System, node 8038:160916 light /
+ * 8038:160744 dark) — each a single-colour radial ellipse fading to transparent. Position/size
+ * values below are the exact numbers decoded from Figma's SVG gradientTransform matrices (center
+ * and x/y radius as a fraction of the design's 1470x750.25 frame — CSS's percentage-based
+ * radial-gradient sizing resolves against this element's own box the same way, so the
+ * proportions carry over responsively):
+ * - top-right: ellipse 53%/54% at 78%/-10%
+ * - bottom-left: ellipse 37%/42% at 12%/100%
+ * Figma's own colours are exact matches for existing tokens already used for this purpose
+ * elsewhere: rgba(30,106,255,*) is brand-500 (effect.hero.brand already points to it), and
+ * rgba(123,231,255,*) is closest to cta-400 (effect.hero.cyan already points to it) — no new
+ * tokens needed. Figma varies each glow's opacity slightly between its light (10%/8%) and dark
+ * (16%/6%) frames; that's a minor refinement with no established mechanism in this theme (dark
+ * mode here only remaps custom-property values, not opacity by selector), so this file uses one
+ * opacity per glow across both modes rather than inventing new mode-specific infrastructure for
+ * it — the visual difference is negligible against either surface. Combined into one
+ * background-image, same technique as src/scss/structural/blog-hero.scss and
+ * src/scss/structural/work-hero.scss (color.gradient block support only accepts a single
+ * gradient value, not layered gradients of any kind) — this is the only content that stays here,
+ * no motion involved at all. The block's own inline style already carries the section's
+ * border-bottom as a real block attribute; only the background needed this file.
+ */
+.ls-search-hero {
+  background-image:
+    radial-gradient(53% 54% at 78% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 10%, transparent) 0%, transparent 60%),
+    radial-gradient(37% 42% at 12% 100%, color-mix(in srgb, var(--wp--custom--color--effect--hero--cyan) 8%, transparent) 0%, transparent 60%);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
