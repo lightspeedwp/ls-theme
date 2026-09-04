@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix button.fill color contrast (LS-2937)
+
+### Fixed
+
+- Fixed a WCAG AA color-contrast failure on the theme's secondary filled button style (`is-style-button-secondary`, used by the 404 page's "Back to homepage" button, the Work archive's "Ready to discuss a project?" CTA, and the mobile menu's "Start a project" button). `button.fill.background`/`border` was `brand-500` (`#1E6AFF`) against `button.fill.text` (`base`, `#FAFAFA`) — 4.41:1, below the 4.5:1 minimum. Changed to `brand-600` (`#1C5EE4`), which is already the token used everywhere else this brand blue needs to be accessible (`text.brand`, `link.accent`, `card.platform.wordpress`) — 5.34:1, passes with real margin.
+- Fixed a related, previously-undetected hover-state contrast failure on the same button: `text-hover` was `contrast` (`#080808`, near-black) against `background-hover` (the same blue), which was already failing at 4.35:1 before this change and would have failed worse (3.6:1) after the background swap alone. Changed `text-hover` to `base` (white), matching the resting state's text color. Resting and hover now share the same `brand-600`/`base` color pair, so both are 5.34:1. Automated axe-core scans don't trigger `:hover` states, so this wasn't caught by the original BugHerd report.
+- Fixed the same underlying failure on the theme's secondary outline button style (`is-style-button-secondary-outline`): `button.outline.text`/`border`/`background-hover` were also `brand-500`, failing at 4.41:1 in both resting (text on a transparent/light background) and hover (white text on a `brand-500` background) states. Changed all three to `brand-600` — 5.34:1 in both states, matching the filled button fix above.
+
+### Notes
+
+- Dark mode's equivalent button tokens (`cta-500`/`cta-400` against `contrast`) were checked for both the filled and outline styles and already pass comfortably (15.57:1 resting, 13.1:1 hover) — no dark-mode change needed.
+- The header's "Start a project →" gradient CTA (`ls-button-cta-gradient` in `patterns/header.php`) is unaffected — it uses its own custom gradient background, not `button.fill.background`.
+
+---
+
 ## [Unreleased] — 404 template rebuild (LS-2596)
 
 ### Added
