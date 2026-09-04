@@ -144,6 +144,11 @@
                     "color": "#5C90FF"
                 },
                 {
+                    "name": "Brand 450",
+                    "slug": "brand-450",
+                    "color": "#3D7DFF"
+                },
+                {
                     "name": "Brand 500",
                     "slug": "brand-500",
                     "color": "#1E6AFF"
@@ -172,6 +177,11 @@
                     "name": "Cta 100",
                     "slug": "cta-100",
                     "color": "#DDFBFF"
+                },
+                {
+                    "name": "Cta 150",
+                    "slug": "cta-150",
+                    "color": "#99EFFF"
                 },
                 {
                     "name": "Cta 200",
@@ -614,6 +624,9 @@
                         "accent": "var:preset|color|accent-two-500",
                         "violet": "var:preset|color|phase-six-strong",
                         "cyan": "var:preset|color|cta-400"
+                    },
+                    "watermark": {
+                        "brand": "var:preset|color|brand-450"
                     }
                 }
             },

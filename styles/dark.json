@@ -124,6 +124,9 @@
 						"accent": "var:preset|color|accent-two-300",
 						"violet": "var:preset|color|phase-six",
 						"cyan": "var:preset|color|cta-300"
+					},
+					"watermark": {
+						"brand": "var:preset|color|cta-150"
 					}
 				}
 			},

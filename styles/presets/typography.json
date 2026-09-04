@@ -265,6 +265,15 @@
                         "min": "2.75rem",
                         "max": "4.5rem"
                     }
+                },
+                {
+                    "name": "Display",
+                    "slug": "1000",
+                    "size": "10rem",
+                    "fluid": {
+                        "min": "4.5rem",
+                        "max": "10rem"
+                    }
                 }
             ]
         },
