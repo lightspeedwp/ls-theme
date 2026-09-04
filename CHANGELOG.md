@@ -11,17 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added `patterns/hero/search-hero.php`: the Search template's hero — eyebrow, a static "Search LightSpeed" heading (intentionally not bound to the query term), supporting copy, and a no-button pill search field (`is-style-search-pill`, reused from the existing Blog All Articles search box).
+- Added `patterns/hero/search-hero.php`: the Search template's hero — breadcrumb trail, eyebrow, a static "Search LightSpeed" heading (intentionally not bound to the query term), supporting copy, and a no-button pill search field (`is-style-search-pill`, reused from the existing Blog All Articles search box). The breadcrumb is embedded here rather than the shared `ls-theme/breadcrumbs` template part, so it shares this hero's own padding instead of stacking a second set on top, matching the `blog-hero`/`work-hero` convention.
 - Added `patterns/sections/search-useful-destinations.php`: the "Useful destinations" section — eyebrow, heading, and a 4-card grid (FAQ, Pricing, Website packages, Contact), reusing the existing `is-style-card-category`/`ls-icon-well-brand`/`is-style-link-arrow-accent` styles and the same Phosphor icon markup already used by `404-best-next-routes.php`. Kept as a separate, self-contained file per this repo's one-pattern-per-file convention rather than a shared cross-pattern reference. Always shown below the results list regardless of result count.
+- Added `src/scss/structural/search-hero.scss`: the hero's decorative corner-glow background (two radial gradients, layered — `color.gradient` block support only accepts one), reusing the existing `effect.hero.brand`/`effect.hero.cyan` tokens; and `.ls-optical-trim`, a font-leading correction (see Fixed, below).
+- Added `src/scss/structural/search-results.scss` additions: whole-row clickable results with a rightward-shift hover, using the same stretched-link technique as Card - Post (`font-size:0` on a real `core/read-more` link, not the core `screen-reader-text` utility — that sets `position:absolute` on the anchor itself, which breaks the stretched-link's `::before{inset:0}` sizing).
 
 ### Changed
 
-- Rebuilt `patterns/template-search.php`: hero → results query loop → useful destinations. Each result now shows a category eyebrow (`core/post-terms`) above the title, plus a hairline divider (`border.card`) between items. Removed the query loop's unused `postType`/`search`/`exclude` args, which `inherit:true` was already ignoring in favor of the main search query — pages now correctly appear in results alongside posts, matching core behavior.
+- Rebuilt `patterns/template-search.php`: hero → results query loop → useful destinations. Each result shows a category eyebrow (`core/post-terms`) above an `H2` title (`core/post-title`, `level:2` — the previous `level:3` skipped a heading level with no `H2` before it) and excerpt, plus a hairline divider (`border.card`) between items. Removed the query loop's unused `postType`/`search`/`exclude` args, which `inherit:true` was already ignoring in favor of the main search query — pages now correctly appear in results alongside posts, matching core behavior.
+- `styles/blocks/search/search-pill.json`: added explicit `text.default`/`text.subtle` colours for the input's typed text and placeholder. Neither this file nor `core-search.json` previously set a `color` on the input, so it fell back to the browser's black UA default — invisible against this pill's dark-mode `surface.card` background (only coincidentally legible in light mode). Fixes both consumers of this shared style (the Search hero and Blog All Articles' header search, which had the same latent bug).
+
+### Fixed
+
+- Hover-state title colour on search results used `link.accent` (dark mode: `cta-500`, the same saturated cyan as the CTA buttons — too loud for a hover-only state on heading-sized text). Changed to `link.accent-hover` (dark mode: `cta-300`, same family, softer), the token that exists specifically for this role.
+- Added `.ls-optical-trim` (`text-box-trim`/`text-box-edge`, plus a `transform: translateY(calc((1cap - 1lh) / 2))` fallback for broader browser support) to the hero eyebrow/heading and the Useful destinations eyebrow/heading. `line-height` alone can't fully cancel a font's own built-in leading (baked into the font file's vertical metrics), which differs between the body font (Manrope) and the display font (Lexend) — that residual, font-specific leading was making the gap above each heading read larger than the gap below it, even with identical margin values. `cap`/`lh` are real CSS units resolved per-font by the browser, not a guessed pixel offset.
 
 ### Notes
 
 - No new colour tokens or font-size presets were needed — every value maps to an existing semantic token or preset, and every reused block style already carries dark-mode parity.
 - The results-list "eyebrow" shows the post's category term rather than a post-type label, since WordPress core has no block for rendering a post-type name and this site has no custom taxonomy resembling the Figma mock's placeholder labels (e.g. "Trust", "Commercial").
+- Verified against the dev site (`ls-agency.lightspeedwp.dev`, the theme's active environment there): the `category` taxonomy exists on `post` and matches local; all four destination links (`/faq/`, `/pricing/`, `/website-packages/`, `/contact/`) are published there. All links use `esc_url( home_url( '/slug/' ) )` — no hardcoded domains.
 
 ---
 
