@@ -73,6 +73,7 @@ function ls_theme_get_bundle_render_markers() {
 		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
+		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -273,6 +274,12 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		'services-linked-decisions' => array(
 			'handle'   => 'ls-theme-services-linked-decisions',
 			'path'     => 'assets/css/services-linked-decisions.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as services-hero above.
+		),
+		'services-service-clusters' => array(
+			'handle'   => 'ls-theme-services-service-clusters',
+			'path'     => 'assets/css/services-service-clusters.css',
 			'contexts' => array( 'front', 'editor' ),
 			// Same reasoning as services-hero above.
 		),
