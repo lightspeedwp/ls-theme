@@ -74,19 +74,6 @@ function ls_theme_get_bundle_render_markers() {
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
-		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
-		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
-		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
-		'blog-all-articles'         => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
-		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
-		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
-		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
-		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
-		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
-		'stats-bar'                 => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
-		'homepage-card-rows'        => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
-		'search-hero'               => array( 'classes' => array( 'ls-search-hero', 'ls-optical-trim' ) ),
-		'search-results'            => array( 'classes' => array( 'ls-search-result' ) ),
 	);
 }
 
