@@ -71,6 +71,7 @@ function ls_theme_get_bundle_render_markers() {
 			),
 		),
 		'home-hero'             => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'services-hero'         => array( 'classes' => array( 'ls-service-pill' ) ),
 		'work-hero'             => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'      => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'             => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -260,6 +261,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/home-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
+		),
+		'services-hero'           => array(
+			'handle'   => 'ls-theme-services-hero',
+			'path'     => 'assets/css/services-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+			// No page template yet (LS-1598 in progress) — same reasoning as card-shells/
+			// cta-buttons above, relies on render_block marker detection instead of a condition.
 		),
 		'work-hero'               => array(
 			'handle'    => 'ls-theme-work-hero',
