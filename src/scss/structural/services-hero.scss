@@ -1,0 +1,55 @@
+/********** Services Hero (Services page only) **********/
+
+/*
+ * Services Hero (LS-1598, single consumer patterns/hero/services-hero.php). The service-tag
+ * pills' rest-state background/border tints are set inline per instance (each pill mixes its
+ * own phase token), because block-supports has no way to express six distinct phase-derived
+ * colours. Interactive states (:hover, :focus-within, :focus-visible) have no block-supports
+ * equivalent at all, so they live here.
+ *
+ * The `!important` on the hover/focus-within background-color and border-color declarations is
+ * required, not a shortcut: an inline `style` attribute always outranks an external stylesheet
+ * rule regardless of pseudo-class or selector specificity, so without it these two properties
+ * could never change on hover. transform/box-shadow aren't set inline at rest, so they don't
+ * need it.
+ */
+.ls-service-pill {
+  transition:
+    background-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-1px);
+    box-shadow: var(--wp--custom--shadow--elevation--100);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: 2px;
+    border-radius: var(--wp--preset--border-radius--100);
+  }
+}
+
+@each $phase in discover, create, build, launch, grow, evolve {
+  .ls-service-pill--#{$phase} {
+    &:hover,
+    &:focus-within {
+      background-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 16%, transparent) !important;
+      border-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 55%, var(--wp--custom--color--border--card)) !important;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-service-pill {
+    transition: none;
+
+    &:hover,
+    &:focus-within {
+      transform: none;
+    }
+  }
+}
