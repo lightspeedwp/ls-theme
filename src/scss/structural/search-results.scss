@@ -58,7 +58,10 @@
 		inset: 0;
 	}
 
-	& .ls-search-result__link:focus-visible {
+	// The outline goes on the ::before overlay, not the link itself — the link is font-size:0
+	// (collapsed to near-zero size by design), so an outline on its own box would be invisible
+	// for keyboard users. The ::before is the one full-size element (inset:0 over the row).
+	& .ls-search-result__link:focus-visible::before {
 		outline: 2px solid var(--wp--custom--color--focus--ring);
 		outline-offset: 2px;
 	}

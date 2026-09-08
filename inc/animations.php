@@ -82,6 +82,8 @@ function ls_theme_get_bundle_render_markers() {
 		'homepage-cta'          => array( 'classes' => array( 'ls-homepage-cta' ) ),
 		'stats-bar'             => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
 		'homepage-card-rows'    => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
+		'search-hero'           => array( 'classes' => array( 'ls-search-hero', 'ls-optical-trim' ) ),
+		'search-results'        => array( 'classes' => array( 'ls-search-result' ) ),
 	);
 }
 
@@ -234,9 +236,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/work-archive-sections.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Icon-well classes are also used by 3 homepage sections (what-we-build,
-			// where-to-start, where-to-fit) in addition to the Work archive.
+			// where-to-start, where-to-fit) in addition to the Work archive, and by the
+			// Search template's "Useful destinations" section (is-style-card-category,
+			// ls-icon-well-brand) — without is_search() here, that reuse only gets caught by
+			// the render_block fallback below, which prints in the footer and visibly
+			// restyles the cards after first paint.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' );
+				return is_front_page() || is_post_type_archive( 'project' ) || is_search();
 			},
 		),
 		'card-shells'             => array(
