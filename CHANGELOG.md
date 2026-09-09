@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix legacy outermost/icon-block CSS selectors broken by Core Icon migration (LS-3720)
+
+### Fixed
+
+- Fixed mega-menu and Work-archive card icon hover/focus colour treatments no longer applying after the Core Icon block migration (LS-3229): `.wp-block-outermost-icon-block` selectors in `src/scss/animations/_menu-motion.scss` and `src/scss/structural/work-archive-sections.scss` only matched the legacy `outermost/icon-block` markup, so any icon already converted to WordPress 7.1's Core `core/icon` block (`.wp-block-icon`) lost its hover styling. Both selector sets now target `.wp-block-outermost-icon-block` and `.wp-block-icon` side by side, so neither markup shape loses the treatment while any remaining legacy instances are migrated.
+- Removed a redundant, footer-specific `.icon-container svg { fill: currentColor; }` rule from `src/scss/animations/_footer-motion.scss`.
+- Removed the stale compiled artifact `assets/css/animations.min.css`.
+
+### Changed
+
+- Moved the `.is-style-mega-menu-item-default` icon hover/focus `color` rule from `src/scss/animations/_menu-motion.scss` to `src/scss/structural/_mega-menu.scss`, per code review: motion partials may only contain `transition`/`transform`/`animation`-family properties (AGENTS.md), so the non-motion colour swap now lives in the structural partial alongside the rest of that style's rules, while the animations file retains only the `transition` and its `prefers-reduced-motion` override.
+
+---
+
 ## [Unreleased] — Fix button.fill color contrast (LS-2937)
 
 ### Fixed
