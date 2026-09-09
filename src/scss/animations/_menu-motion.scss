@@ -3,28 +3,26 @@
 /********** Mega Menu Item **********/
 
 /*
- * Hover/focus states for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json)
- * and .is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json). WordPress's
- * global-styles engine only generates :hover/:focus CSS for the elements.link/button/etc. allowlist
- * — arbitrary block style variations never get pseudo-state rules, so this piece can't be expressed
- * in either JSON style. Base (non-hover) styles for these rows, and the icon well's own appearance,
- * remain authored in theme.json/style JSON. The shared background-raise contract itself lives in
- * _shared-hover.scss — only the Default item's icon-colour transition is unique to this file.
+ * Hover/focus transition for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json).
+ * The colour swap itself lives in src/scss/structural/_mega-menu.scss (motion files may only hold
+ * transition/transform/animation properties — see AGENTS.md); this file owns only the transition
+ * timing and its prefers-reduced-motion override.
  */
 .is-style-mega-menu-item-default {
-  .wp-block-outermost-icon-block {
+  // .wp-block-outermost-icon-block covers any not-yet-converted outermost/icon-block
+  // instance (see LS-3229's "Missing icons" tracking list); .wp-block-icon covers the
+  // WP 7.1 Core Icon block that replaces it. Both selectors are kept side by side rather
+  // than one replacing the other, so neither markup shape loses this hover treatment.
+  .wp-block-outermost-icon-block,
+  .wp-block-icon {
     transition: color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard);
-  }
-
-  &:hover .wp-block-outermost-icon-block,
-  &:focus-within .wp-block-outermost-icon-block {
-    color: var(--wp--custom--color--text--subtle);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
+  .is-style-mega-menu-item-default .wp-block-outermost-icon-block,
+  .is-style-mega-menu-item-default .wp-block-icon {
     transition: none;
   }
 }

@@ -185,6 +185,17 @@
     inset: 0;
     z-index: 1;
   }
+
+  // Hover/focus colour for the row's icon (transition timing lives in
+  // src/scss/animations/_menu-motion.scss). .wp-block-outermost-icon-block covers any
+  // not-yet-converted outermost/icon-block instance (see LS-3229's "Missing icons"
+  // tracking list); .wp-block-icon covers the WP 7.1 Core Icon block that replaces it.
+  &:hover .wp-block-outermost-icon-block,
+  &:focus-within .wp-block-outermost-icon-block,
+  &:hover .wp-block-icon,
+  &:focus-within .wp-block-icon {
+    color: var(--wp--custom--color--text--subtle);
+  }
 }
 
 .is-style-mega-menu-item-service {
