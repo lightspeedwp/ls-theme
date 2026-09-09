@@ -12,19 +12,27 @@
  * _shared-hover.scss — only the Default item's icon-colour transition is unique to this file.
  */
 .is-style-mega-menu-item-default {
-  .wp-block-outermost-icon-block {
+  // .wp-block-outermost-icon-block covers any not-yet-converted outermost/icon-block
+  // instance (see LS-3229's "Missing icons" tracking list); .wp-block-icon covers the
+  // WP 7.1 Core Icon block that replaces it. Both selectors are kept side by side rather
+  // than one replacing the other, so neither markup shape loses this hover treatment.
+  .wp-block-outermost-icon-block,
+  .wp-block-icon {
     transition: color var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard);
   }
 
   &:hover .wp-block-outermost-icon-block,
-  &:focus-within .wp-block-outermost-icon-block {
+  &:focus-within .wp-block-outermost-icon-block,
+  &:hover .wp-block-icon,
+  &:focus-within .wp-block-icon {
     color: var(--wp--custom--color--text--subtle);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-style-mega-menu-item-default .wp-block-outermost-icon-block {
+  .is-style-mega-menu-item-default .wp-block-outermost-icon-block,
+  .is-style-mega-menu-item-default .wp-block-icon {
     transition: none;
   }
 }
