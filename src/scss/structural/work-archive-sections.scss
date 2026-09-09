@@ -100,8 +100,15 @@
     border-color: var(--ls-card-link-row-border-active);
   }
 
+  // .wp-block-outermost-icon-block .icon-container covers any not-yet-converted
+  // outermost/icon-block instance (see LS-3229's "Missing icons" tracking list);
+  // .wp-block-icon covers the WP 7.1 Core Icon block that replaces it — a single
+  // wrapper, not two nested ones, so it needs its own selector rather than reuse
+  // of the two-class descendant chain above.
   &:hover .wp-block-outermost-icon-block .icon-container,
-  &:focus-within .wp-block-outermost-icon-block .icon-container {
+  &:focus-within .wp-block-outermost-icon-block .icon-container,
+  &:hover .wp-block-icon,
+  &:focus-within .wp-block-icon {
     color: var(--ls-card-link-row-icon-active) !important;
   }
 }
