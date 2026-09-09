@@ -50,8 +50,6 @@ $ls_linked_decisions_steps = array(
 		'url'   => '/services/evolve/',
 	),
 );
-
-$ls_step_arrow_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>';
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|100","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--60)">
@@ -67,9 +65,7 @@ $ls_step_arrow_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 
 
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
-					<!-- wp:outermost/icon-block {"iconName":"","className":"has-text-color","width":"8px","style":{"color":{"text":"var(--wp--custom--color--text--brand)"}}} -->
-					<div class="wp-block-outermost-icon-block has-text-color"><div class="icon-container" style="color:var(--wp--custom--color--text--brand);width:8px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"></circle></svg></div></div>
-					<!-- /wp:outermost/icon-block -->
+					<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
 
 					<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--brand)"}},"fontSize":"100"} -->
 					<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'How the service model works', 'ls-theme' ); ?></p>
@@ -117,9 +113,7 @@ $ls_step_arrow_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 
 					<!-- /wp:group -->
 
 						<?php if ( $ls_step_index < count( $ls_linked_decisions_steps ) - 1 ) : ?>
-					<!-- wp:outermost/icon-block {"iconName":"","className":"has-text-color","width":"14px","style":{"color":{"text":"var(--wp--custom--color--text--subtle)"}}} -->
-					<div class="wp-block-outermost-icon-block has-text-color"><div class="icon-container" style="color:var(--wp--custom--color--text--subtle);width:14px;transform:rotate(0deg) scaleX(1) scaleY(1)"><?php echo $ls_step_arrow_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static, developer-authored Phosphor icon markup, not user input. ?></div></div>
-					<!-- /wp:outermost/icon-block -->
+					<!-- wp:icon {"icon":"lightspeed/arrow-right","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--subtle)"},"dimensions":{"width":"14px"}}} /-->
 					<?php endif; ?>
 
 					<?php endforeach; ?>
