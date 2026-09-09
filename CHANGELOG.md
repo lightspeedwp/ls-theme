@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Migrate Services patterns to the Core Icon block (LS-3229)
+
+### Changed
+
+- Replaced `outermost/icon-block` (third-party "Icon Block" plugin) with WordPress 7.1's native Core Icon block (`core/icon`) across the 3 Services page patterns — `patterns/hero/services-hero.php`, `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php` — referencing icons from the `lightspeed` collection registered in `ls-plugin`. Final batch of the Core Icon block migration (LS-3229).
+- Converted the PHP icon arrays in these files (per-service, per-cluster, per-step) from raw inline SVG to bare `lightspeed/{name}` slugs, and rewrote their loop templates to emit `core/icon` block markup dynamically per iteration, removing the now-unused raw-SVG helper variables.
+
+See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
+
+---
+
 ## [Unreleased] — Fix legacy outermost/icon-block CSS selectors broken by Core Icon migration (LS-3720)
 
 ### Fixed
