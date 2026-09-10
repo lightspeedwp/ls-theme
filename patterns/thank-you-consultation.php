@@ -36,7 +36,7 @@
 	<div class="wp-block-group ls-thank-you__status">
 		<!-- wp:group {"className":"ls-thank-you__status-icon","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group ls-thank-you__status-icon">
-			<!-- wp:outermost/icon-block {"iconName":"check","width":"16px","style":{"color":{"text":"var(--wp--custom--color--icon--color)","background":"var(--wp--custom--color--icon--background)"}}} /-->
+			<!-- wp:icon {"icon":"lightspeed/check","width":"16px","style":{"color":{"text":"var(--wp--custom--color--icon--color)","background":"var(--wp--custom--color--icon--background)"}}} /-->
 		</div>
 		<!-- /wp:group -->
 
@@ -64,7 +64,7 @@
 		<div class="wp-block-group ls-thank-you__tick-list">
 			<!-- wp:group {"className":"ls-thank-you__tick-item","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-thank-you__tick-item">
-				<!-- wp:outermost/icon-block {"iconName":"check","width":"16px","style":{"color":{"text":"var(--wp--preset--color--success-foreground)"}}} /-->
+				<!-- wp:icon {"icon":"lightspeed/check","width":"16px","style":{"color":{"text":"var(--wp--preset--color--success-foreground)"}}} /-->
 
 				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
 				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( "We'll read through your message and check what kind of help you need.", 'ls-theme' ); ?></p>
@@ -74,7 +74,7 @@
 
 			<!-- wp:group {"className":"ls-thank-you__tick-item","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-thank-you__tick-item">
-				<!-- wp:outermost/icon-block {"iconName":"check","width":"16px","style":{"color":{"text":"var(--wp--preset--color--success-foreground)"}}} /-->
+				<!-- wp:icon {"icon":"lightspeed/check","width":"16px","style":{"color":{"text":"var(--wp--preset--color--success-foreground)"}}} /-->
 
 				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
 				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( "We'll reply with available times or a recommended next step.", 'ls-theme' ); ?></p>
@@ -84,7 +84,7 @@
 
 			<!-- wp:group {"className":"ls-thank-you__tick-item","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-thank-you__tick-item">
-				<!-- wp:outermost/icon-block {"iconName":"check","width":"16px","style":{"color":{"text":"var(--wp--preset--color--success-foreground)"}}} /-->
+				<!-- wp:icon {"icon":"lightspeed/check","width":"16px","style":{"color":{"text":"var(--wp--preset--color--success-foreground)"}}} /-->
 
 				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
 				<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( "On the call, we'll talk through your goals, current website or project, timing, budget range if relevant, and whether LightSpeed is the right fit.", 'ls-theme' ); ?></p>
@@ -123,7 +123,7 @@
 		<article class="wp-block-group is-style-card-feature ls-thank-you__card">
 			<!-- wp:group {"className":"ls-card__icon-shell","style":{"spacing":{"padding":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-card__icon-shell" style="padding:var(--wp--preset--spacing--20)">
-				<!-- wp:outermost/icon-block {"iconName":"users","width":"18px"} /-->
+				<!-- wp:icon {"icon":"lightspeed/users","width":"18px"} /-->
 			</div>
 			<!-- /wp:group -->
 
@@ -149,7 +149,7 @@
 		<article class="wp-block-group is-style-card-feature ls-thank-you__card">
 			<!-- wp:group {"className":"ls-card__icon-shell","style":{"spacing":{"padding":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-card__icon-shell" style="padding:var(--wp--preset--spacing--20)">
-				<!-- wp:outermost/icon-block {"iconName":"lightbulb","width":"18px"} /-->
+				<!-- wp:icon {"icon":"lightspeed/lightbulb","width":"18px"} /-->
 			</div>
 			<!-- /wp:group -->
 
@@ -175,7 +175,7 @@
 		<article class="wp-block-group is-style-card-feature ls-thank-you__card">
 			<!-- wp:group {"className":"ls-card__icon-shell","style":{"spacing":{"padding":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group ls-card__icon-shell" style="padding:var(--wp--preset--spacing--20)">
-				<!-- wp:outermost/icon-block {"iconName":"buildings","width":"18px"} /-->
+				<!-- wp:icon {"icon":"lightspeed/buildings","width":"18px"} /-->
 			</div>
 			<!-- /wp:group -->
 

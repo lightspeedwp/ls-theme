@@ -17,7 +17,7 @@
 <article class="wp-block-group is-style-card-services">
 	<!-- wp:group {"className":"ls-card__icon-shell","style":{"spacing":{"padding":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-card__icon-shell" style="padding:var(--wp--preset--spacing--20)">
-		<!-- wp:outermost/icon-block {"iconName":"rocket-launch","width":"34px"} /-->
+		<!-- wp:icon {"icon":"lightspeed/rocket-launch","width":"34px"} /-->
 	</div>
 	<!-- /wp:group -->
 
