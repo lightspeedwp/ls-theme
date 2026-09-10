@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Services page: service tiles section (LS-1598)
+
+### Added
+
+- Added `patterns/sections/services-service-tiles.php`: the "Fourteen services. One delivery model." section — a 14-card bento grid (Discovery through AI), each card a single stretched link to its individual service page, with an icon well, index number, kicker line and description.
+- Added `styles/sections/cards/card-service-tile.json`, a new shared card shell modelled on Card - Category's shell but flatter, with an index-number slot Card - Category doesn't have.
+
+### Fixed
+
+- Fixed each row's `blockGap` only setting its horizontal component, which meant stacked mobile/tablet spacing fell back to WordPress's default instead of the intended value, producing inconsistent gaps between cards.
+
+[PR #54](https://github.com/lightspeedwp/ls-theme/pull/54)
+
+---
+
 ## [Unreleased] — Migrate Services patterns to the Core Icon block (LS-3229)
 
 ### Changed
