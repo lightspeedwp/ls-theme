@@ -1,0 +1,27 @@
+/********** Services - Service Tiles (Services page only) **********/
+
+/*
+ * Services Service Tiles (LS-1598, single consumer
+ * patterns/sections/services-service-tiles.php). Rest-state look and hover custom-property
+ * recipe live in styles/sections/cards/card-service-tile.json. The hover border-color swap
+ * itself stays here, same split as Card - Category/work-archive-sections.scss.
+ */
+.is-style-card-service-tile {
+  // JSON limitation: block-level :hover/:focus-within has no theme.json pseudo-state key for
+  // an arbitrary is-style variant — see AGENTS.md Theme-First Approach.
+  transition: border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    // JSON limitation: the border-color custom property is only swapped, not declared, at
+    // rest, so no inline style attribute outranks this — !important isn't needed here (unlike
+    // Card - Category, which does need it for its box-shadow/transform swaps).
+    border-color: var(--ls-card-service-tile-border-active);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-style-card-service-tile {
+    transition: none;
+  }
+}
