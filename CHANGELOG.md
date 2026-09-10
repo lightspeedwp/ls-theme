@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add OpenSpec workflow and open-pr skill (LS-3223) ([#53](https://github.com/lightspeedwp/ls-theme/pull/53))
+
+### Added
+
+- Initialized OpenSpec (`openspec init --tools claude`) as this repo's spec-driven planning workflow for new skills, adding the `/opsx:propose`, `/opsx:apply`, `/opsx:archive`, `/opsx:explore`, `/opsx:sync` commands/skills under `.claude/` and the `openspec/` planning tree.
+- Added `.claude/skills/open-pr/SKILL.md`, planned and built through that OpenSpec workflow (`openspec/changes/open-pr-skill/`). Replaces a personal, machine-local PR-creation command with a repo-committed skill: gathers PR context from the branch's own commits/diff, applies labels and assignee in the same `gh pr create`/`gh pr edit` call rather than a separate step, and adds this changelog entry only after the PR exists so it can link back to it. Works via the explicit `/open-pr` command and via natural-language requests, with a branch/base confirmation guard on implicit invocation.
+
+### Fixed
+
+- Gitignored `.claude/settings.local.json` (personal, machine-local Claude Code permission grants) — was about to be committed by accident.
+
+### Notes
+
+- The `open-pr` skill deliberately lives at `.claude/skills/` rather than this repo's usual `.agents/skills/` portable-skill location, since it needs native Claude Code slash-command registration and natural-language auto-invocation. Rationale documented in `openspec/changes/open-pr-skill/design.md` (Decision 1).
+
+---
+
 ## [Unreleased] — Build Search template (LS-2594)
 
 ### Added
