@@ -55,11 +55,11 @@ function ls_theme_get_local_asset_version( $path ) {
  */
 function ls_theme_get_bundle_render_markers() {
 	return array(
-		'taxonomy-filter'       => array( 'blocks' => array( 'ls-plugin/taxonomy-filter' ) ),
-		'work-project-card'     => array(
+		'taxonomy-filter'           => array( 'blocks' => array( 'ls-plugin/taxonomy-filter' ) ),
+		'work-project-card'         => array(
 			'classes' => array( 'is-style-card-case-study', 'ls-tag-pills', 'ls-card-banner-tint', 'ls-platform-tag-brand', 'ls-platform-tag-woocommerce' ),
 		),
-		'work-archive-sections' => array(
+		'work-archive-sections'     => array(
 			'classes' => array(
 				'ls-icon-well-accent',
 				'ls-icon-well-brand',
@@ -70,20 +70,23 @@ function ls_theme_get_bundle_render_markers() {
 				'ls-card-divider-both',
 			),
 		),
-		'home-hero'             => array( 'classes' => array( 'ls-home-hero-section' ) ),
-		'work-hero'             => array( 'classes' => array( 'ls-work-hero' ) ),
-		'work-single-hero'      => array( 'classes' => array( 'ls-work-single-meta' ) ),
-		'blog-hero'             => array( 'classes' => array( 'ls-blog-hero' ) ),
-		'blog-all-articles'     => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
-		'blog-writing-cta'      => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
-		'button-secondary'      => array( 'classes' => array( 'is-style-button-secondary' ) ),
-		'featured-work'         => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
-		'where-to-fit'          => array( 'classes' => array( 'ls-package-card' ) ),
-		'homepage-cta'          => array( 'classes' => array( 'ls-homepage-cta' ) ),
-		'stats-bar'             => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
-		'homepage-card-rows'    => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
-		'search-hero'           => array( 'classes' => array( 'ls-search-hero', 'ls-optical-trim' ) ),
-		'search-results'        => array( 'classes' => array( 'ls-search-result' ) ),
+		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
+		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
+		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
+		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
+		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
+		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
+		'blog-all-articles'         => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
+		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
+		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
+		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
+		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
+		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
+		'stats-bar'                 => array( 'classes' => array( 'ls-stats-row', 'ls-stat-item' ) ),
+		'homepage-card-rows'        => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
+		'search-hero'               => array( 'classes' => array( 'ls-search-hero', 'ls-optical-trim' ) ),
+		'search-results'            => array( 'classes' => array( 'ls-search-result' ) ),
 	);
 }
 
@@ -201,7 +204,7 @@ add_action( 'wp_footer', 'ls_theme_print_late_effect_styles', 1 );
 function ls_theme_get_effect_styles( $context = 'front' ) {
 	$effects = array(
 		// Genuinely global, sitewide styling — always loads, no condition.
-		'effects'                 => array(
+		'effects'                   => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
@@ -212,7 +215,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		// work-archive-sections' icon-well classes are also used by three homepage sections).
 		// Conditions only apply in the 'front' context; the editor keeps loading every bundle
 		// unconditionally so any pattern still looks correct when edited in isolation.
-		'taxonomy-filter'         => array(
+		'taxonomy-filter'           => array(
 			'handle'    => 'ls-theme-taxonomy-filter',
 			'path'      => 'assets/css/taxonomy-filter.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -221,7 +224,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_post_type_archive( 'project' ) || is_page_template( 'page-blog-archive' );
 			},
 		),
-		'work-project-card'       => array(
+		'work-project-card'         => array(
 			'handle'    => 'ls-theme-work-project-card',
 			'path'      => 'assets/css/work-project-card.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -231,21 +234,23 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_front_page() || is_post_type_archive( 'project' );
 			},
 		),
-		'work-archive-sections'   => array(
+		'work-archive-sections'     => array(
 			'handle'    => 'ls-theme-work-archive-sections',
 			'path'      => 'assets/css/work-archive-sections.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Icon-well classes are also used by 3 homepage sections (what-we-build,
-			// where-to-start, where-to-fit) in addition to the Work archive, and by the
-			// Search template's "Useful destinations" section (is-style-card-category,
-			// ls-icon-well-brand) — without is_search() here, that reuse only gets caught by
-			// the render_block fallback below, which prints in the footer and visibly
-			// restyles the cards after first paint.
+			// where-to-start, where-to-fit) in addition to the Work archive, by the
+			// Search template's "Useful destinations" section, and by the Services page's
+			// "Service clusters" section (is-style-card-category, ls-icon-well-brand) —
+			// without a check for each of these here, that reuse only gets caught by the
+			// render_block fallback below, which prints in the footer and visibly restyles
+			// the cards after first paint. The Services page has no dedicated template yet
+			// (LS-1598 in progress), so this checks its slug directly rather than a template.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' ) || is_search();
+				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' );
 			},
 		),
-		'card-shells'             => array(
+		'card-shells'               => array(
 			'handle'   => 'ls-theme-card-shells',
 			'path'     => 'assets/css/card-shells.css',
 			'contexts' => array( 'front', 'editor' ),
@@ -255,19 +260,38 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// unstyled on every single use, not just a rare off-template case — so at ~10 KB
 			// compressed it's cheaper to load unconditionally than to risk that.
 		),
-		'cta-buttons'             => array(
+		'cta-buttons'               => array(
 			'handle'   => 'ls-theme-cta-buttons',
 			'path'     => 'assets/css/cta-buttons.css',
 			'contexts' => array( 'front', 'editor' ),
 			// Same reasoning as card-shells above (~5 KB compressed).
 		),
-		'home-hero'               => array(
+		'home-hero'                 => array(
 			'handle'    => 'ls-theme-home-hero',
 			'path'      => 'assets/css/home-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'work-hero'               => array(
+		'services-hero'             => array(
+			'handle'   => 'ls-theme-services-hero',
+			'path'     => 'assets/css/services-hero.css',
+			'contexts' => array( 'front', 'editor' ),
+			// No page template yet (LS-1598 in progress) — same reasoning as card-shells/
+			// cta-buttons above, relies on render_block marker detection instead of a condition.
+		),
+		'services-linked-decisions' => array(
+			'handle'   => 'ls-theme-services-linked-decisions',
+			'path'     => 'assets/css/services-linked-decisions.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as services-hero above.
+		),
+		'services-service-clusters' => array(
+			'handle'   => 'ls-theme-services-service-clusters',
+			'path'     => 'assets/css/services-service-clusters.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as services-hero above.
+		),
+		'work-hero'                 => array(
 			'handle'    => 'ls-theme-work-hero',
 			'path'      => 'assets/css/work-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -275,7 +299,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_post_type_archive( 'project' );
 			},
 		),
-		'work-single-hero'        => array(
+		'work-single-hero'          => array(
 			'handle'    => 'ls-theme-work-single-hero',
 			'path'      => 'assets/css/work-single-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -283,7 +307,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_singular( 'project' );
 			},
 		),
-		'blog-hero'               => array(
+		'blog-hero'                 => array(
 			'handle'    => 'ls-theme-blog-hero',
 			'path'      => 'assets/css/blog-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -291,7 +315,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page_template( 'page-blog-archive' );
 			},
 		),
-		'blog-all-articles'       => array(
+		'blog-all-articles'         => array(
 			'handle'    => 'ls-theme-blog-all-articles',
 			'path'      => 'assets/css/blog-all-articles.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -299,7 +323,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page_template( 'page-blog-archive' );
 			},
 		),
-		'blog-writing-cta'        => array(
+		'blog-writing-cta'          => array(
 			'handle'    => 'ls-theme-blog-writing-cta',
 			'path'      => 'assets/css/blog-writing-cta.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -307,7 +331,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page_template( 'page-blog-archive' );
 			},
 		),
-		'faq'                     => array(
+		'faq'                       => array(
 			'handle'   => 'ls-theme-faq',
 			'path'     => 'assets/css/faq.css',
 			'contexts' => array( 'front', 'editor' ),
@@ -322,12 +346,12 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		// of animations.css rather than kept there under the header/footer exception. The header
 		// and footer template parts render on every page anyway, so a presence condition would
 		// never actually skip loading this bundle — left unconditional.
-		'links'                   => array(
+		'links'                     => array(
 			'handle'   => 'ls-theme-links',
 			'path'     => 'assets/css/links.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
-		'button-secondary'        => array(
+		'button-secondary'          => array(
 			'handle'    => 'ls-theme-button-secondary',
 			'path'      => 'assets/css/button-secondary.css',
 			'contexts'  => array( 'front', 'editor' ),
@@ -341,49 +365,49 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_front_page() || is_post_type_archive( 'project' ) || is_404();
 			},
 		),
-		'featured-work'           => array(
+		'featured-work'             => array(
 			'handle'    => 'ls-theme-featured-work',
 			'path'      => 'assets/css/featured-work.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'where-to-fit'            => array(
+		'where-to-fit'              => array(
 			'handle'    => 'ls-theme-where-to-fit',
 			'path'      => 'assets/css/where-to-fit.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'homepage-cta'            => array(
+		'homepage-cta'              => array(
 			'handle'    => 'ls-theme-homepage-cta',
 			'path'      => 'assets/css/homepage-cta.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'stats-bar'               => array(
+		'stats-bar'                 => array(
 			'handle'    => 'ls-theme-stats-bar',
 			'path'      => 'assets/css/stats-bar.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'homepage-card-rows'      => array(
+		'homepage-card-rows'        => array(
 			'handle'    => 'ls-theme-homepage-card-rows',
 			'path'      => 'assets/css/homepage-card-rows.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'homepage-why-lightspeed' => array(
+		'homepage-why-lightspeed'   => array(
 			'handle'    => 'ls-theme-homepage-why-lightspeed',
 			'path'      => 'assets/css/homepage-why-lightspeed.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'search-results'          => array(
+		'search-results'            => array(
 			'handle'    => 'ls-theme-search-results',
 			'path'      => 'assets/css/search-results.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_search',
 		),
-		'search-hero'             => array(
+		'search-hero'               => array(
 			'handle'    => 'ls-theme-search-hero',
 			'path'      => 'assets/css/search-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
