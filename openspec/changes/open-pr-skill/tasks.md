@@ -1,17 +1,17 @@
 ## 1. Skill scaffolding
 
-- [ ] 1.1 Create `.claude/skills/open-pr/SKILL.md` with frontmatter: `name: open-pr`, a description written per agentskills.io description-optimization guidance (imperative, covers explicit and natural-language trigger phrasing, under 1024 chars), no `disable-model-invocation` flag.
-- [ ] 1.2 Add a header note in the skill body documenting the deliberate `.claude/skills/` vs `.agents/skills/` location decision (Design Decision 1), so it isn't mistaken for an oversight of the repo's stated portable-skill convention.
+- [x] 1.1 Create `.claude/skills/open-pr/SKILL.md` with frontmatter: `name: open-pr`, a description written per agentskills.io description-optimization guidance (imperative, covers explicit and natural-language trigger phrasing, under 1024 chars), no `disable-model-invocation` flag.
+- [x] 1.2 Add a header note in the skill body documenting the deliberate `.claude/skills/` vs `.agents/skills/` location decision (Design Decision 1), so it isn't mistaken for an oversight of the repo's stated portable-skill convention.
 
 ## 2. Port existing instructions
 
-- [ ] 2.1 Carry over the validated content from `~/.claude/commands/open-pr.md` into the skill body near-verbatim: context-gathering (Step 1), pre-flight checks (Step 2), PR structure, "Creating the PR" section, "Changelog — after the PR is created" section, "Updating an existing PR" section, "What NOT to do" section.
-- [ ] 2.2 Verify every requirement in `specs/pr-creation/spec.md` is represented in the ported instructions (context gathering, pre-flight checks, labels/assignee in the same command, changelog-after-PR, no fabricated verification).
+- [x] 2.1 Carry over the validated content from `~/.claude/commands/open-pr.md` into the skill body near-verbatim: context-gathering (Step 1), pre-flight checks (Step 2), PR structure, "Creating the PR" section, "Changelog — after the PR is created" section, "Updating an existing PR" section, "What NOT to do" section.
+- [x] 2.2 Verify every requirement in `specs/pr-creation/spec.md` is represented in the ported instructions (context gathering, pre-flight checks, labels/assignee in the same command, changelog-after-PR, no fabricated verification).
 
 ## 3. Dual invocation support
 
-- [ ] 3.1 Confirm the skill is reachable via `/open-pr` (directory-name-derived command).
-- [ ] 3.2 Add the implicit-trigger confirmation guard to the skill body: before running `gh pr create` when invoked from a natural-language request rather than the literal `/open-pr` command, confirm target branch and base with the user first.
+- [x] 3.1 Confirm the skill is reachable via `/open-pr` (directory-name-derived command).
+- [x] 3.2 Add the implicit-trigger confirmation guard to the skill body: before running `gh pr create` when invoked from a natural-language request rather than the literal `/open-pr` command, confirm target branch and base with the user first.
 
 ## 4. Verification
 
