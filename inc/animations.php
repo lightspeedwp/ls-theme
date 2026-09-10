@@ -239,13 +239,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/work-archive-sections.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Icon-well classes are also used by 3 homepage sections (what-we-build,
-			// where-to-start, where-to-fit) in addition to the Work archive, and by the
-			// Search template's "Useful destinations" section (is-style-card-category,
-			// ls-icon-well-brand) — without is_search() here, that reuse only gets caught by
-			// the render_block fallback below, which prints in the footer and visibly
-			// restyles the cards after first paint.
+			// where-to-start, where-to-fit) in addition to the Work archive, by the
+			// Search template's "Useful destinations" section, and by the Services page's
+			// "Service clusters" section (is-style-card-category, ls-icon-well-brand) —
+			// without a check for each of these here, that reuse only gets caught by the
+			// render_block fallback below, which prints in the footer and visibly restyles
+			// the cards after first paint. The Services page has no dedicated template yet
+			// (LS-1598 in progress), so this checks its slug directly rather than a template.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' ) || is_search();
+				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' );
 			},
 		),
 		'card-shells'               => array(
@@ -405,7 +407,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_search',
 		),
-		'search-hero'             => array(
+		'search-hero'               => array(
 			'handle'    => 'ls-theme-search-hero',
 			'path'      => 'assets/css/search-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
