@@ -203,7 +203,7 @@ $ls_render_cluster = function ( $ls_cluster ) use ( $ls_service_icons, $ls_servi
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"},"blockGap":{"left":"var:preset|spacing|20"}}}} -->
+		<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|20"}}} -->
 		<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--40)">
 
 			<!-- wp:column -->
@@ -226,7 +226,7 @@ $ls_render_cluster = function ( $ls_cluster ) use ( $ls_service_icons, $ls_servi
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":{"left":"var:preset|spacing|20"}}}} -->
+		<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|20"}}} -->
 		<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--20)">
 
 			<!-- wp:column {"width":"33.33%"} -->

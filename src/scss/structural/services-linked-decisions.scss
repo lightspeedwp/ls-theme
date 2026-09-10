@@ -20,7 +20,12 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--wp--custom--color--border--field);
+    // JSON limitation: the border-color custom property here is also required, separately: the
+    // pill's rest-state border-color is set inline per instance (services-linked-decisions.php),
+    // and an inline style attribute always outranks an external stylesheet rule regardless of
+    // pseudo-class, so without !important this property could never change on hover.
+    // transform/box-shadow aren't set inline at rest, so they don't need it.
+    border-color: var(--wp--custom--color--border--field) !important;
     transform: translateY(-1px);
     box-shadow: var(--wp--custom--shadow--elevation--100);
   }

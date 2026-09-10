@@ -19,8 +19,13 @@
 
   &:hover,
   &:focus-within {
-    background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);
-    border-color: var(--wp--custom--color--link--accent);
+    // JSON limitation: the `!important` here is also required, separately: the tag's rest-state
+    // background-color/border-color are set inline per instance (services-service-clusters.php),
+    // and an inline style attribute always outranks an external stylesheet rule regardless of
+    // pseudo-class, so without !important these two properties could never change on hover —
+    // same reasoning as the icon-color rule below, which already has it.
+    background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent) !important;
+    border-color: var(--wp--custom--color--link--accent) !important;
   }
 
   &:hover .wp-block-outermost-icon-block .icon-container,
