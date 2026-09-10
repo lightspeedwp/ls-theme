@@ -54,9 +54,7 @@
 				<article class="wp-block-group is-style-card-category">
 					<!-- wp:group {"className":"ls-icon-well-brand"} -->
 					<div class="wp-block-group ls-icon-well-brand">
-						<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
-						<div class="wp-block-outermost-icon-block"><div class="icon-container" style="width:18px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,128a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,128Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16ZM216,40V200a32,32,0,0,1-32,32H72a32,32,0,0,1-32-32V40a8,8,0,0,1,8-8H72V24a8,8,0,0,1,16,0v8h32V24a8,8,0,0,1,16,0v8h32V24a8,8,0,0,1,16,0v8h24A8,8,0,0,1,216,40Zm-16,8H184v8a8,8,0,0,1-16,0V48H136v8a8,8,0,0,1-16,0V48H88v8a8,8,0,0,1-16,0V48H56V200a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16Z"></path></svg></div></div>
-						<!-- /wp:outermost/icon-block -->
+						<!-- wp:icon {"icon":"lightspeed/notepad","width":"18px"} /-->
 					</div>
 					<!-- /wp:group -->
 
@@ -116,9 +114,7 @@
 				<article class="wp-block-group is-style-card-category">
 					<!-- wp:group {"className":"ls-icon-well-brand"} -->
 					<div class="wp-block-group ls-icon-well-brand">
-						<!-- wp:outermost/icon-block {"iconName":"","width":"18px"} -->
-						<div class="wp-block-outermost-icon-block"><div class="icon-container" style="width:18px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,152a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,152Zm-8-40H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm56-64V216a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V48A16,16,0,0,1,56,32H92.26a47.92,47.92,0,0,1,71.48,0H200A16,16,0,0,1,216,48ZM96,64h64a32,32,0,0,0-64,0ZM200,48H173.25A47.93,47.93,0,0,1,176,64v8a8,8,0,0,1-8,8H88a8,8,0,0,1-8-8V64a47.93,47.93,0,0,1,2.75-16H56V216H200Z"></path></svg></div></div>
-						<!-- /wp:outermost/icon-block -->
+						<!-- wp:icon {"icon":"lightspeed/clipboard-text","width":"18px"} /-->
 					</div>
 					<!-- /wp:group -->
 
