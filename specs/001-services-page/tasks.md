@@ -146,9 +146,14 @@ the stated metrics render correctly and match Figma, per quickstart.md.
       the actual longest value from the Figma frame, not a placeholder
 - [x] T019 [US2] Assemble the Delivery by the Numbers section onto the Services page content,
       after Entry Points and before the closing CTA
-- [x] T020 [US2] **N/A** — same reason as T013: no new SCSS/JSON styling was written (pure
-      reuse of `stat-segment.json`), so there is no stylesheet bundle to register.
-- [x] T021 [US2] **N/A** — same reason as T014, no new stylesheet exists.
+- [x] T020 [US2] Registered a `services-delivery-numbers` bundle in `inc/animations.php` with
+      a `condition` of `is_page( 'services' )`. Originally marked N/A (no new stylesheet was
+      needed for the section's initial build, which purely reused `stat-segment.json`), but the
+      follow-up mobile-divider fix added a real SCSS file, making a bundle necessary after all.
+- [x] T021 [US2] Added `add_editor_style( 'assets/css/services-delivery-numbers.css' )` to
+      `functions.php` and wired the new SCSS file into `package.json`'s
+      `build:css`/`build:css:dev`/`watch:css` scripts, matching the existing `services-*`
+      entries — same reason as T020, added by the mobile-divider fix.
 - [x] T022 [US2] Run the full validation suite from T015 against every file touched in
       T016-T021
 

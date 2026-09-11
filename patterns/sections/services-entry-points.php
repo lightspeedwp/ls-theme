@@ -50,7 +50,7 @@ $ls_arrow_icon_slug = 'arrow-right';
 			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:38%">
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
-					<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"}},"dimensions":{"width":"8px"}} /-->
+					<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
 
 					<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--brand)"}},"fontSize":"100"} -->
 					<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Entry points', 'ls-theme' ); ?></p>
@@ -70,7 +70,7 @@ $ls_arrow_icon_slug = 'arrow-right';
 
 			<!-- wp:column {"verticalAlignment":"top","width":"62%"} -->
 			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:62%">
-				<!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"260px","columnGap":"var:preset|spacing|20","rowGap":"var:preset|spacing|20"}} -->
+				<!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"340px","columnGap":"var:preset|spacing|20","rowGap":"var:preset|spacing|20"}} -->
 				<div class="wp-block-group">
 					<?php foreach ( $ls_entry_points as $ls_entry ) : ?>
 
@@ -82,7 +82,7 @@ $ls_arrow_icon_slug = 'arrow-right';
 							<p class="has-200-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold)"><a class="ls-card-link-row__link" href="<?php echo esc_url( home_url( $ls_entry['url'] ) ); ?>"><?php echo esc_html( $ls_entry['label'] ); ?></a></p>
 							<!-- /wp:paragraph -->
 
-							<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_arrow_icon_slug ); ?>","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--subtle)"}},"dimensions":{"width":"14px"}} /-->
+							<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_arrow_icon_slug ); ?>","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--subtle)"},"dimensions":{"width":"14px"}}} /-->
 						</div>
 						<!-- /wp:group -->
 
