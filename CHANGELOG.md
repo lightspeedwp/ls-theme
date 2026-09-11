@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Services page: Entry Points and Delivery by the Numbers (LS-1598)
+
+### Added
+
+- Added `patterns/sections/services-entry-points.php`: "You don't have to buy everything at once" — eyebrow/heading/description with a 2x2 grid of 4 entry-point link cards, reusing the existing Card - Link Row style.
+- Added `patterns/sections/services-delivery-numbers.php`: "Twelve years of WordPress engineering" — a centered eyebrow/heading/description intro followed by 3 centered delivery-scale stats, reusing the existing Stat Segment style.
+
+### Fixed
+
+- Fixed Entry Points' card grid forcing a 2-column squeeze (and multi-line text wrap) on mobile/tablet — switched from a fixed `columnCount` to `minimumColumnWidth`, which collapses to 1 column natively.
+- Fixed Delivery by the Numbers' stat divider staying a vertical line on the right of a stacked mobile/tablet card instead of a horizontal line between stacked cards — added a scoped SCSS override that flips the divider orientation below 782px, without touching the shared Stat Segment style used elsewhere.
+
+[PR #55](https://github.com/lightspeedwp/ls-theme/pull/55)
+
+---
+
 ## [Unreleased] — Build Services page: service tiles section (LS-1598)
 
 ### Added
