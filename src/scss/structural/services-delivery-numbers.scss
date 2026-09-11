@@ -1,0 +1,33 @@
+/********** Services - Delivery Numbers (Services page only) **********/
+
+/*
+ * Services Delivery Numbers (LS-1598, single consumer
+ * patterns/sections/services-delivery-numbers.php). Rest-state look for the 3 stat segments
+ * comes entirely from the shared styles/sections/cards/stat-segment.json (its
+ * border-inline-end divider, reused as-is from the Work archive's engagement row) — this file
+ * only overrides that divider's orientation once the row stacks to 1 column on mobile/tablet.
+ */
+
+// JSON limitation: a divider that must be a vertical border-inline-end in a horizontal row but
+// a horizontal border-block-end once that same row stacks to a single column has no
+// theme.json/block-attribute key for "current layout orientation" — see AGENTS.md Theme-First
+// Approach. 781.98px = 782px, matching WP core's own .wp-block-columns stacking breakpoint
+// used sitewide (e.g. work-archive-sections.scss) — the point at which this row's 3 columns
+// actually become a vertical stack.
+@media (max-width: 781.98px) {
+  .ls-delivery-stats-row .is-style-stat-segment {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--wp--custom--color--border--card);
+    padding-block-end: var(--wp--preset--spacing--30);
+    margin-block-end: var(--wp--preset--spacing--30);
+  }
+
+  // Each stat is the only child of its own .wp-block-column, so a bare
+  // .is-style-stat-segment:last-child would always match (trivially the last child of its own
+  // parent) — target the last *column* instead, to only strip the trailing divider once.
+  .ls-delivery-stats-row > .wp-block-column:last-child .is-style-stat-segment {
+    border-block-end: 0;
+    padding-block-end: 0;
+    margin-block-end: 0;
+  }
+}

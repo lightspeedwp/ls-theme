@@ -59,8 +59,8 @@ $ls_delivery_stats = array(
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
-	<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--60)">
+	<!-- wp:columns {"align":"wide","className":"ls-delivery-stats-row","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
+	<div class="wp-block-columns alignwide ls-delivery-stats-row" style="margin-top:var(--wp--preset--spacing--60)">
 		<?php foreach ( $ls_delivery_stats as $ls_stat ) : ?>
 
 		<!-- wp:column -->
