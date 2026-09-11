@@ -70,7 +70,7 @@ $ls_arrow_icon_slug = 'arrow-right';
 
 			<!-- wp:column {"verticalAlignment":"top","width":"62%"} -->
 			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:62%">
-				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","columnCount":2}} -->
+				<!-- wp:group {"layout":{"type":"grid","minimumColumnWidth":"260px","columnGap":"var:preset|spacing|20","rowGap":"var:preset|spacing|20"}} -->
 				<div class="wp-block-group">
 					<?php foreach ( $ls_entry_points as $ls_entry ) : ?>
 
