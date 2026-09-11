@@ -1,0 +1,41 @@
+/********** Services - Service Clusters (Services page only) **********/
+
+/*
+ * Services Service Clusters (LS-1598, single consumer
+ * patterns/sections/services-service-clusters.php). Rest-state look, the stretched-link
+ * ::before, and :focus-visible all live in styles/sections/cards/card-cluster.json — this file
+ * only carries the hover-state motion, matching the existing "Card - Link Row" convention (see
+ * .is-style-card-link-row in src/scss/structural/work-archive-sections.scss): a background/
+ * border-color tint swap on hover, nothing heavier. The card itself has no hover-lift — unlike
+ * Card - Category, it isn't a single link, so it shouldn't look interactive as a whole.
+ */
+.ls-cluster-tag {
+  // JSON limitation: block-level :hover/:focus-within has no theme.json pseudo-state key for
+  // an arbitrary custom class (theme.json's elements.*.:hover only covers link/button/heading/
+  // caption/cite sitewide, not a scoped custom component) — see AGENTS.md Theme-First Approach.
+  transition:
+    background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    // JSON limitation: the `!important` here is also required, separately: the tag's rest-state
+    // background-color/border-color are set inline per instance (services-service-clusters.php),
+    // and an inline style attribute always outranks an external stylesheet rule regardless of
+    // pseudo-class, so without !important these two properties could never change on hover —
+    // same reasoning as the icon-color rule below, which already has it.
+    background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent) !important;
+    border-color: var(--wp--custom--color--link--accent) !important;
+  }
+
+  &:hover .wp-block-outermost-icon-block .icon-container,
+  &:focus-within .wp-block-outermost-icon-block .icon-container {
+    color: var(--wp--custom--color--text--brand) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-cluster-tag {
+    transition: none;
+  }
+}

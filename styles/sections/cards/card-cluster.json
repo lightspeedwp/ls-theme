@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Cluster",
+	"slug": "card-cluster",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Service-cluster card shell: icon well + index number header, H3 heading, supporting copy, and a footer row of small clickable tag links (each its own stretched-link pill), separated by a top divider. Unlike Card - Category, the card itself is not a single link — only the footer tags are. Non-expressible structural properties (position, overflow, the nested content flex rule, each tag's own stretched-link containing block) stay in this css field; the tag hover-tint transition stays in src/scss/structural/services-service-clusters.scss (a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping).",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"css": "position: relative;\noverflow: hidden;\n\n& .ls-card-cluster__content {\n\tflex: 1 1 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--10);\n}\n\n& .ls-card-cluster__tags {\n\tborder-top: 1px solid var(--wp--custom--color--border--card);\n}\n\n& .ls-cluster-tag {\n\tposition: relative;\n}\n\n& .ls-cluster-tag__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-cluster-tag__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
+	}
+}
