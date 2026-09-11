@@ -76,6 +76,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
+		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -311,6 +312,18 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			// Same reasoning as services-service-tiles above — scoped to a real page slug
 			// from the start.
+			'condition' => static function () {
+				return is_page( 'services' );
+			},
+		),
+		'corner-glow'               => array(
+			'handle'    => 'ls-theme-corner-glow',
+			'path'      => 'assets/css/corner-glow.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Shared, multi-consumer class (not Services-page-exclusive) -- currently only used
+			// by services-cta.php, so the condition matches that real usage today. A future
+			// consumer on a different page should widen this condition rather than duplicating
+			// the class/file.
 			'condition' => static function () {
 				return is_page( 'services' );
 			},
