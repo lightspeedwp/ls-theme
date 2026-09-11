@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Services page: closing CTA section (LS-1598)
+
+### Added
+
+- Added `patterns/sections/services-cta.php` (renamed from the empty, unused `patterns/section-cta.php` stub): "Let's scope it properly" — eyebrow, heading, description, and a single button reusing the exact button already established in `services-hero.php`.
+- Added `src/scss/structural/corner-glow.scss`: a shared, multi-consumer two-corner radial-gradient glow background, with its colors as CSS custom properties so future consumers can override them per instance instead of duplicating the file.
+
+### Fixed
+
+- Corrected a Figma SVG gradient matrix decode error that made the corner-glow's blobs roughly 10x too small (a missing `r="10"` base-circle multiplier), and set the CTA panel to a real 800px max width.
+
+[PR #56](https://github.com/lightspeedwp/ls-theme/pull/56)
+
+---
+
 ## [Unreleased] — Build Services page: service tiles section (LS-1598)
 
 ### Added
