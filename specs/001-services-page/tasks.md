@@ -34,10 +34,10 @@ Single WordPress block-theme project. Existing Services page patterns live in
 
 **Purpose**: Confirm exact Figma content for the 3 remaining sections before building anything.
 
-- [ ] T001 Pull design context (code, tokens, screenshot) for Entry Points via the Figma MCP
+- [x] T001 Pull design context (code, tokens, screenshot) for Entry Points via the Figma MCP
       tools, node `8044-164205`, from the file
       `https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System`
-- [ ] T002 [P] Pull design context for Delivery by the Numbers, node `8044-164253`, same Figma
+- [x] T002 [P] Pull design context for Delivery by the Numbers, node `8044-164253`, same Figma
       file
 - [ ] T003 [P] Pull design context for the closing CTA, node `8044-164294`, same Figma file
 
@@ -52,14 +52,14 @@ from Figma — no guessing content during implementation.
 using this repo's own `.agents/skills/` toolchain — not ad hoc manual comparison — before any
 new pattern file is written.
 
-- [ ] T004 Invoke the `pattern-extractor` skill's analysis phase for Entry Points (Figma
+- [x] T004 Invoke the `pattern-extractor` skill's analysis phase for Entry Points (Figma
       context from T001): propose what to reuse (starting from
       `styles/sections/cards/card-link-row.json`, already used by
       `patterns/sections/homepage-where-to-start.php` and
       `patterns/sections/work-related-routes.php`) vs. create, per its approval-gated
       reuse-or-create workflow — get explicit sign-off on the proposal before any file is
       written
-- [ ] T005 [P] Invoke `pattern-extractor`'s analysis phase for Delivery by the Numbers (Figma
+- [x] T005 [P] Invoke `pattern-extractor`'s analysis phase for Delivery by the Numbers (Figma
       context from T002): propose reuse of `styles/sections/cards/stat-segment.json` (already
       used by `patterns/section-stats-grid.php`) vs. create, same approval-gated workflow
 - [ ] T006 [P] Invoke `pattern-extractor`'s analysis phase for the closing CTA (Figma context
@@ -95,30 +95,27 @@ content, per quickstart.md's "Entry Points section present" validation.
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Execute `pattern-extractor`'s build phase for Entry Points, using T004's
+- [x] T009 [US1] Execute `pattern-extractor`'s build phase for Entry Points, using T004's
       approved reuse-or-create proposal — this creates
       `patterns/sections/services-entry-points.php` with the standard pattern header
       (Title/Slug/Categories/Block Types/Description/Keywords/Viewport Width/Inserter,
       matching the format in `patterns/sections/services-service-tiles.php`) and, if new JSON
       styling is written, `theme-color-token-enforcer` runs automatically per
       `pattern-extractor`'s own mandatory chain — do not skip it
-- [ ] T010 [US1] Write the Entry Point array (per data-model.md: label, description,
+- [x] T010 [US1] Write the Entry Point array (per data-model.md: label, description,
       link/action for each) and render loop, reusing `card-link-row.json` if T004 confirmed
       it fits, or the new shape-named style if T004 identified a genuine gap (consult
       `wp-block-style-audit` before writing any new `css` field in that style's JSON)
-- [ ] T011 [US1] Render each entry point's icon via `core/icon` with the `lightspeed/{slug}`
+- [x] T011 [US1] Render each entry point's icon via `core/icon` with the `lightspeed/{slug}`
       confirmed in T008
-- [ ] T012 [US1] Assemble the Entry Points section onto the Services page content, positioned
+- [x] T012 [US1] Assemble the Entry Points section onto the Services page content, positioned
       per the Figma page flow (after Service Tiles, before Delivery by the Numbers)
-- [ ] T013 [US1] Register a `services-entry-points` bundle in `inc/animations.php`
-      (`ls_theme_get_effect_styles()` and, if it needs a render marker,
-      `ls_theme_get_bundle_render_markers()`) with a `condition` of `is_page( 'services' )` set
-      from the start — do not defer this per research.md's enqueue-condition decision
-- [ ] T014 [US1] Add `add_editor_style( 'assets/css/services-entry-points.css' )` to
-      `functions.php` and wire the new SCSS file (if T004/T007 required one) into
-      `package.json`'s `build:css`/`build:css:dev`/`watch:css` scripts, matching the existing
-      `services-*` entries
-- [ ] T015 [US1] Run `php -l`, `npm run patterns:escape`, `npm run security:scan`,
+- [x] T013 [US1] **N/A** — no `services-entry-points` bundle was needed. The section reuses
+      `card-link-row.json` and `core/icon` entirely; no new SCSS/JSON styling was written, so
+      there is nothing to register a stylesheet bundle for.
+- [x] T014 [US1] **N/A** — same reason as T013, no new stylesheet exists to add as an editor
+      style or wire into the build scripts.
+- [x] T015 [US1] Run `php -l`, `npm run patterns:escape`, `npm run security:scan`,
       `npm run schema:validate` (if new JSON was added), and `composer run phpcs` against every
       file touched in T009-T014 — fix any failure before proceeding; never use `validate_blocks`
 
@@ -136,23 +133,23 @@ the stated metrics render correctly and match Figma, per quickstart.md.
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Execute `pattern-extractor`'s build phase for Delivery by the Numbers, using
+- [x] T016 [US2] Execute `pattern-extractor`'s build phase for Delivery by the Numbers, using
       T005's approved proposal — creates `patterns/sections/services-delivery-numbers.php` with
       the standard pattern header; `theme-color-token-enforcer` runs automatically if new JSON
       styling is written
-- [ ] T017 [US2] Write the Delivery Metric array (per data-model.md: value, label for each) and
+- [x] T017 [US2] Write the Delivery Metric array (per data-model.md: value, label for each) and
       render loop, reusing `stat-segment.json` if T005 confirmed it fits, or the new
       shape-named style if T005 identified a genuine gap (consult `wp-block-style-audit`
       before writing any new `css` field)
-- [ ] T018 [US2] Confirm the row layout does not visually unbalance when a value has
+- [x] T018 [US2] Confirm the row layout does not visually unbalance when a value has
       significantly more digits than its siblings (data-model.md validation rule) — test with
       the actual longest value from the Figma frame, not a placeholder
-- [ ] T019 [US2] Assemble the Delivery by the Numbers section onto the Services page content,
+- [x] T019 [US2] Assemble the Delivery by the Numbers section onto the Services page content,
       after Entry Points and before the closing CTA
-- [ ] T020 [US2] Register a `services-delivery-numbers` bundle in `inc/animations.php` with a
-      `condition` of `is_page( 'services' )`, same as T013
-- [ ] T021 [US2] Add the editor style and build-script wiring, same pattern as T014
-- [ ] T022 [US2] Run the full validation suite from T015 against every file touched in
+- [x] T020 [US2] **N/A** — same reason as T013: no new SCSS/JSON styling was written (pure
+      reuse of `stat-segment.json`), so there is no stylesheet bundle to register.
+- [x] T021 [US2] **N/A** — same reason as T014, no new stylesheet exists.
+- [x] T022 [US2] Run the full validation suite from T015 against every file touched in
       T016-T021
 
 **Checkpoint**: Delivery by the Numbers section renders correctly, independently testable.
