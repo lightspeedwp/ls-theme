@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build Services page: hero, linked decisions, and service clusters (LS-1598)
+
+### Added
+
+- Added `patterns/hero/services-hero.php`: breadcrumb, eyebrow, heading, description, CTAs, and a lifecycle-phase-coloured row of all 14 service tags linking to their `/services/` pages.
+- Added `patterns/sections/services-linked-decisions.php`: a six-step process pill row (Discover/Create/Build/Launch/Grow/Evolve) linking to new `/services/` phase pages, with a fixed whole-pill click target.
+- Added `patterns/sections/services-service-clusters.php`: five cluster cards in an asymmetric 3+2 layout grouping all 14 services, each linking out to its individual service page.
+- Added `styles/sections/cards/card-cluster.json`, a new shared card shell for the service-clusters section.
+
+### Fixed
+
+- Fixed the second service-clusters card row's `blockGap` being nested outside `spacing` instead of inside it, which silently fell back to WordPress's default gap instead of matching row 1.
+
+---
+
 ## [Unreleased] — Build Search template (LS-2594)
 
 ### Added
