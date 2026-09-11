@@ -4,12 +4,12 @@
  * Slug: ls-theme/services-cta
  * Categories: cta
  * Block Types: core/pattern
- * Description: The Services page's closing CTA: "Let's scope it properly." A centered eyebrow/
+ * Description: The Services page's closing CTA: "Let's scope it properly." A centred eyebrow/
  * heading/description panel with a single button, reusing the exact "Request a systems review"
  * button already established in services-hero.php (same label, same link). The panel's soft
  * two-corner glow background reuses the shared, multi-consumer .ls-corner-glow class
  * (src/scss/structural/corner-glow.scss) rather than a new one-off gradient — this file supplies
- * no color overrides since its colors happen to match that class's own defaults.
+ * no colour overrides since its colours happen to match that class's own defaults.
  * Keywords: services, cta, closing, section
  * Viewport Width: 1280
  * Inserter: true
@@ -26,7 +26,7 @@
 
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
 		<div class="wp-block-group">
-			<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"}},"dimensions":{"width":"8px"}} /-->
+			<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
 
 			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--brand)"}},"fontSize":"100"} -->
 			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'One conversation away', 'ls-theme' ); ?></p>
