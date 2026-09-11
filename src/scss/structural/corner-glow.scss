@@ -1,0 +1,47 @@
+/********** Corner Glow (shared decorative background, multi-consumer) **********/
+
+/*
+ * A soft two-corner radial glow, decoded from Figma's SVG gradientTransform matrices the same
+ * way as src/scss/structural/search-hero.scss (its own comment documents the exact conversion
+ * method) — with one correction this file's first version missed: the gradient's base circle
+ * has r="10" (user-space units) and the transform matrix scales it by 76.861, so the actual
+ * radius is 10 × 76.861 = 768.61, not 76.861 alone. Using the matrix value by itself produced
+ * blobs roughly 10x too small (reading as small hard circles instead of a soft, wide wash).
+ * Positioned as a diagonal pair — one glow near the top-left corner, one near the bottom-right —
+ * sized 87.5%/172.4% (x/y radius as a fraction of the ~878x446, ~2:1 source frame) centered at
+ * 20%/30% and 80%/70%.
+ *
+ * JSON limitation: color.gradient block support only accepts a single gradient value, not
+ * layered gradients of any kind — see AGENTS.md Theme-First Approach and the same reasoning
+ * already documented in search-hero.scss/work-hero.scss/blog-hero.scss.
+ *
+ * Reusable across multiple CTAs/sections with different colours: the two glow colours and
+ * opacities are CSS custom properties, not hardcoded, so each consumer can override them inline
+ * per instance (e.g. style="--ls-corner-glow-color-1:...;"). Default fallbacks are
+ * effect.hero.brand / effect.hero.cyan, since every current consumer happens to use that exact
+ * pair — but a future consumer needing different colours doesn't need a second copy of this
+ * file, just its own inline override.
+ */
+.ls-corner-glow {
+  background-image:
+    radial-gradient(
+      87.5% 172.4% at 20% 30%,
+      color-mix(
+        in srgb,
+        var(--ls-corner-glow-color-1, var(--wp--custom--color--effect--hero--brand)) var(--ls-corner-glow-opacity-1, 14%),
+        transparent
+      ) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      87.5% 172.4% at 80% 70%,
+      color-mix(
+        in srgb,
+        var(--ls-corner-glow-color-2, var(--wp--custom--color--effect--hero--cyan)) var(--ls-corner-glow-opacity-2, 14%),
+        transparent
+      ) 0%,
+      transparent 60%
+    );
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
