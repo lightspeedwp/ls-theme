@@ -37,7 +37,7 @@ Single WordPress block-theme project. Existing Services page patterns live in
 - [x] T001 Pull design context (code, tokens, screenshot) for Entry Points via the Figma MCP
       tools, node `8044-164205`, from the file
       `https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System`
-- [ ] T002 [P] Pull design context for Delivery by the Numbers, node `8044-164253`, same Figma
+- [x] T002 [P] Pull design context for Delivery by the Numbers, node `8044-164253`, same Figma
       file
 - [ ] T003 [P] Pull design context for the closing CTA, node `8044-164294`, same Figma file
 
@@ -59,7 +59,7 @@ new pattern file is written.
       `patterns/sections/work-related-routes.php`) vs. create, per its approval-gated
       reuse-or-create workflow — get explicit sign-off on the proposal before any file is
       written
-- [ ] T005 [P] Invoke `pattern-extractor`'s analysis phase for Delivery by the Numbers (Figma
+- [x] T005 [P] Invoke `pattern-extractor`'s analysis phase for Delivery by the Numbers (Figma
       context from T002): propose reuse of `styles/sections/cards/stat-segment.json` (already
       used by `patterns/section-stats-grid.php`) vs. create, same approval-gated workflow
 - [ ] T006 [P] Invoke `pattern-extractor`'s analysis phase for the closing CTA (Figma context
@@ -133,23 +133,23 @@ the stated metrics render correctly and match Figma, per quickstart.md.
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Execute `pattern-extractor`'s build phase for Delivery by the Numbers, using
+- [x] T016 [US2] Execute `pattern-extractor`'s build phase for Delivery by the Numbers, using
       T005's approved proposal — creates `patterns/sections/services-delivery-numbers.php` with
       the standard pattern header; `theme-color-token-enforcer` runs automatically if new JSON
       styling is written
-- [ ] T017 [US2] Write the Delivery Metric array (per data-model.md: value, label for each) and
+- [x] T017 [US2] Write the Delivery Metric array (per data-model.md: value, label for each) and
       render loop, reusing `stat-segment.json` if T005 confirmed it fits, or the new
       shape-named style if T005 identified a genuine gap (consult `wp-block-style-audit`
       before writing any new `css` field)
-- [ ] T018 [US2] Confirm the row layout does not visually unbalance when a value has
+- [x] T018 [US2] Confirm the row layout does not visually unbalance when a value has
       significantly more digits than its siblings (data-model.md validation rule) — test with
       the actual longest value from the Figma frame, not a placeholder
-- [ ] T019 [US2] Assemble the Delivery by the Numbers section onto the Services page content,
+- [x] T019 [US2] Assemble the Delivery by the Numbers section onto the Services page content,
       after Entry Points and before the closing CTA
-- [ ] T020 [US2] Register a `services-delivery-numbers` bundle in `inc/animations.php` with a
-      `condition` of `is_page( 'services' )`, same as T013
-- [ ] T021 [US2] Add the editor style and build-script wiring, same pattern as T014
-- [ ] T022 [US2] Run the full validation suite from T015 against every file touched in
+- [x] T020 [US2] **N/A** — same reason as T013: no new SCSS/JSON styling was written (pure
+      reuse of `stat-segment.json`), so there is no stylesheet bundle to register.
+- [x] T021 [US2] **N/A** — same reason as T014, no new stylesheet exists.
+- [x] T022 [US2] Run the full validation suite from T015 against every file touched in
       T016-T021
 
 **Checkpoint**: Delivery by the Numbers section renders correctly, independently testable.
