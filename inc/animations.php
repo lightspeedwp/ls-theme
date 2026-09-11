@@ -317,16 +317,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			},
 		),
 		'corner-glow'               => array(
-			'handle'    => 'ls-theme-corner-glow',
-			'path'      => 'assets/css/corner-glow.css',
-			'contexts'  => array( 'front', 'editor' ),
-			// Shared, multi-consumer class (not Services-page-exclusive) -- currently only used
-			// by services-cta.php, so the condition matches that real usage today. A future
-			// consumer on a different page should widen this condition rather than duplicating
-			// the class/file.
-			'condition' => static function () {
-				return is_page( 'services' );
-			},
+			'handle'   => 'ls-theme-corner-glow',
+			'path'     => 'assets/css/corner-glow.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as card-shells/cta-buttons above: services-cta.php declares
+			// Inserter: true, so an editor can place this pattern (and this shared class) on
+			// any page, not just Services — a page-specific condition would leave it caught
+			// only by the render_block/footer fallback there, a guaranteed flash of unstyled
+			// content rather than a rare edge case. At ~400 bytes compressed, cheaper to load
+			// unconditionally.
 		),
 		'work-hero'                 => array(
 			'handle'    => 'ls-theme-work-hero',
