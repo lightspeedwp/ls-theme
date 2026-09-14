@@ -1,0 +1,96 @@
+/********** Services - Linked Decisions (Services page only) **********/
+
+/*
+ * Services Linked Decisions (LS-1598, single consumer
+ * patterns/sections/services-linked-decisions.php). The process pills stay neutral overall
+ * (white/transparent background, dark label) with only the number badge carrying the phase
+ * colour, so the row doesn't compete with the hero's own phase-tinted tag row above it. See
+ * the JSON limitation comments below for what specifically requires CSS here.
+ */
+.ls-process-pill {
+  position: relative;
+
+  // JSON limitation: block-level :hover/:focus-within has no theme.json pseudo-state key for
+  // an arbitrary custom class (theme.json's elements.*.:hover only covers link/button/heading/
+  // caption/cite sitewide, not a scoped custom component) — see AGENTS.md Theme-First Approach.
+  transition:
+    border-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    // JSON limitation: the border-color custom property here is also required, separately: the
+    // pill's rest-state border-color is set inline per instance (services-linked-decisions.php),
+    // and an inline style attribute always outranks an external stylesheet rule regardless of
+    // pseudo-class, so without !important this property could never change on hover.
+    // transform/box-shadow aren't set inline at rest, so they don't need it.
+    border-color: var(--wp--custom--color--border--field) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--wp--custom--shadow--elevation--100);
+  }
+
+  .ls-process-pill__label a {
+    // JSON limitation: content:"" pseudo-elements have no theme.json equivalent — see AGENTS.md
+    // Theme-First Approach. Only the label text is a real <a>, but the whole pill should be
+    // clickable, so this ::before is stretched to the pill's full box (same technique already
+    // used by "Card - Services", see styles/sections/cards/card-services.json's
+    // .ls-card-services__cta ::before). The anchor itself must stay position:static (no
+    // position/z-index of its own) so this ::before's containing block resolves up to
+    // .ls-process-pill (which has position:relative) instead of shrinking to the anchor's own
+    // small text box — that was the original bug here.
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: var(--wp--custom--z-index--base);
+    }
+
+    // JSON limitation: :focus-visible has no theme.json pseudo-state key — see AGENTS.md
+    // Theme-First Approach.
+    &:focus-visible {
+      outline: 2px solid var(--wp--custom--color--focus--ring);
+      outline-offset: 2px;
+      border-radius: var(--wp--preset--border-radius--100);
+    }
+  }
+
+  .ls-process-pill__badge {
+    transition:
+      background-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+      border-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard);
+  }
+}
+
+@each $phase in discover, create, build, launch, grow, evolve {
+  .ls-process-pill--#{$phase} {
+    // JSON limitation: same :hover/:focus-within gap as above. The `!important` here is also
+    // required, separately: the badge's background-color/border-color are set inline per
+    // instance at rest (colour-mix over each pill's own phase token, itself a JSON
+    // limitation — six distinct phase-derived tints have no theme.json key), and an inline
+    // style attribute always outranks an external stylesheet rule regardless of pseudo-class,
+    // so without !important these two properties could never change on hover.
+    &:hover,
+    &:focus-within {
+      .ls-process-pill__badge {
+        background-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 20%, transparent) !important;
+        border-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 50%, transparent) !important;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-process-pill {
+    transition: none;
+
+    &:hover,
+    &:focus-within {
+      transform: none;
+    }
+  }
+
+  .ls-process-pill__badge {
+    transition: none;
+  }
+}

@@ -1,0 +1,80 @@
+/********** Services Hero (Services page only) **********/
+
+/*
+ * Services Hero (LS-1598, single consumer patterns/hero/services-hero.php). The service-tag
+ * pills' rest-state background/border tints are set inline per instance (each pill mixes its
+ * own phase token via colour-mix()) because theme.json has no key for six distinct
+ * phase-derived tints — that part is not this file's concern. What lives here is only the
+ * states theme.json genuinely cannot express: see the JSON limitation comments below.
+ */
+.ls-service-pill {
+  // JSON limitation: position:relative here so the whole-pill ::before overlay below has a
+  // containing block to size against — see AGENTS.md Theme-First Approach ("width", "max-width"
+  // and similar structural properties JSON has no key for).
+  position: relative;
+
+  // JSON limitation: block-level :hover/:focus-within has no theme.json pseudo-state key for
+  // an arbitrary custom class (theme.json's elements.*.:hover only covers link/button/heading/
+  // caption/cite sitewide, not a scoped custom component) — see AGENTS.md Theme-First Approach.
+  transition:
+    background-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--responsive) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-1px);
+    box-shadow: var(--wp--custom--shadow--elevation--100);
+  }
+
+  // JSON limitation: content:"" pseudo-elements have no theme.json equivalent. Only the label
+  // text is a real <a>, but the whole pill should be clickable, so this ::before is stretched
+  // to the pill's full box (same technique already used by "Card - Services", see
+  // styles/sections/cards/card-services.json's .ls-card-services__cta ::before). The anchor
+  // itself must stay position:static (no position/z-index of its own) so this ::before's
+  // containing block resolves up to .ls-service-pill instead of shrinking to the anchor's own
+  // small text box.
+  a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: var(--wp--custom--z-index--base);
+  }
+
+  // JSON limitation: :focus-visible has no theme.json pseudo-state key — see AGENTS.md
+  // Theme-First Approach.
+  a:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: 2px;
+    border-radius: var(--wp--preset--border-radius--100);
+  }
+}
+
+@each $phase in discover, create, build, launch, grow, evolve {
+  .ls-service-pill--#{$phase} {
+    // JSON limitation: same :hover/:focus-within gap as above. The `!important` here is also
+    // required, separately: background-color/border-color are set inline per instance at rest
+    // (colour-mix over each pill's own phase token, itself a JSON limitation — six distinct
+    // phase-derived tints have no theme.json key), and an inline style attribute always
+    // outranks an external stylesheet rule regardless of pseudo-class or specificity, so
+    // without !important these two properties could never change on hover. transform/
+    // box-shadow aren't set inline at rest, so they don't need it.
+    &:hover,
+    &:focus-within {
+      background-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 16%, transparent) !important;
+      border-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 55%, var(--wp--custom--color--border--card)) !important;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-service-pill {
+    transition: none;
+
+    &:hover,
+    &:focus-within {
+      transform: none;
+    }
+  }
+}
