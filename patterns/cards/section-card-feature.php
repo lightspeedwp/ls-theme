@@ -17,7 +17,7 @@
 <article class="wp-block-group is-style-card-feature">
 	<!-- wp:group {"className":"ls-card__icon-shell","style":{"spacing":{"padding":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-card__icon-shell" style="padding:var(--wp--preset--spacing--20)">
-		<!-- wp:outermost/icon-block /-->
+		<!-- wp:icon /-->
 	</div>
 	<!-- /wp:group -->
 

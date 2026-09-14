@@ -50,6 +50,24 @@
       fill: currentcolor;
     }
   }
+
+  // core/icon (WP 7.1 Core Icon block) renders a single .wp-block-icon wrapper directly
+  // around the <svg> — no nested .icon-container — so it needs its own consolidated rule
+  // rather than reuse of the two outermost/icon-block selectors above.
+  .wp-block-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
+    background: transparent !important;
+    color: var(--wp--custom--color--icon--color) !important;
+
+    svg {
+      fill: currentcolor;
+    }
+  }
 }
 
 /*
@@ -98,6 +116,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: transparent !important;
+    color: var(--ls-icon-frame-accent-colour) !important;
+
+    svg {
+      fill: currentcolor;
+    }
+  }
+
+  // core/icon (WP 7.1 Core Icon block) renders a single .wp-block-icon wrapper directly
+  // around the <svg> — no nested .icon-container — so it needs its own consolidated rule
+  // rather than reuse of the two outermost/icon-block selectors above.
+  .wp-block-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
     background: transparent !important;
     color: var(--ls-icon-frame-accent-colour) !important;
 
