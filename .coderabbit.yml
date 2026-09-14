@@ -10,8 +10,8 @@ reviews:
     base_branches:
       - main
       - develop
-      - feature/*
-      - fix/*
+      - feature/.*
+      - fix/.*
   request_changes_workflow: true
   high_level_summary: true
   collapse_walkthrough: true

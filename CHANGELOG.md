@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `.coderabbit.yml`: widened `auto_review.base_branches` to include `feature/*` and `fix/*` so stacked PRs (based on a prior feature branch rather than `main`/`develop`) trigger an automatic review, not just PRs targeting `main`/`develop`. Enabled `auto_incremental_review`, `assess_linked_issues`, `related_issues`, `related_prs`, `path_filters`, `finishing_touches` (autofix/docstrings/unit_tests), `tools` (eslint/markdownlint/gitleaks/trufflehog), and `knowledge_base.code_guidelines` (pointed at `AGENTS.md`). Set `profile: assertive` and enabled `request_changes_workflow`. ([#57](https://github.com/lightspeedwp/ls-theme/pull/57))
+- `.coderabbit.yml`: corrected `auto_review.base_branches` to use the `feature/.*` and `fix/.*` regular expressions, so stacked PRs (based on a prior feature or fix branch rather than `main`/`develop`) trigger an automatic review. Enabled `auto_incremental_review`, `assess_linked_issues`, `related_issues`, `related_prs`, `path_filters`, `finishing_touches` (autofix/docstrings/unit_tests), `tools` (eslint/markdownlint/gitleaks/trufflehog), and `knowledge_base.code_guidelines` (pointed at `AGENTS.md`). Set `profile: assertive` and enabled `request_changes_workflow`. ([#57](https://github.com/lightspeedwp/ls-theme/pull/57))
 
 ---
 
