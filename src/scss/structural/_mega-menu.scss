@@ -119,51 +119,48 @@
 }
 
 /*
- * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): stays a hand-
- * authored CSS grid rather than core's native "layout":{"type":"grid"} block support.
- *
- * JSON limitation, confirmed empirically 2026-08-25 (wp_get_layout_style()): core's grid layout
- * support only ever emits equal-fraction columns (`grid-template-columns:repeat(N, minmax(0, 1fr))`)
- * — there is no block attribute for content-sized columns. This class's links are short single
- * words (Content, Design, Hosting), and equal-fraction columns leave each one stranded at the left
- * edge of its own half-width track — the exact bug fixed earlier in this branch by sizing columns
- * to content (max-content) instead. Switching this class to core's grid support would silently
- * reintroduce that already-fixed, already-tested bug, so it stays custom CSS here.
- *
- * The wrapping block's own "layout":{"type":"default"} makes WordPress inject its usual
- * consecutive-sibling margin-top onto the child paragraphs (core's blockGap fallback for the
- * "default" layout type assumes vertical stacking) — that's what staggered column 2 lower than
- * column 1, since the margin only applies from the second paragraph onward regardless of which
- * grid cell it lands in. Reset to margin:0 here rather than switching the block's own layout type,
- * since "default" is what makes this a plain wp:group with no block-supports layout UI fighting
- * the grid.
+ * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): single-column list
+ * of service links per lifecycle phase (LS-3222 follow-up), matching the Work/Solutions/Pricing/
+ * Insights/About dropdowns' single-column reading order. Previously a 2-column
+ * `repeat(2, max-content)` grid with a <340px single-column fallback; now always one column, so the
+ * fallback is redundant and removed. Stays hand-authored CSS rather than core's native
+ * "layout":{"type":"grid"} block support for the same reason as before: this wrapping block's own
+ * "layout":{"type":"default"} injects consecutive-sibling margin-top on the child paragraphs (core's
+ * blockGap fallback for the "default" layout type), which the `> * { margin: 0; }` reset below
+ * still needs to cancel regardless of column count.
  */
 .ls-services-phase-links {
   display: grid;
-  grid-template-columns: repeat(2, max-content);
-  column-gap: var(--wp--preset--spacing--20);
-  row-gap: var(--wp--preset--spacing--20);
+  grid-template-columns: 1fr;
+  row-gap: 0;
 
   > * {
     margin: 0;
   }
 }
 
-@media (max-width: 340px) {
-  .ls-services-phase-links {
-    grid-template-columns: 1fr;
-  }
+/*
+ * Tap-target guarantee for the single-column phase list above, mirroring the same technique used
+ * for .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About): row-gap is 0 so the visible
+ * row height (driven by content + the shared JSON partial's small padding) reads as a tight, single
+ * list, while the actual tap area is independently expanded to the theme's 44px minimum via the
+ * existing stretched-link `a::after`. JSON limitation: no block-support exists for an invisible/
+ * expanded hit area distinct from visual box size, so this can only be scoped CSS.
+ */
+.ls-services-phase-links > .is-style-mega-menu-item-service a::after {
+  top: calc((var(--wp--custom--spacing--tap-target-min) - 100%) / -2);
+  bottom: calc((var(--wp--custom--spacing--tap-target-min) - 100%) / -2);
 }
 
 /*
  * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
- * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--10 is the
- * header row's own icon-to-label gap — not an arbitrary offset, the two real values that produce
- * alignment with the "C" in "CREATE". .ls-simple-submenu-links has no heading/dot to align under,
- * so it doesn't need this.
+ * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--5 is the
+ * reduced offset (LS-3222 follow-up, down from spacing--10) that keeps the indent intentional
+ * (~12-13px total) without reading as an oversized, disconnected offset from the "C" in "CREATE".
+ * .ls-simple-submenu-links has no heading/dot to align under, so it doesn't need this.
  */
 .ls-services-phase-links {
-  padding-left: calc(8px + var(--wp--preset--spacing--10));
+  padding-left: calc(8px + var(--wp--preset--spacing--5));
 }
 
 /*
