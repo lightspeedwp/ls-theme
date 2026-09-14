@@ -18,10 +18,10 @@
 		},
 		"spacing": {
 			"padding": {
-				"top": "var:preset|spacing|10",
-				"right": "var:preset|spacing|10",
-				"bottom": "var:preset|spacing|10",
-				"left": "var:preset|spacing|10"
+				"top": "var:preset|spacing|5",
+				"right": "var:preset|spacing|5",
+				"bottom": "var:preset|spacing|5",
+				"left": "var:preset|spacing|5"
 			}
 		},
 		"elements": {
