@@ -74,6 +74,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
+		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -241,11 +242,12 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Icon-well classes are also used by 3 homepage sections (what-we-build,
 			// where-to-start, where-to-fit) in addition to the Work archive, by the
 			// Search template's "Useful destinations" section, and by the Services page's
-			// "Service clusters" section (is-style-card-category, ls-icon-well-brand) —
-			// without a check for each of these here, that reuse only gets caught by the
-			// render_block fallback below, which prints in the footer and visibly restyles
-			// the cards after first paint. The Services page has no dedicated template yet
-			// (LS-1598 in progress), so this checks its slug directly rather than a template.
+			// "Service clusters" and "Service tiles" sections (is-style-card-category,
+			// ls-icon-well-brand) — without a check for each of these here, that reuse only
+			// gets caught by the render_block fallback below, which prints in the footer and
+			// visibly restyles the cards after first paint. The Services page has no dedicated
+			// template yet (LS-1598 in progress), so this checks its slug directly rather than
+			// a template.
 			'condition' => static function () {
 				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' );
 			},
@@ -290,6 +292,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/services-service-clusters.css',
 			'contexts' => array( 'front', 'editor' ),
 			// Same reasoning as services-hero above.
+		),
+		'services-service-tiles'    => array(
+			'handle'    => 'ls-theme-services-service-tiles',
+			'path'      => 'assets/css/services-service-tiles.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Unlike services-hero/services-linked-decisions/services-service-clusters above,
+			// this bundle is scoped to a real, known page slug rather than deferred — no reason
+			// to wait for a dedicated template when the condition is this cheap to add now.
+			'condition' => static function () {
+				return is_page( 'services' );
+			},
 		),
 		'work-hero'                 => array(
 			'handle'    => 'ls-theme-work-hero',
