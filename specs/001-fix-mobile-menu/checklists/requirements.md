@@ -32,3 +32,4 @@
 ## Notes
 
 - All checklist items pass on first pass. No clarifications required — reasonable defaults documented in the Assumptions section of spec.md.
+- "No implementation details" (Content Quality and Feature Readiness) is scoped to the Requirements and Success Criteria sections, which stay technology-agnostic. The Assumptions section intentionally references real file paths (e.g. `parts/mobile-menu.html`) and technical terms (CSS/markup/JS) for grounding and traceability back to the actual codebase — consistent with this project's existing spec convention — rather than describing implementation choices as requirements.

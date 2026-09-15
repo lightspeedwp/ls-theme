@@ -26,8 +26,14 @@ against the dev environment.
 1. Resize the viewport to 375px, then 320px.
 2. Open the mobile menu (hamburger/menu toggle in the header).
 3. For each top-level accordion (Work, Solutions, Services, Pricing, Insights, About):
-   - Expand it.
-   - Tap/click every link inside the page-list grid.
+   - Tap/click the row *away from the label text* (e.g. the chevron, or the row's empty
+     whitespace) to expand it — the label itself is now a link to that section's overview page,
+     so tapping the label text will navigate away instead of expanding.
+   - **Expected**: the dropdown expands without navigating anywhere.
+   - Tap/click the label text itself.
+   - **Expected**: navigates directly to that section's overview page (`/work/`, `/solutions/`,
+     `/services/`, `/pricing/`, `/blog/`, `/about/`) without needing to open the dropdown first.
+   - Re-open the dropdown and tap/click every link inside the page-list.
    - Tap/click the trailing "See all …" link.
    - **Expected**: each tap navigates to the linked page. No dead taps.
 4. Tap/click the standalone "Contact" link row.
@@ -51,14 +57,14 @@ against the dev environment.
 
 ### 4. Reduced, still-tappable padding (FR-004, SC-004)
 
-1. At 320px and 375px, expand any accordion's page-list grid.
+1. At 320px and 375px, expand any accordion's single-column page-list.
 2. Visually compare item padding against the pre-fix baseline (or against the values recorded in
    [research.md](./research.md) R3, e.g. `styles/blocks/groups/mega-menu-item-service.json`).
-   - **Expected**: visibly tighter padding than before.
-3. Attempt to tap each link, including links immediately adjacent to one another in the 2-column
-   grid.
+   - **Expected**: visibly tighter padding than before, and adequate vertical spacing between
+     consecutive rows in the single-column list.
+3. Attempt to tap each link, including links immediately above and below one another in the list.
    - **Expected**: no accidental mis-taps on a neighboring link; every tap target still feels
-     comfortably sized (informal WCAG 2.2 AA target-size sanity check).
+     comfortably sized (informal WCAG 2.2 AA target-size sanity check — 24×24 CSS px minimum).
 
 ### 5. Breakpoint sanity (FR-006)
 

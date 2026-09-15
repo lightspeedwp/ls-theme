@@ -18,7 +18,7 @@ Mobile menu links in `parts/mobile-menu.html` (rendered inside WordPress core's 
 
 **Storage**: N/A (template part markup + compiled CSS only; no data persistence)
 
-**Testing**: Manual QA in a browser/device emulator (per this repo's existing pattern — no automated visual/interaction test suite for menus); PHP lint / theme.json schema checks per AGENTS.md validation commands; `validate_blocks` tool is banned per project policy — verify block markup via direct JSON/source inspection or the Site Editor instead
+**Testing**: Manual QA in a browser/device emulator, plus the existing `tests/specs/navigation.spec.ts` Playwright suite (covers mobile menu open/close and accordion toggle at 375px, but not link destinations or 320px — those stay manual); PHP lint / theme.json schema checks per AGENTS.md validation commands; `validate_blocks` tool is banned per project policy — verify block markup via direct JSON/source inspection or the Site Editor instead
 
 **Target Platform**: WordPress front end, mobile breakpoints (320px, 375px, and general mobile widths below the desktop nav breakpoint)
 
@@ -61,20 +61,23 @@ specs/001-fix-mobile-menu/
 
 ### Source Code (repository root)
 
+This git repository's root **is** the theme root (`parts/`, `src/`, `styles/` sit directly at
+the top level) — there is no nested `wp-content/themes/ls-theme/` path inside the repo itself;
+that only describes where this checkout happens to sit inside a local WordPress install.
+
 ```text
-wp-content/themes/ls-theme/
-├── parts/
-│   └── mobile-menu.html              # Template part: menu items, incl. "Systems" row to remove
-├── src/scss/
-│   ├── structural/
-│   │   └── _mobile-menu.scss         # Structural chrome for core-generated overlay markup
-│   └── animations/
-│       ├── _mobile-menu-motion.scss  # Mobile drawer open/close motion + overlay overrides
-│       └── _details-motion.scss      # Accordion (<details>) motion shared by mobile submenus
-├── styles/                           # theme.json-first JSON partials (preferred target for
-│   └── blocks/details/               # any padding/spacing change that has a registrable slug,
-│       └── mobile-menu-accordion.json  # e.g. is-style-mobile-menu-accordion, is-style-mega-menu-item-service
-└── assets/css/                       # Compiled build output only — never hand-edited
+parts/
+└── mobile-menu.html                    # Template part: accordion labels, page-list links,
+                                         # "Systems" row (removed)
+src/scss/structural/
+└── _mega-menu.scss                     # Single-column list layout, mobile-only padding
+                                         # override, tap-target notes (Work/Solutions/Pricing/
+                                         # Insights/About + Services phase links)
+styles/blocks/
+├── details/mobile-menu-accordion.json  # Accordion label link styling/focus states
+└── groups/mega-menu-item-service.json  # Shared page-list-row style (mobile + desktop)
+assets/css/
+└── animations.css                      # Compiled build output — never hand-edited
 ```
 
 **Structure Decision**: This is a single WordPress block theme codebase (no frontend/backend split, no

@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/paragraph"
 	],
-	"description": "List row for the Service mega menu's phase columns, and every plain link row across the mobile menu's Work/Solutions/Pricing/Insights/About accordions (parts/mobile-menu.html) — this is the single shared row style behind both, not a Services-only style. Rows are direct children of a 2-column grid (.ls-services-phase-links or .ls-simple-submenu-links, src/scss/structural/_mega-menu.scss) with no divider of their own — a transparent left rail reserves space for the accent bar that src/scss/animations/_shared-hover.scss and _menu-motion.scss paint in on hover/focus. The stretched-link hit area itself lives in _mega-menu.scss (a::after) — this file only adds the :focus-visible outline, which that SCSS rule doesn't cover.",
+	"description": "List row for the Service mega menu's phase columns (desktop, parts/services-mega-menu.html), and every plain link row across the mobile menu's Work/Solutions/Pricing/Insights/About accordions (parts/mobile-menu.html) — this is the single shared row style behind both, not a Services-only style. Rows are direct children of a single-column list (.ls-services-phase-links or .ls-simple-submenu-links, src/scss/structural/_mega-menu.scss) with no divider of their own — a transparent left rail reserves space for the accent bar that src/scss/animations/_shared-hover.scss and _menu-motion.scss paint in on hover/focus. The stretched-link hit area itself lives in _mega-menu.scss (a::after) — this file only adds the :focus-visible outline, which that SCSS rule doesn't cover. Padding here (spacing|10) is shared with desktop rows in parts/services-mega-menu.html — the tighter mobile-only padding (LS-3222 follow-up) lives as a scoped override in _mega-menu.scss instead of here, since changing this shared default would have also shrunk desktop row padding.",
 	"styles": {
 		"border": {
 			"radius": "var:preset|border-radius|300",
@@ -18,10 +18,10 @@
 		},
 		"spacing": {
 			"padding": {
-				"top": "var:preset|spacing|5",
-				"right": "var:preset|spacing|5",
-				"bottom": "var:preset|spacing|5",
-				"left": "var:preset|spacing|5"
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
 			}
 		},
 		"elements": {

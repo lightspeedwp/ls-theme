@@ -25,6 +25,7 @@ A visitor on a mobile device opens the site's mobile menu and taps a link (e.g. 
 1. **Given** the mobile menu is open, **When** a visitor taps a top-level menu link, **Then** the browser navigates to that link's destination.
 2. **Given** a mobile dropdown (page list) is expanded, **When** a visitor taps a link inside it, **Then** the browser navigates to that link's destination.
 3. **Given** the mobile menu is open, **When** a visitor taps a link, **Then** no JavaScript console errors are produced.
+4. **Given** a top-level accordion row contains both a label link and a disclosure toggle, **When** a visitor activates the label (pointer tap/click, or keyboard Enter while the label has focus), **Then** the browser navigates to that label's overview page; **When** a visitor activates the row's toggle area instead (pointer tap/click elsewhere in the row, or keyboard Enter/Space while the row itself has focus), **Then** the dropdown expands or collapses without navigating away.
 
 ---
 
@@ -90,7 +91,7 @@ A visitor expands a mobile dropdown containing a list of pages and finds the lis
 - **SC-001**: 100% of mobile menu links (top-level and within dropdowns) successfully navigate to their intended destination when tapped, verified at 320px and 375px.
 - **SC-002**: The "Systems" item no longer appears anywhere in the mobile menu, verified by manual inspection on dev.
 - **SC-003**: Zero new browser console errors are introduced by interacting with the mobile menu, verified via manual QA on dev.
-- **SC-004**: Visible padding around mobile dropdown page-list items is measurably reduced from its current value, while every link's tap target stays comfortably tappable (no visitor-reported mis-taps during QA).
+- **SC-004**: Visible padding around mobile dropdown page-list items is measurably reduced from its current value, while every link's tap target meets or exceeds the WCAG 2.2 AA target-size minimum (24×24 CSS px, SC 2.5.8) — verified by measuring each link's rendered bounding box in DevTools at 320px and 375px.
 
 ## Assumptions
 
@@ -98,5 +99,5 @@ A visitor expands a mobile dropdown containing a list of pages and finds the lis
 - "Systems" refers to a specific existing WordPress nav menu item (or hardcoded link) that currently renders but does not lead to a working/relevant page; removing it means removing its menu entry rather than fixing its destination.
 - No new navigation items or IA changes are in scope — this is a fix/cleanup of existing menu items only.
 - "Reduce padding" means adjusting existing spacing tokens/values already used in the theme's CSS, not introducing a new design system or spacing scale.
-- Testing is manual on the dev environment (LightSpeedWP.Agency) across mobile breakpoints; no new automated test suite is required unless one already exists for navigation.
+- Testing is manual on the dev environment (LightSpeedWP.Agency) across mobile breakpoints. An automated suite already exists (`tests/specs/navigation.spec.ts`) covering mobile menu open/close and accordion toggle at 375px; it does not yet assert link destinations or 320px, so those remain manual-QA gaps rather than untested-by-default.
 - This spec covers the mobile menu only; desktop navigation is out of scope unless the same root cause affects it.

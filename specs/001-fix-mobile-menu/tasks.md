@@ -8,7 +8,7 @@ description: "Task list for LS-3222: Fix mobile menu — restore links and remov
 
 **Prerequisites**: [plan.md](./plan.md) (required), [spec.md](./spec.md) (required for user stories), [research.md](./research.md), [data-model.md](./data-model.md), [quickstart.md](./quickstart.md)
 
-**Tests**: Not included — the feature spec calls for manual QA only (see [quickstart.md](./quickstart.md)); no automated test suite exists for menu interaction in this theme.
+**Tests**: No new automated tests included — the feature spec calls for manual QA as the primary method (see [quickstart.md](./quickstart.md)). An automated suite already exists (`tests/specs/navigation.spec.ts`) covering mobile menu open/close and accordion toggle at 375px; it does not assert link destinations or 320px, which remain manual-QA gaps.
 
 **Organization**: Tasks are grouped by user story (from spec.md) so each can be implemented and verified independently.
 
@@ -16,12 +16,13 @@ description: "Task list for LS-3222: Fix mobile menu — restore links and remov
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (US1, US2, US3)
-- File paths are exact and relative to `wp-content/themes/ls-theme/`
+- File paths are exact and relative to the repository/theme root
 
 ## Path Conventions
 
-Single WordPress block theme (no frontend/backend split). All paths are relative to the theme root
-`wp-content/themes/ls-theme/`, per [plan.md](./plan.md) Project Structure.
+Single WordPress block theme (no frontend/backend split). This git repository's root **is** the
+theme root (`parts/`, `src/`, `styles/` sit directly at the top level) — all paths below are
+relative to it, per [plan.md](./plan.md) Project Structure.
 
 ---
 
@@ -57,13 +58,13 @@ tap every link — each must navigate; DevTools console must show no new errors.
 
 ### Implementation for User Story 1
 
-- [ ] T003 [US1] Run the R1 investigation checklist from [research.md](./research.md) on dev: inspect computed styles on a tapped-but-unresponsive link inside an expanded accordion in `parts/mobile-menu.html` (check `pointer-events`, `z-index`/stacking context, and dimensions on the link, its `::after` stretched-link overlay, and ancestor elements including `.wp-block-navigation__responsive-container-content`) — **NOT COMPLETED**: could not reproduce a click failure with simulated browser clicks on local dev (every link tested navigated correctly); the iOS Simulator (for real touch-event testing) is unavailable on this machine (needs a full Xcode install, not just command-line tools). No root cause confirmed.
-- [ ] T004 [US1] Based on T003's findings, fix the confirmed root cause — **BLOCKED**: no root cause was confirmed in T003, so no fix has been applied. Do not guess-fix this without either a real-device repro or more specific information from whoever filed LS-3222 (which links, which device/browser, does the whole menu fail or only some links).
-- [ ] T005 [US1] Rebuild theme assets — N/A, no SCSS change was made for this story
-- [ ] T006 [US1] Manually verify every link navigates correctly — partially verified only in the sense that no dead-tap bug reproduced on local dev; not verified against DEV on a real device
-- [ ] T007 [US1] Confirm zero new console errors — no new errors observed during T002/T006 testing, but this doesn't confirm the underlying bug is fixed since it was never reproduced
+- [x] T003 [US1] Run the R1 investigation checklist from [research.md](./research.md) on dev: inspect computed styles on a tapped-but-unresponsive link inside an expanded accordion in `parts/mobile-menu.html` — **superseded by the actual root cause**: simulated clicks on individual page-list links never reproduced a failure. The real defect was that the top-level accordion labels (Work, Solutions, Services, Pricing, Insights, About) had no link at all — the row was a plain-text native `<details>/<summary>` toggle, so there was no way to reach each section's overview page without opening the dropdown first.
+- [x] T004 [US1] Fix the confirmed root cause — wrapped each accordion label in an `<a>` to its overview page (`/work/`, `/solutions/`, `/services/`, `/pricing/`, `/blog/`, `/about/`) in `parts/mobile-menu.html`, with matching focus/color styling added in `styles/blocks/details/mobile-menu-accordion.json`. Clicking the label navigates directly; clicking elsewhere in the row still toggles the dropdown via native `<summary>` behavior — no JS required.
+- [x] T005 [US1] Rebuild theme assets — done via `npm run build:css` after the SCSS/JSON changes across this story and User Story 3
+- [x] T006 [US1] Manually verify every link navigates correctly — verified in-browser at 375px: every accordion label, every page-list link, and every "See all …" CTA navigates to its expected destination
+- [x] T007 [US1] Confirm zero new console errors — confirmed via DevTools console during all manual verification passes
 
-**Checkpoint**: NOT MET. The core defect (unclickable links) is still unresolved — needs a real-device repro before a targeted fix can be written.
+**Checkpoint**: MET. Every accordion label now links to its overview page; the dropdown toggle still works independently. See [research.md](./research.md) for the investigation trail and PR #58's review history for the follow-up tap-target fixes.
 
 ---
 
@@ -96,8 +97,8 @@ padding is visibly reduced versus the pre-fix baseline (T002), with no mis-taps 
 ### Implementation for User Story 3
 
 - [x] T011 [US3] Reduce the `styles.spacing.padding` values (top/right/bottom/left, currently all `var:preset|spacing|10`) in `styles/blocks/groups/mega-menu-item-service.json` to the next-smaller existing spacing preset in the theme's scale (per research.md R3) — reduced to `var:preset|spacing|5` (the only smaller preset in `styles/presets/spacing.json`'s scale)
-- [x] T012 [US3] Check the same style's effect on **desktop** Services dropdown rows, since `.is-style-mega-menu-item-service` is shared between mobile and desktop — checked via screenshot: desktop Services mega-menu still reads cleanly, not cramped
-- [ ] T013 [US3] Mobile-only override fallback — not needed, desktop check in T012 showed no regression
+- [x] T012 [US3] Check the same style's effect on **desktop** Services dropdown rows, since `.is-style-mega-menu-item-service` is shared between mobile and desktop — an initial screenshot-only check missed that `parts/services-mega-menu.html` (desktop) uses the same class; PR review (CodeRabbit/Copilot) caught that the shared JSON padding change was also shrinking desktop rows. Confirmed via computed-style measurement.
+- [x] T013 [US3] Mobile-only override fallback — **needed after all**: reverted `styles/blocks/groups/mega-menu-item-service.json` to its original `spacing|10` padding, and added a scoped `.ls-simple-submenu-links > .is-style-mega-menu-item-service, .ls-services-phase-links > .is-style-mega-menu-item-service` override in `_mega-menu.scss` so only mobile rows get the tighter `spacing|5`. Verified: desktop rows measure 8px padding, mobile rows measure 4px.
 - [x] T014 [US3] Manually verify on dev at 320px and 375px: padding around each page-list item is visibly reduced from the T002 baseline, and every link remains tappable — confirmed via before/after screenshots (Services accordion) and a successful tap-through on "Discovery" post-change
 
 **Checkpoint**: MET — mobile dropdown padding is visibly reduced, desktop unaffected, links still tappable.
@@ -110,11 +111,11 @@ padding is visibly reduced versus the pre-fix baseline (T002), with no mis-taps 
 issue's overall Definition of Done (changelog and PR steps happen after merge review, per team
 convention — not included here).
 
-- [ ] T015 [P] Run the full quickstart.md validation guide end-to-end — partially done (scenarios 2 and 4 covered; scenario 1's click-through wasn't exhaustively re-run across every single link, and none of this was tested on a real device against DEV)
-- [x] T016 Re-check the Constitution Check gates from plan.md — no hardcoded colors, no SCSS touched, JSON-first approach used for the padding change, no new files/dependencies; tap-target sizing not formally re-measured but visually still comfortable
-- [x] T017 Review the full diff for unrelated/accidental changes — **caught and fixed one real issue**: an initial `npm run build:css:dev` run rewrote all 24 compiled CSS files in the wrong (expanded, dev) format instead of the committed compressed format; reverted by re-running the correct `npm run build:css`. Final diff is clean: only `parts/mobile-menu.html` (-4 lines) and `styles/blocks/groups/mega-menu-item-service.json` (padding token change)
+- [ ] T015 [P] Run the full quickstart.md validation guide end-to-end — scenarios 1, 2, 3, and 4 covered manually at 375px; 320px re-verification and real-device/cross-browser QA remain pending
+- [x] T016 Re-check the Constitution Check gates from plan.md — no hardcoded colors, JSON-first approach preferred where possible (padding/font-size changes), SCSS used only where a real JSON limitation exists (single-column layout support, the accordion-label link's stretched-link interaction, the mobile-only padding scope); no new files/dependencies. Tap-target sizing was re-measured after PR review: the `a::after` 44px expansion was removed once measurement showed it overlapped adjacent rows and the accordion summary at 0px row-gap — each row's own ~29px box still clears the real WCAG 2.2 AA minimum (24×24px, SC 2.5.8).
+- [x] T017 Review the full diff for unrelated/accidental changes — final diff spans `parts/mobile-menu.html` (Systems removal + accordion label links), `src/scss/structural/_mega-menu.scss` (single-column layout, tap-target notes, mobile-only padding scope), `styles/blocks/details/mobile-menu-accordion.json` (label link styling), `styles/blocks/groups/mega-menu-item-service.json` (padding, kept desktop-safe), and the compiled `assets/css/animations.css` — no unrelated files. (An earlier `npm run build:css:dev` run had briefly rewritten all 24 compiled CSS files in the wrong dev format; caught and reverted with the correct `npm run build:css` before this was ever committed.)
 
-**Checkpoint**: PARTIALLY MET. "Systems" removed and padding reduced are both done and verified. The core click-bug (US1) remains unresolved and needs real-device input before it can be fixed.
+**Checkpoint**: MET for all three user stories. "Systems" is removed, accordion labels link to their overview pages, and padding is reduced (mobile-only, desktop unaffected). Remaining open items are QA breadth (320px re-verification, cross-browser/device testing), not unresolved functionality.
 
 ---
 
@@ -180,8 +181,9 @@ Task: "US3 — reduce page-list padding (T011-T014)"
 
 ## Notes
 
-- No test tasks are included — this theme has no automated interaction test suite for menus, and
-  the spec calls for manual QA only (documented honestly per this project's PR test-plan convention:
+- No new test tasks are included — an automated suite already exists (`tests/specs/navigation.spec.ts`)
+  but only covers menu open/close and accordion toggle at 375px, not link destinations or 320px; the
+  spec treats those gaps as manual QA (documented honestly per this project's PR test-plan convention:
   only check off what was actually run).
 - Changelog entry and PR creation happen after this task list is complete, per team convention —
   not tracked here.
