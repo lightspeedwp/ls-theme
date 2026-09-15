@@ -45,3 +45,33 @@
   background-position: 0 0;
   background-repeat: no-repeat;
 }
+
+/*
+ * Button overflow fix (narrow viewports, confirmed live at 320px). core/button's shared styles
+ * (styles/presets/blocks/core-button.json) set white-space:nowrap on the button link and
+ * max-inline-size:100% on the wrapping .wp-block-button div — but that div is a flex item of
+ * .wp-block-buttons, and flex items default to min-width:auto (their content's intrinsic size),
+ * which overrides max-inline-size and lets a nowrap button refuse to shrink below its text width.
+ * Inside this card's narrower content column (~170px available at 320px viewport, after the
+ * section padding + the card's own padding), "Request a systems review" plus its arrow can't
+ * fit on one line, so the button spills out past the card's rounded border unclipped instead of
+ * shrinking or wrapping.
+ *
+ * Fixed by letting the flex item actually shrink (min-inline-size: 0, overriding the auto
+ * default) and letting its text wrap onto a second line instead of forcing nowrap. Scoped to
+ * buttons inside this card only — not a sitewide core/button change, since every other button
+ * context on the site has enough room and this isn't a general nowrap bug.
+ */
+.ls-corner-glow .wp-block-buttons {
+  min-inline-size: 0;
+}
+
+.ls-corner-glow .wp-block-buttons .wp-block-button {
+  min-inline-size: 0;
+}
+
+.ls-corner-glow .wp-block-buttons .wp-block-button__link {
+  min-inline-size: 0;
+  white-space: normal;
+  text-align: center;
+}
