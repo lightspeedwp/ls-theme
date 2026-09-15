@@ -64,17 +64,27 @@
 
 @each $phase in discover, create, build, launch, grow, evolve {
   .ls-process-pill--#{$phase} {
-    // JSON limitation: same :hover/:focus-within gap as above. The `!important` here is also
-    // required, separately: the badge's background-color/border-color are set inline per
-    // instance at rest (colour-mix over each pill's own phase token, itself a JSON
-    // limitation — six distinct phase-derived tints have no theme.json key), and an inline
-    // style attribute always outranks an external stylesheet rule regardless of pseudo-class,
-    // so without !important these two properties could never change on hover.
+    // JSON limitation, moved here from an inline block style attribute (LS-1598 editor
+    // validation fix): WordPress's style engine (wp_style_engine_get_styles(), shared by both
+    // server rendering and the block editor's own re-serialization used for validation) silently
+    // drops border-color/background-color values that are color-mix() functions — confirmed via
+    // wp_style_engine_get_styles() directly returning CSS with those two properties missing.
+    // Since the editor compares its regenerated HTML against the stored HTML byte-for-byte, a
+    // color-mix() value in a block's JSON style attribute makes that block permanently fail
+    // validation ("Block contains unexpected or invalid content"), even though it renders fine
+    // on the front end. Rest-state badge colours now live here, keyed off the existing per-
+    // phase className, instead of in JSON. No !important needed here since this is no longer
+    // competing with an inline style attribute.
+    .ls-process-pill__badge {
+      background-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 10%, transparent);
+      border-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 30%, transparent);
+    }
+
     &:hover,
     &:focus-within {
       .ls-process-pill__badge {
-        background-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 20%, transparent) !important;
-        border-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 50%, transparent) !important;
+        background-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 20%, transparent);
+        border-color: color-mix(in srgb, var(--wp--custom--color--phase--#{$phase}) 50%, transparent);
       }
     }
   }
