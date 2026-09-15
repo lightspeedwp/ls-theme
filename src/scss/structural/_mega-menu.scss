@@ -94,29 +94,34 @@
  */
 
 /*
- * Tap-target guarantee for the single-column list above, scoped to this parent only:
- * .is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json) is shared
- * with the mobile/desktop Services phase columns (.ls-services-phase-links), which must stay on
- * their own existing spacing per LS-3222's scope ("excluding Services") — so the 44px minimum tap
- * target for this list can't live in that shared JSON partial without leaking into Services too.
- *
- * Root-caused (LS-3222 follow-up): an earlier version of this rule used `min-block-size:
- * tap-target-min` directly on the row, which forced every row's own visible box to 44-52px tall —
- * that invisible padding, not blockGap, was the real source of the "still too much gap" complaint;
- * reducing blockGap alone barely changed the visual result. Fixed by decoupling the two: the row's
- * own visual height now comes only from its content plus the shared JSON partial's small padding,
- * and the invisible tap target is expanded independently via the existing stretched-link `a::after`
- * (top/bottom only, so left/right stay full-width from the shared base rule below) using the
- * standard `calc((min - 100%) / -2)` technique — 100% resolves against the row's own (now short)
- * height as the ::after's containing block, so this stays correct if that height ever changes.
- * JSON limitation: theme.json has no min-height/flex block-support for a plain paragraph block, and
- * no support at all for an invisible/expanded hit area distinct from visual box size — both can only
- * be expressed as scoped CSS here, not as a block attribute in the pattern markup.
+ * Mobile-only padding override, scoped to these two mobile-only parents (LS-3222 follow-up):
+ * is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json) is shared with
+ * the desktop Services mega-menu (parts/services-mega-menu.html), which must keep its own existing
+ * spacing|10 padding — confirmed on the PR that an earlier version of this fix changed the shared
+ * JSON partial's default directly, which also shrank desktop row padding. Overriding it here instead
+ * (higher specificity than the shared style's own class-level rule) keeps the tighter spacing|5
+ * padding mobile-only.
  */
-.ls-simple-submenu-links > .is-style-mega-menu-item-service a::after {
-  top: calc((var(--wp--custom--spacing--tap-target-min) - 100%) / -2);
-  bottom: calc((var(--wp--custom--spacing--tap-target-min) - 100%) / -2);
+.ls-simple-submenu-links > .is-style-mega-menu-item-service,
+.ls-services-phase-links > .is-style-mega-menu-item-service {
+  padding: var(--wp--preset--spacing--5);
 }
+
+/*
+ * Tap-target note for the single-column list above: an earlier version of this rule expanded each
+ * row's invisible tap area to the theme's 44px tap-target-min via the stretched-link `a::after`
+ * (`calc((min - 100%) / -2)`, expanding top/bottom beyond the row's own ~29px visual box). With
+ * `blockGap: 0` between rows (by design, for a tight list), that expansion mathematically cannot
+ * avoid overlapping the neighbouring row's own expanded area — CodeRabbit and Copilot both flagged
+ * this independently on the PR, and the overlap math checks out: ~7.5px of expansion per side on
+ * 0px-separated rows overlaps by ~15px, so a tap near a row boundary can resolve to the wrong link.
+ * The same expansion also bled ~2-3px into the accordion `<summary>` above the first row, since the
+ * heading-to-first-link gap (spacing--5, ~4-5px) is smaller than the expansion itself.
+ * Removed rather than re-tuned: reintroducing a non-overlapping expansion would require restoring a
+ * real visible gap between rows (≥ 44px − row height, i.e. ~15px) to leave room for it, undoing the
+ * tight single-column spacing this list was specifically built for. Each row's own box (~29px) still
+ * clears the actual WCAG 2.2 AA target-size minimum (24×24px, SC 2.5.8) without any expansion.
+ */
 
 /*
  * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): single-column list
@@ -140,17 +145,11 @@
 }
 
 /*
- * Tap-target guarantee for the single-column phase list above, mirroring the same technique used
- * for .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About): row-gap is 0 so the visible
- * row height (driven by content + the shared JSON partial's small padding) reads as a tight, single
- * list, while the actual tap area is independently expanded to the theme's 44px minimum via the
- * existing stretched-link `a::after`. JSON limitation: no block-support exists for an invisible/
- * expanded hit area distinct from visual box size, so this can only be scoped CSS.
+ * Tap-target note: same as .ls-simple-submenu-links above — an earlier version of this rule
+ * expanded each row's tap area to 44px via `a::after`, which overlapped adjacent rows given
+ * `row-gap: 0`. Removed for the same reason; each row's own ~29px box still clears the real WCAG
+ * 2.2 AA target-size minimum (24×24px, SC 2.5.8).
  */
-.ls-services-phase-links > .is-style-mega-menu-item-service a::after {
-  top: calc((var(--wp--custom--spacing--tap-target-min) - 100%) / -2);
-  bottom: calc((var(--wp--custom--spacing--tap-target-min) - 100%) / -2);
-}
 
 /*
  * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
