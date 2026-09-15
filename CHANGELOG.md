@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix mobile menu: restore dropdown links, remove Systems, refine spacing (LS-3222)
+
+### Fixed
+
+- `parts/mobile-menu.html`, `styles/blocks/details/mobile-menu-accordion.json`: each top-level accordion label (Work, Solutions, Services, Pricing, Insights, About) is now a real link to its overview page (`/work/`, `/solutions/`, `/services/`, `/pricing/`, `/blog/`, `/about/`). Previously the label was plain text inside `<summary>`, so there was no way to reach e.g. "All Work" without opening the dropdown. Clicking the label now navigates directly; clicking elsewhere in the row still toggles the dropdown, using native `<summary>` click behavior with no JS needed. Added the label link's own colour/underline reset and `:focus-visible` outline.
+- `parts/mobile-menu.html`: removed the non-functional "Systems" link row.
+
+### Changed
+
+- `parts/mobile-menu.html`, `src/scss/structural/_mega-menu.scss`, `styles/blocks/groups/mega-menu-item-service.json`: converted the Work/Solutions/Pricing/Insights/About and Services mobile dropdown page-lists from 2-column to single-column layouts; decoupled each row's visual height from its tap-target size (rows read tighter while the actual tap area stays at the accessible ~44px minimum via an expanded stretched-link hit area); tightened spacing between links, between each heading and its first link, and between the last link and the "See all…" CTA, while keeping stronger separation between sections/phases; increased the "See all…" CTA font size to match page-link text and removed a redundant divider above it; reduced indentation under each Services phase heading.
+
+([#58](https://github.com/lightspeedwp/ls-theme/pull/58))
+
+---
+
 ## [Unreleased] — Expand CodeRabbit config for full auto-review and finishing touches (LS-4124)
 
 ### Changed
