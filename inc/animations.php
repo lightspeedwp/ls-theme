@@ -76,6 +76,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
+		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -314,6 +315,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'condition' => static function () {
 				return is_page( 'services' );
 			},
+		),
+		'corner-glow'               => array(
+			'handle'   => 'ls-theme-corner-glow',
+			'path'     => 'assets/css/corner-glow.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as card-shells/cta-buttons above: services-cta.php declares
+			// Inserter: true, so an editor can place this pattern (and this shared class) on
+			// any page, not just Services — a page-specific condition would leave it caught
+			// only by the render_block/footer fallback there, a guaranteed flash of unstyled
+			// content rather than a rare edge case. At ~400 bytes compressed, cheaper to load
+			// unconditionally.
 		),
 		'work-hero'                 => array(
 			'handle'    => 'ls-theme-work-hero',
