@@ -399,12 +399,31 @@ day:
   updated schedule (now ending 2027-02-03, not 2026-12-22) and its "why batch 1 nearly
   tripled" note.
 
+## Planning Complete — 2026-09-16
+
+All 7 batches now have a complete `spec.md` → `plan.md` → `tasks.md` cycle:
+
+| Batch | Spec | Pages/Scope | Status |
+|---|---|---|---|
+| 1 | `specs/001-services-family` | 21 pages (hub + 6 phases + 14 services) | Planned |
+| 2 | `specs/002-core-site-pages` | 25 pages (Shared Foundations + About + Solutions) | Planned |
+| 3 | `specs/003-ai-mega-page` | 1 page, blocked on batches 1-2 being built | Planned |
+| 4 | `specs/004-prelaunch-manual-qa` | Whole-site staging QA + legacy audit, blocked on batches 1-3 | Planned |
+| 5 | `specs/005-website-launch` | Go-live event, blocked on batch 4 | Planned |
+| 6 | `specs/006-postlaunch-manual-qa` | Live-site QA + release-plan close-out, blocked on batch 5 | Planned |
+
+No implementation has started on any batch. Every cross-batch dependency (3→1/2, 4→1-3,
+5→4, 6→5) is encoded as a structural blocking task in its respective `tasks.md`, not just a
+note. Every page-build task in batches 1-2 carries its own blocking Figma-frame-request task.
+
+Along the way, dev-site scope checks (the same diligence used for batch 1's phase-page
+discovery) surfaced and corrected two more gaps in batch 2: 4 untracked pages (Accessibility
+Commitment, Publishing, Design Systems, LSX) and Policies & Principles being 7 real pages,
+not 1 — all now tracked as LS-4193–LS-4203.
+
 ## Next Step
 
-Continue the Services Family spec: `/speckit-clarify` is mid-session (3 questions asked and
-integrated so far, out of a possible 5) — the phase-page architecture is now reflected in
-`specs/001-services-family/spec.md`. Then `/speckit-plan` and `/speckit-tasks` for this
-batch, before moving to Core Site Pages Complete, AI Mega Page, Pre-Launch QA, Website
-Launch, and Post-Launch QA in that order. Not via `/speckit-taskstoissues` for any future
-re-planning pass — that command is GitHub-only and does not apply to this Linear-tracked
-project.
+Planning for this release is complete. Next is your call: begin implementation on batch 1
+(Services Family), starting with the Figma frames for its pages — or revisit anything in
+this plan first. Not via `/speckit-taskstoissues` for any future re-planning pass — that
+command is GitHub-only and does not apply to this Linear-tracked project.
