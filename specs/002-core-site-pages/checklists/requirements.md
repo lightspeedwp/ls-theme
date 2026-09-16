@@ -33,3 +33,6 @@
 
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`
 - All items pass on first draft; no iteration was required.
+- Re-validated 2026-09-16 after `/speckit-clarify` (Policies & Principles expanded from 1 to
+  7 tracked pages; thank-you-page sharing resolved by evidence). All items still pass, no
+  regressions. Batch page count corrected from 19 to 25.
