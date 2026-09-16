@@ -72,12 +72,12 @@ tracking, so touching them (renaming, redating) would edit history for no operat
 
 | # | Milestone | Issues | Due (draft) |
 |---|-----------|--------|-------------|
-| 1 | **Priority Pages Complete** | LS-1598, LS-645, LS-654, LS-2592, LS-2593, LS-2597, LS-2601 (Services Family) + LS-1203 (epic: website-rebuild — Plan Phase 1 MVP scope) | 2026-10-10 |
-| 2 | **Core Site Pages Complete** | LS-1600, LS-1601, LS-1604, LS-1605, LS-2595 (Shared Foundations) + LS-1602, LS-1603, LS-2602, LS-2603, LS-2604 (About) + LS-1599, LS-649, LS-2598, LS-2599, LS-2600 (Solutions) + LS-1596 (epic: phase-1-page-builds) | 2026-11-27 |
-| 3 | **AI Mega Page Complete** | LS-2605 | 2026-12-10 |
-| 4 | **Pre-Launch Manual QA Complete** | LS-3716 (full-circle staging test plan) + *new issue*: audit legacy/overlapping pages and decide redirect vs. retire per page | 2026-12-17 |
-| 5 | **Launch** | *(new — no existing issues; this is the go-live event itself, distinct from milestone 6)* | 2026-12-19 |
-| 6 | **Post-Launch Manual QA Complete** | *(new — no issue exists yet; needs creating during Linear re-planning)* | 2026-12-22 |
+| 1 | **Priority Pages Complete** | Services Family, 21 pages: LS-1598, LS-645, LS-654, LS-2592, LS-2593, LS-2597, LS-2601 (originally tracked) + LS-4179–LS-4184 (phase pages: Discover, Create, Build, Launch, Grow, Evolve) + LS-4185–LS-4192 (newly-tracked services: Content, Migrations, Performance, Security, Training, SEO, Accessibility, Email Marketing) + LS-1203 (epic: website-rebuild — Plan Phase 1 MVP scope) | 2026-11-20 |
+| 2 | **Core Site Pages Complete** | LS-1600, LS-1601, LS-1604, LS-1605, LS-2595 (Shared Foundations) + LS-1602, LS-1603, LS-2602, LS-2603, LS-2604 (About) + LS-1599, LS-649, LS-2598, LS-2599, LS-2600 (Solutions) + LS-1596 (epic: phase-1-page-builds) | 2027-01-07 |
+| 3 | **AI Mega Page Complete** | LS-2605 | 2027-01-20 |
+| 4 | **Pre-Launch Manual QA Complete** | LS-3716 (full-circle staging test plan) + LS-4176 (audit legacy/overlapping pages and decide redirect vs. retire per page) | 2027-01-27 |
+| 5 | **Website Launch** | *(created; no issues assigned — this is the go-live event itself, distinct from milestone 6. Named "Website Launch" not "Launch" since Linear enforces unique milestone names and "Launch" already existed, closed)* | 2027-01-29 |
+| 6 | **Post-Launch Manual QA Complete** | LS-4177 (run post-launch manual QA — staging-to-live checklist, live monitoring) | 2027-02-03 |
 
 The two tracking epics (LS-1203, LS-1596) are placed at their most representative milestone
 rather than left unassigned, since they are open, non-bug issues and the instruction is that
@@ -106,15 +106,27 @@ every open, non-bug issue gets a milestone.
 
 ### Full coverage audit
 
-26 milestone-assigned + 4 bug-bucket + 9 out-of-scope = **39 of 39 open issues accounted for.**
-No issue is silently missing a category.
+26 milestone-assigned + 4 bug-bucket + 9 out-of-scope = **39 of 39 open issues accounted for**
+as of the initial re-planning pass. This count is superseded by the 2026-09-16 scope
+correction below: 14 more issues (LS-4179–LS-4192) were created after the Services Family
+spec's `/speckit-clarify` session surfaced the phase-page architecture, bringing total
+tracked issues to 53, all still accounted for (40 milestone-assigned + 4 bug-bucket + 9
+out-of-scope). No issue is silently missing a category.
 
 ---
 
 ## Resourcing & Review Model
 
-- **Build**: solo (you), with AI-agent assistance. Batches run **sequentially**, not in
-  parallel — one batch is fully drafted, planned, and implemented before the next starts,
+- **Planning vs. implementation are separate phases.** All 7 batch specs (`spec.md` →
+  `plan.md` → `tasks.md`, via `/speckit-clarify` and `/speckit-plan`) are written in one
+  planning session, before any implementation begins on any batch. Implementation only
+  starts once you explicitly say so, batch by batch — it is not triggered by a spec being
+  finished.
+- **Implementation is not run via `/speckit-implement`.** Instead, each page-build task is
+  handed to a coding agent directly; that agent works the task interactively with you rather
+  than executing the full task list unattended.
+- **Build**: solo (you), with AI-agent assistance. Once implementation starts, batches run
+  **sequentially**, not in parallel — one batch is fully implemented before the next starts,
   unless you explicitly pull one forward.
 - **Spec review/approval**: you are the sole sign-off on each batch spec before it proceeds
   to `/speckit-plan`. No external/client review gate is assumed in these dates — if that
@@ -123,7 +135,10 @@ No issue is silently missing a category.
   (`feature/ls-1598-*` branches), a single flagship page with heavy review/iteration took
   ~7 working days across ~49 commits and multiple PR review-fix cycles (2026-09-07 →
   2026-09-16, still closing out). That is the anchor for "L" sizing below — everything else
-  is sized relative to it, not from scratch.
+  is sized relative to it, not from scratch. **The batch-sizing dates below are
+  implementation-phase estimates only** — since all specs are written before implementation
+  starts, the real start date is whatever date you choose after every spec is reviewed and
+  approved, not the date this planning session happens.
 
 ---
 
@@ -144,20 +159,28 @@ recompute both this table and the milestone dates above.
 
 | # | Batch | Size | Est. working days | Draft start | Draft due | Feeds milestone |
 |---|-------|------|--------------------|-------------|-----------|------------------|
-| 1 | Services Family (remaining: 6 subpages) | L | 18 | 2026-09-17 | 2026-10-10 | Priority Pages Complete |
-| 2 | Shared Foundations (5 pages) | M | 10 | 2026-10-13 | 2026-10-24 | Core Site Pages Complete |
-| 3 | About Family (5 pages) | M–L | 13 | 2026-10-27 | 2026-11-12 | Core Site Pages Complete |
-| 4 | Solutions Family (5 pages) | M | 11 | 2026-11-13 | 2026-11-27 | Core Site Pages Complete |
-| 5 | AI Mega Page (1 page, heaviest single build) | L | 9 | 2026-11-30 | 2026-12-10 | AI Mega Page Complete |
-| 6 | Pre-Launch Manual QA (all pages/areas) | M | 5 | 2026-12-11 | 2026-12-17 | Pre-Launch Manual QA Complete |
-| 7 | Launch (go-live event) | S | 1–2 | 2026-12-18 | 2026-12-19 | Launch |
-| 8 | Post-Launch Manual QA (staging-to-live + live monitoring) | S | 2–3 | 2026-12-19 | 2026-12-22 | Post-Launch Manual QA Complete |
+| 1 | Services Family (21 pages: hub + 6 phase pages + 14 service pages — expanded 2026-09-16, was 7 pages) | L | 47 | 2026-09-17 | 2026-11-20 | Priority Pages Complete |
+| 2 | Shared Foundations (5 pages) | M | 10 | 2026-11-23 | 2026-12-04 | Core Site Pages Complete |
+| 3 | About Family (5 pages) | M–L | 13 | 2026-12-07 | 2026-12-23 | Core Site Pages Complete |
+| 4 | Solutions Family (5 pages) | M | 11 | 2026-12-24 | 2027-01-07 | Core Site Pages Complete |
+| 5 | AI Mega Page (1 page, heaviest single build) | L | 9 | 2027-01-08 | 2027-01-20 | AI Mega Page Complete |
+| 6 | Pre-Launch Manual QA (all pages/areas) | M | 5 | 2027-01-21 | 2027-01-27 | Pre-Launch Manual QA Complete |
+| 7 | Website Launch (go-live event) | S | 1–2 | 2027-01-28 | 2027-01-29 | Website Launch |
+| 8 | Post-Launch Manual QA (staging-to-live + live monitoring) | S | 2–3 | 2027-02-01 | 2027-02-03 | Post-Launch Manual QA Complete |
 | — | Technical Fixes (icon padding) — bug fix, no milestone | S | 0.5–1 | opportunistic | slots in anywhere, non-blocking | *(none)* |
 
-**Total critical path**: ~70 working days ≈ **14 calendar weeks** from 2026-09-17, landing
-around **2026-12-22** if run back-to-back with no gaps. This is a draft floor, not a
+**Total critical path**: ~99 working days ≈ **20 calendar weeks** from 2026-09-17, landing
+around **2027-02-03** if run back-to-back with no gaps. This is a draft floor, not a
 committed date — it has zero slack for illness, client delay, or scope growth, which is a
 real risk given the last plan's dates were already blown.
+
+**Why batch 1 nearly tripled (18→47 working days)**: the original Services Family estimate
+covered only 6 tracked subpages plus the hub. Clarifying this batch's spec on 2026-09-16
+surfaced that the Services section actually has 6 lifecycle-phase pages (Discover, Create,
+Build, Launch, Grow, Evolve) and 14 total service pages, of which only 6 had a Linear issue.
+The other 14 pages had no tracked estimate at all before today. This is a real scope
+correction, not padding — every downstream batch's date shifted by the same ~29 working days
+(~6 weeks) as a direct result.
 
 ---
 
@@ -189,15 +212,42 @@ Each batch below becomes one `/speckit-specify` feature spec. Pages within a bat
 modeled as separate user stories (P1, P2…) inside that spec's `spec.md`, so `/speckit-tasks`
 decomposes them into independently testable phases per page.
 
-### 1. Services Family — priority batch
+### 1. Services Family — priority batch (21 pages, expanded 2026-09-16)
+
+Real architecture is hub → 6 lifecycle-phase pages → 14 service pages grouped under them
+(confirmed against the live design and dev site during this batch's `/speckit-clarify`
+session) — not the flat hub + 6 subpages originally assumed. See
+`specs/001-services-family/spec.md` for the full phase→service mapping and user stories.
+
+**Hub**:
 - LS-1598 — Services (in progress — first spec here should retro-fit the spec against
   existing code, then run `/speckit-converge` rather than assuming a blank slate)
-- LS-645 — Discovery
-- LS-654 — Design
-- LS-2592 — Development
-- LS-2593 — Hosting
-- LS-2597 — Support
-- LS-2601 — AI Services
+
+**Phase pages** (no prior Linear issue — created 2026-09-16):
+- LS-4179 — Discover
+- LS-4180 — Create
+- LS-4181 — Build
+- LS-4182 — Launch
+- LS-4183 — Grow
+- LS-4184 — Evolve
+
+**Service pages, originally tracked**:
+- LS-645 — Discovery (under Discover)
+- LS-654 — Design (under Create)
+- LS-2592 — Development (under Build)
+- LS-2593 — Hosting (under Launch)
+- LS-2597 — Support (under Grow)
+- LS-2601 — AI Services (under Evolve)
+
+**Service pages, newly tracked** (no prior Linear issue — created 2026-09-16):
+- LS-4185 — Content (under Create)
+- LS-4186 — Migrations (under Build)
+- LS-4187 — Performance (under Launch)
+- LS-4188 — Security (under Launch)
+- LS-4189 — Training (under Launch)
+- LS-4190 — SEO (under Grow)
+- LS-4191 — Accessibility (under Grow)
+- LS-4192 — Email Marketing (under Grow)
 
 ### 2. Shared Foundations
 - LS-1600 — Work archive
@@ -234,16 +284,16 @@ against the constitution's WCAG 2.1 AA baseline, and light/dark + mobile/tablet/
 verification. Must not be marked complete via automated checks alone (constitution
 Principle VII — QA & Verification Integrity).
 - LS-3716 — Run full-circle staging test plan
-- *(new issue, to be created)* — Audit legacy/overlapping pages against the new page
-  inventory and decide redirect vs. retire per page, per the project's Phase 2 description.
-  No such list exists yet; it can only be built once the new page inventory (batches 1–5) is
-  settled, which is why it sits here rather than earlier.
+- LS-4176 — Audit legacy/overlapping pages against the new page inventory and decide
+  redirect vs. retire per page, per the project's Phase 2 description. No such list existed;
+  it can only be actioned once the new page inventory (batches 1–5) is settled, which is why
+  it sits here rather than earlier.
 - *(LS-2934, the BugHerd backlog epic, is deliberately excluded here — it's a bug-fix
   backlog by definition, not planned QA work; see "No milestone, by design" above)*
 
-### 7. Launch
-The go-live event itself — a distinct, short milestone, not bundled with either QA batch.
-- *(no existing issue — created during Linear re-planning)*
+### 7. Website Launch
+The go-live event itself — a distinct, short milestone, not bundled with either QA batch. Named "Website Launch" (not "Launch") because Linear enforces unique milestone names per project and a closed, unrelated "Launch" milestone already existed.
+- *(milestone created; no issue assigned)*
 
 ### 8. Post-Launch Manual QA
 New batch (no existing Linear issue — needs one created once this plan is confirmed).
@@ -251,7 +301,7 @@ Manual test plan for the period immediately after launch: staging-to-live checkl
 external links, real-user-reported issues, analytics/monitoring sanity checks. Distinct from
 Pre-Launch QA because it validates the *live* environment, not staging, and distinct from
 the Launch batch because it happens *after* go-live, not during it.
-- *(no existing issue — to be created during Linear re-planning)*
+- LS-4177 — Run post-launch manual QA (staging-to-live checklist, live monitoring)
 
 ### 9. Technical Fixes (bug fix — no milestone)
 Small, cross-cutting, not tied to a single page, non-blocking to the critical path, excluded
@@ -288,12 +338,18 @@ Definition of Done:
 
 ## Design Approval Points
 
-- Figma frames are provided **per page, on demand** — not upfront for the whole plan. Each
-  batch spec's `/speckit-clarify` pass is where you supply the specific frame links for that
-  batch's pages; no batch spec should assume Figma references exist before you provide them.
-- Visual work in each batch requires your own review/hand-off checkpoint before
-  `/speckit-implement` begins on that batch — this plan does not assume design sign-off has
-  already happened for any batch not yet built.
+- Figma frames are provided **per page, at implementation time** — not upfront for the whole
+  plan, and not even upfront per batch. Batch specs (`spec.md`/`plan.md`/`tasks.md`) are
+  written without Figma references, since spec-writing is about WHAT/WHY, not visual
+  implementation detail.
+- Every page-build user story's task list carries its own blocking prerequisite task:
+  requesting that specific page's Figma frame from you before any other task in that story
+  starts. Whichever coding agent picks up the task hits this line first — it is a structural
+  part of `tasks.md`, not a hope that the agent remembers to ask. Non-page-build batches
+  (Pre-Launch QA, Website Launch, Post-Launch QA) carry no such task.
+- Visual work in each batch requires your own review/hand-off checkpoint at implementation
+  time — this plan does not assume design sign-off has already happened for any batch not
+  yet built.
 
 ## Reference Environments
 
@@ -308,19 +364,47 @@ Definition of Done:
   deployment to it happens through the project's normal build/push process, not through
   ad hoc edits made while comparing pages.
 
+## Linear Re-Planning — Completed 2026-09-16
+
+The Linear re-planning pass described in earlier drafts of this section has been executed:
+- Created the six new milestones (Priority Pages Complete, Core Site Pages Complete, AI Mega
+  Page Complete, Pre-Launch Manual QA Complete, Website Launch, Post-Launch Manual QA
+  Complete) with the draft due dates above.
+- Moved all 23 open page-build issues plus the two tracking epics (LS-1203, LS-1596) out of
+  "Core & depth pages built" and into the milestones defined above.
+- Left "Foundation complete," "Launch" (old, closed), "QA Testing," and "Site-wide
+  integration QA complete" fully untouched — confirmed via `list_milestones` that "Core &
+  depth pages built" now correctly shows 100% (it only holds its original 4 Done items).
+- Created LS-4176 (legacy-page redirect/retire audit) and LS-4177 (post-launch manual QA),
+  assigned to their respective milestones.
+- The new "Launch" milestone was created as **"Website Launch"** instead — Linear enforces
+  unique milestone names per project, and the old closed "Launch" milestone already existed.
+- Left every bug-fix issue (LS-2940, LS-3222, LS-4168, LS-2934) and every out-of-scope issue
+  unassigned to any milestone, exactly as this plan specified.
+
+### Follow-up — Services Family scope correction (2026-09-16, same day)
+
+Writing the Services Family spec (`/speckit-specify` → `/speckit-clarify`) surfaced that the
+batch was undercounted: 21 pages (hub + 6 phase pages + 14 service pages), not 7. Of the 14
+service/phase pages beyond the hub, only 6 had a Linear issue. This was corrected the same
+day:
+- Created 14 new issues (LS-4179–LS-4192), matching the exact structure of sibling page-build
+  issues (title format, task checklist, DoR/DoD, `parentId: LS-1596`, labels, priority).
+- Assigned all 14 to Brandon, priority Medium, estimate S (phase pages) / M (service pages),
+  milestone **Priority Pages Complete** — the same milestone as the rest of this batch.
+- Verified all 14 independently via `list_issues` after creation — no drift from the create
+  calls.
+- Re-sized batch 1 from 18 to 47 working days, which cascaded every subsequent batch's draft
+  date by the same ~29 working days (~6 weeks) — see the Batch Sizing table above for the
+  updated schedule (now ending 2027-02-03, not 2026-12-22) and its "why batch 1 nearly
+  tripled" note.
+
 ## Next Step
 
-Only after this plan is reviewed: begin the first batch spec (**Services Family**, retro-
-fitted against the in-progress work, then the remaining 6 subpages), then proceed through
-the remaining batches in the order above. Linear re-planning happens only after each batch's
-spec/plan/tasks have been reviewed — not before, and not via `/speckit-taskstoissues` (that
-command is GitHub-only and does not apply to this Linear-tracked project). That re-planning
-pass will:
-- move the 23 open issues (plus the two tracking epics) out of "Core & depth pages built"
-  and into the six new milestones defined above — the milestone section is the map for that;
-- leave "Foundation complete," "Launch" (old), "QA Testing," and "Site-wide integration QA
-  complete" untouched, since none of them have open issues in them;
-- create the new "Launch" and "Post-Launch Manual QA Complete" milestones and the missing
-  Post-Launch QA issue;
-- leave every bug-fix issue (LS-2940, LS-3222, LS-4168, LS-2934) and every out-of-scope issue
-  unassigned to any milestone, exactly as this plan has them.
+Continue the Services Family spec: `/speckit-clarify` is mid-session (3 questions asked and
+integrated so far, out of a possible 5) — the phase-page architecture is now reflected in
+`specs/001-services-family/spec.md`. Then `/speckit-plan` and `/speckit-tasks` for this
+batch, before moving to Core Site Pages Complete, AI Mega Page, Pre-Launch QA, Website
+Launch, and Post-Launch QA in that order. Not via `/speckit-taskstoissues` for any future
+re-planning pass — that command is GitHub-only and does not apply to this Linear-tracked
+project.
