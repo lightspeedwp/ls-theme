@@ -75,6 +75,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
+		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -300,6 +301,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Unlike services-hero/services-linked-decisions/services-service-clusters above,
 			// this bundle is scoped to a real, known page slug rather than deferred — no reason
 			// to wait for a dedicated template when the condition is this cheap to add now.
+			'condition' => static function () {
+				return is_page( 'services' );
+			},
+		),
+		'services-delivery-numbers' => array(
+			'handle'    => 'ls-theme-services-delivery-numbers',
+			'path'      => 'assets/css/services-delivery-numbers.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as services-service-tiles above — scoped to a real page slug
+			// from the start.
 			'condition' => static function () {
 				return is_page( 'services' );
 			},
