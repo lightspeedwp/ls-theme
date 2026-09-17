@@ -24,6 +24,87 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix editor validation errors and Icon block attributes on Services patterns (LS-4207)
+
+### Fixed
+
+- `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php`: added the missing `has-border-color` class to the `ls-process-pill` and `ls-cluster-tag` wrapper groups. Both blocks set an inline border colour via a custom JSON style attribute, but WordPress's border block support always expects a `has-border-color` class on the wrapper whenever a border colour is set. The hand-authored static HTML never included it, so the editor's re-derived expected markup never matched the stored HTML, permanently flagging these blocks as "Block contains unexpected or invalid content" with an "Attempt Recovery" prompt in the Site Editor.
+- `patterns/cards/section-card-services.php`, `patterns/sections/services-service-tiles.php`: moved the Icon block's width from an unsupported top-level `"width"` JSON attribute to the correct `"style":{"dimensions":{"width":...}}` path, matching `core/icon`'s actual schema. The old attribute was silently dropped, leaving the icon unsized.
+- `patterns/cards/section-card-services.php`: fixed icon slug `lightspeed/rocket-launch` to `lightspeed/rocket` — `rocket-launch.svg` does not exist in the `ls-plugin` icon library, so the icon failed to render entirely.
+
+([#60](https://github.com/lightspeedwp/ls-theme/pull/60))
+
+---
+
+## [Unreleased] — Fix mobile menu: restore dropdown links, remove Systems, refine spacing (LS-3222)
+
+### Fixed
+
+- `parts/mobile-menu.html`, `styles/blocks/details/mobile-menu-accordion.json`: each top-level accordion label (Work, Solutions, Services, Pricing, Insights, About) is now a real link to its overview page (`/work/`, `/solutions/`, `/services/`, `/pricing/`, `/blog/`, `/about/`). Previously the label was plain text inside `<summary>`, so there was no way to reach e.g. "All Work" without opening the dropdown. Clicking the label now navigates directly; clicking elsewhere in the row still toggles the dropdown, using native `<summary>` click behavior with no JS needed. Added the label link's own colour/underline reset and `:focus-visible` outline.
+- `parts/mobile-menu.html`: removed the non-functional "Systems" link row.
+
+### Changed
+
+- `parts/mobile-menu.html`, `src/scss/structural/_mega-menu.scss`, `styles/blocks/groups/mega-menu-item-service.json`: converted the Work/Solutions/Pricing/Insights/About and Services mobile dropdown page-lists from 2-column to single-column layouts; decoupled each row's visual height from its tap-target size (rows read tighter while the actual tap area stays at the accessible ~44px minimum via an expanded stretched-link hit area); tightened spacing between links, between each heading and its first link, and between the last link and the "See all…" CTA, while keeping stronger separation between sections/phases; increased the "See all…" CTA font size to match page-link text and removed a redundant divider above it; reduced indentation under each Services phase heading.
+
+([#58](https://github.com/lightspeedwp/ls-theme/pull/58))
+
+---
+
+## [Unreleased] — Build Services page: Entry Points and Delivery by the Numbers (LS-1598)
+
+### Added
+
+- Added `patterns/sections/services-entry-points.php`: "You don't have to buy everything at once" — eyebrow/heading/description with a 2x2 grid of 4 entry-point link cards, reusing the existing Card - Link Row style.
+- Added `patterns/sections/services-delivery-numbers.php`: "Twelve years of WordPress engineering" — a centered eyebrow/heading/description intro followed by 3 centered delivery-scale stats, reusing the existing Stat Segment style.
+
+### Fixed
+
+- Fixed Entry Points' card grid forcing a 2-column squeeze (and multi-line text wrap) on mobile/tablet — switched from a fixed `columnCount` to `minimumColumnWidth`, which collapses to 1 column natively.
+- Fixed Delivery by the Numbers' stat divider staying a vertical line on the right of a stacked mobile/tablet card instead of a horizontal line between stacked cards — added a scoped SCSS override that flips the divider orientation below 782px, without touching the shared Stat Segment style used elsewhere.
+
+[PR #55](https://github.com/lightspeedwp/ls-theme/pull/55)
+
+---
+
+## [Unreleased] — Build Services page: closing CTA section (LS-1598)
+
+### Added
+
+- Added `patterns/sections/services-cta.php` (renamed from the empty, unused `patterns/section-cta.php` stub): "Let's scope it properly" — eyebrow, heading, description, and a single button reusing the exact button already established in `services-hero.php`.
+- Added `src/scss/structural/corner-glow.scss`: a shared, multi-consumer two-corner radial-gradient glow background, with its colours as CSS custom properties so future consumers can override them per instance instead of duplicating the file.
+
+### Fixed
+
+- Corrected a Figma SVG gradient matrix decode error that made the corner-glow's blobs roughly 10x too small (a missing `r="10"` base-circle multiplier), and set the CTA panel to a real 800px max width.
+
+[PR #56](https://github.com/lightspeedwp/ls-theme/pull/56)
+
+---
+
+## [Unreleased] — Build Services page: service tiles section (LS-1598)
+
+### Added
+
+- Added `patterns/sections/services-service-tiles.php`: the "Fourteen services. One delivery model." section — a 14-card bento grid (Discovery through AI), each card a single stretched link to its individual service page, with an icon well, index number, kicker line and description.
+- Added `styles/sections/cards/card-service-tile.json`, a new shared card shell modelled on Card - Category's shell but flatter, with an index-number slot Card - Category doesn't have.
+
+### Fixed
+
+- Fixed each row's `blockGap` only setting its horizontal component, which meant stacked mobile/tablet spacing fell back to WordPress's default instead of the intended value, producing inconsistent gaps between cards.
+
+[PR #54](https://github.com/lightspeedwp/ls-theme/pull/54)
+
+---
+
+## [Unreleased] — Expand CodeRabbit config for full auto-review and finishing touches (LS-4124)
+
+### Changed
+
+- `.coderabbit.yml`: corrected `auto_review.base_branches` to use the `feature/.*` and `fix/.*` regular expressions, so stacked PRs (based on a prior feature or fix branch rather than `main`/`develop`) trigger an automatic review. Enabled `auto_incremental_review`, `assess_linked_issues`, `related_issues`, `related_prs`, `path_filters`, `finishing_touches` (autofix/docstrings/unit_tests), `tools` (eslint/markdownlint/gitleaks/trufflehog), and `knowledge_base.code_guidelines` (pointed at `AGENTS.md`). Set `profile: assertive` and enabled `request_changes_workflow`. ([#57](https://github.com/lightspeedwp/ls-theme/pull/57))
+
+---
+
 ## [Unreleased] — Build Search template (LS-2594)
 
 ### Added
@@ -51,6 +132,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Migrate Services patterns to the Core Icon block (LS-3229)
+
+### Changed
+
+- Replaced `outermost/icon-block` (third-party "Icon Block" plugin) with WordPress 7.1's native Core Icon block (`core/icon`) across the 3 Services page patterns — `patterns/hero/services-hero.php`, `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php` — referencing icons from the `lightspeed` collection registered in `ls-plugin`. Final batch of the Core Icon block migration (LS-3229).
+- Converted the PHP icon arrays in these files (per-service, per-cluster, per-step) from raw inline SVG to bare `lightspeed/{name}` slugs, and rewrote their loop templates to emit `core/icon` block markup dynamically per iteration, removing the now-unused raw-SVG helper variables.
+
+See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
+
+---
+
 ## [Unreleased] — Fix legacy outermost/icon-block CSS selectors broken by Core Icon migration (LS-3720)
 
 ### Fixed
@@ -62,6 +154,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Moved the `.is-style-mega-menu-item-default` icon hover/focus `color` rule from `src/scss/animations/_menu-motion.scss` to `src/scss/structural/_mega-menu.scss`, per code review: motion partials may only contain `transition`/`transform`/`animation`-family properties (AGENTS.md), so the non-motion colour swap now lives in the structural partial alongside the rest of that style's rules, while the animations file retains only the `transition` and its `prefers-reduced-motion` override.
+
+---
+
+## [Unreleased] — Build Services page: hero, linked decisions, and service clusters (LS-1598)
+
+### Added
+
+- Added `patterns/hero/services-hero.php`: breadcrumb, eyebrow, heading, description, CTAs, and a lifecycle-phase-coloured row of all 14 service tags linking to their `/services/` pages.
+- Added `patterns/sections/services-linked-decisions.php`: a six-step process pill row (Discover/Create/Build/Launch/Grow/Evolve) linking to new `/services/` phase pages, with a fixed whole-pill click target.
+- Added `patterns/sections/services-service-clusters.php`: five cluster cards in an asymmetric 3+2 layout grouping all 14 services, each linking out to its individual service page.
+- Added `styles/sections/cards/card-cluster.json`, a new shared card shell for the service-clusters section.
+
+### Fixed
+
+- Fixed the second service-clusters card row's `blockGap` being nested outside `spacing` instead of inside it, which silently fell back to WordPress's default gap instead of matching row 1.
 
 ---
 
