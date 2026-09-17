@@ -106,6 +106,11 @@ lightspeed.code-workspace
 .aider*
 .continue/
 
+# Claude Code personal/machine-local settings (per-user permission grants) -
+# .claude/settings.json (team-shared config) and .claude/skills|commands/
+# are still committed; only this local-override file is excluded.
+.claude/settings.local.json
+
 # Playwright
 /test-results/
 /playwright-report/
