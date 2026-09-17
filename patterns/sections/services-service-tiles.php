@@ -137,7 +137,7 @@ $ls_render_service_tile = function ( $ls_tile, $ls_index ) {
 	<article class="wp-block-group is-style-card-service-tile" style="min-height:100%">
 		<!-- wp:group {"className":"ls-icon-well-brand"} -->
 		<div class="wp-block-group ls-icon-well-brand">
-			<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_tile['icon'] ); ?>","width":"18px"} /-->
+			<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_tile['icon'] ); ?>","style":{"dimensions":{"width":"18px"}}} /-->
 		</div>
 		<!-- /wp:group -->
 
