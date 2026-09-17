@@ -21,14 +21,13 @@ function isAllowed(message: string): boolean {
 // template. network-errors.ts already exempts the main-frame navigation
 // response for the same reason (a route can legitimately return a non-2xx
 // status); this mirrors that exemption for the console-side equivalent.
-// For this specific browser-generated message, ConsoleMessage.location().url
-// is the URL of the resource that failed — comparing it to the page's own
-// current URL confirms it's the main document's own status, not a broken
-// subresource (which would still be correctly caught).
-const RESOURCE_STATUS_ERROR_PATTERN = /^Failed to load resource: the server responded with a status of \d+/;
-
-function isExpectedMainDocumentStatusError(message: import('@playwright/test').ConsoleMessage, page: Page): boolean {
-	return RESOURCE_STATUS_ERROR_PATTERN.test(message.text()) && message.location().url === page.url();
+// Tracked via the actual main-frame navigation response's status (reset on
+// every navigation) rather than a URL string comparison — a subresource can
+// legitimately request the same URL as the page, which a URL-based check
+// would wrongly treat as the page's own status and swallow.
+function isMainFrameNavigationResponse(response: import('@playwright/test').Response, page: Page): boolean {
+	const request = response.request();
+	return request.isNavigationRequest() && request.frame() === page.mainFrame();
 }
 
 /**
@@ -37,11 +36,20 @@ function isExpectedMainDocumentStatusError(message: import('@playwright/test').C
  */
 export function watchBrowserErrors(page: Page): BrowserErrorCollector {
 	const collector: BrowserErrorCollector = { consoleErrors: [], pageErrors: [] };
+	let expectedStatusErrorPrefix: string | null = null;
+
+	page.on('response', (response) => {
+		if (!isMainFrameNavigationResponse(response, page)) return;
+		expectedStatusErrorPrefix =
+			response.status() >= 400
+				? `Failed to load resource: the server responded with a status of ${response.status()}`
+				: null;
+	});
 
 	page.on('console', (message) => {
 		if (message.type() !== 'error') return;
 		if (isAllowed(message.text())) return;
-		if (isExpectedMainDocumentStatusError(message, page)) return;
+		if (expectedStatusErrorPrefix && message.text().startsWith(expectedStatusErrorPrefix)) return;
 		collector.consoleErrors.push(message.text());
 	});
 
