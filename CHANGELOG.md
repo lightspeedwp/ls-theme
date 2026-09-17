@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix editor validation errors on Services pill/tag badges (LS-4207)
+
+### Fixed
+
+- `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php`: added the missing `has-border-color` class to the `ls-process-pill` and `ls-cluster-tag` wrapper groups. Both blocks set an inline border colour via a custom JSON style attribute, but WordPress's border block support always expects a `has-border-color` class on the wrapper whenever a border colour is set. The hand-authored static HTML never included it, so the editor's re-derived expected markup never matched the stored HTML, permanently flagging these blocks as "Block contains unexpected or invalid content" with an "Attempt Recovery" prompt in the Site Editor.
+
+---
+
 ## [Unreleased] — Fix mobile menu: restore dropdown links, remove Systems, refine spacing (LS-3222)
 
 ### Fixed
