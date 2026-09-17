@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] — Fix editor validation errors on Services pill/tag badges (LS-4207)
+## [Unreleased] — Fix editor validation errors and Icon block attributes on Services patterns (LS-4207)
 
 ### Fixed
 
 - `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php`: added the missing `has-border-color` class to the `ls-process-pill` and `ls-cluster-tag` wrapper groups. Both blocks set an inline border colour via a custom JSON style attribute, but WordPress's border block support always expects a `has-border-color` class on the wrapper whenever a border colour is set. The hand-authored static HTML never included it, so the editor's re-derived expected markup never matched the stored HTML, permanently flagging these blocks as "Block contains unexpected or invalid content" with an "Attempt Recovery" prompt in the Site Editor.
+- `patterns/cards/section-card-services.php`, `patterns/sections/services-service-tiles.php`: moved the Icon block's width from an unsupported top-level `"width"` JSON attribute to the correct `"style":{"dimensions":{"width":...}}` path, matching `core/icon`'s actual schema. The old attribute was silently dropped, leaving the icon unsized.
+- `patterns/cards/section-card-services.php`: fixed icon slug `lightspeed/rocket-launch` to `lightspeed/rocket` — `rocket-launch.svg` does not exist in the `ls-plugin` icon library, so the icon failed to render entirely.
 
-([#59](https://github.com/lightspeedwp/ls-theme/pull/59))
+([#60](https://github.com/lightspeedwp/ls-theme/pull/60))
 
 ---
 
