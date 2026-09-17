@@ -1,24 +1,34 @@
 <!--
 Sync Impact Report
-- Version change: 1.1.0 → 1.2.0
-- Modified principles:
-  - I. Theme-First Styling — added the `assets/css/animations.css` global-only-styling rule
-    and the GSAP-restraint clause ("never a default choice for 'this pattern has motion'")
-  - IV. Core Blocks First — added: verify a core block attribute is actually supported before
-    using it, rather than guessing
-  - VI. Validation Before Done — added `npm run theme:validate` to the required command list
-- Added principles: VII. PHP Minimalism & Engineering Discipline
-- Added sections:
-  - Available Skills for Planning (repo-local `.agents/skills/` + global/session WordPress
-    skills, per user request to make all WordPress dev skills visible to future plans)
-- Expanded sections: Workflow & Process — added file-location governance
-  (`.github/reports/`, `.github/tasks/`, `.github/prompts/`, `.agents/skills/`,
-  `.agents/agents/`) and a caution on modifying `.github/workflows/`
+- Version change: 1.2.0 → 1.3.0
+- Modified principles: none (I-VII preserved verbatim, no rewording)
+- Added principles: VIII. Branch, PR & Changelog Discipline — sourced from the LightSpeedWP
+  organization's Pull Request Creation Workflow document and shared PR-template repository
+  (lightspeedwp/.github), validated in practice while building this repo's own `open-pr` agent
+  skill (specs/002-open-pr-skill/). Covers branch naming/base-branch selection, review-size and
+  stacked-PR guidance, mandatory changelog-decision labelling, PR-template routing, a WCAG 2.2 AA
+  PR-review accessibility bar, and post-review feedback discipline.
+- Added sections: none
+- Modified sections:
+  - Workflow & Process — the "CHANGELOG.md gets one dated entry per PR" and "Never branch
+    directly from a remote-tracking ref" bullets are now cross-referenced to Principle VIII
+    (which restates and materially expands both) instead of duplicated verbatim, to avoid the
+    two locations drifting out of sync. No information was removed — both rules are fully
+    covered, in more detail, under Principle VIII.
 - Removed sections: none
+- Flagged inconsistency (not resolved by this amendment): Principle V states "WCAG 2.1 AA" as
+  the general baseline. Principle VIII sets WCAG 2.2 AA specifically for PR self-review, per the
+  current LightSpeedWP org-wide standard, and notes it supersedes Principle V's figure for that
+  purpose. Principle V's own text was intentionally left unedited per this amendment's scope
+  (additive only) — reconciling the two into one consistent figure is a follow-up TODO.
 - Templates requiring updates: plan-template.md, spec-template.md, tasks-template.md,
   checklist-template.md — ✅ no changes required; none hardcode prior text and all read this
   file at runtime.
-- Follow-up TODOs: none
+- Follow-up TODOs:
+  - TODO(WCAG_BASELINE_RECONCILIATION): Decide whether to bump Principle V's baseline from
+    2.1 AA to 2.2 AA org-wide, or keep the two figures deliberately scoped differently
+    (general theme baseline vs. PR-review bar). Requires a maintainer decision, not just an
+    editorial fix.
 -->
 
 # LightSpeed Theme (ls-theme) Constitution
@@ -164,6 +174,65 @@ etc.) — this repo does not use one unless explicitly added later.
 upgrade-path risk. Small diffs and dependency discipline keep the codebase reviewable and keep
 the actual cost of a change proportionate to its stated scope.
 
+### VIII. Branch, PR & Changelog Discipline
+
+Branch names MUST follow `{type}/{scope}-{short-title}` using the organization's approved
+prefixes (`feat/, fix/, hotfix/, refactor/, chore/, task/, docs/, test/, perf/, ci/, build/,
+deps/, security/, design/, a11y/, seo/, config/`); tool-specific prefixes (`claude/`,
+`copilot/`, `openai/`) MUST NOT be used. Each layer of a stacked PR MUST use the prefix
+describing that layer's own work, not the stack's overall type. Branches MUST NOT be created
+directly from a remote-tracking ref (e.g. `git checkout -b x origin/develop`), which silently
+sets the wrong upstream and misdirects pushes; branch creation MUST be verified with
+`git branch -vv`.
+
+The base branch MUST be chosen by branch type, not assumed from the repository default:
+normal development targets `develop`; a `hotfix/` branch or a release branch targets `main`,
+and MUST be flagged for synchronisation back to `develop` after merge rather than assumed
+automatic.
+
+A PR MUST contain one coherent, reviewable outcome and SHOULD stay within a preferred review
+budget (~15 files / ~400 lines / ~30-45 minutes of review time), excluding generated/compiled/
+lock/snapshot/translation files from that count (but identifying them in the PR). Beyond ~25
+files or ~800 lines, the change MUST either be split into a stacked PR set or have a
+documented maintainer-approved exception recorded before requesting review. A stack MUST
+contain no more than 5 PRs; larger work MUST be split into multiple stacks under an epic
+rather than one oversized stack, and layers MUST NOT be split arbitrarily just to reduce file
+counts. Only the PR that actually completes an issue MAY use a closing reference
+(`Closes`/`Fixes`/`Resolves #N`); every supporting/intermediate layer MUST use a non-closing
+reference (`Relates to`/`Part of #N`) instead, so the issue cannot auto-close before the full
+stack lands.
+
+Every PR MUST carry an assignee and its applicable labels — including exactly one
+changelog-decision label (`meta:needs-changelog` or `meta:no-changelog`) — set in the same
+action that creates or updates the PR, never as a separate follow-up step. `CHANGELOG.md`
+MUST receive one dated entry per PR (Keep a Changelog format), added only after the PR exists
+(so it can link back to it) and only when `meta:needs-changelog` applies — never batched
+retroactively, and never repeated across every layer of a stack (the owning/final-delivery
+layer carries it). Where this repository defines a PR-template routing configuration (e.g.
+`.github/PULL_REQUEST_TEMPLATE/config.yml`), the matching template's own title format, section
+order, and checklist MUST be followed rather than a different structure substituted in; a
+template's own suggested labels only apply if they actually exist in this repository's real
+label set.
+
+The accessibility bar for PR self-review is **WCAG 2.2 AA** — this is the current LightSpeedWP
+organization-wide standard and takes precedence over any older figure referenced elsewhere in
+this repository's own documentation for PR-review purposes specifically (see the flagged
+inconsistency with Principle V's general 2.1 AA baseline in this file's Sync Impact Report).
+
+Once a PR is under review, every review thread MUST receive a reply — fixes MUST NOT be
+pushed silently. For a stacked PR, a defect belonging to a lower layer MUST be fixed in that
+owning layer, with layers above it rebased/updated afterward; a lower layer's defect MUST NOT
+be worked around from a higher layer. Force-pushes during stack rebasing MUST use
+`--force-with-lease`, never an unqualified `--force`.
+
+**Rationale**: These rules were validated in practice while building and refining this repo's
+own `open-pr` agent skill (`specs/002-open-pr-skill/`), and are sourced directly from the
+LightSpeedWP organization's canonical Pull Request Creation Workflow and shared PR-template
+repository. Codifying them here means every future Spec Kit-planned feature is automatically
+checked against this same standard during `/speckit-plan`, instead of each feature having to
+rediscover or restate these rules independently — the same reasoning that already justifies
+Principle VI's validation commands and Principle VII's engineering discipline.
+
 ## Available Skills for Planning
 
 Every plan should check this list and use whichever skill actually matches the task at hand —
@@ -223,15 +292,14 @@ skip the workflow it would otherwise cover.
 
 ## Workflow & Process
 
-- `CHANGELOG.md` gets one dated entry per PR (Keep a Changelog format), written when the PR
-  is opened/updated — not batched per-commit.
+- Branch, PR, and changelog conventions are governed by Principle VIII above — see that
+  principle for branch naming/base-branch selection, review-size/stacked-PR guidance, the
+  mandatory changelog-decision label, and per-PR `CHANGELOG.md` entries.
 - Commit messages use a heading + bullet structure, never prose paragraphs, grouped under
   short section headings (e.g. "Bug fix", "Cleanup", "Context").
 - PR test-plan checkboxes are only checked when actually run/verified in that session — leave
   manual-QA-only items unchecked/pending; never mark an item complete to make the list look
   more thorough than the work actually was.
-- Never branch directly from a remote-tracking ref (`git checkout -b x origin/develop`
-  silently tracks it as upstream); verify branch tracking with `git branch -vv`.
 - A structural/enqueue change (e.g. a new CSS bundle's front-end loading condition) should use
   a real, known WordPress conditional tag (`is_page()`, `is_front_page()`,
   `is_post_type_archive()`, etc.) as soon as the condition is actually knowable. Don't defer
@@ -263,4 +331,4 @@ clarification fixes. Every PR that touches `patterns/`, `styles/`, `src/scss/`, 
 `theme.json` is expected to comply with the principles above; a reviewer citing this document
 supersedes an unstated personal preference, but never supersedes `AGENTS.md` itself.
 
-**Version**: 1.2.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-11
+**Version**: 1.3.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-17
