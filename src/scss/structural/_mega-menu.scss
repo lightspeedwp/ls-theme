@@ -85,73 +85,81 @@
 
 /*
  * .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About accordions,
- * parts/mobile-menu.html): a plain 2-column grid of is-style-mega-menu-item-service links. This
- * block now uses WordPress core's own "layout":{"type":"grid","columnCount":2} block support
- * (with "style":{"spacing":{"blockGap":...}} for the gap) instead of hand-authored CSS — core
- * generates equal-fraction grid-template-columns itself, which is exactly right here since every
- * label in these five menus is a full phrase ("Travel publisher rebuild") that fills its column.
- * .ls-simple-submenu-links itself is now just a stable hook for the narrow-screen fallback below;
- * it carries no grid CSS of its own.
- *
- * JSON limitation: core's grid layout support has no per-instance container class name (WordPress
- * generates a numbered wp-container-core-group-is-layout-* class per render), so there's no stable
- * selector to target for the narrow-screen single-column override — .ls-simple-submenu-links (this
- * theme's own class, always present) is what the media query below hooks into instead. Doubled to
- * bump specificity above core's single-class per-instance rule, which the source-order between the
- * two stylesheets otherwise leaves ambiguous.
+ * parts/mobile-menu.html): a single-column list of is-style-mega-menu-item-service links, one page
+ * link per row for a clear top-to-bottom mobile reading order (LS-3222). Uses WordPress core's own
+ * "layout":{"type":"grid","columnCount":1} block support (with "style":{"spacing":{"blockGap":...}}
+ * for the tightened row gap) instead of hand-authored CSS. Previously a 2-column grid with a
+ * narrow-screen (<340px) single-column fallback; the fallback is now redundant since columnCount:1
+ * is the default at every width these mobile-only rows ever render at.
  */
-@media (max-width: 340px) {
-  .ls-simple-submenu-links.ls-simple-submenu-links {
-    grid-template-columns: 1fr;
-  }
+
+/*
+ * Mobile-only padding override, scoped to these two mobile-only parents (LS-3222 follow-up):
+ * is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json) is shared with
+ * the desktop Services mega-menu (parts/services-mega-menu.html), which must keep its own existing
+ * spacing|10 padding — confirmed on the PR that an earlier version of this fix changed the shared
+ * JSON partial's default directly, which also shrank desktop row padding. Overriding it here instead
+ * (higher specificity than the shared style's own class-level rule) keeps the tighter spacing|5
+ * padding mobile-only.
+ */
+.ls-simple-submenu-links > .is-style-mega-menu-item-service,
+.ls-services-phase-links > .is-style-mega-menu-item-service {
+  padding: var(--wp--preset--spacing--5);
 }
 
 /*
- * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): stays a hand-
- * authored CSS grid rather than core's native "layout":{"type":"grid"} block support.
- *
- * JSON limitation, confirmed empirically 2026-08-25 (wp_get_layout_style()): core's grid layout
- * support only ever emits equal-fraction columns (`grid-template-columns:repeat(N, minmax(0, 1fr))`)
- * — there is no block attribute for content-sized columns. This class's links are short single
- * words (Content, Design, Hosting), and equal-fraction columns leave each one stranded at the left
- * edge of its own half-width track — the exact bug fixed earlier in this branch by sizing columns
- * to content (max-content) instead. Switching this class to core's grid support would silently
- * reintroduce that already-fixed, already-tested bug, so it stays custom CSS here.
- *
- * The wrapping block's own "layout":{"type":"default"} makes WordPress inject its usual
- * consecutive-sibling margin-top onto the child paragraphs (core's blockGap fallback for the
- * "default" layout type assumes vertical stacking) — that's what staggered column 2 lower than
- * column 1, since the margin only applies from the second paragraph onward regardless of which
- * grid cell it lands in. Reset to margin:0 here rather than switching the block's own layout type,
- * since "default" is what makes this a plain wp:group with no block-supports layout UI fighting
- * the grid.
+ * Tap-target note for the single-column list above: an earlier version of this rule expanded each
+ * row's invisible tap area to the theme's 44px tap-target-min via the stretched-link `a::after`
+ * (`calc((min - 100%) / -2)`, expanding top/bottom beyond the row's own ~29px visual box). With
+ * `blockGap: 0` between rows (by design, for a tight list), that expansion mathematically cannot
+ * avoid overlapping the neighbouring row's own expanded area — CodeRabbit and Copilot both flagged
+ * this independently on the PR, and the overlap math checks out: ~7.5px of expansion per side on
+ * 0px-separated rows overlaps by ~15px, so a tap near a row boundary can resolve to the wrong link.
+ * The same expansion also bled ~2-3px into the accordion `<summary>` above the first row, since the
+ * heading-to-first-link gap (spacing--5, ~4-5px) is smaller than the expansion itself.
+ * Removed rather than re-tuned: reintroducing a non-overlapping expansion would require restoring a
+ * real visible gap between rows (≥ 44px − row height, i.e. ~15px) to leave room for it, undoing the
+ * tight single-column spacing this list was specifically built for. Each row's own box (~29px) still
+ * clears the actual WCAG 2.2 AA target-size minimum (24×24px, SC 2.5.8) without any expansion.
+ */
+
+/*
+ * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): single-column list
+ * of service links per lifecycle phase (LS-3222 follow-up), matching the Work/Solutions/Pricing/
+ * Insights/About dropdowns' single-column reading order. Previously a 2-column
+ * `repeat(2, max-content)` grid with a <340px single-column fallback; now always one column, so the
+ * fallback is redundant and removed. Stays hand-authored CSS rather than core's native
+ * "layout":{"type":"grid"} block support for the same reason as before: this wrapping block's own
+ * "layout":{"type":"default"} injects consecutive-sibling margin-top on the child paragraphs (core's
+ * blockGap fallback for the "default" layout type), which the `> * { margin: 0; }` reset below
+ * still needs to cancel regardless of column count.
  */
 .ls-services-phase-links {
   display: grid;
-  grid-template-columns: repeat(2, max-content);
-  column-gap: var(--wp--preset--spacing--20);
-  row-gap: var(--wp--preset--spacing--20);
+  grid-template-columns: 1fr;
+  row-gap: 0;
 
   > * {
     margin: 0;
   }
 }
 
-@media (max-width: 340px) {
-  .ls-services-phase-links {
-    grid-template-columns: 1fr;
-  }
-}
+/*
+ * Tap-target note: same as .ls-simple-submenu-links above — an earlier version of this rule
+ * expanded each row's tap area to 44px via `a::after`, which overlapped adjacent rows given
+ * `row-gap: 0`. Removed for the same reason; each row's own ~29px box still clears the real WCAG
+ * 2.2 AA target-size minimum (24×24px, SC 2.5.8).
+ */
 
 /*
  * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
- * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--10 is the
- * header row's own icon-to-label gap — not an arbitrary offset, the two real values that produce
- * alignment with the "C" in "CREATE". .ls-simple-submenu-links has no heading/dot to align under,
- * so it doesn't need this.
+ * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--5 is the
+ * reduced offset (LS-3222 follow-up, down from spacing--10) that keeps the indent intentional
+ * (~12-13px total) without reading as an oversized, disconnected offset from the "C" in "CREATE".
+ * .ls-simple-submenu-links has no heading/dot to align under, so it doesn't need this.
  */
 .ls-services-phase-links {
-  padding-left: calc(8px + var(--wp--preset--spacing--10));
+  padding-left: calc(8px + var(--wp--preset--spacing--5));
 }
 
 /*
