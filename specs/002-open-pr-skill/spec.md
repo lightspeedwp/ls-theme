@@ -8,6 +8,12 @@
 
 **Input**: User description: "An agent skill (`open-pr`) that creates and updates pull requests for the current branch in the `ls-theme` repository, callable both via an explicit `/open-pr` command and via natural-language requests like 'create the PR for me' or 'get this ready for review.' ... [full LightSpeed Pull Request Creation Workflow requirements, see conversation history]"
 
+## Clarifications
+
+### Session 2026-09-17
+
+- Q: What should the skill do if there's no tool available to actually link the PR back to its Linear/Asana issue? → A: Warn and continue — note in its output that this step needs doing manually, but still finish successfully.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Open a new PR from a finished branch (Priority: P1)
@@ -98,7 +104,7 @@ A contributor starting large or multi-day work wants to open a PR early, once th
 - **FR-013**: The skill MUST add a changelog entry, linked back to the pull request, only after the pull request exists, and only when the changelog-decision indicator states one is required; it must never add that entry beforehand, and must never add one when the indicator says none is needed.
 - **FR-014**: For a pull request that is one layer of a coordinated, multi-layer ("stacked") set, the skill MUST record that PR's position, the issue/epic it belongs to, its dependencies, and its specific review scope, and MUST use a non-closing reference to the originating issue on every layer except the one that actually completes the work.
 - **FR-015**: The skill MUST support opening a pull request as a draft for larger or multi-day work, and MUST NOT perform ready-for-review actions (confirming required checks, requesting a reviewer, applying a review-status indicator) while the pull request remains a draft.
-- **FR-016**: When explicitly marking a pull request ready for review, the skill MUST confirm required automated checks are passing, request an appropriate reviewer, apply the appropriate review-status indicator, and link back to the originating tracked work item, noting that the work item should move to an in-review state.
+- **FR-016**: When explicitly marking a pull request ready for review, the skill MUST confirm required automated checks are passing, request an appropriate reviewer, and apply the appropriate review-status indicator. It MUST also link back to the originating tracked work item and note that it should move to an in-review state; if no tool is available to perform that link, the skill MUST warn that this step needs doing manually and still complete successfully, rather than failing or skipping the notice silently.
 - **FR-017**: When updating an existing pull request, the skill MUST read its current description first, preserve any part that remains accurate, and rewrite only what has gone stale — including refreshing what has and hasn't actually been verified.
 - **FR-018**: Once a pull request is under review, the skill's guidance MUST require a reply to every review thread rather than a silent fix, and MUST require that a fix for a defect belonging to a lower layer of a stacked set be made in that owning layer, with layers above it updated afterward — never worked around from a higher layer.
 - **FR-019**: The skill MUST be usable both via an explicit, unambiguous invocation and via a natural-language request describing the same intent; for the latter, it MUST confirm the intended branch and base with the user before creating or changing anything.
