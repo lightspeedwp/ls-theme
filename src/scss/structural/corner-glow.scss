@@ -1,0 +1,77 @@
+/********** Corner Glow (shared decorative background, multi-consumer) **********/
+
+/*
+ * A soft two-corner radial glow, decoded from Figma's SVG gradientTransform matrices the same
+ * way as src/scss/structural/search-hero.scss (its own comment documents the exact conversion
+ * method) — with one correction this file's first version missed: the gradient's base circle
+ * has r="10" (user-space units) and the transform matrix scales it by 76.861, so the actual
+ * radius is 10 × 76.861 = 768.61, not 76.861 alone. Using the matrix value by itself produced
+ * blobs roughly 10x too small (reading as small hard circles instead of a soft, wide wash).
+ * Positioned as a diagonal pair — one glow near the top-left corner, one near the bottom-right —
+ * sized 87.5%/172.4% (x/y radius as a fraction of the ~878x446, ~2:1 source frame) centered at
+ * 20%/30% and 80%/70%.
+ *
+ * JSON limitation: color.gradient block support only accepts a single gradient value, not
+ * layered gradients of any kind — see AGENTS.md Theme-First Approach and the same reasoning
+ * already documented in search-hero.scss/work-hero.scss/blog-hero.scss.
+ *
+ * Reusable across multiple CTAs/sections with different colours: the two glow colours and
+ * opacities are CSS custom properties, not hardcoded, so each consumer can override them inline
+ * per instance (e.g. style="--ls-corner-glow-color-1:...;"). Default fallbacks are
+ * effect.hero.brand / effect.hero.cyan, since every current consumer happens to use that exact
+ * pair — but a future consumer needing different colours doesn't need a second copy of this
+ * file, just its own inline override.
+ */
+.ls-corner-glow {
+  background-image:
+    radial-gradient(
+      87.5% 172.4% at 20% 30%,
+      color-mix(
+        in srgb,
+        var(--ls-corner-glow-color-1, var(--wp--custom--color--effect--hero--brand)) var(--ls-corner-glow-opacity-1, 14%),
+        transparent
+      ) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      87.5% 172.4% at 80% 70%,
+      color-mix(
+        in srgb,
+        var(--ls-corner-glow-color-2, var(--wp--custom--color--effect--hero--cyan)) var(--ls-corner-glow-opacity-2, 14%),
+        transparent
+      ) 0%,
+      transparent 60%
+    );
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+/*
+ * Button overflow fix (narrow viewports, confirmed live at 320px). core/button's shared styles
+ * (styles/presets/blocks/core-button.json) set white-space:nowrap on the button link and
+ * max-inline-size:100% on the wrapping .wp-block-button div — but that div is a flex item of
+ * .wp-block-buttons, and flex items default to min-width:auto (their content's intrinsic size),
+ * which overrides max-inline-size and lets a nowrap button refuse to shrink below its text width.
+ * Inside this card's narrower content column (~170px available at 320px viewport, after the
+ * section padding + the card's own padding), "Request a systems review" plus its arrow can't
+ * fit on one line, so the button spills out past the card's rounded border unclipped instead of
+ * shrinking or wrapping.
+ *
+ * Fixed by letting the flex item actually shrink (min-inline-size: 0, overriding the auto
+ * default) and letting its text wrap onto a second line instead of forcing nowrap. Scoped to
+ * buttons inside this card only — not a sitewide core/button change, since every other button
+ * context on the site has enough room and this isn't a general nowrap bug.
+ */
+.ls-corner-glow .wp-block-buttons {
+  min-inline-size: 0;
+}
+
+.ls-corner-glow .wp-block-buttons .wp-block-button {
+  min-inline-size: 0;
+}
+
+.ls-corner-glow .wp-block-buttons .wp-block-button__link {
+  min-inline-size: 0;
+  white-space: normal;
+  text-align: center;
+}
