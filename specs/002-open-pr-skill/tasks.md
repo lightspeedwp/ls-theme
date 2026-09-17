@@ -25,7 +25,7 @@ description: "Task list for the open-pr skill implementation"
 
 **Purpose**: Confirm the skill's scaffolding is in place before syncing content.
 
-- [ ] T001 Verify `.claude/skills/open-pr/SKILL.md` frontmatter matches spec: `name: open-pr`, and a `description` covering both explicit and natural-language trigger phrasing per FR-019, under the 1024-character agentskills.io limit.
+- [X] T001 Verify `.claude/skills/open-pr/SKILL.md` frontmatter matches spec: `name: open-pr`, and a `description` covering both explicit and natural-language trigger phrasing per FR-019, under the 1024-character agentskills.io limit.
 
 ---
 
@@ -35,10 +35,10 @@ description: "Task list for the open-pr skill implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T002 Sync "Step 1: Gather context from the branch itself" (commit/diff/ticket derivation, FR-001) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T003 Sync Step 2 pre-flight checks 1-4, 6-7 (branch/push state, existing-PR check, merged-PR convention check, real label set, changelog-requirement check, lint/test run per FR-005, FR-020) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T004 Sync the branch-type base-branch logic (Step 2.5: `develop` for normal work, `main` for hotfix/release with sync-back flagged, per FR-003 and data-model.md's Branch entity) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T005 Sync branch-naming validation including the stacked-layer-prefix rule (Step 2.8, per FR-004) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T002 Sync "Step 1: Gather context from the branch itself" (commit/diff/ticket derivation, FR-001) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T003 Sync Step 2 pre-flight checks 1-4, 6-7 (branch/push state, existing-PR check, merged-PR convention check, real label set, changelog-requirement check, lint/test run per FR-005, FR-020) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T004 Sync the branch-type base-branch logic (Step 2.5: `develop` for normal work, `main` for hotfix/release with sync-back flagged, per FR-003 and data-model.md's Branch entity) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T005 Sync branch-naming validation including the stacked-layer-prefix rule (Step 2.8, per FR-004) into `.claude/skills/open-pr/SKILL.md`.
 
 **Checkpoint**: Foundation ready — user story sections can now be synced.
 
@@ -52,12 +52,12 @@ description: "Task list for the open-pr skill implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Sync the review-budget calculation and flagging thresholds (Step 2.9: ~15 files/~400 lines preferred, ~25 files/~800 lines requiring a stack or exception, per FR-006) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T007 [US1] Sync the self-review gate (Step 2.10: coherent-outcome check, budget re-check, build checks, WCAG 2.2 AA, CodeRabbit/AI-review-findings check, per FR-007 and FR-008) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T008 [US1] Sync the "Choosing a PR template" section (config.yml routing lookup, verbatim template structure, label-existence guard, per FR-009 and FR-010, and the PR Template entity in data-model.md) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T009 [US1] Sync the fallback "PR structure" section — all 10 body sections including Scope and exclusions, Screenshots/video, a11y/perf/backcompat notes (per FR-011) — into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T010 [US1] Sync the "Creating the PR" section (labels + assignee + exactly one changelog-decision label in the same `gh pr create` call, per FR-012) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T011 [US1] Sync the "Changelog — after the PR is created" section (gated on `meta:needs-changelog`, changelog-validation command, per FR-013) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T006 [US1] Sync the review-budget calculation and flagging thresholds (Step 2.9: ~15 files/~400 lines preferred, ~25 files/~800 lines requiring a stack or exception, per FR-006) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T007 [US1] Sync the self-review gate (Step 2.10: coherent-outcome check, budget re-check, build checks, WCAG 2.2 AA, CodeRabbit/AI-review-findings check, per FR-007 and FR-008) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T008 [US1] Sync the "Choosing a PR template" section (config.yml routing lookup, verbatim template structure, label-existence guard, per FR-009 and FR-010, and the PR Template entity in data-model.md) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T009 [US1] Sync the fallback "PR structure" section — all 10 body sections including Scope and exclusions, Screenshots/video, a11y/perf/backcompat notes (per FR-011) — into `.claude/skills/open-pr/SKILL.md`.
+- [X] T010 [US1] Sync the "Creating the PR" section (labels + assignee + exactly one changelog-decision label in the same `gh pr create` call, per FR-012) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T011 [US1] Sync the "Changelog — after the PR is created" section (gated on `meta:needs-changelog`, changelog-validation command, per FR-013) into `.claude/skills/open-pr/SKILL.md`.
 - [ ] T012 [P] [US1] Run quickstart.md Scenario 1 (explicit invocation creates a compliant PR) against a real branch and confirm all fields per the "Create a new Pull Request" contract in contracts/open-pr-invocation.md.
 - [ ] T013 [P] [US1] Run quickstart.md Scenario 3 (oversized change is flagged) against a branch exceeding the larger threshold.
 - [ ] T014 [P] [US1] Run quickstart.md Scenario 6 (natural-language invocation confirms branch/base before acting, per FR-019) and confirm the invocation-guard wording already in `SKILL.md`'s header still matches this behavior.
@@ -74,7 +74,7 @@ description: "Task list for the open-pr skill implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Sync the "Updating an existing PR" section (read current body first, preserve accurate content, rewrite only what's stale, refresh Test Plan checkboxes, backfill missing labels/assignee/changelog-decision label immediately, per FR-017) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T015 [US2] Sync the "Updating an existing PR" section (read current body first, preserve accurate content, rewrite only what's stale, refresh Test Plan checkboxes, backfill missing labels/assignee/changelog-decision label immediately, per FR-017) into `.claude/skills/open-pr/SKILL.md`.
 - [ ] T016 [US2] Run quickstart.md Scenario 2 (re-run updates instead of duplicating) against a real branch with an existing open PR, confirming the "Update an existing Pull Request" contract in contracts/open-pr-invocation.md.
 
 **Checkpoint**: User Stories 1 AND 2 both work independently.
@@ -89,7 +89,7 @@ description: "Task list for the open-pr skill implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T017 [US3] Sync the "Stack information" section — the `## Stack` template, the 5-PR-per-stack / split-under-an-epic rule, and the `Closes`/`Fixes`/`Resolves` vs. `Relates to`/`Part of` phrasing rule (per FR-014 and the Stack entity in data-model.md) — into `.claude/skills/open-pr/SKILL.md`.
+- [X] T017 [US3] Sync the "Stack information" section — the `## Stack` template, the 5-PR-per-stack / split-under-an-epic rule, and the `Closes`/`Fixes`/`Resolves` vs. `Relates to`/`Part of` phrasing rule (per FR-014 and the Stack entity in data-model.md) — into `.claude/skills/open-pr/SKILL.md`.
 - [ ] T018 [US3] Run quickstart.md Scenario 4 (stacked PR carries position/dependency info, correct closing phrasing) against two related PRs.
 
 **Checkpoint**: User Stories 1, 2, and 3 all independently functional.
@@ -104,8 +104,8 @@ description: "Task list for the open-pr skill implementation"
 
 ### Implementation for User Story 4
 
-- [ ] T019 [US4] Sync the "Draft PRs" section (draft creation for larger/multi-day work, skipping ready-for-review gating, stack draft sequencing — bottom layer ready first, "return to draft" trigger on substantial rework, per FR-015) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T020 [US4] Sync the "Marking Ready for Review" section (CI confirmation, `gh pr ready`, reviewer request, `status:needs-review`, and the Linear/Asana link step that warns and continues rather than blocking when no tool is available, per FR-016 and the 2026-09-17 Clarification) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T019 [US4] Sync the "Draft PRs" section (draft creation for larger/multi-day work, skipping ready-for-review gating, stack draft sequencing — bottom layer ready first, "return to draft" trigger on substantial rework, per FR-015) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T020 [US4] Sync the "Marking Ready for Review" section (CI confirmation, `gh pr ready`, reviewer request, `status:needs-review`, and the Linear/Asana link step that warns and continues rather than blocking when no tool is available, per FR-016 and the 2026-09-17 Clarification) into `.claude/skills/open-pr/SKILL.md`.
 - [ ] T021 [P] [US4] Run quickstart.md Scenario 5 (draft PR skips ready-for-review actions) against a partial-diff branch.
 - [ ] T022 [P] [US4] Run quickstart.md Scenario 7 (missing Linear/Asana tool warns, doesn't block) confirming the "Mark ready for review" contract in contracts/open-pr-invocation.md.
 
@@ -117,10 +117,10 @@ description: "Task list for the open-pr skill implementation"
 
 **Purpose**: Behavior that spans every user story rather than belonging to one, plus final consistency checks.
 
-- [ ] T023 [P] Sync the "Responding to feedback" section (reply to every review thread, no silent pushes, stacked-PR fix-in-owning-layer + rebase-above, `--force-with-lease` only, per FR-018) into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T024 [P] Sync the full "What NOT to do" list, cross-checked against every FR in spec.md, into `.claude/skills/open-pr/SKILL.md`.
-- [ ] T025 Update the location-note comment at the top of `.claude/skills/open-pr/SKILL.md` to reference `specs/002-open-pr-skill/research.md` (Decision: Skill location) instead of the now-removed `openspec/changes/open-pr-skill/design.md`.
-- [ ] T026 Diff `.claude/skills/open-pr/SKILL.md` against the validated personal command (`~/.claude/commands/open-pr.md`) and confirm full content parity, accounting only for the skill-specific frontmatter and location-note additions.
+- [X] T023 [P] Sync the "Responding to feedback" section (reply to every review thread, no silent pushes, stacked-PR fix-in-owning-layer + rebase-above, `--force-with-lease` only, per FR-018) into `.claude/skills/open-pr/SKILL.md`.
+- [X] T024 [P] Sync the full "What NOT to do" list, cross-checked against every FR in spec.md, into `.claude/skills/open-pr/SKILL.md`.
+- [X] T025 Update the location-note comment at the top of `.claude/skills/open-pr/SKILL.md` to reference `specs/002-open-pr-skill/research.md` (Decision: Skill location) instead of the now-removed `openspec/changes/open-pr-skill/design.md`.
+- [X] T026 Diff `.claude/skills/open-pr/SKILL.md` against the validated personal command (`~/.claude/commands/open-pr.md`) and confirm full content parity, accounting only for the skill-specific frontmatter and location-note additions.
 - [ ] T027 Run all 7 quickstart.md scenarios as one final end-to-end pass.
 
 ---
