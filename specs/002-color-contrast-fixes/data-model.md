@@ -28,7 +28,7 @@ This feature has no runtime data model, database schema, or API payloads — it 
 ## Markup Entity: Taxonomy Filter Pill (`.taxonomy-filter-current`)
 
 - **Represents**: The active/selected state of a clickable category filter control on the blog listing page (`src/scss/structural/taxonomy-filter.scss`).
-- **States**: default (unaffected), `:hover` (unaffected, FR-006), `.taxonomy-filter-current` (active/selected — the only state changed by this feature).
-- **Change**: One `color` declaration's token reference is swapped; `background-color` and all other properties are unchanged.
+- **States**: default (unaffected), default `:hover`/`:focus-visible` (unaffected, FR-006), `.taxonomy-filter-current` and its own `:hover`/`:focus-visible` (active/selected — the states changed by this feature, since the active pill's hover/focus sub-rule re-asserts the same color as its base state).
+- **Change**: The `color` declaration's token reference is swapped on both `.taxonomy-filter-current` and its `:hover`/`:focus-visible` sub-rule; `background-color` and all other properties are unchanged.
 
 No new entities, relationships, or state transitions beyond the above — this table exists to satisfy the plan template's Phase 1 output requirement, not because the feature has meaningful data-model complexity.

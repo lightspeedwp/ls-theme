@@ -9,7 +9,9 @@
  * `contrast` value). Applied unconditionally, matching taxonomy-filter.scss's existing
  * unscoped use of `--text--on-dark` tokens — this theme runs one active global style
  * sitewide rather than mixing light/dark per post, so no dark/light scoping selector
- * is needed (LS-2934).
+ * is needed today. If a future post or block ever introduces a local light-background
+ * override, this rule (and taxonomy-filter.scss's equivalent) would need a matching
+ * light-context override at that point — see spec.md Assumptions, LS-2934.
  */
 .wp-element-caption,
 figcaption {

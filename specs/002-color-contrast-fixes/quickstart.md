@@ -27,7 +27,7 @@ npm run theme:validate
 npm run lint:json
 ```
 
-All three must pass before proceeding. Do **not** run the banned `validate_blocks` tool.
+`schema:validate` and `lint:json` must pass before proceeding. `theme:validate` is expected to fail on one pre-existing, unrelated finding — `styles/light.json` has never existed in this repo (confirmed via `git log`) — which is not caused by or related to this feature; any other `theme:validate` failure should be treated as a real blocker. Do **not** run the banned `validate_blocks` tool.
 
 ## Step 3 — Scoped accessibility re-checks (no new BugHerd tasks)
 

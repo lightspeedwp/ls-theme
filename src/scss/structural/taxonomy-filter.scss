@@ -37,6 +37,7 @@
     &.taxonomy-filter-current {
       border-color: var(--wp--custom--color--card--platform--wordpress);
       background-color: var(--wp--custom--color--card--platform--wordpress);
+
       // LS-2934: swapped from --text--on-dark (#FAFAFA, 2.92:1) to --text--on-light (#080808,
       // 6.57:1 against this background) to meet WCAG AA — see research.md Unknown 2.
       color: var(--wp--custom--color--text--on-light);
