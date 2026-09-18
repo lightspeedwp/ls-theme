@@ -10,29 +10,29 @@
 
 ## Requirement Completeness
 
-- [ ] CHK001 Are contrast requirements defined for every distinct element type affected (captions AND filter pill), rather than one generic "fix contrast" statement? [Completeness, Spec §FR-001, §FR-002]
-- [ ] CHK002 Are requirements defined for what happens to elements that share a token being changed but weren't part of the original violation report? [Completeness, Spec Edge Cases]
-- [ ] CHK003 Is there a requirement covering how future content (new posts, new pages) inherits or doesn't inherit these fixes? [Completeness, Spec §SC-002]
-- [ ] CHK004 Are requirements defined for the non-color aspects of the affected elements that must remain untouched (layout, spacing, structure)? [Completeness, Spec §FR-005]
+- [x] CHK001 Are contrast requirements defined for every distinct element type affected (captions AND filter pill), rather than one generic "fix contrast" statement? [Completeness, Spec §FR-001, §FR-002]
+- [x] CHK002 Are requirements defined for what happens to elements that share a token being changed but weren't part of the original violation report? [Completeness, Spec Edge Cases]
+- [x] CHK003 Is there a requirement covering how future content (new posts, new pages) inherits or doesn't inherit these fixes? [Completeness, Spec §SC-002]
+- [x] CHK004 Are requirements defined for the non-color aspects of the affected elements that must remain untouched (layout, spacing, structure)? [Completeness, Spec §FR-005]
 
 ## Requirement Clarity
 
-- [ ] CHK005 Is "dark-background post style" defined precisely enough to distinguish it from other post styles without relying on implementation knowledge? [Clarity, Spec §FR-001, Assumptions]
-- [ ] CHK006 Is the WCAG conformance target (level, ratio, text-size category) stated as a specific number rather than a general reference to "accessible"? [Clarity, Spec §FR-001, §FR-002]
-- [ ] CHK007 Is "token-based" (as opposed to hardcoded color) defined clearly enough that a reviewer could judge compliance without inside knowledge of the codebase? [Clarity, Spec §FR-003]
-- [ ] CHK008 Is the distinction between "verification" and "fix scope" (per the recorded clarification) stated unambiguously, so a reader cannot re-interpret SC-002 as requiring a sitewide audit? [Clarity, Spec §Clarifications, §SC-002]
+- [x] CHK005 Is "dark-background post style" defined precisely enough to distinguish it from other post styles without relying on implementation knowledge? [Clarity, Spec §FR-001, Assumptions]
+- [x] CHK006 Is the WCAG conformance target (level, ratio, text-size category) stated as a specific number rather than a general reference to "accessible"? [Clarity, Spec §FR-001, §FR-002]
+- [x] CHK007 Is "token-based" (as opposed to hardcoded color) defined clearly enough that a reviewer could judge compliance without inside knowledge of the codebase? [Clarity, Spec §FR-003]
+- [x] CHK008 Is the distinction between "verification" and "fix scope" (per the recorded clarification) stated unambiguously, so a reader cannot re-interpret SC-002 as requiring a sitewide audit? [Clarity, Spec §Clarifications, §SC-002]
 
 ## Requirement Consistency
 
-- [ ] CHK009 Do the acceptance scenarios for User Story 1 and User Story 2 apply the same contrast threshold and conformance level consistently? [Consistency, Spec §FR-001, §FR-002]
-- [ ] CHK010 Are the "no regression to unaffected states/contexts" requirements worded consistently between the caption fix and the filter-pill fix? [Consistency, Spec §FR-006]
-- [ ] CHK011 Does the out-of-scope declaration for the broken-CSS-asset issue remain consistent everywhere it's referenced (Assumptions vs. Input description)? [Consistency, Spec Assumptions]
+- [x] CHK009 Do the acceptance scenarios for User Story 1 and User Story 2 apply the same contrast threshold and conformance level consistently? [Consistency, Spec §FR-001, §FR-002]
+- [x] CHK010 Are the "no regression to unaffected states/contexts" requirements worded consistently between the caption fix and the filter-pill fix? [Consistency, Spec §FR-006]
+- [x] CHK011 Does the out-of-scope declaration for the broken-CSS-asset issue remain consistent everywhere it's referenced (Assumptions vs. Input description)? [Consistency, Spec Assumptions]
 
 ## Acceptance Criteria Quality
 
-- [ ] CHK012 Can SC-001's "100% of the previously-flagged nodes no longer appear" be verified objectively without additional interpretation of which nodes counted originally? [Measurability, Spec §SC-001]
-- [ ] CHK013 Is SC-004 ("zero new externally-tracked bug reports") independently verifiable, or does it rely on trusting a specific test invocation method not described in the success criterion itself? [Measurability, Spec §SC-004]
-- [ ] CHK014 Are the acceptance scenarios in both user stories phrased as testable Given/When/Then statements with no subjective terms (e.g., "readable", "clear") left unquantified? [Measurability, Spec §User Story 1, §User Story 2]
+- [x] CHK012 Can SC-001's "100% of the previously-flagged nodes no longer appear" be verified objectively without additional interpretation of which nodes counted originally? [Measurability, Spec §SC-001]
+- [x] CHK013 Is SC-004 ("zero new externally-tracked bug reports") independently verifiable, or does it rely on trusting a specific test invocation method not described in the success criterion itself? [Measurability, Spec §SC-004]
+- [x] CHK014 Are the acceptance scenarios in both user stories phrased as testable Given/When/Then statements with no subjective terms (e.g., "readable", "clear") left unquantified? [Measurability, Spec §User Story 1, §User Story 2]
 
 ## Scenario Coverage
 
@@ -42,13 +42,13 @@
 
 ## Dependencies & Assumptions
 
-- [ ] CHK018 Is the assumption that "an existing token will be reused where possible" validated against actual token availability, or does the spec leave this as an open risk for planning to discover? [Assumption, Spec Assumptions]
-- [ ] CHK019 Is the dependency on the standing Playwright suite's `SINGLE_PAGE_URL` mechanism (for FR-007's no-new-BugHerds guarantee) explicitly called out as an external dependency rather than assumed common knowledge? [Dependency, Spec §FR-007]
+- [x] CHK018 Is the assumption that "an existing token will be reused where possible" validated against actual token availability, or does the spec leave this as an open risk for planning to discover? [Assumption, Spec Assumptions]
+- [x] CHK019 Is the dependency on the standing Playwright suite's `SINGLE_PAGE_URL` mechanism (for FR-007's no-new-BugHerds guarantee) explicitly called out as an external dependency rather than assumed common knowledge? [Dependency, Spec §FR-007]
 
 ## Ambiguities & Conflicts
 
 - [ ] CHK020 Is there any remaining ambiguity between FR-006 ("must not alter... unless required to meet FR-001/FR-002") and FR-005 ("must not alter layout") regarding how much color-adjacent change (e.g., opacity, borders) is actually permitted? [Ambiguity, Spec §FR-005, §FR-006]
-- [ ] CHK021 Is a requirement/acceptance-criteria ID scheme consistently applied so every functional requirement and success criterion can be traced from a checklist item back to a single unambiguous spec line? [Traceability]
+- [x] CHK021 Is a requirement/acceptance-criteria ID scheme consistently applied so every functional requirement and success criterion can be traced from a checklist item back to a single unambiguous spec line? [Traceability]
 
 ## Notes
 
