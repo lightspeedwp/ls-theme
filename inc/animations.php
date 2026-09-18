@@ -212,6 +212,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		// Image captions can appear in any post/page's content, so this loads unconditionally
+		// rather than being gated to a specific template (LS-2934).
+		'image-captions'            => array(
+			'handle'   => 'ls-theme-image-captions',
+			'path'     => 'assets/css/image-captions.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 		// Structural bundles (LS-2615, gated LS-2922): each `condition` reflects verified actual
 		// usage (grepped against every pattern that references the bundle's CSS classes), not an
 		// assumed template mapping — some bundles turned out not to be template-exclusive (e.g.
