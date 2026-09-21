@@ -73,6 +73,7 @@
 				},
 				"phase": {
 					"discover": "var:preset|color|phase-one",
+					"discover-on-dark": "var:preset|color|phase-one",
 					"create": "var:preset|color|phase-two",
 					"build": "var:preset|color|phase-three",
 					"launch": "var:preset|color|phase-four",
