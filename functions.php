@@ -64,6 +64,7 @@ function ls_theme_setup() {
 	// regardless of which template it's viewed through.
 	add_editor_style( 'style.css' );
 	add_editor_style( 'assets/css/animations.css' );
+	add_editor_style( 'assets/css/image-captions.css' );
 	add_editor_style( 'assets/css/taxonomy-filter.css' );
 	add_editor_style( 'assets/css/work-project-card.css' );
 	add_editor_style( 'assets/css/work-archive-sections.css' );
