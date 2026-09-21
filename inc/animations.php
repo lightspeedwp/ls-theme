@@ -276,6 +276,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
+		'discover-hero'             => array(
+			'handle'    => 'ls-theme-discover-hero',
+			'path'      => 'assets/css/discover-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Scoped to the Discover page's own slug, same reasoning as services-service-tiles/
+			// services-delivery-numbers above — a real, known page slug from the start.
+			'condition' => static function () {
+				return is_page( 'discover' );
+			},
+		),
 		'services-hero'             => array(
 			'handle'   => 'ls-theme-services-hero',
 			'path'     => 'assets/css/services-hero.css',

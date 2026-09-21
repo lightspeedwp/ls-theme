@@ -70,6 +70,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/card-shells.css' );
 	add_editor_style( 'assets/css/cta-buttons.css' );
 	add_editor_style( 'assets/css/home-hero.css' );
+	add_editor_style( 'assets/css/discover-hero.css' );
 	add_editor_style( 'assets/css/services-hero.css' );
 	add_editor_style( 'assets/css/services-linked-decisions.css' );
 	add_editor_style( 'assets/css/services-service-clusters.css' );

@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Button - Phase Primary",
+	"slug": "button-phase-primary",
+	"blockTypes": [
+		"core/button"
+	],
+	"description": "Pill CTA for the phase-page heroes (Discover, and eventually Create/Build/Launch/Grow/Evolve). Background/text stay constant across the light/dark style variation toggle, matching the on-dark token family — the hero itself is permanently dark, so this can't use the sitewide button.fill tokens, which flip colour with the variation. Rest state (colour, shape, the inline arrow glyph) lives here; the hover/focus arrow-slide motion lives in src/scss/animations/_button-motion.scss, since a bare :hover in a style JSON's css field is silently stripped by WordPress. Currently hardwired to phase.discover-on-dark rather than a CSS custom property — narrowed to what Discover actually needs now; generalise to a shared --ls-button-phase-accent custom property (set by whichever hero uses it) once a second phase page needs this same style, rather than guessing at that shape today.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|phase|discover-on-dark",
+			"text": "var:custom|color|text|on-light"
+		},
+		"border": {
+			"radius": "var:preset|border-radius|500",
+			"style": "none",
+			"width": "0"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"typography": {
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "var:custom|typography|font-weight|semibold",
+			"letterSpacing": "normal"
+		},
+		"css": "&{display:inline-flex;align-items:center;gap:var(--wp--preset--spacing--10);}\n\n&::after{content:\"\\2192\";display:inline-block;}"
+	}
+}

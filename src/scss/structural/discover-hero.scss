@@ -1,0 +1,40 @@
+/********** Discover Hero (Discover phase page only) **********/
+
+/*
+ * Discover Hero background: a faint 32px crossed-gradient grid (same technique as
+ * .ls-card-banner-tint in src/scss/structural/work-project-card.scss — two 1px linear-gradients,
+ * one per axis, repeated) layered over a soft radial phase-colour glow behind the upper-middle
+ * content, over the same permanently-dark band-start/band-end diagonal base already used by
+ * src/scss/structural/blog-hero.scss. Combined into one background-image list rather than left as
+ * the block's own inline color.gradient attribute, for the same reason documented in
+ * blog-hero.scss: an inline `style="background:..."` always wins the cascade over any external
+ * stylesheet's background-image, so the two can't coexist on this block.
+ *
+ * Hardwired to phase.discover-on-dark rather than a CSS custom property — this file only needs to
+ * serve the Discover hero today. When Create/Build/Launch/Grow/Evolve heroes are built, either
+ * duplicate this file per phase (fast, proven-safe) or generalise it to a shared --ls-phase-accent
+ * custom property at that point, once it's clear which is actually needed — not guessed now.
+ */
+.ls-phase-hero {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--text--on-dark) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--text--on-dark) 4%, transparent) 1px, transparent 1px),
+    radial-gradient(60% 50% at 50% 22%, color-mix(in srgb, var(--wp--custom--color--phase--discover-on-dark) 14%, transparent) 0%, transparent 70%),
+    linear-gradient(158deg, var(--wp--custom--color--surface--band-start) 0%, var(--wp--custom--color--surface--band-end) 100%);
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
+  background-size: 32px 32px, 32px 32px, auto, auto;
+}
+
+/*
+ * Breadcrumb (Discover Hero): reuses the existing .ls-breadcrumbs-on-dark class and its `a` colour
+ * fix from blog-hero.scss unmodified. This is the one addition that class doesn't already cover —
+ * highlighting the current/last crumb in the hero's own phase colour. Yoast SEO's breadcrumb
+ * output marks the current, unlinked page with .breadcrumb_last (a plain span, not an anchor), so
+ * this can't be covered by the `a` rule above.
+ */
+.ls-phase-hero .breadcrumb_last {
+  color: var(--wp--custom--color--phase--discover-on-dark);
+}
