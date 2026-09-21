@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/button"
 	],
-	"description": "Outline pill CTA pairing Button - Phase Primary on the phase-page heroes. Transparent background, thin phase-colour border, phase-colour text — no separate boxed icon area. Same on-dark-constant reasoning and same 'hardwired to Discover for now' note as button-phase-primary.json. Hover/focus arrow-slide motion lives in src/scss/animations/_button-motion.scss.",
+	"description": "Outline pill CTA pairing Button - Phase Primary on the phase-page heroes. Transparent background, thin phase-colour border, phase-colour text — no separate boxed icon area, and deliberately no arrow glyph (only the Primary CTA carries the arrow; this is the secondary/lower-emphasis action). Same on-dark-constant reasoning and same 'hardwired to Discover for now' note as button-phase-primary.json.",
 	"styles": {
 		"color": {
 			"background": "transparent",
@@ -21,9 +21,9 @@
 		"spacing": {
 			"padding": {
 				"top": "var:preset|spacing|20",
-				"right": "var:preset|spacing|30",
+				"right": "var:preset|spacing|20",
 				"bottom": "var:preset|spacing|20",
-				"left": "var:preset|spacing|30"
+				"left": "var:preset|spacing|20"
 			}
 		},
 		"typography": {
@@ -31,6 +31,6 @@
 			"fontWeight": "var:custom|typography|font-weight|semibold",
 			"letterSpacing": "normal"
 		},
-		"css": "&{display:inline-flex;align-items:center;gap:var(--wp--preset--spacing--10);}\n\n&::after{content:\"\\2192\";display:inline-block;}"
+		"css": "&{display:inline-flex;align-items:center;}"
 	}
 }

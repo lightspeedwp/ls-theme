@@ -222,35 +222,30 @@
  */
 
 /*
- * Button - Phase Primary / Button - Phase Outline (phase-page heroes, e.g. discover-hero.php):
- * rest-state colour/shape/arrow glyph live in the style JSON files themselves
- * (styles/blocks/buttons/button-phase-primary.json, button-phase-outline.json) — this is only the
- * hover/focus arrow-slide, since a bare :hover in a style JSON's css field is silently stripped by
- * WordPress (same class of bug documented for Card - Category and the Blog Hero's rainbow border).
+ * Button - Phase Primary (phase-page heroes, e.g. discover-hero.php): rest-state colour/shape/
+ * arrow glyph live in the style JSON file itself (styles/blocks/buttons/button-phase-primary.json)
+ * — this is only the hover/focus arrow-slide, since a bare :hover in a style JSON's css field is
+ * silently stripped by WordPress (same class of bug documented for Card - Category and the Blog
+ * Hero's rainbow border). Button - Phase Outline has no arrow glyph at all (secondary/lower-
+ * emphasis CTA), so it has no matching motion here.
  */
 .wp-block-button.is-style-button-phase-primary .wp-block-button__link:hover::after,
-.wp-block-button.is-style-button-phase-primary .wp-block-button__link:focus-visible::after,
-.wp-block-button.is-style-button-phase-outline .wp-block-button__link:hover::after,
-.wp-block-button.is-style-button-phase-outline .wp-block-button__link:focus-visible::after {
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link:focus-visible::after {
   transform: translateX(var(--wp--preset--spacing--5));
 }
 
-.wp-block-button.is-style-button-phase-primary .wp-block-button__link::after,
-.wp-block-button.is-style-button-phase-outline .wp-block-button__link::after {
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link::after {
   transition: transform var(--wp--custom--animation--duration--base)
     var(--wp--custom--animation--easing--standard);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-button.is-style-button-phase-primary .wp-block-button__link::after,
-  .wp-block-button.is-style-button-phase-outline .wp-block-button__link::after {
+  .wp-block-button.is-style-button-phase-primary .wp-block-button__link::after {
     transition: none;
   }
 
   .wp-block-button.is-style-button-phase-primary .wp-block-button__link:hover::after,
-  .wp-block-button.is-style-button-phase-primary .wp-block-button__link:focus-visible::after,
-  .wp-block-button.is-style-button-phase-outline .wp-block-button__link:hover::after,
-  .wp-block-button.is-style-button-phase-outline .wp-block-button__link:focus-visible::after {
+  .wp-block-button.is-style-button-phase-primary .wp-block-button__link:focus-visible::after {
     transform: none;
   }
 }

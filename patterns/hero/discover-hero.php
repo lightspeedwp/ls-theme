@@ -46,7 +46,7 @@
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"constrained","contentSize":"760px","justifyContent":"center"}} -->
+		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"constrained","contentSize":"860px","justifyContent":"center"}} -->
 		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
 			<!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold","lineHeight":"var:custom|line-height|heading-tight"},"color":{"text":"var(--wp--custom--color--text--on-dark)"}},"fontSize":"900"} -->
 			<h1 class="wp-block-heading has-text-align-center has-text-color has-900-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:var(--wp--custom--line-height--heading-tight)"><span style="color:var(--wp--custom--color--phase--discover-on-dark)"><?php echo esc_html__( 'Discover.', 'ls-theme' ); ?></span> <?php echo esc_html__( 'Uncover. Research. Strategise.', 'ls-theme' ); ?></h1>
@@ -80,12 +80,12 @@
 
 		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
 		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
-			<!-- wp:group {"className":"ls-discover-hero__share","style":{"border":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent)","radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"color":{"background":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 5%, transparent)"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|20","bottom":"var:preset|spacing|5","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-			<div class="wp-block-group ls-discover-hero__share has-border-color has-background" style="border-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);background-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 5%, transparent);padding-top:var(--wp--preset--spacing--5);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--5);padding-left:var(--wp--preset--spacing--20)">
-				<!-- wp:icon {"icon":"lightspeed/paper-plane-tilt","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"},"dimensions":{"width":"11px"}}} /-->
+			<!-- wp:group {"className":"ls-discover-hero__share","style":{"border":{"radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|20","bottom":"var:preset|spacing|5","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+			<div class="wp-block-group ls-discover-hero__share" style="border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);padding-top:var(--wp--preset--spacing--5);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--5);padding-left:var(--wp--preset--spacing--20)">
+				<!-- wp:icon {"icon":"lightspeed/paper-plane-tilt","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"},"dimensions":{"width":"12px"}}} /-->
 
-				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"}},"fontSize":"100"} -->
-				<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--on-dark-muted)"><a href="<?php echo esc_url( 'mailto:?subject=' . rawurlencode( get_the_title() ) . '&body=' . rawurlencode( get_permalink() ) ); ?>" style="color:inherit;text-decoration:none"><?php echo esc_html__( 'Send to a friend', 'ls-theme' ); ?></a></p>
+				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"}},"fontSize":"200"} -->
+				<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--on-dark-muted)"><a href="<?php echo esc_url( 'mailto:?subject=' . rawurlencode( get_the_title() ) . '&body=' . rawurlencode( get_permalink() ) ); ?>" style="color:inherit;text-decoration:none"><?php echo esc_html__( 'Send to a friend', 'ls-theme' ); ?></a></p>
 				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->
