@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `src/scss/structural/image-captions.scss` (new): image captions (`.wp-element-caption`/`figcaption`) previously rendered WordPress core's unthemed default text colour (`#555555`) against this theme's dark background (`#080808`), a 2.68:1 contrast ratio. Now uses the existing `--text--on-dark-muted` token (10.1:1), applied sitewide.
-- `src/scss/structural/taxonomy-filter.scss`: the active/selected state of the blog page's category filter pill (`.taxonomy-filter-current`) paired light text with its blue background at a 2.92:1 ratio. Swapped to the existing `--text--on-light` token (6.57:1 against the same background), including its hover/focus state.
+- `src/scss/structural/taxonomy-filter.scss`: the blog page's category filter pill, in its active/selected state (`.taxonomy-filter-current`), paired light text with its blue background at a 2.92:1 ratio. Swapped to the existing `--text--on-light` token (6.57:1 against the same background), including its hover/focus state.
 
 ([#61](https://github.com/lightspeedwp/ls-theme/pull/61))
 
