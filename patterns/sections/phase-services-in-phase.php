@@ -145,8 +145,8 @@ $ls_service_rows       = array_chunk( $ls_active_services, 4 );
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover))"}},"fontSize":"100"} -->
-		<p class="has-text-align-center has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Services in this phase', 'ls-theme' ); ?></p>
+		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover)"}},"fontSize":"100"} -->
+		<p class="has-text-align-center has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Services in this phase', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"700"} -->

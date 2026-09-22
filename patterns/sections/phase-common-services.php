@@ -10,8 +10,11 @@
  * before this is reused on the other five pages. Centered eyebrow/heading/intro, a wrapped pill
  * list (each pill a phase-coloured dot + label, reusing the same bordered-chip treatment as the
  * site's other tag pills) and a bordered footnote panel. Adapts between the site's light and dark
- * style variations via text tokens; the phase accent falls back from a phase's "-on-dark" token to
- * its normal token, matching phase-journey-nav.php's convention.
+ * style variations via text tokens; the phase accent uses the plain phase.{slug} token (not the
+ * "-on-dark" variant), since that token pair already resolves to the correct light/dark value for
+ * an adaptive surface — the "-on-dark" variant is reserved for permanently-dark components like
+ * phase-hero.php and phase-journey-nav.php, whose background never changes with the site's style
+ * variation.
  * Keywords: phase, discover, create, build, launch, grow, evolve, services, pills, section
  * Viewport Width: 1280
  * Inserter: true
@@ -30,7 +33,7 @@ $ls_common_services = array(
 	__( 'Early AI-readiness assessment', 'ls-theme' ),
 );
 
-$ls_phase_accent = 'var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover))';
+$ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">

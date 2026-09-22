@@ -27,8 +27,8 @@
 
 		<!-- wp:column {"verticalAlignment":"top"} -->
 		<div class="wp-block-column is-vertically-aligned-top">
-			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover))"}},"fontSize":"100"} -->
-			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Introduction', 'ls-theme' ); ?></p>
+			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover)"}},"fontSize":"100"} -->
+			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Introduction', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"500"} -->

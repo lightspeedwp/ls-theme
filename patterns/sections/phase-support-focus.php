@@ -26,7 +26,7 @@ $ls_focus_areas = array(
 	__( 'Documenting risks, constraints and recommended next steps', 'ls-theme' ),
 );
 
-$ls_phase_accent = 'var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover))';
+$ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
