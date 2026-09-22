@@ -48,7 +48,7 @@
 
 /*
  * "Send to a friend" (Discover Hero): rest-state background/border colour moved here from
- * discover-hero.php's inline block attributes, specifically so the hover swap below can work at
+ * phase-hero.php's inline block attributes, specifically so the hover swap below can work at
  * all — an inline `style="background-color:...;border-color:..."` always wins the cascade over
  * any external stylesheet rule for the same property (same class of bug documented in
  * blog-hero.scss), so a `:hover` rule here could never have overridden an inline rest colour.
@@ -57,7 +57,7 @@
  * only, no motion/transform — since this control is meant to stay lower-priority than the CTAs
  * above it.
  */
-.ls-discover-hero__share {
+.ls-phase-hero__share {
   background-color: color-mix(in srgb, var(--wp--custom--color--text--on-dark) 5%, transparent);
   border-color: color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent);
   transition: background-color var(--wp--custom--animation--duration--base)
@@ -66,14 +66,14 @@
       var(--wp--custom--animation--easing--standard);
 }
 
-.ls-discover-hero__share:hover,
-.ls-discover-hero__share:focus-within {
+.ls-phase-hero__share:hover,
+.ls-phase-hero__share:focus-within {
   background-color: color-mix(in srgb, var(--wp--custom--color--text--on-dark) 9%, transparent);
   border-color: color-mix(in srgb, var(--wp--custom--color--text--on-dark) 16%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ls-discover-hero__share {
+  .ls-phase-hero__share {
     transition: none;
   }
 }

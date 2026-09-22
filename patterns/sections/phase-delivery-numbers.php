@@ -1,23 +1,25 @@
 <?php
 /**
- * Title: Section - Discover Delivery Numbers
- * Slug: ls-theme/discover-delivery-numbers
+ * Title: Section - Phase Delivery Numbers
+ * Slug: ls-theme/phase-delivery-numbers
  * Categories: featured
  * Block Types: core/pattern
- * Description: The Discover page's 3-stat row (complex CMS migration types handled, legacy posts
- * migrated, AI-assisted analysis speed). Reuses the existing Stat Segment style
- * (is-style-stat-segment) — same building block as services-delivery-numbers.php and the Work
- * archive's engagement row — with a vertical divider border between columns (a per-column border
- * attribute, no new CSS) to match the Figma reference. Fully adapts between the site's light and
- * dark style variations via surface/text tokens — this section is not forced dark like the hero.
- * Keywords: discover, stats, delivery, section
+ * Description: Shared 3-stat row for all six lifecycle phase pages — currently authored with
+ * Discover's own stats/copy; the stat values and captions still need to be pulled out per-page
+ * (e.g. via Pattern Overrides) before this is reused on the other five pages. Reuses the existing
+ * Stat Segment style (is-style-stat-segment) — same building block as services-delivery-numbers.php
+ * and the Work archive's engagement row — with a vertical divider border between columns (a
+ * per-column border attribute, no new CSS) to match the Figma reference. Fully adapts between the
+ * site's light and dark style variations via surface/text tokens — this section is not forced dark
+ * like the hero.
+ * Keywords: phase, stats, delivery, discover, create, build, launch, grow, evolve, section
  * Viewport Width: 1280
  * Inserter: true
  *
  * @package ls-theme
  */
 
-$ls_discover_stats = array(
+$ls_phase_stats = array(
 	array(
 		'value'       => '6',
 		'suffix'      => __( '+', 'ls-theme' ),
@@ -38,16 +40,16 @@ $ls_discover_stats = array(
 	),
 );
 
-$ls_discover_stats_count = count( $ls_discover_stats );
+$ls_phase_stats_count = count( $ls_phase_stats );
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:columns {"align":"wide","className":"ls-discover-stats-row"} -->
-	<div class="wp-block-columns alignwide ls-discover-stats-row">
+	<!-- wp:columns {"align":"wide","className":"ls-phase-stats-row"} -->
+	<div class="wp-block-columns alignwide ls-phase-stats-row">
 		<?php
-		foreach ( $ls_discover_stats as $ls_stat_index => $ls_stat ) :
-			$ls_is_last_column = ( $ls_stat_index === $ls_discover_stats_count - 1 );
+		foreach ( $ls_phase_stats as $ls_stat_index => $ls_stat ) :
+			$ls_is_last_column = ( $ls_stat_index === $ls_phase_stats_count - 1 );
 			?>
 
 			<?php if ( $ls_is_last_column ) : ?>

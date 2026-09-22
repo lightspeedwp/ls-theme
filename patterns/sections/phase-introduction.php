@@ -1,15 +1,17 @@
 <?php
 /**
- * Title: Section - Discover Introduction
- * Slug: ls-theme/discover-introduction
+ * Title: Section - Phase Introduction
+ * Slug: ls-theme/phase-introduction
  * Categories: featured
  * Block Types: core/pattern
- * Description: The Discover page's two-column introduction: "Introduction" (why Discover exists)
- * beside "Why this stage matters" (the cost of skipping it). Plain wp:columns text layout, same
+ * Description: Shared two-column introduction section for all six lifecycle phase pages —
+ * currently authored with Discover's own copy ("Introduction" / "Why this stage matters"); the
+ * heading and paragraph text still need to be pulled out per-page (e.g. via Pattern Overrides)
+ * before this is reused on the other five pages. Plain wp:columns text layout, same
  * eyebrow/heading/paragraph convention as services-linked-decisions.php's left column, with no card
  * shell — matching the Figma reference. Fully adapts between the site's light and dark style
  * variations via text tokens.
- * Keywords: discover, introduction, section
+ * Keywords: phase, introduction, discover, create, build, launch, grow, evolve, section
  * Viewport Width: 1280
  * Inserter: true
  *

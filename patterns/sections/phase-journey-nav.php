@@ -8,7 +8,7 @@
  * Launch, Grow, Evolve). Self-contained and reusable as-is on each phase page — it detects the
  * current page by slug and highlights the matching step automatically, so inserting this same
  * pattern on the Create/Build/Launch/Grow/Evolve pages needs no manual editing per instance. Always
- * dark, matching the hero it normally sits directly beneath (see discover-hero.php) — a solid
+ * dark, matching the hero it normally sits directly beneath (see phase-hero.php) — a solid
  * surface.band-end fill (the same permanently-dark token used for the hero's own base gradient,
  * rather than surface.canvas, which flips with the light/dark style variation) for a near-black,
  * understated band, with definition coming from the top/bottom borders rather than a lighter panel

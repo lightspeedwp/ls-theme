@@ -1,20 +1,23 @@
 <?php
 /**
- * Title: Hero - Discover
- * Slug: ls-theme/discover-hero
+ * Title: Hero - Phase
+ * Slug: ls-theme/phase-hero
  * Categories: hero
  * Block Types: core/pattern
- * Description: The Discover phase page's hero: an independently-aligned breadcrumb, a compact
- * "Phase 01" pill, a centred two-line heading, description, fine-print, CTA row, and a
- * "send to a friend" utility pill. Full-bleed and permanently dark — the section's own grid
- * texture, radial phase-colour glow, and dark base all live in
- * src/scss/structural/discover-hero.scss (className ls-phase-hero), the same "background can't be
+ * Description: Shared hero for all six lifecycle phase pages (Discover, Create, Build, Launch,
+ * Grow, Evolve) — currently authored with Discover's own content; the phase number, heading,
+ * description, CTAs and phase colour still need to be pulled out per-page (e.g. via Pattern
+ * Overrides) before this is reused on the other five pages. Structure: an independently-aligned
+ * breadcrumb, a compact "Phase 0X" pill, a centred two-line heading, description, fine-print, CTA
+ * row, and a "send to a friend" utility pill. Full-bleed and permanently dark — the section's own
+ * grid texture, radial phase-colour glow, and dark base all live in
+ * src/scss/structural/phase-hero.scss (className ls-phase-hero), the same "background can't be
  * a block attribute" reasoning documented in blog-hero.scss (an inline background always wins the
- * cascade over an external stylesheet's background-image). Accents use the shipped
+ * cascade over an external stylesheet's background-image). Accents currently use the shipped
  * phase.discover-on-dark token (same phase-one hue as the site's lifecycle system, tuned for
- * permanent-dark surfaces), and the breadcrumb reuses blog-hero.php's existing
- * ls-breadcrumbs-on-dark treatment.
- * Keywords: discover, hero, phase, lifecycle, section
+ * permanent-dark surfaces) — each other phase page will need its own "-on-dark" token the same way.
+ * The breadcrumb reuses blog-hero.php's existing ls-breadcrumbs-on-dark treatment.
+ * Keywords: phase, hero, lifecycle, discover, create, build, launch, grow, evolve, section
  * Viewport Width: 1280
  * Inserter: true
  *
@@ -80,8 +83,8 @@
 
 		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
 		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
-			<!-- wp:group {"className":"ls-discover-hero__share","style":{"border":{"radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|20","bottom":"var:preset|spacing|5","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-			<div class="wp-block-group ls-discover-hero__share" style="border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);padding-top:var(--wp--preset--spacing--5);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--5);padding-left:var(--wp--preset--spacing--20)">
+			<!-- wp:group {"className":"ls-phase-hero__share","style":{"border":{"radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|20","bottom":"var:preset|spacing|5","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+			<div class="wp-block-group ls-phase-hero__share" style="border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);padding-top:var(--wp--preset--spacing--5);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--5);padding-left:var(--wp--preset--spacing--20)">
 				<!-- wp:icon {"icon":"lightspeed/paper-plane-tilt","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"},"dimensions":{"width":"12px"}}} /-->
 
 				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"}},"fontSize":"200"} -->

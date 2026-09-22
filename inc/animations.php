@@ -278,14 +278,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
-		'discover-hero'             => array(
-			'handle'    => 'ls-theme-discover-hero',
-			'path'      => 'assets/css/discover-hero.css',
+		'phase-hero'                => array(
+			'handle'    => 'ls-theme-phase-hero',
+			'path'      => 'assets/css/phase-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Scoped to the Discover page's own slug, same reasoning as services-service-tiles/
-			// services-delivery-numbers above — a real, known page slug from the start.
+			// Shared hero for all six lifecycle phase pages, so this is scoped to the pattern's
+			// own className (same reasoning as phase-journey-nav below) rather than a single
+			// page slug, now that it's no longer Discover-only.
 			'condition' => static function () {
-				return is_page( 'discover' );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},
 		),
 		'services-hero'             => array(
