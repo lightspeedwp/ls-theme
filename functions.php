@@ -85,6 +85,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/faq.css' );
 	add_editor_style( 'assets/css/links.css' );
 	add_editor_style( 'assets/css/button-secondary.css' );
+	add_editor_style( 'assets/css/button-phase.css' );
 	add_editor_style( 'assets/css/featured-work.css' );
 	add_editor_style( 'assets/css/where-to-fit.css' );
 	add_editor_style( 'assets/css/homepage-cta.css' );

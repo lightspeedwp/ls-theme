@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/button"
 	],
-	"description": "Outline pill CTA pairing Button - Phase Primary on the phase-page heroes. Transparent background, thin phase-colour border, phase-colour text — no separate boxed icon area, and deliberately no arrow glyph (only the Primary CTA carries the arrow; this is the secondary/lower-emphasis action). Same on-dark-constant reasoning and same 'hardwired to Discover for now' note as button-phase-primary.json.",
+	"description": "Outline pill CTA pairing Button - Phase Primary on the phase-page heroes and CTAs. Uses the exact same horizontal padding token (spacing|40) as Button - Phase Primary so both buttons share one spacing system — this one simply reads wider because its label is longer, not because of a mismatched padding scale. Rest state: transparent background, thin phase-colour border, phase-colour text, no arrow glyph — deliberately arrow-free (this is the secondary/lower-emphasis action; only Primary carries an arrow). On hover: a centre-out circle reveal (adapted from the 'Flow Button' component, https://21st.dev/@xubohuah/components/flow-button) fills the button, the border fades to transparent, text flips to a contrasting colour, and the corners tighten slightly — none of that depends on an arrow, so it works cleanly without one. All hover-dependent CSS lives in src/scss/animations/_button-motion.scss, since a bare :hover in a style JSON's css field is silently stripped by WordPress. Same on-dark-constant reasoning and 'hardwired to Discover for now' note as button-phase-primary.json.",
 	"styles": {
 		"color": {
 			"background": "transparent",
@@ -21,9 +21,9 @@
 		"spacing": {
 			"padding": {
 				"top": "var:preset|spacing|20",
-				"right": "var:preset|spacing|20",
+				"right": "var:preset|spacing|40",
 				"bottom": "var:preset|spacing|20",
-				"left": "var:preset|spacing|20"
+				"left": "var:preset|spacing|40"
 			}
 		},
 		"typography": {
@@ -31,6 +31,6 @@
 			"fontWeight": "var:custom|typography|font-weight|semibold",
 			"letterSpacing": "normal"
 		},
-		"css": "&{display:inline-flex;align-items:center;}"
+		"css": "&{display:inline-flex;align-items:center;position:relative;overflow:hidden;}"
 	}
 }

@@ -83,6 +83,7 @@ function ls_theme_get_bundle_render_markers() {
 		'blog-all-articles'         => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
 		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
 		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
+		'button-phase'              => array( 'classes' => array( 'is-style-button-phase-primary', 'is-style-button-phase-outline' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -409,6 +410,18 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// post_content.
 			'condition' => static function () {
 				return is_front_page() || is_post_type_archive( 'project' ) || is_404();
+			},
+		),
+		'button-phase'              => array(
+			'handle'    => 'ls-theme-button-phase',
+			'path'      => 'assets/css/button-phase.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Fast path for its only known placement so far (the Discover hero and its CTAs).
+			// Also registered in ls_theme_get_bundle_render_markers() below so it still loads once
+			// this same button style is reused on the Create/Build/Launch/Grow/Evolve phase pages,
+			// without needing this condition updated first.
+			'condition' => static function () {
+				return is_page( 'discover' );
 			},
 		),
 		'featured-work'             => array(

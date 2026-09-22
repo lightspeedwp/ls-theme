@@ -29,12 +29,19 @@
 }
 
 /*
- * Breadcrumb (Discover Hero): reuses the existing .ls-breadcrumbs-on-dark class and its `a` colour
- * fix from blog-hero.scss unmodified. This is the one addition that class doesn't already cover —
- * highlighting the current/last crumb in the hero's own phase colour. Yoast SEO's breadcrumb
- * output marks the current, unlinked page with .breadcrumb_last (a plain span, not an anchor), so
- * this can't be covered by the `a` rule above.
+ * Breadcrumb (Discover Hero): reuses the existing .ls-breadcrumbs-on-dark class name from
+ * blog-hero.php, but NOT its `a` colour fix — that rule lives in blog-hero.scss/blog-hero.css,
+ * which is only enqueued on the Blog archive template (see the is_page_template() condition in
+ * inc/animations.php's ls_theme_get_effect_styles()), so it never loads on this page at all. Left
+ * unstyled, "Home" fell back to the sitewide global link colour (bright cyan in the active dark
+ * style variation) instead of a muted grey. The fix below is scoped to `.ls-phase-hero` — this
+ * file's own already-page-scoped selector — so it can never affect the Blog archive's identical
+ * class name or any other page.
  */
+.ls-phase-hero .ls-breadcrumbs-on-dark a {
+  color: var(--wp--custom--color--text--on-dark-muted);
+}
+
 .ls-phase-hero .breadcrumb_last {
   color: var(--wp--custom--color--phase--discover-on-dark);
 }

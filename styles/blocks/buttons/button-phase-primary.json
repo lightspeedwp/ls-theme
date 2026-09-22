@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/button"
 	],
-	"description": "Pill CTA for the phase-page heroes (Discover, and eventually Create/Build/Launch/Grow/Evolve). Background/text stay constant across the light/dark style variation toggle, matching the on-dark token family — the hero itself is permanently dark, so this can't use the sitewide button.fill tokens, which flip colour with the variation. Rest state (colour, shape, the inline arrow glyph) lives here; the hover/focus arrow-slide motion lives in src/scss/animations/_button-motion.scss, since a bare :hover in a style JSON's css field is silently stripped by WordPress. Currently hardwired to phase.discover-on-dark rather than a CSS custom property — narrowed to what Discover actually needs now; generalise to a shared --ls-button-phase-accent custom property (set by whichever hero uses it) once a second phase page needs this same style, rather than guessing at that shape today.",
+	"description": "Pill CTA for the phase-page heroes and CTAs (Discover, and eventually Create/Build/Launch/Grow/Evolve). Background/text stay constant across the light/dark style variation toggle, matching the on-dark token family — the hero itself is permanently dark, so this can't use the sitewide button.fill tokens, which flip colour with the variation. Stays filled at all times (approved design decision). Uses the exact same horizontal padding token (spacing|40) as Button - Phase Outline so both buttons share one spacing system and only their content — not an artificial equal-width rule — determines each one's width. The arrow is a normal inline flex item after the label (gap-based spacing, not an absolutely-positioned overlay) with a small hover nudge; earlier attempts at an absolutely-positioned enter/exit arrow swap needed ever-larger padding just to keep the arrow clear of the text and were reverted for exactly that reason — do not reintroduce that approach. Border-radius tightens slightly on hover, matching Button - Phase Outline's own hover treatment. Rest state (colour, shape, arrow glyph) lives here; the hover states live in src/scss/animations/_button-motion.scss, since a bare :hover in a style JSON's css field is silently stripped by WordPress. Currently hardwired to phase.discover-on-dark rather than a CSS custom property — narrowed to what Discover actually needs now; generalise to a shared --ls-button-phase-accent custom property (set by whichever hero uses it) once a second phase page needs this same style, rather than guessing at that shape today.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|phase|discover-on-dark",
@@ -30,6 +30,6 @@
 			"fontWeight": "var:custom|typography|font-weight|semibold",
 			"letterSpacing": "normal"
 		},
-		"css": "&{display:inline-flex;align-items:center;gap:var(--wp--preset--spacing--10);}\n\n&::after{content:\"\\2192\";display:inline-block;}"
+		"css": "&{display:inline-flex;align-items:center;justify-content:center;gap:var(--wp--preset--spacing--10);}\n\n&::after{content:\"\\2192\";display:inline-block;}"
 	}
 }
