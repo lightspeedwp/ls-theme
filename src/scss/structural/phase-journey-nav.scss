@@ -1,0 +1,91 @@
+/********** Section - Phase Journey Nav (phase-page heroes' journey bar) **********/
+
+/*
+ * Inactive / hover / active / hover-active / focus-visible states for the six phase links.
+ * Rest-state box model (padding, dividers, background) lives as inline block attributes in
+ * phase-journey-nav.php; this file owns only the parts that need a pseudo-class, since a bare
+ * :hover/:focus-visible in a style JSON's css field is silently stripped by WordPress, and an
+ * inline `style="color:..."` on the link would always win the cascade over any external :hover
+ * rule for the same property (same class of bug already documented for the hero's "Send to a
+ * friend" control) — so `color` is left for this file to own entirely; the pattern only ever sets
+ * the `--ls-phase-item-accent` custom property per item.
+ *
+ * Not sitewide-exclusive/header-or-footer content, so per AGENTS.md this doesn't belong in
+ * assets/css/animations.css even though a couple of these rules include a transition — that
+ * restriction is specific to the src/scss/animations/** folder, not to structural files in
+ * general (same reasoning already applied to button-phase.scss).
+ */
+.ls-phase-journey-nav__link a {
+  transition: color var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+}
+
+/*
+ * Inactive (rest): noticeably darker than the hover state below, so hover actually reads as a
+ * state change instead of every item already looking hovered — but still built from the same
+ * on-dark-muted token (dimmed via color-mix against the bar's own dark background) rather than a
+ * separate hardcoded grey, so it stays part of the same token family as everything else here.
+ */
+.ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a {
+  color: color-mix(in srgb, var(--wp--custom--color--text--on-dark-muted) 55%, transparent);
+}
+
+/* Inactive hover/focus: brighter and clearly interactive — never the active phase colour, never the dot. */
+.ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a:hover,
+.ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a:focus-visible {
+  color: var(--wp--custom--color--text--on-dark);
+}
+
+/* Active (rest): the current phase's own accent colour, passed down per item as a custom property. */
+.ls-phase-journey-nav__step.is-active .ls-phase-journey-nav__link a {
+  color: var(--ls-phase-item-accent);
+}
+
+/*
+ * Active hover/focus: text lightens to the same "on-dark" white used for inactive hover, but the
+ * dot (a separate icon element, styled independently) is untouched by this rule and keeps reading
+ * in the phase colour — preserving "this is still the current page" rather than looking like a
+ * plain hovered-inactive item.
+ */
+.ls-phase-journey-nav__step.is-active .ls-phase-journey-nav__link a:hover,
+.ls-phase-journey-nav__step.is-active .ls-phase-journey-nav__link a:focus-visible {
+  color: var(--wp--custom--color--text--on-dark);
+}
+
+/*
+ * Focus-visible outline: uses text.on-dark rather than the sitewide focus.ring token, which
+ * resolves to a near-black colour in the light style variation — invisible against this
+ * permanently-dark bar. Same "on-dark family" reasoning already used throughout this component.
+ */
+.ls-phase-journey-nav__link a:focus-visible {
+  outline: 2px solid var(--wp--custom--color--text--on-dark);
+  outline-offset: 3px;
+  border-radius: var(--wp--preset--border-radius--100);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-phase-journey-nav__link a {
+    transition: none;
+  }
+}
+
+/*
+ * Responsive: six phase links plus the "Journey Phases" label don't fit a narrow viewport without
+ * either wrapping onto multiple messy lines or shrinking illegibly. A horizontal scroll strip
+ * keeps every item on one line, in order, and still usable — preferred over awkward wrapping.
+ */
+@media (max-width: 781px) {
+  .ls-phase-journey-nav__items {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ls-phase-journey-nav__items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ls-phase-journey-nav__step {
+    flex-shrink: 0;
+  }
+}

@@ -84,6 +84,7 @@ function ls_theme_get_bundle_render_markers() {
 		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
 		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
 		'button-phase'              => array( 'classes' => array( 'is-style-button-phase-primary', 'is-style-button-phase-outline' ) ),
+		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -420,6 +421,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Also registered in ls_theme_get_bundle_render_markers() below so it still loads once
 			// this same button style is reused on the Create/Build/Launch/Grow/Evolve phase pages,
 			// without needing this condition updated first.
+			'condition' => static function () {
+				return is_page( 'discover' );
+			},
+		),
+		'phase-journey-nav'         => array(
+			'handle'    => 'ls-theme-phase-journey-nav',
+			'path'      => 'assets/css/phase-journey-nav.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as button-phase above: fast path for Discover today, plus the
+			// render_block fallback registered in ls_theme_get_bundle_render_markers() so it keeps
+			// working once this same pattern is reused on the other five phase pages.
 			'condition' => static function () {
 				return is_page( 'discover' );
 			},

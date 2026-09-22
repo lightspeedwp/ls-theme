@@ -39,6 +39,9 @@ require get_template_directory() . '/inc/work-single-hero.php';
 /** Loads Blog Single "Related Reading" query filtering */
 require get_template_directory() . '/inc/blog-single-related-query.php';
 
+/** Loads bare phase-slug (e.g. /discover/) redirects to their real nested URL */
+require get_template_directory() . '/inc/phase-page-redirects.php';
+
 /**
  * Sets up theme supports.
  */
@@ -86,6 +89,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/links.css' );
 	add_editor_style( 'assets/css/button-secondary.css' );
 	add_editor_style( 'assets/css/button-phase.css' );
+	add_editor_style( 'assets/css/phase-journey-nav.css' );
 	add_editor_style( 'assets/css/featured-work.css' );
 	add_editor_style( 'assets/css/where-to-fit.css' );
 	add_editor_style( 'assets/css/homepage-cta.css' );
