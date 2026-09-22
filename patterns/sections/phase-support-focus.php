@@ -31,8 +31,8 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover-on-dark, var(--wp--
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
-	<div class="wp-block-group">
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
+	<div class="wp-block-group alignwide">
 		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"}},"fontSize":"100"} -->
 		<p class="has-text-align-center has-text-color has-100-font-size" style="color:<?php echo esc_attr( $ls_phase_accent ); ?>;font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Built to support', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
@@ -43,8 +43,8 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover-on-dark, var(--wp--
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"blockGap":{"left":"var:preset|spacing|60"}}} -->
-	<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--40)">
+	<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"blockGap":{"left":"var:preset|spacing|60"}}} -->
+	<div class="wp-block-columns alignwide are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--40)">
 
 		<!-- wp:column {"verticalAlignment":"top"} -->
 		<div class="wp-block-column is-vertically-aligned-top">

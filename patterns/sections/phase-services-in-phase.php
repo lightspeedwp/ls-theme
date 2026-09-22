@@ -143,8 +143,8 @@ $ls_service_rows       = array_chunk( $ls_active_services, 4 );
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
-	<div class="wp-block-group">
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
+	<div class="wp-block-group alignwide">
 		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover))"}},"fontSize":"100"} -->
 		<p class="has-text-align-center has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Services in this phase', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
@@ -160,8 +160,8 @@ $ls_service_rows       = array_chunk( $ls_active_services, 4 );
 	<!-- /wp:group -->
 
 	<?php foreach ( $ls_service_rows as $ls_row_index => $ls_row ) : ?>
-	<!-- wp:columns {"style":{"spacing":{"margin":{"top":"<?php echo 0 === $ls_row_index ? 'var:preset|spacing|40' : 'var:preset|spacing|20'; ?>"},"blockGap":"var:preset|spacing|20"}}} -->
-	<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--<?php echo 0 === $ls_row_index ? '40' : '20'; ?>)">
+	<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"<?php echo 0 === $ls_row_index ? 'var:preset|spacing|40' : 'var:preset|spacing|20'; ?>"},"blockGap":"var:preset|spacing|20"}}} -->
+	<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--<?php echo 0 === $ls_row_index ? '40' : '20'; ?>)">
 		<?php foreach ( $ls_row as $ls_service ) : ?>
 		<!-- wp:column -->
 		<div class="wp-block-column">
