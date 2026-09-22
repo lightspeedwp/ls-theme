@@ -7,14 +7,45 @@
  * :hover/:focus-visible in a style JSON's css field is silently stripped by WordPress, and an
  * inline `style="color:..."` on the link would always win the cascade over any external :hover
  * rule for the same property (same class of bug already documented for the hero's "Send to a
- * friend" control) — so `color` is left for this file to own entirely; the pattern only ever sets
- * the `--ls-phase-item-accent` custom property per item.
+ * friend" control) — so `color` is left for this file to own entirely.
+ *
+ * The `--ls-phase-item-accent` custom property is set here, per phase, via each step's
+ * `ls-phase-journey-nav__step--{phase}` modifier class, rather than as an inline custom property
+ * on the block itself: a raw CSS custom property has no equivalent in core/group's declared style
+ * attributes, so WordPress's block validator has no way to reconstruct it and always flags the
+ * block as invalid ("Attempt Recovery") the moment it's parsed back into editable blocks. Setting
+ * it from a plain className instead keeps the block's own style attribute limited to properties
+ * WordPress actually knows how to round-trip.
  *
  * Not sitewide-exclusive/header-or-footer content, so per AGENTS.md this doesn't belong in
  * assets/css/animations.css even though a couple of these rules include a transition — that
  * restriction is specific to the src/scss/animations/** folder, not to structural files in
  * general (same reasoning already applied to button-phase.scss).
  */
+.ls-phase-journey-nav__step--discover {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));
+}
+
+.ls-phase-journey-nav__step--create {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--create-on-dark, var(--wp--custom--color--phase--create));
+}
+
+.ls-phase-journey-nav__step--build {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--build-on-dark, var(--wp--custom--color--phase--build));
+}
+
+.ls-phase-journey-nav__step--launch {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--launch-on-dark, var(--wp--custom--color--phase--launch));
+}
+
+.ls-phase-journey-nav__step--grow {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--grow-on-dark, var(--wp--custom--color--phase--grow));
+}
+
+.ls-phase-journey-nav__step--evolve {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--evolve-on-dark, var(--wp--custom--color--phase--evolve));
+}
+
 .ls-phase-journey-nav__link a {
   transition: color var(--wp--custom--animation--duration--base)
     var(--wp--custom--animation--easing--standard);

@@ -86,7 +86,7 @@ if ( $ls_queried_object instanceof WP_Post ) {
 }
 ?>
 <!-- wp:group {"align":"full","tagName":"nav","className":"ls-phase-journey-nav","style":{"border":{"top":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 12%, transparent)","style":"solid","width":"1px"},"bottom":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 12%, transparent)","style":"solid","width":"1px"}},"color":{"background":"var:custom|color|surface|band-end"},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|20","right":"8%","bottom":"var:preset|spacing|20","left":"8%"}}},"layout":{"type":"constrained"}} -->
-<nav class="wp-block-group alignfull ls-phase-journey-nav has-background" aria-label="<?php echo esc_attr__( 'Journey phases', 'ls-theme' ); ?>" style="margin-top:0;border-top-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 12%, transparent);border-top-style:solid;border-top-width:1px;border-bottom-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 12%, transparent);border-bottom-style:solid;border-bottom-width:1px;background-color:var(--wp--custom--color--surface--band-end);padding-right:8%;padding-left:8%">
+<nav class="wp-block-group alignfull ls-phase-journey-nav has-background" aria-label="<?php echo esc_attr__( 'Journey phases', 'ls-theme' ); ?>" style="border-top-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 12%, transparent);border-top-style:solid;border-top-width:1px;border-bottom-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 12%, transparent);border-bottom-style:solid;border-bottom-width:1px;background-color:var(--wp--custom--color--surface--band-end);margin-top:0;padding-top:var(--wp--preset--spacing--20);padding-right:8%;padding-bottom:var(--wp--preset--spacing--20);padding-left:8%">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 	<div class="wp-block-group alignwide">
@@ -105,10 +105,10 @@ if ( $ls_queried_object instanceof WP_Post ) {
 			foreach ( $ls_journey_phases as $ls_step ) :
 				$ls_is_active  = ( $ls_current_phase_slug === $ls_step['phase'] );
 				$ls_step_color = 'var(--wp--custom--color--phase--' . $ls_step['phase'] . '-on-dark, var(--wp--custom--color--phase--' . $ls_step['phase'] . '))';
-				$ls_step_class = 'ls-phase-journey-nav__step' . ( $ls_is_active ? ' is-active' : '' );
+				$ls_step_class = 'ls-phase-journey-nav__step ls-phase-journey-nav__step--' . $ls_step['phase'] . ( $ls_is_active ? ' is-active' : '' );
 				?>
 			<!-- wp:group {"className":"<?php echo esc_attr( $ls_step_class ); ?>","style":{"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-			<div class="wp-block-group <?php echo esc_attr( $ls_step_class ); ?>" style="--ls-phase-item-accent:<?php echo esc_attr( $ls_step_color ); ?>;padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
+			<div class="wp-block-group <?php echo esc_attr( $ls_step_class ); ?>" style="padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
 				<!-- wp:paragraph {"className":"ls-phase-journey-nav__link","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide","fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"100"} -->
 				<p class="has-100-font-size ls-phase-journey-nav__link" style="font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><a href="<?php echo esc_url( home_url( $ls_step['url'] ) ); ?>" style="text-decoration:none"><?php echo esc_html( $ls_step['index'] . ' ' . $ls_step['label'] ); ?></a></p>
 				<!-- /wp:paragraph -->
