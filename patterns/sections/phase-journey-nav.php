@@ -23,16 +23,19 @@
  * passed down as a CSS custom property instead of a literal `color`, leaving the actual `color`
  * property free for that external stylesheet to own per state.
  *
- * IMPORTANT — insert this as a live reference, not a flattened copy: the "auto-detect active
- * phase" logic below only re-evaluates on every real front-end request if this pattern stays a
- * live `<!-- wp:pattern {"slug":"ls-theme/phase-journey-nav"} /-->` reference block. WordPress's
- * normal "click to insert from the pattern library" flow instead flattens a file-registered
- * pattern into a static copy of whatever get_queried_object() resolved to at insertion time (which
- * is frequently no page at all, e.g. inside the REST endpoint that serves the inserter panel) —
- * baking in a permanently-wrong or permanently-blank active state that can never update again,
- * confirmed empirically while building this page. Use the pattern/reference block, or the Insert
- * Pattern flow if a future WP version changes this default, but verify the rendered HTML actually
- * contains "is-active" before treating a phase page as done.
+ * Active-state detection does NOT depend on this pattern staying a live reference. An earlier
+ * version computed the active step purely in PHP via get_queried_object(), which only re-evaluated
+ * on real front-end requests while the pattern stayed a live `wp:pattern` reference — WordPress
+ * routinely flattens a pattern into a frozen static copy the moment a page is opened in the
+ * editor, permanently baking in whatever active state existed at that moment (often wrong or
+ * blank), and re-attaching the live reference doesn't prevent it from being reflattened again on
+ * the next edit. The PHP below still computes `$ls_is_active` and adds an `is-active` class as a
+ * best-effort default, but the actual visual active/inactive treatment (link colour, dot
+ * visibility) is driven entirely by CSS keyed off a `page-slug-{slug}` body class — see
+ * ls_theme_add_phase_page_body_class() in inc/phase-page-body-class.php and the body-class rules
+ * in phase-journey-nav.scss. That body class is recomputed by WordPress core on every single
+ * request regardless of how this pattern's blocks are stored, so the correct step stays
+ * highlighted even if this instance is (or becomes) a flattened copy.
  * Keywords: phase, journey, lifecycle, navigation, section
  * Viewport Width: 1280
  * Inserter: true
@@ -113,9 +116,7 @@ if ( $ls_queried_object instanceof WP_Post ) {
 				<p class="has-100-font-size ls-phase-journey-nav__link" style="font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><a href="<?php echo esc_url( home_url( $ls_step['url'] ) ); ?>" style="text-decoration:none"><?php echo esc_html( $ls_step['index'] . ' ' . $ls_step['label'] ); ?></a></p>
 				<!-- /wp:paragraph -->
 
-				<?php if ( $ls_is_active ) : ?>
 				<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color ls-phase-journey-nav__dot","style":{"color":{"text":"<?php echo esc_attr( $ls_step_color ); ?>"},"dimensions":{"width":"8px"}}} /-->
-				<?php endif; ?>
 			</div>
 			<!-- /wp:group -->
 			<?php endforeach; ?>

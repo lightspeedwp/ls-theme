@@ -52,35 +52,50 @@
 }
 
 /*
- * Inactive (rest): noticeably darker than the hover state below, so hover actually reads as a
- * state change instead of every item already looking hovered — but still built from the same
- * on-dark-muted token (dimmed via color-mix against the bar's own dark background) rather than a
- * separate hardcoded grey, so it stays part of the same token family as everything else here.
+ * Inactive (rest, default for every item): noticeably darker than the hover state below, so hover
+ * actually reads as a state change instead of every item already looking hovered — but still built
+ * from the same on-dark-muted token (dimmed via color-mix against the bar's own dark background)
+ * rather than a separate hardcoded grey, so it stays part of the same token family as everything
+ * else here. The dot is hidden by default; it's always rendered in the markup (never
+ * PHP-conditional) so the body-class rules below can show/hide it with pure CSS.
  */
-.ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a {
+.ls-phase-journey-nav__link a {
   color: color-mix(in srgb, var(--wp--custom--color--text--on-dark-muted) 55%, transparent);
 }
 
-/* Inactive hover/focus: brighter and clearly interactive — never the active phase colour, never the dot. */
-.ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a:hover,
-.ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a:focus-visible {
+.ls-phase-journey-nav__link a:hover,
+.ls-phase-journey-nav__link a:focus-visible {
   color: var(--wp--custom--color--text--on-dark);
 }
 
-/* Active (rest): the current phase's own accent colour, passed down per item as a custom property. */
-.ls-phase-journey-nav__step.is-active .ls-phase-journey-nav__link a {
-  color: var(--ls-phase-item-accent);
+.ls-phase-journey-nav__dot {
+  display: none;
 }
 
 /*
- * Active hover/focus: text lightens to the same "on-dark" white used for inactive hover, but the
- * dot (a separate icon element, styled independently) is untouched by this rule and keeps reading
- * in the phase colour — preserving "this is still the current page" rather than looking like a
- * plain hovered-inactive item.
+ * Active override, keyed off the `page-slug-{phase}` body class from
+ * inc/phase-page-body-class.php rather than the `is-active` class PHP adds to this step: that body
+ * class is recomputed by WordPress on every request regardless of whether this pattern is a live
+ * reference or a flattened copy, so the correct step stays highlighted even if this instance's own
+ * `is-active` class is stale or was never set. Written per phase (not a generic
+ * `.is-active`-style rule) because the selector needs both the current page's body class AND the
+ * matching step's own modifier class to agree on which one item lights up.
  */
-.ls-phase-journey-nav__step.is-active .ls-phase-journey-nav__link a:hover,
-.ls-phase-journey-nav__step.is-active .ls-phase-journey-nav__link a:focus-visible {
-  color: var(--wp--custom--color--text--on-dark);
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-journey-nav__step--#{$ls-phase} {
+    .ls-phase-journey-nav__link a {
+      color: var(--ls-phase-item-accent);
+    }
+
+    .ls-phase-journey-nav__link a:hover,
+    .ls-phase-journey-nav__link a:focus-visible {
+      color: var(--wp--custom--color--text--on-dark);
+    }
+
+    .ls-phase-journey-nav__dot {
+      display: inline-flex;
+    }
+  }
 }
 
 /*
