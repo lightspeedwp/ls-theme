@@ -28,8 +28,8 @@ $ls_focus_areas = array(
 
 $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"color":{"background":"var:custom|color|surface|card"},"spacing":{"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band has-background" style="background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
 
 	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}},"layout":{"type":"default"}} -->
 	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--40)">
@@ -45,8 +45,8 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 
 	<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"blockGap":{"left":"var:preset|spacing|70"}}} -->
-		<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--40)">
+		<!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}},"blockGap":{"left":"var:preset|spacing|70"}}} -->
+		<div class="wp-block-columns are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--60)">
 
 			<!-- wp:column {"verticalAlignment":"top"} -->
 			<div class="wp-block-column is-vertically-aligned-top">
@@ -98,8 +98,8 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
-	<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
+	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
+	<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--60)">
 		<!-- wp:button {"className":"is-style-button-phase-primary"} -->
 		<div class="wp-block-button is-style-button-phase-primary"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Request Assessment', 'ls-theme' ); ?></a></div>
 		<!-- /wp:button -->
