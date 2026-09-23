@@ -9,9 +9,11 @@
  * be pulled out per-page before this is reused on the other five pages. Two bordered cards side by
  * side (core/columns): "What you receive" (phase-coloured dot-bullet list, same convention as
  * phase-common-services.php) and "Your role" (identical shell, generic bullet colour since it is not
- * a phase-specific deliverable). Adapts between the site's light and dark style variations via
- * surface/text tokens — section uses surface.card, cards use surface.card-raised one step lighter,
- * for a section-background → card-surface hierarchy. Columns deliberately omit verticalAlignment so
+ * a phase-specific deliverable). Cards are transparent (border only, no background fill) — tried a
+ * lighter surface.card-raised fill for a section→card hierarchy, reverted per design feedback in
+ * favour of the plainer bordered-only look. Adapts between the site's light and dark style
+ * variations via surface/text tokens — section uses surface.card. Columns deliberately omit
+ * verticalAlignment so
  * core/columns' native equal-height stretch applies (each card's own minHeight:100% then fills its
  * now-equal-height column) — do not re-add verticalAlignment:"top" here, it disables that stretch.
  * Keywords: phase, discover, create, build, launch, grow, evolve, deliverables, role, section
@@ -83,8 +85,8 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 
 			<!-- wp:column -->
 			<div class="wp-block-column">
-				<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"color":{"background":"var:custom|color|surface|card-raised"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}},"dimensions":{"minHeight":"100%"}},"layout":{"type":"default"}} -->
-				<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--card-raised);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+				<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}},"dimensions":{"minHeight":"100%"}},"layout":{"type":"default"}} -->
+				<div class="wp-block-group has-border-color" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
 					<!-- wp:icon {"icon":"lightspeed/help","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"},"dimensions":{"width":"22px"}}} /-->
@@ -115,8 +117,8 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"color":{"background":"var:custom|color|surface|card-raised"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}},"dimensions":{"minHeight":"100%"}},"layout":{"type":"default"}} -->
-			<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--card-raised);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+			<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}},"dimensions":{"minHeight":"100%"}},"layout":{"type":"default"}} -->
+			<div class="wp-block-group has-border-color" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
 					<!-- wp:icon {"icon":"lightspeed/users","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"},"dimensions":{"width":"22px"}}} /-->
