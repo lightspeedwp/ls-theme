@@ -9,8 +9,22 @@
  * current page by slug (same technique as phase-journey-nav.php) and renders only that phase's
  * service cards from the single $ls_phase_services_by_phase map below, whose labels/descriptions/
  * URLs/icons are kept in sync with the master list in services-service-tiles.php. Each card reuses
- * that pattern's existing icon-well (ls-icon-well-brand) and arrow-link (is-style-link-arrow-accent)
- * treatments — no new card style. Cards are chunked into rows of up to four via core/columns.
+ * the shared is-style-card-service-tile shell (background/border/radius/padding — not overridden
+ * here, since that style is also used by ~16 other patterns sitewide) and the shared
+ * is-style-link-arrow-accent CTA treatment, but does NOT reuse the shared ls-icon-well-brand icon
+ * well: that class is a fixed, non-phase colour used elsewhere, so this pattern renders its own
+ * smaller, phase-accented circular icon well locally instead (same border/radius/colour-mix
+ * technique already used by phase-hero.php's own badge). Cards render in a left-aligned flex row
+ * (layout.selfStretch:"fixed" per card, the native WP mechanism also used by
+ * phase-journey-nav.php's label/items split) rather than core/columns, since a single service
+ * (e.g. Discover, which has exactly one) would otherwise stretch a lone core/column to the row's
+ * full width. Main heading uses H3 (not H2) to close a pre-existing H2→H4 heading-level skip on
+ * this section (H2 eyebrow-adjacent heading straight to H4 card titles) rather than only to
+ * shrink it visually — this section's own explicit fontSize/level attributes are local to this
+ * file only; no shared heading style exists sitewide to avoid touching. The CTA link's phase
+ * accent is set via src/scss/structural/phase-services-in-phase.scss, scoped by the
+ * page-slug-{phase} body class (see inc/phase-page-body-class.php) rather than an inline custom
+ * property, for the same block-validation reason documented in phase-journey-nav.scss.
  *
  * IMPORTANT — insert this as a live reference, not a flattened copy: like phase-journey-nav.php,
  * the phase-detection below only re-evaluates per request if this stays a live
@@ -139,18 +153,20 @@ $ls_phase_labels = array(
 $ls_active_phase_label = isset( $ls_phase_labels[ $ls_current_phase_slug ] ) ? $ls_phase_labels[ $ls_current_phase_slug ] : __( 'Discover', 'ls-theme' );
 $ls_active_services    = isset( $ls_phase_services_by_phase[ $ls_current_phase_slug ] ) ? $ls_phase_services_by_phase[ $ls_current_phase_slug ] : $ls_phase_services_by_phase['discover'];
 $ls_service_rows       = array_chunk( $ls_active_services, 4 );
+$ls_active_phase_slug  = isset( $ls_phase_services_by_phase[ $ls_current_phase_slug ] ) ? $ls_current_phase_slug : 'discover';
+$ls_phase_accent       = 'var(--wp--custom--color--phase--' . $ls_active_phase_slug . ')';
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band ls-phase-services-in-phase","style":{"color":{"background":"var:custom|color|surface|card"},"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band ls-phase-services-in-phase has-background" style="background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"700px","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide">
 		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover)"}},"fontSize":"100"} -->
 		<p class="has-text-align-center has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Services in this phase', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"700"} -->
-		<h2 class="wp-block-heading has-text-align-center has-700-font-size" style="margin-top:var(--wp--preset--spacing--10);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html( sprintf( /* translators: %s: phase label, e.g. "Discover". */ __( 'Services in the %s phase', 'ls-theme' ), $ls_active_phase_label ) ); ?></h2>
+		<!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"500"} -->
+		<h3 class="wp-block-heading has-text-align-center has-500-font-size" style="margin-top:var(--wp--preset--spacing--10);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html( sprintf( /* translators: %s: phase label, e.g. "Discover". */ __( 'Services in the %s phase', 'ls-theme' ), $ls_active_phase_label ) ); ?></h3>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|10"}},"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
@@ -160,41 +176,41 @@ $ls_service_rows       = array_chunk( $ls_active_services, 4 );
 	<!-- /wp:group -->
 
 	<?php foreach ( $ls_service_rows as $ls_row_index => $ls_row ) : ?>
-	<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"<?php echo 0 === $ls_row_index ? 'var:preset|spacing|40' : 'var:preset|spacing|20'; ?>"},"blockGap":"var:preset|spacing|20"}}} -->
-	<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--<?php echo 0 === $ls_row_index ? '40' : '20'; ?>)">
+	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"<?php echo 0 === $ls_row_index ? 'var:preset|spacing|40' : 'var:preset|spacing|20'; ?>"},"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"left"}} -->
+	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--<?php echo 0 === $ls_row_index ? '40' : '20'; ?>)">
 		<?php foreach ( $ls_row as $ls_service ) : ?>
-		<!-- wp:column -->
-		<div class="wp-block-column">
-			<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile","style":{"dimensions":{"minHeight":"100%"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-			<article class="wp-block-group is-style-card-service-tile" style="min-height:100%">
-				<!-- wp:group {"className":"ls-icon-well-brand"} -->
-				<div class="wp-block-group ls-icon-well-brand">
-					<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_service['icon'] ); ?>","style":{"dimensions":{"width":"18px"}}} /-->
-				</div>
-				<!-- /wp:group -->
+		<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile","layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","selfStretch":"fixed","flexSize":"340px"}} -->
+		<article class="wp-block-group is-style-card-service-tile">
+			<!-- wp:group {"className":"ls-phase-services-in-phase__icon-well","style":{"border":{"color":"<?php echo esc_attr( $ls_phase_accent ); ?>","radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"color":{"background":"color-mix(in srgb, <?php echo esc_attr( $ls_phase_accent ); ?> 12%, transparent)"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"}}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+			<div class="wp-block-group ls-phase-services-in-phase__icon-well has-border-color has-background" style="border-color:<?php echo esc_attr( $ls_phase_accent ); ?>;border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);background-color:color-mix(in srgb, <?php echo esc_attr( $ls_phase_accent ); ?> 12%, transparent);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
+				<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_service['icon'] ); ?>","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"},"dimensions":{"width":"14px"}}} /-->
+			</div>
+			<!-- /wp:group -->
 
-				<!-- wp:group {"className":"ls-card-service-tile__content","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-				<div class="wp-block-group ls-card-service-tile__content" style="margin-top:var(--wp--preset--spacing--20)">
-					<!-- wp:heading {"level":4,"fontSize":"300"} -->
-					<h4 class="wp-block-heading has-300-font-size"><?php echo esc_html( $ls_service['label'] ); ?></h4>
-					<!-- /wp:heading -->
+			<!-- wp:group {"className":"ls-card-service-tile__content","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group ls-card-service-tile__content" style="margin-top:var(--wp--preset--spacing--20)">
+				<!-- wp:heading {"level":4,"fontSize":"300"} -->
+				<h4 class="wp-block-heading has-300-font-size"><?php echo esc_html( $ls_service['label'] ); ?></h4>
+				<!-- /wp:heading -->
 
+				<!-- wp:group {"layout":{"type":"constrained","contentSize":"260px"}} -->
+				<div class="wp-block-group">
 					<!-- wp:paragraph {"style":{"color":{"text":"var:custom|color|text|muted"}},"fontSize":"200"} -->
 					<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_service['description'] ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
-
-				<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto"}}}} -->
-				<p class="is-style-link-arrow-accent" style="margin-top:auto"><a class="ls-card-service-tile__link" href="<?php echo esc_url( home_url( $ls_service['url'] ) ); ?>"><?php echo esc_html__( 'Explore service', 'ls-theme' ); ?></a></p>
-				<!-- /wp:paragraph -->
-			</article>
+			</div>
 			<!-- /wp:group -->
-		</div>
-		<!-- /wp:column -->
+
+			<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto"}}}} -->
+			<p class="is-style-link-arrow-accent" style="margin-top:auto"><a class="ls-card-service-tile__link" href="<?php echo esc_url( home_url( $ls_service['url'] ) ); ?>"><?php echo esc_html__( 'Explore service', 'ls-theme' ); ?></a></p>
+			<!-- /wp:paragraph -->
+		</article>
+		<!-- /wp:group -->
 		<?php endforeach; ?>
 	</div>
-	<!-- /wp:columns -->
+	<!-- /wp:group -->
 	<?php endforeach; ?>
 </section>
 <!-- /wp:group -->

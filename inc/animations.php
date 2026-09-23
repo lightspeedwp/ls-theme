@@ -437,6 +437,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( 'discover' );
 			},
 		),
+		'phase-services-in-phase'   => array(
+			'handle'    => 'ls-theme-phase-services-in-phase',
+			'path'      => 'assets/css/phase-services-in-phase.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Shared across all six phase pages from the start (unlike phase-journey-nav/
+			// button-phase above, which started Discover-only), so scoped directly to all six
+			// known slugs rather than needing a render_block fallback.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
 		'featured-work'             => array(
 			'handle'    => 'ls-theme-featured-work',
 			'path'      => 'assets/css/featured-work.css',
