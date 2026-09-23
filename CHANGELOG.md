@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Refine Phase Support Focus section layout and typography (LS-4179)
+
+### Changed
+
+- `patterns/sections/phase-support-focus.php`: widened the eyebrow/heading wrapper from a fixed `620px` content width to the theme's existing wide alignment (`align:"wide"`, no custom `contentSize`) so "AI Readiness Assessment" stays on one line at desktop without changing the global H2 style, heading level, or inventing a new width token; added top margin above the eyebrow/heading group for more breathing room from the previous section.
+- `patterns/sections/phase-support-focus.php`: widened the column gutter between the body copy and focus-area card (`spacing|60` → `spacing|70`) so the section reads more balanced, matching the reference design.
+- `patterns/sections/phase-support-focus.php`: changed each focus-area row's vertical alignment from `top` to `center` so the hollow-circle bullet centres against its single-line list text instead of sitting high above it.
+- `patterns/sections/phase-support-focus.php`: reduced left-column body copy and focus-card heading/list typography from `fontSize:300` to `fontSize:200`, tightened line-height and paragraph spacing, and reduced the CTA's top margin — all using existing typography/spacing tokens.
+- `patterns/sections/phase-support-focus.php`: replaced the filled/tinted `lightspeed/dot` icon bullet with a simple hollow outlined circle (1px border, no fill, no icon) in the approved Discover accent colour, matching the reference's bullet style.
+
+([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+
+---
+
 ## [Unreleased] — Fix editor validation errors and Icon block attributes on Services patterns (LS-4207)
 
 ### Fixed
