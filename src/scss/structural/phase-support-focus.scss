@@ -1,0 +1,46 @@
+/********** Phase - Support Focus (all six lifecycle phase pages) **********/
+
+/*
+ * Phase Support Focus (LS-4179, single consumer
+ * patterns/sections/phase-support-focus.php). Same underlying issue as
+ * phase-common-services.scss's mobile fix: each focus-area row centres its accent bullet
+ * (verticalAlignment: center) against the row's full height, which is correct while the row's
+ * label stays on one line — the layout this pattern was originally built and reviewed at. Once
+ * the right-hand column narrows enough (either at this pattern's own two-column mobile stack, or
+ * simply a narrower viewport) for a label to wrap onto two or three lines, centring against the
+ * whole row leaves the bullet floating well above the visual middle of the text block instead of
+ * levelled with its first line.
+ *
+ * Unlike the dot icon in phase-common-services (a fixed 6px SVG), this bullet is a bordered,
+ * padding-sized circle (border-radius|500, 1px border, spacing|5 padding on all sides), so its
+ * total rendered height is itself token-driven rather than a literal pixel — the margin-top below
+ * computes half the gap between one text line's full height and the circle's own height entirely
+ * from custom properties, so it stays correct whatever the spacing/typography tokens resolve to
+ * at a given viewport width.
+ */
+
+// JSON limitation: overriding a flex row's cross-axis alignment based on the current viewport has
+// no theme.json/block-attribute key for "below this breakpoint" — see AGENTS.md Theme-First
+// Approach. 781.98px = 782px, WP core's own .wp-block-columns stacking breakpoint, reused here
+// for consistency (see phase-common-services.scss, services-delivery-numbers.scss).
+@media (max-width: 781.98px) {
+  // `!important` needed: WP's own generated unique-class rule for this flex layout
+  // (`is-layout-flex`) otherwise wins the cascade over a plain class override — same reasoning
+  // documented in stats-bar.scss and phase-common-services.scss.
+  .ls-phase-focus-areas > .wp-block-group {
+    align-items: flex-start !important;
+  }
+
+  // Nudge the bullet down by half the gap between one text line's full height (font-size|200 ×
+  // the paragraph line-height ratio) and the bullet's own height (its 1px border plus
+  // spacing|5 padding on both the top and bottom), so it centres on the first line specifically
+  // instead of the row.
+  .ls-phase-focus-areas > .wp-block-group > .wp-block-group.has-border-color {
+    margin-top: calc(
+      (
+        var(--wp--preset--font-size--200) * var(--wp--custom--line-height--paragraph) -
+          (2px + var(--wp--preset--spacing--5) * 2)
+      ) / 2
+    );
+  }
+}

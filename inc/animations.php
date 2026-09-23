@@ -468,6 +468,26 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},
 		),
+		'phase-common-services'     => array(
+			'handle'    => 'ls-theme-phase-common-services',
+			'path'      => 'assets/css/phase-common-services.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-delivery-numbers/phase-services-in-phase/phase-cta above:
+			// shared from the start across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-support-focus'       => array(
+			'handle'    => 'ls-theme-phase-support-focus',
+			'path'      => 'assets/css/phase-support-focus.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-common-services/phase-delivery-numbers above: shared from
+			// the start across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
 		'featured-work'             => array(
 			'handle'    => 'ls-theme-featured-work',
 			'path'      => 'assets/css/featured-work.css',

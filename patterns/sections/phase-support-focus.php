@@ -72,8 +72,8 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 					<p class="has-text-color has-200-font-size" style="color:<?php echo esc_attr( $ls_phase_accent ); ?>;font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Typical focus areas in this stage include:', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 
-					<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
-					<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--20)">
+					<!-- wp:group {"className":"ls-phase-focus-areas","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+					<div class="wp-block-group ls-phase-focus-areas" style="margin-top:var(--wp--preset--spacing--20)">
 						<?php foreach ( $ls_focus_areas as $ls_focus_area ) : ?>
 						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 						<div class="wp-block-group">
