@@ -458,6 +458,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},
 		),
+		'phase-delivery-numbers'    => array(
+			'handle'    => 'ls-theme-phase-delivery-numbers',
+			'path'      => 'assets/css/phase-delivery-numbers.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-services-in-phase/phase-cta above: shared from the start
+			// across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
 		'featured-work'             => array(
 			'handle'    => 'ls-theme-featured-work',
 			'path'      => 'assets/css/featured-work.css',
