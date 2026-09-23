@@ -448,6 +448,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},
 		),
+		'phase-cta'                 => array(
+			'handle'    => 'ls-theme-phase-cta',
+			'path'      => 'assets/css/phase-cta.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-services-in-phase above: shared from the start across all
+			// six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
 		'featured-work'             => array(
 			'handle'    => 'ls-theme-featured-work',
 			'path'      => 'assets/css/featured-work.css',
