@@ -1,0 +1,32 @@
+/********** Section - Phase FAQ (per-phase open-state accent) **********/
+
+/*
+ * The shared schema-faq accordion (patterns/section-faq.php + src/scss/structural/faq.scss)
+ * reads its open-question border colour from a --ls-faq-border-active custom property, falling
+ * back to the sitewide generic link-accent token (a cyan-blue unrelated to any phase) since the
+ * accordion is also reused by the homepage and any other page that inserts it. Overridden here to
+ * the current phase's accent so the open FAQ row matches the rest of the phase page's accent
+ * language (eyebrow, bullets, buttons).
+ *
+ * The question row's own toggle icon (a rotated border-drawn chevron) is hard-coded to the same
+ * generic link-accent token directly in faq.scss's ::after rule rather than reading the
+ * --ls-faq-border-active custom property, so it needs its own override here to keep the icon and
+ * the section border colour matching once phase-tinted — same JSON limitation as above (a raw
+ * border-colour override on a pseudo-element has no block-attribute equivalent).
+ *
+ * Scoped per phase via the page-slug-{phase} body class from inc/phase-page-body-class.php, same
+ * mechanism as phase-services-in-phase.scss, and to the .ls-phase-faq section class so no other
+ * consumer of the shared schema-faq component is affected.
+ */
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-faq {
+    .schema-faq.is-accordion .schema-faq-section {
+      --ls-faq-border-active: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+
+    .schema-faq.is-accordion .schema-faq-question::after {
+      border-right-color: var(--wp--custom--color--phase--#{$ls-phase});
+      border-bottom-color: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+  }
+}

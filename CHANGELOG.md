@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add Phase FAQ and Phase Where To Go Next sections (LS-4179)
+
+### Added
+
+- `patterns/sections/phase-faq.php`: shared "Frequently asked questions" section for all six lifecycle phase pages, currently authored with Discover's own five questions. Reuses the existing Yoast FAQ block and its `schema-faq` accordion component (`patterns/section-faq.php`, `assets/css/faq.css`, `assets/js/faq-accordion.js`) as-is — no new accordion, JS, or markup pattern introduced.
+- `patterns/sections/phase-where-to-go-next.php`: shared "Where to go next" section for all six lifecycle phase pages, currently authored with Discover's own two next-step cards. Reuses the existing Card - Link Row section style and Link Arrow Accent paragraph style (the same "Explore service"/"Read more" convention already used in `phase-services-in-phase.php`) in a real 2-column row, rather than the source Figma frame's broken 4-column grid.
+- `src/scss/structural/phase-faq.scss` → `assets/css/phase-faq.css`: phase-scoped override (via the `page-slug-{phase}` body class, one rule per phase) so the FAQ accordion's open-state border and toggle-icon colour match the current phase's accent instead of the sitewide generic link-accent token, without affecting any other page that uses the shared `schema-faq` component.
+- `src/scss/structural/phase-where-to-go-next.scss` → `assets/css/phase-where-to-go-next.css`: same phase-scoped override technique for the Card - Link Row hover border/background/icon colours and the "Read more" link's colour, without affecting the Work archive or Services page, which also use these shared styles.
+- Wired both new bundles into `package.json` (`build:css`/`build:css:dev`/`watch:css`), `inc/animations.php` (conditional on the six phase-page slugs, same pattern as the other phase bundles), and `functions.php` (editor styles).
+
+([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+
+---
+
 ## [Unreleased] — Refine Phase Support Focus section layout and typography (LS-4179)
 
 ### Changed

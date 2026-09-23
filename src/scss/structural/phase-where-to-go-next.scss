@@ -1,0 +1,37 @@
+/********** Section - Phase Where To Go Next (per-phase hover accents) **********/
+
+/*
+ * The shared is-style-card-link-row style (styles/sections/cards/card-link-row.json +
+ * src/scss/structural/work-archive-sections.scss) reads its hover border/background/icon colours
+ * from --ls-card-link-row-border-active/--ls-card-link-row-background-active/
+ * --ls-card-link-row-icon-active custom properties, all falling back to sitewide generic
+ * link-accent tokens (a cyan-blue unrelated to any phase) since that style is also reused by the
+ * Work archive and Services page. The shared is-style-link-arrow-accent "Read more" link reads
+ * --ls-link-arrow-colour/--ls-link-arrow-hover-colour the same way (see
+ * phase-services-in-phase.scss for the identical reasoning — a raw custom property can't be
+ * expressed in a style JSON attribute, so it can't be set inline on the block itself; JSON
+ * limitation, see AGENTS.md Theme-First Approach).
+ *
+ * Both scoped per phase via the page-slug-{phase} body class from
+ * inc/phase-page-body-class.php, same mechanism as phase-services-in-phase.scss, and to the
+ * .ls-phase-where-to-go-next section class so no other consumer of these shared styles is
+ * affected.
+ */
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-where-to-go-next {
+    .is-style-card-link-row {
+      --ls-card-link-row-border-active: var(--wp--custom--color--phase--#{$ls-phase});
+      --ls-card-link-row-background-active: color-mix(
+        in srgb,
+        var(--wp--custom--color--phase--#{$ls-phase}) 10%,
+        transparent
+      );
+      --ls-card-link-row-icon-active: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+
+    .is-style-link-arrow-accent {
+      --ls-link-arrow-colour: var(--wp--custom--color--phase--#{$ls-phase});
+      --ls-link-arrow-hover-colour: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+  }
+}
