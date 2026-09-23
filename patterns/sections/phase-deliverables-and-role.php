@@ -9,8 +9,11 @@
  * be pulled out per-page before this is reused on the other five pages. Two bordered cards side by
  * side (core/columns): "What you receive" (phase-coloured dot-bullet list, same convention as
  * phase-common-services.php) and "Your role" (identical shell, generic bullet colour since it is not
- * a phase-specific deliverable). Adapts between the site's light and dark style variations via text
- * tokens.
+ * a phase-specific deliverable). Adapts between the site's light and dark style variations via
+ * surface/text tokens — section uses surface.card, cards use surface.card-raised one step lighter,
+ * for a section-background → card-surface hierarchy. Columns deliberately omit verticalAlignment so
+ * core/columns' native equal-height stretch applies (each card's own minHeight:100% then fills its
+ * now-equal-height column) — do not re-add verticalAlignment:"top" here, it disables that stretch.
  * Keywords: phase, discover, create, build, launch, grow, evolve, deliverables, role, section
  * Viewport Width: 1280
  * Inserter: true
@@ -46,22 +49,22 @@ $ls_role_items = array(
  */
 $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 	?>
-	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-	<div class="wp-block-group">
-		<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_dot_color ); ?>"},"dimensions":{"width":"6px"}}} /-->
+	<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+	<div class="wp-block-group is-vertically-aligned-top">
+		<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_dot_color ); ?>"},"spacing":{"margin":{"top":"11px"}},"dimensions":{"width":"6px"}}} /-->
 
-		<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
-		<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_item_text ); ?></p>
+		<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
+		<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_item_text ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
 	<?php
 };
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"color":{"background":"var:custom|color|surface|card"},"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band has-background" style="background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"980px","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide">
 		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"}},"fontSize":"100"} -->
 		<p class="has-text-align-center has-text-color has-100-font-size" style="color:<?php echo esc_attr( $ls_phase_accent ); ?>;font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'What you receive and your role', 'ls-theme' ); ?></p>
@@ -73,13 +76,15 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"blockGap":{"left":"var:preset|spacing|20"}}} -->
-	<div class="wp-block-columns alignwide are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--40)">
+	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"900px"}}} -->
+	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--40)">
+		<!-- wp:columns {"style":{"blockGap":{"left":"var:preset|spacing|10"}}} -->
+		<div class="wp-block-columns">
 
-		<!-- wp:column {"verticalAlignment":"top"} -->
-		<div class="wp-block-column is-vertically-aligned-top">
-			<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
-			<div class="wp-block-group has-border-color" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"color":{"background":"var:custom|color|surface|card-raised"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}},"dimensions":{"minHeight":"100%"}},"layout":{"type":"default"}} -->
+				<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--card-raised);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
 					<!-- wp:icon {"icon":"lightspeed/help","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"},"dimensions":{"width":"22px"}}} /-->
@@ -94,7 +99,7 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 				<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted);margin-top:var(--wp--preset--spacing--10)"><?php echo esc_html__( 'You leave this stage with a practical set of deliverables that guide the next phase of work, such as:', 'ls-theme' ); ?></p>
 				<!-- /wp:paragraph -->
 
-				<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+				<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|5"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 				<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--20)">
 					<?php
 					foreach ( $ls_deliverables as $ls_deliverable ) {
@@ -108,10 +113,10 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"verticalAlignment":"top"} -->
-		<div class="wp-block-column is-vertically-aligned-top">
-			<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
-			<div class="wp-block-group has-border-color" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"color":{"background":"var:custom|color|surface|card-raised"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}},"dimensions":{"minHeight":"100%"}},"layout":{"type":"default"}} -->
+			<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--card-raised);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
 					<!-- wp:icon {"icon":"lightspeed/users","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_phase_accent ); ?>"},"dimensions":{"width":"22px"}}} /-->
@@ -126,7 +131,7 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 				<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted);margin-top:var(--wp--preset--spacing--10)"><?php echo esc_html__( 'We guide the process, but your input matters. We need access to the right people, the right systems, and the right context.', 'ls-theme' ); ?></p>
 				<!-- /wp:paragraph -->
 
-				<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
+				<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|5"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 				<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--20)">
 					<?php
 					foreach ( $ls_role_items as $ls_role_item ) {
@@ -141,5 +146,7 @@ $ls_render_bullet_row = function ( $ls_item_text, $ls_dot_color ) {
 		<!-- /wp:column -->
 	</div>
 	<!-- /wp:columns -->
+	</div>
+	<!-- /wp:group -->
 </section>
 <!-- /wp:group -->
