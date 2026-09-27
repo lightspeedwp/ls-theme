@@ -35,8 +35,8 @@ $ls_next_steps = array(
 
 $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band ls-phase-where-to-go-next","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-content-band ls-phase-where-to-go-next" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band ls-phase-where-to-go-next","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|100","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band ls-phase-where-to-go-next" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--60)">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide">
@@ -46,32 +46,36 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}},"blockGap":{"left":"var:preset|spacing|20"}}} -->
-	<div class="wp-block-columns alignwide are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--30)">
-		<?php foreach ( $ls_next_steps as $ls_step ) : ?>
+	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"1050px","justifyContent":"center"}} -->
+	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--40)">
+		<!-- wp:columns {"blockGap":{"left":"var:preset|spacing|10"}} -->
+		<div class="wp-block-columns">
+			<?php foreach ( $ls_next_steps as $ls_step ) : ?>
 
-		<!-- wp:column {"verticalAlignment":"top"} -->
-		<div class="wp-block-column is-vertically-aligned-top">
-			<!-- wp:group {"tagName":"article","className":"is-style-card-link-row","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-			<article class="wp-block-group is-style-card-link-row">
-				<!-- wp:heading {"level":4,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"400"} -->
-				<h4 class="wp-block-heading has-400-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html( $ls_step['title'] ); ?></h4>
-				<!-- /wp:heading -->
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:group {"tagName":"article","className":"is-style-card-link-row","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+				<article class="wp-block-group is-style-card-link-row">
+					<!-- wp:heading {"level":4,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"300"} -->
+					<h4 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html( $ls_step['title'] ); ?></h4>
+					<!-- /wp:heading -->
 
-				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
-				<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_step['description'] ); ?></p>
-				<!-- /wp:paragraph -->
+					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
+					<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_step['description'] ); ?></p>
+					<!-- /wp:paragraph -->
 
-				<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto"}}}} -->
-				<p class="is-style-link-arrow-accent" style="margin-top:auto"><a class="ls-card-link-row__link" href="<?php echo esc_url( home_url( $ls_step['url'] ) ); ?>"><?php echo esc_html__( 'Read more', 'ls-theme' ); ?></a></p>
-				<!-- /wp:paragraph -->
-			</article>
-			<!-- /wp:group -->
+					<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto"}}},"fontSize":"200"} -->
+					<p class="is-style-link-arrow-accent has-200-font-size" style="margin-top:auto"><a class="ls-card-link-row__link" href="<?php echo esc_url( home_url( $ls_step['url'] ) ); ?>"><?php echo esc_html__( 'Read more', 'ls-theme' ); ?></a></p>
+					<!-- /wp:paragraph -->
+				</article>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:column -->
+
+			<?php endforeach; ?>
 		</div>
-		<!-- /wp:column -->
-
-		<?php endforeach; ?>
+		<!-- /wp:columns -->
 	</div>
-	<!-- /wp:columns -->
+	<!-- /wp:group -->
 </section>
 <!-- /wp:group -->

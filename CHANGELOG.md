@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Refine Phase Where To Go Next section to match prototype (LS-4179)
+
+### Changed
+
+- `patterns/sections/phase-where-to-go-next.php`: narrowed the cards row into a `900px` centred container (previously full `align:wide`), tightened the gap between cards (`spacing|20` → `10`), increased the gap between the eyebrow and the cards (`spacing|30` → `40`), increased section bottom padding (`spacing|90` → `100`), reduced the card title to `fontSize:300` and the "Read more" CTA to the standard `fontSize:200` body token, and removed the `verticalAlignment:"top"` on the columns/column blocks so `core/columns`' default equal-height column stretch applies.
+- `src/scss/structural/phase-where-to-go-next.scss`: added a scoped override (`.ls-phase-where-to-go-next .is-style-card-link-row`) so each card fills its now-equal-height column (`height:100%`), which combined with the card's existing flex-column layout and the "Read more" link's existing `margin-top:auto` bottom-aligns both CTAs regardless of description length — no fixed heights, no CSS Grid rebuild needed. Also increased card padding (`spacing|20` → `30`), reduced the border radius (`border-radius|400` → `300`), and softened the border colour, scoped to this pattern only so the Work archive and Services page's use of the same shared Card - Link Row style is unaffected. The existing Discover phase accent colour is unchanged.
+
+([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+
+---
+
 ## [Unreleased] — Fix FAQ accordion closed-state gap (LS-4179)
 
 ### Fixed

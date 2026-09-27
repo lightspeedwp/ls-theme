@@ -1,4 +1,33 @@
-/********** Section - Phase Where To Go Next (per-phase hover accents) **********/
+/********** Section - Phase Where To Go Next (visual redesign + per-phase hover accents) **********/
+
+/*
+ * Equal-height cards + bottom-aligned CTA: core/columns already stretches its columns to equal
+ * height by default (the block's own CSS only overrides that to align-items:flex-start when a
+ * verticalAlignment is set, which the pattern no longer sets), so each .wp-block-column is
+ * already the same height as its tallest sibling. What's missing is telling the card itself to
+ * fill that column height — a plain block box only ever sizes to its own content — so the
+ * article's own height is set to 100% here. Once the card is genuinely as tall as the column,
+ * its own flex-column layout (already declared in the pattern's block attributes) plus the
+ * "Read more" paragraph's own margin-top:auto (already in the pattern) push the CTA to the
+ * bottom, matching the reference regardless of how much either card's description wraps. No
+ * fixed/hardcoded height anywhere, and nothing here needs a CSS Grid rebuild of the row: JSON
+ * limitation is only "fill 100% of the parent's flex-stretched height", which has no
+ * block-attribute equivalent — see AGENTS.md Theme-First Approach.
+ *
+ * Padding/border/radius overrides use the same colour-mix'd-down, scoped-override technique
+ * already established in phase-faq.scss for the same reason: these are the shared
+ * Card - Link Row style's rest-state values, also used by the Work archive and Services page, so
+ * they're overridden here rather than in styles/sections/cards/card-link-row.json to avoid
+ * changing that shared look anywhere else it's used.
+ */
+.ls-phase-where-to-go-next {
+  .is-style-card-link-row {
+    height: 100%;
+    padding: var(--wp--preset--spacing--30);
+    border-color: color-mix(in srgb, var(--wp--custom--color--border--card) 55%, transparent);
+    border-radius: var(--wp--preset--border-radius--300);
+  }
+}
 
 /*
  * The shared is-style-card-link-row style (styles/sections/cards/card-link-row.json +
