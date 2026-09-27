@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix FAQ accordion closed-state gap (LS-4179)
+
+### Fixed
+
+- `src/scss/structural/faq.scss`: the shared `schema-faq` accordion's closed-row collapse used `grid-template-rows: 0fr` → `1fr`, which does not actually resolve to zero on this element — it is both the grid container and, via its own anonymous content box, the only grid item, so the browser's intrinsic-sizing pass for an auto-height container falls back to the answer text's own content height regardless of the `0fr` value (confirmed via computed styles; `min-height: 0` did not change it either). This left a large empty gap below every closed question. Replaced with a `max-height: 0` → `1000px` collapse, a more reliable technique for this exact shape. Root-caused and fixed in the shared component (not scoped to `.ls-phase-faq`) since it affects every consumer of `section-faq.php`'s accordion, not just this pattern.
+
+([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+
+---
+
+## [Unreleased] — Refine Phase FAQ section to match prototype (LS-4179)
+
+### Changed
+
+- `patterns/sections/phase-faq.php`: increased section top padding (`spacing|90` → `100`) for more breathing room before the heading; widened the heading/intro/FAQ containers from `620px`/`880px` to a unified `780px` so the heading stays on one line at desktop without reducing its font size; changed the intro paragraph from centred to left-aligned and reduced its size from `fontSize:300` to the theme's standard `fontSize:200` body-copy token.
+- `src/scss/structural/phase-faq.scss`: added a scoped visual redesign of the shared `schema-faq` accordion for this pattern only (`.ls-phase-faq`) — larger corner radius (`border-radius|400`), a subtler rest-state border (colour-mixed down), tighter gap between rows (`spacing|10`), taller/vertically-centred rows (`spacing|50` vertical padding), and a circular plus/minus control (sized via `spacing|50`, tinted with the current phase accent) replacing the shared component's small rotated-chevron icon. Implemented as a scoped override so the homepage FAQ and any other consumer of `schema-faq` are unaffected.
+- Fixed a CSS specificity bug in the same file where the shared component's open-state chevron rotation was still winning over the new plus/minus icon's transform, distorting it when a question was expanded.
+
+([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+
+---
+
 ## [Unreleased] — Add Phase FAQ and Phase Where To Go Next sections (LS-4179)
 
 ### Added

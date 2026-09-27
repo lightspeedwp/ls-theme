@@ -51,22 +51,22 @@ foreach ( $ls_phase_faqs as $ls_faq_index => $ls_faq ) {
 	);
 }
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band ls-phase-faq","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-content-band ls-phase-faq" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band ls-phase-faq","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|60","bottom":"var:preset|spacing|90","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band ls-phase-faq" style="padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--90);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"620px","justifyContent":"center"}} -->
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"780px","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"700"} -->
-		<h2 class="wp-block-heading has-text-align-center has-700-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Frequently asked questions', 'ls-theme' ); ?></h2>
+		<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold","lineHeight":"var:custom|line-height|heading-tight"}},"fontSize":"700"} -->
+		<h2 class="wp-block-heading has-text-align-center has-700-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:var(--wp--custom--line-height--heading-tight)"><?php echo esc_html__( 'Frequently asked questions', 'ls-theme' ); ?></h2>
 		<!-- /wp:heading -->
 
-		<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|10"}},"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
-		<p class="has-text-align-center has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted);margin-top:var(--wp--preset--spacing--10)"><?php echo esc_html__( 'Find answers to common questions about working with us.', 'ls-theme' ); ?></p>
+		<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|10"}},"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
+		<p class="has-text-align-center has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted);margin-top:var(--wp--preset--spacing--10)"><?php echo esc_html__( 'Find answers to common questions about working with us.', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"880px","justifyContent":"center"}} -->
+	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"780px","justifyContent":"center"}} -->
 	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--50)">
 		<!-- wp:yoast/faq-block {"questions":<?php echo wp_json_encode( $ls_faq_block_questions ); ?>} -->
 		<div class="schema-faq wp-block-yoast-faq-block">

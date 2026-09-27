@@ -76,14 +76,20 @@
     }
 
     .schema-faq-answer {
-      display: grid;
-      grid-template-rows: 0fr;
+      // grid-template-rows: 0fr → 1fr (the usual CSS-only collapse technique) does not
+      // actually resolve to zero here: this element is both the grid container and, via its
+      // own anonymous content box, the only grid item, so the intrinsic-sizing pass for an
+      // auto-height container falls back to the content's own height regardless of the 0fr
+      // track value (verified: min-height:0 does not change this). max-height is a more
+      // reliable cross-browser collapse for this exact shape — the fixed cap below is simply
+      // generous enough that no realistic FAQ answer gets clipped when open.
+      max-height: 0;
       margin: 0;
       padding: 0 var(--wp--preset--spacing--30);
       overflow: hidden;
       opacity: 0;
       transition:
-        grid-template-rows var(--wp--custom--animation--duration--base)
+        max-height var(--wp--custom--animation--duration--base)
           var(--wp--custom--animation--easing--standard),
         opacity var(--wp--custom--animation--duration--base)
           var(--wp--custom--animation--easing--standard),
@@ -92,7 +98,7 @@
     }
 
     .schema-faq-section.is-open > .schema-faq-answer {
-      grid-template-rows: 1fr;
+      max-height: 1000px;
       padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--20);
       opacity: 1;
     }
