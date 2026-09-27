@@ -56,11 +56,13 @@
  * actually reads as a state change instead of every item already looking hovered — but still built
  * from the same on-dark-muted token (dimmed via color-mix against the bar's own dark background)
  * rather than a separate hardcoded grey, so it stays part of the same token family as everything
- * else here. The dot is hidden by default; it's always rendered in the markup (never
+ * else here. 70% (rather than the original 55%) is the minimum mix that keeps this text at/above
+ * WCAG AA's 4.5:1 contrast ratio against the bar's surface.band-end background — 55% measured
+ * 3.58:1 via axe. The dot is hidden by default; it's always rendered in the markup (never
  * PHP-conditional) so the body-class rules below can show/hide it with pure CSS.
  */
 .ls-phase-journey-nav__link a {
-  color: color-mix(in srgb, var(--wp--custom--color--text--on-dark-muted) 55%, transparent);
+  color: color-mix(in srgb, var(--wp--custom--color--text--on-dark-muted) 70%, transparent);
 }
 
 .ls-phase-journey-nav__link a:hover,

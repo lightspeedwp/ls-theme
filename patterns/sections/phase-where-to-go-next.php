@@ -56,8 +56,8 @@ $ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
 			<div class="wp-block-column">
 				<!-- wp:group {"tagName":"article","className":"is-style-card-link-row","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 				<article class="wp-block-group is-style-card-link-row">
-					<!-- wp:heading {"level":4,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"300"} -->
-					<h4 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html( $ls_step['title'] ); ?></h4>
+					<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"300"} -->
+					<h3 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html( $ls_step['title'] ); ?></h3>
 					<!-- /wp:heading -->
 
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
