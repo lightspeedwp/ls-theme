@@ -1,0 +1,19 @@
+/********** Image Captions **********/
+
+/*
+ * JSON limitation: theme.json has no generic `elements.caption` key comparable to
+ * `elements.link`/`elements.heading` for styling `.wp-element-caption` sitewide — see
+ * AGENTS.md Theme-First Approach. WordPress core's own `.wp-element-caption` default
+ * (#555) is unthemed and fails WCAG AA contrast (2.68:1) against this site's active
+ * global background token (`--wp--custom--color--surface--canvas`, currently the dark
+ * `contrast` value). Applied unconditionally, matching taxonomy-filter.scss's existing
+ * unscoped use of `--text--on-dark` tokens — this theme runs one active global style
+ * sitewide rather than mixing light/dark per post, so no dark/light scoping selector
+ * is needed today. If a future post or block ever introduces a local light-background
+ * override, this rule (and taxonomy-filter.scss's equivalent) would need a matching
+ * light-context override at that point — see spec.md Assumptions, LS-2934.
+ */
+.wp-element-caption,
+figcaption {
+  color: var(--wp--custom--color--text--on-dark-muted);
+}
