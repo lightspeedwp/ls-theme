@@ -1,5 +1,9 @@
 language: en-US
 
+# THROWAWAY TEST — verifying inheritance behavior against the central lightspeedwp/coderabbit repo.
+# Safe to remove; not intended to be merged.
+inheritance: true
+
 reviews:
   enabled: true
   profile: assertive
