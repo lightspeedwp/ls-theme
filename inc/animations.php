@@ -71,6 +71,7 @@ function ls_theme_get_bundle_render_markers() {
 			),
 		),
 		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'phase-hero'                => array( 'classes' => array( 'ls-phase-hero' ) ),
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
@@ -214,6 +215,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'     => 'assets/css/animations.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
+		// Image captions can appear in any post/page's content, so this loads unconditionally
+		// rather than being gated to a specific template (LS-2934).
+		'image-captions'            => array(
+			'handle'   => 'ls-theme-image-captions',
+			'path'     => 'assets/css/image-captions.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 		// Structural bundles (LS-2615, gated LS-2922): each `condition` reflects verified actual
 		// usage (grepped against every pattern that references the bundle's CSS classes), not an
 		// assumed template mapping — some bundles turned out not to be template-exclusive (e.g.
@@ -282,9 +290,8 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-phase-hero',
 			'path'      => 'assets/css/phase-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Shared hero for all six lifecycle phase pages, so this is scoped to the pattern's
-			// own className (same reasoning as phase-journey-nav below) rather than a single
-			// page slug, now that it's no longer Discover-only.
+			// Load early on all six phase pages; the render-marker fallback also covers
+			// this pattern when inserted on any other page.
 			'condition' => static function () {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},

@@ -265,10 +265,9 @@
     var(--wp--custom--animation--easing--standard);
 }
 
+// JSON limitation: pseudo-element transitions have no theme.json equivalent.
 .wp-block-button.is-style-button-phase-outline .wp-block-button__link::before {
-  transition: width var(--wp--custom--animation--duration--emphasised)
-      var(--wp--custom--animation--easing--emphasised),
-    height var(--wp--custom--animation--duration--emphasised)
+  transition: transform var(--wp--custom--animation--duration--emphasised)
       var(--wp--custom--animation--easing--emphasised),
     opacity var(--wp--custom--animation--duration--base)
       var(--wp--custom--animation--easing--standard);

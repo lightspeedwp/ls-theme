@@ -38,25 +38,27 @@
 /*
  * Centre-out circle reveal (outline only — see button-phase-outline.json for why the primary,
  * always-filled button can't use this). Rest state is invisible and pinned to the button's centre;
- * the width/height/opacity end-state below is what the transition in _button-motion.scss animates
- * toward.
+ * its square uses the larger button dimension, then scales beyond the diagonal to cover
+ * every corner. Its layout size stays constant throughout the transform/opacity transition.
  */
+// JSON limitation: pseudo-element geometry and transforms have no theme.json equivalent.
 .wp-block-button.is-style-button-phase-outline .wp-block-button__link::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 16px;
-  height: 16px;
-  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
   background-color: var(--wp--custom--color--phase--discover-on-dark);
   opacity: 0;
   z-index: -1;
 }
 
+// JSON limitation: parent hover targeting a pseudo-element has no theme.json equivalent.
 .wp-block-button.is-style-button-phase-outline:hover .wp-block-button__link::before {
-  width: 300px;
-  height: 300px;
+  transform: translate(-50%, -50%) scale(1.42);
   opacity: 1;
 }
