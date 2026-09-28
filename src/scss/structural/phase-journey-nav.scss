@@ -51,14 +51,9 @@
     var(--wp--custom--animation--easing--standard);
 }
 
-/*
- * Inactive (rest): noticeably darker than the hover state below, so hover actually reads as a
- * state change instead of every item already looking hovered — but still built from the same
- * on-dark-muted token (dimmed via color-mix against the bar's own dark background) rather than a
- * separate hardcoded grey, so it stays part of the same token family as everything else here.
- */
+// JSON limitation: selecting inactive steps via :not(.is-active) has no theme.json equivalent.
 .ls-phase-journey-nav__step:not(.is-active) .ls-phase-journey-nav__link a {
-  color: color-mix(in srgb, var(--wp--custom--color--text--on-dark-muted) 55%, transparent);
+  color: var(--wp--custom--color--text--on-dark-muted);
 }
 
 /* Inactive hover/focus: brighter and clearly interactive — never the active phase colour, never the dot. */

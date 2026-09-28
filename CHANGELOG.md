@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Phase page review fixes
+
+### Fixed
+
+- Load phase hero styles wherever the pattern renders and redirect bare phase URLs only to published pages.
+- Correct introduction heading levels, journey navigation label serialization, current-page semantics, and inactive-link contrast.
+- Scale the outline button's circle reveal to cover the button's corners without animating layout dimensions; retain reduced-motion behavior.
+
+---
+
 ## [Unreleased] — Fix WCAG color-contrast violations for captions and blog filter pill (LS-2934)
 
 ### Fixed

@@ -71,6 +71,7 @@ function ls_theme_get_bundle_render_markers() {
 			),
 		),
 		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'phase-hero'                => array( 'classes' => array( 'ls-phase-hero' ) ),
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
@@ -289,9 +290,8 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-phase-hero',
 			'path'      => 'assets/css/phase-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Shared hero for all six lifecycle phase pages, so this is scoped to the pattern's
-			// own className (same reasoning as phase-journey-nav below) rather than a single
-			// page slug, now that it's no longer Discover-only.
+			// Load early on all six phase pages; the render-marker fallback also covers
+			// this pattern when inserted on any other page.
 			'condition' => static function () {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},

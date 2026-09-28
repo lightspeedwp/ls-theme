@@ -34,7 +34,7 @@ function ls_theme_redirect_bare_phase_slugs() {
 
 	$ls_target = get_page_by_path( 'services/' . $ls_request_path );
 
-	if ( $ls_target instanceof WP_Post ) {
+	if ( $ls_target instanceof WP_Post && 'publish' === $ls_target->post_status ) {
 		wp_safe_redirect( get_permalink( $ls_target ), 301 );
 		exit;
 	}
