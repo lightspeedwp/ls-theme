@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `patterns/sections/phase-where-to-go-next.php`: narrowed the cards row into a `900px` centred container (previously full `align:wide`), tightened the gap between cards (`spacing|20` → `10`), increased the gap between the eyebrow and the cards (`spacing|30` → `40`), increased section bottom padding (`spacing|90` → `100`), reduced the card title to `fontSize:300` and the "Read more" CTA to the standard `fontSize:200` body token, and removed the `verticalAlignment:"top"` on the columns/column blocks so `core/columns`' default equal-height column stretch applies.
 - `src/scss/structural/phase-where-to-go-next.scss`: added a scoped override (`.ls-phase-where-to-go-next .is-style-card-link-row`) so each card fills its now-equal-height column (`height:100%`), which combined with the card's existing flex-column layout and the "Read more" link's existing `margin-top:auto` bottom-aligns both CTAs regardless of description length — no fixed heights, no CSS Grid rebuild needed. Also increased card padding (`spacing|20` → `30`), reduced the border radius (`border-radius|400` → `300`), and softened the border colour, scoped to this pattern only so the Work archive and Services page's use of the same shared Card - Link Row style is unaffected. The existing Discover phase accent colour is unchanged.
 
-([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
 
 ---
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `src/scss/structural/faq.scss`: the shared `schema-faq` accordion's closed-row collapse used `grid-template-rows: 0fr` → `1fr`, which does not actually resolve to zero on this element — it is both the grid container and, via its own anonymous content box, the only grid item, so the browser's intrinsic-sizing pass for an auto-height container falls back to the answer text's own content height regardless of the `0fr` value (confirmed via computed styles; `min-height: 0` did not change it either). This left a large empty gap below every closed question. Replaced with a `max-height: 0` → `1000px` collapse, a more reliable technique for this exact shape. Root-caused and fixed in the shared component (not scoped to `.ls-phase-faq`) since it affects every consumer of `section-faq.php`'s accordion, not just this pattern.
 
-([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
 
 ---
 
@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `src/scss/structural/phase-faq.scss`: added a scoped visual redesign of the shared `schema-faq` accordion for this pattern only (`.ls-phase-faq`) — larger corner radius (`border-radius|400`), a subtler rest-state border (colour-mixed down), tighter gap between rows (`spacing|10`), taller/vertically-centred rows (`spacing|50` vertical padding), and a circular plus/minus control (sized via `spacing|50`, tinted with the current phase accent) replacing the shared component's small rotated-chevron icon. Implemented as a scoped override so the homepage FAQ and any other consumer of `schema-faq` are unaffected.
 - Fixed a CSS specificity bug in the same file where the shared component's open-state chevron rotation was still winning over the new plus/minus icon's transform, distorting it when a question was expanded.
 
-([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
 
 ---
 
@@ -50,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `src/scss/structural/phase-where-to-go-next.scss` → `assets/css/phase-where-to-go-next.css`: same phase-scoped override technique for the Card - Link Row hover border/background/icon colours and the "Read more" link's colour, without affecting the Work archive or Services page, which also use these shared styles.
 - Wired both new bundles into `package.json` (`build:css`/`build:css:dev`/`watch:css`), `inc/animations.php` (conditional on the six phase-page slugs, same pattern as the other phase bundles), and `functions.php` (editor styles).
 
-([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
 
 ---
 
@@ -64,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `patterns/sections/phase-support-focus.php`: reduced left-column body copy and focus-card heading/list typography from `fontSize:300` to `fontSize:200`, tightened line-height and paragraph spacing, and reduced the CTA's top margin — all using existing typography/spacing tokens.
 - `patterns/sections/phase-support-focus.php`: replaced the filled/tinted `lightspeed/dot` icon bullet with a simple hollow outlined circle (1px border, no fill, no icon) in the approved Discover accent colour, matching the reference's bullet style.
 
-([LS-4179](https://github.com/lightspeedwp/ls-theme/tree/feature/ls-4179-build-discover-page))
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
 
 ---
 
