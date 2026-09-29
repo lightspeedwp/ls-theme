@@ -437,11 +437,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-phase-journey-nav',
 			'path'      => 'assets/css/phase-journey-nav.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Same reasoning as button-phase above: fast path for Discover today, plus the
-			// render_block fallback registered in ls_theme_get_bundle_render_markers() so it keeps
-			// working once this same pattern is reused on the other five phase pages.
+			// Shared across all six phase pages (this pattern is now reused on all of them, not
+			// just Discover), so scoped directly to all six known slugs — matches
+			// phase-services-in-phase below — rather than relying on the render_block/footer
+			// fallback, which was printing this after first paint on Create/Build/Launch/Grow/
+			// Evolve (LS-4179, CodeRabbit PR #64 comment #2).
 			'condition' => static function () {
-				return is_page( 'discover' );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},
 		),
 		'phase-services-in-phase'   => array(
