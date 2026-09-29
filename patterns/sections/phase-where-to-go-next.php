@@ -33,7 +33,7 @@ $ls_next_steps = array(
 	),
 );
 
-$ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
+$ls_phase_accent = 'var(--ls-phase-accent)';
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band ls-phase-where-to-go-next","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|100","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band ls-phase-where-to-go-next" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--60)">

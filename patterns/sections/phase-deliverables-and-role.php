@@ -23,7 +23,7 @@
  * @package ls-theme
  */
 
-$ls_phase_accent = 'var(--wp--custom--color--phase--discover)';
+$ls_phase_accent = 'var(--ls-phase-accent)';
 
 $ls_deliverables = array(
 	__( 'A project summary with priorities, risks, and opportunities', 'ls-theme' ),
