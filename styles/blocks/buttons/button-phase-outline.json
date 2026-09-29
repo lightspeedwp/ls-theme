@@ -6,14 +6,14 @@
 	"blockTypes": [
 		"core/button"
 	],
-	"description": "Outline pill CTA pairing Button - Phase Primary on the phase-page heroes and CTAs. Uses the exact same horizontal padding token (spacing|40) as Button - Phase Primary so both buttons share one spacing system — this one simply reads wider because its label is longer, not because of a mismatched padding scale. Rest state: transparent background, thin phase-colour border, phase-colour text, no arrow glyph — deliberately arrow-free (this is the secondary/lower-emphasis action; only Primary carries an arrow). On hover: a centre-out circle reveal (adapted from the 'Flow Button' component, https://21st.dev/@xubohuah/components/flow-button) fills the button, the border fades to transparent, text flips to a contrasting colour, and the corners tighten slightly — none of that depends on an arrow, so it works cleanly without one. All hover-dependent CSS lives in src/scss/animations/_button-motion.scss, since a bare :hover in a style JSON's css field is silently stripped by WordPress. Same on-dark-constant reasoning and 'hardwired to Discover for now' note as button-phase-primary.json.",
+	"description": "Outline pill CTA pairing Button - Phase Primary on the phase-page heroes and CTAs. Uses the exact same horizontal padding token (spacing|40) as Button - Phase Primary so both buttons share one spacing system — this one simply reads wider because its label is longer, not because of a mismatched padding scale. Rest state: transparent background, thin phase-colour border, phase-colour text, no arrow glyph — deliberately arrow-free (this is the secondary/lower-emphasis action; only Primary carries an arrow). On hover: a centre-out circle reveal (adapted from the 'Flow Button' component, https://21st.dev/@xubohuah/components/flow-button) fills the button, the border fades to transparent, text flips to a contrasting colour, and the corners tighten slightly — none of that depends on an arrow, so it works cleanly without one. All hover-dependent CSS lives in src/scss/animations/_button-motion.scss, since a bare :hover in a style JSON's css field is silently stripped by WordPress. Same on-dark-constant reasoning and var(--ls-phase-accent-on-dark) source as button-phase-primary.json.",
 	"styles": {
 		"color": {
 			"background": "transparent",
-			"text": "var:custom|color|phase|discover-on-dark"
+			"text": "var(--ls-phase-accent-on-dark)"
 		},
 		"border": {
-			"color": "var:custom|color|phase|discover-on-dark",
+			"color": "var(--ls-phase-accent-on-dark)",
 			"radius": "var:preset|border-radius|500",
 			"style": "solid",
 			"width": "1px"
