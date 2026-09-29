@@ -133,7 +133,10 @@ $ls_phase_labels = array(
 	'evolve'   => __( 'Evolve', 'ls-theme' ),
 );
 
-$ls_post_id = isset( $block->context['postId'] ) ? (int) $block->context['postId'] : ( get_the_ID() ?: get_queried_object_id() );
+$ls_post_id = isset( $block->context['postId'] ) ? (int) $block->context['postId'] : (int) get_the_ID();
+if ( ! $ls_post_id ) {
+	$ls_post_id = (int) get_queried_object_id();
+}
 
 $ls_current_phase_slug = '';
 $ls_queried_post       = get_post( $ls_post_id );

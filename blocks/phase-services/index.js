@@ -19,6 +19,7 @@
 	blocks.registerBlockType( 'ls-theme/phase-services', {
 		title: 'Phase Services',
 		category: 'text',
+		usesContext: [ 'postId' ],
 		description: 'Renders the current phase page\'s "Services in this phase" heading and service cards.',
 		edit: function ( props ) {
 			return el( serverSideRender, {
