@@ -13,9 +13,9 @@
  * grid texture, radial phase-colour glow, and dark base all live in
  * src/scss/structural/phase-hero.scss (className ls-phase-hero), the same "background can't be
  * a block attribute" reasoning documented in blog-hero.scss (an inline background always wins the
- * cascade over an external stylesheet's background-image). Accents currently use the shipped
- * phase.discover-on-dark token (same phase-one hue as the site's lifecycle system, tuned for
- * permanent-dark surfaces) — each other phase page will need its own "-on-dark" token the same way.
+ * cascade over an external stylesheet's background-image). Accents use var(--ls-phase-accent-on-dark),
+ * set per phase by the page-slug-{phase} body class in phase-journey-nav.scss, so the pill, dot,
+ * "Phase 0X" label and heading accent follow whichever phase page the hero is on.
  * The breadcrumb reuses blog-hero.php's existing ls-breadcrumbs-on-dark treatment.
  * Keywords: phase, hero, lifecycle, discover, create, build, launch, grow, evolve, section
  * Viewport Width: 1280
@@ -39,12 +39,12 @@
 	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
 	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--60)">
 
-		<!-- wp:group {"style":{"border":{"color":"var:custom|color|phase|discover-on-dark","radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"color":{"background":"color-mix(in srgb, var(--wp--custom--color--phase--discover-on-dark) 12%, transparent)"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|20","bottom":"var:preset|spacing|10","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
-		<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--phase--discover-on-dark);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);background-color:color-mix(in srgb, var(--wp--custom--color--phase--discover-on-dark) 12%, transparent);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--20)">
-			<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--phase--discover-on-dark)"},"dimensions":{"width":"6px"}}} /-->
+		<!-- wp:group {"style":{"border":{"color":"var(--ls-phase-accent-on-dark)","radius":"var:preset|border-radius|500","style":"solid","width":"1px"},"color":{"background":"color-mix(in srgb, var(--ls-phase-accent-on-dark) 12%, transparent)"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|20","bottom":"var:preset|spacing|10","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
+		<div class="wp-block-group has-border-color has-background" style="border-color:var(--ls-phase-accent-on-dark);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);background-color:color-mix(in srgb, var(--ls-phase-accent-on-dark) 12%, transparent);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--20)">
+			<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--ls-phase-accent-on-dark)"},"dimensions":{"width":"6px"}}} /-->
 
-			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--phase--discover-on-dark)"}},"fontSize":"100"} -->
-			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--discover-on-dark);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Phase 01', 'ls-theme' ); ?></p>
+			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--ls-phase-accent-on-dark)"}},"fontSize":"100"} -->
+			<p class="has-text-color has-100-font-size" style="color:var(--ls-phase-accent-on-dark);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Phase 01', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
@@ -52,7 +52,7 @@
 		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"constrained","contentSize":"860px","justifyContent":"center"}} -->
 		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
 			<!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold","lineHeight":"var:custom|line-height|heading-tight"},"color":{"text":"var(--wp--custom--color--text--on-dark)"}},"fontSize":"900"} -->
-			<h1 class="wp-block-heading has-text-align-center has-text-color has-900-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:var(--wp--custom--line-height--heading-tight)"><span style="color:var(--wp--custom--color--phase--discover-on-dark)"><?php echo esc_html__( 'Discover.', 'ls-theme' ); ?></span> <?php echo esc_html__( 'Uncover. Research. Strategise.', 'ls-theme' ); ?></h1>
+			<h1 class="wp-block-heading has-text-align-center has-text-color has-900-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:var(--wp--custom--line-height--heading-tight)"><span style="color:var(--ls-phase-accent-on-dark)"><?php echo esc_html__( 'Discover.', 'ls-theme' ); ?></span> <?php echo esc_html__( 'Uncover. Research. Strategise.', 'ls-theme' ); ?></h1>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->

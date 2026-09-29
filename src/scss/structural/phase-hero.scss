@@ -10,10 +10,8 @@
  * blog-hero.scss: an inline `style="background:..."` always wins the cascade over any external
  * stylesheet's background-image, so the two can't coexist on this block.
  *
- * Hardwired to phase.discover-on-dark rather than a CSS custom property — this file only needs to
- * serve the Discover hero today. When Create/Build/Launch/Grow/Evolve heroes are built, either
- * duplicate this file per phase (fast, proven-safe) or generalise it to a shared --ls-phase-accent
- * custom property at that point, once it's clear which is actually needed — not guessed now.
+ * The radial glow reads var(--ls-phase-accent-on-dark), set per phase by the page-slug-{phase} body
+ * class in phase-journey-nav.scss, so it follows whichever phase page the hero is on.
  */
 .ls-phase-hero {
   position: relative;
@@ -21,7 +19,7 @@
   background-image:
     linear-gradient(color-mix(in srgb, var(--wp--custom--color--text--on-dark) 2%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--text--on-dark) 2%, transparent) 1px, transparent 1px),
-    radial-gradient(60% 50% at 50% 22%, color-mix(in srgb, var(--wp--custom--color--phase--discover-on-dark) 14%, transparent) 0%, transparent 70%),
+    radial-gradient(60% 50% at 50% 22%, color-mix(in srgb, var(--ls-phase-accent-on-dark) 14%, transparent) 0%, transparent 70%),
     linear-gradient(158deg, var(--wp--custom--color--surface--band-start) 0%, var(--wp--custom--color--surface--band-end) 100%);
   background-position: 0 0, 0 0, 0 0, 0 0;
   background-repeat: repeat, repeat, no-repeat, no-repeat;
