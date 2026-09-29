@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Make phase section patterns follow the current phase colour (LS-4179)
+
+### Fixed
+
+- Accent colour (eyebrows, numbers, icons, bullets, borders) in the phase section patterns no longer stays hardcoded to Discover's green on the other five phase pages. Added a light-surface `--ls-phase-accent` custom property (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class alongside `--ls-phase-accent-on-dark`. `phase-introduction.php` and `phase-delivery-numbers.php` now use it directly, and `phase-common-services.php`, `phase-support-focus.php`, `phase-deliverables-and-role.php` and `phase-where-to-go-next.php` point their `$ls_phase_accent` variable at it. `phase-cta.php` (permanently dark) now uses `--ls-phase-accent-on-dark` for its checklist bullet.
+
+([#73](https://github.com/lightspeedwp/ls-theme/pull/73))
+
+---
+
 ## [Unreleased] — Add flatten-proof phase colour and a phase-services dynamic block (LS-4179)
 
 ### Fixed
