@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add flatten-proof phase colour and a phase-services dynamic block (LS-4179)
+
+### Fixed
+
+- Phase page colour (hero buttons, breadcrumb "current page" text) no longer goes black/white when a phase section's pattern is flattened by the block editor, and no longer stays hardcoded to Discover's green on the other five phase pages. Added `--ls-phase-accent`/`--ls-phase-accent-on-dark` custom properties (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class, so colour is resolved by CSS on every request instead of being computed in PHP or baked into a pattern's stored content. `styles/blocks/buttons/button-phase-primary.json`, `button-phase-outline.json`, `src/scss/structural/button-phase.scss`, and `src/scss/structural/phase-hero.scss` were hardwired directly to Discover's token — swapped all four to the new shared property.
+- `patterns/sections/phase-services-in-phase.php` selected its "Services in this phase" cards via `get_queried_object()` inside the pattern's own PHP, which only re-evaluates while the pattern stays a live `wp:pattern` reference, falling back to Discover's services once flattened. Moved that selection into a new `ls-theme/phase-services` dynamic block (`blocks/phase-services/`), which resolves the current phase from block context at real render time and isn't affected by pattern flattening.
+
+([#72](https://github.com/lightspeedwp/ls-theme/pull/72))
+
+---
+
 ## [Unreleased] — Refine Phase Where To Go Next section to match prototype (LS-4179)
 
 ### Changed
