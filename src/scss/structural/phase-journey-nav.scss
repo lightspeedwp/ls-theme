@@ -92,6 +92,15 @@
 // phase.discover-on-dark exists yet) to the phase's normal token.
 // `--ls-phase-accent` is its light-surface counterpart: the phase's normal (non-on-dark) token, for
 // phase-coloured elements on light backgrounds (eyebrows, numbers, icons, borders).
+// Both default to Discover's tokens on the base `body` so a pattern still resolves an accent where
+// no page-slug-{phase} class exists (notably the block editor canvas, which never gets one — WP
+// rewrites `body` to the editor wrapper for editor styles). The per-phase rules below have higher
+// specificity and override these on the six phase pages.
+body {
+  --ls-phase-accent-on-dark: var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));
+  --ls-phase-accent: var(--wp--custom--color--phase--discover);
+}
+
 @each $ls-phase in discover, create, build, launch, grow, evolve {
   body.page-slug-#{$ls-phase} {
     --ls-phase-accent-on-dark: var(--wp--custom--color--phase--#{$ls-phase}-on-dark, var(--wp--custom--color--phase--#{$ls-phase}));
