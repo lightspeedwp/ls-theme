@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Replace the phase-services dynamic block with per-phase patterns (LS-4179)
+
+### Changed
+
+- Replaced the `ls-theme/phase-services` dynamic block, which chose its "Services in this phase" cards from the current page slug, with six static patterns you can insert from the editor: `patterns/sections/phase-services-{discover,create,build,launch,grow,evolve}.php` (Section - Phase Services: Discover … Evolve). Each one holds its own phase's heading, service tiles and phase accent colour, so the content no longer depends on which page it's placed on.
+
+### Removed
+
+- `blocks/phase-services/`, `inc/blocks.php` (and its `require` in `functions.php`), and `patterns/sections/phase-services-in-phase.php`, the wrapper pattern that only contained the block.
+
+([#76](https://github.com/lightspeedwp/ls-theme/pull/76))
+
+---
+
 ## [Unreleased] — Make phase section patterns follow the current phase colour (LS-4179)
 
 ### Fixed

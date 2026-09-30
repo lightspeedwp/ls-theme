@@ -9,7 +9,7 @@
  * Our Process overview); the eyebrow and card content still need to be pulled out per-page before
  * this is reused on the other five pages. Two equal-width cards reusing the existing
  * Card - Link Row style and Link Arrow Accent paragraph style (same "Explore service"/"Read more"
- * convention used in phase-services-in-phase.php), rather than the source design's 4-column grid,
+ * convention used in the phase-services-{phase}.php patterns), rather than the source design's 4-column grid,
  * which only ever renders two cards. Adapts between the site's light and dark style variations via
  * text tokens; the phase accent uses the plain phase.{slug} token, same reasoning as
  * phase-support-focus.php and phase-common-services.php.
