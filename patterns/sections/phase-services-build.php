@@ -4,20 +4,20 @@
  * Slug: ls-theme/phase-services-build
  * Categories: featured
  * Block Types: core/pattern
- * Description: "Services in the Build phase" section for the Build lifecycle phase page — a
- * centred eyebrow/heading/intro and a wrapped row of service tiles. One of six static per-phase
- * patterns (phase-services-discover.php … phase-services-evolve.php) that replace the former
- * ls-theme/phase-services dynamic block: each pattern hardcodes its own phase, so its content is
- * fixed once inserted and stays correct whether or not the pattern is later flattened. Service
- * labels, descriptions, URLs and icons are kept in sync with the master list in
- * services-service-tiles.php. The phase accent uses the plain phase.build token, which already
- * resolves to the correct light/dark value for this adaptive surface.
+ * Description: "Services in the Build phase" section for the Build lifecycle phase page: a centred eyebrow, heading and intro above a row of service tiles.
  * Keywords: phase, build, services, cards, section
  * Viewport Width: 1280
  * Inserter: true
  *
  * @package ls-theme
  */
+
+// One of six static per-phase patterns (phase-services-discover.php … phase-services-evolve.php)
+// that replace the former ls-theme/phase-services dynamic block: each pattern hardcodes its own
+// phase, so its content is fixed once inserted and stays correct whether or not the pattern is
+// later flattened. Service labels, descriptions, URLs and icons are kept in sync with the master
+// list in services-service-tiles.php. The phase accent uses the plain phase.build token, which
+// already resolves to the correct light/dark value for this adaptive surface.
 
 $ls_services = array(
 	array(
