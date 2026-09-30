@@ -71,6 +71,7 @@ function ls_theme_get_bundle_render_markers() {
 			),
 		),
 		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
+		'phase-hero'                => array( 'classes' => array( 'ls-phase-hero' ) ),
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
@@ -83,6 +84,8 @@ function ls_theme_get_bundle_render_markers() {
 		'blog-all-articles'         => array( 'classes' => array( 'is-style-card-post', 'ls-post-card-cta' ) ),
 		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
 		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
+		'button-phase'              => array( 'classes' => array( 'is-style-button-phase-primary', 'is-style-button-phase-outline' ) ),
+		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -283,6 +286,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_front_page',
 		),
+		'phase-hero'                => array(
+			'handle'    => 'ls-theme-phase-hero',
+			'path'      => 'assets/css/phase-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Load early on all six phase pages; the render-marker fallback also covers
+			// this pattern when inserted on any other page.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
 		'services-hero'             => array(
 			'handle'   => 'ls-theme-services-hero',
 			'path'     => 'assets/css/services-hero.css',
@@ -406,6 +419,102 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// post_content.
 			'condition' => static function () {
 				return is_front_page() || is_post_type_archive( 'project' ) || is_404();
+			},
+		),
+		'button-phase'              => array(
+			'handle'    => 'ls-theme-button-phase',
+			'path'      => 'assets/css/button-phase.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Fast path for its only known placement so far (the Discover hero and its CTAs).
+			// Also registered in ls_theme_get_bundle_render_markers() below so it still loads once
+			// this same button style is reused on the Create/Build/Launch/Grow/Evolve phase pages,
+			// without needing this condition updated first.
+			'condition' => static function () {
+				return is_page( 'discover' );
+			},
+		),
+		'phase-journey-nav'         => array(
+			'handle'    => 'ls-theme-phase-journey-nav',
+			'path'      => 'assets/css/phase-journey-nav.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Shared across all six phase pages (this pattern is now reused on all of them, not
+			// just Discover), so scoped directly to all six known slugs — matches
+			// phase-services-in-phase below — rather than relying on the render_block/footer
+			// fallback, which was printing this after first paint on Create/Build/Launch/Grow/
+			// Evolve (LS-4179, CodeRabbit PR #64 comment #2).
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-services-in-phase'   => array(
+			'handle'    => 'ls-theme-phase-services-in-phase',
+			'path'      => 'assets/css/phase-services-in-phase.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Shared across all six phase pages from the start (unlike phase-journey-nav/
+			// button-phase above, which started Discover-only), so scoped directly to all six
+			// known slugs rather than needing a render_block fallback.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-cta'                 => array(
+			'handle'    => 'ls-theme-phase-cta',
+			'path'      => 'assets/css/phase-cta.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-services-in-phase above: shared from the start across all
+			// six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-delivery-numbers'    => array(
+			'handle'    => 'ls-theme-phase-delivery-numbers',
+			'path'      => 'assets/css/phase-delivery-numbers.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-services-in-phase/phase-cta above: shared from the start
+			// across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-common-services'     => array(
+			'handle'    => 'ls-theme-phase-common-services',
+			'path'      => 'assets/css/phase-common-services.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-delivery-numbers/phase-services-in-phase/phase-cta above:
+			// shared from the start across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-support-focus'       => array(
+			'handle'    => 'ls-theme-phase-support-focus',
+			'path'      => 'assets/css/phase-support-focus.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-common-services/phase-delivery-numbers above: shared from
+			// the start across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-faq'                 => array(
+			'handle'    => 'ls-theme-phase-faq',
+			'path'      => 'assets/css/phase-faq.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-support-focus/phase-common-services above: shared from the
+			// start across all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+			},
+		),
+		'phase-where-to-go-next'    => array(
+			'handle'    => 'ls-theme-phase-where-to-go-next',
+			'path'      => 'assets/css/phase-where-to-go-next.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Same reasoning as phase-faq/phase-support-focus above: shared from the start across
+			// all six phase pages.
+			'condition' => static function () {
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
 			},
 		),
 		'featured-work'             => array(

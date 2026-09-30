@@ -279,6 +279,7 @@
         },
         "custom": {
             "line-height": {
+                "heading-tight": "0.95",
                 "heading-snug": "1.1",
                 "heading-default": "1.25",
                 "heading-loose": "1.35",

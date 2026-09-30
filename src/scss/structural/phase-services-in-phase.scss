@@ -1,0 +1,41 @@
+/********** Section - Phase Services In Phase (per-phase CTA + hover accents) **********/
+
+/*
+ * The shared is-style-link-arrow-accent style (styles/blocks/paragraphs/link-arrow-accent.json +
+ * src/scss/structural/links.scss) reads its rest and hover colours from
+ * --ls-link-arrow-colour/--ls-link-arrow-hover-colour custom properties, both falling back to
+ * sitewide generic link-accent tokens (a cyan-blue unrelated to any phase). Those properties have
+ * no equivalent in core/paragraph's declared style attributes, so setting them inline on the block
+ * itself would always fail block validation the moment the block is re-parsed (the same class of
+ * bug already fixed on phase-journey-nav.php's step accent) — JSON limitation: a raw custom
+ * property can't be expressed in a style JSON attribute, see AGENTS.md Theme-First Approach.
+ *
+ * The shared is-style-card-service-tile style (styles/sections/cards/card-service-tile.json +
+ * src/scss/structural/services-service-tiles.scss) swaps its border to
+ * --ls-card-service-tile-border-active on hover/focus-within, same generic cyan-blue default —
+ * also not editable here, since that style is reused by ~16 other patterns sitewide. Overridden
+ * to a muted phase-accent tone (colour-mix'd down, not full-strength) rather than a plain swap,
+ * per the request to make the hover feel less dominant.
+ *
+ * All three scoped per phase via the page-slug-{phase} body class from
+ * inc/phase-page-body-class.php (same mechanism as phase-journey-nav.scss) rather than
+ * get_queried_object() in the pattern's own PHP, so the correct phase accent survives this
+ * section being flattened, and to the .ls-phase-services-in-phase section class so no other
+ * consumer of these shared styles is affected.
+ */
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-services-in-phase {
+    .is-style-link-arrow-accent {
+      --ls-link-arrow-colour: var(--wp--custom--color--phase--#{$ls-phase});
+      --ls-link-arrow-hover-colour: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+
+    .is-style-card-service-tile {
+      --ls-card-service-tile-border-active: color-mix(
+        in srgb,
+        var(--wp--custom--color--phase--#{$ls-phase}) 60%,
+        var(--wp--custom--color--border--card)
+      );
+    }
+  }
+}

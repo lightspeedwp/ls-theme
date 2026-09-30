@@ -1,0 +1,64 @@
+/********** Button - Phase Primary / Button - Phase Outline (phase-page heroes/CTAs) **********/
+
+/*
+ * Rest-state shape and hover END-STATE values for the phase-hero button variants (Discover, and
+ * eventually Create/Build/Launch/Grow/Evolve) — not sitewide-exclusive/header-or-footer content,
+ * so per AGENTS.md this doesn't belong in assets/css/animations.css, and per its "Motion/animation
+ * files may contain only @keyframes/transition/transform/animation/will-change" restriction it
+ * doesn't belong in src/scss/animations/_button-motion.scss either, even though it's hover-
+ * triggered — only the transition timing and the arrow's animated transform live there; the actual
+ * colour/size/shape values being transitioned to live here, same split already used for
+ * Button - Secondary (src/scss/structural/button-secondary.scss).
+ */
+.wp-block-button.is-style-button-phase-primary,
+.wp-block-button.is-style-button-phase-outline {
+  border-radius: var(--wp--preset--border-radius--500);
+}
+
+.wp-block-button.is-style-button-phase-primary:hover,
+.wp-block-button.is-style-button-phase-outline:hover {
+  border-radius: var(--wp--preset--border-radius--300);
+}
+
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link,
+.wp-block-button.is-style-button-phase-outline .wp-block-button__link {
+  border-radius: inherit;
+}
+
+.wp-block-button.is-style-button-phase-primary:hover .wp-block-button__link,
+.wp-block-button.is-style-button-phase-outline:hover .wp-block-button__link {
+  border-radius: var(--wp--preset--border-radius--300);
+}
+
+.wp-block-button.is-style-button-phase-outline:hover .wp-block-button__link {
+  color: var(--wp--custom--color--text--on-light);
+  border-color: transparent;
+}
+
+/*
+ * Centre-out circle reveal (outline only — see button-phase-outline.json for why the primary,
+ * always-filled button can't use this). Rest state is invisible and pinned to the button's centre;
+ * its square uses the larger button dimension, then scales beyond the diagonal to cover
+ * every corner. Its layout size stays constant throughout the transform/opacity transition.
+ */
+// JSON limitation: pseudo-element geometry and transforms have no theme.json equivalent.
+.wp-block-button.is-style-button-phase-outline .wp-block-button__link::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  background-color: var(--ls-phase-accent-on-dark);
+  opacity: 0;
+  z-index: -1;
+}
+
+// JSON limitation: parent hover targeting a pseudo-element has no theme.json equivalent.
+.wp-block-button.is-style-button-phase-outline:hover .wp-block-button__link::before {
+  transform: translate(-50%, -50%) scale(1.42);
+  opacity: 1;
+}

@@ -7,6 +7,98 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Make phase section patterns follow the current phase colour (LS-4179)
+
+### Fixed
+
+- Accent colour (eyebrows, numbers, icons, bullets, borders) in the phase section patterns no longer stays hardcoded to Discover's green on the other five phase pages. Added a light-surface `--ls-phase-accent` custom property (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class alongside `--ls-phase-accent-on-dark`. `phase-introduction.php` and `phase-delivery-numbers.php` now use it directly, and `phase-common-services.php`, `phase-support-focus.php`, `phase-deliverables-and-role.php` and `phase-where-to-go-next.php` point their `$ls_phase_accent` variable at it. `phase-cta.php` (permanently dark) now uses `--ls-phase-accent-on-dark` for its checklist bullet.
+
+([#73](https://github.com/lightspeedwp/ls-theme/pull/73))
+
+---
+
+## [Unreleased] — Add flatten-proof phase colour and a phase-services dynamic block (LS-4179)
+
+### Fixed
+
+- Phase page colour (hero buttons, breadcrumb "current page" text) no longer goes black/white when a phase section's pattern is flattened by the block editor, and no longer stays hardcoded to Discover's green on the other five phase pages. Added `--ls-phase-accent`/`--ls-phase-accent-on-dark` custom properties (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class, so colour is resolved by CSS on every request instead of being computed in PHP or baked into a pattern's stored content. `styles/blocks/buttons/button-phase-primary.json`, `button-phase-outline.json`, `src/scss/structural/button-phase.scss`, and `src/scss/structural/phase-hero.scss` were hardwired directly to Discover's token — swapped all four to the new shared property.
+- `patterns/sections/phase-services-in-phase.php` selected its "Services in this phase" cards via `get_queried_object()` inside the pattern's own PHP, which only re-evaluates while the pattern stays a live `wp:pattern` reference, falling back to Discover's services once flattened. Moved that selection into a new `ls-theme/phase-services` dynamic block (`blocks/phase-services/`), which resolves the current phase from block context at real render time and isn't affected by pattern flattening.
+
+([#72](https://github.com/lightspeedwp/ls-theme/pull/72))
+
+---
+
+## [Unreleased] — Refine Phase Where To Go Next section to match prototype (LS-4179)
+
+### Changed
+
+- `patterns/sections/phase-where-to-go-next.php`: narrowed the cards row into a `900px` centred container (previously full `align:wide`), tightened the gap between cards (`spacing|20` → `10`), increased the gap between the eyebrow and the cards (`spacing|30` → `40`), increased section bottom padding (`spacing|90` → `100`), reduced the card title to `fontSize:300` and the "Read more" CTA to the standard `fontSize:200` body token, and removed the `verticalAlignment:"top"` on the columns/column blocks so `core/columns`' default equal-height column stretch applies.
+- `src/scss/structural/phase-where-to-go-next.scss`: added a scoped override (`.ls-phase-where-to-go-next .is-style-card-link-row`) so each card fills its now-equal-height column (`height:100%`), which combined with the card's existing flex-column layout and the "Read more" link's existing `margin-top:auto` bottom-aligns both CTAs regardless of description length — no fixed heights, no CSS Grid rebuild needed. Also increased card padding (`spacing|20` → `30`), reduced the border radius (`border-radius|400` → `300`), and softened the border colour, scoped to this pattern only so the Work archive and Services page's use of the same shared Card - Link Row style is unaffected. The existing Discover phase accent colour is unchanged.
+
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+
+---
+
+## [Unreleased] — Fix FAQ accordion closed-state gap (LS-4179)
+
+### Fixed
+
+- `src/scss/structural/faq.scss`: the shared `schema-faq` accordion's closed-row collapse used `grid-template-rows: 0fr` → `1fr`, which does not actually resolve to zero on this element — it is both the grid container and, via its own anonymous content box, the only grid item, so the browser's intrinsic-sizing pass for an auto-height container falls back to the answer text's own content height regardless of the `0fr` value (confirmed via computed styles; `min-height: 0` did not change it either). This left a large empty gap below every closed question. Replaced with a `max-height: 0` → `1000px` collapse, a more reliable technique for this exact shape. Root-caused and fixed in the shared component (not scoped to `.ls-phase-faq`) since it affects every consumer of `section-faq.php`'s accordion, not just this pattern.
+
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+
+---
+
+## [Unreleased] — Refine Phase FAQ section to match prototype (LS-4179)
+
+### Changed
+
+- `patterns/sections/phase-faq.php`: increased section top padding (`spacing|90` → `100`) for more breathing room before the heading; widened the heading/intro/FAQ containers from `620px`/`880px` to a unified `780px` so the heading stays on one line at desktop without reducing its font size; changed the intro paragraph from centred to left-aligned and reduced its size from `fontSize:300` to the theme's standard `fontSize:200` body-copy token.
+- `src/scss/structural/phase-faq.scss`: added a scoped visual redesign of the shared `schema-faq` accordion for this pattern only (`.ls-phase-faq`) — larger corner radius (`border-radius|400`), a subtler rest-state border (colour-mixed down), tighter gap between rows (`spacing|10`), taller/vertically-centred rows (`spacing|50` vertical padding), and a circular plus/minus control (sized via `spacing|50`, tinted with the current phase accent) replacing the shared component's small rotated-chevron icon. Implemented as a scoped override so the homepage FAQ and any other consumer of `schema-faq` are unaffected.
+- Fixed a CSS specificity bug in the same file where the shared component's open-state chevron rotation was still winning over the new plus/minus icon's transform, distorting it when a question was expanded.
+
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+
+---
+
+## [Unreleased] — Add Phase FAQ and Phase Where To Go Next sections (LS-4179)
+
+### Added
+
+- `patterns/sections/phase-faq.php`: shared "Frequently asked questions" section for all six lifecycle phase pages, currently authored with Discover's own five questions. Reuses the existing Yoast FAQ block and its `schema-faq` accordion component (`patterns/section-faq.php`, `assets/css/faq.css`, `assets/js/faq-accordion.js`) as-is — no new accordion, JS, or markup pattern introduced.
+- `patterns/sections/phase-where-to-go-next.php`: shared "Where to go next" section for all six lifecycle phase pages, currently authored with Discover's own two next-step cards. Reuses the existing Card - Link Row section style and Link Arrow Accent paragraph style (the same "Explore service"/"Read more" convention already used in `phase-services-in-phase.php`) in a real 2-column row, rather than the source Figma frame's broken 4-column grid.
+- `src/scss/structural/phase-faq.scss` → `assets/css/phase-faq.css`: phase-scoped override (via the `page-slug-{phase}` body class, one rule per phase) so the FAQ accordion's open-state border and toggle-icon colour match the current phase's accent instead of the sitewide generic link-accent token, without affecting any other page that uses the shared `schema-faq` component.
+- `src/scss/structural/phase-where-to-go-next.scss` → `assets/css/phase-where-to-go-next.css`: same phase-scoped override technique for the Card - Link Row hover border/background/icon colours and the "Read more" link's colour, without affecting the Work archive or Services page, which also use these shared styles.
+- Wired both new bundles into `package.json` (`build:css`/`build:css:dev`/`watch:css`), `inc/animations.php` (conditional on the six phase-page slugs, same pattern as the other phase bundles), and `functions.php` (editor styles).
+
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+
+---
+
+## [Unreleased] — Refine Phase Support Focus section layout and typography (LS-4179)
+
+### Changed
+
+- `patterns/sections/phase-support-focus.php`: widened the eyebrow/heading wrapper from a fixed `620px` content width to the theme's existing wide alignment (`align:"wide"`, no custom `contentSize`) so "AI Readiness Assessment" stays on one line at desktop without changing the global H2 style, heading level, or inventing a new width token; added top margin above the eyebrow/heading group for more breathing room from the previous section.
+- `patterns/sections/phase-support-focus.php`: widened the column gutter between the body copy and focus-area card (`spacing|60` → `spacing|70`) so the section reads more balanced, matching the reference design.
+- `patterns/sections/phase-support-focus.php`: changed each focus-area row's vertical alignment from `top` to `center` so the hollow-circle bullet centres against its single-line list text instead of sitting high above it.
+- `patterns/sections/phase-support-focus.php`: reduced left-column body copy and focus-card heading/list typography from `fontSize:300` to `fontSize:200`, tightened line-height and paragraph spacing, and reduced the CTA's top margin — all using existing typography/spacing tokens.
+- `patterns/sections/phase-support-focus.php`: replaced the filled/tinted `lightspeed/dot` icon bullet with a simple hollow outlined circle (1px border, no fill, no icon) in the approved Discover accent colour, matching the reference's bullet style.
+
+([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+
+---
+
+## [Unreleased] — Phase page review fixes
+
+### Fixed
+
+- Load phase hero styles wherever the pattern renders and redirect bare phase URLs only to published pages.
+- Correct introduction heading levels, journey navigation label serialization, current-page semantics, and inactive-link contrast.
+- Scale the outline button's circle reveal to cover the button's corners without animating layout dimensions; retain reduced-motion behavior.
+
+---
+
 ## [Unreleased] — Fix WCAG color-contrast violations for captions and blog filter pill (LS-2934)
 
 ### Fixed

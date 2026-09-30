@@ -1,0 +1,164 @@
+/********** Section - Phase Journey Nav (phase-page heroes' journey bar) **********/
+
+/*
+ * Inactive / hover / active / hover-active / focus-visible states for the six phase links.
+ * Rest-state box model (padding, dividers, background) lives as inline block attributes in
+ * phase-journey-nav.php; this file owns only the parts that need a pseudo-class, since a bare
+ * :hover/:focus-visible in a style JSON's css field is silently stripped by WordPress, and an
+ * inline `style="color:..."` on the link would always win the cascade over any external :hover
+ * rule for the same property (same class of bug already documented for the hero's "Send to a
+ * friend" control) — so `color` is left for this file to own entirely.
+ *
+ * The `--ls-phase-item-accent` custom property is set here, per phase, via each step's
+ * `ls-phase-journey-nav__step--{phase}` modifier class, rather than as an inline custom property
+ * on the block itself: a raw CSS custom property has no equivalent in core/group's declared style
+ * attributes, so WordPress's block validator has no way to reconstruct it and always flags the
+ * block as invalid ("Attempt Recovery") the moment it's parsed back into editable blocks. Setting
+ * it from a plain className instead keeps the block's own style attribute limited to properties
+ * WordPress actually knows how to round-trip.
+ *
+ * Not sitewide-exclusive/header-or-footer content, so per AGENTS.md this doesn't belong in
+ * assets/css/animations.css even though a couple of these rules include a transition — that
+ * restriction is specific to the src/scss/animations/** folder, not to structural files in
+ * general (same reasoning already applied to button-phase.scss).
+ */
+.ls-phase-journey-nav__step--discover {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));
+}
+
+.ls-phase-journey-nav__step--create {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--create-on-dark, var(--wp--custom--color--phase--create));
+}
+
+.ls-phase-journey-nav__step--build {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--build-on-dark, var(--wp--custom--color--phase--build));
+}
+
+.ls-phase-journey-nav__step--launch {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--launch-on-dark, var(--wp--custom--color--phase--launch));
+}
+
+.ls-phase-journey-nav__step--grow {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--grow-on-dark, var(--wp--custom--color--phase--grow));
+}
+
+.ls-phase-journey-nav__step--evolve {
+  --ls-phase-item-accent: var(--wp--custom--color--phase--evolve-on-dark, var(--wp--custom--color--phase--evolve));
+}
+
+.ls-phase-journey-nav__link a {
+  transition: color var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+}
+
+/*
+ * Inactive (rest, default for every item): noticeably darker than the hover state below, so hover
+ * actually reads as a state change instead of every item already looking hovered — but still built
+ * from the same on-dark-muted token (dimmed via color-mix against the bar's own dark background)
+ * rather than a separate hardcoded grey, so it stays part of the same token family as everything
+ * else here. 70% (rather than the original 55%) is the minimum mix that keeps this text at/above
+ * WCAG AA's 4.5:1 contrast ratio against the bar's surface.band-end background — 55% measured
+ * 3.58:1 via axe. The dot is hidden by default; it's always rendered in the markup (never
+ * PHP-conditional) so the body-class rules below can show/hide it with pure CSS.
+ */
+.ls-phase-journey-nav__link a {
+  color: color-mix(in srgb, var(--wp--custom--color--text--on-dark-muted) 70%, transparent);
+}
+
+.ls-phase-journey-nav__link a:hover,
+.ls-phase-journey-nav__link a:focus-visible {
+  color: var(--wp--custom--color--text--on-dark);
+}
+
+.ls-phase-journey-nav__dot {
+  display: none;
+}
+
+/*
+ * Active override, keyed off the `page-slug-{phase}` body class from
+ * inc/phase-page-body-class.php rather than the `is-active` class PHP adds to this step: that body
+ * class is recomputed by WordPress on every request regardless of whether this pattern is a live
+ * reference or a flattened copy, so the correct step stays highlighted even if this instance's own
+ * `is-active` class is stale or was never set. Written per phase (not a generic
+ * `.is-active`-style rule) because the selector needs both the current page's body class AND the
+ * matching step's own modifier class to agree on which one item lights up.
+ */
+// JSON limitation: a page-level custom property keyed off a conditional body class has no
+// theme.json equivalent — see AGENTS.md Theme-First Approach. `--ls-phase-accent-on-dark` is the
+// shared source of truth for every permanently-dark, phase-coloured element sitewide (phase-hero's
+// pill/breadcrumb, button-phase-primary/outline) so none of them need to hardcode a single phase's
+// colour the way they did before only Discover existed. Same fallback as this file's own
+// --ls-phase-item-accent above: falls back from a phase's "-on-dark" token (only
+// phase.discover-on-dark exists yet) to the phase's normal token.
+// `--ls-phase-accent` is its light-surface counterpart: the phase's normal (non-on-dark) token, for
+// phase-coloured elements on light backgrounds (eyebrows, numbers, icons, borders).
+// Both default to Discover's tokens on the base `body` so a pattern still resolves an accent where
+// no page-slug-{phase} class exists (notably the block editor canvas, which never gets one — WP
+// rewrites `body` to the editor wrapper for editor styles). The per-phase rules below have higher
+// specificity and override these on the six phase pages.
+body {
+  --ls-phase-accent-on-dark: var(--wp--custom--color--phase--discover-on-dark, var(--wp--custom--color--phase--discover));
+  --ls-phase-accent: var(--wp--custom--color--phase--discover);
+}
+
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} {
+    --ls-phase-accent-on-dark: var(--wp--custom--color--phase--#{$ls-phase}-on-dark, var(--wp--custom--color--phase--#{$ls-phase}));
+    --ls-phase-accent: var(--wp--custom--color--phase--#{$ls-phase});
+  }
+}
+
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-journey-nav__step--#{$ls-phase} {
+    .ls-phase-journey-nav__link a {
+      color: var(--ls-phase-item-accent);
+    }
+
+    .ls-phase-journey-nav__link a:hover,
+    .ls-phase-journey-nav__link a:focus-visible {
+      color: var(--wp--custom--color--text--on-dark);
+    }
+
+    .ls-phase-journey-nav__dot {
+      display: inline-flex;
+    }
+  }
+}
+
+/*
+ * Focus-visible outline: uses text.on-dark rather than the sitewide focus.ring token, which
+ * resolves to a near-black colour in the light style variation — invisible against this
+ * permanently-dark bar. Same "on-dark family" reasoning already used throughout this component.
+ */
+.ls-phase-journey-nav__link a:focus-visible {
+  outline: 2px solid var(--wp--custom--color--text--on-dark);
+  outline-offset: 3px;
+  border-radius: var(--wp--preset--border-radius--100);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-phase-journey-nav__link a {
+    transition: none;
+  }
+}
+
+/*
+ * Responsive: six phase links plus the "Journey Phases" label don't fit a narrow viewport without
+ * either wrapping onto multiple messy lines or shrinking illegibly. A horizontal scroll strip
+ * keeps every item on one line, in order, and still usable — preferred over awkward wrapping.
+ */
+@media (max-width: 781px) {
+  .ls-phase-journey-nav__items {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ls-phase-journey-nav__items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ls-phase-journey-nav__step {
+    flex-shrink: 0;
+  }
+}

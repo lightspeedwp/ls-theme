@@ -1,0 +1,56 @@
+/********** Phase - Common Services (all six lifecycle phase pages) **********/
+
+/*
+ * Phase Common Services (LS-4179, single consumer
+ * patterns/sections/phase-common-services.php). Desktop rest-state is a centred, wrapped "pill
+ * cloud" of accent-dot + short-label chips, each fully rounded (border-radius|500, a true
+ * stadium shape) — fine while every label stays on one line, since the chips are only ever as
+ * tall as one line of text and the centred dot sits level with it.
+ *
+ * Below the 782px columns-stacking breakpoint used sitewide (see e.g.
+ * services-delivery-numbers.scss), several of these labels are long enough to wrap onto two
+ * lines. Left unchanged, that breaks the pill in three ways: the stadium shape stretches into a
+ * lopsided capsule around two lines instead of one, the dot (vertically centred against the
+ * chip) floats at the vertical midpoint of two lines instead of sitting with the first line, and
+ * the chips' own variable widths under `justifyContent:center` produce a jagged, off-alignment
+ * stack rather than a clean list. This switches the wrap container to a single-column, full-width
+ * stack, drops each chip to a smaller rounded-rectangle radius (matching the card radius used
+ * elsewhere in this same pattern, e.g. its footnote panel), and re-anchors the dot to the top of
+ * the (now potentially two-line) text — the same top-alignment fix already used for the Focus
+ * Areas bullet list in phase-support-focus.php, so the two sections share one mobile list
+ * language.
+ */
+
+// JSON limitation: switching a flex row's direction/alignment and a chip's border-radius based on
+// the current viewport has no theme.json/block-attribute key for "below this breakpoint" — see
+// AGENTS.md Theme-First Approach. 781.98px = 782px, WP core's own .wp-block-columns stacking
+// breakpoint, reused here for consistency even though this row is a `core/group` flex layout,
+// not `core/columns`, so it inherits no automatic stacking of its own.
+@media (max-width: 781.98px) {
+  // `!important` needed: WP's own generated unique-class rule for this flex layout
+  // (`is-layout-flex`) otherwise wins the cascade over a plain class override — same reasoning
+  // documented in stats-bar.scss.
+  .ls-phase-common-services__pills {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .ls-phase-common-services__pills > .wp-block-group.has-border-color {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    align-items: flex-start !important;
+    // `!important` needed: the stadium radius comes from the chip's own inline `style` attribute
+    // (its block JSON style attribute), which always wins over a plain class selector.
+    border-radius: var(--wp--preset--border-radius--300) !important;
+  }
+
+  // The dot (a fixed 6px icon) sits flush with the row's top edge once align-items switches to
+  // flex-start above — correct for the *row*, but visually high compared with the text, which
+  // renders with its own line-height (font-size|200 × the paragraph line-height ratio) above and
+  // below the glyph. Nudge the dot down by half the gap between one text line's full height and
+  // the dot's own height, so it centres on the first line specifically rather than the row.
+  .ls-phase-common-services__pills > .wp-block-group.has-border-color > .wp-block-icon {
+    margin-top: calc((var(--wp--preset--font-size--200) * var(--wp--custom--line-height--paragraph) - 6px) / 2);
+  }
+}

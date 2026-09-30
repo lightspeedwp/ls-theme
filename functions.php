@@ -39,6 +39,15 @@ require get_template_directory() . '/inc/work-single-hero.php';
 /** Loads Blog Single "Related Reading" query filtering */
 require get_template_directory() . '/inc/blog-single-related-query.php';
 
+/** Loads bare phase-slug (e.g. /discover/) redirects to their real nested URL */
+require get_template_directory() . '/inc/phase-page-redirects.php';
+
+/** Loads the phase-page body class used to drive the Journey Phases nav's active state */
+require get_template_directory() . '/inc/phase-page-body-class.php';
+
+/** Registers the theme's own custom blocks (blocks/*) */
+require get_template_directory() . '/inc/blocks.php';
+
 /**
  * Sets up theme supports.
  */
@@ -71,6 +80,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/card-shells.css' );
 	add_editor_style( 'assets/css/cta-buttons.css' );
 	add_editor_style( 'assets/css/home-hero.css' );
+	add_editor_style( 'assets/css/phase-hero.css' );
 	add_editor_style( 'assets/css/services-hero.css' );
 	add_editor_style( 'assets/css/services-linked-decisions.css' );
 	add_editor_style( 'assets/css/services-service-clusters.css' );
@@ -85,6 +95,15 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/faq.css' );
 	add_editor_style( 'assets/css/links.css' );
 	add_editor_style( 'assets/css/button-secondary.css' );
+	add_editor_style( 'assets/css/button-phase.css' );
+	add_editor_style( 'assets/css/phase-journey-nav.css' );
+	add_editor_style( 'assets/css/phase-services-in-phase.css' );
+	add_editor_style( 'assets/css/phase-cta.css' );
+	add_editor_style( 'assets/css/phase-delivery-numbers.css' );
+	add_editor_style( 'assets/css/phase-common-services.css' );
+	add_editor_style( 'assets/css/phase-support-focus.css' );
+	add_editor_style( 'assets/css/phase-faq.css' );
+	add_editor_style( 'assets/css/phase-where-to-go-next.css' );
 	add_editor_style( 'assets/css/featured-work.css' );
 	add_editor_style( 'assets/css/where-to-fit.css' );
 	add_editor_style( 'assets/css/homepage-cta.css' );

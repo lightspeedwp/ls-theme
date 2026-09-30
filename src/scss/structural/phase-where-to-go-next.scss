@@ -1,0 +1,66 @@
+/********** Section - Phase Where To Go Next (visual redesign + per-phase hover accents) **********/
+
+/*
+ * Equal-height cards + bottom-aligned CTA: core/columns already stretches its columns to equal
+ * height by default (the block's own CSS only overrides that to align-items:flex-start when a
+ * verticalAlignment is set, which the pattern no longer sets), so each .wp-block-column is
+ * already the same height as its tallest sibling. What's missing is telling the card itself to
+ * fill that column height — a plain block box only ever sizes to its own content — so the
+ * article's own height is set to 100% here. Once the card is genuinely as tall as the column,
+ * its own flex-column layout (already declared in the pattern's block attributes) plus the
+ * "Read more" paragraph's own margin-top:auto (already in the pattern) push the CTA to the
+ * bottom, matching the reference regardless of how much either card's description wraps. No
+ * fixed/hardcoded height anywhere, and nothing here needs a CSS Grid rebuild of the row: JSON
+ * limitation is only "fill 100% of the parent's flex-stretched height", which has no
+ * block-attribute equivalent — see AGENTS.md Theme-First Approach.
+ *
+ * Padding/border/radius overrides use the same colour-mix'd-down, scoped-override technique
+ * already established in phase-faq.scss for the same reason: these are the shared
+ * Card - Link Row style's rest-state values, also used by the Work archive and Services page, so
+ * they're overridden here rather than in styles/sections/cards/card-link-row.json to avoid
+ * changing that shared look anywhere else it's used.
+ */
+.ls-phase-where-to-go-next {
+  .is-style-card-link-row {
+    height: 100%;
+    padding: var(--wp--preset--spacing--30);
+    border-color: color-mix(in srgb, var(--wp--custom--color--border--card) 55%, transparent);
+    border-radius: var(--wp--preset--border-radius--300);
+  }
+}
+
+/*
+ * The shared is-style-card-link-row style (styles/sections/cards/card-link-row.json +
+ * src/scss/structural/work-archive-sections.scss) reads its hover border/background/icon colours
+ * from --ls-card-link-row-border-active/--ls-card-link-row-background-active/
+ * --ls-card-link-row-icon-active custom properties, all falling back to sitewide generic
+ * link-accent tokens (a cyan-blue unrelated to any phase) since that style is also reused by the
+ * Work archive and Services page. The shared is-style-link-arrow-accent "Read more" link reads
+ * --ls-link-arrow-colour/--ls-link-arrow-hover-colour the same way (see
+ * phase-services-in-phase.scss for the identical reasoning — a raw custom property can't be
+ * expressed in a style JSON attribute, so it can't be set inline on the block itself; JSON
+ * limitation, see AGENTS.md Theme-First Approach).
+ *
+ * Both scoped per phase via the page-slug-{phase} body class from
+ * inc/phase-page-body-class.php, same mechanism as phase-services-in-phase.scss, and to the
+ * .ls-phase-where-to-go-next section class so no other consumer of these shared styles is
+ * affected.
+ */
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-where-to-go-next {
+    .is-style-card-link-row {
+      --ls-card-link-row-border-active: var(--wp--custom--color--phase--#{$ls-phase});
+      --ls-card-link-row-background-active: color-mix(
+        in srgb,
+        var(--wp--custom--color--phase--#{$ls-phase}) 10%,
+        transparent
+      );
+      --ls-card-link-row-icon-active: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+
+    .is-style-link-arrow-accent {
+      --ls-link-arrow-colour: var(--wp--custom--color--phase--#{$ls-phase});
+      --ls-link-arrow-hover-colour: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+  }
+}

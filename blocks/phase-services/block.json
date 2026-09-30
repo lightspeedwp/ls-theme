@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ls-theme/phase-services",
+	"title": "Phase Services",
+	"category": "text",
+	"description": "Renders the current lifecycle phase page's \"Services in this phase\" heading and service cards. Implements CodeRabbit's request-time rendering fix for patterns/sections/phase-services-in-phase.php: PHP phase-detection baked into a pattern's own content only re-evaluates while the pattern stays a live wp:pattern reference, and is lost if WordPress flattens it, so the phase-dependent selection and markup now live in this dynamic block's render.php instead, which runs at real request time regardless of how the surrounding pattern is stored.",
+	"textdomain": "ls-theme",
+	"usesContext": [ "postId" ],
+	"render": "file:./render.php"
+}

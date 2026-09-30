@@ -1,0 +1,114 @@
+/********** Section - Phase FAQ (visual redesign + per-phase open-state accent) **********/
+
+/*
+ * The shared schema-faq accordion (patterns/section-faq.php + src/scss/structural/faq.scss) is
+ * reused as-is for its markup, JS-driven expand/collapse, and accessibility (role="button",
+ * aria-expanded, focus-visible), but this pattern's own reference calls for a visibly different
+ * rest-state treatment: a much larger corner radius, a subtler border, tighter row gaps, and a
+ * circular plus/minus control in place of the shared component's small rotated-chevron icon.
+ * Rather than changing those shared defaults (which would also affect the homepage FAQ and any
+ * other page that inserts section-faq.php), every rule below is scoped to .ls-phase-faq so only
+ * this pattern's rendering changes.
+ *
+ * JSON limitation: none of this has a theme.json/block-attribute equivalent — the accordion's
+ * question/answer markup is plain hard-coded HTML from the Yoast FAQ block (not built from
+ * block-supports-aware sub-blocks), so there is no style JSON path to reach it at all; see
+ * AGENTS.md Theme-First Approach.
+ */
+.ls-phase-faq {
+  .schema-faq {
+    // Tighter rhythm between rows than the shared component's default spacing|20 gap.
+    gap: var(--wp--preset--spacing--10);
+  }
+
+  .schema-faq.is-accordion .schema-faq-section {
+    // Subtler rest-state border than the shared component's default border.card at full
+    // strength — color-mix'd down so the outline is present but doesn't compete with the card.
+    --ls-faq-border-rest: color-mix(in srgb, var(--wp--custom--color--border--card) 55%, transparent);
+    border-radius: var(--wp--preset--border-radius--400);
+  }
+
+  .schema-faq.is-accordion .schema-faq-question {
+    position: relative;
+    padding-top: var(--wp--preset--spacing--50);
+    padding-bottom: var(--wp--preset--spacing--50);
+    // Extra inset on the right so the question text never runs under the circular control.
+    padding-right: calc(
+      var(--wp--preset--spacing--30) + var(--wp--preset--spacing--50) + var(--wp--preset--spacing--10)
+    );
+  }
+
+  // The circular control's tinted background. A separate pseudo-element from the plus/minus
+  // glyph below so the glyph can sit on top of it in natural paint order without extra markup.
+  .schema-faq.is-accordion .schema-faq-question::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: var(--wp--preset--spacing--30);
+    width: var(--wp--preset--spacing--50);
+    height: var(--wp--preset--spacing--50);
+    transform: translateY(-50%);
+    border-radius: var(--wp--preset--border-radius--500);
+    background: color-mix(in srgb, var(--ls-faq-border-active) 15%, transparent);
+    transition: background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  }
+
+  // The plus/minus glyph itself: two crossed bars drawn with a pair of linear-gradient
+  // backgrounds (a common CSS-only plus/minus icon technique) rather than the shared
+  // component's single rotated-corner chevron, since the reference calls for a true plus that
+  // resolves to a minus when open, not a chevron. No new icon asset needed.
+  .schema-faq.is-accordion .schema-faq-question::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: var(--wp--preset--spacing--30);
+    width: var(--wp--preset--spacing--50);
+    height: var(--wp--preset--spacing--50);
+    margin-inline-start: 0;
+    border: none;
+    transform: translateY(-50%);
+    transform-origin: center;
+    background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
+    background-position: center;
+    background-size: 40% 2px, 2px 40%;
+    background-repeat: no-repeat;
+    color: var(--ls-faq-border-active);
+    transition: background-size var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--emphasised);
+  }
+
+  // Open state: collapse the vertical bar only, leaving a minus — same technique used
+  // elsewhere in the theme for CSS-only state icons, no JS change needed. Also re-asserts
+  // transform: the shared faq.scss's own open-state rule (rotate(-135deg), for its chevron) has
+  // higher selector specificity than the rest-state override above, so it would otherwise still
+  // win and visibly distort this plus/minus glyph.
+  .schema-faq.is-accordion .schema-faq-section.is-open > .schema-faq-question::after {
+    background-size: 40% 2px, 0 2px;
+    transform: translateY(-50%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .schema-faq.is-accordion .schema-faq-question::before,
+    .schema-faq.is-accordion .schema-faq-question::after {
+      transition: none;
+    }
+  }
+}
+
+/*
+ * The open-state border colour and the new circular control both read from the
+ * --ls-faq-border-active custom property, which the shared faq.scss falls back to a sitewide
+ * generic link-accent token (unrelated to any phase). Overridden here to the current phase's
+ * accent so both match the rest of the phase page's accent language (eyebrow, bullets, buttons),
+ * scoped per phase via the page-slug-{phase} body class from inc/phase-page-body-class.php, same
+ * mechanism as phase-services-in-phase.scss.
+ */
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  body.page-slug-#{$ls-phase} .ls-phase-faq {
+    .schema-faq.is-accordion .schema-faq-section {
+      --ls-faq-border-active: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+  }
+}
