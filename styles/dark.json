@@ -75,10 +75,15 @@
 					"discover": "var:preset|color|phase-one",
 					"discover-on-dark": "var:preset|color|phase-one",
 					"create": "var:preset|color|phase-two",
+					"create-on-dark": "var:preset|color|phase-two",
 					"build": "var:preset|color|phase-three",
+					"build-on-dark": "var:preset|color|phase-three",
 					"launch": "var:preset|color|phase-four",
+					"launch-on-dark": "var:preset|color|phase-four",
 					"grow": "var:preset|color|phase-five",
-					"evolve": "var:preset|color|phase-six"
+					"grow-on-dark": "var:preset|color|phase-five",
+					"evolve": "var:preset|color|phase-six",
+					"evolve-on-dark": "var:preset|color|phase-six"
 				},
 				"status": {
 					"success": "var:preset|color|success-foreground"
