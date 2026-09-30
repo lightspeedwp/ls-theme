@@ -39,3 +39,33 @@
     }
   }
 }
+
+/*
+ * Equal-height tiles with a clamped description (BugHerd #267).
+ *
+ * The six per-phase patterns lay their tiles out as a wrapping core/group flex row, and core's
+ * flex layout defaults to align-items: center — so a tile with a longer description (e.g. Training
+ * in Launch) rendered taller than its siblings and sat vertically offset instead of matching them.
+ * align-self: stretch makes every tile in a row the height of the tallest one; the link paragraph
+ * already uses margin-top: auto, so it then pins to the bottom edge of every tile. The description
+ * is also capped at three lines with an ellipsis so one long description can't stretch a whole row.
+ *
+ * Scoped to .ls-phase-services-in-phase so the shared is-style-card-service-tile used by ~16 other
+ * patterns sitewide is unaffected.
+ *
+ * JSON limitation: align-self on a block and line-clamp (-webkit-box + -webkit-line-clamp) have no
+ * theme.json / block-support equivalent — see AGENTS.md Theme-First Approach.
+ */
+.ls-phase-services-in-phase {
+  .is-style-card-service-tile {
+    align-self: stretch;
+  }
+
+  .ls-card-service-tile__content p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+}
