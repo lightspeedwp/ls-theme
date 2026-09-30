@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `blocks/phase-services/`, `inc/blocks.php` (and its `require` in `functions.php`), and `patterns/sections/phase-services-in-phase.php`, the wrapper pattern that only contained the block.
 
+([#76](https://github.com/lightspeedwp/ls-theme/pull/76))
+
 ---
 
 ## [Unreleased] — Make phase section patterns follow the current phase colour (LS-4179)
