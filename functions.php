@@ -45,9 +45,6 @@ require get_template_directory() . '/inc/phase-page-redirects.php';
 /** Loads the phase-page body class used to drive the Journey Phases nav's active state */
 require get_template_directory() . '/inc/phase-page-body-class.php';
 
-/** Registers the theme's own custom blocks (blocks/*) */
-require get_template_directory() . '/inc/blocks.php';
-
 /**
  * Sets up theme supports.
  */
