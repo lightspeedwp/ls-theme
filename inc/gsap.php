@@ -41,7 +41,7 @@ function ls_theme_get_gsap_styles( $context = 'front' ) {
  */
 function ls_theme_get_gsap_scripts( $context = 'front' ) {
 	$scripts = array(
-		'core' => array(
+		'core'         => array(
 			'handle'   => 'ls-theme-gsap',
 			'src'      => 'https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js',
 			'deps'     => array(),
@@ -103,10 +103,10 @@ function ls_theme_enqueue_gsap_scripts( $context = 'front' ) {
 }
 
 /**
-	* Enqueues GSAP styles for the requested context.
-	*
-	* @param string $context Load context. Accepts 'front' or 'editor'.
-	*/
+ * Enqueues GSAP styles for the requested context.
+ *
+ * @param string $context Load context. Accepts 'front' or 'editor'.
+ */
 function ls_theme_enqueue_gsap_styles( $context = 'front' ) {
 	$styles = ls_theme_get_gsap_styles( $context );
 

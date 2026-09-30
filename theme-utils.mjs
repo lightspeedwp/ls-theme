@@ -199,7 +199,7 @@ async function validateSchema() {
  * - Required files exist.
  * - No unreplaced placeholder tokens.
  * - Text domain consistency.
- * - Style variations light.json and dark.json exist.
+ * - Style variation dark.json exists.
  */
 async function validateTheme() {
 	heading( 'Validating theme consistency…' );
@@ -215,7 +215,6 @@ async function validateTheme() {
 		'templates/index.html',
 		'parts/header.html',
 		'parts/footer.html',
-		'styles/light.json',
 		'styles/dark.json',
 	];
 
