@@ -140,6 +140,21 @@
     }
   }
 
+  /*
+   * Dedicated media wrapper: neutral surface, 1px token border and matching radius are block
+   * attributes in the pattern; overflow has no block-supports equivalent, so it lives here. The
+   * border separates light screenshots from the card surface without a heavy shadow. With no
+   * featured image the wrapper would render as an empty bordered strip, so it's hidden and the
+   * banner's tinted-grid fallback shows instead.
+   */
+  .ls-card-case-study__media {
+    overflow: hidden;
+
+    &:not(:has(.wp-block-post-featured-image)) {
+      display: none;
+    }
+  }
+
   .ls-card-case-study__chips {
     position: absolute;
     inset-block-start: var(--wp--preset--spacing--10);
@@ -211,8 +226,14 @@
     }
   }
 
+  /*
+   * Divider alignment: the meta row's top border is the divider, and cards with no tags have a
+   * shorter row, which pushes their divider lower than their neighbours'. A floor of one chip row
+   * (plus the divider's top padding) keeps every divider on the same line.
+   */
   .ls-card-case-study__meta {
     align-self: stretch;
+    min-height: calc(var(--wp--preset--spacing--20) + 2rem);
   }
 
   .ls-card-case-study__link {
