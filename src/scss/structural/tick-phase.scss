@@ -1,0 +1,55 @@
+/********** Tick Phase (individual service pages' checklist) **********/
+
+/*
+ * Tick Phase (single consumer so far: patterns/sections/split-copy-checklist.php; designed to be
+ * reused by the other checklists on the service pages). Typography and text colour come from
+ * styles/blocks/lists/tick-phase.json; this file owns only what a block style JSON can't express.
+ *
+ * Items are positioned with `position: relative` + a left padding rather than a grid/flex row: an
+ * item's content is mixed inline text and <strong>, which a grid or flex container would split
+ * into separate anonymous cells. The marker reads --ls-phase-accent, which the
+ * `ls-service-phase-{phase}` body class (inc/service-phase-map.php, phase-journey-nav.scss) points
+ * at the page's phase colour, so the same list recolours across all 14 service pages.
+ */
+
+// JSON limitation: list reset, descendant <li> rules and a content:"" pseudo-element marker have no
+// block-supports equivalent — see AGENTS.md Theme-First Approach.
+.is-style-tick-phase {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    position: relative;
+    padding-block: var(--wp--preset--spacing--30);
+    padding-inline-start: calc(1.375rem + var(--wp--preset--spacing--20));
+    border-block-end: 1px solid var(--wp--custom--color--border--card);
+  }
+
+  li:last-child {
+    border-block-end: 0;
+  }
+
+  li::before {
+    content: "\2713";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: calc(var(--wp--preset--spacing--30) + 0.2em);
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: 1.375rem;
+    block-size: 1.375rem;
+    border: 1px solid color-mix(in srgb, var(--ls-phase-accent) 30%, transparent);
+    border-radius: var(--wp--preset--border-radius--500);
+    background-color: color-mix(in srgb, var(--ls-phase-accent) 10%, transparent);
+    color: var(--ls-phase-accent);
+    font-size: var(--wp--preset--font-size--100);
+    font-weight: var(--wp--custom--typography--font-weight--bold);
+    line-height: 1;
+  }
+
+  strong {
+    font-weight: var(--wp--custom--typography--font-weight--extrabold);
+  }
+}
