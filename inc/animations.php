@@ -90,7 +90,9 @@ function ls_theme_get_bundle_render_markers() {
 		// every phase-coloured pattern reads. The individual service patterns use them without
 		// fallbacks, so load it whenever one of them renders on a page the head-time condition does
 		// not cover (e.g. a new service page before its slug is set, or a landing page).
-		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav', 'ls-phase-hero', 'is-style-tick-phase', 'is-style-card-plain' ) ),
+		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav', 'ls-phase-hero', 'is-style-tick-phase', 'is-style-card-plain', 'ls-service-faq' ) ),
+		'phase-faq'                 => array( 'classes' => array( 'ls-service-faq' ) ),
+		'phase-where-to-go-next'    => array( 'classes' => array( 'ls-phase-where-to-go-next' ) ),
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
 		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
@@ -269,7 +271,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// template yet (LS-1598 in progress), so this checks its slug directly rather than
 			// a template.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' );
+				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' ) || ls_theme_is_service_page();
 			},
 		),
 		'card-shells'               => array(
@@ -534,7 +536,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Same reasoning as phase-support-focus/phase-common-services above: shared from the
 			// start across all six phase pages.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
 		),
 		'phase-where-to-go-next'    => array(
@@ -544,7 +546,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Same reasoning as phase-faq/phase-support-focus above: shared from the start across
 			// all six phase pages.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
 		),
 		'featured-work'             => array(
