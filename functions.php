@@ -97,6 +97,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/button-secondary.css' );
 	add_editor_style( 'assets/css/button-phase.css' );
 	add_editor_style( 'assets/css/phase-journey-nav.css' );
+	add_editor_style( 'assets/css/tick-phase.css' );
 	add_editor_style( 'assets/css/phase-services-in-phase.css' );
 	add_editor_style( 'assets/css/phase-cta.css' );
 	add_editor_style( 'assets/css/phase-delivery-numbers.css' );

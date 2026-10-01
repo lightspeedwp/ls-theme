@@ -85,7 +85,12 @@ function ls_theme_get_bundle_render_markers() {
 		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
 		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
 		'button-phase'              => array( 'classes' => array( 'is-style-button-phase-primary', 'is-style-button-phase-outline' ) ),
-		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav' ) ),
+		// Besides the journey nav itself, this bundle defines the --ls-phase-accent and
+		// --ls-phase-accent-on-dark custom properties (and their Discover defaults on `body`) that
+		// every phase-coloured pattern reads. The individual service patterns use them without
+		// fallbacks, so load it whenever one of them renders on a page the head-time condition does
+		// not cover (e.g. a new service page before its slug is set, or a landing page).
+		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav', 'ls-phase-hero', 'is-style-tick-phase', 'is-style-card-plain' ) ),
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
