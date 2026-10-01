@@ -15,7 +15,10 @@
  * link are plain editable blocks; edit them per page after inserting. If no project is tagged for
  * the page, the query renders nothing — just don't insert this section on that page. Two-column card
  * on the page canvas (image left, copy right) that stacks on mobile; the image's outer corners follow
- * the card radius via per-corner block radius, so no overflow rule is needed. The service tag pills
+ * the card radius via per-corner block radius, so no overflow rule is needed. The card sets its
+ * padding to 0 explicitly (the theme adds default group padding that would inset the image), the
+ * image has a fixed height with cover scaling so it always fills the card edge to edge, and the
+ * copy column is vertically centred against it. The service tag pills
  * reuse ls-tag-pills from work-project-card.scss. Eyebrow and link read var(--ls-phase-accent),
  * which follows the service's parent phase via the `ls-service-phase-{phase}` body class
  * (inc/service-phase-map.php). Adapts between the site's light and dark style variations via
@@ -35,20 +38,20 @@
 	<div class="wp-block-query alignwide">
 
 		<!-- wp:post-template {"className":"ls-service-case-study"} -->
-		<!-- wp:group {"tagName":"article","style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"color":{"background":"var:custom|color|surface|canvas"},"shadow":"var:preset|shadow|100"},"layout":{"type":"default"}} -->
-		<article class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--canvas);box-shadow:var(--wp--preset--shadow--100)">
+		<!-- wp:group {"tagName":"article","style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"color":{"background":"var:custom|color|surface|canvas"},"shadow":"var:preset|shadow|100"},"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"default"}} -->
+		<article class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--canvas);padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;box-shadow:var(--wp--preset--shadow--100)">
 
-			<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"0","left":"0"}}}} -->
-			<div class="wp-block-columns">
+			<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"0","left":"0"}}}} -->
+			<div class="wp-block-columns are-vertically-aligned-center">
 
-				<!-- wp:column {"width":"49%"} -->
-				<div class="wp-block-column" style="flex-basis:49%">
-					<!-- wp:post-featured-image {"isLink":false,"aspectRatio":"auto","height":"100%","scale":"cover","style":{"border":{"radius":{"topLeft":"var:preset|border-radius|400","bottomLeft":"var:preset|border-radius|400"}}}} /-->
+				<!-- wp:column {"verticalAlignment":"center","width":"55%"} -->
+				<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:55%">
+					<!-- wp:post-featured-image {"isLink":false,"aspectRatio":"auto","height":"28rem","scale":"cover","style":{"border":{"radius":{"topLeft":"var:preset|border-radius|400","bottomLeft":"var:preset|border-radius|400"}}}} /-->
 				</div>
 				<!-- /wp:column -->
 
-				<!-- wp:column {"width":"51%","style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}}}} -->
-				<div class="wp-block-column" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60);flex-basis:51%">
+				<!-- wp:column {"verticalAlignment":"center","width":"45%","style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-column is-vertically-aligned-center" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--60);flex-basis:45%">
 
 					<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--ls-phase-accent)"}},"fontSize":"100"} -->
 					<p class="has-text-color has-100-font-size" style="color:var(--ls-phase-accent);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Discovery in practice', 'ls-theme' ); ?></p>
