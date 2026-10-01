@@ -248,9 +248,10 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/work-project-card.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Same "project card" component is reused by the homepage's Featured Work section
-			// in addition to the Work archive — not archive-exclusive.
+			// in addition to the Work archive — not archive-exclusive. The individual service pages'
+			// case-study section also reuses its tag pills.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' );
+				return is_front_page() || is_post_type_archive( 'project' ) || ls_theme_is_service_page();
 			},
 		),
 		'work-archive-sections'     => array(

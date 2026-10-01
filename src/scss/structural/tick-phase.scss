@@ -15,13 +15,17 @@
 // JSON limitation: list reset, descendant <li> rules and a content:"" pseudo-element marker have no
 // block-supports equivalent — see AGENTS.md Theme-First Approach.
 .is-style-tick-phase {
+  // Row padding and the marker's vertical nudge are variables so the compact modifier below can
+  // tighten rows for smaller-text checklists without redefining the whole list.
+  --ls-tick-phase-pad: var(--wp--preset--spacing--30);
+  --ls-tick-phase-offset: 0.2em;
   list-style: none;
   margin: 0;
   padding: 0;
 
   li {
     position: relative;
-    padding-block: var(--wp--preset--spacing--30);
+    padding-block: var(--ls-tick-phase-pad);
     padding-inline-start: calc(1.375rem + var(--wp--preset--spacing--20));
     border-block-end: 1px solid var(--wp--custom--color--border--card);
   }
@@ -34,7 +38,7 @@
     content: "\2713";
     position: absolute;
     inset-inline-start: 0;
-    inset-block-start: calc(var(--wp--preset--spacing--30) + 0.2em);
+    inset-block-start: calc(var(--ls-tick-phase-pad) + var(--ls-tick-phase-offset));
     display: grid;
     place-items: center;
     box-sizing: border-box;
@@ -52,4 +56,16 @@
   strong {
     font-weight: var(--wp--custom--typography--font-weight--bold);
   }
+}
+
+/*
+ * Compact modifier (className ls-tick-phase--compact, added alongside is-style-tick-phase): tighter
+ * rows for checklists set in a smaller font size, e.g. the "What you receive" / "Your role" cards in
+ * patterns/sections/checklist-card-pair.php. Only the two variables change.
+ */
+// JSON limitation: a className modifier that tunes a style variation's internal spacing has no
+// block-supports equivalent — see AGENTS.md Theme-First Approach.
+.is-style-tick-phase.ls-tick-phase--compact {
+  --ls-tick-phase-pad: var(--wp--preset--spacing--20);
+  --ls-tick-phase-offset: 0.05rem;
 }

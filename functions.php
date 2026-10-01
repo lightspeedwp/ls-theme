@@ -45,6 +45,9 @@ require get_template_directory() . '/inc/phase-page-redirects.php';
 /** Loads the service-slug => phase-slug map used to recolour the 14 individual service pages */
 require get_template_directory() . '/inc/service-phase-map.php';
 
+/** Loads the query filter that points the service pages' case-study section at the project tagged with that service */
+require get_template_directory() . '/inc/service-case-study-query.php';
+
 /** Loads the phase-page body class used to drive the Journey Phases nav's active state */
 require get_template_directory() . '/inc/phase-page-body-class.php';
 
