@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix phase contrast, phase menu links and service tile heights
+
+### Fixed
+
+- Phase buttons and journey-nav links on the Create, Build, Launch, Grow and Evolve pages now meet WCAG 2.2 AA contrast on the dark phase hero. Added `custom.color.phase.{create,build,launch,grow,evolve}-on-dark` (bright phase presets, matching `discover-on-dark`) to `theme.json` and `styles/dark.json`; no pattern changes were needed.
+- The phase headings in the Services mega menu and the mobile menu now link to their own phase pages (`/services/{discover,create,build,launch,grow,evolve}/`) instead of `/services/`. The mobile menu headings were previously plain text.
+- Tiles in the "Services in this phase" sections are now the same height within a row, and descriptions are clamped to three lines with an ellipsis (`src/scss/structural/phase-services-in-phase.scss`, BugHerd #267).
+
+([#77](https://github.com/lightspeedwp/ls-theme/pull/77))
+
+---
+
 ## [Unreleased] — Restore theme validation and PHP code quality CI (LSA-173)
 
 ### Fixed
