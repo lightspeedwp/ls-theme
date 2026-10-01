@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fit Work archive cards to existing featured images (LSA-172)
+
+### Changed
+
+- The Work archive cards now show each project's featured image in a bordered media wrapper (16:9, cropped to cover; the tinted-grid banner remains the fallback when there is no image). The platform label is two compact chips over the image, the duplicate body badge is gone, and the card uses a clearer image, title, excerpt, divider, tags, `View project →` order (`patterns/cards/work-project-card.php`, `src/scss/structural/work-project-card.scss`).
+- Cards in a row are now the same height; titles clamp to two lines and excerpts to three with an ellipsis, and dividers stay level on cards with no tags.
+- The Selected Projects and Discuss Project bands on the Work archive use the card surface token, and the Discuss Project band now spans the full width of the screen.
+
+### Added
+
+- `custom.color.border.card-strong` in `theme.json` (`neutral-300`) and `styles/dark.json` (`neutral-750`), used for the Work card, media wrapper and divider borders so they stay visible in dark mode. Sites with Site Editor styles saved from the dark variation need those styles reset (or the variation re-selected) to pick it up.
+
+([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
+
+---
+
 ## [Unreleased] — Fix phase contrast, phase menu links and service tile heights
 
 ### Fixed
