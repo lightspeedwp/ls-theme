@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add split FAQ, link card grid and split checklist CTA patterns (LSA-120)
+
+### Added
+
+- `Section - Split FAQ` (`ls-theme/split-faq`), `Section - Link Card Grid` (`ls-theme/link-card-grid`) and `CTA - Split Checklist` (`ls-theme/section-cta-split-checklist`): the last three sections for the 14 individual service pages, authored with Discovery's copy and edited per page. The FAQ uses the Yoast FAQ block, like the other FAQ patterns.
+- `ls-tick-phase--on-dark` modifier for the Tick Phase list style, for permanently dark sections.
+
+### Changed
+
+- The Phase FAQ and Phase "Where to go next" styles now also apply on the 14 service pages, taking each service's parent phase colour.
+
+([#82](https://github.com/lightspeedwp/ls-theme/pull/82))
+
+---
+
 ## [Unreleased] — Add AI section, receive/role cards and featured case study patterns (LSA-120)
 
 ### Added
