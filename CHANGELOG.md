@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Restore theme validation and PHP code quality CI (LSA-173)
+
+### Fixed
+
+- `npm run theme:validate` no longer requires `styles/light.json`, which was intentionally removed. `README.md` and `AGENTS.md` now list only `styles/dark.json`.
+- `inc/phase-page-redirects.php` now checks, unslashes and sanitizes `REQUEST_URI` before matching bare phase slugs.
+- PHPCS formatting findings in `functions.php`, `inc/gsap.php` and `patterns/sections/services-service-clusters.php`.
+
+### Added
+
+- `phpcs.xml.dist`: WordPress standard, text domain `ls-theme`, with `vendor/`, `node_modules/`, `tests/`, `playwright-report/` and `test-results/` excluded, and pattern-only exclusions for the `@package` tag, embedded PHP tag placement and WordPress capitalisation checks.
+
+### Changed
+
+- `composer phpcs` and `composer phpcbf` now read `phpcs.xml.dist`.
+
+([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
+
+---
+
 ## [Unreleased] — Replace the phase-services dynamic block with per-phase patterns (LS-4179)
 
 ### Changed

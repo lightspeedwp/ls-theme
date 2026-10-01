@@ -25,8 +25,9 @@ function ls_theme_redirect_bare_phase_slugs() {
 		return;
 	}
 
-	$ls_phase_slugs = array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' );
-	$ls_request_path = trim( wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' );
+	$ls_phase_slugs  = array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' );
+	$ls_request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$ls_request_path = trim( (string) wp_parse_url( $ls_request_uri, PHP_URL_PATH ), '/' );
 
 	if ( ! in_array( $ls_request_path, $ls_phase_slugs, true ) ) {
 		return;

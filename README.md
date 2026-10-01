@@ -35,7 +35,7 @@ It includes:
 | Theme files      | `style.css`, `theme.json`, `functions.php`, `readme.txt`    |
 | Templates        | `templates/index.html`                                      |
 | Parts            | `parts/header.html`, `parts/footer.html`                    |
-| Style variations | `styles/light.json`, `styles/dark.json`                     |
+| Style variations | `styles/dark.json`                                          |
 | Assets           | `assets/fonts/`, `assets/css/`, `assets/js/`, etc.          |
 | PHP includes     | `inc/` (empty, ready for use)                               |
 | Patterns         | `patterns/` (empty, ready for use)                          |
@@ -123,7 +123,6 @@ npm run schema:validate
 ├── styles/
 │   ├── blocks/
 │   ├── sections/
-│   ├── light.json
 │   └── dark.json
 ├── templates/
 │   └── index.html
