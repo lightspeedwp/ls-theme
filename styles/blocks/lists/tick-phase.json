@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/list"
 	],
-	"description": "Checklist with a phase-coloured tinted-ring tick marker and a divider between items, for the individual service pages (the marker and divider follow the page's phase via --ls-phase-accent). Typography and text colour live here; the list reset, item layout, divider and the ::before tick marker are in src/scss/structural/tick-phase.scss because a content:\"\" pseudo-element and descendant <li> rules have no block-supports equivalent. Unlike Tick Accent, which is a solid brand-coloured circle.",
+	"description": "Checklist with a phase-coloured tinted-ring tick marker and a divider between items, for the individual service pages (the marker and divider follow the page's phase via --ls-phase-accent). Typography, text colour, the list reset, item layout, divider, bold weight and the `ls-tick-phase--compact` className modifier (tighter rows for smaller text) all live here; only the ::before tick marker is in src/scss/structural/tick-phase.scss, because a content:\"\" pseudo-element is on AGENTS.md's list of things a JSON style cannot express. Unlike Tick Accent, which is a solid brand-coloured circle.",
 	"styles": {
 		"color": {
 			"text": "var:custom|color|text|default"
@@ -15,6 +15,7 @@
 			"fontFamily": "var:preset|font-family|body",
 			"fontSize": "var:preset|font-size|300",
 			"lineHeight": "var:custom|line-height|paragraph"
-		}
+		},
+		"css": "&{--ls-tick-phase-pad:var(--wp--preset--spacing--30);--ls-tick-phase-offset:0.2em;list-style:none;margin:0;padding:0;}\n& li{position:relative;padding-block:var(--ls-tick-phase-pad);padding-inline-start:calc(1.375rem + var(--wp--preset--spacing--20));border-block-end:1px solid var(--wp--custom--color--border--card);}\n& li:last-child{border-block-end:0;}\n& strong{font-weight:var(--wp--custom--typography--font-weight--bold);}\n&.ls-tick-phase--compact{--ls-tick-phase-pad:var(--wp--preset--spacing--20);--ls-tick-phase-offset:0.05rem;}"
 	}
 }
