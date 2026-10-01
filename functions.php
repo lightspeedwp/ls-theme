@@ -119,22 +119,26 @@ add_action( 'after_setup_theme', 'ls_theme_setup' );
  * the relevant lines below once those files exist.
  */
 function ls_theme_enqueue_assets() {
-	// Main stylesheet (the theme header stylesheet is loaded automatically).
-	// Uncomment when assets/css/main.css exists:
-	// wp_enqueue_style(
-	// 	'ls-theme-main',
-	// 	get_template_directory_uri() . '/assets/css/main.css',
-	// 	array(),
-	// 	wp_get_theme()->get( 'Version' )
-	// );
-
-	// Main JavaScript. Uncomment when assets/js/main.js exists:
-	// wp_enqueue_script(
-	// 	'ls-theme-main',
-	// 	get_template_directory_uri() . '/assets/js/main.js',
-	// 	array(),
-	// 	wp_get_theme()->get( 'Version' ),
-	// 	true
-	// );
+	/*
+	 * Main stylesheet (the theme header stylesheet is loaded automatically).
+	 * Uncomment when assets/css/main.css exists:
+	 *
+	 * wp_enqueue_style(
+	 *     'ls-theme-main',
+	 *     get_template_directory_uri() . '/assets/css/main.css',
+	 *     array(),
+	 *     wp_get_theme()->get( 'Version' )
+	 * );
+	 *
+	 * Main JavaScript. Uncomment when assets/js/main.js exists:
+	 *
+	 * wp_enqueue_script(
+	 *     'ls-theme-main',
+	 *     get_template_directory_uri() . '/assets/js/main.js',
+	 *     array(),
+	 *     wp_get_theme()->get( 'Version' ),
+	 *     true
+	 * );
+	 */
 }
 add_action( 'wp_enqueue_scripts', 'ls_theme_enqueue_assets' );

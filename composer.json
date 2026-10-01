@@ -20,8 +20,8 @@
 		}
 	},
 	"scripts": {
-		"phpcs": "phpcs --standard=WordPress --extensions=php --ignore=vendor/,node_modules/ .",
-		"phpcbf": "phpcbf --standard=WordPress --extensions=php --ignore=vendor/,node_modules/ .",
+		"phpcs": "phpcs",
+		"phpcbf": "phpcbf",
 		"lint:php": "find . -name '*.php' -not -path '*/vendor/*' -not -path '*/node_modules/*' -exec php -l {} \\;"
 	},
 	"minimum-stability": "stable",

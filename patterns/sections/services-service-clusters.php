@@ -13,16 +13,16 @@
  */
 
 $ls_service_icons = array(
-	'discovery' => 'search',
-	'content' => 'file-text',
-	'design' => 'paint-brush',
+	'discovery'   => 'search',
+	'content'     => 'file-text',
+	'design'      => 'paint-brush',
 	'development' => 'code',
-	'migrations' => 'arrows-left-right',
-	'hosting' => 'cloud',
-	'training' => 'graduation-cap',
-	'support' => 'lifebuoy',
-	'ai' => 'sparkle',
-	'seo' => 'chart-line-up',
+	'migrations'  => 'arrows-left-right',
+	'hosting'     => 'cloud',
+	'training'    => 'graduation-cap',
+	'support'     => 'lifebuoy',
+	'ai'          => 'sparkle',
+	'seo'         => 'chart-line-up',
 );
 
 $ls_service_urls = array(
@@ -54,35 +54,35 @@ $ls_service_labels = array(
 $ls_clusters = array(
 	array(
 		'index'       => '01',
-		'icon' => 'search',
+		'icon'        => 'search',
 		'title'       => __( 'Discovery and content', 'ls-theme' ),
 		'description' => __( 'For scope clarity, content structure, risk reduction and better planning before design or build decisions harden.', 'ls-theme' ),
 		'tags'        => array( 'discovery', 'content' ),
 	),
 	array(
 		'index'       => '02',
-		'icon' => 'paint-brush',
+		'icon'        => 'paint-brush',
 		'title'       => __( 'Design systems and accessibility', 'ls-theme' ),
 		'description' => __( 'For clearer interfaces, stronger consistency and more maintainable design-to-development translation.', 'ls-theme' ),
 		'tags'        => array( 'design' ),
 	),
 	array(
 		'index'       => '03',
-		'icon' => 'code',
+		'icon'        => 'code',
 		'title'       => __( 'Engineering and migrations', 'ls-theme' ),
 		'description' => __( 'For custom WordPress work, integrations, migrations and cleaner long-term architecture.', 'ls-theme' ),
 		'tags'        => array( 'development', 'migrations' ),
 	),
 	array(
 		'index'       => '04',
-		'icon' => 'rocket',
+		'icon'        => 'rocket',
 		'title'       => __( 'Launch and infrastructure', 'ls-theme' ),
 		'description' => __( 'For hosting, readiness, security-minded thinking and performance-aware go-live planning.', 'ls-theme' ),
 		'tags'        => array( 'hosting', 'training' ),
 	),
 	array(
 		'index'       => '05',
-		'icon' => 'question',
+		'icon'        => 'question',
 		'title'       => __( 'Support and optimisation', 'ls-theme' ),
 		'description' => __( 'For maintenance, issue resolution, performance review, training and long-term platform continuity.', 'ls-theme' ),
 		'tags'        => array( 'support', 'ai', 'seo' ),

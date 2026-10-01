@@ -52,7 +52,6 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 ├── styles/                    # Style variations
 │   ├── blocks/
 │   ├── sections/
-│   ├── light.json
 │   └── dark.json
 ├── templates/                 # Block templates
 ├── .github/
@@ -210,7 +209,7 @@ Rules:
 ## Style Variation Guidance
 
 - Style variations live in `styles/`.
-- Two style variations are provided: `light.json` and `dark.json`.
+- One style variation is provided: `dark.json`. Light is the default in `theme.json`.
 - Additional variations can be added as `styles/*.json`.
 - `styles/blocks/` and `styles/sections/` files carry the `blockTypes` + `slug`
   schema, which WordPress 6.6+ auto-discovers recursively and registers as live,
