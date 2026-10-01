@@ -16,7 +16,9 @@
  * `ls-service-phase-{phase}` body class (inc/service-phase-map.php). Plain wp:columns, so it
  * stacks automatically on mobile. Adapts between the site's light and dark style variations via
  * surface/text/border tokens. Questions and answers live in the block's `questions` attribute and
- * the saved markup, which the Yoast block keeps in sync when edited in the editor.
+ * the saved markup, which the Yoast block keeps in sync when edited in the editor. The attribute JSON
+ * is encoded the way WordPress core serialises block attributes (angle brackets, ampersands and every
+ * double hyphen escaped), so a translated question or answer can never close the block comment early.
  * Keywords: service, faq, questions, accordion, yoast, phase, section
  * Viewport Width: 1280
  * Inserter: true
@@ -81,7 +83,7 @@ foreach ( $ls_service_faqs as $ls_faq_index => $ls_faq ) {
 
 		<!-- wp:column {"verticalAlignment":"top","width":"55%"} -->
 		<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:55%">
-			<!-- wp:yoast/faq-block {"questions":<?php echo wp_json_encode( $ls_faq_block_questions ); ?>} -->
+			<!-- wp:yoast/faq-block {"questions":<?php echo str_replace( '--', '\u002d\u002d', wp_json_encode( $ls_faq_block_questions, JSON_HEX_TAG | JSON_HEX_AMP ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON for a block comment, escaped like core's serialize_block_attributes(); HTML escaping would corrupt it. ?>} -->
 			<div class="schema-faq wp-block-yoast-faq-block">
 				<?php foreach ( $ls_service_faqs as $ls_faq_index => $ls_faq ) : ?>
 				<div class="schema-faq-section" id="faq-question-<?php echo esc_attr( $ls_faq_index + 1 ); ?>">
