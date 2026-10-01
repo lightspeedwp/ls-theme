@@ -4,7 +4,7 @@
  * Slug: ls-theme/work-project-card
  * Categories: featured
  * Block Types: core/pattern
- * Description: A single Work archive case-study card: platform banner (Portfolio project-group taxonomy), platform badge, post title/excerpt, service tag pills (project-tag taxonomy), and a "View project" link to the post permalink. Intended as the Post Template content inside a Query Loop scoped to the `project` post type (LS-1617). Adapts between light and dark mode using existing semantic tokens.
+ * Description: A single Work archive case-study card: featured-image banner (16:9, cropped to cover; tinted-grid fallback when no image) with an overlaid platform pill (Portfolio project-group taxonomy), post title/excerpt, service tag pills (project-tag taxonomy), and a "View project" link to the post permalink. Intended as the Post Template content inside a Query Loop scoped to the `project` post type (LS-1617). Adapts between light and dark mode using existing semantic tokens.
  * Keywords: work, portfolio, case study, card, query loop, block bindings
  * Viewport Width: 450
  * Inserter: true
@@ -16,8 +16,10 @@
 <!-- wp:group {"tagName":"article","className":"is-style-card-case-study","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 <article class="wp-block-group is-style-card-case-study">
 
-	<!-- wp:group {"className":"ls-card-case-study__banner ls-card-banner-tint","style":{"dimensions":{"minHeight":"10rem"}},"layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+	<!-- wp:group {"className":"ls-card-case-study__banner ls-card-banner-tint","style":{"dimensions":{"minHeight":"10rem"}},"layout":{"type":"default"}} -->
 	<div class="wp-block-group ls-card-case-study__banner ls-card-banner-tint" style="min-height:10rem">
+		<!-- wp:post-featured-image {"isLink":false,"aspectRatio":"16/9","width":"100%","scale":"cover","sizeSlug":"medium_large"} /-->
+
 		<!-- wp:group {"className":"ls-platform-tag-brand","style":{"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|200","style":"solid","width":"1px"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"}}}} -->
 		<div class="wp-block-group ls-platform-tag-brand has-border-color" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--200);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
 			<!-- wp:post-terms {"term":"project-group","prefix":<?php echo wp_json_encode( __( 'Platform · ', 'ls-theme' ) ); ?>,"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest"}},"fontSize":"100"} /-->
@@ -28,8 +30,6 @@
 
 	<!-- wp:group {"className":"ls-card-case-study__content","style":{"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|20"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group ls-card-case-study__content" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--20)">
-
-		<!-- wp:post-terms {"term":"project-group","className":"ls-badge-brand","style":{"border":{"radius":"var:preset|border-radius|200"},"spacing":{"padding":{"top":"var:preset|spacing|5","right":"var:preset|spacing|10","bottom":"var:preset|spacing|5","left":"var:preset|spacing|10"}}}} /-->
 
 		<!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|semibold"}},"fontSize":"300"} /-->
 

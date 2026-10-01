@@ -118,6 +118,42 @@
 }
 
 /*
+ * Card - Case Study banner (LSA-172): the featured image fills the banner at a fixed 16/9 via the
+ * post-featured-image block's own aspectRatio/scale attributes, so every existing DEV image (all
+ * roughly 16:9, one ~2:1) crops to the same height. The banner stays as the tinted-grid fallback
+ * when a project has no featured image. Positioning the platform pill over the image has no
+ * block-supports equivalent. The pill's tint is mixed into the opaque card surface instead of
+ * transparent so it stays legible over screenshot content.
+ */
+.ls-card-case-study__banner {
+  position: relative;
+
+  .wp-block-post-featured-image {
+    margin: 0;
+
+    img {
+      display: block;
+    }
+  }
+
+  .ls-platform-tag-brand,
+  .ls-platform-tag-woocommerce {
+    position: absolute;
+    inset-block-start: var(--wp--preset--spacing--10);
+    inset-inline-start: var(--wp--preset--spacing--10);
+    z-index: 1;
+  }
+
+  .ls-platform-tag-brand {
+    background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, var(--wp--custom--color--surface--card));
+  }
+
+  .ls-platform-tag-woocommerce {
+    background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, var(--wp--custom--color--surface--card));
+  }
+}
+
+/*
  * Card - Case Study: rest-state look and hover custom-property recipe live in
  * styles/sections/cards/card-case-study.json. The hover border-color/box-shadow swap itself lives
  * here as real SCSS, not in JSON — JSON's css field silently drops a bare `&:hover`/
