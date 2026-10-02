@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `inc/phase-page-redirects.php` and its `require` in `functions.php`. The six bare phase-slug redirects (`/discover/`, `/create/`, `/build/`, `/launch/`, `/grow/`, `/evolve/` to `/services/{phase}/`) now live in Tools > Redirection as 301 rules, so they no longer depend on the theme. No theme links used the bare slugs.
 
+([#85](https://github.com/lightspeedwp/ls-theme/pull/85))
+
 ---
 
 ## [Unreleased] — Fit Work archive cards to existing featured images (LSA-172)
