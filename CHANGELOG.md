@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add AI section, receive/role cards and featured case study patterns (LSA-120)
+
+### Added
+
+- `Section - Split Intro Icon Cards` (`ls-theme/split-intro-icon-cards`), `Section - Checklist Card Pair` (`ls-theme/checklist-card-pair`) and `Section - Featured Case Study` (`ls-theme/featured-case-study`): the next three sections for the 14 individual service pages, authored with Discovery's copy and edited per page.
+- The featured case study shows the project tagged with the service page's own slug in the `project-tag` ("Services") taxonomy (`inc/service-case-study-query.php`), on the front end and in the block editor preview.
+- `ls-tick-phase--compact` modifier for the Tick Phase list style, for checklists in smaller text.
+
+### Changed
+
+- The Tick Phase list style's layout, divider and spacing rules now live in `styles/blocks/lists/tick-phase.json`; only the tick marker remains in `src/scss/structural/tick-phase.scss`.
+
+([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
+
+---
+
 ## [Unreleased] — Add service hero, split checklist and icon card grid patterns (LSA-120)
 
 ### Added

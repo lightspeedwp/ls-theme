@@ -92,6 +92,7 @@ function ls_theme_get_bundle_render_markers() {
 		// not cover (e.g. a new service page before its slug is set, or a landing page).
 		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav', 'ls-phase-hero', 'is-style-tick-phase', 'is-style-card-plain' ) ),
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
+		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -248,9 +249,10 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/work-project-card.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Same "project card" component is reused by the homepage's Featured Work section
-			// in addition to the Work archive — not archive-exclusive.
+			// in addition to the Work archive — not archive-exclusive. The individual service pages'
+			// case-study section also reuses its tag pills.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' );
+				return is_front_page() || is_post_type_archive( 'project' ) || ls_theme_is_service_page();
 			},
 		),
 		'work-archive-sections'     => array(
@@ -457,6 +459,14 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'condition' => static function () {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
+		),
+		'service-case-study'        => array(
+			'handle'    => 'ls-theme-service-case-study',
+			'path'      => 'assets/css/service-case-study.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Mobile image-corner override for the individual service pages' featured case study;
+			// the render-marker fallback covers it if the pattern is used anywhere else.
+			'condition' => 'ls_theme_is_service_page',
 		),
 		'tick-phase'                => array(
 			'handle'    => 'ls-theme-tick-phase',
