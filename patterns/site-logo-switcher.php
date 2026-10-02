@@ -2,7 +2,7 @@
 /**
  * Title: Site Logo Switcher
  * Slug: ls-theme/site-logo-switcher
- * Description: Light/dark logo pair, shared between the header and the mobile menu so both stay in sync.
+ * Description: Light/dark logo pair, shared between the footer and the mobile menu so they stay in sync. Core-block fallback: two core/image blocks toggled by the light/dark visibility tokens, because core/site-logo is a single DB-managed image and cannot swap by colour scheme.
  *
  * @package ls-theme
  */
