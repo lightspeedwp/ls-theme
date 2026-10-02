@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The footer social icons were not links and could not be reached by keyboard.
 - The availability badge text failed WCAG AA contrast in light mode (2.43:1).
 
+([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+
 ---
 
 ## [Unreleased] — Fit Work archive cards to existing featured images (LSA-172)
