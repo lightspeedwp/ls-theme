@@ -92,11 +92,14 @@
  * aspect-ratio squares and the style engine drops color-mix() values from block style
  * attributes (same reason as the .ls-service-pill--* rules above).
  *
- * Token mapping (all existing tokens, no new ones):
- *   periwinkle -> effect.hero.brand        (dark brand-300)
- *   green      -> card.solutions.accent    (dark accent-three-500)
- *   aqua       -> effect.hero.cyan         (dark cta-300)
- *   lime       -> palette accent-three-400 (no semantic token exists for it)
+ * Swatch colours are fixed palette presets (not the mode-aware semantic tokens) so the hex
+ * printed under each swatch is always true: the semantic tokens used in the first version
+ * resolved to different values in light mode, which made three of the four labels wrong.
+ * A palette specimen shows the brand colours, so it should not change with the theme.
+ *   periwinkle -> palette brand-300        (#85ACFF)
+ *   green      -> palette accent-three-500 (#00FC00)
+ *   aqua       -> palette cta-300          (#8DEEFF)
+ *   lime       -> palette accent-three-400 (#4FFF4F)
  * Ramps mix each colour toward text.on-light (shades) or text.on-dark (tints), both of which
  * keep the same value in light and dark mode.
  */
@@ -134,15 +137,15 @@
     }
 
     &--periwinkle {
-      --ls-palette-color: var(--wp--custom--color--effect--hero--brand);
+      --ls-palette-color: var(--wp--preset--color--brand-300);
     }
 
     &--green {
-      --ls-palette-color: var(--wp--custom--color--card--solutions--accent);
+      --ls-palette-color: var(--wp--preset--color--accent-three-500);
     }
 
     &--aqua {
-      --ls-palette-color: var(--wp--custom--color--effect--hero--cyan);
+      --ls-palette-color: var(--wp--preset--color--cta-300);
     }
 
     &--lime {

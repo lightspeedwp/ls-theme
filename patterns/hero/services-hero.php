@@ -99,8 +99,8 @@ $ls_services_hero_tags = array(
 	),
 );
 
-// Palette specimen: the label and printed hex describe the dark-mode value of each colour token
-// (see .ls-palette-card__col--* in src/scss/structural/services-hero.scss for the token mapping).
+// Palette specimen: each printed hex is the value of the fixed palette preset the swatch uses
+// (see .ls-palette-card__col--* in src/scss/structural/services-hero.scss for the mapping).
 $ls_services_hero_palette = array(
 	array(
 		'slug'  => 'periwinkle',
