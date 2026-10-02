@@ -150,7 +150,11 @@
     }
   }
 
+  // The swatch and tint squares are core/spacer blocks (an empty core/group shows the block
+  // editor's layout-picker placeholder). A spacer carries an inline height, which the
+  // aspect-ratio has to override.
   &__swatch {
+    height: auto !important;
     aspect-ratio: 1;
     border-radius: var(--wp--preset--border-radius--200);
     background: var(--ls-palette-color);
@@ -163,6 +167,7 @@
   }
 
   &__tint {
+    height: auto !important;
     aspect-ratio: 1;
     border-radius: var(--wp--preset--border-radius--100);
 

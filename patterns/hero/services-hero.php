@@ -218,9 +218,9 @@ $ls_services_hero_palette = array(
 						<?php foreach ( $ls_services_hero_palette as $ls_swatch ) : ?>
 						<!-- wp:group {"className":"ls-palette-card__col ls-palette-card__col--<?php echo esc_attr( $ls_swatch['slug'] ); ?>"} -->
 						<div class="wp-block-group ls-palette-card__col ls-palette-card__col--<?php echo esc_attr( $ls_swatch['slug'] ); ?>">
-							<!-- wp:group {"className":"ls-palette-card__swatch"} -->
-							<div class="wp-block-group ls-palette-card__swatch"></div>
-							<!-- /wp:group -->
+							<!-- wp:spacer {"height":"0px","className":"ls-palette-card__swatch"} -->
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer ls-palette-card__swatch"></div>
+<!-- /wp:spacer -->
 
 							<!-- wp:paragraph {"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--default)"}},"fontSize":"100"} -->
 							<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--default);font-weight:var(--wp--custom--typography--font-weight--semibold)"><?php echo esc_html( $ls_swatch['label'] ); ?></p>
@@ -240,21 +240,21 @@ $ls_services_hero_palette = array(
 						<?php foreach ( $ls_services_hero_palette as $ls_swatch ) : ?>
 						<!-- wp:group {"className":"ls-palette-card__ramp ls-palette-card__col--<?php echo esc_attr( $ls_swatch['slug'] ); ?>"} -->
 						<div class="wp-block-group ls-palette-card__ramp ls-palette-card__col--<?php echo esc_attr( $ls_swatch['slug'] ); ?>">
-							<!-- wp:group {"className":"ls-palette-card__tint ls-palette-card__tint--1"} -->
-							<div class="wp-block-group ls-palette-card__tint ls-palette-card__tint--1"></div>
-							<!-- /wp:group -->
+							<!-- wp:spacer {"height":"0px","className":"ls-palette-card__tint ls-palette-card__tint--1"} -->
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer ls-palette-card__tint ls-palette-card__tint--1"></div>
+<!-- /wp:spacer -->
 
-							<!-- wp:group {"className":"ls-palette-card__tint ls-palette-card__tint--2"} -->
-							<div class="wp-block-group ls-palette-card__tint ls-palette-card__tint--2"></div>
-							<!-- /wp:group -->
+							<!-- wp:spacer {"height":"0px","className":"ls-palette-card__tint ls-palette-card__tint--2"} -->
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer ls-palette-card__tint ls-palette-card__tint--2"></div>
+<!-- /wp:spacer -->
 
-							<!-- wp:group {"className":"ls-palette-card__tint ls-palette-card__tint--3"} -->
-							<div class="wp-block-group ls-palette-card__tint ls-palette-card__tint--3"></div>
-							<!-- /wp:group -->
+							<!-- wp:spacer {"height":"0px","className":"ls-palette-card__tint ls-palette-card__tint--3"} -->
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer ls-palette-card__tint ls-palette-card__tint--3"></div>
+<!-- /wp:spacer -->
 
-							<!-- wp:group {"className":"ls-palette-card__tint ls-palette-card__tint--4"} -->
-							<div class="wp-block-group ls-palette-card__tint ls-palette-card__tint--4"></div>
-							<!-- /wp:group -->
+							<!-- wp:spacer {"height":"0px","className":"ls-palette-card__tint ls-palette-card__tint--4"} -->
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer ls-palette-card__tint ls-palette-card__tint--4"></div>
+<!-- /wp:spacer -->
 						</div>
 						<!-- /wp:group -->
 						<?php endforeach; ?>
