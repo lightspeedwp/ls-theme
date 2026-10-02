@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Audit footer: spacing, tokens and header-matched navigation (LSA-170)
+
+### Changed
+
+- `patterns/footer.php`: the root group now uses a plain `constrained` layout with `align: wide` inner content and no root `blockGap`. Top and bottom padding and the legal bar's top margin and padding are all `spacing|80`, so the four edge gaps are equal; side padding stays `spacing|60`.
+- `patterns/footer.php`: replaced per-link `margin-top` values with `blockGap` on groups and the brand column.
+- `patterns/footer.php`: the footer nav now mirrors the header mega menus. Six sections (Services, Solutions, Work, Pricing, Insights, About) use the same labels and URLs as the header and sit in one `core/group` grid, three columns by two rows, so rows line up across columns. Below 781px the grid drops to two columns.
+- `patterns/footer.php`: nav column labels are now `core/heading` (level 2) instead of paragraphs, with identical typography.
+- `patterns/footer.php`: the social icons are now `core/social-links` with four `core/social-link` blocks (LinkedIn, GitHub, Facebook, Instagram) at 24px, in 44px circles. They are real links that open in a new tab.
+- `patterns/footer.php`: all copy now uses `esc_html__()` with the `ls-theme` text domain, and the copyright year is dynamic. The brand name is now "LightSpeedWP.agency".
+- `patterns/footer.php`, `src/scss/structural/_footer.scss`: replaced `phase--create` with `text--brand` for the footer dots, hover, glow and top bar.
+- `patterns/footer.php`: the "Available for selected projects" badge background uses the new `surface.success-tint` token instead of an inline `color-mix()`.
+- `patterns/footer.php`, `patterns/site-logo-switcher.php`: pattern descriptions now list the core-block fallbacks, and the logo pattern description correctly says it is shared by the footer and mobile menu.
+- `src/scss/animations/_footer-motion.scss`, `src/scss/structural/_footer.scss`: moved the footer layout and background rules out of the motion file, which now holds only motion rules, and added JSON-limitation comments.
+- `theme.json`, `src/scss/structural/_footer.scss`: the footer logo is 200px wide via the new `custom.layout.logo-width-footer` token. The header logo is unchanged at 150px.
+
+### Added
+
+- `success-strong` palette colour (`#047857`) in `theme.json`. `custom.color.status.success` now uses it in light mode (4.82:1 on the badge background); dark mode keeps `success-foreground`.
+- `custom.color.surface.success-tint` token in `theme.json`.
+
+### Removed
+
+- The "LightSpeed notes" panel and heading from the footer, along with the `footer-notes` shadow preset (`styles/presets/shadows.json`), the `custom.shadow.footer.notes` tokens in `theme.json` and `styles/dark.json`, and the `.footer-notes-badge` CSS.
+- The Systems, Company and Studio footer sections, and the placeholder links Memberships, Partnerships, Cape Town studio and the duplicate Support. The LSX Design System is now linked from Insights, matching the header.
+
+### Fixed
+
+- The footer social icons were not links and could not be reached by keyboard.
+- The availability badge text failed WCAG AA contrast in light mode (2.43:1).
+
+---
+
 ## [Unreleased] — Fix phase contrast, phase menu links and service tile heights
 
 ### Fixed

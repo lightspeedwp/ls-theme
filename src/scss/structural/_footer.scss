@@ -164,34 +164,26 @@
 }
 
 /*
- * Nav columns 2-per-row on mobile (footer-nav-columns, patterns/footer.php): the 5 nav categories
- * (Services, Solutions, Systems, Company, Studio) are authored as 3 stacked wp:column blocks
- * (Services + Company, Solutions + Studio, Systems), so WordPress's own mobile column-stacking
- * (wp-includes/blocks/columns/style.css, @media max-width: 781px) would drop them to one full-width
- * stack per row. There's no JSON equivalent — @media is confirmed stripped from the styles/**.json
- * css field — so this has to be real CSS. display: contents promotes each stack's category groups
- * to direct grid items of the shared wrapper, matching the same 2-column grid approach already used
- * for the mobile Services mega-menu accordion above. Uses WordPress's own column-stack breakpoint
- * (781px) rather than that accordion's bespoke 650px, since that's the point these would otherwise
- * stack.
+ * Nav sections 2-per-row on mobile (.footer-nav-columns, patterns/footer.php): the 6 nav sections
+ * (Services, Solutions, Work, Pricing, Insights, About) sit in one core/group grid layout, 3 columns
+ * wide on desktop so each row lines up across all three columns. JSON limitation: core's grid layout
+ * only offers a fixed column count and @media is stripped from the styles/**.json css field, so
+ * there's no JSON way to drop to 2 columns below WordPress's own column-stack breakpoint (781px).
+ * The doubled class beats core's single-class generated container rule without !important.
  */
 @media (max-width: 781px) {
-  .footer-nav-columns {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: var(--wp--preset--spacing--40);
-    row-gap: var(--wp--preset--spacing--40);
-
-    > .wp-block-columns,
-    > .wp-block-columns > .wp-block-column {
-      display: contents;
-    }
-
-    // JSON limitation: the column's blockGap still adds margin-block-start to every category after the
-    // first once the columns are flattened into this grid, which would push Company/Studio below their
-    // row neighbours. The grid's row-gap already owns that spacing here.
-    > .wp-block-columns > .wp-block-column > * {
-      margin-block-start: 0;
-    }
+  .wp-block-group.footer-nav-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/*
+ * Footer logo size: the footer logo is larger than the header's (custom.layout.logo-width-footer vs
+ * logo-width). JSON limitation: core/image width can't be set on the block without breaking
+ * save() validation — see the note on .site-logo--for-light in _header.scss — so the width comes
+ * from a token here instead.
+ */
+.site-footer .site-logo--for-light img,
+.site-footer .site-logo--for-dark img {
+  width: var(--wp--custom--layout--logo-width-footer);
 }

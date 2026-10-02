@@ -503,7 +503,8 @@
                     "nav-toggle": "600px",
                     "columns-stack": "782px"
                 },
-                "logo-width": "150px"
+                "logo-width": "150px",
+                "logo-width-footer": "200px"
             },
             "color": {
                 "text": {
