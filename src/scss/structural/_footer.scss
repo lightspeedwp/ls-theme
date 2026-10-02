@@ -143,14 +143,15 @@
 
 /*
  * Nav columns 2-per-row on mobile (footer-nav-columns, patterns/footer.php): the 5 nav categories
- * (Services, Solutions, Systems, Company, Studio) are authored as two separate wp:columns rows
- * rather than one flat row, so WordPress's own mobile column-stacking (wp-includes/blocks/columns/
- * style.css, @media max-width: 781px) drops them to one full-width category per row. There's no
- * JSON equivalent — @media is confirmed stripped from the styles/**.json css field — so this has to
- * be real CSS. display: contents promotes each row's .wp-block-column children to direct grid
- * items of the shared wrapper, matching the same 2-column grid approach already used for the
- * mobile Services mega-menu accordion above. Uses WordPress's own column-stack breakpoint (781px)
- * rather than that accordion's bespoke 650px, since that's the point these would otherwise stack.
+ * (Services, Solutions, Systems, Company, Studio) are authored as 3 stacked wp:column blocks
+ * (Services + Company, Solutions + Studio, Systems), so WordPress's own mobile column-stacking
+ * (wp-includes/blocks/columns/style.css, @media max-width: 781px) would drop them to one full-width
+ * stack per row. There's no JSON equivalent — @media is confirmed stripped from the styles/**.json
+ * css field — so this has to be real CSS. display: contents promotes each stack's category groups
+ * to direct grid items of the shared wrapper, matching the same 2-column grid approach already used
+ * for the mobile Services mega-menu accordion above. Uses WordPress's own column-stack breakpoint
+ * (781px) rather than that accordion's bespoke 650px, since that's the point these would otherwise
+ * stack.
  */
 @media (max-width: 781px) {
   .footer-nav-columns {
@@ -159,8 +160,16 @@
     column-gap: var(--wp--preset--spacing--40);
     row-gap: var(--wp--preset--spacing--40);
 
-    > .wp-block-columns {
+    > .wp-block-columns,
+    > .wp-block-columns > .wp-block-column {
       display: contents;
+    }
+
+    // JSON limitation: the column's blockGap still adds margin-block-start to every category after the
+    // first once the columns are flattened into this grid, which would push Company/Studio below their
+    // row neighbours. The grid's row-gap already owns that spacing here.
+    > .wp-block-columns > .wp-block-column > * {
+      margin-block-start: 0;
     }
   }
 }
