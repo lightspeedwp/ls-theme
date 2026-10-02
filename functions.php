@@ -42,6 +42,9 @@ require get_template_directory() . '/inc/blog-single-related-query.php';
 /** Loads bare phase-slug (e.g. /discover/) redirects to their real nested URL */
 require get_template_directory() . '/inc/phase-page-redirects.php';
 
+/** Loads the service-slug => phase-slug map used to recolour the 14 individual service pages */
+require get_template_directory() . '/inc/service-phase-map.php';
+
 /** Loads the phase-page body class used to drive the Journey Phases nav's active state */
 require get_template_directory() . '/inc/phase-page-body-class.php';
 
@@ -94,6 +97,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/button-secondary.css' );
 	add_editor_style( 'assets/css/button-phase.css' );
 	add_editor_style( 'assets/css/phase-journey-nav.css' );
+	add_editor_style( 'assets/css/tick-phase.css' );
 	add_editor_style( 'assets/css/phase-services-in-phase.css' );
 	add_editor_style( 'assets/css/phase-cta.css' );
 	add_editor_style( 'assets/css/phase-delivery-numbers.css' );

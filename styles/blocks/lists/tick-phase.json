@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Tick Phase",
+	"slug": "tick-phase",
+	"blockTypes": [
+		"core/list"
+	],
+	"description": "Checklist with a phase-coloured tinted-ring tick marker and a divider between items, for the individual service pages (the marker and divider follow the page's phase via --ls-phase-accent). Typography and text colour live here; the list reset, item layout, divider and the ::before tick marker are in src/scss/structural/tick-phase.scss because a content:\"\" pseudo-element and descendant <li> rules have no block-supports equivalent. Unlike Tick Accent, which is a solid brand-coloured circle.",
+	"styles": {
+		"color": {
+			"text": "var:custom|color|text|default"
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|body",
+			"fontSize": "var:preset|font-size|300",
+			"lineHeight": "var:custom|line-height|paragraph"
+		}
+	}
+}

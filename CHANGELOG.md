@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add service hero, split checklist and icon card grid patterns (LSA-120)
+
+### Added
+
+- `Hero - Service` (`ls-theme/service-hero`), `Section - Split Copy Checklist` (`ls-theme/split-copy-checklist`) and `Section - Icon Card Grid` (`ls-theme/icon-card-grid`): the first three patterns for the 14 individual service pages, authored with Discovery's copy and edited per page.
+- `Card - Plain` section style (`styles/sections/cards/card-plain.json`): a flat, non-interactive card with no shadow or hover lift.
+- `Tick Phase` list style (`styles/blocks/lists/tick-phase.json`, `src/scss/structural/tick-phase.scss`): a checklist with a phase-coloured tick and dividers.
+- `inc/service-phase-map.php`: maps each of the 14 services to its lifecycle phase.
+- An `ls-service-phase-{phase}` body class, so service pages take their parent phase's accent colour on the front end and in the block editor.
+
+### Changed
+
+- The `phase-hero`, `button-phase` and `phase-journey-nav` stylesheets now also load on the 14 service pages. The phase accent selector in `phase-journey-nav.scss` also matches the new body class; phase pages are unchanged.
+
+([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+
+---
+
 ## [Unreleased] — Fix phase contrast, phase menu links and service tile heights
 
 ### Fixed

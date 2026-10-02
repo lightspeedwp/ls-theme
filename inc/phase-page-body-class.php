@@ -32,6 +32,15 @@ function ls_theme_add_phase_page_body_class( $classes ) {
 		$classes[] = 'page-slug-' . get_post_field( 'post_name', get_queried_object_id() );
 	}
 
+	// The 14 individual service pages take on their parent phase's colour. A separate class (not
+	// `page-slug-{phase}`) keeps phase-only rules, like the Journey Phases nav's active state, from
+	// matching a service page — see inc/service-phase-map.php.
+	$ls_service_phase = is_page() ? ls_theme_get_service_page_phase() : '';
+
+	if ( '' !== $ls_service_phase ) {
+		$classes[] = 'ls-service-phase-' . $ls_service_phase;
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'ls_theme_add_phase_page_body_class' );
@@ -56,11 +65,20 @@ function ls_theme_add_phase_editor_accent( $settings, $editor_context ) {
 		return $settings;
 	}
 
-	if ( 'page' !== $editor_context->post->post_type || ! in_array( $editor_context->post->post_name, $ls_phase_slugs, true ) ) {
+	if ( 'page' !== $editor_context->post->post_type ) {
 		return $settings;
 	}
 
-	$ls_phase = $editor_context->post->post_name;
+	if ( in_array( $editor_context->post->post_name, $ls_phase_slugs, true ) ) {
+		$ls_phase = $editor_context->post->post_name;
+	} else {
+		// Individual service pages inherit their parent phase's accent (inc/service-phase-map.php).
+		$ls_phase = ls_theme_get_service_page_phase( $editor_context->post );
+	}
+
+	if ( '' === $ls_phase ) {
+		return $settings;
+	}
 
 	$settings['styles'][] = array(
 		'css' => sprintf(
