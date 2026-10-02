@@ -40,6 +40,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fit Work archive cards to existing featured images (LSA-172)
+
+### Changed
+
+- The Work archive cards now show each project's featured image in a bordered media wrapper (16:9, cropped to cover; the tinted-grid banner remains the fallback when there is no image). The platform label is two compact chips over the image, the duplicate body badge is gone, and the card uses a clearer image, title, excerpt, divider, tags, `View project →` order (`patterns/cards/work-project-card.php`, `src/scss/structural/work-project-card.scss`).
+- Cards in a row are now the same height; titles clamp to two lines and excerpts to three with an ellipsis, and dividers stay level on cards with no tags.
+- The Selected Projects and Discuss Project bands on the Work archive use the card surface token, and the Discuss Project band now spans the full width of the screen.
+
+### Added
+
+- `custom.color.border.card-strong` in `theme.json` (`neutral-300`) and `styles/dark.json` (`neutral-750`), used for the Work card, media wrapper and divider borders so they stay visible in dark mode. Sites with Site Editor styles saved from the dark variation need those styles reset (or the variation re-selected) to pick it up.
+
+([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
+
+---
+
+## [Unreleased] — Add split FAQ, link card grid and split checklist CTA patterns (LSA-120)
+
+### Added
+
+- `Section - Split FAQ` (`ls-theme/split-faq`), `Section - Link Card Grid` (`ls-theme/link-card-grid`) and `CTA - Split Checklist` (`ls-theme/section-cta-split-checklist`): the last three sections for the 14 individual service pages, authored with Discovery's copy and edited per page. The FAQ uses the Yoast FAQ block, like the other FAQ patterns.
+- `ls-tick-phase--on-dark` modifier for the Tick Phase list style, for permanently dark sections.
+
+### Changed
+
+- The Phase FAQ and Phase "Where to go next" styles now also apply on the 14 service pages, taking each service's parent phase colour.
+
+([#82](https://github.com/lightspeedwp/ls-theme/pull/82))
+
+---
+
+## [Unreleased] — Add AI section, receive/role cards and featured case study patterns (LSA-120)
+
+### Added
+
+- `Section - Split Intro Icon Cards` (`ls-theme/split-intro-icon-cards`), `Section - Checklist Card Pair` (`ls-theme/checklist-card-pair`) and `Section - Featured Case Study` (`ls-theme/featured-case-study`): the next three sections for the 14 individual service pages, authored with Discovery's copy and edited per page.
+- The featured case study shows the project tagged with the service page's own slug in the `project-tag` ("Services") taxonomy (`inc/service-case-study-query.php`), on the front end and in the block editor preview.
+- `ls-tick-phase--compact` modifier for the Tick Phase list style, for checklists in smaller text.
+
+### Changed
+
+- The Tick Phase list style's layout, divider and spacing rules now live in `styles/blocks/lists/tick-phase.json`; only the tick marker remains in `src/scss/structural/tick-phase.scss`.
+
+([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
+
+---
+
+## [Unreleased] — Add service hero, split checklist and icon card grid patterns (LSA-120)
+
+### Added
+
+- `Hero - Service` (`ls-theme/service-hero`), `Section - Split Copy Checklist` (`ls-theme/split-copy-checklist`) and `Section - Icon Card Grid` (`ls-theme/icon-card-grid`): the first three patterns for the 14 individual service pages, authored with Discovery's copy and edited per page.
+- `Card - Plain` section style (`styles/sections/cards/card-plain.json`): a flat, non-interactive card with no shadow or hover lift.
+- `Tick Phase` list style (`styles/blocks/lists/tick-phase.json`, `src/scss/structural/tick-phase.scss`): a checklist with a phase-coloured tick and dividers.
+- `inc/service-phase-map.php`: maps each of the 14 services to its lifecycle phase.
+- An `ls-service-phase-{phase}` body class, so service pages take their parent phase's accent colour on the front end and in the block editor.
+
+### Changed
+
+- The `phase-hero`, `button-phase` and `phase-journey-nav` stylesheets now also load on the 14 service pages. The phase accent selector in `phase-journey-nav.scss` also matches the new body class; phase pages are unchanged.
+
+([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+
+---
+
 ## [Unreleased] — Fix phase contrast, phase menu links and service tile heights
 
 ### Fixed

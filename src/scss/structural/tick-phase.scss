@@ -1,0 +1,36 @@
+/********** Tick Phase (individual service pages' checklist marker) **********/
+
+/*
+ * Tick Phase (single consumer so far: patterns/sections/split-copy-checklist.php and
+ * patterns/sections/checklist-card-pair.php; designed to be reused by the other checklists on the
+ * service pages). Everything a style JSON can hold — typography, text colour, the list reset, item
+ * layout, divider, bold weight and the compact modifier — lives in
+ * styles/blocks/lists/tick-phase.json. This file owns only the tick marker itself.
+ *
+ * The marker reads --ls-tick-phase-accent (set by the `ls-tick-phase--on-dark` modifier in the JSON
+ * partial for permanently-dark sections) and otherwise --ls-phase-accent, which the `ls-service-phase-{phase}` body class
+ * (inc/service-phase-map.php, phase-journey-nav.scss) points at the page's phase colour, so the same
+ * list recolours across all 14 service pages. Its vertical position uses --ls-tick-phase-pad and
+ * --ls-tick-phase-offset, which the JSON partial defines (and the compact modifier overrides).
+ */
+
+// JSON limitation: a content:"" pseudo-element marker has no style-JSON equivalent — see AGENTS.md
+// Theme-First Approach.
+.is-style-tick-phase li::before {
+  content: "\2713";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: calc(var(--ls-tick-phase-pad) + var(--ls-tick-phase-offset));
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  inline-size: 1.375rem;
+  block-size: 1.375rem;
+  border: 1px solid color-mix(in srgb, var(--ls-tick-phase-accent, var(--ls-phase-accent)) 30%, transparent);
+  border-radius: var(--wp--preset--border-radius--500);
+  background-color: color-mix(in srgb, var(--ls-tick-phase-accent, var(--ls-phase-accent)) 10%, transparent);
+  color: var(--ls-tick-phase-accent, var(--ls-phase-accent));
+  font-size: var(--wp--preset--font-size--100);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  line-height: 1;
+}

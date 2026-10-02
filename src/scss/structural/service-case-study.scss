@@ -1,0 +1,21 @@
+/********** Service Case Study (individual service pages' featured case study) **********/
+
+/*
+ * Service Case Study (single consumer: patterns/sections/featured-case-study.php). On desktop the
+ * featured image sits in the left column of a two-column card, so its outer corners are rounded
+ * with per-corner block radius (top-left / bottom-left) and it has a fixed 28rem height with cover
+ * scaling — all expressed as block attributes on the post-featured-image block. Once the columns
+ * stack on mobile the image becomes the top of the card instead, so those corners must flip to
+ * top-left / top-right only, and a 28rem-tall image would dominate a phone screen, so it is shortened.
+ */
+
+// JSON limitation: block attributes (border radius, height) cannot change per breakpoint, and the
+// block writes them as inline styles on the <img>, so the override needs `!important` — see
+// AGENTS.md Theme-First Approach. 781.98px = 782px, WP core's own .wp-block-columns stacking
+// breakpoint, reused for consistency (see phase-delivery-numbers.scss, tick-phase.scss).
+@media (max-width: 781.98px) {
+  .ls-service-case-study .wp-block-post-featured-image img {
+    border-radius: var(--wp--preset--border-radius--400) var(--wp--preset--border-radius--400) 0 0 !important;
+    height: 16rem !important;
+  }
+}

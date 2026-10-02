@@ -1,3 +1,5 @@
+@use "../animations/icons";
+
 /********** Work Project Card (Work archive query loop) **********/
 
 /*
@@ -23,6 +25,7 @@
     color: var(--wp--custom--color--text--muted);
     border-radius: var(--wp--preset--border-radius--100);
     padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+    line-height: var(--wp--custom--line-height--button);
     text-decoration: none;
   }
 }
@@ -115,6 +118,174 @@
   background-image:
     linear-gradient(color-mix(in srgb, var(--wp--custom--color--text--default) 5%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--text--default) 5%, transparent) 1px, transparent 1px);
+}
+
+/*
+ * Card - Case Study banner (LSA-172): the featured image is inset in the card and fills the banner
+ * at a fixed 16/9 via the post-featured-image block's own aspectRatio/scale attributes, so every
+ * existing DEV image (all roughly 16:9, one ~2:1) crops to the same height. The banner stays as
+ * the tinted-grid fallback when a project has no featured image. overflow and the chip positioning
+ * over the image have no block-supports equivalent. The platform chip's tint is mixed into the
+ * opaque card surface instead of transparent so it stays legible over screenshot content.
+ */
+.ls-card-case-study__banner {
+  position: relative;
+  overflow: hidden;
+
+  .wp-block-post-featured-image {
+    margin: 0;
+
+    img {
+      display: block;
+    }
+  }
+
+  /*
+   * Dedicated media wrapper: neutral surface, 1px token border and matching radius are block
+   * attributes in the pattern; overflow has no block-supports equivalent, so it lives here. The
+   * border separates light screenshots from the card surface without a heavy shadow. With no
+   * featured image the wrapper would render as an empty bordered strip, so it's hidden and the
+   * banner's tinted-grid fallback shows instead.
+   */
+  .ls-card-case-study__media {
+    overflow: hidden;
+
+    &:not(:has(.wp-block-post-featured-image)) {
+      display: none;
+    }
+  }
+
+  .ls-card-case-study__chips {
+    position: absolute;
+    inset-block-start: var(--wp--preset--spacing--10);
+    inset-inline: var(--wp--preset--spacing--10);
+    z-index: 1;
+  }
+
+  .ls-card-chip {
+    width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    p,
+    .wp-block-post-terms {
+      margin: 0;
+      line-height: var(--wp--custom--line-height--button);
+    }
+  }
+
+  .ls-platform-tag-brand {
+    background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--wordpress) 8%, var(--wp--custom--color--surface--card));
+  }
+
+  .ls-platform-tag-woocommerce {
+    background-color: color-mix(in srgb, var(--wp--custom--color--card--platform--woocommerce) 8%, var(--wp--custom--color--surface--card));
+  }
+}
+
+/*
+ * Work card content (LSA-172). Metadata chips stay lighter than the platform chips: neutral
+ * raised surface, tighter radius, medium weight. The CTA is a plain link with an arrow glyph that
+ * nudges on hover/focus. Read More isn't a paragraph, so Link Arrow Accent's arrow rule (scoped to
+ * .wp-block-paragraph) never applies to it — the arrow lives here. Underline appears on hover/focus
+ * so the state change isn't colour-only.
+ */
+/*
+ * Equal height (same fix as Card - Post in blog-all-articles.scss): the grid already sizes each
+ * row to its tallest item, but only the `<li>` wrapper fills it, so the card itself must be told
+ * to. The content column then grows, pushing the divider, meta chips and CTA to the card bottom so
+ * they line up across a row. Title and excerpt are clamped with an ellipsis so long copy can't
+ * stretch a row; -webkit-line-clamp has no theme.json/block-attribute equivalent (same note as
+ * featured-work.scss).
+ */
+.wp-block-post-template.is-layout-grid .ls-work-card {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.ls-work-card {
+  .ls-card-case-study__content,
+  .ls-card-case-study__text {
+    flex: 1 1 auto;
+  }
+
+  .ls-card-case-study__text {
+    .wp-block-post-title,
+    .wp-block-post-excerpt__excerpt {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .wp-block-post-title {
+      -webkit-line-clamp: 2;
+    }
+
+    .wp-block-post-excerpt__excerpt {
+      -webkit-line-clamp: 3;
+    }
+  }
+
+  /*
+   * Divider alignment: the meta row's top border is the divider, and cards with no tags have a
+   * shorter row, which pushes their divider lower than their neighbours'. A floor of one chip row
+   * (plus the divider's top padding) keeps every divider on the same line.
+   */
+  .ls-card-case-study__meta {
+    align-self: stretch;
+    min-height: calc(var(--wp--preset--spacing--20) + 2rem);
+  }
+
+  .ls-card-case-study__link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45ch;
+    color: var(--wp--custom--color--link--accent);
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    transition:
+      color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+
+    &::after {
+      content: icons.$ls-icon-arrow-right;
+      display: inline-block;
+      transform: translateX(0);
+      transition:
+        transform var(--wp--custom--animation--duration--base)
+          var(--wp--custom--animation--easing--emphasised);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--wp--custom--color--link--accent-hover);
+      text-decoration: underline;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      transform: translateX(0.35em);
+    }
+  }
+
+  /* The stretched link's own outline is only as big as the link; ring the whole card instead. */
+  &:has(.ls-card-case-study__link:focus-visible) {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-work-card .ls-card-case-study__link,
+  .ls-work-card .ls-card-case-study__link::after {
+    transition: none;
+  }
+
+  .ls-work-card .ls-card-case-study__link:hover::after,
+  .ls-work-card .ls-card-case-study__link:focus-visible::after {
+    transform: none;
+  }
 }
 
 /*

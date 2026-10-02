@@ -41,6 +41,7 @@
 				},
 				"border": {
 					"card": "var:preset|color|neutral-800",
+					"card-strong": "var:preset|color|neutral-750",
 					"on-dark": "var:preset|color|neutral-500",
 					"field": "var:preset|color|neutral-600"
 				},
