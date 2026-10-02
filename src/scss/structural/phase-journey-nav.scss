@@ -101,8 +101,11 @@ body {
   --ls-phase-accent: var(--wp--custom--color--phase--discover);
 }
 
+// The 14 individual service pages (inc/service-phase-map.php) reuse these same two properties via
+// the `ls-service-phase-{phase}` body class, so they take on their parent phase's colour.
 @each $ls-phase in discover, create, build, launch, grow, evolve {
-  body.page-slug-#{$ls-phase} {
+  body.page-slug-#{$ls-phase},
+  body.ls-service-phase-#{$ls-phase} {
     --ls-phase-accent-on-dark: var(--wp--custom--color--phase--#{$ls-phase}-on-dark, var(--wp--custom--color--phase--#{$ls-phase}));
     --ls-phase-accent: var(--wp--custom--color--phase--#{$ls-phase});
   }

@@ -106,9 +106,33 @@
  * mechanism as phase-services-in-phase.scss.
  */
 @each $ls-phase in discover, create, build, launch, grow, evolve {
-  body.page-slug-#{$ls-phase} .ls-phase-faq {
+  body.page-slug-#{$ls-phase} .ls-phase-faq,
+  body.ls-service-phase-#{$ls-phase} .ls-phase-faq {
     .schema-faq.is-accordion .schema-faq-section {
       --ls-faq-border-active: var(--wp--custom--color--phase--#{$ls-phase});
     }
+  }
+}
+
+/*
+ * Individual service pages (patterns/sections/split-faq.php) reuse this accordion — the accent
+ * above reaches them through the `ls-service-phase-{phase}` body class — but their design sits the
+ * rows on a surface.card band, so the shared surface.card row fill would vanish into it. Scoped to
+ * .ls-service-faq: rows fill with the page canvas instead (rest, hover and open), the corners use
+ * the large radius, and the tinted circle behind the plus/minus is dropped so only the glyph shows.
+ */
+// JSON limitation: the accordion markup is hard-coded Yoast FAQ block HTML, so there is no style
+// JSON path to its rows or controls — see AGENTS.md Theme-First Approach. The extra .ls-phase-faq
+// in each selector lifts it above the shared faq.scss open-state background rule.
+.ls-phase-faq.ls-service-faq {
+  .schema-faq.is-accordion .schema-faq-section,
+  .schema-faq.is-accordion .schema-faq-section:hover,
+  .schema-faq.is-accordion .schema-faq-section.is-open {
+    background: var(--wp--custom--color--surface--canvas);
+    border-radius: var(--wp--preset--border-radius--300);
+  }
+
+  .schema-faq.is-accordion .schema-faq-question::before {
+    background: transparent;
   }
 }

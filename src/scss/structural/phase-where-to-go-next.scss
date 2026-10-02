@@ -47,7 +47,8 @@
  * affected.
  */
 @each $ls-phase in discover, create, build, launch, grow, evolve {
-  body.page-slug-#{$ls-phase} .ls-phase-where-to-go-next {
+  body.page-slug-#{$ls-phase} .ls-phase-where-to-go-next,
+  body.ls-service-phase-#{$ls-phase} .ls-phase-where-to-go-next {
     .is-style-card-link-row {
       --ls-card-link-row-border-active: var(--wp--custom--color--phase--#{$ls-phase});
       --ls-card-link-row-background-active: color-mix(

@@ -85,7 +85,16 @@ function ls_theme_get_bundle_render_markers() {
 		'blog-writing-cta'          => array( 'classes' => array( 'ls-writing-cta', 'ls-code-panel' ) ),
 		'button-secondary'          => array( 'classes' => array( 'is-style-button-secondary' ) ),
 		'button-phase'              => array( 'classes' => array( 'is-style-button-phase-primary', 'is-style-button-phase-outline' ) ),
-		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav' ) ),
+		// Besides the journey nav itself, this bundle defines the --ls-phase-accent and
+		// --ls-phase-accent-on-dark custom properties (and their Discover defaults on `body`) that
+		// every phase-coloured pattern reads. The individual service patterns use them without
+		// fallbacks, so load it whenever one of them renders on a page the head-time condition does
+		// not cover (e.g. a new service page before its slug is set, or a landing page).
+		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav', 'ls-phase-hero', 'is-style-tick-phase', 'is-style-card-plain', 'ls-service-faq' ) ),
+		'phase-faq'                 => array( 'classes' => array( 'ls-service-faq' ) ),
+		'phase-where-to-go-next'    => array( 'classes' => array( 'ls-phase-where-to-go-next' ) ),
+		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
+		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -242,9 +251,10 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/work-project-card.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Same "project card" component is reused by the homepage's Featured Work section
-			// in addition to the Work archive — not archive-exclusive.
+			// in addition to the Work archive — not archive-exclusive. The individual service pages'
+			// case-study section also reuses its tag pills.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' );
+				return is_front_page() || is_post_type_archive( 'project' ) || ls_theme_is_service_page();
 			},
 		),
 		'work-archive-sections'     => array(
@@ -261,7 +271,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// template yet (LS-1598 in progress), so this checks its slug directly rather than
 			// a template.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' );
+				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' ) || ls_theme_is_service_page();
 			},
 		),
 		'card-shells'               => array(
@@ -290,10 +300,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-phase-hero',
 			'path'      => 'assets/css/phase-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// Load early on all six phase pages; the render-marker fallback also covers
-			// this pattern when inserted on any other page.
+			// Load early on all six phase pages and the 14 individual service pages (which reuse
+			// this hero's background via service-hero.php); the render-marker fallback also
+			// covers this pattern when inserted on any other page.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
 		),
 		'services-hero'             => array(
@@ -429,8 +440,10 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Also registered in ls_theme_get_bundle_render_markers() below so it still loads once
 			// this same button style is reused on the Create/Build/Launch/Grow/Evolve phase pages,
 			// without needing this condition updated first.
+			// Also loads early on the 14 individual service pages, whose hero uses the same
+			// phase buttons.
 			'condition' => static function () {
-				return is_page( 'discover' );
+				return is_page( 'discover' ) || ls_theme_is_service_page();
 			},
 		),
 		'phase-journey-nav'         => array(
@@ -441,10 +454,29 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// just Discover), so scoped directly to all six known slugs — matches
 			// phase-services-in-phase below — rather than relying on the render_block/footer
 			// fallback, which was printing this after first paint on Create/Build/Launch/Grow/
-			// Evolve (LS-4179, CodeRabbit PR #64 comment #2).
+			// Evolve (LS-4179, CodeRabbit PR #64 comment #2). Also loads on the 14 individual
+			// service pages: this stylesheet owns the --ls-phase-accent custom properties, which
+			// the `ls-service-phase-{phase}` body class points at each service's parent phase
+			// (inc/service-phase-map.php), even though those pages have no journey nav.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
+		),
+		'service-case-study'        => array(
+			'handle'    => 'ls-theme-service-case-study',
+			'path'      => 'assets/css/service-case-study.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Mobile image-corner override for the individual service pages' featured case study;
+			// the render-marker fallback covers it if the pattern is used anywhere else.
+			'condition' => 'ls_theme_is_service_page',
+		),
+		'tick-phase'                => array(
+			'handle'    => 'ls-theme-tick-phase',
+			'path'      => 'assets/css/tick-phase.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Checklist marker for the individual service pages; the render-marker fallback covers
+			// it if the style is used anywhere else.
+			'condition' => 'ls_theme_is_service_page',
 		),
 		'phase-services-in-phase'   => array(
 			'handle'    => 'ls-theme-phase-services-in-phase',
@@ -504,7 +536,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Same reasoning as phase-support-focus/phase-common-services above: shared from the
 			// start across all six phase pages.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
 		),
 		'phase-where-to-go-next'    => array(
@@ -514,7 +546,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Same reasoning as phase-faq/phase-support-focus above: shared from the start across
 			// all six phase pages.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) );
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
 		),
 		'featured-work'             => array(
