@@ -424,6 +424,11 @@
                     "color": "#10B981"
                 },
                 {
+                    "name": "Success Strong",
+                    "slug": "success-strong",
+                    "color": "#047857"
+                },
+                {
                     "name": "Phase One",
                     "slug": "phase-one",
                     "color": "#5DE81C"
@@ -536,7 +541,8 @@
                     "on-dark-accent-tint": "var:preset|color|brand-900",
                     "glass": "color-mix(in srgb, var(--wp--custom--color--text--on-dark) 8%, transparent)",
                     "glass-lighter": "color-mix(in srgb, var(--wp--custom--color--text--on-dark) 5%, transparent)",
-                    "glass-subtle": "color-mix(in srgb, var(--wp--preset--color--surface-500) 9%, transparent)"
+                    "glass-subtle": "color-mix(in srgb, var(--wp--preset--color--surface-500) 9%, transparent)",
+                    "success-tint": "color-mix(in srgb, var(--wp--custom--color--status--success) 10%, transparent)"
                 },
                 "border": {
                     "card": "var:preset|color|neutral-300",
@@ -586,7 +592,7 @@
                     "evolve-on-dark": "var:preset|color|phase-six"
                 },
                 "status": {
-                    "success": "var:preset|color|success-foreground"
+                    "success": "var:preset|color|success-strong"
                 },
                 "text-shadow": {
                     "contrast": "var:preset|color|contrast",
@@ -687,9 +693,6 @@
                 },
                 "popover": {
                     "menu": "0 32px 80px 0 color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 18%, transparent), var(--wp--custom--shadow--elevation--200)"
-                },
-                "footer": {
-                    "notes": "0 0 0 1px color-mix(in srgb, var(--wp--custom--color--phase--create) 14%, transparent), 0 0 24px 0 color-mix(in srgb, var(--wp--custom--color--phase--create) 10%, transparent)"
                 }
             },
             "animation": {
