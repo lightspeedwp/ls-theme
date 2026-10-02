@@ -23,28 +23,50 @@
 }
 
 /*
- * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
- * hover colour swap. Not a motion property — the shared transition (timing) stays in
- * _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
+ * Proof-point card (.ls-footer-proof-card): hover colour swap. Not a motion property — the shared
+ * transition (timing) stays in _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
  * background-color/border-color are serialized as an inline style="" attribute (from folding an
  * is-style into block-supports attrs), and inline styles always beat stylesheet rules regardless
  * of specificity.
  */
 .ls-footer-proof-card:hover,
-.ls-footer-proof-card:focus-within,
-.ls-footer-social-icon:hover,
-.ls-footer-social-icon:focus-within {
+.ls-footer-proof-card:focus-within {
   background-color: var(--wp--custom--color--surface--card-raised) !important;
   border-color: var(--wp--custom--color--text--brand) !important;
 }
 
 /*
- * Social icon circle (.ls-footer-social-icon): min-inline-size has no block-supports equivalent —
- * core/group's dimensions support only offers minHeight, not a width counterpart — so without this
- * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
+ * Footer social links (core/social-links, .ls-footer-social): circle shell + hover swap.
+ * JSON limitation: core ships `.wp-block-social-links:not(.is-style-logos-only) .wp-social-link`
+ * with a fixed background/colour, which outranks any theme.json block style (those emit at
+ * zero specificity), and the only per-block colour attributes (iconColor/iconBackgroundColor)
+ * accept palette slugs, not the semantic custom colour tokens that switch with the dark variation.
+ * The selector repeats the core chain so it wins without !important. The hover swap is a :hover
+ * state, which theme.json has no pseudo-state key for on core/social-link.
  */
-.ls-footer-social-icon {
-  min-inline-size: var(--wp--custom--spacing--tap-target-min);
+.wp-block-social-links.ls-footer-social:not(.is-style-logos-only) .wp-social-link {
+  box-sizing: border-box;
+  inline-size: var(--wp--custom--spacing--tap-target-min);
+  block-size: var(--wp--custom--spacing--tap-target-min);
+  background-color: var(--wp--custom--color--surface--card);
+  color: var(--wp--custom--color--text--default);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--500);
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    block-size: 100%;
+    padding: 0;
+  }
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--text--brand);
+  }
 }
 
 /*

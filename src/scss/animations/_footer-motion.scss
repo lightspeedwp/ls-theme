@@ -16,14 +16,22 @@
 }
 
 /*
- * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon): both
- * folded in from styles/blocks/groups/*.json (LS-2341) as inline block attributes on
- * patterns/footer.php. The shared transition (timing) lives in _shared-hover.scss — shared
- * byte-for-byte with the header search button and the mobile-menu close button; the hover colour
- * swap itself lives in structural/_footer.scss, alongside the rest-state it modifies. WordPress
- * doesn't generate :hover/:focus CSS for arbitrary block style variations, so neither can move
- * back into JSON.
+ * Proof-point card (.ls-footer-proof-card): folded in from styles/blocks/groups/*.json (LS-2341) as
+ * inline block attributes on patterns/footer.php. The shared transition (timing) lives in
+ * _shared-hover.scss — shared byte-for-byte with the header search button and the mobile-menu
+ * close button; the hover colour swap itself lives in structural/_footer.scss, alongside the
+ * rest-state it modifies. WordPress doesn't generate :hover/:focus CSS for arbitrary block style
+ * variations, so neither can move back into JSON.
  */
+
+/*
+ * Footer social links (core/social-links): core scales every .wp-social-link up on hover, which
+ * would fight the border/background swap in structural/_footer.scss, so the footer opts out.
+ * JSON limitation: transform on a core/social-link :hover state has no theme.json key.
+ */
+.ls-footer-social .wp-social-link:hover {
+  transform: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ls-footer-nav-link a {
