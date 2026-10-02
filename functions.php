@@ -39,9 +39,6 @@ require get_template_directory() . '/inc/work-single-hero.php';
 /** Loads Blog Single "Related Reading" query filtering */
 require get_template_directory() . '/inc/blog-single-related-query.php';
 
-/** Loads bare phase-slug (e.g. /discover/) redirects to their real nested URL */
-require get_template_directory() . '/inc/phase-page-redirects.php';
-
 /** Loads the service-slug => phase-slug map used to recolour the 14 individual service pages */
 require get_template_directory() . '/inc/service-phase-map.php';
 
