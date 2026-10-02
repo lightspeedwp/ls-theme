@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Redesign Services-Hero colour palette card (LSA-168)
+
+### Changed
+
+- The "Services / Lifecycle" card in the Services hero is now a compact colour palette specimen: four rounded-square swatches (Periwinkle, Green, Aqua, Lime) each with a name and hex value, a `4 core colours` label, a dashed divider and a four-step shade/tint ramp per colour. The "14 / 14 tokens live" footer is removed (`patterns/hero/services-hero.php`, `src/scss/structural/services-hero.scss`).
+- Swatches use existing colour tokens (`effect.hero.brand`, `card.solutions.accent`, `effect.hero.cyan`) plus the `accent-three-400` palette preset for Lime; tint ramps are derived with `color-mix()`, so no new tokens were added.
+- Swatches and tints are spacer blocks so the card renders cleanly in the block editor. Pages with a saved copy of the old hero need the hero re-inserted from the updated pattern to pick up the new card.
+
+([#86](https://github.com/lightspeedwp/ls-theme/pull/86))
+
+---
+
 ## [Unreleased] — Fit Work archive cards to existing featured images (LSA-172)
 
 ### Changed
