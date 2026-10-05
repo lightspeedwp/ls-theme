@@ -155,15 +155,16 @@
  */
 
 /*
- * .ls-services-phase-links only: indents under its lifecycle heading rather than the leading dot.
- * 8px is the icon width (matching width="8px" on the phase dot in the markup); spacing--5 is the
- * reduced offset (LS-3222 follow-up, down from spacing--10) that keeps the indent intentional
- * (~12-13px total) without reading as an oversized, disconnected offset from the "C" in "CREATE".
- * .ls-simple-submenu-links has no heading/dot to align under, so it doesn't need this.
+ * .ls-services-phase-links alignment (LSA-171 follow-up): no extra left indent on the group. The
+ * rows already carry their own inset (3px rail + spacing--20 padding, set above), which puts a
+ * service label's text at ~31px — directly under the phase heading's label text (dot 8px + the
+ * heading's own gap, ~30px) — and lines the rail up with the phase dot and the accordion label, the
+ * same as the Work/Solutions/Pricing/Insights/About rows. An earlier version added
+ * `padding-left: calc(8px + spacing--5)` here to indent rows under the heading rather than the dot;
+ * that was tuned for the old tight spacing--5 row padding, and once the row padding grew to
+ * spacing--20 it double-indented the Services rows (~43px) and pushed them out of line with both
+ * the heading and the other dropdowns.
  */
-.ls-services-phase-links {
-  padding-left: calc(8px + var(--wp--preset--spacing--5));
-}
 
 /*
  * Stretched-link pattern: makes the entire row clickable (icon, description, whitespace — not
