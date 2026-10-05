@@ -105,6 +105,9 @@
 .ls-simple-submenu-links > .is-style-mega-menu-item-service,
 .ls-services-phase-links > .is-style-mega-menu-item-service {
   padding: var(--wp--preset--spacing--5);
+  // LSA-171: extra left padding so the label clears the 3px accent rail instead of sitting
+  // against it (the rail's rounded corner clipped the first letter at spacing--5).
+  padding-left: var(--wp--preset--spacing--20);
 }
 
 /*
@@ -218,17 +221,61 @@
 }
 
 /*
- * Neutral hover/focus colour fallback for .is-style-mega-menu-item-service — the mobile Services
- * accordion (stacked phase groups, no core/columns nesting) has no phase-column ancestor for the
- * per-phase rule below to key off, so it needs this generic accent-colour version. The desktop
- * Services grid also matches this by default, then the more specific per-phase selector further
- * down overrides it with that column's own phase colour. Only the colour values moved here from
- * src/scss/animations/_shared-hover.scss, which keeps just the transition timing.
+ * Neutral pressed/focus colour fallback for .is-style-mega-menu-item-service (LSA-171). Touch devices
+ * have no real hover — browsers emulate it, so a tapped row keeps a "sticky" tint — so the tint is
+ * driven by :active (finger down) and keyboard focus (:focus-visible), with :hover only for
+ * devices that can genuinely hover. The mobile Services accordion layers its per-phase colour on
+ * top of this below (.ls-phase-*); the desktop Services grid still overrides it with the column's
+ * own phase colour via the nth-child rules further down. Only the colour values live here; the
+ * transition timing stays in src/scss/animations/_shared-hover.scss.
  */
-.is-style-mega-menu-item-service:hover,
-.is-style-mega-menu-item-service:focus-within {
-  background-color: color-mix(in srgb, var(--wp--custom--color--link--accent) 8%, transparent);
-  border-left-color: var(--wp--custom--color--link--accent);
+@mixin ls-service-row-active($color) {
+  background-color: color-mix(in srgb, #{$color} 8%, transparent);
+  border-left-color: #{$color};
+}
+
+.is-style-mega-menu-item-service {
+  -webkit-tap-highlight-color: transparent;
+
+  &:active,
+  &:has(a:focus-visible) {
+    @include ls-service-row-active(var(--wp--custom--color--link--accent));
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @include ls-service-row-active(var(--wp--custom--color--link--accent));
+    }
+  }
+}
+
+/*
+ * Mobile Services accordion: each phase group carries .ls-phase-{phase} (parts/mobile-menu.html),
+ * so its rows press/focus in that phase's own token colour — matching the desktop mega menu — rather
+ * than the neutral accent above. Colour tokens are the same --wp--custom--color--phase--* set, which
+ * styles/dark.json re-points for dark mode.
+ */
+@each $phase in discover, create, build, launch, grow, evolve {
+  .ls-services-phase-links.ls-phase-#{$phase} > .is-style-mega-menu-item-service {
+    &:active,
+    &:has(a:focus-visible) {
+      @include ls-service-row-active(var(--wp--custom--color--phase--#{$phase}));
+
+      a {
+        color: var(--wp--custom--color--phase--#{$phase});
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        @include ls-service-row-active(var(--wp--custom--color--phase--#{$phase}));
+
+        a {
+          color: var(--wp--custom--color--phase--#{$phase});
+        }
+      }
+    }
+  }
 }
 
 /*
