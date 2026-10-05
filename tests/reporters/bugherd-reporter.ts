@@ -4,6 +4,7 @@ import * as path from 'path';
 import { addComment, createTask, findTaskByExternalId } from '../helpers/bugherd-client';
 import {
 	deriveCategoryTags,
+	deviceTagForWidth,
 	determinePriority,
 	extractFailureSignature,
 	humanizeSignature,
@@ -42,10 +43,33 @@ function toPosixPath(p: string): string {
 	return p.split(path.sep).join('/');
 }
 
-function stableExternalId(specRelativePath: string, signature: string): string {
-	const hash = createHash('sha256')
-		.update(`${toPosixPath(specRelativePath)}::${signature}`)
-		.digest('hex');
+// Desktop browser projects share one task per failure: the same site bug showing up in
+// Chromium, Firefox and WebKit is one bug, so their external_ids must stay identical (and
+// identical to what they were before device projects existed, so existing open tasks still
+// dedupe). Every other project (Mobile Chrome, Mobile Safari, Tablet) is a device layout, where
+// a failure can be specific to that viewport — those get their own task instead of being merged
+// into, or filed as, a desktop bug.
+const DESKTOP_PROJECT_NAMES: ReadonlySet<string> = new Set(['chromium', 'firefox', 'webkit']);
+
+type DeviceProject = { name: string; width: number | null };
+
+function deviceProjectOf(test: TestCase): DeviceProject | null {
+	const project = test.parent.project();
+	if (!project || DESKTOP_PROJECT_NAMES.has(project.name)) return null;
+	return { name: project.name, width: project.use?.viewport?.width ?? null };
+}
+
+function stableExternalId(
+	specRelativePath: string,
+	signature: string,
+	deviceProjectName?: string
+): string {
+	// The project name is only mixed into the hash for device projects, so a desktop failure's
+	// id is byte-for-byte what it has always been.
+	const key = deviceProjectName
+		? `${toPosixPath(specRelativePath)}::${signature}::${deviceProjectName}`
+		: `${toPosixPath(specRelativePath)}::${signature}`;
+	const hash = createHash('sha256').update(key).digest('hex');
 	return `playwright-standing-${hash.slice(0, 16)}`;
 }
 
@@ -62,6 +86,8 @@ type FailureGroup = {
 	// ALL of them agree, not just whichever test happened to report first.
 	titles: Set<string>;
 	messages: string[];
+	// Set only for device projects (mobile/tablet); null for the desktop browser projects.
+	deviceProject: DeviceProject | null;
 };
 
 export default class BugherdReporter implements Reporter {
@@ -87,6 +113,10 @@ export default class BugherdReporter implements Reporter {
 	}
 
 	async onEnd(_result: FullResult): Promise<void> {
+		// Second line of defence behind onTestEnd's own SINGLE_PAGE_URL check: even if something
+		// were ever collected, a single-page run must still never reach the BugHerd API.
+		if (process.env.SINGLE_PAGE_URL) return;
+
 		const groups = this.groupAllFailures();
 
 		// A small gap between groups, not just within fetchWithRetry's own
@@ -135,7 +165,8 @@ export default class BugherdReporter implements Reporter {
 				}
 
 				const signature = extractFailureSignature(error.message);
-				const externalId = stableExternalId(specRelativePath, signature);
+				const deviceProject = deviceProjectOf(test);
+				const externalId = stableExternalId(specRelativePath, signature, deviceProject?.name);
 
 				const existing = groups.get(externalId);
 				if (existing) {
@@ -148,6 +179,7 @@ export default class BugherdReporter implements Reporter {
 						title: test.title,
 						titles: new Set([test.title]),
 						messages: [error.message],
+						deviceProject,
 					});
 				}
 			}
@@ -174,10 +206,18 @@ export default class BugherdReporter implements Reporter {
 			group.messages
 		);
 
+		// Device projects are tagged from their own viewport width (an approved tag, via the same
+		// width mapping the overflow tags use), so a phone-only failure is never filed untagged.
+		const deviceTag = group.deviceProject?.width
+			? deviceTagForWidth(group.deviceProject.width)
+			: null;
+
 		const created = await createTask({
 			description,
 			external_id: externalId,
-			tag_names: [...new Set(['playwright', 'standing-suite', ...categoryTags])],
+			tag_names: [
+				...new Set(['playwright', 'standing-suite', ...categoryTags, ...(deviceTag ? [deviceTag] : [])]),
+			],
 			priority,
 			...(requesterEmail ? { requester_email: requesterEmail } : {}),
 		});
@@ -222,6 +262,7 @@ export default class BugherdReporter implements Reporter {
 		const header =
 			`${label}\n` +
 			`Spec: ${group.specRelativePath} — Test: ${group.title}\n` +
+			(group.deviceProject ? `Project: ${group.deviceProject.name}\n` : '') +
 			`Occurrences: ${group.messages.length}\n\n` +
 			`AFFECTED PAGES\n`;
 
