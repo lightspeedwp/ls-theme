@@ -194,30 +194,73 @@ See `AGENTS.md` for full guidance on AI workflow conventions.
 
 ## Testing (Playwright)
 
-Requires a `.env` file in the theme root (gitignored) with at least:
+Playwright is run manually or with an AI agent, not in CI.
+
+### First-time setup
+
+```bash
+npm install
+cp .env.example .env        # then set BASE_URL (see below)
+npm run test:setup          # downloads the Chromium + WebKit browsers (not installed by npm install)
+```
+
+`npm run test:setup:all` also downloads Firefox, which only the desktop `firefox` project needs. Without the browser downloads every test fails with "Executable doesn't exist".
+
+`.env` (gitignored, in the theme root) needs at least:
 
 ```
 BASE_URL=<the site to test against>
 ```
 
-First-time setup also needs Playwright's browser binaries (not installed by `npm install` alone):
+The tests only see what `BASE_URL` is serving. To check a branch you haven't deployed, point it at your local site (e.g. `http://localhost:8882`). Pass it per run instead of editing `.env` if you prefer: `BASE_URL=http://localhost:8882 npx playwright test ...`.
 
-```bash
-npx playwright install
-```
+### Mobile menu spec
+
+`tests/specs/mobile-menu.spec.ts` covers every mobile menu dropdown (open/close, links, tap targets, overflow), the Services phase groups, the pressed-state padding and phase colours, and an axe scan with the menu open. The press-colour tests force `:active` / `:focus-visible` through the Chrome DevTools Protocol, so they run on Chromium only and are skipped on the WebKit projects. Colours are compared against tokens read from the page, so the same tests pass whichever style variation (light or Dark) the target site is on — run them again against a site set to Dark to cover it.
+
+A few tests are expected failures (`test.fail`) for known menu issues: links inside accordion `<summary>` elements, and undersized "See all …" and phase-heading tap targets. They report as passing, and will flip to failing once the issue is fixed, as a prompt to remove the expectation.
+
+### Which page vs which device
+
+Two separate things decide what a run tests:
+
+| Question | Controlled by | Example |
+| --- | --- | --- |
+| Which page? | `SINGLE_PAGE_URL` (standing specs and `mobile-menu.spec.ts`) | `SINGLE_PAGE_URL="http://localhost:8882/services/"` |
+| Which device / browser? | The Playwright project, chosen with `--project` | `--project="Mobile Chrome"` |
+
+`SINGLE_PAGE_URL` never picks a viewport, and the page URL never implies one. A spec runs under each project it is assigned to (see `playwright.config.ts`). Without `--project`, every project runs.
+
+| Project | Device | Runs |
+| --- | --- | --- |
+| `chromium`, `firefox`, `webkit` | Desktop browsers | Everything except `mobile-menu.spec.ts` |
+| `Mobile Chrome` | Pixel 5 (393px, touch) | `mobile-menu.spec.ts` + the standing accessibility spec |
+| `Mobile Safari` | iPhone 12 (390px, touch) | `mobile-menu.spec.ts` |
+| `Tablet` | iPad Mini (768px, touch) | `mobile-menu.spec.ts` |
+
+The device projects use real touch and mobile emulation, not just a narrow window, so `(hover: none)` and tap behaviour match a phone. Which specs run on which device is set in `playwright.config.ts` (`DEVICE_ONLY_SPECS`, `MOBILE_STANDING_SPECS`).
 
 | Command | Runs |
 | --- | --- |
-| `npx playwright test` | Everything (feature specs + standing suite) |
+| `npx playwright test` | Everything, on every project |
+| `npx playwright test --project=chromium` | Everything on desktop Chromium only |
+| `npm run test:mobile` | The mobile-menu spec on Mobile Chrome, Mobile Safari and Tablet |
+| `npx playwright test mobile-menu --project="Mobile Chrome"` | The mobile menu on one device |
+| `SINGLE_PAGE_URL="http://localhost:8882/services/" npx playwright test mobile-menu --project="Mobile Chrome"` | One URL at one device |
+| `SINGLE_PAGE_URL="..." npx playwright test standing/accessibility --project="Mobile Chrome"` | A standing spec on one URL at mobile width |
 | `npx playwright test tests/specs/standing` | Only the standing regression suite |
 | `npx playwright test tests/specs/header-search.spec.ts` | A single feature spec |
 
-**Feature specs** (`header-search.spec.ts`, `navigation.spec.ts`, `keyboard-navigation.spec.ts`, `reduced-motion.spec.ts`) test reusable, site-wide components and behaviors — not one specific page/template — and use the generic assertion helpers in `tests/helpers/assertions.ts` where applicable.
+Project names are exact and case-sensitive; quote the ones with spaces.
+
+**Feature specs** (`header-search.spec.ts`, `navigation.spec.ts`, `keyboard-navigation.spec.ts`, `reduced-motion.spec.ts`, `mobile-menu.spec.ts`, `bugherd-reporter.spec.ts`) test reusable, site-wide components and behaviors — not one specific page/template — and use the generic assertion helpers in `tests/helpers/assertions.ts` where applicable.
 
 **Standing suite** (`tests/specs/standing/`) is content-agnostic — it discovers every reachable page on `BASE_URL` (via sitemap, REST, or crawl fallback) and runs a fixed set of checks against all of them: page health/PHP errors, console/runtime errors, broken same-origin resources, accessibility (axe), internal link integrity, horizontal overflow at common widths, image alt attributes, and the search/404 routes. It requires no per-template setup — new pages are covered automatically.
 
 - The number of URLs actually tested is currently throttled by `MAX_TEST_URLS` in `tests/fixtures/site.ts` while the suite is being verified — raise this before relying on it for full site coverage.
 - Failures in the standing suite are automatically logged as BugHerd tasks (deduplicated, so re-running doesn't create duplicates). This requires `BUGHERD_API_KEY` and `BUGHERD_PROJECT_ID` in `.env`. Feature specs never create BugHerd tasks.
+- **`SINGLE_PAGE_URL` never creates BugHerd tasks**, on any project or spec. Use it for local and one-off checks.
+- A standing spec that fails on a device project (e.g. Mobile Chrome) gets its own BugHerd task with a `device:` tag and a `Project:` line, separate from the same failure on desktop. Desktop browsers share one task between them.
 - Each created task is attributed to whoever ran the suite, via your local `git config user.email` — so your name/email will show up as the reporter on any task your run creates.
 - No CI wiring — run manually, after `develop` has been merged and the target site has redeployed.
 
