@@ -187,3 +187,12 @@
 .site-footer .site-logo--for-dark img {
   width: var(--wp--custom--layout--logo-width-footer);
 }
+
+/*
+ * Footer logo link: the link around each logo image is inline, so on the footer's 24px line height it
+ * leaves about 6px of empty line-box space under the image, which inflates the gap between the logo and
+ * the description. JSON limitation: `display` has no block-supports or theme.json key on core/image's link.
+ */
+.site-footer .site-logo-switcher a {
+  display: block;
+}
