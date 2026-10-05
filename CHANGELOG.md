@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add mobile and tablet Playwright coverage for the mobile menu (LSA-183)
+
+### Added
+
+- `Mobile Chrome` (Pixel 5), `Mobile Safari` (iPhone 12) and `Tablet` (iPad Mini) Playwright projects with real touch and mobile emulation. Desktop projects skip the device-only spec; `Mobile Chrome` also runs the standing accessibility spec (`playwright.config.ts`).
+- `tests/specs/mobile-menu.spec.ts`: covers every mobile menu dropdown (open/close, links, tap targets, overflow), the six Services phase groups, the LSA-171 padding and phase press colours, and an axe scan with the menu open. It uses `SINGLE_PAGE_URL` when set.
+- `tests/specs/bugherd-reporter.spec.ts`: checks the BugHerd reporter without contacting BugHerd, including that `SINGLE_PAGE_URL` runs never create tasks.
+- `test:setup`, `test:setup:all` and `test:mobile` npm scripts, and a `.env.example`.
+- Navigation checks at the 1023px/1024px breakpoint and overflow checks at 768px and 1024px (`tests/specs/navigation.spec.ts`).
+
+### Changed
+
+- The BugHerd reporter now gives failures from device projects their own task, with a `device:` tag and a `Project:` line, instead of merging them into the desktop task. Desktop task ids are unchanged.
+- The README testing section now explains setup, which page vs which device, and the available projects and commands.
+
+### Removed
+
+- The stale note in `navigation.spec.ts` saying the mobile menu links were `href="#"` placeholders.
+
+([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+
+---
+
 ## [Unreleased] — Fix mobile menu pressed state padding and phase colour (LSA-171)
 
 ### Changed
