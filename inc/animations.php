@@ -73,6 +73,7 @@ function ls_theme_get_bundle_render_markers() {
 		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
 		'phase-hero'                => array( 'classes' => array( 'ls-phase-hero' ) ),
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
+		'solutions-hero'            => array( 'classes' => array( 'ls-specimen-card' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
@@ -314,6 +315,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// No page template yet (LS-1598 in progress) — same reasoning as card-shells/
 			// cta-buttons above, relies on render_block marker detection instead of a condition.
 		),
+		'solutions-hero'            => array(
+			'handle'    => 'ls-theme-solutions-hero',
+			'path'      => 'assets/css/solutions-hero.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Scoped to the real Solutions landing page slug, same reasoning as services-service-tiles below.
+			'condition' => static function () {
+				return is_page( 'solutions' );
+			},
+		),
 		'services-linked-decisions' => array(
 			'handle'   => 'ls-theme-services-linked-decisions',
 			'path'     => 'assets/css/services-linked-decisions.css',
@@ -334,7 +344,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// this bundle is scoped to a real, known page slug rather than deferred — no reason
 			// to wait for a dedicated template when the condition is this cheap to add now.
 			'condition' => static function () {
-				return is_page( 'services' );
+				return is_page( array( 'services', 'solutions' ) );
 			},
 		),
 		'services-delivery-numbers' => array(
