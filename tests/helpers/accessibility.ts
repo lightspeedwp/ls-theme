@@ -3,9 +3,15 @@ import { expect, type Page, type TestInfo } from '@playwright/test';
 
 const BLOCKING_IMPACTS = ['serious', 'critical'];
 
-/** Runs a full-page axe-core accessibility scan on the current page. */
-export async function analyzeAccessibility(page: Page) {
-	return new AxeBuilder({ page }).analyze();
+/**
+ * Runs a full-page axe-core accessibility scan on the current page.
+ * `disableRules` is for a known, separately tracked issue only — pass it with a comment naming
+ * the ticket, never to silence a failure.
+ */
+export async function analyzeAccessibility(page: Page, options: { disableRules?: string[] } = {}) {
+	const builder = new AxeBuilder({ page });
+	if (options.disableRules?.length) builder.disableRules(options.disableRules);
+	return builder.analyze();
 }
 
 /**
@@ -16,9 +22,10 @@ export async function analyzeAccessibility(page: Page) {
  */
 export async function expectNoSeriousAccessibilityViolations(
 	page: Page,
-	testInfo: TestInfo
+	testInfo: TestInfo,
+	options: { disableRules?: string[] } = {}
 ): Promise<void> {
-	const results = await analyzeAccessibility(page);
+	const results = await analyzeAccessibility(page, options);
 
 	await testInfo.attach(`axe-results-${encodeURIComponent(page.url())}`, {
 		body: JSON.stringify(results, null, 2),

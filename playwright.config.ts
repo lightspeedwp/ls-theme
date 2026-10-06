@@ -15,6 +15,16 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+// Specs that only make sense on a phone/tablet layout (the mobile menu). Desktop projects skip
+// them; the device projects below run them.
+const DEVICE_ONLY_SPECS = [/mobile-menu\.spec\.ts$/];
+
+// Standing-suite specs that also run once under Mobile Chrome (the only device project that runs
+// any standing spec). Standing specs on a device project report to BugHerd under their own
+// project-scoped task — see tests/reporters/bugherd-reporter.ts. Add a spec here to widen mobile
+// coverage; keep it short, since each entry adds a full discovery run.
+const MOBILE_STANDING_SPECS = [/standing\/accessibility\.spec\.ts$/];
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -53,30 +63,46 @@ export default defineConfig({
 
 	/* Configure projects for major browsers */
 	projects: [
+		// Desktop browsers: everything except the device-only specs below.
 		{
 			name: 'chromium',
 			use: { ...devices['Desktop Chrome'] },
+			testIgnore: DEVICE_ONLY_SPECS,
 		},
 
 		{
 			name: 'firefox',
 			use: { ...devices['Desktop Firefox'] },
+			testIgnore: DEVICE_ONLY_SPECS,
 		},
 
 		{
 			name: 'webkit',
 			use: { ...devices['Desktop Safari'] },
+			testIgnore: DEVICE_ONLY_SPECS,
 		},
 
-		/* Test against mobile viewports. */
-		// {
-		//   name: 'Mobile Chrome',
-		//   use: { ...devices['Pixel 5'] },
-		// },
-		// {
-		//   name: 'Mobile Safari',
-		//   use: { ...devices['iPhone 12'] },
-		// },
+		// Device projects (LSA-183): real touch/mobile emulation, not just a narrow desktop
+		// window, so `(hover: none)` and tap behaviour match a phone. Each runs only the specs
+		// listed for it, to avoid multiplying the whole suite's duration. Run one explicitly with
+		// e.g. `npx playwright test --project="Mobile Chrome"`; a project's name is exact.
+		{
+			name: 'Mobile Chrome',
+			use: { ...devices['Pixel 5'] },
+			testMatch: [...DEVICE_ONLY_SPECS, ...MOBILE_STANDING_SPECS],
+		},
+
+		{
+			name: 'Mobile Safari',
+			use: { ...devices['iPhone 12'] },
+			testMatch: DEVICE_ONLY_SPECS,
+		},
+
+		{
+			name: 'Tablet',
+			use: { ...devices['iPad Mini'] },
+			testMatch: DEVICE_ONLY_SPECS,
+		},
 
 		/* Test against branded browsers. */
 		// {
