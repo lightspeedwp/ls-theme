@@ -2,7 +2,7 @@
 
 /*
  * Circular icon-button hover (header search button, mobile-menu close button, footer proof-card,
- * footer social-icon): identical background/border-color raise-on-hover treatment and identical
+ * footer social link): identical background/border-color raise-on-hover treatment and identical
  * transition, previously duplicated once per file. Consolidated 2026-08-12 after a full duplicate
  * sweep across every animation partial. Each consumer's rest-state box model stays in its own file
  * (or JSON) — only this shared contract lives here. WordPress doesn't generate :hover CSS for
@@ -12,12 +12,12 @@
  *
  * The two groups share an identical transition (the timing) but keep their original, different
  * focus pseudo-class: the header search button and mobile-menu close button use :focus-visible
- * (plain buttons — keyboard-only focus indication), footer proof-card/social-icon use
- * :focus-within (group wrappers). Normalizing both to one pseudo-class during consolidation would
+ * (plain buttons — keyboard-only focus indication), footer proof-card/social link use
+ * :focus-within (wrappers). Normalizing both to one pseudo-class during consolidation would
  * silently change which interactions trigger the raise, so they stay split.
  *
- * The actual background-color/border-color hover swap for .ls-footer-proof-card/
- * .ls-footer-social-icon lives in src/scss/structural/_footer.scss, not here — per AGENTS.md this
+ * The actual background-color/border-color hover swap for .ls-footer-proof-card
+ * lives in src/scss/structural/_footer.scss, not here — per AGENTS.md this
  * file may only contain @keyframes/transition/transform/animation/will-change. The header search
  * button/mobile-menu close button's own swap has no block-supports-attrs consumer competing with
  * it, so it stays here as the one exception genuinely tied to this shared transition contract.
@@ -25,7 +25,7 @@
 .site-header__search .wp-block-search__button,
 .site-header .wp-block-navigation__responsive-container-close,
 .ls-footer-proof-card,
-.ls-footer-social-icon {
+.ls-footer-social .wp-social-link {
   transition: background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
     border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
 }
@@ -82,7 +82,7 @@
   .site-header__search .wp-block-search__button,
   .site-header .wp-block-navigation__responsive-container-close,
   .ls-footer-proof-card,
-  .ls-footer-social-icon,
+  .ls-footer-social .wp-social-link,
   .is-style-mega-menu-item-default,
   .is-style-mega-menu-item-service {
     transition: none;
