@@ -20,11 +20,6 @@ const PHASES = ['discover', 'create', 'build', 'launch', 'grow', 'evolve'];
 
 // WCAG 2.2 SC 2.5.8 (Target Size, Minimum, AA).
 const MIN_TARGET_PX = 24;
-// Dropdowns with a known WCAG 2.5.8 gap, found when this spec was written (LSA-183) and not fixed
-// by it: the "See all …" links and the Services phase heading links are shorter than 24px and sit
-// closer than 24px to the next target. Their tap-target test is an expected failure (test.fail), so
-// it flips and says so the day the spacing is fixed. Every other dropdown is held to the full rule.
-const KNOWN_SMALL_TARGET_DROPDOWNS: ReadonlySet<string> = new Set(['Services', 'Pricing', 'Insights']);
 
 async function openMobileMenu(page: Page): Promise<Locator> {
 	await page.goto(START_URL);
@@ -164,10 +159,6 @@ test.describe('Mobile menu dropdowns', () => {
 			});
 
 			test('tap targets meet WCAG 2.5.8 (24x24px, or spaced apart)', async ({ page }) => {
-				test.fail(
-					KNOWN_SMALL_TARGET_DROPDOWNS.has(name),
-					`Known issue: undersized, tightly spaced link(s) in the ${name} dropdown. Remove it from KNOWN_SMALL_TARGET_DROPDOWNS once fixed.`
-				);
 				const menu = await openMobileMenu(page);
 				const details = await expandAccordion(menu, name);
 

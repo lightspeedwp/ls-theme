@@ -208,9 +208,14 @@ export default class BugherdReporter implements Reporter {
 
 		// Device projects are tagged from their own viewport width (an approved tag, via the same
 		// width mapping the overflow tags use), so a phone-only failure is never filed untagged.
-		const deviceTag = group.deviceProject?.width
-			? deviceTagForWidth(group.deviceProject.width)
-			: null;
+		// Overflow signatures are the exception: those specs set their own viewport widths, so
+		// deriveCategoryTags already tags them from the width measured in the failure message (or
+		// deliberately omits the tag when the group spans several widths). Adding the project's
+		// configured width on top could contradict it.
+		const deviceTag =
+			group.deviceProject?.width && !group.signature.startsWith('overflow:')
+				? deviceTagForWidth(group.deviceProject.width)
+				: null;
 
 		const created = await createTask({
 			description,
