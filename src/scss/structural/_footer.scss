@@ -18,33 +18,55 @@
 
 .ls-footer-nav-link a:hover,
 .ls-footer-nav-link a:focus-visible {
-  color: var(--wp--custom--color--phase--create);
-  text-decoration-color: var(--wp--custom--color--phase--create);
+  color: var(--wp--custom--color--text--brand);
+  text-decoration-color: var(--wp--custom--color--text--brand);
 }
 
 /*
- * Proof-point card (.ls-footer-proof-card) and social icon circle (.ls-footer-social-icon):
- * hover colour swap. Not a motion property — the shared transition (timing) stays in
- * _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
+ * Proof-point card (.ls-footer-proof-card): hover colour swap. Not a motion property — the shared
+ * transition (timing) stays in _shared-hover.scss, but this state swap belongs here. !important is required: rest-state
  * background-color/border-color are serialized as an inline style="" attribute (from folding an
  * is-style into block-supports attrs), and inline styles always beat stylesheet rules regardless
  * of specificity.
  */
 .ls-footer-proof-card:hover,
-.ls-footer-proof-card:focus-within,
-.ls-footer-social-icon:hover,
-.ls-footer-social-icon:focus-within {
+.ls-footer-proof-card:focus-within {
   background-color: var(--wp--custom--color--surface--card-raised) !important;
-  border-color: var(--wp--custom--color--phase--create) !important;
+  border-color: var(--wp--custom--color--text--brand) !important;
 }
 
 /*
- * Social icon circle (.ls-footer-social-icon): min-inline-size has no block-supports equivalent —
- * core/group's dimensions support only offers minHeight, not a width counterpart — so without this
- * the shell can go narrower than its 44px minHeight and stop being a circle/square touch target.
+ * Footer social links (core/social-links, .ls-footer-social): circle shell + hover swap.
+ * JSON limitation: core ships `.wp-block-social-links:not(.is-style-logos-only) .wp-social-link`
+ * with a fixed background/colour, which outranks any theme.json block style (those emit at
+ * zero specificity), and the only per-block colour attributes (iconColor/iconBackgroundColor)
+ * accept palette slugs, not the semantic custom colour tokens that switch with the dark variation.
+ * The selector repeats the core chain so it wins without !important. The hover swap is a :hover
+ * state, which theme.json has no pseudo-state key for on core/social-link.
  */
-.ls-footer-social-icon {
-  min-inline-size: var(--wp--custom--spacing--tap-target-min);
+.wp-block-social-links.ls-footer-social:not(.is-style-logos-only) .wp-social-link {
+  box-sizing: border-box;
+  inline-size: var(--wp--custom--spacing--tap-target-min);
+  block-size: var(--wp--custom--spacing--tap-target-min);
+  background-color: var(--wp--custom--color--surface--card);
+  color: var(--wp--custom--color--text--default);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--500);
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    block-size: 100%;
+    padding: 0;
+  }
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--text--brand);
+  }
 }
 
 /*
@@ -57,4 +79,120 @@
  */
 .ls-footer-proof-card {
   height: 100%;
+}
+
+/********** Site Footer layout **********/
+
+/*
+ * JSON limitation: a multi-layer gradient over the canvas colour, plus position/overflow and a content:"" pseudo-element, have no block-supports equivalent — see AGENTS.md Theme-First Approach. Decorative background: top edge glow bar + ambient radial-gradient glow behind the footer.
+ * Authored as layered CSS gradients rather than embedding Figma's raw multi-layer SVG data-URIs,
+ * which would be extremely brittle to maintain. Every colour route through the same semantic
+ * custom properties used everywhere else in the theme (text.brand, effect.spotlight), so the
+ * glow automatically tones itself down under the light global-styles variation instead of needing
+ * a separate light/dark branch — there's no runtime class/attribute toggle in this theme, dark mode
+ * is a full alternate theme.json variation, so re-resolving the same custom properties is enough.
+ */
+.site-footer {
+  position: relative;
+  overflow: clip;
+  background:
+    radial-gradient(
+      ellipse 480px 420px at 12% 0%,
+      color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 16%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 460px 400px at 92% 22%,
+      color-mix(in srgb, var(--wp--custom--color--text--brand) 12%, transparent) 0%,
+      transparent 60%
+    ),
+    var(--wp--custom--color--surface--canvas);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 4px;
+    z-index: var(--wp--custom--z-index--content);
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--wp--custom--color--text--brand) 60%, transparent) 24%,
+      var(--wp--custom--color--text--brand) 50%,
+      color-mix(in srgb, var(--wp--custom--color--text--brand) 60%, transparent) 76%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 16px 0 color-mix(in srgb, var(--wp--custom--color--text--brand) 70%, transparent),
+      0 8px 32px 0 color-mix(in srgb, var(--wp--custom--color--text--brand) 30%, transparent);
+  }
+}
+
+/*
+ * Blurred accent blob behind the nav-column grid, echoing Figma's "Mask Group" glow. Purely
+ * decorative and non-interactive, so it's safe to skip under reduced motion (nothing here
+ * animates — it's a static blur, included in the reduced-motion block only for parity/consistency).
+ * Targets the explicit .site-footer__columns class rather than :nth-of-type(2) — that selector
+ * counted by tag name among siblings sharing a parent, not a global count of wp-block-columns, so
+ * it was also accidentally matching the nested Company/Studio sub-grid two levels down.
+ */
+.site-footer__columns {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 10%;
+    inset-inline-end: 8%;
+    inline-size: min(38vw, 520px);
+    block-size: min(30vw, 360px);
+    background: radial-gradient(
+      ellipse closest-side,
+      color-mix(in srgb, var(--wp--custom--color--text--brand) 14%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/*
+ * Nav sections 2-per-row on mobile (.footer-nav-columns, patterns/footer.php): the 6 nav sections
+ * (Services, Solutions, Work, Pricing, Insights, About) sit in one core/group grid layout, 3 columns
+ * wide on desktop so each row lines up across all three columns. JSON limitation: core's grid layout
+ * only offers a fixed column count and @media is stripped from the styles/**.json css field, so
+ * there's no JSON way to drop to 2 columns below WordPress's own column-stack breakpoint (781px).
+ * The doubled class beats core's single-class generated container rule without !important.
+ */
+@media (max-width: 781px) {
+  .wp-block-group.footer-nav-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/*
+ * Footer logo size: the footer logo is larger than the header's (custom.layout.logo-width-footer vs
+ * logo-width). JSON limitation: core/image width can't be set on the block without breaking
+ * save() validation — see the note on .site-logo--for-light in _header.scss — so the width comes
+ * from a token here instead.
+ */
+.site-footer .site-logo--for-light img,
+.site-footer .site-logo--for-dark img {
+  width: var(--wp--custom--layout--logo-width-footer);
+}
+
+/*
+ * Footer logo link: the link around each logo image is inline, so on the footer's 24px line height it
+ * leaves about 6px of empty line-box space under the image, which inflates the gap between the logo and
+ * the description. JSON limitation: `display` has no block-supports or theme.json key on core/image's link.
+ */
+.site-footer .site-logo-switcher a {
+  display: block;
 }
