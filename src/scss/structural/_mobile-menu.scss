@@ -27,3 +27,26 @@
     block-size: 20px;
   }
 }
+
+/*
+ * Tap-target floor for the mobile menu's text links that are not full service rows (LSA-171
+ * follow-up): the Services phase headings (Discover, Create, ...) rendered ~15px tall and the
+ * "See all ..." links ~21px, both under WCAG 2.2 SC 2.5.8's 24x24px minimum and too close to their
+ * neighbours for its spacing exception to apply. 24px is the AA minimum, deliberately not the
+ * theme's 44px tap-target-min — that would visibly reflow the menu (an earlier 44px attempt on
+ * the service rows was removed in _mega-menu.scss for overlapping neighbouring rows).
+ *
+ * JSON limitation: these are inline links inside paragraphs (core/paragraph's own link element has
+ * no min-height/display support), so the sizing has to be CSS. .ls-phase-heading is a className on
+ * the phase heading paragraphs in parts/mobile-menu.html; the "See all" links are the existing
+ * is-style-link-arrow-accent paragraphs, which already lay their link out as a flex row.
+ */
+.mobile-menu-accordion .ls-phase-heading a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 24px;
+}
+
+.mobile-menu-accordion .is-style-link-arrow-accent a {
+  min-block-size: 24px;
+}

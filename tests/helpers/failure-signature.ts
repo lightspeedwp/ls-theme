@@ -437,7 +437,7 @@ export const APPROVED_TAGS: ReadonlySet<string> = new Set([
  * outside this known set, so an unrecognized width is omitted rather than
  * guessed.
  */
-function deviceTagForWidth(width: number): string | null {
+export function deviceTagForWidth(width: number): string | null {
 	if (width <= 480) return 'device:mobile';
 	if (width <= 800) return 'device:tablet-portrait';
 	if (width <= 1200) return 'device:tablet-landscape';

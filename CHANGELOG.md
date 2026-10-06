@@ -19,6 +19,76 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add mobile and tablet Playwright coverage for the mobile menu (LSA-183)
+
+### Added
+
+- `Mobile Chrome` (Pixel 5), `Mobile Safari` (iPhone 12) and `Tablet` (iPad Mini) Playwright projects with real touch and mobile emulation. Desktop projects skip the device-only spec; `Mobile Chrome` also runs the standing accessibility spec (`playwright.config.ts`).
+- `tests/specs/mobile-menu.spec.ts`: covers every mobile menu dropdown (open/close, links, tap targets, overflow), the six Services phase groups, the LSA-171 padding and phase press colours, and an axe scan with the menu open. It uses `SINGLE_PAGE_URL` when set.
+- `tests/specs/bugherd-reporter.spec.ts`: checks the BugHerd reporter without contacting BugHerd, including that `SINGLE_PAGE_URL` runs never create tasks.
+- `test:setup`, `test:setup:all` and `test:mobile` npm scripts, and a `.env.example`.
+- Navigation checks at the 1023px/1024px breakpoint and overflow checks at 768px and 1024px (`tests/specs/navigation.spec.ts`).
+
+### Changed
+
+- The BugHerd reporter now gives failures from device projects their own task, with a `device:` tag and a `Project:` line, instead of merging them into the desktop task. Desktop task ids are unchanged.
+- The README testing section now explains setup, which page vs which device, and the available projects and commands.
+
+### Removed
+
+- The stale note in `navigation.spec.ts` saying the mobile menu links were `href="#"` placeholders.
+
+([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+
+---
+
+## [Unreleased] — Fix mobile menu pressed state padding and phase colour (LSA-171)
+
+### Changed
+
+- Mobile menu service rows now have more left padding (`spacing|20`), so the label no longer sits against the accent rail (`src/scss/structural/_mega-menu.scss`).
+- The mobile menu tint and rail now show while a row is pressed or keyboard-focused, instead of on hover, so touch devices no longer keep a tint after a tap. Hover still applies on devices that can hover.
+- Rows in the mobile Services accordion now press in their phase's own colour (tint, rail and link) via new `ls-phase-{phase}` classes in `parts/mobile-menu.html`, matching the desktop mega menu. The other dropdowns keep the neutral accent.
+
+([#96](https://github.com/lightspeedwp/ls-theme/pull/96))
+
+---
+
+## [Unreleased] — Audit footer: spacing, tokens and header-matched navigation (LSA-170)
+
+### Changed
+
+- `patterns/footer.php`: the root group now uses a plain `constrained` layout with `align: wide` inner content and no root `blockGap`. Top and bottom padding and the legal bar's top margin and padding are all `spacing|80`, so the four edge gaps are equal; side padding stays `spacing|60`.
+- `patterns/footer.php`: replaced per-link `margin-top` values with `blockGap` on groups and the brand column.
+- `patterns/footer.php`: the footer nav now mirrors the header mega menus. Six sections (Services, Solutions, Work, Pricing, Insights, About) use the same labels and URLs as the header and sit in one `core/group` grid, three columns by two rows, so rows line up across columns. Below 781px the grid drops to two columns.
+- `patterns/footer.php`: nav column labels are now `core/heading` (level 2) instead of paragraphs, with identical typography.
+- `patterns/footer.php`: the social icons are now `core/social-links` with four `core/social-link` blocks (LinkedIn, GitHub, Facebook, Instagram) at 24px, in 44px circles. They are real links that open in a new tab.
+- `patterns/footer.php`: all copy now uses `esc_html__()` with the `ls-theme` text domain, and the copyright year is dynamic. The brand name is now "LightSpeedWP.agency".
+- `patterns/footer.php`, `src/scss/structural/_footer.scss`: replaced `phase--create` with `text--brand` for the footer dots, hover, glow and top bar.
+- `patterns/footer.php`: the "Available for selected projects" badge background uses the new `surface.success-tint` token instead of an inline `color-mix()`.
+- `patterns/footer.php`, `patterns/site-logo-switcher.php`: pattern descriptions now list the core-block fallbacks, and the logo pattern description correctly says it is shared by the footer and mobile menu.
+- `src/scss/animations/_footer-motion.scss`, `src/scss/structural/_footer.scss`: moved the footer layout and background rules out of the motion file, which now holds only motion rules, and added JSON-limitation comments.
+- `theme.json`, `src/scss/structural/_footer.scss`: the footer logo is 200px wide via the new `custom.layout.logo-width-footer` token. The header logo is unchanged at 150px.
+
+### Added
+
+- `success-strong` palette colour (`#047857`) in `theme.json`. `custom.color.status.success` now uses it in light mode (4.82:1 on the badge background); dark mode keeps `success-foreground`.
+- `custom.color.surface.success-tint` token in `theme.json`.
+
+### Removed
+
+- The "LightSpeed notes" panel and heading from the footer, along with the `footer-notes` shadow preset (`styles/presets/shadows.json`), the `custom.shadow.footer.notes` tokens in `theme.json` and `styles/dark.json`, and the `.footer-notes-badge` CSS.
+- The Systems, Company and Studio footer sections, and the placeholder links Memberships, Partnerships, Cape Town studio and the duplicate Support. The LSX Design System is now linked from Insights, matching the header.
+
+### Fixed
+
+- The footer social icons were not links and could not be reached by keyboard.
+- The availability badge text failed WCAG AA contrast in light mode (2.43:1).
+
+([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+
+---
+
 ## [Unreleased] — Move bare phase-slug redirects to the Redirection plugin
 
 ### Removed
