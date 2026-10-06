@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix mobile menu pressed state padding and phase colour (LSA-171)
+
+### Changed
+
+- Mobile menu service rows now have more left padding (`spacing|20`), so the label no longer sits against the accent rail (`src/scss/structural/_mega-menu.scss`).
+- The mobile menu tint and rail now show while a row is pressed or keyboard-focused, instead of on hover, so touch devices no longer keep a tint after a tap. Hover still applies on devices that can hover.
+- Rows in the mobile Services accordion now press in their phase's own colour (tint, rail and link) via new `ls-phase-{phase}` classes in `parts/mobile-menu.html`, matching the desktop mega menu. The other dropdowns keep the neutral accent.
+
+([#96](https://github.com/lightspeedwp/ls-theme/pull/96))
+
+---
+
 ## [Unreleased] — Audit footer: spacing, tokens and header-matched navigation (LSA-170)
 
 ### Changed
