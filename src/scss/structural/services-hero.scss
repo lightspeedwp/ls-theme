@@ -85,3 +85,109 @@
     }
   }
 }
+
+/*
+ * Colour palette specimen card (LSA-168). Swatch colours, radii, sizing and ramp mixing live
+ * here, keyed off the per-colour modifier class, because theme.json has no key for a grid of
+ * aspect-ratio squares and the style engine drops color-mix() values from block style
+ * attributes (same reason as the .ls-service-pill--* rules above).
+ *
+ * Swatch colours are fixed palette presets (not the mode-aware semantic tokens) so the hex
+ * printed under each swatch is always true: the semantic tokens used in the first version
+ * resolved to different values in light mode, which made three of the four labels wrong.
+ * A palette specimen shows the brand colours, so it should not change with the theme.
+ *   periwinkle -> palette brand-300        (#85ACFF)
+ *   green      -> palette accent-three-500 (#00FC00)
+ *   aqua       -> palette cta-300          (#8DEEFF)
+ *   lime       -> palette accent-three-400 (#4FFF4F)
+ * Ramps mix each colour toward text.on-light (shades) or text.on-dark (tints), both of which
+ * keep the same value in light and dark mode.
+ */
+.ls-palette-card {
+  &__swatches,
+  &__tints {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--wp--preset--spacing--10);
+    width: 100%;
+  }
+
+  // JSON limitation: the groups use the default flow layout, whose block-gap margin on every
+  // sibling after the first would stagger the grid cells, so it is reset here.
+  // Nested as a descendant selector so it outranks the layout engine's sibling-margin rule.
+  .ls-palette-card__swatches > *,
+  .ls-palette-card__tints > *,
+  .ls-palette-card__ramp > *,
+  .ls-palette-card__col > * {
+    margin: 0;
+  }
+
+  // The "4 core colours" label must stay on one line; the heading wraps instead.
+  &__header > :last-child {
+    white-space: nowrap;
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--5);
+
+    p {
+      margin: 0;
+    }
+
+    &--periwinkle {
+      --ls-palette-color: var(--wp--preset--color--brand-300);
+    }
+
+    &--green {
+      --ls-palette-color: var(--wp--preset--color--accent-three-500);
+    }
+
+    &--aqua {
+      --ls-palette-color: var(--wp--preset--color--cta-300);
+    }
+
+    &--lime {
+      --ls-palette-color: var(--wp--preset--color--accent-three-400);
+    }
+  }
+
+  // The swatch and tint squares are core/spacer blocks (an empty core/group shows the block
+  // editor's layout-picker placeholder). A spacer carries an inline height, which the
+  // aspect-ratio has to override.
+  &__swatch {
+    height: auto !important;
+    aspect-ratio: 1;
+    border-radius: var(--wp--preset--border-radius--200);
+    background: var(--ls-palette-color);
+  }
+
+  &__ramp {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--wp--preset--spacing--5);
+  }
+
+  &__tint {
+    height: auto !important;
+    aspect-ratio: 1;
+    border-radius: var(--wp--preset--border-radius--100);
+
+    &--1 {
+      background: color-mix(in srgb, var(--ls-palette-color) 45%, var(--wp--custom--color--text--on-light));
+    }
+
+    &--2 {
+      background: color-mix(in srgb, var(--ls-palette-color) 75%, var(--wp--custom--color--text--on-light));
+    }
+
+    &--3 {
+      background: color-mix(in srgb, var(--ls-palette-color) 70%, var(--wp--custom--color--text--on-dark));
+    }
+
+    &--4 {
+      background: color-mix(in srgb, var(--ls-palette-color) 35%, var(--wp--custom--color--text--on-dark));
+    }
+  }
+}
