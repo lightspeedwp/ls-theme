@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix homepage "Most chosen" badge contrast
+
+### Fixed
+
+- The "Most chosen" badge on the homepage Growth package card now uses the `text.brand-strong` token for its text instead of `text.brand`, so it meets WCAG 2.2 AA contrast. It was 4.16:1 in light mode against the required 4.5:1; it is now about 7.66:1 in light mode and 10.6:1 in dark mode. The badge background is unchanged (`patterns/sections/homepage-where-to-fit.php`).
+
+([#102](https://github.com/lightspeedwp/ls-theme/pull/102))
+
+---
+
 ## [Unreleased] — Redesign Services-Hero colour palette card (LSA-168)
 
 ### Changed
