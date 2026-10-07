@@ -78,6 +78,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
 		'solutions-route-tiles'     => array( 'classes' => array( 'ls-route-tile' ) ),
+		'stat-feature-bento'        => array( 'classes' => array( 'ls-stat-feature-card' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
 		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
@@ -351,6 +352,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		'solutions-route-tiles'     => array(
 			'handle'    => 'ls-theme-solutions-route-tiles',
 			'path'      => 'assets/css/solutions-route-tiles.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Scoped to the real Solutions landing page slug, same reasoning as solutions-hero above.
+			'condition' => static function () {
+				return is_page( 'solutions' );
+			},
+		),
+		'stat-feature-bento'        => array(
+			'handle'    => 'ls-theme-stat-feature-bento',
+			'path'      => 'assets/css/stat-feature-bento.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Scoped to the real Solutions landing page slug, same reasoning as solutions-hero above.
 			'condition' => static function () {
