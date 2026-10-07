@@ -52,3 +52,13 @@
     opacity: 0.4;
   }
 }
+
+.ls-stat-bento {
+  // JSON limitation: a core/column does not pass its flex layout down to its children, so the
+  // per-block "fill" setting (selfStretch) is not applied inside it. Growing each card to fill its
+  // column keeps the big card exactly as tall as the two small cards plus the gap between them,
+  // whatever the copy length — see AGENTS.md Theme-First Approach.
+  > .wp-block-column > .wp-block-group {
+    flex-grow: 1;
+  }
+}
