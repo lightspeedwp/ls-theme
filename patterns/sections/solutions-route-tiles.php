@@ -79,7 +79,7 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 	);
 	?>
 
-	<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile","style":{"dimensions":{"minHeight":"100%"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+	<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile","style":{"dimensions":{"minHeight":"100%"},"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 	<article class="wp-block-group is-style-card-service-tile" style="min-height:100%">
 		<!-- wp:group {"className":"ls-icon-well-brand"} -->
 		<div class="wp-block-group ls-icon-well-brand">
@@ -91,10 +91,10 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 		<p class="has-text-color has-200-font-size ls-card-service-tile__index" style="color:var(--wp--custom--color--text--subtle);font-family:var(--wp--preset--font-family--monospace);letter-spacing:var(--wp--custom--typography--letter-spacing--wide)"><?php echo esc_html( sprintf( '%02d', $ls_index ) ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:group {"className":"ls-card-service-tile__content","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group ls-card-service-tile__content" style="margin-top:var(--wp--preset--spacing--20)">
-			<!-- wp:heading {"level":3,"fontSize":"300"} -->
-			<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html( $ls_tile['label'] ); ?></h3>
+		<!-- wp:group {"className":"ls-card-service-tile__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group ls-card-service-tile__content">
+			<!-- wp:heading {"level":3,"fontSize":"400"} -->
+			<h3 class="wp-block-heading has-400-font-size"><?php echo esc_html( $ls_tile['label'] ); ?></h3>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var:custom|color|text|brand"}},"fontSize":"200"} -->
