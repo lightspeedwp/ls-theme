@@ -18,15 +18,15 @@ $ls_solutions_hero_swatches = array( 'brand', 'violet', 'cyan', 'orange' );
 <!-- wp:group {"align":"full","tagName":"section","className":"ls-solutions-hero ls-corner-glow","style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|30","bottom":"var:preset|spacing|80","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull ls-solutions-hero ls-corner-glow" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;margin-top:0;padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--30)">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
+	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
 
 		<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
 		<!-- wp:yoast-seo/breadcrumbs {"className":"alignwide"} /-->
 		<?php endif; ?>
 
-		<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
-		<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
+		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
+		<div class="wp-block-group">
 			<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
 
 			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--brand)"}},"fontSize":"100"} -->
@@ -35,26 +35,26 @@ $ls_solutions_hero_swatches = array( 'brand', 'violet', 'cyan', 'orange' );
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"},"blockGap":{"left":"var:preset|spacing|60"}}}} -->
-		<div class="wp-block-columns alignwide are-vertically-aligned-top" style="margin-top:var(--wp--preset--spacing--20)">
+		<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
+		<div class="wp-block-columns alignwide are-vertically-aligned-top">
 
-			<!-- wp:column {"verticalAlignment":"top","width":"68%"} -->
+			<!-- wp:column {"verticalAlignment":"top","width":"68%","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
 			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:68%">
 
 				<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"900"} -->
 				<h1 class="wp-block-heading has-900-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'WordPress solutions built around real operating models', 'ls-theme' ); ?></h1>
 				<!-- /wp:heading -->
 
-				<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"layout":{"type":"constrained","contentSize":"720px","justifyContent":"left"}} -->
-				<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--20)">
+				<!-- wp:group {"layout":{"type":"constrained","contentSize":"720px","justifyContent":"left"}} -->
+				<div class="wp-block-group">
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
 					<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Explore the platform solution that fits your business model, from publishing and ecommerce to travel, redesigns, education and AI-ready systems.', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
-				<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
+				<!-- wp:buttons -->
+				<div class="wp-block-buttons">
 					<!-- wp:button -->
 					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Discuss your platform', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->

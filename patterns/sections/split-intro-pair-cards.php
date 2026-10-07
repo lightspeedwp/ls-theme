@@ -29,7 +29,7 @@ $ls_pair_cards = array(
 	<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
 	<div class="wp-block-columns alignwide are-vertically-aligned-top">
 
-		<!-- wp:column {"verticalAlignment":"top","width":"40%"} -->
+		<!-- wp:column {"verticalAlignment":"top","width":"40%","style":{"spacing":{"blockGap":"var:preset|spacing|10"}}} -->
 		<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:40%">
 			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 			<div class="wp-block-group">
@@ -41,20 +41,20 @@ $ls_pair_cards = array(
 			</div>
 			<!-- /wp:group -->
 
-			<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"700"} -->
-			<h2 class="wp-block-heading has-700-font-size" style="margin-top:var(--wp--preset--spacing--10);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Solutions are the outcome. Services are the disciplines.', 'ls-theme' ); ?></h2>
+			<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"700"} -->
+			<h2 class="wp-block-heading has-700-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Solutions are the outcome. Services are the disciplines.', 'ls-theme' ); ?></h2>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"verticalAlignment":"top","width":"60%"} -->
+		<!-- wp:column {"verticalAlignment":"top","width":"60%","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
 		<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:60%">
 			<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
 			<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Solutions are packaged outcomes built around real business models, such as WordPress publishing or WooCommerce commerce. Services are the individual disciplines that combine to deliver each solution.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","minimumColumnWidth":"16rem"}} -->
-			<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
+			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","minimumColumnWidth":"16rem"}} -->
+			<div class="wp-block-group">
 				<?php foreach ( $ls_pair_cards as $ls_card ) : ?>
 				<!-- wp:group {"style":{"color":{"background":"var:custom|color|surface|canvas"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|30","bottom":"var:preset|spacing|20","left":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","justifyContent":"stretch"}} -->
 				<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--canvas);padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--30)">

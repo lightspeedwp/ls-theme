@@ -79,11 +79,11 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 	);
 	?>
 
-	<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile","style":{"dimensions":{"minHeight":"100%"},"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
-	<article class="wp-block-group is-style-card-service-tile" style="min-height:100%">
+	<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile ls-route-tile","style":{"dimensions":{"minHeight":"100%"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
+	<article class="wp-block-group is-style-card-service-tile ls-route-tile" style="min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 		<!-- wp:group {"className":"ls-icon-well-brand"} -->
 		<div class="wp-block-group ls-icon-well-brand">
-			<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_tile['icon'] ); ?>","style":{"dimensions":{"width":"18px"}}} /-->
+			<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_tile['icon'] ); ?>"} /-->
 		</div>
 		<!-- /wp:group -->
 
@@ -97,8 +97,8 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 			<h3 class="wp-block-heading has-400-font-size"><?php echo esc_html( $ls_tile['label'] ); ?></h3>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var:custom|color|text|brand"}},"fontSize":"200"} -->
-			<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--brand);font-family:var(--wp--preset--font-family--monospace);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><?php echo esc_html( $ls_tile['kicker'] ); ?></p>
+			<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var:custom|color|text|brand"}},"fontSize":"100"} -->
+			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand);font-family:var(--wp--preset--font-family--monospace);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><?php echo esc_html( $ls_tile['kicker'] ); ?></p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var:custom|color|text|muted"}}} -->
@@ -107,8 +107,8 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"spacing":{"margin":{"top":"auto"}}}} -->
-		<p class="is-style-link-arrow-accent" style="margin-top:auto"><a class="ls-card-service-tile__link" href="<?php echo esc_url( home_url( $ls_tile['url'] ) ); ?>"><?php echo esc_html( $ls_read_link_text ); ?></a></p>
+		<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
+		<p class="is-style-link-arrow-accent"><a class="ls-card-service-tile__link" href="<?php echo esc_url( home_url( $ls_tile['url'] ) ); ?>"><?php echo esc_html( $ls_read_link_text ); ?></a></p>
 		<!-- /wp:paragraph -->
 	</article>
 	<!-- /wp:group -->
@@ -118,13 +118,13 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","right":"var:preset|spacing|60","bottom":"var:preset|spacing|100","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--60)">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
+	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
 
 		<!-- wp:columns {"align":"wide","verticalAlignment":"bottom"} -->
 		<div class="wp-block-columns alignwide are-vertically-aligned-bottom">
 
-			<!-- wp:column {"verticalAlignment":"bottom","width":"48%"} -->
+			<!-- wp:column {"verticalAlignment":"bottom","width":"48%","style":{"spacing":{"blockGap":"var:preset|spacing|10"}}} -->
 			<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:48%">
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
@@ -136,8 +136,8 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"700"} -->
-				<h2 class="wp-block-heading has-700-font-size" style="margin-top:var(--wp--preset--spacing--10);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Choose the solution built for your organisation.', 'ls-theme' ); ?></h2>
+				<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"700"} -->
+				<h2 class="wp-block-heading has-700-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Choose the solution built for your organisation.', 'ls-theme' ); ?></h2>
 				<!-- /wp:heading -->
 			</div>
 			<!-- /wp:column -->
@@ -156,8 +156,8 @@ $ls_render_route_tile = function ( $ls_tile, $ls_index ) {
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","minimumColumnWidth":"22rem"}} -->
-		<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--60)">
+		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","minimumColumnWidth":"22rem"}} -->
+		<div class="wp-block-group alignwide">
 			<?php foreach ( $ls_route_tiles as $ls_tile_index => $ls_tile ) : ?>
 				<?php $ls_render_route_tile( $ls_tile, $ls_tile_index + 1 ); ?>
 			<?php endforeach; ?>

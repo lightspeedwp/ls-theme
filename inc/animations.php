@@ -77,6 +77,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
 		'services-service-clusters' => array( 'classes' => array( 'ls-cluster-tag' ) ),
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
+		'solutions-route-tiles'     => array( 'classes' => array( 'ls-route-tile' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
 		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
@@ -345,6 +346,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// to wait for a dedicated template when the condition is this cheap to add now.
 			'condition' => static function () {
 				return is_page( array( 'services', 'solutions' ) );
+			},
+		),
+		'solutions-route-tiles'     => array(
+			'handle'    => 'ls-theme-solutions-route-tiles',
+			'path'      => 'assets/css/solutions-route-tiles.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Scoped to the real Solutions landing page slug, same reasoning as solutions-hero above.
+			'condition' => static function () {
+				return is_page( 'solutions' );
 			},
 		),
 		'services-delivery-numbers' => array(
