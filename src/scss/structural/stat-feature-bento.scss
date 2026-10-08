@@ -1,0 +1,64 @@
+/********** Stat Feature Bento (Solutions page only) **********/
+
+/*
+ * Feature stat card (LSA-128, single consumer patterns/sections/stat-feature-bento.php). The
+ * surface, border, radius, padding, gaps and all type are block attributes in the pattern. What
+ * lives here is only what theme.json and block attributes cannot express: the layered glow
+ * background and the two decorative rings. Colours mix the semantic text.brand token, which
+ * resolves differently in light and dark mode, so no per-mode values are needed. Ring and glow
+ * geometry has no token equivalent; sizes are multiples of the spacing|100 token so they still
+ * scale from the token system.
+ */
+.ls-stat-feature-card {
+  // JSON limitation: position, overflow and isolation have no theme.json or block-attribute key.
+  // They contain the absolutely placed rings inside the card's rounded corners.
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  // JSON limitation: color.gradient accepts a single gradient only, and the glow must layer over
+  // the card's own background colour, so it is a background-image here — see AGENTS.md
+  // Theme-First Approach.
+  background-image: radial-gradient(
+    circle at 70% 30%,
+    color-mix(in srgb, var(--wp--custom--color--text--brand) 10%, transparent) 0%,
+    transparent 40%
+  );
+
+  // JSON limitation: content:"" pseudo-elements, absolute positioning and aspect-ratio have no
+  // theme.json equivalent. Two concentric decorative rings sit off the top-right corner.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    aspect-ratio: 1;
+    border: 1px solid color-mix(in srgb, var(--wp--custom--color--text--brand) 18%, transparent);
+    border-radius: var(--wp--preset--border-radius--500);
+    pointer-events: none;
+  }
+
+  &::before {
+    inline-size: calc(var(--wp--preset--spacing--100) * 4.4);
+    inset-block-start: calc(var(--wp--preset--spacing--100) * -1.3);
+    inset-inline-end: calc(var(--wp--preset--spacing--100) * -1.3);
+    opacity: 0.6;
+  }
+
+  &::after {
+    inline-size: calc(var(--wp--preset--spacing--100) * 5.4);
+    inset-block-start: calc(var(--wp--preset--spacing--100) * -0.7);
+    inset-inline-end: calc(var(--wp--preset--spacing--100) * -2.6);
+    opacity: 0.4;
+  }
+}
+
+.ls-stat-bento {
+  // JSON limitation: a core/column does not pass its flex layout down to its children, so the
+  // per-block "fill" setting (selfStretch) is not applied inside it. Growing each card to fill its
+  // column keeps the big card exactly as tall as the two small cards plus the gap between them,
+  // whatever the copy length — see AGENTS.md Theme-First Approach.
+  > .wp-block-column > .wp-block-group {
+    flex-grow: 1;
+  }
+}
