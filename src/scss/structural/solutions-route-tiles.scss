@@ -1,0 +1,33 @@
+/********** Solutions - Route Tiles (Solutions page only) **********/
+
+/*
+ * Route tile refinements (LSA-128, consumers patterns/cards/card-route-tile.php and
+ * patterns/sections/solutions-route-tiles.php). The tile reuses the shared Card - Service Tile
+ * style and the shared .ls-icon-well-brand well; everything here is scoped under .ls-route-tile so
+ * the Services page tiles and the Work archive wells keep their own sizes. Card padding and the
+ * gaps between the icon, content and link are block attributes in the patterns. Every value below
+ * is a spacing token.
+ */
+.ls-route-tile {
+  // JSON limitation: a core/group has no width/height block attribute, so the icon well's size
+  // (a fixed 2.25rem in work-archive-sections.scss) can only be overridden here — see AGENTS.md
+  // Theme-First Approach ("width", "max-width" and similar structural properties).
+  .ls-icon-well-brand {
+    inline-size: var(--wp--preset--spacing--70);
+    block-size: var(--wp--preset--spacing--70);
+  }
+
+  // JSON limitation: the icon is sized here (not with the core/icon width attribute, which writes
+  // a fixed px value inline) so it scales from a spacing token alongside the well.
+  .ls-icon-well-brand svg {
+    inline-size: var(--wp--preset--spacing--30);
+    block-size: auto;
+  }
+
+  // JSON limitation: top/right are positioning offsets with no theme.json key. They match the
+  // card's padding so the index sits on the same inset as the rest of the content.
+  .ls-card-service-tile__index {
+    top: var(--wp--preset--spacing--40);
+    right: var(--wp--preset--spacing--40);
+  }
+}

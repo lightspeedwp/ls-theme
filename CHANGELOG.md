@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add Solutions landing hero, route tiles and comparison section (LSA-128)
+
+### Added
+
+- `patterns/hero/solutions-hero.php` (Hero - Solutions): breadcrumb, eyebrow, heading, intro and two CTAs beside a tilted "solutions / palette" specimen card, on the shared `corner-glow` background.
+- `patterns/sections/solutions-route-tiles.php` (Section - Solutions Route Tiles): a grid of seven route tiles (WordPress, WooCommerce, Publishing, Tour Operators, AI, Design Systems, AI Chatbots), each a single link to its `/solutions/{slug}/` page.
+- `patterns/cards/card-route-tile.php` (Card - Route Tile): the same tile as a single editable card pattern, built on the existing Card - Service Tile style.
+- `patterns/sections/split-intro-pair-cards.php` (Section - Split Intro Pair Cards): eyebrow and heading beside a paragraph and two bordered comparison cards.
+- `solutions-hero.scss` and `solutions-route-tiles.scss`, compiled to `assets/css/`, for the specimen card tilt and the larger route-tile icon well and index inset. Both are scoped to their own classes, so the Services tiles and Work archive icon wells are unchanged.
+
+### Changed
+
+- The service tiles stylesheet now also loads on the Solutions page, and the two new stylesheets are registered in the build scripts, the page-scoped loader and the editor styles. No new design tokens were added.
+
+([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+
+---
+
 ## [Unreleased] — Redesign Services-Hero colour palette card (LSA-168)
 
 ### Changed
