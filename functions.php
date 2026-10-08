@@ -82,9 +82,12 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/home-hero.css' );
 	add_editor_style( 'assets/css/phase-hero.css' );
 	add_editor_style( 'assets/css/services-hero.css' );
+	add_editor_style( 'assets/css/solutions-hero.css' );
 	add_editor_style( 'assets/css/services-linked-decisions.css' );
 	add_editor_style( 'assets/css/services-service-clusters.css' );
 	add_editor_style( 'assets/css/services-service-tiles.css' );
+	add_editor_style( 'assets/css/solutions-route-tiles.css' );
+	add_editor_style( 'assets/css/stat-feature-bento.css' );
 	add_editor_style( 'assets/css/services-delivery-numbers.css' );
 	add_editor_style( 'assets/css/corner-glow.css' );
 	add_editor_style( 'assets/css/work-hero.css' );
