@@ -73,7 +73,7 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--wp--custom--color--surface--brand-light);
+    background-color: color-mix(in srgb, var(--wp--custom--color--text--brand) 12%, transparent);
   }
 
   &:focus-visible {
