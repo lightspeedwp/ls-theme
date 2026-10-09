@@ -38,7 +38,7 @@ $ls_stats_row_items = array(
 	<div class="wp-block-group ls-stats-row alignwide is-content-justification-space-between">
 		<?php foreach ( $ls_stats_row_items as $ls_stats_row_index => $ls_stats_row_item ) : ?>
 
-		<?php if ( 0 === $ls_stats_row_index ) : ?>
+			<?php if ( 0 === $ls_stats_row_index ) : ?>
 		<!-- wp:group {"className":"ls-stat-item","style":{"spacing":{"blockGap":"var:preset|spacing|10","padding":{"left":"var:preset|spacing|30","right":"var:preset|spacing|30"}},"layout":{"selfStretch":"fixed","flexSize":"25%"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap","justifyContent":"left"}} -->
 		<div class="wp-block-group ls-stat-item" style="padding-right:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 		<?php else : ?>

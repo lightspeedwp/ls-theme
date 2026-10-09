@@ -105,7 +105,7 @@ $ls_glance_row_count = count( $ls_glance_rows );
 							$ls_glance_is_last = ( $ls_glance_index === $ls_glance_row_count - 1 );
 							?>
 
-						<?php if ( $ls_glance_is_last ) : ?>
+							<?php if ( $ls_glance_is_last ) : ?>
 						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 						<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
 						<?php else : ?>

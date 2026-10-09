@@ -74,7 +74,7 @@ $ls_checklist_count = count( $ls_checklist_rows );
 						$ls_is_last  = ( $ls_checklist_index === $ls_checklist_count - 1 );
 						?>
 
-					<?php if ( $ls_is_first ) : ?>
+						<?php if ( $ls_is_first ) : ?>
 					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"0","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 					<div class="wp-block-group" style="padding-top:0;padding-bottom:var(--wp--preset--spacing--20)">
 					<?php elseif ( $ls_is_last ) : ?>
