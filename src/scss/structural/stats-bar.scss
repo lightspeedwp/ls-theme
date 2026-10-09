@@ -69,3 +69,28 @@
     padding-bottom: var(--wp--preset--spacing--30) !important;
   }
 }
+
+/*
+ * Left-aligned stats row (patterns/sections/stats-row-left.php, modifier .ls-stats-row--left). Its
+ * figures use font size token 700, which is wider than this strip's original centred figures, so the
+ * 2x2 grid above leaves too little room per cell at phone widths ("2,000+" overflowed at 320px).
+ * Below 600px it becomes a single column, with a horizontal divider between items instead of the
+ * cross-shaped pair of lines. 599.98px = 600px, one of WordPress's own small-screen breakpoints.
+ */
+// JSON limitation: the grid column count, the pseudo-element dividers and the responsive switch have
+// no block-supports equivalent, and the !important border reset above needs an !important winner —
+// see AGENTS.md Theme-First Approach.
+@media (max-width: 599.98px) {
+  .ls-stats-row.ls-stats-row--left {
+    grid-template-columns: 1fr;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    .ls-stat-item + .ls-stat-item {
+      border-top: 1px solid var(--wp--custom--color--border--card) !important;
+    }
+  }
+}
