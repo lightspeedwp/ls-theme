@@ -94,7 +94,8 @@ function ls_theme_get_bundle_render_markers() {
 		// fallbacks, so load it whenever one of them renders on a page the head-time condition does
 		// not cover (e.g. a new service page before its slug is set, or a landing page).
 		'phase-journey-nav'         => array( 'classes' => array( 'ls-phase-journey-nav', 'ls-phase-hero', 'is-style-tick-phase', 'is-style-card-plain', 'ls-service-faq' ) ),
-		'phase-faq'                 => array( 'classes' => array( 'ls-service-faq' ) ),
+		'phase-faq'                 => array( 'classes' => array( 'ls-service-faq', 'ls-solutions-faq' ) ),
+		'solutions-split-faq'       => array( 'classes' => array( 'ls-solutions-faq' ) ),
 		'phase-where-to-go-next'    => array( 'classes' => array( 'ls-phase-where-to-go-next' ) ),
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
 		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
@@ -348,8 +349,9 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Unlike services-hero/services-linked-decisions/services-service-clusters above,
 			// this bundle is scoped to a real, known page slug rather than deferred — no reason
 			// to wait for a dedicated template when the condition is this cheap to add now.
+			// Also loads on the Solutions pages, whose related-services grid reuses Card - Service Tile.
 			'condition' => static function () {
-				return is_page( array( 'services', 'solutions' ) );
+				return is_page( array( 'services', 'solutions' ) ) || ls_theme_is_solutions_page();
 			},
 		),
 		'solutions-route-tiles'     => array(
@@ -585,8 +587,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Same reasoning as phase-support-focus/phase-common-services above: shared from the
 			// start across all six phase pages.
 			'condition' => static function () {
-				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
+				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page() || ls_theme_is_solutions_page();
 			},
+		),
+		'solutions-split-faq'       => array(
+			'handle'    => 'ls-theme-solutions-split-faq',
+			'path'      => 'assets/css/solutions-split-faq.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Brand accent for the Solutions pages' FAQ accordion; the render-marker fallback loads it
+			// wherever the pattern renders.
+			'condition' => 'ls_theme_is_solutions_page',
 		),
 		'phase-where-to-go-next'    => array(
 			'handle'    => 'ls-theme-phase-where-to-go-next',

@@ -128,6 +128,25 @@
   --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
 }
 
+/*
+ * CTA tile band (patterns/cta/split-cta-tile-band.php): the primary button is a white fill on the
+ * fixed-dark band in both site modes. The default fill button paints its colour from the
+ * --ls-button-fill-* custom properties (a ::before layer), not from the link's own background, so
+ * they are pinned here to the semantic highlight and on-light tokens (hover text: on-dark, since the fill
+ * retreats to reveal the dark band). Custom properties cannot be
+ * set as inline styles on the block (they are dropped on save and fail block validation), the same
+ * reason as the rule above.
+ */
+.ls-cta-tile-band__button .wp-block-button__link {
+  // Rest-state text colour lives here, not inline: an inline colour would also beat the hover
+  // rule, which swaps the text to --ls-button-fill-hover-text once the fill retreats to reveal
+  // the dark band.
+  color: var(--wp--custom--color--text--on-light);
+  --ls-button-fill-background: var(--wp--custom--color--surface--highlight);
+  --ls-button-fill-icon-colour: var(--wp--custom--color--text--on-light);
+  --ls-button-fill-hover-text: var(--wp--custom--color--text--on-dark);
+}
+
 /* CTA band: the secondary link's arrow colours aren't part of the group's
    saved block attributes, so they're defined here instead of as an inline
    style on the wrapper (which would be dropped on save). */
