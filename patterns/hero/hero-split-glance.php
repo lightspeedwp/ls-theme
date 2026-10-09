@@ -112,7 +112,7 @@ $ls_glance_row_count = count( $ls_glance_rows );
 						<!-- wp:group {"style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 						<div class="wp-block-group" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
 						<?php endif; ?>
-							<!-- wp:group {"tagName":"dt","style":{"spacing":{"blockGap":"0"},"layout":{"selfStretch":"fixed","flexSize":"7rem"}}} -->
+							<!-- wp:group {"tagName":"dt","style":{"spacing":{"blockGap":"0"},"layout":{"selfStretch":"fixed","flexSize":"35%"}}} -->
 							<dt class="wp-block-group">
 								<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} -->
 								<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--subtle);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><?php echo esc_html( $ls_glance_row['label'] ); ?></p>
@@ -120,7 +120,7 @@ $ls_glance_row_count = count( $ls_glance_rows );
 							</dt>
 							<!-- /wp:group -->
 
-							<!-- wp:group {"tagName":"dd","style":{"spacing":{"blockGap":"0"},"layout":{"selfStretch":"fill"}}} -->
+							<!-- wp:group {"tagName":"dd","style":{"spacing":{"blockGap":"0"},"layout":{"selfStretch":"fixed","flexSize":"65%"}}} -->
 							<dd class="wp-block-group">
 								<!-- wp:paragraph {"fontSize":"200"} -->
 								<p class="has-200-font-size"><?php echo esc_html( $ls_glance_row['value'] ); ?></p>
