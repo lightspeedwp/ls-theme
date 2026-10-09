@@ -98,6 +98,7 @@ function ls_theme_get_bundle_render_markers() {
 		'phase-where-to-go-next'    => array( 'classes' => array( 'ls-phase-where-to-go-next' ) ),
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
 		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
+		'solutions-case-study'      => array( 'classes' => array( 'ls-solutions-case-study' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -499,6 +500,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Mobile image-corner override for the individual service pages' featured case study;
 			// the render-marker fallback covers it if the pattern is used anywhere else.
 			'condition' => 'ls_theme_is_service_page',
+		),
+		'solutions-case-study'      => array(
+			'handle'   => 'ls-theme-solutions-case-study',
+			'path'     => 'assets/css/solutions-case-study.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Mobile image-corner override for the Solutions pages' featured case study; the
+			// render-marker fallback loads it wherever the pattern renders.
 		),
 		'tick-phase'                => array(
 			'handle'    => 'ls-theme-tick-phase',

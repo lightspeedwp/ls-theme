@@ -1,0 +1,100 @@
+/********** Solutions Case Study (Solutions pages' featured case study) **********/
+
+/*
+ * Solutions Case Study (single consumer: patterns/sections/solutions-case-study.php). On desktop the
+ * featured image sits in the left column of a two-column card, so its outer corners are rounded with
+ * per-corner block radius (top-left / bottom-left) and it has a fixed 35rem height with cover scaling
+ * — all expressed as block attributes on the post-featured-image block. Once the columns stack on
+ * mobile the image becomes the top of the card instead, so those corners must flip to top-left /
+ * top-right only, and a 35rem-tall image would dominate a phone screen, so it is shortened.
+ */
+
+// JSON limitation: block attributes (border radius, height) cannot change per breakpoint, and the
+// block writes them as inline styles on the <img>, so the override needs `!important` — see
+// AGENTS.md Theme-First Approach. 781.98px = 782px, WP core's own .wp-block-columns stacking
+// breakpoint, reused for consistency (see service-case-study.scss).
+@media (max-width: 781.98px) {
+  .ls-solutions-case-study .wp-block-post-featured-image img {
+    border-radius: var(--wp--preset--border-radius--400) var(--wp--preset--border-radius--400) 0 0 !important;
+    height: 16rem !important;
+  }
+}
+
+/*
+ * Refinements scoped to this card only (everything below is a Solutions case-study override of a
+ * shared component, so it is namespaced under .ls-solutions-case-study and nothing else is affected).
+ */
+
+// JSON limitation: the post-terms links are the pills, and a descendant `a` selector (radius, padding,
+// border, background) plus the wrapper's flex gap have no block-supports key. Overrides the shared
+// .ls-tag-pills defaults (work-project-card.scss) to softer, fully rounded pills with equal row and
+// column gaps — see AGENTS.md Theme-First Approach.
+.ls-solutions-case-study .ls-tag-pills {
+  gap: var(--wp--preset--spacing--10);
+
+  // JSON limitation: core/post-terms always renders its separator as a flex-item <span>, even when
+  // empty, which adds two extra gaps between every pair of pills. Hidden so the horizontal gap equals
+  // the row gap — no block attribute removes it.
+  .wp-block-post-terms__separator {
+    display: none;
+  }
+
+  a {
+    background-color: var(--wp--custom--color--surface--card);
+    border: 1px solid var(--wp--custom--color--border--card);
+    border-radius: var(--wp--preset--border-radius--500);
+    padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--20);
+  }
+}
+
+// JSON limitation: object-position has no block attribute on core/post-featured-image (it only
+// exposes scale), so the crop anchor is set here to keep the top of the site screenshot in view.
+.ls-solutions-case-study .wp-block-post-featured-image img {
+  object-position: top center;
+}
+
+// JSON limitation: core/read-more renders its link as the block element itself (no inner `a`); the CTA's arrow glyph is a ::after pseudo-element, and its hover / focus-visible
+// states have no theme.json or block-attribute key — see AGENTS.md Theme-First Approach.
+.ls-solutions-case-study .wp-block-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wp--preset--spacing--10);
+  text-decoration: none;
+  transition:
+    background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised);
+
+  &::after {
+    content: "\2192";
+    display: inline-block;
+    transform: translateX(0);
+    transition: transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--wp--custom--color--surface--brand-light);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wp--custom--color--button--outline--border);
+    outline-offset: var(--wp--preset--spacing--5);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: translateX(var(--wp--preset--spacing--5));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-solutions-case-study .wp-block-read-more,
+  .ls-solutions-case-study .wp-block-read-more::after {
+    transition: none;
+  }
+
+  .ls-solutions-case-study .wp-block-read-more:hover::after,
+  .ls-solutions-case-study .wp-block-read-more:focus-visible::after {
+    transform: none;
+  }
+}
