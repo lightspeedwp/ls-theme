@@ -86,7 +86,7 @@ $ls_checklist_cards = array(
 					<h3 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight)"><?php echo esc_html( $ls_checklist_card['title'] ); ?></h3>
 					<!-- /wp:heading -->
 
-					<!-- wp:group {"layout":{"type":"default"}} -->
+					<!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 					<div class="wp-block-group">
 						<?php
 						$ls_checklist_item_count = count( $ls_checklist_card['items'] );
