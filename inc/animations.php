@@ -348,8 +348,9 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Unlike services-hero/services-linked-decisions/services-service-clusters above,
 			// this bundle is scoped to a real, known page slug rather than deferred — no reason
 			// to wait for a dedicated template when the condition is this cheap to add now.
+			// Also loads on the Solutions pages, whose related-services grid reuses Card - Service Tile.
 			'condition' => static function () {
-				return is_page( array( 'services', 'solutions' ) );
+				return is_page( array( 'services', 'solutions' ) ) || ls_theme_is_solutions_page();
 			},
 		),
 		'solutions-route-tiles'     => array(
