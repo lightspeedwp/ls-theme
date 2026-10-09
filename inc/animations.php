@@ -99,6 +99,7 @@ function ls_theme_get_bundle_render_markers() {
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
 		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
 		'solutions-case-study'      => array( 'classes' => array( 'ls-solutions-case-study' ) ),
+		'split-icon-cards'          => array( 'classes' => array( 'ls-icon-card-grid', 'ls-icon-card' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -500,6 +501,13 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Mobile image-corner override for the individual service pages' featured case study;
 			// the render-marker fallback covers it if the pattern is used anywhere else.
 			'condition' => 'ls_theme_is_service_page',
+		),
+		'split-icon-cards'          => array(
+			'handle'   => 'ls-theme-split-icon-cards',
+			'path'     => 'assets/css/split-header-icon-card-grid.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Equal card heights and line clamping for the icon card grid; the render-marker fallback
+			// loads it wherever the pattern renders.
 		),
 		'solutions-case-study'      => array(
 			'handle'   => 'ls-theme-solutions-case-study',

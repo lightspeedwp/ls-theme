@@ -4,7 +4,7 @@
  * Slug: ls-theme/split-header-icon-card-grid
  * Categories: featured
  * Block Types: core/pattern
- * Description: A "what this includes" section on a surface.card band: a split header (dot eyebrow and H2 on the left, a short paragraph bottom-aligned on the right) above a responsive grid of six cards, each a circular check Icon block well, an H3 and supporting copy. The grid is a core/group with the grid layout and a minimum column width, so any number of cards wraps cleanly to 3, 2 or 1 per row; duplicate or delete a card freely. Same card shape as Section - Icon Card Grid but with a split header and brand colours instead of the service phase accent. Falls back to core/group and core/columns because no semantic core block fits an icon card grid. Cards use surface.canvas. Adapts between light and dark through surface, text and border tokens. Edit the eyebrow, heading, paragraph and cards after inserting.
+ * Description: A "what this includes" section on a surface.card band: a split header (dot eyebrow and H2 on the left, a short paragraph bottom-aligned on the right) above a responsive grid of six cards, each a circular check Icon block well, an H3 and supporting copy. The grid is a core/group with the grid layout and a minimum column width, so any number of cards wraps cleanly to 3, 2 or 1 per row; duplicate or delete a card freely. Same card shape as Section - Icon Card Grid but with a split header and brand colours instead of the service phase accent. Falls back to core/group and core/columns because no semantic core block fits an icon card grid. Cards use surface.canvas and share one height (rows equalise to the tallest card; titles clamp to 2 lines and descriptions to 5 with an ellipsis, via src/scss/structural/split-header-icon-card-grid.scss). Adapts between light and dark through surface, text and border tokens. Edit the eyebrow, heading, paragraph and cards after inserting.
  * Keywords: includes, cards, icons, grid, solutions, section
  * Viewport Width: 1280
  * Inserter: true
@@ -77,24 +77,24 @@ $ls_icon_cards = array(
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","minimumColumnWidth":"22rem"}} -->
-		<div class="wp-block-group">
+		<!-- wp:group {"className":"ls-icon-card-grid","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","minimumColumnWidth":"22rem"}} -->
+		<div class="wp-block-group ls-icon-card-grid">
 
 			<?php foreach ( $ls_icon_cards as $ls_icon_card ) : ?>
-			<!-- wp:group {"tagName":"article","style":{"color":{"background":"var:custom|color|surface|canvas"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} -->
-			<article class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--canvas);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+			<!-- wp:group {"tagName":"article","className":"ls-icon-card","style":{"color":{"background":"var:custom|color|surface|canvas"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} -->
+			<article class="wp-block-group ls-icon-card has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--canvas);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 				<!-- wp:group {"style":{"color":{"background":"var:custom|color|surface|brand-light"},"border":{"radius":"var:preset|border-radius|500"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"}}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
 				<div class="wp-block-group has-background" style="border-radius:var(--wp--preset--border-radius--500);background-color:var(--wp--custom--color--surface--brand-light);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)">
-					<!-- wp:icon {"icon":"lightspeed/check","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"18px"}}} /-->
+					<!-- wp:icon {"icon":"lightspeed/check","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"20px"}}} /-->
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold","letterSpacing":"var:custom|typography|letter-spacing|tight"}},"fontSize":"300"} -->
-				<h3 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight)"><?php echo esc_html( $ls_icon_card['title'] ); ?></h3>
+				<!-- wp:heading {"level":3,"className":"ls-icon-card__title","style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold","letterSpacing":"var:custom|typography|letter-spacing|tight"}},"fontSize":"300"} -->
+				<h3 class="wp-block-heading ls-icon-card__title has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight)"><?php echo esc_html( $ls_icon_card['title'] ); ?></h3>
 				<!-- /wp:heading -->
 
-				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
-				<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_icon_card['description'] ); ?></p>
+				<!-- wp:paragraph {"className":"ls-icon-card__text","style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
+				<p class="ls-icon-card__text has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html( $ls_icon_card['description'] ); ?></p>
 				<!-- /wp:paragraph -->
 			</article>
 			<!-- /wp:group -->
