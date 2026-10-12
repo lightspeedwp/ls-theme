@@ -4,7 +4,7 @@
  * Slug: ls-theme/stats-row-left
  * Categories: stats
  * Block Types: core/pattern
- * Description: A four-figure proof-point strip with left-aligned stats and vertical dividers, on a surface.card band with a bottom border. Same building blocks as Stats Bar (the ls-stats-row / ls-stat-item classes and their responsive 2x2 grid below 1020px) but left-aligned and with larger figures. Uses core/group and core/paragraph because no semantic core block fits a stat. Adapts between light and dark mode through surface, text and border tokens. Edit the figures and captions after inserting.
+ * Description: A four-figure proof-point strip with left-aligned stats and vertical dividers, on a surface.card band with a bottom border. Same building blocks as Stats Bar (the ls-stats-row / ls-stat-item classes and their responsive 2x2 grid below 1020px, switching to a single column below 600px) but left-aligned and with larger figures. Uses core/group and core/paragraph because no semantic core block fits a stat. Adapts between light and dark mode through surface, text and border tokens. Edit the figures and captions after inserting.
  * Keywords: stats, proof, metrics, numbers, strip, section
  * Viewport Width: 1280
  * Inserter: true
@@ -34,8 +34,8 @@ $ls_stats_row_items = array(
 <!-- wp:group {"align":"full","tagName":"section","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|30","bottom":"var:preset|spacing|50","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull has-background" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;background-color:var(--wp--custom--color--surface--card);margin-top:0;padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--30)">
 
-	<!-- wp:group {"className":"ls-stats-row","align":"wide","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
-	<div class="wp-block-group ls-stats-row alignwide is-content-justification-space-between">
+	<!-- wp:group {"className":"ls-stats-row ls-stats-row--left","align":"wide","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+	<div class="wp-block-group ls-stats-row ls-stats-row--left alignwide is-content-justification-space-between">
 		<?php foreach ( $ls_stats_row_items as $ls_stats_row_index => $ls_stats_row_item ) : ?>
 
 			<?php if ( 0 === $ls_stats_row_index ) : ?>

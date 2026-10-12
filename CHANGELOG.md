@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add Solutions related services, receive/who, CTA band and FAQ patterns (LSA-113)
+
+### Added
+
+- `patterns/sections/split-header-link-card-grid.php` (Section - Split Header Link Card Grid): a split header above six linked cards, each a Card - Service Tile with an icon well, description and "Read about ..." arrow link.
+- `patterns/sections/split-header-checklist-card-pair.php` (Section - Split Header Checklist Card Pair): a split header above two equal-height, border-only cards of check rows with dividers.
+- `patterns/cta/split-cta-tile-band.php` (CTA - Split Tile Band): a fixed-dark rounded call-to-action band with a white primary button, an arrow link and three glass reassurance tiles.
+- `patterns/sections/solutions-split-faq.php` (Section - Solutions Split FAQ): a split header beside the Yoast FAQ block with a brand accent, and `solutions-split-faq.scss`, compiled to `assets/css/`.
+
+### Fixed
+
+- The left-aligned stats row no longer overflows horizontally at phone widths; it becomes a single column below 600px.
+- The checklist card rows now use padding only, so the space above and below every divider is equal.
+
+([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+
+---
+
 ## [Unreleased] — Add Solutions hero, stats, intro, case study, checklist and icon grid patterns (LSA-113)
 
 ### Added

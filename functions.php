@@ -88,6 +88,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/solutions-hero.css' );
 	add_editor_style( 'assets/css/solutions-case-study.css' );
 	add_editor_style( 'assets/css/split-header-icon-card-grid.css' );
+	add_editor_style( 'assets/css/solutions-split-faq.css' );
 	add_editor_style( 'assets/css/services-linked-decisions.css' );
 	add_editor_style( 'assets/css/services-service-clusters.css' );
 	add_editor_style( 'assets/css/services-service-tiles.css' );
