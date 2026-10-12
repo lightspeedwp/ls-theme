@@ -1,49 +1,12 @@
 <?php
 /**
- * Solutions case-study query filtering.
+ * Solutions case-study query filtering and editor project picker.
  *
  * @package ls-theme
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
-/**
- * Returns the query args that point a case-study query at the project tagged with a Solutions page.
- *
- * The Solutions case-study pattern (patterns/sections/solutions-case-study.php) is reused on every
- * Solutions landing page (/solutions/{slug}/), so the project it shows has to follow the page it is
- * on: the one tagged in the `project-tag` taxonomy with the page's own slug. A Query Loop block's
- * `taxQuery` attribute can only store numeric term IDs, which differ per environment, so this
- * resolves the term by slug instead — the same approach as inc/service-case-study-query.php. If the
- * post is not a Solutions landing page, or no `project-tag` term matches its slug, the args force an
- * empty result rather than falling back to unrelated projects.
- *
- * @param int $post_id The Solutions page the case study sits on.
- * @return array Query args to merge into the project query.
- */
-function ls_theme_get_solutions_case_study_args( $post_id ) {
-	$term = false;
-	$post = $post_id ? get_post( $post_id ) : null;
-
-	if ( $post instanceof WP_Post && 'page' === $post->post_type && 0 === strpos( get_page_uri( $post ), 'solutions/' ) ) {
-		$term = get_term_by( 'slug', $post->post_name, 'project-tag' );
-	}
-
-	if ( ! $term || is_wp_error( $term ) ) {
-		return array( 'post__in' => array( 0 ) );
-	}
-
-	return array(
-		'tax_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-			array(
-				'taxonomy' => 'project-tag',
-				'field'    => 'term_id',
-				'terms'    => array( $term->term_id ),
-			),
-		),
-	);
 }
 
 /**
@@ -64,47 +27,14 @@ function ls_theme_is_solutions_page() {
 }
 
 /**
- * Merges the Solutions case-study args into an existing query without discarding its taxonomy constraints.
+ * Front end: points the Solutions case-study Query Loop at the project chosen in the block's sidebar.
  *
- * A plain array_merge() would replace any `tax_query` already on the query (from the block's own
- * attributes or the REST controller), so when both sides carry one they are combined with AND.
- *
- * @param array $query     The existing query args.
- * @param array $case_args The case-study args from ls_theme_get_solutions_case_study_args().
- * @return array
- */
-function ls_theme_merge_solutions_case_study_args( $query, $case_args ) {
-	if ( ! empty( $query['tax_query'] ) && isset( $case_args['tax_query'] ) ) {
-		$case_args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-			'relation' => 'AND',
-			$query['tax_query'],
-			$case_args['tax_query'],
-		);
-	}
-
-	return array_merge( $query, $case_args );
-}
-
-/**
- * Reads the ID of the post being edited from the editor request's HTTP referer.
- *
- * @return int Post ID, or 0 when it cannot be determined.
- */
-function ls_theme_get_solutions_editor_post_id() {
-	$referer = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
-	$query   = wp_parse_url( $referer, PHP_URL_QUERY );
-
-	if ( ! $query ) {
-		return 0;
-	}
-
-	parse_str( $query, $params );
-
-	return absint( $params['post'] ?? ( 'page' === ( $params['postType'] ?? '' ) ? ( $params['postId'] ?? 0 ) : 0 ) );
-}
-
-/**
- * Front end: filters the Solutions pages' "case study" Query Loop to the project tagged with that page.
+ * The Solutions case-study pattern (patterns/sections/solutions-case-study.php) is a Query Loop of one
+ * `project` post. No taxonomy covers every Solutions page, so the editor picks the project directly:
+ * assets/js/solutions-case-study-editor.js adds a "Featured project" control to the Query block that
+ * stores the chosen post ID as `query.include`. This reads it back and limits the query to that post.
+ * With no project chosen the query is left alone, so the card falls back to the latest project and a
+ * page never renders an empty band.
  *
  * Scoped via an `ls-solutions-case-study` className on the pattern's Post Template block — WordPress
  * passes the inner Post Template block (not the outer Query block) to this filter, so that is where
@@ -121,41 +51,35 @@ function ls_theme_filter_solutions_case_study_query( $query, $block ) {
 		return $query;
 	}
 
-	$post_id = isset( $block->context['postId'] ) ? absint( $block->context['postId'] ) : get_queried_object_id();
+	$include = isset( $block->context['query']['include'] ) ? array_filter( array_map( 'absint', (array) $block->context['query']['include'] ) ) : array();
 
-	return ls_theme_merge_solutions_case_study_args( $query, ls_theme_get_solutions_case_study_args( $post_id ) );
+	if ( ! empty( $include ) ) {
+		$query['post__in'] = array_values( $include );
+	}
+
+	return $query;
 }
 add_filter( 'query_loop_block_query_vars', 'ls_theme_filter_solutions_case_study_query', 10, 2 );
 
 /**
- * Block editor: makes the case-study preview show the same project the front end will.
+ * Block editor: loads the script that adds the "Featured project" picker to the Solutions case-study Query block.
  *
- * The editor does not render a Query Loop on the server; it asks the REST API for the block's raw
- * attributes, which carry no page or className. The only context the request does carry is its HTTP
- * referer — the edit screen's URL — so this reads the post being edited from that. The Query block
- * cannot add a pattern-specific request parameter, so the request is recognised by its shape instead.
- *
- * It deliberately fails safe: it only acts for a logged-in user who can edit that post, only when the
- * post is a Solutions landing page, and only for the one-project, unfiltered request shape the
- * pattern produces. Any taxonomy constraint already on the request is preserved (combined with AND),
- * and anything else is returned untouched. The front-end filter above remains the source of truth;
- * this affects the editor preview only.
- *
- * @param array           $args    WP_Query args built from the REST request.
- * @param WP_REST_Request $request The REST request.
- * @return array
+ * The editor preview needs no server filter: the Post Template block already forwards unknown `query`
+ * keys (here `include`) to the REST API, and the `project` endpoint supports `include` natively.
  */
-function ls_theme_filter_solutions_case_study_rest_query( $args, $request ) {
-	if ( 'edit' !== $request->get_param( 'context' ) || 1 !== absint( $request->get_param( 'per_page' ) ) || $request->get_param( 'search' ) ) {
-		return $args;
+function ls_theme_enqueue_solutions_case_study_editor_script() {
+	$path = get_theme_file_path( 'assets/js/solutions-case-study-editor.js' );
+
+	if ( ! file_exists( $path ) ) {
+		return;
 	}
 
-	$post_id = ls_theme_get_solutions_editor_post_id();
-
-	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) || 0 !== strpos( get_page_uri( $post_id ), 'solutions/' ) ) {
-		return $args;
-	}
-
-	return ls_theme_merge_solutions_case_study_args( $args, ls_theme_get_solutions_case_study_args( $post_id ) );
+	wp_enqueue_script(
+		'ls-theme-solutions-case-study-editor',
+		get_theme_file_uri( 'assets/js/solutions-case-study-editor.js' ),
+		array( 'wp-block-editor', 'wp-components', 'wp-compose', 'wp-core-data', 'wp-data', 'wp-element', 'wp-hooks', 'wp-i18n' ),
+		(string) filemtime( $path ),
+		true
+	);
 }
-add_filter( 'rest_project_query', 'ls_theme_filter_solutions_case_study_rest_query', 10, 2 );
+add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_solutions_case_study_editor_script' );
