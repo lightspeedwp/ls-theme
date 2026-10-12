@@ -64,7 +64,7 @@ add_filter( 'query_loop_block_query_vars', 'ls_theme_filter_solutions_case_study
 /**
  * Block editor: loads the script that adds the "Featured project" picker to the Solutions case-study Query block.
  *
- * The editor preview needs no server filter: the Post Template block already forwards unknown `query`
+ * The picker searches the REST API as the editor types, so it is not limited to the first page of projects. The editor preview needs no server filter: the Post Template block already forwards unknown `query`
  * keys (here `include`) to the REST API, and the `project` endpoint supports `include` natively.
  */
 function ls_theme_enqueue_solutions_case_study_editor_script() {
@@ -77,7 +77,7 @@ function ls_theme_enqueue_solutions_case_study_editor_script() {
 	wp_enqueue_script(
 		'ls-theme-solutions-case-study-editor',
 		get_theme_file_uri( 'assets/js/solutions-case-study-editor.js' ),
-		array( 'wp-block-editor', 'wp-components', 'wp-compose', 'wp-core-data', 'wp-data', 'wp-element', 'wp-hooks', 'wp-i18n' ),
+		array( 'wp-block-editor', 'wp-components', 'wp-compose', 'wp-core-data', 'wp-data', 'wp-element', 'wp-hooks', 'wp-html-entities', 'wp-i18n' ),
 		(string) filemtime( $path ),
 		true
 	);
