@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add Solutions hero, stats, intro, case study, checklist and icon grid patterns (LSA-113)
+
+### Added
+
+- `patterns/hero/hero-split-glance.php` (Hero - Split At a Glance): breadcrumb, icon-tile eyebrow, H1, lede, two CTAs and an "At a glance" card built as a semantic description list.
+- `patterns/sections/stats-row-left.php` (Section - Stats Row Left-aligned): four left-aligned stats with dividers, reusing the Stats Bar classes and responsive grid.
+- `patterns/sections/split-intro-text.php` (Section - Split Intro Text): dot eyebrow and heading beside a single paragraph.
+- `patterns/sections/solutions-case-study.php` (Section - Solutions Case Study): a query-driven featured case study that follows the project tagged with the Solutions page's slug. The quote and attribution are editable per page.
+- `patterns/sections/split-copy-checklist-card.php` (Section - Split Copy Checklist Card): heading and copy beside a capped-width card of four check rows.
+- `patterns/sections/split-header-icon-card-grid.php` (Section - Split Header Icon Card Grid): split header above six equal-height icon cards, with titles and descriptions clamped to an ellipsis.
+- `inc/solutions-case-study-query.php`, a Solutions-specific case-study query filter (front end and editor preview) separate from the service pages' filter.
+- `solutions-case-study.scss` and `split-header-icon-card-grid.scss`, compiled to `assets/css/`, registered in the build scripts, loaded through the conditional bundles and added as editor styles.
+
+([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+
+---
+
 ## [Unreleased] — Fix homepage "Most chosen" badge contrast
 
 ### Fixed

@@ -1,0 +1,34 @@
+/********** Split Header Icon Card Grid (Solutions pages' "what this solution includes") **********/
+
+/*
+ * Equal card height and ellipsis for long copy, same approach as Card - Post (blog-all-articles.scss)
+ * and the Work project card (work-project-card.scss). The cards are children of a core/group grid,
+ * which already stretches them to fill their row; what it cannot do is equalise the rows themselves,
+ * so a long card in row 2 leaves row 1 visibly shorter. Titles and descriptions are clamped with an
+ * ellipsis so one over-long card cannot stretch every row.
+ */
+
+// JSON limitation: the group's grid layout only exposes minimumColumnWidth / columnCount, not
+// grid-auto-rows, so equal row heights are set here — see AGENTS.md Theme-First Approach.
+.ls-icon-card-grid {
+  grid-auto-rows: 1fr;
+}
+
+// JSON limitation: -webkit-line-clamp (with -webkit-box and overflow) has no theme.json or block
+// attribute equivalent (same note as work-project-card.scss and featured-work.scss).
+.ls-icon-card__title,
+.ls-icon-card__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ls-icon-card__title {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.ls-icon-card__text {
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+}

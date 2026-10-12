@@ -45,6 +45,9 @@ require get_template_directory() . '/inc/service-phase-map.php';
 /** Loads the query filter that points the service pages' case-study section at the project tagged with that service */
 require get_template_directory() . '/inc/service-case-study-query.php';
 
+/** Loads the query filter that points the Solutions pages' case-study section at the project tagged with that page */
+require get_template_directory() . '/inc/solutions-case-study-query.php';
+
 /** Loads the phase-page body class used to drive the Journey Phases nav's active state */
 require get_template_directory() . '/inc/phase-page-body-class.php';
 
@@ -83,6 +86,8 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/phase-hero.css' );
 	add_editor_style( 'assets/css/services-hero.css' );
 	add_editor_style( 'assets/css/solutions-hero.css' );
+	add_editor_style( 'assets/css/solutions-case-study.css' );
+	add_editor_style( 'assets/css/split-header-icon-card-grid.css' );
 	add_editor_style( 'assets/css/services-linked-decisions.css' );
 	add_editor_style( 'assets/css/services-service-clusters.css' );
 	add_editor_style( 'assets/css/services-service-tiles.css' );

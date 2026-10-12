@@ -98,6 +98,8 @@ function ls_theme_get_bundle_render_markers() {
 		'phase-where-to-go-next'    => array( 'classes' => array( 'ls-phase-where-to-go-next' ) ),
 		'tick-phase'                => array( 'classes' => array( 'is-style-tick-phase' ) ),
 		'service-case-study'        => array( 'classes' => array( 'ls-service-case-study' ) ),
+		'solutions-case-study'      => array( 'classes' => array( 'ls-solutions-case-study' ) ),
+		'split-icon-cards'          => array( 'classes' => array( 'ls-icon-card-grid', 'ls-icon-card' ) ),
 		'featured-work'             => array( 'classes' => array( 'ls-featured-work-grid', 'ls-featured-work-card__divider' ) ),
 		'where-to-fit'              => array( 'classes' => array( 'ls-package-card' ) ),
 		'homepage-cta'              => array( 'classes' => array( 'ls-homepage-cta' ) ),
@@ -266,7 +268,8 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			// Icon-well classes are also used by 3 homepage sections (what-we-build,
 			// where-to-start, where-to-fit) in addition to the Work archive, by the
-			// Search template's "Useful destinations" section, and by the Services page's
+			// Search template's "Useful destinations" section, by the Solutions pages' icon
+			// card grid, and by the Services page's
 			// "Service clusters" and "Service tiles" sections (is-style-card-category,
 			// ls-icon-well-brand) — without a check for each of these here, that reuse only
 			// gets caught by the render_block fallback below, which prints in the footer and
@@ -274,7 +277,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// template yet (LS-1598 in progress), so this checks its slug directly rather than
 			// a template.
 			'condition' => static function () {
-				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' ) || ls_theme_is_service_page();
+				return is_front_page() || is_post_type_archive( 'project' ) || is_search() || is_page( 'services' ) || ls_theme_is_service_page() || ls_theme_is_solutions_page();
 			},
 		),
 		'card-shells'               => array(
@@ -500,6 +503,22 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// the render-marker fallback covers it if the pattern is used anywhere else.
 			'condition' => 'ls_theme_is_service_page',
 		),
+		'split-icon-cards'          => array(
+			'handle'    => 'ls-theme-split-icon-cards',
+			'path'      => 'assets/css/split-header-icon-card-grid.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Equal card heights and line clamping for the Solutions pages' icon card grid; the
+			// render-marker fallback loads it wherever the pattern renders.
+			'condition' => 'ls_theme_is_solutions_page',
+		),
+		'solutions-case-study'      => array(
+			'handle'    => 'ls-theme-solutions-case-study',
+			'path'      => 'assets/css/solutions-case-study.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Pill, CTA and mobile image-corner styles for the Solutions pages' featured case study;
+			// the render-marker fallback loads it wherever the pattern renders.
+			'condition' => 'ls_theme_is_solutions_page',
+		),
 		'tick-phase'                => array(
 			'handle'    => 'ls-theme-tick-phase',
 			'path'      => 'assets/css/tick-phase.css',
@@ -601,7 +620,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-stats-bar',
 			'path'      => 'assets/css/stats-bar.css',
 			'contexts'  => array( 'front', 'editor' ),
-			'condition' => 'is_front_page',
+			// The homepage hero's stats strip, plus the Solutions pages' left-aligned stats row,
+			// which reuses the same ls-stats-row / ls-stat-item classes.
+			'condition' => static function () {
+				return is_front_page() || ls_theme_is_solutions_page();
+			},
 		),
 		'homepage-card-rows'        => array(
 			'handle'    => 'ls-theme-homepage-card-rows',
