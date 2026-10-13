@@ -1,22 +1,83 @@
 /********** Solutions Case Study (Solutions pages' featured case study) **********/
 
 /*
- * Solutions Case Study (single consumer: patterns/sections/solutions-case-study.php). On desktop the
- * featured image sits in the left column of a two-column card, so its outer corners are rounded with
- * per-corner block radius (top-left / bottom-left) and it has a fixed 35rem height with cover scaling
- * — all expressed as block attributes on the post-featured-image block. Once the columns stack on
- * mobile the image becomes the top of the card instead, so those corners must flip to top-left /
- * top-right only, and a 35rem-tall image would dominate a phone screen, so it is shortened.
+ * Solutions Case Study (single consumer: patterns/sections/solutions-case-study.php). A single-background
+ * card whose copy and testimonial form the left column and whose featured image, as a browser-style
+ * frame at its natural aspect ratio, is the right column. Portfolio featured images are all ~16:9
+ * desktop screenshots, so nothing is cropped to a column shape.
+ *
+ * Spacing rhythm (all via block-attribute `gap` on vertical flex groups, never margins):
+ * small = spacing 10, medium = spacing 30, large = spacing 50.
  */
 
-// JSON limitation: block attributes (border radius, height) cannot change per breakpoint, and the
-// block writes them as inline styles on the <img>, so the override needs `!important` — see
-// AGENTS.md Theme-First Approach. 781.98px = 782px, WP core's own .wp-block-columns stacking
-// breakpoint, reused for consistency (see service-case-study.scss).
-@media (max-width: 781.98px) {
-  .ls-solutions-case-study .wp-block-post-featured-image img {
-    border-radius: var(--wp--preset--border-radius--400) var(--wp--preset--border-radius--400) 0 0 !important;
-    height: 16rem !important;
+// JSON limitation: Gutenberg's flow layout and block defaults add margins to headings, paragraphs,
+// blockquotes, figures and the CTA, and no block-supports key zeroes every descendant at once.
+// This pattern spaces with token padding and `gap` only, so margins are zeroed here — scoped to
+// this card, not a global reset.
+.ls-solutions-case-study .ls-solutions-case-study__card,
+.ls-solutions-case-study .ls-solutions-case-study__card * {
+  margin: 0;
+}
+
+// JSON limitation: named grid areas (needed so the testimonial sits under the copy on desktop but
+// after the preview on mobile — one DOM order serves both) have no block-supports key; core/group
+// has flow, flex and constrained layouts only. 781.98px = 782px, WP core's own .wp-block-columns
+// stacking breakpoint, reused for consistency (see service-case-study.scss).
+.ls-solutions-case-study .ls-solutions-case-study__layout {
+  display: grid;
+  grid-template-areas:
+    "main"
+    "preview"
+    "testimonial";
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--wp--preset--spacing--50);
+  align-items: start;
+
+  @media (min-width: 782px) {
+    grid-template-areas:
+      "main preview"
+      "testimonial preview";
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    column-gap: var(--wp--preset--spacing--80);
+  }
+}
+
+.ls-solutions-case-study .ls-solutions-case-study__main {
+  grid-area: main;
+}
+
+.ls-solutions-case-study .ls-solutions-case-study__testimonial {
+  grid-area: testimonial;
+}
+
+// JSON limitation: the preview's frame (border, radius, overflow clip) plus the browser-bar
+// pseudo-element and its window dots have no block-supports key on core/post-featured-image — the
+// block's own border attribute lands on the <img>, not on a frame around the bar too. No shadow
+// here: the card's own shadow is the only one, so the two do not compete.
+.ls-solutions-case-study .ls-solutions-case-study__preview {
+  grid-area: preview;
+  overflow: hidden;
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--300);
+
+  // Minimal browser bar: three muted window dots on a raised surface.
+  &::before {
+    content: "";
+    display: block;
+    height: var(--wp--preset--spacing--40);
+    border-bottom: 1px solid var(--wp--custom--color--border--card);
+    background:
+      radial-gradient(circle at var(--wp--preset--spacing--20) 50%, color-mix(in srgb, var(--wp--custom--color--text--muted) 45%, transparent) var(--wp--preset--spacing--5), transparent calc(var(--wp--preset--spacing--5) + 1px)),
+      radial-gradient(circle at calc(var(--wp--preset--spacing--20) * 2) 50%, color-mix(in srgb, var(--wp--custom--color--text--muted) 45%, transparent) var(--wp--preset--spacing--5), transparent calc(var(--wp--preset--spacing--5) + 1px)),
+      radial-gradient(circle at calc(var(--wp--preset--spacing--20) * 3) 50%, color-mix(in srgb, var(--wp--custom--color--text--muted) 45%, transparent) var(--wp--preset--spacing--5), transparent calc(var(--wp--preset--spacing--5) + 1px)),
+      var(--wp--custom--color--surface--card-raised);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -47,18 +108,12 @@
   }
 }
 
-// JSON limitation: object-position has no block attribute on core/post-featured-image (it only
-// exposes scale), so the crop anchor is set here to keep the top of the site screenshot in view.
-.ls-solutions-case-study .wp-block-post-featured-image img {
-  object-position: top center;
-}
-
 // JSON limitation: core/read-more renders its link as the block element itself (no inner `a`); the CTA's arrow glyph is a ::after pseudo-element, and its hover / focus-visible
 // states have no theme.json or block-attribute key — see AGENTS.md Theme-First Approach.
 .ls-solutions-case-study .wp-block-read-more {
   display: inline-flex;
   align-items: center;
-  gap: var(--wp--preset--spacing--10);
+  gap: var(--wp--preset--spacing--20);
   text-decoration: none;
   transition:
     background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised),
