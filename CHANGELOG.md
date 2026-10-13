@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Refine the Solutions case-study card layout, spacing and service pills
+
+### Changed
+
+- The Solutions case-study card is rebuilt: the copy and testimonial form the left column and the website preview is the right column, top-aligned and shown at its natural aspect ratio instead of a cropped portrait slice. On mobile the order is copy, preview, testimonial.
+- Spacing now follows one token rhythm (small, medium, large) set as `gap` on vertical flex groups, and every margin inside the card is zero.
+- The testimonial is a compact `surface.card` box with a small quote icon and no italics; the card border is softened and the preview no longer has its own shadow.
+- `inc/solutions-case-study-query.php` caps the card's service pills at four and shows `wordpress` / `woocommerce` as WordPress / WooCommerce. This changes the rendered HTML only; stored terms are untouched.
+- `src/scss/structural/solutions-case-study.scss` (compiled to `assets/css/solutions-case-study.css`) now holds the grid areas and browser-frame preview; the old thumbnail panel and mobile corner overrides are removed.
+- Pages that already have the pattern need it re-inserted to pick up the new layout.
+
+([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+
+---
+
 ## [Unreleased] — Choose the Solutions case-study project in the editor (LSA-113)
 
 ### Changed
