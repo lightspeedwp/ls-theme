@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Choose the Solutions case-study project in the editor (LSA-113)
+
+### Changed
+
+- The Solutions case-study card now features a project picked in the editor: select the Query block and choose it in the "Featured project" control in the sidebar. With none chosen it shows the latest project, so a Solutions page never renders an empty card.
+- `assets/js/solutions-case-study-editor.js` adds the control (plain script, no build step) and `inc/solutions-case-study-query.php` applies the choice on the front end. The page-slug and taxonomy lookup is removed.
+- Pages that already have the pattern need it re-inserted to get the control.
+
+([#107](https://github.com/lightspeedwp/ls-theme/pull/107))
+
+---
+
 ## [Unreleased] — Add Solutions related services, receive/who, CTA band and FAQ patterns (LSA-113)
 
 ### Added
