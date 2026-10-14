@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the Free Consultation page patterns (LSA-123)
+
+### Added
+
+- `patterns/hero/hero-split-glance-support.php` (Hero - Split At a Glance with Support Line): breadcrumb, dot eyebrow, H1, lede, support line, two CTAs and a "Consultation snapshot" card built as a semantic description list. The CTAs are core Button "button" mode buttons that open Popup Maker popups.
+- `patterns/sections/icon-strip.php` (Section - Icon Strip): a wrapping row of short brand-icon labels spread across the full width.
+- `patterns/sections/split-checklist-card-stack.php` (Section - Split Checklist Card Stack): a check-row panel beside a stack of three icon cards.
+- `patterns/cta/cta-split-buttons.php` (CTA - Split Buttons): a rounded panel with a heading, paragraph and two popup buttons.
+- `patterns/sections/related-routes-grid.php` (Section - Related Routes Grid): a generic grid of Card - Link Row cards.
+- `src/scss/structural/snapshot-card.scss`, compiled to `assets/css/snapshot-card.css`: row layout, description measure and a container query that stacks each label above its value when the card is narrow.
+
+### Fixed
+
+- Buttons no longer spill out of their container on narrow phones. An opt-in `ls-buttons-wrap` class (in `corner-glow.scss`) lets the button row shrink and its text wrap; it is applied to the Free Consultation CTA, Split CTA check card, Services hero, Home hero static, Homepage CTA, Homepage Why LightSpeed and Phase CTA. Pages that already contain a copy of those patterns need the pattern re-inserted.
+
+([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+
+---
+
 ## [Unreleased] — Refine the Solutions case-study card layout, spacing and service pills
 
 ### Changed
