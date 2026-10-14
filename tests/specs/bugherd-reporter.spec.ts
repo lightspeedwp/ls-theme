@@ -103,6 +103,26 @@ test.describe('BugHerd reporter', () => {
 		});
 	});
 
+	test('two buttons overflowing on the same page become two tasks, not one', async () => {
+		const offender = (button: string) =>
+			'Button overflow at 370px on https://example.test/free-consultation/: 1 element(s) outside their container\n' +
+			`  "Ready for a serious conversation?" .ls-corner-glow | "${button}" | left of panel | element 307px, container 254px | over by 53px`;
+
+		await withEnv(undefined, async () => {
+			const reporter = new BugherdReporter();
+			// One test result carrying one error per offender, as expectNoElementOverflow produces.
+			reporter.onTestEnd(fakeTest(STANDING_SPEC, 'chromium', 1280), {
+				status: 'failed',
+				errors: [
+					{ message: offender('Book your free consultation') },
+					{ message: offender('Send a brief before we talk') },
+				],
+			} as unknown as TestResult);
+
+			expect(internals(reporter).groupAllFailures().size, 'one group per offending button').toBe(2);
+		});
+	});
+
 	test('failures outside tests/specs/standing are never collected, even on device projects', async () => {
 		await withEnv(undefined, async () => {
 			const reporter = new BugherdReporter();

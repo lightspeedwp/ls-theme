@@ -63,9 +63,6 @@ type ElementFinding = {
 	overshoot: number;
 };
 
-/** Cap on offenders printed per page and width, so one broken layout doesn't bury the report. */
-const MAX_REPORTED_FINDINGS = 20;
-
 /**
  * Asserts no button sits outside the viewport, or outside its own button row or bordered /
  * backgrounded panel, by more than 1px on the left or right. The document-level check above
@@ -85,7 +82,7 @@ const MAX_REPORTED_FINDINGS = 20;
  * specs/003-button-overflow-coverage/contracts/failure-message.md.
  */
 export async function expectNoElementOverflow(page: Page, viewportWidth: number): Promise<void> {
-	const { findings, total } = await page.evaluate((maxReported) => {
+	const findings: ElementFinding[] = await page.evaluate(() => {
 		const TOLERANCE = 1;
 		const viewport = document.documentElement.clientWidth;
 
@@ -122,7 +119,7 @@ export async function expectNoElementOverflow(page: Page, viewportWidth: number)
 			[...el.classList].filter((c) => /^(is-style-|ls-)/.test(c) && !/--\d+$/.test(c)).join('.');
 
 		const sectionLabel = (el: Element) => {
-			const section = el.closest('section') ?? el.closest('.alignfull');
+			const section = el.closest('section, .alignfull');
 			if (section) {
 				const heading = clean(section.querySelector('h1, h2, h3, h4, h5, h6')?.textContent, 60);
 				const classes = stableClasses(section);
@@ -154,16 +151,14 @@ export async function expectNoElementOverflow(page: Page, viewportWidth: number)
 			overshoot: number;
 		};
 
-		// A row that scrolls sideways on purpose (e.g. the blog's taxonomy filter pills) keeps its
-		// buttons off-screen by design. Only a container that is genuinely scrolling counts.
+		// A button row that scrolls sideways on purpose (e.g. the blog's taxonomy filter pills) keeps its
+		// buttons off-screen by design. Only the button's own row counts, and only while it is genuinely
+		// scrolling: a button overflowing an ordinary panel that happens to scroll must still be caught.
 		const inHorizontalScroller = (el: Element) => {
-			for (let a = el.parentElement; a && a !== document.body && a !== document.documentElement; a = a.parentElement) {
-				const overflowX = getComputedStyle(a).overflowX;
-				if ((overflowX === 'auto' || overflowX === 'scroll') && a.scrollWidth > a.clientWidth + TOLERANCE) {
-					return true;
-				}
-			}
-			return false;
+			const row = el.parentElement?.closest('.wp-block-buttons');
+			if (!row) return false;
+			const overflowX = getComputedStyle(row).overflowX;
+			return (overflowX === 'auto' || overflowX === 'scroll') && row.scrollWidth > row.clientWidth + TOLERANCE;
 		};
 
 		buttons.forEach((el) => {
@@ -196,7 +191,7 @@ export async function expectNoElementOverflow(page: Page, viewportWidth: number)
 				if (!left && !right) continue;
 				results.push({
 					section: sectionLabel(el),
-					text: clean(el.textContent || el.getAttribute('aria-label'), 80) || '(no text)',
+					text: clean(el.textContent, 80) || clean(el.getAttribute('aria-label'), 80) || '(no text)',
 					kind: c.kind,
 					side: left && right ? 'left+right' : left ? 'left' : 'right',
 					elementWidth: Math.round(rect.width),
@@ -206,20 +201,20 @@ export async function expectNoElementOverflow(page: Page, viewportWidth: number)
 			}
 		});
 
-		return { findings: results.slice(0, maxReported), total: results.length };
-	}, MAX_REPORTED_FINDINGS);
+		return results;
+	});
 
-	const lines = (findings as ElementFinding[]).map(
-		(f) =>
-			`  ${f.section} | "${f.text}" | ${f.side} of ${f.kind} | ` +
-			`element ${f.elementWidth}px, container ${f.containerWidth}px | over by ${f.overshoot}px`
-	);
-	if (total > findings.length) lines.push(`  +${total - findings.length} more`);
-
-	expect
-		.soft(
-			total,
-			`Button overflow at ${viewportWidth}px on ${page.url()}: ${total} element(s) outside their container\n${lines.join('\n')}`
-		)
-		.toBe(0);
+	// One soft assertion per offender, so each gets its own failure identity: the BugHerd reporter
+	// builds a signature from every error, and a single combined message would only be grouped by
+	// its first offender, hiding the others until that one was fixed.
+	for (const f of findings) {
+		expect
+			.soft(
+				false,
+				`Button overflow at ${viewportWidth}px on ${page.url()}: 1 element(s) outside their container\n` +
+					`  ${f.section} | "${f.text}" | ${f.side} of ${f.kind} | ` +
+					`element ${f.elementWidth}px, container ${f.containerWidth}px | over by ${f.overshoot}px`
+			)
+			.toBe(true);
+	}
 }

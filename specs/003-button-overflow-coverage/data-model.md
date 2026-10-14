@@ -38,4 +38,4 @@ A button has up to three containers: the viewport (always), its nearest `.wp-blo
 
 - Fail when `left < -1` or `right > viewportClientWidth + 1`, or overshoot of a container > 1px on either side. The 1px tolerance is the same everywhere.
 - One finding per button per container. A `.wp-block-button` wrapper and the `.wp-block-button__link` inside it are one button: measure the link, and measure the wrapper only when it contains no link. The same button failing against two containers yields two findings.
-- Findings for one page and width are capped (e.g. 20) to keep messages readable, with a "+N more" line.
+- Every finding is reported, uncapped, as its own soft assertion so each has its own failure identity.
