@@ -59,18 +59,27 @@
  *
  * Fixed by letting the flex item actually shrink (min-inline-size: 0, overriding the auto
  * default) and letting its text wrap onto a second line instead of forcing nowrap. Scoped to
- * buttons inside this card only — not a sitewide core/button change, since every other button
- * context on the site has enough room and this isn't a general nowrap bug.
+ * this card and to any button row that opts in with the `ls-buttons-wrap` class — not a
+ * sitewide core/button change. Confirmed: removing nowrap sitewide makes the header's "Start a
+ * project" button wrap onto two lines at 1024px, so the rule stays opt-in. `ls-buttons-wrap` is
+ * on the button rows whose buttons were measured overflowing their container at 320-370px
+ * (Free Consultation CTA, Services hero, Homepage CTA, Homepage Why LightSpeed, Phase CTA,
+ * Split CTA check card, Home hero static).
  */
-.ls-corner-glow .wp-block-buttons {
+// JSON limitation: comma-separated selectors (the glow card plus the opt-in class) and the
+// min-inline-size override have no block attribute or theme.json key — see AGENTS.md Theme-First Approach.
+.ls-corner-glow .wp-block-buttons,
+.ls-buttons-wrap {
   min-inline-size: 0;
 }
 
-.ls-corner-glow .wp-block-buttons .wp-block-button {
+.ls-corner-glow .wp-block-buttons .wp-block-button,
+.ls-buttons-wrap .wp-block-button {
   min-inline-size: 0;
 }
 
-.ls-corner-glow .wp-block-buttons .wp-block-button__link {
+.ls-corner-glow .wp-block-buttons .wp-block-button__link,
+.ls-buttons-wrap .wp-block-button__link {
   min-inline-size: 0;
   white-space: normal;
   text-align: center;

@@ -50,8 +50,8 @@
 			<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--on-dark-muted);margin-top:var(--wp--preset--spacing--20)"><?php echo esc_html__( 'If the real challenge includes legacy complexity, content structure, migration pressure or long-term support, LightSpeed can help you work out the most practical route forward.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:buttons {"layout":{"type":"flex","flexWrap":"wrap"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
-			<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
+			<!-- wp:buttons {"className":"ls-buttons-wrap","layout":{"type":"flex","flexWrap":"wrap"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
+			<div class="wp-block-buttons ls-buttons-wrap" style="margin-top:var(--wp--preset--spacing--30)">
 				<!-- wp:button {"className":"is-style-button-primary-on-dark ls-homepage-cta-arrow"} -->
 				<div class="wp-block-button is-style-button-primary-on-dark ls-homepage-cta-arrow"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->

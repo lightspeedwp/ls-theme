@@ -1,0 +1,48 @@
+/********** Snapshot Card (Hero - Split At a Glance with Support Line) **********/
+
+/*
+ * The label/value rows of the "Consultation snapshot" card. Colours, borders, radius, row padding
+ * and font sizes are all block attributes on the pattern; only the two-column row layout, the
+ * description measure, its wrapping and the stacking rule live here.
+ */
+
+// JSON limitation: a core/group has no asymmetric two-column grid (its grid layout only exposes
+// columnCount / minimumColumnWidth), so the 28% / 72% label and value columns are set here — see
+// AGENTS.md Theme-First Approach.
+.ls-snapshot-card__row {
+  display: grid;
+  grid-template-columns: minmax(0, 28fr) minmax(0, 72fr);
+  column-gap: var(--wp--preset--spacing--20);
+  align-items: start;
+}
+
+// JSON limitation: a font-size floor (max()) has no block attribute or theme.json key, and the
+// `has-*-font-size` preset class carries !important, so the size is set here instead of on the
+// block. Uses the same size-200 token as the rest of the hero, held at a 16px minimum because
+// the fluid token drops to 14px on small screens — see AGENTS.md Theme-First Approach.
+.ls-snapshot-card__label {
+  font-size: max(1rem, var(--wp--preset--font-size--200));
+}
+
+// JSON limitation: neither max-width in `ch` nor text-wrap has a block attribute or theme.json
+// key — see AGENTS.md Theme-First Approach.
+.ls-snapshot-card__value {
+  max-width: 40ch;
+  text-wrap: pretty;
+}
+
+// JSON limitation: container queries (and the container-type they need) have no block attribute
+// or theme.json key — see AGENTS.md Theme-First Approach. The card stacks each label above its
+// value whenever the card itself is too narrow for a two-column row (the label column needs
+// about 94px for "YOU LEAVE"), whatever the screen width: the hero column that holds the card
+// is narrow on small desktops and full width on phones.
+.ls-snapshot-card {
+  container-type: inline-size;
+}
+
+@container (max-width: 22rem) {
+  .ls-snapshot-card__row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--wp--preset--spacing--10);
+  }
+}
