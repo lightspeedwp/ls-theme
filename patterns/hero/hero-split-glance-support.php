@@ -77,12 +77,12 @@ $ls_glance_row_count = count( $ls_glance_rows );
 
 				<!-- wp:buttons -->
 				<div class="wp-block-buttons">
-					<!-- wp:button {"className":"pum-triggercta"} -->
-					<div class="wp-block-button pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book your free consultation', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"tagName":"button","className":"pum-triggercta"} -->
+					<div class="wp-block-button pum-triggercta"><button type="button" class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Book your free consultation', 'ls-theme' ); ?></button></div>
 					<!-- /wp:button -->
 
-					<!-- wp:button {"className":"is-style-outline pum-triggerbrief"} -->
-					<div class="wp-block-button is-style-outline pum-triggerbrief"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/briefing/' ) ); ?>"><?php echo esc_html__( 'Send a brief before we talk', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"tagName":"button","className":"is-style-outline pum-triggerbrief"} -->
+					<div class="wp-block-button is-style-outline pum-triggerbrief"><button type="button" class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Send a brief before we talk', 'ls-theme' ); ?></button></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->
