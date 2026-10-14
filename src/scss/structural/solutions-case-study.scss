@@ -82,6 +82,31 @@
 }
 
 /*
+ * Legacy saved cards. Copies of the pattern inserted before the layout rebuild keep their old saved
+ * markup (WordPress does not update inserted patterns): a two-column card whose featured image has a
+ * fixed 35rem height and per-corner radius as inline styles. These rules keep that markup's mobile image
+ * treatment and crop anchor. They are scoped with :not(.ls-solutions-case-study__preview) so they never
+ * touch the rebuilt card's preview. Remove them once the saved cards have been re-inserted.
+ */
+
+// JSON limitation: block attributes (border radius, height) cannot change per breakpoint, and the
+// block writes them as inline styles on the <img>, so the override needs `!important` — see
+// AGENTS.md Theme-First Approach. 781.98px = 782px, WP core's own .wp-block-columns stacking
+// breakpoint, reused for consistency (see service-case-study.scss).
+@media (max-width: 781.98px) {
+  .ls-solutions-case-study .wp-block-post-featured-image:not(.ls-solutions-case-study__preview) img {
+    border-radius: var(--wp--preset--border-radius--400) var(--wp--preset--border-radius--400) 0 0 !important;
+    height: 16rem !important;
+  }
+}
+
+// JSON limitation: object-position has no block attribute on core/post-featured-image (it only
+// exposes scale), so the crop anchor is set here to keep the top of the site screenshot in view.
+.ls-solutions-case-study .wp-block-post-featured-image:not(.ls-solutions-case-study__preview) img {
+  object-position: top center;
+}
+
+/*
  * Refinements scoped to this card only (everything below is a Solutions case-study override of a
  * shared component, so it is namespaced under .ls-solutions-case-study and nothing else is affected).
  */
