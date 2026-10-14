@@ -45,8 +45,8 @@ $ls_cta_checklist = array(
 			<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Start by considering your business model and operational needs. Our Discovery service helps map your requirements and recommend the best solution.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:buttons -->
-			<div class="wp-block-buttons">
+			<!-- wp:buttons {"className":"ls-buttons-wrap"} -->
+			<div class="wp-block-buttons ls-buttons-wrap">
 				<!-- wp:button -->
 				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Discuss your platform', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->

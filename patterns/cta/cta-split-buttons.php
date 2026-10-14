@@ -36,8 +36,8 @@
 
 			<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
 			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
-				<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
-				<div class="wp-block-buttons">
+				<!-- wp:buttons {"className":"ls-buttons-wrap","layout":{"type":"flex","justifyContent":"right"}} -->
+				<div class="wp-block-buttons ls-buttons-wrap">
 					<!-- wp:button {"tagName":"button","className":"pum-triggercta"} -->
 					<div class="wp-block-button pum-triggercta"><button type="button" class="wp-block-button__link wp-element-button"><?php echo esc_html__( 'Book your free consultation', 'ls-theme' ); ?></button></div>
 					<!-- /wp:button -->
