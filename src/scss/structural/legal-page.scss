@@ -1,0 +1,146 @@
+/********** Legal Page (Page (Legal) template: page hero, contents rail, document body, related grid) **********/
+
+/*
+ * Page hero background: the same two soft corner glows as src/scss/structural/search-hero.scss
+ * (top-right brand, bottom-left cyan — identical position/size numbers, same existing
+ * effect.hero.* tokens), reused here for the left-aligned page hero.
+ *
+ * JSON limitation: color.gradient block support only accepts a single gradient value, not
+ * layered gradients — see AGENTS.md Theme-First Approach and search-hero.scss.
+ */
+.ls-page-hero {
+  background-image:
+    radial-gradient(53% 54% at 78% -10%, color-mix(in srgb, var(--wp--custom--color--effect--hero--brand) 10%, transparent) 0%, transparent 60%),
+    radial-gradient(37% 42% at 12% 100%, color-mix(in srgb, var(--wp--custom--color--effect--hero--cyan) 8%, transparent) 0%, transparent 60%);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+/*
+ * Hero breadcrumb: yoast-seo/breadcrumbs has no colour or typography block supports (see the
+ * note in blog-hero.scss), so its mono small-caps look and link colours can't be block
+ * attributes. Links sit one step lighter than the current page, matching the design.
+ *
+ * JSON limitation: no block-support keys on this block; anchor hover state — see AGENTS.md
+ * Theme-First Approach.
+ */
+.ls-page-hero .yoast-breadcrumbs {
+  font-family: var(--wp--preset--font-family--monospace);
+  font-size: var(--wp--preset--font-size--100);
+  letter-spacing: var(--wp--custom--typography--letter-spacing--wide);
+  color: var(--wp--custom--color--text--muted);
+
+  a {
+    color: var(--wp--custom--color--text--subtle);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--wp--custom--color--link--accent);
+    }
+  }
+
+  // Yoast wraps the current page in <strong>; the design shows it at normal weight.
+  strong {
+    font-weight: inherit;
+  }
+}
+
+/*
+ * "On this page" rail. The links are built at runtime by assets/js/legal-toc.js from the
+ * content's H2s, so they don't exist in the pattern markup and can't be styled with block
+ * attributes.
+ *
+ * JSON limitation: position: sticky on a nested column child isn't available as a block
+ * support (core only offers sticky on top-level blocks); the :hover / .is-active link states
+ * have no theme.json pseudo-state key — see AGENTS.md Theme-First Approach.
+ */
+.ls-legal-toc {
+  position: sticky;
+  top: var(--wp--preset--spacing--100);
+
+  @media (max-width: 781.98px) {
+    position: static;
+  }
+
+  // Rail is JS-built, so with scripting off it would be an empty label — hide it.
+  @media (scripting: none) {
+    display: none;
+  }
+}
+
+.ls-legal-toc__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ls-legal-toc__link {
+  display: block;
+  padding: var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+  border-radius: var(--wp--preset--border-radius--200);
+  font-size: var(--wp--preset--font-size--100);
+  color: var(--wp--custom--color--text--muted);
+  text-decoration: none;
+  transition:
+    background-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &.is-active {
+    background-color: var(--wp--custom--color--surface--card);
+    color: var(--wp--custom--color--link--accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Document body. The content is whatever the page's editor writes, so these are descendant
+ * rules on core/post-content's children, not attributes on a block in this pattern.
+ *
+ * JSON limitation: descendant selectors (h2, li::marker) and per-element spacing aren't
+ * expressible from a block attribute on post-content — see AGENTS.md Theme-First Approach.
+ * The H2 margin is the one place spacing is set on a child: a gap *above* each section
+ * heading that is larger than the gap between paragraphs, which blockGap can't do.
+ */
+.ls-legal-body {
+  h2 {
+    margin-block-start: var(--wp--preset--spacing--60);
+    // Keeps an anchor-jumped heading clear of the sticky site header.
+    scroll-margin-top: var(--wp--preset--spacing--100);
+    font-size: var(--wp--preset--font-size--500);
+    font-weight: var(--wp--custom--typography--font-weight--bold);
+    line-height: var(--wp--custom--line-height--heading-snug);
+  }
+
+  > h2:first-child {
+    margin-block-start: 0;
+  }
+
+  li::marker {
+    color: var(--wp--custom--color--text--brand);
+  }
+}
+
+/*
+ * Related trust pages grid: 4 columns by default (the layout's columnCount), stepping to 2 on
+ * tablet and 1 on mobile.
+ *
+ * JSON limitation: breakpoint-based column overrides — see AGENTS.md Theme-First Approach.
+ * The doubled-class selector outranks core's generated layout class so the step-down applies.
+ */
+.wp-block-group.ls-related-trust-grid {
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 781.98px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
