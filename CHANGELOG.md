@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The responsive-overflow spec now runs at 320, 360, 370, 375, 390, 768, 1024 and 1440px (360 and 370 are new) and also runs on the Mobile Chrome project.
 - README testing section documents the check, its exclusions and how to run it on one page.
 
-([#110](https://github.com/lightspeedwp/ls-theme/issues/110))
+([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
 
 ---
 
