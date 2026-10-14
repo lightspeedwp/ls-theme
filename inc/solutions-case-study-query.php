@@ -83,3 +83,52 @@ function ls_theme_enqueue_solutions_case_study_editor_script() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'ls_theme_enqueue_solutions_case_study_editor_script' );
+
+/**
+ * Caps the Solutions case-study card's service pills and fixes brand capitalisation, for display only.
+ *
+ * The case-study card (patterns/sections/solutions-case-study.php) lists the project's `project-tag`
+ * terms, and a project can carry eight or more, which crowds the card. The core/post-terms block has
+ * no "limit" or label control, so this render filter trims the rendered pill list to a handful and
+ * brand-cases names stored lowercase. It is scoped by the `ls-solutions-case-study__pills` className, so
+ * no other post-terms block is touched, and it only rewrites the rendered HTML: the stored terms, their
+ * slugs and the full tag list on the case study page are unchanged.
+ *
+ * @param string $block_content Rendered block HTML.
+ * @param array  $block         Parsed block.
+ * @return string
+ */
+function ls_theme_filter_solutions_case_study_pills( $block_content, $block ) {
+	$class_name = $block['attrs']['className'] ?? '';
+
+	if ( false === strpos( $class_name, 'ls-solutions-case-study__pills' ) ) {
+		return $block_content;
+	}
+
+	$max_pills   = 4;
+	$brand_names = array(
+		'wordpress'   => 'WordPress',
+		'woocommerce' => 'WooCommerce',
+	);
+	$count       = 0;
+
+	$result = preg_replace_callback(
+		'#(<span class="wp-block-post-terms__separator">[^<]*</span>)?(<a\b[^>]*>)(.*?)(</a>)#s',
+		static function ( $matches ) use ( &$count, $max_pills, $brand_names ) {
+			++$count;
+
+			if ( $count > $max_pills ) {
+				return '';
+			}
+
+			$key   = strtolower( trim( wp_strip_all_tags( $matches[3] ) ) );
+			$label = $brand_names[ $key ] ?? $matches[3];
+
+			return $matches[1] . $matches[2] . $label . $matches[4];
+		},
+		$block_content
+	);
+
+	return null === $result ? $block_content : $result;
+}
+add_filter( 'render_block_core/post-terms', 'ls_theme_filter_solutions_case_study_pills', 10, 2 );
