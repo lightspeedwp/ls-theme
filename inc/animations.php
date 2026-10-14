@@ -109,6 +109,7 @@ function ls_theme_get_bundle_render_markers() {
 		'homepage-card-rows'        => array( 'classes' => array( 'ls-homepage-card-row', 'ls-what-we-build-row' ) ),
 		'search-hero'               => array( 'classes' => array( 'ls-search-hero', 'ls-optical-trim' ) ),
 		'search-results'            => array( 'classes' => array( 'ls-search-result' ) ),
+		'legal-page'                => array( 'classes' => array( 'ls-page-hero', 'ls-legal-toc', 'ls-legal-body', 'ls-related-trust-grid' ) ),
 	);
 }
 
@@ -671,6 +672,14 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_search',
 		),
+		'legal-page'                => array(
+			'handle'    => 'ls-theme-legal-page',
+			'path'      => 'assets/css/legal-page.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_page_template( 'page-legal' );
+			},
+		),
 	);
 
 	/**
@@ -763,6 +772,38 @@ function ls_theme_enqueue_faq_accordion_script( $block_content, $block ) {
 	return $block_content;
 }
 add_filter( 'render_block', 'ls_theme_enqueue_faq_accordion_script', 10, 2 );
+
+/**
+ * Enqueues the "On this page" rail script when the contents rail actually renders.
+ *
+ * Same render_block approach as the FAQ accordion script above, so it loads wherever the rail
+ * came from (a template, a pattern, post content). The rail's CSS loads via the legal-page
+ * bundle.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_enqueue_legal_toc_script( $block_content, $block ) {
+	if ( empty( $block['blockName'] ) || false === strpos( $block_content, 'ls-legal-toc' ) ) {
+		return $block_content;
+	}
+
+	$script_path = 'assets/js/legal-toc.js';
+
+	wp_enqueue_script(
+		'ls-theme-legal-toc',
+		get_theme_file_uri( $script_path ),
+		array(),
+		ls_theme_get_local_asset_version( $script_path ),
+		true
+	);
+
+	wp_script_add_data( 'ls-theme-legal-toc', 'strategy', 'defer' );
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_enqueue_legal_toc_script', 10, 2 );
 
 /*
  * 'card-feature' (core/group) and 'button-arrow-compact' (core/button) used to be

@@ -821,6 +821,13 @@
             "postTypes": [
                 "page"
             ]
+        },
+        {
+            "name": "page-legal",
+            "title": "Page (Legal)",
+            "postTypes": [
+                "page"
+            ]
         }
     ]
 }

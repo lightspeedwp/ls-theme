@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the trust page hero, document layout and related pages patterns (LSA-122)
+
+### Added
+
+- A "Page (Legal)" page template for the trust and legal pages (Privacy Policy, Terms, Cookie Policy, Accessibility Statement). Choose it as a page's template and write only the text: the hero shows the page's title and excerpt, and the document column is the page's own content.
+- Three reusable patterns behind it: Hero - Page, Section - Document with Contents Rail, and Section - Related Trust Pages.
+- A sticky "On this page" rail beside the document, built from the page's H2 headings, which highlights the section being read (`assets/js/legal-toc.js`, loaded only when the rail renders; hidden when scripting is off).
+- `src/scss/structural/legal-page.scss` (compiled to `assets/css/legal-page.css`) holds the hero glow, the breadcrumb, the sticky rail and the responsive related-pages grid.
+- Pages that should use the layout need "Page (Legal)" chosen as their template; no existing page changes.
+
+([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
+
+---
+
 ## [Unreleased] — Add the Free Consultation page patterns (LSA-123)
 
 ### Added
