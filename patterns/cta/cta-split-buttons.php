@@ -38,12 +38,12 @@
 			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
 				<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
 				<div class="wp-block-buttons">
-					<!-- wp:button -->
-					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book your free consultation', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"pum-triggercta"} -->
+					<div class="wp-block-button pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book your free consultation', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 
-					<!-- wp:button {"className":"is-style-outline"} -->
-					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/briefing/' ) ); ?>"><?php echo esc_html__( 'Send a brief before we talk', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"is-style-outline pum-triggerbrief"} -->
+					<div class="wp-block-button is-style-outline pum-triggerbrief"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/briefing/' ) ); ?>"><?php echo esc_html__( 'Send a brief before we talk', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->
