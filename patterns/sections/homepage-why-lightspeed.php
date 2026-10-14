@@ -39,8 +39,8 @@
 			<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted);margin-bottom:0"><?php echo esc_html__( 'Most website projects slow down because strategy, content, design and engineering are treated as separate purchases. We work across those decisions together so the platform makes more sense at launch and keeps making sense after launch.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:buttons {"layout":{"type":"flex","flexWrap":"wrap"}} -->
-			<div class="wp-block-buttons">
+			<!-- wp:buttons {"className":"ls-buttons-wrap","layout":{"type":"flex","flexWrap":"wrap"}} -->
+			<div class="wp-block-buttons ls-buttons-wrap">
 				<!-- wp:button -->
 				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/why-lightspeed/' ) ); ?>"><?php echo esc_html__( 'Read the full positioning', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
