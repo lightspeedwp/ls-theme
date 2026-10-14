@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Catch buttons overflowing their own container on mobile (LSA-187)
+
+### Added
+
+- An element-level overflow check in the standing responsive-overflow spec. It fails when a button starts left of the viewport, ends past its right edge, or sits more than 1px outside its button row or bordered/backgrounded panel. The document-width check missed this: on `/free-consultation/` at 370px, 307px buttons spilled out of a 254px panel while the suite passed.
+- Failures name the section, button text, overflowing side, container, and element and container widths, and BugHerd groups them by section, button text and side rather than by page or width.
+
+### Changed
+
+- The responsive-overflow spec now runs at 320, 360, 370, 375, 390, 768, 1024 and 1440px (360 and 370 are new) and also runs on the Mobile Chrome project.
+- README testing section documents the check, its exclusions and how to run it on one page.
+
+([#110](https://github.com/lightspeedwp/ls-theme/issues/110))
+
+---
+
 ## [Unreleased] — Add the trust page hero, document layout and related pages patterns (LSA-122)
 
 ### Added

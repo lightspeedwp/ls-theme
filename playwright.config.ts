@@ -22,8 +22,12 @@ const DEVICE_ONLY_SPECS = [/mobile-menu\.spec\.ts$/];
 // Standing-suite specs that also run once under Mobile Chrome (the only device project that runs
 // any standing spec). Standing specs on a device project report to BugHerd under their own
 // project-scoped task — see tests/reporters/bugherd-reporter.ts. Add a spec here to widen mobile
-// coverage; keep it short, since each entry adds a full discovery run.
-const MOBILE_STANDING_SPECS = [/standing\/accessibility\.spec\.ts$/];
+// coverage; keep it short, since each entry adds a full discovery run (the responsive-overflow
+// spec adds one more, at eight widths per page).
+const MOBILE_STANDING_SPECS = [
+	/standing\/accessibility\.spec\.ts$/,
+	/standing\/responsive-overflow\.spec\.ts$/,
+];
 
 /**
  * See https://playwright.dev/docs/test-configuration.

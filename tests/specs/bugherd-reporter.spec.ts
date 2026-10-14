@@ -82,6 +82,27 @@ test.describe('BugHerd reporter', () => {
 		expect(fetchCalls, 'BugHerd API calls during a SINGLE_PAGE_URL run').toBe(0);
 	});
 
+	test('one button overflowing its container, found on several pages and widths, is one task', async () => {
+		const overflow = (width: number, page: string) =>
+			`Button overflow at ${width}px on https://example.test/${page}/: 1 element(s) outside their container\n` +
+			'  "Ready for a serious conversation?" .ls-corner-glow | "Book your free consultation" | left of panel | ' +
+			`element ${width - 63}px, container 254px | over by ${width - 317}px`;
+
+		await withEnv(undefined, async () => {
+			const reporter = new BugherdReporter();
+			reporter.onTestEnd(fakeTest(STANDING_SPEC, 'chromium', 1280), failed(overflow(370, 'free-consultation')));
+			reporter.onTestEnd(fakeTest(STANDING_SPEC, 'chromium', 1280), failed(overflow(320, 'services')));
+			// A different button is a different bug, even in the same section.
+			reporter.onTestEnd(
+				fakeTest(STANDING_SPEC, 'chromium', 1280),
+				failed(overflow(370, 'services').replace('Book your free consultation', 'Send a brief before we talk'))
+			);
+
+			const groups = [...internals(reporter).groupAllFailures().values()];
+			expect(groups, 'same button across pages/widths collapses; another button stays separate').toHaveLength(2);
+		});
+	});
+
 	test('failures outside tests/specs/standing are never collected, even on device projects', async () => {
 		await withEnv(undefined, async () => {
 			const reporter = new BugherdReporter();

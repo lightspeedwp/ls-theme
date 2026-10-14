@@ -104,6 +104,7 @@ A developer reading the README testing section learns what the new check does, w
 - Hidden elements (zero width or height) and off-screen mobile menu overlay: ignored.
 - A button inside the mobile menu overlay (open or closed): excluded; open-menu overflow is covered by `mobile-menu.spec.ts`.
 - Page that overflows the document and also has an overflowing button: both are reported.
+- A row that deliberately scrolls sideways (`overflow-x: auto|scroll` with content wider than its box, e.g. the blog's taxonomy filter pills): its buttons are excluded, because they sit off-screen by design. Found during implementation on `/blog/`.
 - Text clipping and vertical overflow: not detected (out of scope).
 
 ## Requirements *(mandatory)*

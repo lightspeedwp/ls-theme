@@ -234,7 +234,7 @@ Two separate things decide what a run tests:
 | Project | Device | Runs |
 | --- | --- | --- |
 | `chromium`, `firefox`, `webkit` | Desktop browsers | Everything except `mobile-menu.spec.ts` |
-| `Mobile Chrome` | Pixel 5 (393px, touch) | `mobile-menu.spec.ts` + the standing accessibility spec |
+| `Mobile Chrome` | Pixel 5 (393px, touch) | `mobile-menu.spec.ts` + the standing accessibility and responsive-overflow specs |
 | `Mobile Safari` | iPhone 12 (390px, touch) | `mobile-menu.spec.ts` |
 | `Tablet` | iPad Mini (768px, touch) | `mobile-menu.spec.ts` |
 
@@ -257,6 +257,13 @@ Project names are exact and case-sensitive; quote the ones with spaces.
 
 **Standing suite** (`tests/specs/standing/`) is content-agnostic — it discovers every reachable page on `BASE_URL` (via sitemap, REST, or crawl fallback) and runs a fixed set of checks against all of them: page health/PHP errors, console/runtime errors, broken same-origin resources, accessibility (axe), internal link integrity, horizontal overflow at common widths, image alt attributes, and the search/404 routes. It requires no per-template setup — new pages are covered automatically.
 
+- **Responsive overflow** (`standing/responsive-overflow.spec.ts`) runs two checks on every page at 320, 360, 370, 375, 390, 768, 1024 and 1440px:
+  - The document check fails when the page scrolls sideways (`scrollWidth` wider than `clientWidth`).
+  - The button check (`expectNoElementOverflow` in `tests/helpers/responsive.ts`) catches what the document check misses: a button spilling out of the left of a panel, or out of a panel narrower than the page. It fails when a `.wp-block-button__link` (or a `.wp-block-buttons` child with no link) starts left of the viewport, ends past its right edge, or sits more than 1px outside its nearest `.wp-block-buttons` row or its nearest bordered/backgrounded panel, on either side.
+  - Each failure lists the section (its heading and theme classes), the button text, which side overflowed, which container (`viewport`, `button-row` or `panel`), and the element and container widths. Failures use `expect.soft`, so one run reports every offender. WordPress doesn't put the pattern name in the page, so find the pattern by searching `patterns/` for the section heading.
+  - It ignores zero-width/zero-height elements, everything inside `.mobile-menu`, and buttons inside a row that deliberately scrolls sideways (such as the blog's filter pills). Text clipping and vertical overflow are not checked.
+  - Run one page with `SINGLE_PAGE_URL="http://localhost:8882/free-consultation/" npx playwright test standing/responsive-overflow --project=chromium --project=webkit --project="Mobile Chrome"`. Dark mode is covered by running it again against a site set to Dark.
+  - It also runs on Mobile Chrome, so a full run files device-tagged BugHerd tasks for overflow found there; `SINGLE_PAGE_URL` runs create none.
 - The number of URLs actually tested is currently throttled by `MAX_TEST_URLS` in `tests/fixtures/site.ts` while the suite is being verified — raise this before relying on it for full site coverage.
 - Failures in the standing suite are automatically logged as BugHerd tasks (deduplicated, so re-running doesn't create duplicates). This requires `BUGHERD_API_KEY` and `BUGHERD_PROJECT_ID` in `.env`. Feature specs never create BugHerd tasks.
 - **`SINGLE_PAGE_URL` never creates BugHerd tasks**, on any project or spec. Use it for local and one-off checks.
