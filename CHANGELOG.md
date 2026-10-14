@@ -11,10 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `patterns/hero/hero-split-glance-support.php` (Hero - Split At a Glance with Support Line): breadcrumb, dot eyebrow, H1, lede, support line, two CTAs and a "Consultation snapshot" card built as a semantic description list. The CTAs are core Button "button" mode buttons that open Popup Maker popups.
+- `patterns/hero/hero-split-glance-support.php` (Hero - Split At a Glance with Support Line): breadcrumb, dot eyebrow, H1, lede, support line, two CTAs and a "Consultation snapshot" card built as a semantic description list. The CTAs are core Button "button" mode buttons that trigger Popup Maker popups via the `pum-triggercta` and `pum-triggerbrief` classes; the popups and their Gravity Forms are not part of the theme and must be configured in Popup Maker on each site.
 - `patterns/sections/icon-strip.php` (Section - Icon Strip): a wrapping row of short brand-icon labels spread across the full width.
 - `patterns/sections/split-checklist-card-stack.php` (Section - Split Checklist Card Stack): a check-row panel beside a stack of three icon cards.
-- `patterns/cta/cta-split-buttons.php` (CTA - Split Buttons): a rounded panel with a heading, paragraph and two popup buttons.
+- `patterns/cta/cta-split-buttons.php` (CTA - Split Buttons): a rounded panel with a heading, paragraph and two buttons that trigger Popup Maker popups (`pum-triggercta` and `pum-triggerbrief`); the popups must be configured in Popup Maker on each site.
 - `patterns/sections/related-routes-grid.php` (Section - Related Routes Grid): a generic grid of Card - Link Row cards.
 - `src/scss/structural/snapshot-card.scss`, compiled to `assets/css/snapshot-card.css`: row layout, description measure and a container query that stacks each label above its value when the card is narrow.
 
