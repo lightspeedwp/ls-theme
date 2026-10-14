@@ -96,6 +96,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/stat-feature-bento.css' );
 	add_editor_style( 'assets/css/services-delivery-numbers.css' );
 	add_editor_style( 'assets/css/corner-glow.css' );
+	add_editor_style( 'assets/css/snapshot-card.css' );
 	add_editor_style( 'assets/css/work-hero.css' );
 	add_editor_style( 'assets/css/work-single-hero.css' );
 	add_editor_style( 'assets/css/blog-hero.css' );

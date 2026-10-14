@@ -81,6 +81,7 @@ function ls_theme_get_bundle_render_markers() {
 		'stat-feature-bento'        => array( 'classes' => array( 'ls-stat-feature-card' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
 		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
+		'snapshot-card'             => array( 'classes' => array( 'ls-snapshot-card' ) ),
 		'work-hero'                 => array( 'classes' => array( 'ls-work-hero' ) ),
 		'work-single-hero'          => array( 'classes' => array( 'ls-work-single-meta' ) ),
 		'blog-hero'                 => array( 'classes' => array( 'ls-blog-hero' ) ),
@@ -392,6 +393,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// only by the render_block/footer fallback there, a guaranteed flash of unstyled
 			// content rather than a rare edge case. At ~400 bytes compressed, cheaper to load
 			// unconditionally.
+		),
+		'snapshot-card'             => array(
+			'handle'    => 'ls-theme-snapshot-card',
+			'path'      => 'assets/css/snapshot-card.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Row layout, measure and wrapping for the Free Consultation hero's snapshot card; the
+			// render-marker fallback loads it wherever the pattern renders.
+			'condition' => static function () {
+				return is_page( 'free-consultation' );
+			},
 		),
 		'work-hero'                 => array(
 			'handle'    => 'ls-theme-work-hero',

@@ -4,7 +4,7 @@
  * Slug: ls-theme/hero-split-glance-support
  * Categories: hero
  * Block Types: core/pattern
- * Description: A split hero for decision pages: breadcrumb trail, dot eyebrow, H1, lede paragraph, a smaller support line and primary/outline CTAs on the left (about 64%), and a "snapshot" card on the right (about 36%) listing four label/value rows as a semantic description list. Same shape as Hero - Split At a Glance, with the dot eyebrow used by the section patterns, a support line under the lede and no bottom border (the strip beneath it supplies the divider). Uses the shared corner-glow class for the background. Falls back to core/group and core/columns (plus Yoast breadcrumbs) because no semantic core block fits a labelled summary card. Adapts between light and dark mode through surface, text and border tokens. Edit the eyebrow, heading, lede, support line, button labels/links and the four rows after inserting.
+ * Description: A split hero for decision pages: breadcrumb trail, dot eyebrow, H1, lede paragraph, a smaller support line and primary/outline CTAs on the left (about 64%), and a "snapshot" card on the right (about 36%) listing four label/value rows as a semantic description list (two columns on desktop, label above value below 600px; spacing, typography and wrapping live in src/scss/structural/snapshot-card.scss). Same shape as Hero - Split At a Glance, with the dot eyebrow used by the section patterns, a support line under the lede and no bottom border (the strip beneath it supplies the divider). Uses the shared corner-glow class for the background. Falls back to core/group and core/columns (plus Yoast breadcrumbs) because no semantic core block fits a labelled summary card. Adapts between light and dark mode through surface, text and border tokens. Edit the eyebrow, heading, lede, support line, button labels/links and the four rows after inserting.
  * Keywords: hero, split, glance, snapshot, consultation, landing, section
  * Viewport Width: 1280
  * Inserter: true
@@ -15,19 +15,19 @@
 $ls_glance_rows = array(
 	array(
 		'label' => __( 'Best for', 'ls-theme' ),
-		'value' => __( 'Teams under active platform pressure: redesigns, migrations, WooCommerce or support friction.', 'ls-theme' ),
+		'value' => __( 'Teams navigating redesigns, migrations, WooCommerce or ongoing support challenges.', 'ls-theme' ),
 	),
 	array(
 		'label' => __( 'Typical topics', 'ls-theme' ),
-		'value' => __( 'Fit, scope direction and the best next route.', 'ls-theme' ),
+		'value' => __( 'Project fit, scope, priorities and the best way forward.', 'ls-theme' ),
 	),
 	array(
 		'label' => __( 'You leave with', 'ls-theme' ),
-		'value' => __( 'Clarity on fit, scope direction and your likely next step.', 'ls-theme' ),
+		'value' => __( 'A clearer direction, defined priorities and a practical next step.', 'ls-theme' ),
 	),
 	array(
 		'label' => __( 'What this isn\'t', 'ls-theme' ),
-		'value' => __( 'A sales pitch or a generic discovery call.', 'ls-theme' ),
+		'value' => __( 'A sales pitch or generic discovery call.', 'ls-theme' ),
 	),
 );
 
@@ -91,14 +91,14 @@ $ls_glance_row_count = count( $ls_glance_rows );
 
 			<!-- wp:column {"verticalAlignment":"top","width":"36%"} -->
 			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:36%">
-				<!-- wp:group {"tagName":"aside","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|30","bottom":"var:preset|spacing|10","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
-				<aside class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--10);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--30)">
+				<!-- wp:group {"tagName":"aside","className":"ls-snapshot-card","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"0","padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|30","bottom":"0","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
+				<aside class="wp-block-group ls-snapshot-card has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:0;padding-left:var(--wp--preset--spacing--30)">
 
-					<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--brand)"},"spacing":{"padding":{"top":"var:preset|spacing|20"}}},"fontSize":"100"} -->
-					<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand);padding-top:var(--wp--preset--spacing--20);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Consultation snapshot', 'ls-theme' ); ?></p>
+					<!-- wp:paragraph {"className":"ls-snapshot-card__label","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--brand)"}}} -->
+					<p class="ls-snapshot-card__label has-text-color" style="color:var(--wp--custom--color--text--brand);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'Consultation snapshot', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 
-					<!-- wp:group {"tagName":"dl","layout":{"type":"default"}} -->
+					<!-- wp:group {"tagName":"dl","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 					<dl class="wp-block-group">
 						<?php
 						foreach ( $ls_glance_rows as $ls_glance_index => $ls_glance_row ) :
@@ -106,24 +106,24 @@ $ls_glance_row_count = count( $ls_glance_rows );
 							?>
 
 							<?php if ( $ls_glance_is_last ) : ?>
-						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-						<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
+						<!-- wp:group {"className":"ls-snapshot-card__row","style":{"spacing":{"blockGap":"0","padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"default"}} -->
+						<div class="wp-block-group ls-snapshot-card__row" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
 						<?php else : ?>
-						<!-- wp:group {"style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
-						<div class="wp-block-group" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">
+						<!-- wp:group {"className":"ls-snapshot-card__row","style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"blockGap":"0","padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"default"}} -->
+						<div class="wp-block-group ls-snapshot-card__row" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
 						<?php endif; ?>
-							<!-- wp:group {"tagName":"dt","style":{"spacing":{"blockGap":"0"},"layout":{"selfStretch":"fixed","flexSize":"35%"}}} -->
+							<!-- wp:group {"tagName":"dt","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
 							<dt class="wp-block-group">
-								<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} -->
-								<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--subtle);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><?php echo esc_html( $ls_glance_row['label'] ); ?></p>
+								<!-- wp:paragraph {"className":"ls-snapshot-card__label","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|wide","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--subtle)"}}} -->
+								<p class="ls-snapshot-card__label has-text-color" style="color:var(--wp--custom--color--text--subtle);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide);text-transform:uppercase"><?php echo esc_html( $ls_glance_row['label'] ); ?></p>
 								<!-- /wp:paragraph -->
 							</dt>
 							<!-- /wp:group -->
 
-							<!-- wp:group {"tagName":"dd","style":{"spacing":{"blockGap":"0"},"layout":{"selfStretch":"fixed","flexSize":"65%"}}} -->
-							<dd class="wp-block-group">
-								<!-- wp:paragraph {"fontSize":"200"} -->
-								<p class="has-200-font-size"><?php echo esc_html( $ls_glance_row['value'] ); ?></p>
+							<!-- wp:group {"tagName":"dd","style":{"spacing":{"blockGap":"0","margin":{"left":"0"}}},"layout":{"type":"default"}} -->
+							<dd class="wp-block-group" style="margin-left:0">
+								<!-- wp:paragraph {"className":"ls-snapshot-card__value","style":{"typography":{"lineHeight":"var:custom|line-height|paragraph"}},"fontSize":"200"} -->
+								<p class="ls-snapshot-card__value has-200-font-size" style="line-height:var(--wp--custom--line-height--paragraph)"><?php echo esc_html( $ls_glance_row['value'] ); ?></p>
 								<!-- /wp:paragraph -->
 							</dd>
 							<!-- /wp:group -->
