@@ -14,11 +14,6 @@
 
 $ls_related_routes = array(
 	array(
-		'title'       => __( 'Briefing', 'ls-theme' ),
-		'description' => __( 'Send context first if a call feels early.', 'ls-theme' ),
-		'url'         => '/briefing/',
-	),
-	array(
 		'title'       => __( 'Pricing', 'ls-theme' ),
 		'description' => __( 'How project costs are scoped.', 'ls-theme' ),
 		'url'         => '/pricing/',
@@ -27,11 +22,6 @@ $ls_related_routes = array(
 		'title'       => __( 'Website packages', 'ls-theme' ),
 		'description' => __( 'Likely engagement depth before the call.', 'ls-theme' ),
 		'url'         => '/website-packages/',
-	),
-	array(
-		'title'       => __( 'FAQ', 'ls-theme' ),
-		'description' => __( 'Common scoping questions.', 'ls-theme' ),
-		'url'         => '/faq/',
 	),
 	array(
 		'title'       => __( 'Contact', 'ls-theme' ),
