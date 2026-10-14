@@ -4,7 +4,7 @@
  * Slug: ls-theme/related-trust-pages
  * Categories: featured
  * Block Types: core/pattern
- * Description: A "related pages" band for trust, legal and policy pages: eyebrow badge, H2 heading, and a four-up grid of whole-card links (Card - Service Tile style, each with an icon well, H3, one line of copy and an arrow link). Four pages by default — edit or swap the cards after inserting so a page does not link to itself. The grid is a core/group with the grid layout (4 columns, 2 on tablet, 1 on mobile — the responsive steps are in src/scss/structural/legal-page.scss). Sits on a surface.card band. Fallback note: no core block renders a card, so cards are core/group + core/heading + core/paragraph.
+ * Description: A "related pages" band for trust, legal and policy pages: eyebrow badge, H2 heading, and a four-up grid of whole-card links (Card - Service Tile style, each with an icon well, H3, one line of copy and an arrow link). Four cards: the first three of AI Governance, Privacy, Cookie, Accessibility and Terms (in that order), plus Contact. The card for the page being viewed is dropped automatically, so no trust page links to itself. The grid is a core/group with the grid layout (4 columns, 2 on tablet, 1 on mobile — the responsive steps are in src/scss/structural/legal-page.scss). Sits on a surface.card band. Fallback note: no core block renders a card, so cards are core/group + core/heading + core/paragraph.
  * Keywords: related, trust, legal, policy, links, cards, routes, section
  * Viewport Width: 1280
  * Inserter: true
@@ -12,13 +12,20 @@
  * @package ls-theme
  */
 
-$ls_cards = array(
+$ls_trust_pages = array(
 	array(
 		'icon'  => 'seal-check',
 		'title' => __( 'AI Governance', 'ls-theme' ),
 		'text'  => __( 'How we use AI responsibly inside delivery.', 'ls-theme' ),
 		'label' => __( 'Read AI governance', 'ls-theme' ),
 		'path'  => '/about/ai-governance/',
+	),
+	array(
+		'icon'  => 'shield',
+		'title' => __( 'Privacy Policy', 'ls-theme' ),
+		'text'  => __( 'How we collect, use and protect personal information.', 'ls-theme' ),
+		'label' => __( 'Read privacy', 'ls-theme' ),
+		'path'  => '/privacy-policy/',
 	),
 	array(
 		'icon'  => 'notepad',
@@ -35,13 +42,37 @@ $ls_cards = array(
 		'path'  => '/about/accessibility/',
 	),
 	array(
-		'icon'  => 'envelope',
-		'title' => __( 'Contact us', 'ls-theme' ),
-		'text'  => __( 'If you would rather speak to a human.', 'ls-theme' ),
-		'label' => __( 'Contact', 'ls-theme' ),
-		'path'  => '/contact/',
+		'icon'  => 'clipboard-text',
+		'title' => __( 'Terms & Conditions', 'ls-theme' ),
+		'text'  => __( 'The terms for using our site and services.', 'ls-theme' ),
+		'label' => __( 'Read terms', 'ls-theme' ),
+		'path'  => '/terms-conditions/',
 	),
 );
+
+$ls_contact_page = array(
+	'icon'  => 'envelope',
+	'title' => __( 'Contact us', 'ls-theme' ),
+	'text'  => __( 'If you would rather speak to a human.', 'ls-theme' ),
+	'label' => __( 'Contact', 'ls-theme' ),
+	'path'  => '/contact/',
+);
+
+// Drop the card for the page being viewed so a trust page never links to itself. Pattern files
+// are loaded when the pattern is used, so the current page is known here; in the inserter (no
+// current page) the default set shows. Contact stays last unless it is the current page.
+$ls_current_url = is_singular() ? trailingslashit( (string) get_permalink() ) : '';
+$ls_is_current  = static function ( $page ) use ( $ls_current_url ) {
+	return '' !== $ls_current_url && trailingslashit( home_url( $page['path'] ) ) === $ls_current_url;
+};
+
+$ls_cards        = array_values( array_filter( $ls_trust_pages, static fn( $page ) => ! $ls_is_current( $page ) ) );
+$ls_show_contact = ! $ls_is_current( $ls_contact_page );
+$ls_cards        = array_slice( $ls_cards, 0, $ls_show_contact ? 3 : 4 );
+
+if ( $ls_show_contact ) {
+	$ls_cards[] = $ls_contact_page;
+}
 
 ?>
 <!-- wp:group {"align":"full","tagName":"section","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|50","bottom":"var:preset|spacing|100","left":"var:preset|spacing|50"},"blockGap":"var:preset|spacing|80"}},"layout":{"type":"constrained","contentSize":"1216px"}} -->
