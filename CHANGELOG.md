@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the Contact page patterns and raise Link Row card padding (LSA-188)
+
+### Added
+
+- `patterns/hero/hero-split-form.php` (Hero - Split Form): breadcrumb, dot eyebrow, H1, lede and two buttons on the left, and a form card on the right holding the Gravity Forms block (form ID 2, the Contact Form on DEV). The block only renders where Gravity Forms is active; the primary button opens the consultation popup (`pum-triggercta`) and the outline button links to the form.
+- `patterns/sections/split-text-pair.php` (Section - Split Text Pair): two equal columns on a `surface.card` band, each an H2 and a paragraph.
+- `patterns/sections/icon-card-grid-optional-links.php` (Section - Icon Card Grid with Optional Links): a grid of icon cards where linked cards are whole-card links and the rest are flat.
+- The Contact page also reuses `solutions-split-faq`, `cta-split-buttons` and `related-routes-grid` with the Contact content doc's copy; no new file for those.
+
+### Changed
+
+- `Card - Link Row` padding is now `spacing|30` on all four sides (was `spacing|20`), set in `styles/sections/cards/card-link-row.json`, so every card that uses it is slightly roomier. The phase "Where to go next" cards keep their own padding.
+
+([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+
+---
+
 ## [Unreleased] — Add the trust page hero, document layout and related pages patterns (LSA-122)
 
 ### Added
