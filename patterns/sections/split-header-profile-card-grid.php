@@ -109,8 +109,8 @@ $ls_profiles = array(
 			<article class="wp-block-group is-style-card-plain">
 				<!-- wp:group {"style":{"color":{"background":"color-mix(in srgb, var(--wp--custom--color--text--brand) 12%, transparent)"},"border":{"radius":"var:preset|border-radius|500"},"dimensions":{"minHeight":"3rem"},"layout":{"selfStretch":"fixed","flexSize":"3rem"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
 				<div class="wp-block-group has-background" style="border-radius:var(--wp--preset--border-radius--500);background-color:color-mix(in srgb, var(--wp--custom--color--text--brand) 12%, transparent);min-height:3rem">
-					<!-- wp:paragraph {"align":"center","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"200"} -->
-					<p class="has-text-align-center has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--brand);font-family:var(--wp--preset--font-family--heading);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html( $ls_profile['initials'] ); ?></p>
+					<!-- wp:paragraph {"align":"center","style":{"color":{"text":"var(--wp--custom--color--text--brand-strong)"},"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"200"} -->
+					<p class="has-text-align-center has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--brand-strong);font-family:var(--wp--preset--font-family--heading);font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html( $ls_profile['initials'] ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
