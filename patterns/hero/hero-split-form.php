@@ -4,7 +4,7 @@
  * Slug: ls-theme/hero-split-form
  * Categories: hero
  * Block Types: core/pattern
- * Description: A split hero for enquiry pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and primary and outline buttons on the left (about 58%), and a bordered surface.card form card on the right (about 42%) with an H2 and the Gravity Forms block. Same shape as Hero - Split At a Glance with Support Line, without the support line and with a form card in place of the snapshot card. The form slot only renders the Gravity Forms block when Gravity Forms is active (form ID 1 is a placeholder to confirm when the form is wired); otherwise it shows a short placeholder line. Uses the shared corner-glow class for the background. Falls back to core/group and core/columns (plus Yoast breadcrumbs) because no semantic core block fits a form card. Adapts between light and dark mode through surface, text and border tokens. Edit the eyebrow, heading, lede, buttons and form heading after inserting.
+ * Description: A split hero for enquiry pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and primary and outline buttons on the left (about 58%), and a bordered surface.card form card on the right (about 42%) with an H2 and the Gravity Forms block. Same shape as Hero - Split At a Glance with Support Line, without the support line and with a form card in place of the snapshot card. The form slot only renders the Gravity Forms block when Gravity Forms is active (form ID 2 is the Contact Form on DEV); otherwise it shows a short placeholder line. Uses the shared corner-glow class for the background. Falls back to core/group and core/columns (plus Yoast breadcrumbs) because no semantic core block fits a form card. Adapts between light and dark mode through surface, text and border tokens. Edit the eyebrow, heading, lede, buttons and form heading after inserting.
  * Keywords: hero, split, form, contact, enquiry, section
  * Viewport Width: 1280
  * Inserter: true
@@ -75,7 +75,7 @@
 					<!-- /wp:heading -->
 
 					<?php if ( class_exists( 'GFForms' ) ) : ?>
-					<!-- wp:gravityforms/form {"formId":"1","title":false,"description":false} /-->
+					<!-- wp:gravityforms/form {"formId":"2","title":false,"description":false} /-->
 					<?php else : ?>
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
 					<p class="has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'The contact form appears here once Gravity Forms is active.', 'ls-theme' ); ?></p>
