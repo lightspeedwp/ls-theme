@@ -4,7 +4,7 @@
  * Slug: ls-theme/phase-link-card-grid
  * Categories: featured
  * Block Types: core/pattern
- * Description: A permanently dark band holding a responsive grid of six whole-card links, one per lifecycle phase (Discover, Create, Build, Launch, Grow, Evolve) linking to /services/{phase}/. Each card is a Card - Service Tile (a single stretched link with the shared focus ring) with a monospace "PHASE 0X" label, an H2 phase name, a short paragraph and a "Read about ..." arrow link (Link Arrow Accent). Label, border, tint and arrow all take that phase's own on-dark colour token; hovering or focusing a card tints it, lifts it and slides the arrow. Copy comes from the content doc's "Process page" stage descriptions (the internal source note on the Create stage is left out); the "PHASE 0X" labels and "Read about ..." links are from the design. The grid is a core/group with the grid layout and a minimum column width, so it wraps to 3, 2 or 1 per row. Authored for the About "Our Process" page and sits directly under Hero - Centered Gradient Title. Falls back to core/group because no semantic core block fits a linked card grid. The dark surface, per-phase accent and hover live in src/scss/structural/phase-link-card-grid.scss.
+ * Description: A permanently dark band holding a responsive grid of six whole-card links, one per lifecycle phase (Discover, Create, Build, Launch, Grow, Evolve) linking to /services/{phase}/. Each card is a Card - Service Tile (a single stretched link with the shared focus ring) with a monospace "PHASE 0X" label, an H2 phase name, a short paragraph and a "Read about ..." arrow link (Link Arrow Accent). Label, border, tint and arrow all take that phase's own on-dark colour token (Evolve uses phase.evolve-on-dark-card, a lighter violet that meets WCAG AA on the card in both modes); hovering or focusing a card tints it, lifts it and slides the arrow. Copy comes from the content doc's "Process page" stage descriptions (the internal source note on the Create stage is left out); the "PHASE 0X" labels and "Read about ..." links are from the design. The grid is a core/group with the grid layout and a minimum column width, so it wraps to 3, 2 or 1 per row. Authored for the About "Our Process" page and sits directly under Hero - Centered Gradient Title. Falls back to core/group because no semantic core block fits a linked card grid. The dark surface, per-phase accent and hover live in src/scss/structural/phase-link-card-grid.scss.
  * Keywords: process, phases, lifecycle, stages, cards, links, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -54,6 +54,7 @@ $ls_phase_cards = array(
 		'title'       => __( 'Evolve', 'ls-theme' ),
 		'description' => __( 'The strongest platforms are the ones that can change without needing to be replaced every few years. This stage is about adaptation: new requirements, better tooling, cleaner workflows and smarter next steps.', 'ls-theme' ),
 		'link_label'  => __( 'Read about Evolve', 'ls-theme' ),
+		'accent'      => 'evolve-on-dark-card',
 	),
 );
 ?>
@@ -64,11 +65,12 @@ $ls_phase_cards = array(
 	<div class="wp-block-group alignwide ls-phase-link-card-grid">
 
 		<?php foreach ( $ls_phase_cards as $ls_phase_card ) : ?>
+		<?php $ls_phase_accent = isset( $ls_phase_card['accent'] ) ? $ls_phase_card['accent'] : $ls_phase_card['phase'] . '-on-dark'; ?>
 		<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile ls-phase-link-card ls-phase-link-card--<?php echo esc_attr( $ls_phase_card['phase'] ); ?>","style":{"dimensions":{"minHeight":"100%"},"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|30"},"border":{"radius":"var:preset|border-radius|400"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 		<article class="wp-block-group is-style-card-service-tile ls-phase-link-card ls-phase-link-card--<?php echo esc_attr( $ls_phase_card['phase'] ); ?>" style="border-radius:var(--wp--preset--border-radius--400);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 
-			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold","fontFamily":"var:preset|font-family|monospace"},"color":{"text":"var(--wp--custom--color--phase--<?php echo esc_attr( $ls_phase_card['phase'] ); ?>-on-dark)"}},"fontSize":"100"} -->
-			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--<?php echo esc_attr( $ls_phase_card['phase'] ); ?>-on-dark);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html( sprintf( /* translators: %s: two-digit phase number, e.g. 01 */ __( 'Phase %s', 'ls-theme' ), $ls_phase_card['index'] ) ); ?></p>
+			<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold","fontFamily":"var:preset|font-family|monospace"},"color":{"text":"var(--wp--custom--color--phase--<?php echo esc_attr( $ls_phase_accent ); ?>)"}},"fontSize":"100"} -->
+			<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--phase--<?php echo esc_attr( $ls_phase_accent ); ?>);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html( sprintf( /* translators: %s: two-digit phase number, e.g. 01 */ __( 'Phase %s', 'ls-theme' ), $ls_phase_card['index'] ) ); ?></p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:group {"className":"ls-card-service-tile__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->

@@ -84,7 +84,8 @@
 					"grow": "var:preset|color|phase-five",
 					"grow-on-dark": "var:preset|color|phase-five",
 					"evolve": "var:preset|color|phase-six",
-					"evolve-on-dark": "var:preset|color|phase-six"
+					"evolve-on-dark": "var:preset|color|phase-six",
+					"evolve-on-dark-card": "var:preset|color|phase-six-light"
 				},
 				"status": {
 					"success": "var:preset|color|success-foreground"

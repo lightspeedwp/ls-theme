@@ -35,9 +35,22 @@
 // JSON limitation: one accent custom property per phase modifier class, read by the border,
 // arrow link and tint above. Doubled class so it outranks card-service-tile.json's own
 // --ls-card-service-tile-border-active default. Uses the phases' on-dark colours because the band is always dark.
-@each $ls-phase in discover, create, build, launch, grow, evolve {
+//
+// Evolve's plain on-dark violet is only 3.82:1 on the dark-mode card (and lower again on the hover
+// tint), so it uses phase.evolve-on-dark-card instead — a lighter violet that clears WCAG AA in both
+// modes (theme.json and styles/dark.json). The other five phases already pass with their on-dark token.
+$ls-phase-accent-tokens: (
+  discover: discover-on-dark,
+  create: create-on-dark,
+  build: build-on-dark,
+  launch: launch-on-dark,
+  grow: grow-on-dark,
+  evolve: evolve-on-dark-card,
+);
+
+@each $ls-phase, $ls-phase-token in $ls-phase-accent-tokens {
   .is-style-card-service-tile.ls-phase-link-card--#{$ls-phase} {
-    --ls-phase-link-card-accent: var(--wp--custom--color--phase--#{$ls-phase}-on-dark);
+    --ls-phase-link-card-accent: var(--wp--custom--color--phase--#{$ls-phase-token});
     --ls-card-service-tile-border-active: var(--ls-phase-link-card-accent);
     --ls-link-arrow-colour: var(--ls-phase-link-card-accent);
     --ls-link-arrow-hover-colour: var(--ls-phase-link-card-accent);
