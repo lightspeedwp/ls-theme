@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Rebuild the About mega menu and widen mega menu side padding (LSA-125)
+
+### Changed
+
+- The About mega menu (`parts/about-mega-menu.html`) now follows the content doc: a "Get to know us" title and three columns with headings (Company, How We Work, Governance & Policies) linking to the About child pages. The old links (Why LightSpeed, Getting started, AI governance, Our process, Guarantees, Accessibility) are no longer in this menu.
+- The About panel is wider than the other mega menus: its wrapper is sized to its content and centred on the nav (`ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`).
+- All mega menu panels have more side padding: `Mega Menu Panel` left and right padding is now `spacing|40` (was `spacing|20`).
+
+### Fixed
+
+- Mega menu dropdowns no longer show square corners behind the rounded panel: the plugin wrapper that clipped the panel's shadow to a square now has the panel's radius.
+
+([#117](https://github.com/lightspeedwp/ls-theme/pull/117))
+
+---
+
 ## [Unreleased] — Add the About page patterns (LSA-125)
 
 ### Added

@@ -34,11 +34,42 @@
  * regardless of the panel's own radius value. Overriding the plugin's background to transparent
  * here lets only the panel's own (correctly rounded, dark/light-aware) background show.
  *
+ * The same wrapper is also a square clip box: the plugin's script sets an inline `overflow-y: auto`
+ * (and `max-height`) on it so a tall panel can scroll, which forces the wrapper to clip its
+ * contents. The panel's popover shadow is clipped to that square, so it leaves a square tint in
+ * each corner outside the panel's rounded arc. Giving the wrapper the panel's own radius
+ * (`border-radius--300`, the radius set in styles/sections/menu/mega-menu-panel.json) makes the
+ * clip rounded too, so the corners follow the panel. Done here rather than with an
+ * `overflow: visible` override so tall panels keep their scroll.
+ *
  * JSON limitation: this class belongs to a plugin block (ollie/mega-menu), not a core block or one
  * of our own registered style variations — there is no theme.json/block-attribute surface for it.
  */
 .site-header .wp-block-ollie-mega-menu__menu-container {
   background: transparent;
+  border-radius: var(--wp--preset--border-radius--300);
+}
+
+/*
+ * .ls-mega-menu-panel-about (parts/about-mega-menu.html): the About panel is three columns of
+ * eight items, wider than the 800px `menu-width-content` wrapper the Ollie Menu Designer plugin
+ * gives every mega menu (its CSS sets `width` and `max-width` to the global content size, which is
+ * 800px in this theme). The wrapper is the plugin's, set per menu block in the Navigation post,
+ * and none of our menus use the plugin's other width options, so this one panel's wrapper is sized
+ * to its content instead (`max-content`, because `fit-content` is capped by the 603px-wide nav the
+ * wrapper is positioned against), never wider than the viewport, and centred on that nav the same
+ * way the submenu rule above centres core's dropdowns. The panel's own `contentSize` (820px, in
+ * the pattern's layout attribute) caps how wide that content can be.
+ *
+ * JSON limitation: the wrapper belongs to a plugin block, not a core block or one of our own
+ * registered style variations, and `:has()` selects it from the panel it holds — there is no
+ * theme.json/block-attribute surface for either.
+ */
+.site-header .wp-block-ollie-mega-menu__menu-container:has(.ls-mega-menu-panel-about) {
+  width: max-content;
+  max-width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /*
