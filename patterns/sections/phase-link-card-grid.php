@@ -65,7 +65,7 @@ $ls_phase_cards = array(
 	<div class="wp-block-group alignwide ls-phase-link-card-grid">
 
 		<?php foreach ( $ls_phase_cards as $ls_phase_card ) : ?>
-		<?php $ls_phase_accent = isset( $ls_phase_card['accent'] ) ? $ls_phase_card['accent'] : $ls_phase_card['phase'] . '-on-dark'; ?>
+			<?php $ls_phase_accent = isset( $ls_phase_card['accent'] ) ? $ls_phase_card['accent'] : $ls_phase_card['phase'] . '-on-dark'; ?>
 		<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile ls-phase-link-card ls-phase-link-card--<?php echo esc_attr( $ls_phase_card['phase'] ); ?>","style":{"dimensions":{"minHeight":"100%"},"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|30"},"border":{"radius":"var:preset|border-radius|400"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 		<article class="wp-block-group is-style-card-service-tile ls-phase-link-card ls-phase-link-card--<?php echo esc_attr( $ls_phase_card['phase'] ); ?>" style="border-radius:var(--wp--preset--border-radius--400);min-height:100%;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 
