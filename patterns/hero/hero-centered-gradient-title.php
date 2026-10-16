@@ -4,7 +4,7 @@
  * Slug: ls-theme/hero-centered-gradient-title
  * Categories: hero
  * Block Types: core/pattern
- * Description: A full-bleed, permanently dark, centred page hero: an independently-aligned breadcrumb, a compact pill (dot and uppercase label), a centred H1 whose last words take a gradient built from the six lifecycle phase colours, and an intro paragraph. Authored for the About "Our Process" page, with the page title as the pill label, the content doc's H1 ("Our six-stage process") and its hero subheading as the intro. It reuses Hero - Phase's wrapper class (ls-phase-hero) for the grid texture, radial glow and dark base, and the same on-dark breadcrumb treatment, so there is no second copy of that background. Unlike Hero - Phase it has no phase number, buttons or share pill, and its accent is not tied to a phase page: the pill, dot and glow use text.brand-on-dark, which is cyan in the dark style variation and blue in the light one. The gradient text (background-clip) and the accent override live in src/scss/structural/hero-gradient-title.scss. Falls back to core/group because no semantic core block fits a custom hero layout.
+ * Description: A full-bleed, permanently dark, centred page hero: an independently-aligned breadcrumb, a compact pill (dot and uppercase label), a centred H1 whose last words take a gradient built from the six lifecycle phase colours, and an intro paragraph. Authored for the About "Our Process" page, with the page title as the pill label and the design's heading ("A six-stage lifecycle. Built for clarity.", the second line carrying the gradient) and intro paragraph. It reuses Hero - Phase's wrapper class (ls-phase-hero) for the grid texture, radial glow and dark base, and the same on-dark breadcrumb treatment, so there is no second copy of that background. Unlike Hero - Phase it has no phase number, buttons or share pill, and its accent is not tied to a phase page: the pill, dot and glow use text.brand-on-dark, which is cyan in the dark style variation and blue in the light one. The gradient text (background-clip) and the accent override live in src/scss/structural/hero-gradient-title.scss. Falls back to core/group because no semantic core block fits a custom hero layout.
  * Keywords: hero, centered, gradient, title, process, lifecycle, phases, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -39,8 +39,8 @@
 
 		<!-- wp:group {"layout":{"type":"constrained","contentSize":"880px","justifyContent":"center"}} -->
 		<div class="wp-block-group">
-			<!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold","lineHeight":"var:custom|line-height|heading-tight"},"color":{"text":"var(--wp--custom--color--text--on-dark)"}},"fontSize":"900"} -->
-			<h1 class="wp-block-heading has-text-align-center has-text-color has-900-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--extrabold);line-height:var(--wp--custom--line-height--heading-tight)"><?php echo esc_html__( 'Our', 'ls-theme' ); ?> <span class="ls-hero-gradient-title__accent"><?php echo esc_html__( 'six-stage process', 'ls-theme' ); ?></span></h1>
+			<!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold","lineHeight":"var:custom|line-height|heading-tight","letterSpacing":"var:custom|typography|letter-spacing|tight"},"color":{"text":"var(--wp--custom--color--text--on-dark)"}},"fontSize":"900"} -->
+			<h1 class="wp-block-heading has-text-align-center has-text-color has-900-font-size" style="color:var(--wp--custom--color--text--on-dark);font-weight:var(--wp--custom--typography--font-weight--extrabold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight);line-height:var(--wp--custom--line-height--heading-tight)"><?php echo esc_html__( 'A six-stage lifecycle.', 'ls-theme' ); ?><br><span class="ls-hero-gradient-title__accent"><?php echo esc_html__( 'Built for clarity.', 'ls-theme' ); ?></span></h1>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->
@@ -48,7 +48,7 @@
 		<!-- wp:group {"layout":{"type":"constrained","contentSize":"760px","justifyContent":"center"}} -->
 		<div class="wp-block-group">
 			<!-- wp:paragraph {"align":"center","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"}},"fontSize":"300"} -->
-			<p class="has-text-align-center has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--on-dark-muted)"><?php echo esc_html__( 'We use a practical, collaborative process to reduce risk, improve maintainability and help WordPress platforms keep getting better after launch.', 'ls-theme' ); ?></p>
+			<p class="has-text-align-center has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--on-dark-muted)"><?php echo esc_html__( 'LightSpeed uses a six-stage lifecycle to keep website work organised and commercially useful. The stages are Discover, Create, Build, Launch, Grow and Evolve — each with clear inputs, outputs and a route into the next.', 'ls-theme' ); ?></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
