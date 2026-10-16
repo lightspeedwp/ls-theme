@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Keep the Contact hero form in the hero with a sticky intro and token-driven form styling (LSA-188)
+
+### Changed
+
+- `patterns/hero/hero-split-form.php` (Hero - Split Form): both columns align to the top, the left column carries the `ls-hero-form-intro` class, the H1 uses size token `800` and the form card padding is `spacing|40`. Pages that already contain a copy of the hero keep their old settings until the hero is re-inserted.
+- The Contact form (Gravity Forms) now follows the theme's tokens in light and dark mode: labels, descriptions, input text and borders, the Submit button and the required asterisk, all at the 16px size token. The field gap is tighter, the message box is shorter and the sub-labels are visually hidden (still available to screen readers). Validation error colours are unchanged.
+- The left column stays in view on desktop while the taller form scrolls.
+
+### Added
+
+- `src/scss/structural/hero-split-form.scss`, compiled to `assets/css/hero-split-form.css`: the sticky intro and the Gravity Forms colour, size and spacing mapping, scoped to the form card's `contact-form` anchor. Loaded on the Contact page (`is_page( 'contact' )`) and wherever the hero renders.
+
+([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
+
+---
+
 ## [Unreleased] — Add the Contact page patterns and raise Link Row card padding (LSA-188)
 
 ### Added

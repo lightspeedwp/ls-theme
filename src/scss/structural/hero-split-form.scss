@@ -1,0 +1,100 @@
+/********** Hero - Split Form (Contact page hero with the Gravity Forms block) **********/
+
+/*
+ * Sticky intro. The form is much taller than the hero text beside it, so the left column stays in
+ * view on desktop while the form scrolls past it; below the columns' own stacking breakpoint it
+ * returns to normal flow.
+ *
+ * JSON limitation: position: sticky on a nested column child isn't a block support (core only
+ * offers sticky on top-level blocks) — see AGENTS.md Theme-First Approach.
+ */
+.ls-hero-form-intro {
+  @media (min-width: 782px) {
+    position: sticky;
+    top: var(--wp--preset--spacing--100);
+    align-self: flex-start;
+  }
+}
+
+/*
+ * Gravity Forms colours, sizes and spacing. The form is rendered by a plugin, so its fields are
+ * styled through the CSS custom properties Gravity Forms' own theme reads (--gf-color-*,
+ * --gf-ctrl-*), pointed at the theme's semantic tokens so the form follows light and dark mode.
+ *
+ * Gravity Forms prints these variables inline per form, on
+ * `#gform_wrapper_{id}[data-form-index].gform-theme`. That ID selector outranks any class-only
+ * selector, so this rule also starts from an ID: the form card's `contact-form` anchor, which
+ * is the same anchor the "Send an enquiry" button links to. The selector is scoped to this card
+ * so no other Gravity Forms form on the site changes.
+ *
+ * JSON limitation: theme.json and block attributes can't style another plugin's markup or
+ * override its inline variables — see AGENTS.md Theme-First Approach.
+ */
+#contact-form .gform_wrapper.gform-theme[data-form-index] {
+  // Labels, legend and checkbox text (text.default); sub-labels, descriptions and the counter
+  // (text.muted).
+  --gf-color-out-ctrl-dark-darker: var(--wp--custom--color--text--default);
+  --gf-color-out-ctrl-dark: var(--wp--custom--color--text--muted);
+  --gf-color-out-ctrl-dark-lighter: var(--wp--custom--color--text--muted);
+  --gf-ctrl-label-color-primary: var(--wp--custom--color--text--default);
+  --gf-ctrl-label-color-secondary: var(--wp--custom--color--text--default);
+  --gf-ctrl-desc-color: var(--wp--custom--color--text--muted);
+
+  // Inputs: canvas surface, default text and the existing field border token.
+  --gf-color-in-ctrl: var(--wp--custom--color--surface--canvas);
+  --gf-color-in-ctrl-contrast: var(--wp--custom--color--text--default);
+  --gf-color-in-ctrl-dark: var(--wp--custom--color--text--muted);
+  --gf-color-in-ctrl-dark-darker: var(--wp--custom--color--text--default);
+  --gf-color-in-ctrl-dark-lighter: var(--wp--custom--color--text--muted);
+  --gf-ctrl-border-color: var(--wp--custom--color--border--field);
+
+  // Submit button and checked-state accent: the shared fill button tokens.
+  --gf-color-primary: var(--wp--custom--color--button--fill--background);
+  --gf-color-primary-contrast: var(--wp--custom--color--button--fill--text);
+  --gf-color-primary-darker: var(--wp--custom--color--button--fill--background-hover);
+  --gf-color-primary-lighter: var(--wp--custom--color--button--fill--background-hover);
+  --gf-color-in-ctrl-primary: var(--wp--custom--color--button--fill--background);
+  --gf-color-in-ctrl-primary-contrast: var(--wp--custom--color--button--fill--text);
+
+  // Text sizes: Gravity Forms defaults to 13-14px; use the 16px body-size token.
+  --gf-font-size-secondary: var(--wp--preset--font-size--200);
+  --gf-font-size-tertiary: var(--wp--preset--font-size--200);
+  --gf-ctrl-btn-font-size: var(--wp--preset--font-size--200);
+  --gf-ctrl-btn-font-size-md: var(--wp--preset--font-size--200);
+
+  // Gap between fields (Gravity Forms defaults to 40px).
+  --gf-form-gap-y: var(--wp--preset--spacing--20);
+}
+
+// The required-field asterisk is red by default (about 3:1 on the dark card); show it in the
+// field's own text colour at the field's size.
+// JSON limitation: styles an element inside the plugin's markup — see AGENTS.md Theme-First Approach.
+#contact-form .gfield_required {
+  color: var(--wp--custom--color--text--default);
+  font-size: inherit;
+}
+
+// Shorter message box (it scrolls inside). There is no height token, so it is built from two
+// spacing tokens: 120px at 1440px wide (a little taller on very wide screens).
+// JSON limitation: sizes a plugin-rendered textarea — see AGENTS.md Theme-First Approach.
+#contact-form textarea {
+  min-height: 0;
+  height: calc(var(--wp--preset--spacing--100) + var(--wp--preset--spacing--90));
+}
+
+// The sub-labels ("First", "Last", "Enter Email", "Confirm Email") and the message field's
+// description are hidden visually to save height, but stay available to screen readers. Not
+// display: none, which would drop them from the accessibility tree. The field's validation
+// message is also a .gfield_description (with .validation_message / .gfield_validation_message),
+// so it is excluded and stays visible.
+// JSON limitation: visually-hidden technique on plugin-rendered elements — see AGENTS.md
+// Theme-First Approach.
+#contact-form .gform-field-label--type-sub,
+#contact-form .gfield--type-textarea .gfield_description:not(.validation_message):not(.gfield_validation_message) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
