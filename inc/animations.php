@@ -110,6 +110,7 @@ function ls_theme_get_bundle_render_markers() {
 		'search-hero'               => array( 'classes' => array( 'ls-search-hero', 'ls-optical-trim' ) ),
 		'search-results'            => array( 'classes' => array( 'ls-search-result' ) ),
 		'legal-page'                => array( 'classes' => array( 'ls-page-hero', 'ls-legal-toc', 'ls-legal-body', 'ls-related-trust-grid' ) ),
+		'hero-split-form'           => array( 'classes' => array( 'ls-hero-form-intro' ) ),
 	);
 }
 
@@ -671,6 +672,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/search-hero.css',
 			'contexts'  => array( 'front', 'editor' ),
 			'condition' => 'is_search',
+		),
+		'hero-split-form'           => array(
+			'handle'    => 'ls-theme-hero-split-form',
+			'path'      => 'assets/css/hero-split-form.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Sticky intro column and the Gravity Forms colour, size and spacing mapping for the Contact
+			// hero; the render-marker fallback loads it wherever the pattern renders.
+			'condition' => static function () {
+				return is_page( 'contact' );
+			},
 		),
 		'legal-page'                => array(
 			'handle'    => 'ls-theme-legal-page',

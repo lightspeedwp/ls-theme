@@ -4,7 +4,7 @@
  * Slug: ls-theme/hero-split-form
  * Categories: hero
  * Block Types: core/pattern
- * Description: A split hero for enquiry pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and primary and outline buttons on the left (about 58%), and a bordered surface.card form card on the right (about 42%) with an H2 and the Gravity Forms block. Same shape as Hero - Split At a Glance with Support Line, without the support line and with a form card in place of the snapshot card. The form slot is always the Gravity Forms block (form ID 2, the Contact Form on DEV): where Gravity Forms is not active the block renders nothing, and the editor shows an unsupported-block notice, so insert the pattern on a site that has the plugin. Uses the shared corner-glow class for the background. Falls back to core/group and core/columns (plus Yoast breadcrumbs) because no semantic core block fits a form card. Adapts between light and dark mode through surface, text and border tokens. Edit the eyebrow, heading, lede, buttons and form heading after inserting.
+ * Description: A split hero for enquiry pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and primary and outline buttons on the left (about 58%), and a bordered surface.card form card on the right (about 42%) with an H2 and the Gravity Forms block. Same shape as Hero - Split At a Glance with Support Line, without the support line and with a form card in place of the snapshot card. The form slot is always the Gravity Forms block (form ID 2, the Contact Form on DEV): where Gravity Forms is not active the block renders nothing, and the editor shows an unsupported-block notice, so insert the pattern on a site that has the plugin. Uses the shared corner-glow class for the background. The columns align to the top and the left column stays in view on desktop while the taller form scrolls past it; the sticky intro and the form's token-driven colours, spacing and field sizes live in src/scss/structural/hero-split-form.scss (the form card keeps the contact-form anchor, which that stylesheet relies on). Falls back to core/group and core/columns (plus Yoast breadcrumbs) because no semantic core block fits a form card. Adapts between light and dark mode through surface, text and border tokens. Edit the eyebrow, heading, lede, buttons and form heading after inserting.
  * Keywords: hero, split, form, contact, enquiry, section
  * Viewport Width: 1280
  * Inserter: true
@@ -23,11 +23,11 @@
 		<!-- wp:yoast-seo/breadcrumbs {"className":"alignwide"} /-->
 		<?php endif; ?>
 
-		<!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
-		<div class="wp-block-columns alignwide are-vertically-aligned-center">
+		<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
+		<div class="wp-block-columns alignwide are-vertically-aligned-top">
 
-			<!-- wp:column {"verticalAlignment":"center","width":"58%","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
-			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
+			<!-- wp:column {"verticalAlignment":"top","width":"58%","className":"ls-hero-form-intro","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
+			<div class="wp-block-column is-vertically-aligned-top ls-hero-form-intro" style="flex-basis:58%">
 
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
@@ -39,8 +39,8 @@
 				</div>
 				<!-- /wp:group -->
 
-				<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"700"} -->
-				<h1 class="wp-block-heading has-700-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Talk to LightSpeed about your WordPress platform', 'ls-theme' ); ?></h1>
+				<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"}},"fontSize":"800"} -->
+				<h1 class="wp-block-heading has-800-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'Talk to LightSpeed about your WordPress platform', 'ls-theme' ); ?></h1>
 				<!-- /wp:heading -->
 
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"720px","justifyContent":"left"}} -->
@@ -65,10 +65,10 @@
 			</div>
 			<!-- /wp:column -->
 
-			<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
-			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
-				<!-- wp:group {"tagName":"aside","anchor":"contact-form","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50"}}},"layout":{"type":"default"}} -->
-				<aside id="contact-form" class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+			<!-- wp:column {"verticalAlignment":"top","width":"42%"} -->
+			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:42%">
+				<!-- wp:group {"tagName":"aside","anchor":"contact-form","style":{"color":{"background":"var:custom|color|surface|card"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"}}},"layout":{"type":"default"}} -->
+				<aside id="contact-form" class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 
 					<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold"}},"fontSize":"300"} -->
 					<h2 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold)"><?php echo esc_html__( 'Send an enquiry', 'ls-theme' ); ?></h2>
