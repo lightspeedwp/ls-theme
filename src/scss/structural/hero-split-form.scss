@@ -84,11 +84,13 @@
 
 // The sub-labels ("First", "Last", "Enter Email", "Confirm Email") and the message field's
 // description are hidden visually to save height, but stay available to screen readers. Not
-// display: none, which would drop them from the accessibility tree.
+// display: none, which would drop them from the accessibility tree. The field's validation
+// message is also a .gfield_description (with .validation_message / .gfield_validation_message),
+// so it is excluded and stays visible.
 // JSON limitation: visually-hidden technique on plugin-rendered elements — see AGENTS.md
 // Theme-First Approach.
 #contact-form .gform-field-label--type-sub,
-#contact-form .gfield--type-textarea .gfield_description {
+#contact-form .gfield--type-textarea .gfield_description:not(.validation_message):not(.gfield_validation_message) {
   position: absolute;
   width: 1px;
   height: 1px;
