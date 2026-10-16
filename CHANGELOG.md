@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the About "Our Process" hero and phase link card grid patterns (LSA-124)
+
+### Added
+
+- `patterns/hero/hero-centered-gradient-title.php` (Hero - Centered Gradient Title): a full-bleed, permanently dark, centred hero with a breadcrumb, a pill, an H1 whose last line takes a gradient across the six lifecycle phase colours, and an intro paragraph. It reuses the Hero - Phase background (`ls-phase-hero`); the pill, dot and glow use `text.brand-on-dark` (cyan in dark mode, blue in light mode).
+- `patterns/sections/phase-link-card-grid.php` (Section - Phase Link Card Grid): a permanently dark band with six whole-card links to `/services/{phase}/`, each with a "PHASE 0X" label, an H2, a paragraph and a "Read about ..." arrow link in that phase's colour. Hovering or focusing a card tints it, lifts it and slides the arrow. It reuses Card - Service Tile and Link Arrow Accent.
+- `src/scss/structural/hero-gradient-title.scss` and `src/scss/structural/phase-link-card-grid.scss`, compiled to `assets/css/hero-gradient-title.css` and `assets/css/phase-link-card-grid.css`: the gradient text, the dark card surface, the per-phase accents and the hover lift. Loaded wherever the patterns render.
+- New palette presets `phase-six-mid` (`#8F91FA`) and `phase-six-light` (`#A3A5FB`) and a new semantic token `phase.evolve-on-dark-card` (`phase-six-mid` in `theme.json`, `phase-six-light` in `styles/dark.json`). It keeps the Evolve card's label and link above the 4.5:1 contrast minimum in light and dark mode. Only the Evolve card uses it; existing tokens are unchanged.
+
+([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
+
+---
+
 ## [Unreleased] — Keep the Contact hero form in the hero with a sticky intro and token-driven form styling (LSA-188)
 
 ### Changed

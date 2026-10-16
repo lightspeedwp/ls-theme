@@ -487,6 +487,16 @@
                     "name": "Phase Six Strong",
                     "slug": "phase-six-strong",
                     "color": "#585AF7"
+                },
+                {
+                    "name": "Phase Six Mid",
+                    "slug": "phase-six-mid",
+                    "color": "#8F91FA"
+                },
+                {
+                    "name": "Phase Six Light",
+                    "slug": "phase-six-light",
+                    "color": "#A3A5FB"
                 }
             ]
         },
@@ -591,7 +601,8 @@
                     "grow": "var:preset|color|phase-five-strong",
                     "grow-on-dark": "var:preset|color|phase-five",
                     "evolve": "var:preset|color|phase-six-strong",
-                    "evolve-on-dark": "var:preset|color|phase-six"
+                    "evolve-on-dark": "var:preset|color|phase-six",
+                    "evolve-on-dark-card": "var:preset|color|phase-six-mid"
                 },
                 "status": {
                     "success": "var:preset|color|success-strong"

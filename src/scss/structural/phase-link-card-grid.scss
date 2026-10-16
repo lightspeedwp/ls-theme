@@ -1,0 +1,69 @@
+/********** Section - Phase Link Card Grid (About "Our Process" page) **********/
+
+/*
+ * Six whole-card links, one per lifecycle phase, on a permanently dark band
+ * (patterns/sections/phase-link-card-grid.php). The card shell, stretched link and focus ring come
+ * from Card - Service Tile (styles/sections/cards/card-service-tile.json); the arrow link and its
+ * slide-on-hover come from Link Arrow Accent (links.scss). This file only supplies the dark
+ * surface, the per-phase accent and the hover lift.
+ *
+ * The resting background and border are set here rather than as block attributes on purpose: an
+ * inline `style="..."` would always outrank the :hover rules below (same class of bug documented
+ * in blog-hero.scss).
+ */
+
+// JSON limitation: hover/focus-within states and per-phase custom properties have no theme.json
+// key for an arbitrary is-style variant — see AGENTS.md Theme-First Approach. Doubled class for
+// specificity over card-service-tile.json's own css and services-service-tiles.scss.
+.is-style-card-service-tile.ls-phase-link-card {
+  background-color: var(--wp--custom--color--surface--on-dark-card);
+  border-color: color-mix(in srgb, var(--wp--custom--color--text--on-dark) 10%, transparent);
+  transition: background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+
+  &:hover,
+  &:focus-within {
+    background-color: color-mix(in srgb, var(--ls-phase-link-card-accent) 12%, var(--wp--custom--color--surface--on-dark-card));
+    transform: translateY(var(--wp--custom--animation--lift--md));
+  }
+}
+
+// JSON limitation: one accent custom property per phase modifier class, read by the border,
+// arrow link and tint above. Doubled class so it outranks card-service-tile.json's own
+// --ls-card-service-tile-border-active default. Uses the phases' on-dark colours because the band is always dark.
+//
+// Evolve's plain on-dark violet is only 3.82:1 on the dark-mode card (and lower again on the hover
+// tint), so it uses phase.evolve-on-dark-card instead — a lighter violet that clears WCAG AA in both
+// modes (theme.json and styles/dark.json). The other five phases already pass with their on-dark token.
+$ls-phase-accent-tokens: (
+  discover: discover-on-dark,
+  create: create-on-dark,
+  build: build-on-dark,
+  launch: launch-on-dark,
+  grow: grow-on-dark,
+  evolve: evolve-on-dark-card,
+);
+
+@each $ls-phase, $ls-phase-token in $ls-phase-accent-tokens {
+  .is-style-card-service-tile.ls-phase-link-card--#{$ls-phase} {
+    --ls-phase-link-card-accent: var(--wp--custom--color--phase--#{$ls-phase-token});
+    --ls-card-service-tile-border-active: var(--ls-phase-link-card-accent);
+    --ls-link-arrow-colour: var(--ls-phase-link-card-accent);
+    --ls-link-arrow-hover-colour: var(--ls-phase-link-card-accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-style-card-service-tile.ls-phase-link-card {
+    transition: none;
+
+    &:hover,
+    &:focus-within {
+      transform: none;
+    }
+  }
+}
