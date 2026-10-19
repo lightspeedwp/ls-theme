@@ -32,3 +32,29 @@
   -webkit-line-clamp: 5;
   line-clamp: 5;
 }
+
+/*
+ * Per-phase colour for the About page "How we work" cards
+ * (patterns/sections/split-header-phase-cards-note.php). Each card is a whole-card
+ * Card - Service Tile link carrying ls-icon-card--phase-{phase}. The title link takes that phase's
+ * accent token at rest (instead of the theme's default link colour), and on hover or keyboard
+ * focus the card's border does too. The token is the strong shade in light mode and the bright
+ * shade in dark mode (theme.json and styles/dark.json). The border-colour transition is the one
+ * Card - Service Tile already has in services-service-tiles.scss.
+ *
+ * JSON limitation: the colour differs per card, so it cannot be one block style or a block
+ * attribute, and block-level :hover/:focus-within has no theme.json pseudo-state key — see
+ * AGENTS.md Theme-First Approach.
+ */
+@each $ls-phase in discover, create, build, launch, grow, evolve {
+  .ls-icon-card-grid .ls-icon-card--phase-#{$ls-phase} {
+    .ls-icon-card__title a {
+      color: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+
+    &:hover,
+    &:focus-within {
+      border-color: var(--wp--custom--color--phase--#{$ls-phase});
+    }
+  }
+}
