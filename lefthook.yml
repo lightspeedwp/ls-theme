@@ -1,0 +1,28 @@
+# Lefthook configuration for ls-theme.
+# Docs: https://lefthook.dev/configuration/
+# Local-only overrides go in lefthook-local.yml (gitignored).
+
+min_version: 1.10.10
+
+pre-commit:
+  # Run the jobs in order and stop at the first failure.
+  piped: true
+  skip:
+    - merge
+    - rebase
+  jobs:
+    # 1. Lint the staged Sass. Errors block the commit; warnings do not.
+    - name: scss-lint
+      glob:
+        - "src/scss/*.scss"
+        - "src/scss/**/*.scss"
+      run: npx stylelint {staged_files}
+      fail_text: "Sass lint failed. Fix the errors above, or run: npx stylelint --fix <file>"
+
+    # 2. Rebuild the compressed CSS and stage it so source and output are committed together.
+    - name: scss-build
+      glob:
+        - "src/scss/*.scss"
+        - "src/scss/**/*.scss"
+      run: npm run build:css && git add assets/css
+      fail_text: "Sass build failed. Run npm run build:css to see the error."
