@@ -459,6 +459,11 @@
                     "color": "#DB016D"
                 },
                 {
+                    "name": "Phase Three Light",
+                    "slug": "phase-three-light",
+                    "color": "#FE85C1"
+                },
+                {
                     "name": "Phase Four",
                     "slug": "phase-four",
                     "color": "#FADC2F"
@@ -596,6 +601,7 @@
                     "create-on-dark": "var:preset|color|phase-two",
                     "build": "var:preset|color|phase-three-strong",
                     "build-on-dark": "var:preset|color|phase-three",
+                    "build-on-dark-card": "var:preset|color|phase-three",
                     "launch": "var:preset|color|phase-four-strong",
                     "launch-on-dark": "var:preset|color|phase-four",
                     "grow": "var:preset|color|phase-five-strong",

@@ -36,13 +36,14 @@
 // arrow link and tint above. Doubled class so it outranks card-service-tile.json's own
 // --ls-card-service-tile-border-active default. Uses the phases' on-dark colours because the band is always dark.
 //
-// Evolve's plain on-dark violet is only 3.82:1 on the dark-mode card (and lower again on the hover
-// tint), so it uses phase.evolve-on-dark-card instead — a lighter violet that clears WCAG AA in both
-// modes (theme.json and styles/dark.json). The other five phases already pass with their on-dark token.
+// Evolve's plain on-dark violet is only 3.82:1 on the dark-mode card, and Build's pink falls to
+// 3.96:1 once the hover/focus tint is applied, so those two use phase.evolve-on-dark-card and
+// phase.build-on-dark-card instead — lighter shades that clear WCAG AA in both modes (theme.json and
+// styles/dark.json). The other four phases already pass with their on-dark token.
 $ls-phase-accent-tokens: (
   discover: discover-on-dark,
   create: create-on-dark,
-  build: build-on-dark,
+  build: build-on-dark-card,
   launch: launch-on-dark,
   grow: grow-on-dark,
   evolve: evolve-on-dark-card,

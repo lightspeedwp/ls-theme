@@ -79,6 +79,7 @@
 					"create-on-dark": "var:preset|color|phase-two",
 					"build": "var:preset|color|phase-three",
 					"build-on-dark": "var:preset|color|phase-three",
+					"build-on-dark-card": "var:preset|color|phase-three-light",
 					"launch": "var:preset|color|phase-four",
 					"launch-on-dark": "var:preset|color|phase-four",
 					"grow": "var:preset|color|phase-five",

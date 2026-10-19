@@ -19,6 +19,21 @@
   position: static;
 }
 
+/*
+ * The centred dropdown above is up to 800px wide and sits against the nav bar, not the viewport, so
+ * at about 1024px its hidden panel can end a few pixels past the right edge (measured at 1027px
+ * against a 1024px viewport, depending on how wide the nav bar is once the fonts have loaded) and
+ * give the whole page a small horizontal scroll. Clipping only the horizontal axis on the header
+ * removes that without cutting off the open panel, which hangs below the header (overflow-y stays
+ * visible, and `clip`, unlike `hidden`, does not make the header a scroll container).
+ *
+ * JSON limitation: overflow has no theme.json or block-attribute key for the header template part's
+ * wrapper — see AGENTS.md Theme-First Approach.
+ */
+.site-header {
+  overflow-x: clip;
+}
+
 .site-header .wp-block-navigation__submenu-container {
   left: 50%;
   right: auto;
