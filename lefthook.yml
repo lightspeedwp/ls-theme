@@ -20,9 +20,17 @@ pre-commit:
       fail_text: "Sass lint failed. Fix the errors above, or run: npx stylelint --fix <file>"
 
     # 2. Rebuild the compressed CSS and stage it so source and output are committed together.
+    #    build:css compiles the whole working tree, so stop first if any Sass has unstaged changes.
+    #    Otherwise the CSS for a file that is not in the commit would be staged without its source.
     - name: scss-build
       glob:
         - "src/scss/*.scss"
         - "src/scss/**/*.scss"
-      run: npm run build:css && git add assets/css
-      fail_text: "Sass build failed. Run npm run build:css to see the error."
+      run: |
+        if ! git diff --quiet -- src/scss; then
+          echo "Unstaged Sass changes found. Stage or stash them so the compiled CSS matches this commit:" >&2
+          git diff --name-only -- src/scss >&2
+          exit 1
+        fi
+        npm run build:css && git add assets/css
+      fail_text: "Sass build stopped. Stage or stash any unstaged src/scss changes, or run npm run build:css to see a Sass error."
