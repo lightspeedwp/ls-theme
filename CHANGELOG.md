@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Match the About mega menu to the other menus and add Our process (LSA-189)
+
+### Changed
+
+- The About mega menu (`parts/about-mega-menu.html`) is now two columns of three links, built like the Work, Solutions, Pricing and Insights menus, with no category headings: Our Story, Team, Careers, Our Culture, Our process and Diversity. "Our process" (`/about/process/`) is added back, and Community & Events, Publishing & AI Ethics and Privacy & Terms are removed.
+- The About accordion in the mobile menu (`parts/mobile-menu.html`) lists the same six links, plus "About LightSpeed".
+
+### Fixed
+
+- The About mega menu panel no longer opens shifted to the left on DEV: the About-only width rule (`.ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`) that added `left: 50%` and a centring transform on top of the plugin's own placement is removed, so the panel is the standard 800px width and is placed like the other menus.
+
+([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
+
+---
+
 ## [Unreleased] — Fix the About page links, redesign the team cards and restyle the Start a project CTA (LSA-125)
 
 ### Fixed
