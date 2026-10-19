@@ -21,8 +21,8 @@ Both jobs run in order (`piped`) and only when staged files match `src/scss/**/*
 
 | Job | Command | Effect |
 |---|---|---|
-| `scss-lint` | `npx stylelint {staged_files}` | Errors block the commit. Warnings are printed but do not block. |
-| `scss-build` | `npm run build:css && git add assets/css` | Rebuilds the compressed CSS and stages it, so source and output are committed together. A Sass error blocks the commit. It first stops the commit if any file in `src/scss` has unstaged changes (see below). |
+| `scss-lint` | `npx --no-install stylelint {staged_files}` | Errors block the commit. Warnings are printed but do not block. |
+| `scss-build` | `npm run build:css`, then `git add` of the CSS files it wrote | Rebuilds the compressed CSS and stages only the files `build:css` writes (read from its `sass` arguments in `package.json`), so source and output are committed together and an unrelated edit to another tracked file in `assets/css`, such as `gsap-animations.min.css`, is never swept in. A Sass error blocks the commit. It first runs the guard below. |
 
 Stylelint config: `.stylelintrc.json` (`@wordpress/stylelint-config/scss`). Rules that conflict with the existing code are turned off or set to warnings:
 
@@ -55,11 +55,15 @@ Personal overrides go in `lefthook-local.yml` (gitignored).
 
 The guard also stops the commit when `git ls-files --others --exclude-standard -- src/scss` finds untracked Sass files, because `git diff` does not see brand-new files. Without this, a staged file could import a new partial you forgot to `git add`, and the committed CSS could not be rebuilt from the committed source. Add the file, or delete it, and commit again.
 
+The guard also blocks `git commit <file>` (and `--only`) when Sass is staged. Git runs hooks for those commits against a temporary index, so the CSS staged by the hook would be committed but then dropped from your real index, leaving a staged revert behind. Run `git add <file>`, then `git commit`. Plain `git commit`, `git commit -a`, `--include` and `--amend` all work.
+
 A file that is only partly staged is fine: Lefthook hides its unstaged part during the hook, so the CSS is built from the staged part and the unstaged edit is kept in your working tree.
 
 ## Known limits
 
-- `build:css` lists every file by hand. A new Sass entry file must be added to that script or it will not be built.
+- `build:css` lists every file by hand. A new Sass entry file must be added to that script or it will not be built, and it will not be staged by the hook.
+- The hook needs `node`, `npm` and `npx` on the `PATH`. A Git client that does not load your shell environment may block commits with `npx: command not found`. Commit from a terminal, or use `git commit --no-verify` for that commit.
+- Staging only the deletion of a Sass file does not trigger the hook, so its compiled CSS is not removed automatically.
 
 ## Requirements
 
@@ -75,6 +79,11 @@ Node `^20.19.0 || >=22.13.0` (`engines` in `package.json`), as required by Style
 | One Sass file staged, a different one unstaged, via `git commit` | Commit blocked by the guard, the unstaged file is listed, no CSS is staged |
 | Staged Sass file imports a new untracked partial, via `git commit` | Commit blocked by the guard, the untracked file is listed, no CSS is staged |
 | Same partial after `git add` | Passes, the partial and the compiled CSS are staged |
+| One Sass file staged, plus an unrelated unstaged edit to `assets/css/gsap-animations.min.css`, via `git commit` | Passes, the commit holds the Sass and its CSS only, and the `.min.css` edit stays unstaged |
+| `git commit <file>` with Sass staged | Commit blocked with a message to use `git add` first |
+| `git commit -a`, `git commit --include <file>` and `git commit --amend` | Pass, with the compiled CSS in the commit |
+| New partial imported by a staged file, both added | Passes, the partial and the CSS are staged together |
+| Commit with no Sass staged | Both jobs skip |
 | Two Sass files, both staged | Passes, both compiled CSS files are staged |
 | One Sass file partly staged | Passes, the staged CSS is built from the staged part only and the unstaged edit stays in the working tree |
 

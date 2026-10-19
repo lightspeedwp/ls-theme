@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `lefthook.yml`: a `pre-commit` hook that runs when Sass in `src/scss/` is staged and is skipped during merges and rebases. It lints the staged Sass with Stylelint, then runs `npm run build:css` and stages `assets/css`, so Sass source and compiled CSS are committed together. A Stylelint error or a Sass error blocks the commit, and so does an unstaged change in, or an untracked file under, `src/scss`, so compiled CSS is never committed without its source.
+- `lefthook.yml`: a `pre-commit` hook that runs when Sass in `src/scss/` is staged and is skipped during merges and rebases. It lints the staged Sass with Stylelint, then runs `npm run build:css` and stages only the compiled CSS files it writes, so Sass source and compiled CSS are committed together and other files in `assets/css` are left alone. A Stylelint error or a Sass error blocks the commit, and so does an unstaged change in, or an untracked file under, `src/scss`, so compiled CSS is never committed without its source. `git commit <file>` is blocked when Sass is staged, because Git would drop the staged CSS from the index.
 - `.stylelintrc.json`: extends `@wordpress/stylelint-config/scss`. The class-name pattern and formatting rules that the existing Sass breaks are turned off, and three smaller rules are warnings only, so the current code passes with no errors.
 - `lefthook`, `stylelint`, `@wordpress/stylelint-config` and `stylelint-scss` as devDependencies, and a `lint:scss` npm script. `npm install` installs the hook.
 - `.github/reports/lefthook-setup.md`: install steps, everyday commands, how to bypass the hook, known limits and verification results.

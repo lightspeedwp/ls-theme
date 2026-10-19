@@ -16,10 +16,10 @@ pre-commit:
       glob:
         - "src/scss/*.scss"
         - "src/scss/**/*.scss"
-      run: npx stylelint {staged_files}
+      run: npx --no-install stylelint {staged_files}
       fail_text: "Sass lint failed. Fix the errors above, or run: npx stylelint --fix <file>"
 
-    # 2. Rebuild the compressed CSS and stage it so source and output are committed together.
+    # 2. Rebuild the compressed CSS and stage the files it writes, so source and output are committed together.
     #    build:css compiles the whole working tree, so stop first if any Sass has unstaged changes
     #    or is untracked (git diff does not see new files). Otherwise the CSS would be staged
     #    without a source file that is not in the commit.
@@ -28,6 +28,14 @@ pre-commit:
         - "src/scss/*.scss"
         - "src/scss/**/*.scss"
       run: |
+        # git commit <file> (or --only) runs hooks against a temporary index, so the CSS staged here
+        # would be committed but then dropped from your real index, leaving a staged revert behind.
+        case "${GIT_INDEX_FILE:-}" in
+          */next-index-*)
+            echo "Committing with a file path (git commit <file>) is not supported for Sass. Run git add <file>, then git commit." >&2
+            exit 1
+            ;;
+        esac
         if ! git diff --quiet -- src/scss; then
           echo "Unstaged Sass changes found. Stage or stash them so the compiled CSS matches this commit:" >&2
           git diff --name-only -- src/scss >&2
@@ -38,5 +46,13 @@ pre-commit:
           git ls-files --others --exclude-standard -- src/scss >&2
           exit 1
         fi
-        npm run build:css && git add assets/css
+        npm run build:css || exit 1
+        # Stage only the files build:css writes (read from its sass arguments in package.json),
+        # not everything in assets/css, so an unrelated edit to a tracked file there is not committed.
+        outputs=$(node -e 'const s=JSON.parse(require("fs").readFileSync("package.json","utf8")).scripts["build:css"];console.log([...s.matchAll(/:(assets\/css\/\S+\.css)/g)].map(m=>m[1]).join("\n"))') || exit 1
+        if [ -z "$outputs" ]; then
+          echo "Could not read the build:css output files from package.json." >&2
+          exit 1
+        fi
+        git add -- $outputs
       fail_text: "Sass build stopped. Stage, stash or remove any unstaged or untracked src/scss files, or run npm run build:css to see a Sass error."
