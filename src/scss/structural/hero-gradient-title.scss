@@ -1,0 +1,42 @@
+/********** Hero - Centered Gradient Title (About "Our Process" page) **********/
+
+/*
+ * Reuses Hero - Phase's wrapper class (ls-phase-hero, phase-hero.scss) for the grid texture, glow
+ * and dark base, so this file only holds what that hero cannot express for a page that is not one
+ * of the six phase pages (patterns/hero/hero-centered-gradient-title.php).
+ */
+
+// JSON limitation: a custom property override scoped to one hero has no theme.json equivalent —
+// see AGENTS.md Theme-First Approach. Hero - Phase reads --ls-phase-accent-on-dark (set per phase
+// by the page-slug-{phase} body class), which falls back to Discover's green on any other page.
+// This hero is not a phase page, so it points the same property at text.brand-on-dark (cyan in
+// the dark style variation, blue in the light one) for the pill, dot and radial glow.
+.ls-hero-gradient-title {
+  --ls-phase-accent-on-dark: var(--wp--custom--color--text--brand-on-dark);
+}
+
+// JSON limitation: the current-page crumb in phase-hero.scss reads the accent; this hero keeps it
+// white like the rest of the trail's emphasis. Doubled class for specificity over that rule.
+.ls-phase-hero.ls-hero-gradient-title .breadcrumb_last {
+  color: var(--wp--custom--color--text--on-dark);
+}
+
+// JSON limitation: gradient text needs background-clip: text, which has no theme.json key.
+// The stops walk the six lifecycle phases in order, using their on-dark colours.
+.ls-hero-gradient-title__accent {
+  background-image: linear-gradient(
+    135deg,
+    var(--wp--custom--color--phase--discover-on-dark) 0%,
+    var(--wp--custom--color--phase--create-on-dark) 20%,
+    var(--wp--custom--color--phase--build-on-dark) 40%,
+    var(--wp--custom--color--phase--launch-on-dark) 60%,
+    var(--wp--custom--color--phase--grow-on-dark) 80%,
+    var(--wp--custom--color--phase--evolve-on-dark) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}

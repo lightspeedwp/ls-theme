@@ -84,6 +84,8 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/cta-buttons.css' );
 	add_editor_style( 'assets/css/home-hero.css' );
 	add_editor_style( 'assets/css/phase-hero.css' );
+	add_editor_style( 'assets/css/hero-gradient-title.css' );
+	add_editor_style( 'assets/css/phase-link-card-grid.css' );
 	add_editor_style( 'assets/css/services-hero.css' );
 	add_editor_style( 'assets/css/solutions-hero.css' );
 	add_editor_style( 'assets/css/solutions-case-study.css' );
