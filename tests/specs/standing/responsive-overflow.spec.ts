@@ -1,14 +1,14 @@
 import { test } from '../../fixtures/site';
-import { expectNoHorizontalOverflow } from '../../helpers/responsive';
+import { expectNoElementOverflow, expectNoHorizontalOverflow } from '../../helpers/responsive';
 
-const VIEWPORT_WIDTHS = [320, 375, 768, 1024, 1440];
+const VIEWPORT_WIDTHS = [320, 360, 370, 375, 390, 768, 1024, 1440];
 
 test.describe('Responsive overflow', () => {
 	test('no discovered page overflows horizontally at representative widths', async ({
 		page,
 		siteUrls,
 	}, testInfo) => {
-		testInfo.setTimeout(testInfo.timeout + siteUrls.length * VIEWPORT_WIDTHS.length * 800);
+		testInfo.setTimeout(testInfo.timeout + siteUrls.length * VIEWPORT_WIDTHS.length * 1200);
 		for (const { url } of siteUrls) {
 			await test.step(url, async () => {
 				await page.goto(url);
@@ -16,6 +16,7 @@ test.describe('Responsive overflow', () => {
 					await test.step(`${width}px`, async () => {
 						await page.setViewportSize({ width, height: 900 });
 						await expectNoHorizontalOverflow(page, width);
+						await expectNoElementOverflow(page, width);
 					});
 				}
 			});

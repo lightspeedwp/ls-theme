@@ -28,6 +28,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Keep the Contact hero form in the hero with a sticky intro and token-driven form styling (LSA-188)
+
+### Changed
+
+- `patterns/hero/hero-split-form.php` (Hero - Split Form): both columns align to the top, the left column carries the `ls-hero-form-intro` class, the H1 uses size token `800` and the form card padding is `spacing|40`. Pages that already contain a copy of the hero keep their old settings until the hero is re-inserted.
+- The Contact form (Gravity Forms) now follows the theme's tokens in light and dark mode: labels, descriptions, input text and borders, the Submit button and the required asterisk, all at the 16px size token. The field gap is tighter, the message box is shorter and the sub-labels are visually hidden (still available to screen readers). Validation error colours are unchanged.
+- The left column stays in view on desktop while the taller form scrolls.
+
+### Added
+
+- `src/scss/structural/hero-split-form.scss`, compiled to `assets/css/hero-split-form.css`: the sticky intro and the Gravity Forms colour, size and spacing mapping, scoped to the form card's `contact-form` anchor. Loaded on the Contact page (`is_page( 'contact' )`) and wherever the hero renders.
+
+([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
+
+---
+
 ## [Unreleased] — Add the Contact page patterns and raise Link Row card padding (LSA-188)
 
 ### Added
@@ -42,6 +58,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Card - Link Row` padding is now `spacing|30` on all four sides (was `spacing|20`), set in `styles/sections/cards/card-link-row.json`, so every card that uses it is slightly roomier. The phase "Where to go next" cards keep their own padding.
 
 ([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+
+---
+
+## [Unreleased] — Catch buttons overflowing their own container on mobile (LSA-187)
+
+### Added
+
+- An element-level overflow check in the standing responsive-overflow spec. It fails when a button starts left of the viewport, ends past its right edge, or sits more than 1px outside its button row or bordered/backgrounded panel. The document-width check missed this: on `/free-consultation/` at 370px, 307px buttons spilled out of a 254px panel while the suite passed.
+- Failures name the section, button text, overflowing side, container, and element and container widths, and BugHerd groups them by section, button text and side rather than by page or width.
+
+### Changed
+
+- The responsive-overflow spec now runs at 320, 360, 370, 375, 390, 768, 1024 and 1440px (360 and 370 are new) and also runs on the Mobile Chrome project.
+- README testing section documents the check, its exclusions and how to run it on one page.
+
+([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
 
 ---
 
