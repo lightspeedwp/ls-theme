@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add a Lefthook pre-commit Sass lint and build (LSA-191)
+
+### Added
+
+- `lefthook.yml`: a `pre-commit` hook that runs when Sass in `src/scss/` is staged and is skipped during merges and rebases. It lints the staged Sass with Stylelint, then runs `npm run build:css` and stages `assets/css`, so Sass source and compiled CSS are committed together. A Stylelint error or a Sass error blocks the commit.
+- `.stylelintrc.json`: extends `@wordpress/stylelint-config/scss`. The class-name pattern and formatting rules that the existing Sass breaks are turned off, and three smaller rules are warnings only, so the current code passes with no errors.
+- `lefthook`, `stylelint`, `@wordpress/stylelint-config` and `stylelint-scss` as devDependencies, and a `lint:scss` npm script. `npm install` installs the hook.
+- `.github/reports/lefthook-setup.md`: install steps, everyday commands, how to bypass the hook, known limits and verification results.
+
+### Changed
+
+- `.gitignore` now ignores `lefthook-local.yml` and `.lefthook-local.yml` for personal hook overrides.
+
+([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+
+---
+
 ## [Unreleased] — Rebuild the About mega menu and widen mega menu side padding (LSA-125)
 
 ### Changed
