@@ -124,6 +124,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/search-results.css' );
 	add_editor_style( 'assets/css/search-hero.css' );
 	add_editor_style( 'assets/css/legal-page.css' );
+	add_editor_style( 'assets/css/hero-split-form.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

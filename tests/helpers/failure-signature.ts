@@ -126,6 +126,17 @@ export function extractFailureSignature(rawMessage: string): string {
 		return `overflow:${firstOffender || 'unspecified'}`;
 	}
 
+	// responsive-overflow (button/container check): group by the section, the button text and the
+	// overflowing side of the first offender. Width, page URL and pixel sizes are left out on purpose,
+	// so one defect found on many pages and widths is one task. The message shape is a contract with
+	// expectNoElementOverflow() in helpers/responsive.ts.
+	const buttonOverflowMatch = message.match(
+		/Button overflow at \d+px on \S+: \d+ element\(s\) outside their container\n\s*([^|\n]+?) \| "([^|\n]*)" \| (left\+right|left|right) of/
+	);
+	if (buttonOverflowMatch) {
+		return `button-overflow:${buttonOverflowMatch[1]}|${buttonOverflowMatch[2]}|${buttonOverflowMatch[3]}`;
+	}
+
 	// internal-links: placeholder href="#" links are a single class of
 	// content defect (shared header/nav markup, not a per-page bug) — group
 	// every page's occurrences into one task rather than one per page.
@@ -210,6 +221,10 @@ export function humanizeSignature(signature: string): string {
 	}
 	if (signature.startsWith('overflow:')) {
 		return `Horizontal overflow: ${signature.slice('overflow:'.length)}`;
+	}
+	if (signature.startsWith('button-overflow:')) {
+		const [section, text, side] = signature.slice('button-overflow:'.length).split('|');
+		return `Button overflows its container (${side}): "${text}" in ${section}`;
 	}
 	if (signature === 'placeholder-links') {
 		return 'Placeholder href="#" links found (real destinations needed)';
@@ -470,6 +485,8 @@ export function deriveCategoryTags(
 		tags.add('issue:broken-link');
 	} else if (signature.startsWith('axe:')) {
 		tags.add('type:a11y');
+	} else if (signature.startsWith('button-overflow:')) {
+		tags.add('block:button');
 	} else if (signature.startsWith('overflow:')) {
 		// The overflow check runs at several widths — mobile, tablet, and
 		// desktop (see responsive-overflow.spec.ts's VIEWPORT_WIDTHS and

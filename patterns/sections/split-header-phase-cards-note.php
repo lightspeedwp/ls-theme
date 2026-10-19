@@ -4,7 +4,7 @@
  * Slug: ls-theme/split-header-phase-cards-note
  * Categories: featured
  * Block Types: core/pattern
- * Description: A "how we work" section on the page canvas: a split header (dot eyebrow and H2 on the left, a short paragraph bottom-aligned on the right) above a three-column grid of six flat cards (Card - Plain: no shadow and no hover lift, because they are not links), one per lifecycle phase. Each card has a phase-tinted Icon block well, a two-digit index, an H3 and a short paragraph, all coloured with that phase's own accent token (Discover, Create, Build, Launch, Grow, Evolve), which adapts between light and dark mode. Below the grid sits a bordered surface.card note (centred, 800px max width) with a brand Icon block and a bold lead-in. Authored for the About page "How we work" section. Falls back to core/group and core/columns because no semantic core block fits a phase card grid. Cards share one height and clamp long copy via the existing split-header-icon-card-grid SCSS (ls-icon-card-grid / ls-icon-card classes). No new SCSS.
+ * Description: A "how we work" section on the page canvas: a split header (dot eyebrow and H2 on the left, a short paragraph bottom-aligned on the right) above a three-column grid of six whole-card links (Card - Service Tile, each a stretched link on its H3) to the lifecycle phase pages (/services/discover/, /create/, /build/, /launch/, /grow/ and /evolve/), one per phase. Each card's title link takes that phase's own accent colour, and its border does too on hover and focus. Each card has a phase-tinted Icon block well, a two-digit index, an H3 and a short paragraph, all coloured with that phase's own accent token (Discover, Create, Build, Launch, Grow, Evolve), which adapts between light and dark mode. Below the grid sits a bordered surface.card note (centred, 800px max width) with a brand Icon block and a bold lead-in. Authored for the About page "How we work" section. Falls back to core/group and core/columns because no semantic core block fits a phase card grid. Cards share one height and clamp long copy via the existing split-header-icon-card-grid SCSS (ls-icon-card-grid / ls-icon-card classes), which also holds the per-phase hover colours. No new SCSS file.
  * Keywords: process, phases, lifecycle, stages, cards, how we work, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -15,6 +15,7 @@
 $ls_phase_cards = array(
 	array(
 		'phase'       => 'discover',
+		'path'        => '/services/discover/',
 		'icon'        => 'search',
 		'index'       => '01',
 		'title'       => __( 'Discover', 'ls-theme' ),
@@ -22,6 +23,7 @@ $ls_phase_cards = array(
 	),
 	array(
 		'phase'       => 'create',
+		'path'        => '/services/create/',
 		'icon'        => 'paint-brush',
 		'index'       => '02',
 		'title'       => __( 'Create', 'ls-theme' ),
@@ -29,6 +31,7 @@ $ls_phase_cards = array(
 	),
 	array(
 		'phase'       => 'build',
+		'path'        => '/services/build/',
 		'icon'        => 'code',
 		'index'       => '03',
 		'title'       => __( 'Build', 'ls-theme' ),
@@ -36,6 +39,7 @@ $ls_phase_cards = array(
 	),
 	array(
 		'phase'       => 'launch',
+		'path'        => '/services/launch/',
 		'icon'        => 'rocket',
 		'index'       => '04',
 		'title'       => __( 'Launch', 'ls-theme' ),
@@ -43,6 +47,7 @@ $ls_phase_cards = array(
 	),
 	array(
 		'phase'       => 'grow',
+		'path'        => '/services/grow/',
 		'icon'        => 'trending-up',
 		'index'       => '05',
 		'title'       => __( 'Grow', 'ls-theme' ),
@@ -50,6 +55,7 @@ $ls_phase_cards = array(
 	),
 	array(
 		'phase'       => 'evolve',
+		'path'        => '/services/evolve/',
 		'icon'        => 'arrows-clockwise',
 		'index'       => '06',
 		'title'       => __( 'Evolve', 'ls-theme' ),
@@ -100,8 +106,8 @@ $ls_phase_cards = array(
 
 			<?php foreach ( $ls_phase_cards as $ls_phase_card ) : ?>
 				<?php $ls_phase_colour = 'var(--wp--custom--color--phase--' . $ls_phase_card['phase'] . ')'; ?>
-			<!-- wp:group {"tagName":"article","className":"is-style-card-plain ls-icon-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} -->
-			<article class="wp-block-group is-style-card-plain ls-icon-card">
+			<!-- wp:group {"tagName":"article","className":"is-style-card-service-tile ls-icon-card ls-icon-card--phase-<?php echo esc_attr( $ls_phase_card['phase'] ); ?>","layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} -->
+			<article class="wp-block-group is-style-card-service-tile ls-icon-card ls-icon-card--phase-<?php echo esc_attr( $ls_phase_card['phase'] ); ?>">
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
 					<!-- wp:group {"style":{"border":{"color":"color-mix(in srgb, <?php echo esc_attr( $ls_phase_colour ); ?> 30%, transparent)","radius":"var:preset|border-radius|200","style":"solid","width":"1px"},"color":{"background":"color-mix(in srgb, <?php echo esc_attr( $ls_phase_colour ); ?> 10%, transparent)"},"spacing":{"padding":{"top":"var:preset|spacing|10","right":"var:preset|spacing|10","bottom":"var:preset|spacing|10","left":"var:preset|spacing|10"}}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
@@ -117,7 +123,7 @@ $ls_phase_cards = array(
 				<!-- /wp:group -->
 
 				<!-- wp:heading {"level":3,"className":"ls-icon-card__title","style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold","letterSpacing":"var:custom|typography|letter-spacing|tight"}},"fontSize":"300"} -->
-				<h3 class="wp-block-heading ls-icon-card__title has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight)"><?php echo esc_html( $ls_phase_card['title'] ); ?></h3>
+				<h3 class="wp-block-heading ls-icon-card__title has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight)"><a class="ls-card-service-tile__link" href="<?php echo esc_url( home_url( $ls_phase_card['path'] ) ); ?>"><?php echo esc_html( $ls_phase_card['title'] ); ?></a></h3>
 				<!-- /wp:heading -->
 
 				<!-- wp:paragraph {"className":"ls-icon-card__text","style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"200"} -->
