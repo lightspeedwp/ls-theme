@@ -53,6 +53,8 @@ Personal overrides go in `lefthook-local.yml` (gitignored).
 
 `build:css` compiles every Sass file in the working tree. If a Sass file you are not committing has unstaged edits, its rebuilt CSS would be staged without its source. `scss-build` therefore stops before building when `git diff --quiet -- src/scss` finds unstaged changes, and lists the files. Stage or stash them, then commit again.
 
+The guard also stops the commit when `git ls-files --others --exclude-standard -- src/scss` finds untracked Sass files, because `git diff` does not see brand-new files. Without this, a staged file could import a new partial you forgot to `git add`, and the committed CSS could not be rebuilt from the committed source. Add the file, or delete it, and commit again.
+
 A file that is only partly staged is fine: Lefthook hides its unstaged part during the hook, so the CSS is built from the staged part and the unstaged edit is kept in your working tree.
 
 ## Known limits
@@ -71,6 +73,8 @@ Node `^20.19.0 || >=22.13.0` (`engines` in `package.json`), as required by Style
 | Sass lint error (`bogus-prop-xyz`) via `git commit` | Commit blocked, build skipped, message shown |
 | Sass syntax error via `git commit` | Commit blocked, Sass error shown |
 | One Sass file staged, a different one unstaged, via `git commit` | Commit blocked by the guard, the unstaged file is listed, no CSS is staged |
+| Staged Sass file imports a new untracked partial, via `git commit` | Commit blocked by the guard, the untracked file is listed, no CSS is staged |
+| Same partial after `git add` | Passes, the partial and the compiled CSS are staged |
 | Two Sass files, both staged | Passes, both compiled CSS files are staged |
 | One Sass file partly staged | Passes, the staged CSS is built from the staged part only and the unstaged edit stays in the working tree |
 
