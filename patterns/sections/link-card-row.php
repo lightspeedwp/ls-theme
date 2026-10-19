@@ -39,7 +39,7 @@ $ls_route_cards = array(
 		'title' => __( 'Process', 'ls-theme' ),
 		'text'  => __( 'The six-stage model that reduces risk and keeps work clear.', 'ls-theme' ),
 		'label' => __( 'See our process', 'ls-theme' ),
-		'path'  => '/about/our-process/',
+		'path'  => '/about/process/',
 	),
 	array(
 		'icon'  => 'rocket',

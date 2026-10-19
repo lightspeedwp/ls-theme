@@ -80,7 +80,7 @@ $ls_proof_row_count = count( $ls_proof_rows );
 					<!-- /wp:button -->
 
 					<!-- wp:button {"className":"is-style-outline"} -->
-					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/our-process/' ) ); ?>"><?php echo esc_html__( 'Explore our process', 'ls-theme' ); ?></a></div>
+					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/process/' ) ); ?>"><?php echo esc_html__( 'Explore our process', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->
