@@ -6,7 +6,7 @@
 	"blockTypes": [
 		"core/group"
 	],
-	"description": "Dropdown panel shell for Ollie Menu Designer mega menus. Card surface with a card-family border and popover shadow.",
+	"description": "Dropdown panel shell for Ollie Menu Designer mega menus. Card surface with a card-family border and popover shadow; 40-step side padding so the menu content does not sit against the panel edge.",
 	"styles": {
 		"color": {
 			"background": "var:custom|color|surface|card",
@@ -23,9 +23,9 @@
 			"blockGap": "var:preset|spacing|20",
 			"padding": {
 				"top": "var:preset|spacing|30",
-				"right": "var:preset|spacing|20",
+				"right": "var:preset|spacing|40",
 				"bottom": "var:preset|spacing|30",
-				"left": "var:preset|spacing|20"
+				"left": "var:preset|spacing|40"
 			}
 		}
 	}
