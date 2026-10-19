@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- The header's centred mega menu panel no longer causes a small horizontal scroll at about 1024px wide. `.site-header` now clips overflow on the horizontal axis only (`src/scss/structural/_mega-menu.scss`, compiled to `assets/css/animations.css`), so the open dropdown is not cut off.
+- The header's centred mega menu panel no longer causes a small horizontal scroll at about 1024px wide. `.site-header` now clips overflow on the horizontal axis only (`src/scss/structural/_mega-menu.scss`, compiled to `assets/css/animations.css`). At that width the panel's right edge reached 1027px against a 1024px viewport, so the clip removes only the last 3px, which already sat past the viewport edge. Vertical overflow is unaffected.
 
 ([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
 
