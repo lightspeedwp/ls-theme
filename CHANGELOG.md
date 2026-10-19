@@ -32,13 +32,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `patterns/sections/stat-icon-cards.php` (Section - Stat Icon Cards): a centred intro above three flat stat cards, each with an Icon block well, a large figure, a label and a line of copy.
 - `patterns/sections/card-trio-labelled.php` (Section - Labelled Card Trio): three bordered cards with mono kickers for mission, vision and a row of value pills.
 - `patterns/sections/split-header-icon-card-trio.php` (Section - Split Header Icon Card Trio): a split header above three icon cards, for community and open-source proof.
-- `patterns/sections/split-header-phase-cards-note.php` (Section - Split Header Phase Cards with Note): six lifecycle cards, each in its own phase colour, and a centred AI note.
+- `patterns/sections/split-header-phase-cards-note.php` (Section - Split Header Phase Cards with Note): six lifecycle cards, each a whole-card link to its phase page (`/services/{phase}/`) in its own phase colour, and a centred AI note.
 - `patterns/sections/split-header-labelled-card-row.php` (Section - Split Header Labelled Card Row): a split header above four product cards with mono kickers.
 - `patterns/sections/split-header-profile-card-grid.php` (Section - Split Header Profile Card Grid): eight team cards with initials avatars, names, roles and a focus line.
 - `patterns/sections/split-copy-timeline-card.php` (Section - Split Copy Timeline Card): copy and an outline button beside a six-row milestone timeline.
 - `patterns/sections/link-card-row.php` (Section - Link Card Row): five whole-card links to the About sibling pages (History, Team, Culture, Process and Careers).
 - `patterns/cta/split-cta-form-card.php` (CTA - Split Form Card): closing copy beside the Gravity Forms enquiry form (form ID 2).
-- Copy comes from the About content docs; no tokens, styles or SCSS were added. The pages the route cards link to still need to be created.
+- `src/scss/structural/split-header-icon-card-grid.scss` (compiled to `assets/css/split-header-icon-card-grid.css`): per-phase title and hover/focus border colours for the six phase cards, using the existing phase colour tokens.
+- Copy comes from the About content docs; no tokens were added. The pages the Link Card Row links to still need to be created.
 
 ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
 
