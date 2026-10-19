@@ -72,6 +72,8 @@ function ls_theme_get_bundle_render_markers() {
 		),
 		'home-hero'                 => array( 'classes' => array( 'ls-home-hero-section' ) ),
 		'phase-hero'                => array( 'classes' => array( 'ls-phase-hero' ) ),
+		'hero-gradient-title'       => array( 'classes' => array( 'ls-hero-gradient-title' ) ),
+		'phase-link-card-grid'      => array( 'classes' => array( 'ls-phase-link-card' ) ),
 		'services-hero'             => array( 'classes' => array( 'ls-service-pill' ) ),
 		'solutions-hero'            => array( 'classes' => array( 'ls-specimen-card' ) ),
 		'services-linked-decisions' => array( 'classes' => array( 'ls-process-pill' ) ),
@@ -316,6 +318,19 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'condition' => static function () {
 				return is_page( array( 'discover', 'create', 'build', 'launch', 'grow', 'evolve' ) ) || ls_theme_is_service_page();
 			},
+		),
+		'hero-gradient-title'       => array(
+			'handle'   => 'ls-theme-hero-gradient-title',
+			'path'     => 'assets/css/hero-gradient-title.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Single consumer today (About "Our Process"); relies on render_block marker detection
+			// instead of a page condition, same as services-hero below.
+		),
+		'phase-link-card-grid'      => array(
+			'handle'   => 'ls-theme-phase-link-card-grid',
+			'path'     => 'assets/css/phase-link-card-grid.css',
+			'contexts' => array( 'front', 'editor' ),
+			// Same reasoning as hero-gradient-title above.
 		),
 		'services-hero'             => array(
 			'handle'   => 'ls-theme-services-hero',
