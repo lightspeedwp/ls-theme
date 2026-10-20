@@ -4,7 +4,7 @@
  * Slug: ls-theme/details-card-grid
  * Categories: featured
  * Block Types: core/pattern
- * Description: A "year by year" reference section on a surface.card band: dot eyebrow and H2 on the left, an "Expand all" toggle button on the right, and below them a two-column grid of core Details blocks on surface.canvas, each a mono brand-coloured year, a title and a bulleted list that opens on click. The grid rows stretch, so two cards in a row stay the same height when one or both are open, and "Expand all" opens every card and swaps its label to "Collapse all" (assets/js/details-expand-all.js, which also keeps the label in step when cards are opened one by one). Authored for the About History page "Milestones beyond the headlines" section; duplicate or delete a card freely and edit the years, titles and bullets after inserting. Uses the core Details and Button blocks (the button renders a real button element) and falls back to core/group for the header and the grid. Adapts between light and dark mode through surface, text, border and link tokens. SCSS lives in src/scss/structural/details-card-grid.scss.
+ * Description: A "year by year" reference section on a surface.card band: dot eyebrow and H2 on the left, an "Expand all" toggle button on the right, and below them a two-column grid of core Details blocks on surface.canvas, each a mono brand-coloured year, a title and a bulleted list that opens on click. Only open cards stretch to their row, so two open cards in a row stay the same height while a closed card keeps its own height whatever its neighbour does, and "Expand all" opens every card and swaps its label to "Collapse all" (assets/js/details-expand-all.js, which also keeps the label in step when cards are opened one by one). Authored for the About History page "Milestones beyond the headlines" section; duplicate or delete a card freely and edit the years, titles and bullets after inserting. Uses the core Details and Button blocks (the button renders a real button element) and falls back to core/group for the header and the grid. Adapts between light and dark mode through surface, text, border and link tokens. SCSS lives in src/scss/structural/details-card-grid.scss.
  * Keywords: details, accordion, years, milestones, timeline, history, expand, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -169,13 +169,13 @@ $ls_year_cards = array(
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","columnCount":2,"minimumColumnWidth":"24rem"}} -->
-	<div class="wp-block-group alignwide">
+	<!-- wp:group {"align":"wide","className":"ls-year-card-grid","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"grid","columnCount":2,"minimumColumnWidth":"24rem"}} -->
+	<div class="wp-block-group alignwide ls-year-card-grid">
 		<?php foreach ( $ls_year_cards as $ls_year_card ) : ?>
 		<!-- wp:details {"className":"ls-year-card","fontSize":"200","style":{"border":{"radius":"var:preset|border-radius|300"},"color":{"background":"var:custom|color|surface|canvas"}}} -->
 		<details class="wp-block-details ls-year-card has-background has-200-font-size" style="border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--canvas)"><summary><strong><?php echo esc_html( $ls_year_card['year'] ); ?></strong> <?php echo esc_html( $ls_year_card['title'] ); ?></summary>
-			<!-- wp:list {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"},"typography":{"fontFamily":"var:preset|font-family|body","fontWeight":"var:custom|typography|font-weight|normal"}},"fontSize":"200"} -->
-			<ul class="wp-block-list has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted);font-family:var(--wp--preset--font-family--body);font-weight:var(--wp--custom--typography--font-weight--normal)">
+			<!-- wp:list {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"},"typography":{"fontFamily":"var:preset|font-family|body","fontWeight":"var:custom|typography|font-weight|normal"},"spacing":{"padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|70"}}},"fontSize":"200"} -->
+			<ul class="wp-block-list has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--muted);font-family:var(--wp--preset--font-family--body);font-weight:var(--wp--custom--typography--font-weight--normal);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--70)">
 				<?php foreach ( $ls_year_card['bullets'] as $ls_year_bullet ) : ?>
 				<!-- wp:list-item -->
 				<li><?php echo esc_html( $ls_year_bullet ); ?></li>

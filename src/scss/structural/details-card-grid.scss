@@ -6,7 +6,10 @@
  * hover, open and focus states come from src/scss/animations/_details-motion.scss. This file owns
  * only what those cannot reach: the summary's own weight, which the shared details motion file
  * resets to normal, and the year, which is an inline <strong> inside the summary (the Details
- * block's summary only takes inline formats, so there is no block to style).
+ * block's summary only takes inline formats, so there is no block to style). It also calms the
+ * open-state border: the shared details motion paints every open card's border and summary divider
+ * in the link accent, which reads as a wall of cyan when all thirteen are open, so here they use the
+ * neutral card border tokens and only a hovered, closed card takes the accent.
  */
 
 // JSON limitation: the summary and an inline <strong> inside it are descendants of the Details block,
@@ -22,5 +25,34 @@
     font-weight: var(--wp--custom--typography--font-weight--semibold);
     letter-spacing: var(--wp--custom--typography--letter-spacing--wide);
     color: var(--wp--custom--color--text--brand);
+  }
+}
+
+// JSON limitation: the open state is the `[open]` attribute and the divider is the summary's own
+// border, neither of which has a theme.json key — see AGENTS.md Theme-First Approach
+.ls-year-by-year .wp-block-details.ls-year-card {
+  > summary {
+    padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--40);
+  }
+
+  &[open],
+  &[open]:hover {
+    border-color: var(--wp--custom--color--border--card-strong);
+  }
+
+  &[open] > summary {
+    border-bottom-color: var(--wp--custom--color--border--card);
+  }
+}
+
+// JSON limitation: the Group block's grid layout has no align-items option, and the open state is the
+// `[open]` attribute — see AGENTS.md Theme-First Approach. Cards sit at their own height, so a closed
+// card never grows because its neighbour opened; an open card stretches to its row, so two open cards
+// side by side match each other (an open card beside a closed one is already the tallest).
+.ls-year-card-grid {
+  align-items: start;
+
+  > .ls-year-card[open] {
+    align-self: stretch;
   }
 }
