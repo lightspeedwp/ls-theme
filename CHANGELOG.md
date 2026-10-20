@@ -25,6 +25,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Match the About mega menu to the other menus and add Our process (LSA-189)
+
+### Changed
+
+- The About mega menu (`parts/about-mega-menu.html`) is now two columns of three links, built like the Work, Solutions, Pricing and Insights menus, with no category headings: Our Story, Team, Careers, Our Culture, Our process and Diversity. "Our process" (`/about/process/`) is added back, and Community & Events, Publishing & AI Ethics and Privacy & Terms are removed.
+- The About accordion in the mobile menu (`parts/mobile-menu.html`) lists the same six links, plus "About LightSpeed".
+
+### Fixed
+
+- The About-only width rule (`.ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`), which added `left: 50%` and a centring transform on top of the plugin's own placement, is removed so the About panel is the standard 800px width and is placed like the other menus. DEV validation of the placement is pending.
+
+([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
+
+---
+
+## [Unreleased] — Fix the About page links, redesign the team cards and restyle the Start a project CTA (LSA-125)
+
+### Fixed
+
+- The hero "Explore our process" button and the Process card in Link Card Row now go to `/about/process/`; `/about/our-process/` does not exist on DEV and returned 404.
+- "What we ship" (`patterns/sections/stat-icon-cards.php`) left-aligns its eyebrow, heading and paragraph like the other About sections.
+- The team member "Jose" is now "José Abreu".
+
+### Changed
+
+- The team cards (`patterns/sections/split-header-profile-card-grid.php`) are rebuilt as an image, an identity group (bold name, smaller brand-coloured role) and a description group with a 1px divider. The initials circle is replaced by a 5:4 core Image block, populated with the team photos from the DEV media library, and the cards lift slightly, strengthen their border, show a soft shadow and zoom the photo on hover (`.ls-team-card` in `src/scss/structural/card-shells.scss`, with a reduced-motion companion).
+- The team profile dataset adds Tibi Buzdugan and updates the profile ordering, placing him after Lourens Visser and before Zared Rogers.
+- The "Start a project" CTA (`patterns/cta/split-cta-form-card.php`) reuses the Contact hero treatment: the intro stays in view while the form scrolls, and the Gravity Form takes the theme's colours, sizes and spacing. The Contact form stylesheet now also loads on the About page (`inc/animations.php`).
+- Light-mode `border.card-strong` is now `neutral-400` (was `neutral-300`, the same as `border.card`), so strong borders are visibly stronger; `work-project-card` is the only other consumer.
+
+### Added
+
+- `custom.animation.scale.hover` (`1.025`) in `theme.json`, for the team card photo zoom.
+
+([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+
+---
+
 ## [Unreleased] — Add the About "Our Process" hero and phase link card grid patterns (LSA-124)
 
 ### Added

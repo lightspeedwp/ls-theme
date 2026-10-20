@@ -562,7 +562,7 @@
                 },
                 "border": {
                     "card": "var:preset|color|neutral-300",
-                    "card-strong": "var:preset|color|neutral-300",
+                    "card-strong": "var:preset|color|neutral-400",
                     "on-dark": "var:preset|color|neutral-500",
                     "field": "var:preset|color|neutral-600",
                     "glass": "color-mix(in srgb, var(--wp--custom--color--text--on-dark) 50%, transparent)"
@@ -744,7 +744,8 @@
                     }
                 },
                 "scale": {
-                    "active": "0.98"
+                    "active": "0.98",
+                    "hover": "1.025"
                 },
                 "lift": {
                     "sm": "-2px",
