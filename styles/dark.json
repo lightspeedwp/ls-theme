@@ -91,6 +91,10 @@
 				"status": {
 					"success": "var:preset|color|success-foreground"
 				},
+				"gradient": {
+					"accent-start": "var:preset|color|brand-400",
+					"accent-end": "var:preset|color|cta-500"
+				},
 				"text-shadow": {
 					"contrast": "var:preset|color|base",
 					"base": "var:preset|color|contrast"

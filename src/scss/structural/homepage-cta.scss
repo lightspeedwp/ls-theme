@@ -59,9 +59,11 @@
  * infrastructure, not something this one page-specific button should edit). Figma shows this
  * button with no arrow at all, so its well/padding-shift/hover-reveal are neutralised here,
  * scoped to this single class — the shared style and every other is-style-outline button on the
- * site are unaffected.
+ * site are unaffected. The extra `.ls-homepage-cta` ancestor keeps these rules ahead of the shared
+ * style's `::after` regardless of stylesheet load order (both had equal specificity, so
+ * animations.css won whenever it loaded after this file).
  */
-.wp-block-button.ls-homepage-cta-outline .wp-block-button__link {
+.ls-homepage-cta .wp-block-button.ls-homepage-cta-outline .wp-block-button__link {
   padding-inline-start: var(--wp--preset--spacing--40);
   padding-inline-end: var(--wp--preset--spacing--40);
   padding-block: var(--wp--preset--spacing--20);
