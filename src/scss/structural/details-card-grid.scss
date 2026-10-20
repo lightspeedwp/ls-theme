@@ -1,0 +1,26 @@
+/********** Section - Details Card Grid (About History "Milestones beyond the headlines") **********/
+
+/*
+ * The card shell (border, radius, surface), the type size and the bullet list are authored in
+ * patterns/sections/details-card-grid.php and styles/presets/blocks/core-details.json, and the
+ * hover, open and focus states come from src/scss/animations/_details-motion.scss. This file owns
+ * only what those cannot reach: the summary's own weight, which the shared details motion file
+ * resets to normal, and the year, which is an inline <strong> inside the summary (the Details
+ * block's summary only takes inline formats, so there is no block to style).
+ */
+
+// JSON limitation: the summary and an inline <strong> inside it are descendants of the Details block,
+// which has no theme.json key for them — see AGENTS.md Theme-First Approach. The extra ancestor
+// keeps this ahead of the shared details rule, which sets the summary weight to normal.
+.ls-year-by-year .wp-block-details.ls-year-card > summary {
+  font-weight: var(--wp--custom--typography--font-weight--semibold);
+
+  strong {
+    flex: 0 0 auto;
+    min-width: 4ch; // a year is four monospace characters, so the titles line up
+    font-family: var(--wp--preset--font-family--monospace);
+    font-weight: var(--wp--custom--typography--font-weight--semibold);
+    letter-spacing: var(--wp--custom--typography--letter-spacing--wide);
+    color: var(--wp--custom--color--text--brand);
+  }
+}
