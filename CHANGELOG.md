@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- The About mega menu panel no longer opens shifted to the left on DEV: the About-only width rule (`.ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`) that added `left: 50%` and a centring transform on top of the plugin's own placement is removed, so the panel is the standard 800px width and is placed like the other menus.
+- The About-only width rule (`.ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`), which added `left: 50%` and a centring transform on top of the plugin's own placement, is removed so the About panel is the standard 800px width and is placed like the other menus. DEV validation of the placement is pending.
 
 ([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
 
