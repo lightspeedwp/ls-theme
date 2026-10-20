@@ -69,9 +69,13 @@
 }
 
 // JSON limitation: the dot sits on the line, so it is absolutely positioned, and its lit and
-// unlit states depend on a class the script toggles — see AGENTS.md Theme-First Approach
-.ls-scroll-timeline__dot {
+// unlit states depend on a class the script toggles — see AGENTS.md Theme-First Approach.
+// The three-class selector is needed in the editor, where `.block-editor-block-list__layout
+// .block-editor-block-list__block { position: relative }` would otherwise win and leave the dot
+// in the flex row; z-index keeps it above the cards, which the editor also makes positioned.
+.ls-scroll-timeline .ls-scroll-timeline__node > .ls-scroll-timeline__dot {
   position: absolute;
+  z-index: 1;
   top: var(--ls-timeline-dot-top);
   left: var(--ls-timeline-line-x);
   display: flex;
@@ -114,7 +118,7 @@
       opacity: 0;
       transform: translateY(var(--wp--preset--spacing--10));
 
-      .ls-scroll-timeline__dot {
+      > .ls-scroll-timeline__dot {
         color: var(--wp--custom--color--border--card-strong);
         box-shadow: none;
       }
@@ -145,7 +149,7 @@
     }
   }
 
-  .ls-scroll-timeline__dot {
+  .ls-scroll-timeline .ls-scroll-timeline__node > .ls-scroll-timeline__dot {
     left: 0.5rem;
   }
 }
