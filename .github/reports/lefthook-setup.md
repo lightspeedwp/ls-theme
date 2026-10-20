@@ -62,6 +62,7 @@ A file that is only partly staged is fine: Lefthook hides its unstaged part duri
 ## Known limits
 
 - `build:css` lists every file by hand. A new Sass entry file must be added to that script or it will not be built, and it will not be staged by the hook.
+- `npm run lint:scss` (all Sass) currently reports 1 error: a bare `//` comment line at line 38 of `src/scss/structural/phase-link-card-grid.scss` (`scss/comment-no-empty`), which arrived with #121. The hook only lints staged files, so it blocks the next commit that touches that file until the line is removed or the rule is relaxed in `.stylelintrc.json`. CI does not run `lint:scss`.
 - The hook needs `node`, `npm` and `npx` on the `PATH`. A Git client that does not load your shell environment may block commits with `npx: command not found`. Commit from a terminal, or use `git commit --no-verify` for that commit.
 - Staging only the deletion of a Sass file does not trigger the hook, so its compiled CSS is not removed automatically.
 
