@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix the About page links, redesign the team cards and restyle the Start a project CTA (LSA-125)
+
+### Fixed
+
+- The hero "Explore our process" button and the Process card in Link Card Row now go to `/about/process/`; `/about/our-process/` does not exist on DEV and returned 404.
+- "What we ship" (`patterns/sections/stat-icon-cards.php`) left-aligns its eyebrow, heading and paragraph like the other About sections.
+- The team member "Jose" is now "José Abreu".
+
+### Changed
+
+- The team cards (`patterns/sections/split-header-profile-card-grid.php`) are rebuilt as an image, an identity group (bold name, smaller brand-coloured role) and a description group with a 1px divider. The initials circle is replaced by a 5:4 core Image block, populated with the team photos from the DEV media library, and the cards lift slightly, strengthen their border, show a soft shadow and zoom the photo on hover (`.ls-team-card` in `src/scss/structural/card-shells.scss`, with a reduced-motion companion).
+- The "Start a project" CTA (`patterns/cta/split-cta-form-card.php`) reuses the Contact hero treatment: the intro stays in view while the form scrolls, and the Gravity Form takes the theme's colours, sizes and spacing. The Contact form stylesheet now also loads on the About page (`inc/animations.php`).
+- Light-mode `border.card-strong` is now `neutral-400` (was `neutral-300`, the same as `border.card`), so strong borders are visibly stronger; `work-project-card` is the only other consumer.
+
+### Added
+
+- `custom.animation.scale.hover` (`1.025`) in `theme.json`, for the team card photo zoom.
+
+([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+
+---
+
 ## [Unreleased] — Add the About "Our Process" hero and phase link card grid patterns (LSA-124)
 
 ### Added

@@ -693,9 +693,11 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/hero-split-form.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// Sticky intro column and the Gravity Forms colour, size and spacing mapping for the Contact
-			// hero; the render-marker fallback loads it wherever the pattern renders.
+			// hero and the About page's "Start a project" CTA (CTA - Split Form Card, which reuses
+			// the same intro class and form anchor); the render-marker fallback loads it wherever
+			// either pattern renders.
 			'condition' => static function () {
-				return is_page( 'contact' );
+				return is_page( array( 'contact', 'about' ) );
 			},
 		),
 		'legal-page'                => array(

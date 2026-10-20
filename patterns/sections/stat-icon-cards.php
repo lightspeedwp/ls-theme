@@ -4,7 +4,7 @@
  * Slug: ls-theme/stat-icon-cards
  * Categories: featured
  * Block Types: core/pattern
- * Description: A proof section on the page canvas: a centered eyebrow, H2 and paragraph above a responsive grid of flat stat cards (Card - Plain: no shadow and no hover lift, because they are not links), each with a circular brand-tinted Icon block well, a large brand-coloured figure, a label and a line of supporting copy. The grid is a core/group with the grid layout and a minimum column width, so any number of cards wraps cleanly; duplicate or delete a card freely. Authored for the About page "What we ship" section. Falls back to core/group because no semantic core block fits a stat card. Adapts between light and dark mode through text, surface and border tokens. No new SCSS.
+ * Description: A proof section on the page canvas: a left-aligned eyebrow, H2 and paragraph above a responsive grid of flat stat cards (Card - Plain: no shadow and no hover lift, because they are not links), each with a circular brand-tinted Icon block well, a large brand-coloured figure, a label and a line of supporting copy. The grid is a core/group with the grid layout and a minimum column width, so any number of cards wraps cleanly; duplicate or delete a card freely. Authored for the About page "What we ship" section. Falls back to core/group because no semantic core block fits a stat card. Adapts between light and dark mode through text, surface and border tokens. No new SCSS.
  * Keywords: stats, numbers, proof, icons, cards, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -39,10 +39,10 @@ $ls_stat_cards = array(
 <!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="margin-top:0">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"680px"}} -->
+	<!-- wp:group {"align":"wide","layout":{"type":"constrained","contentSize":"680px","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
 
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"}} -->
+		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 		<div class="wp-block-group">
 			<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
 
@@ -52,12 +52,12 @@ $ls_stat_cards = array(
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"600"} -->
-		<h2 class="wp-block-heading has-text-align-center has-600-font-size" style="margin-top:var(--wp--preset--spacing--10);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'The work in numbers.', 'ls-theme' ); ?></h2>
+		<!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold"},"spacing":{"margin":{"top":"var:preset|spacing|10"}}},"fontSize":"600"} -->
+		<h2 class="wp-block-heading has-600-font-size" style="margin-top:var(--wp--preset--spacing--10);font-weight:var(--wp--custom--typography--font-weight--extrabold)"><?php echo esc_html__( 'The work in numbers.', 'ls-theme' ); ?></h2>
 		<!-- /wp:heading -->
 
-		<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}},"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
-		<p class="has-text-align-center has-text-color has-300-font-size" style="margin-top:var(--wp--preset--spacing--20);color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'A grounded view of what working with LightSpeed produces: delivered projects, maintainable platforms and a process that keeps improving them after launch.', 'ls-theme' ); ?></p>
+		<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}},"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
+		<p class="has-text-color has-300-font-size" style="margin-top:var(--wp--preset--spacing--20);color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'A grounded view of what working with LightSpeed produces: delivered projects, maintainable platforms and a process that keeps improving them after launch.', 'ls-theme' ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->

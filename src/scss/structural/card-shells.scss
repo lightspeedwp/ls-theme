@@ -379,3 +379,57 @@
     transform: none;
   }
 }
+
+/*
+ * Team card (.ls-team-card, patterns/sections/split-header-profile-card-grid.php). Everything that
+ * block attributes can express — radius, padding, gaps, typography, the 5:4 photo, the divider —
+ * is set on the pattern's blocks. What is left is the hover interaction: the card lifts, its
+ * border strengthens, a soft shadow appears and the photo zooms, all through existing tokens
+ * (animation duration/easing/lift/scale, border.card-strong, elevation shadow). The cards are not
+ * links, so there is no pointer cursor and no focus treatment.
+ *
+ * JSON limitation: block-level :hover has no theme.json pseudo-state key, and a child-image zoom
+ * plus overflow clipping cannot be a block attribute — see AGENTS.md Theme-First Approach.
+ */
+.ls-team-card {
+  transition:
+    transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  // JSON limitation: overflow has no block attribute here; it clips the zooming photo to its own
+  // rounded corners (the radius matches the image block's border-radius--300).
+  .wp-block-image {
+    overflow: hidden;
+    border-radius: var(--wp--preset--border-radius--300);
+
+    img {
+      transition: transform var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(var(--wp--custom--animation--lift--sm));
+      border-color: var(--wp--custom--color--border--card-strong);
+      box-shadow: var(--wp--preset--shadow--300);
+
+      .wp-block-image img {
+        transform: scale(var(--wp--custom--animation--scale--hover));
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-team-card,
+  .ls-team-card .wp-block-image img {
+    transition: none;
+  }
+
+  .ls-team-card:hover,
+  .ls-team-card:hover .wp-block-image img {
+    transform: none;
+  }
+}
