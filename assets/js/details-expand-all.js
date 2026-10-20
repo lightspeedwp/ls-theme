@@ -11,17 +11,18 @@
 			return;
 		}
 
-		function sync() {
-			const allOpen = Array.prototype.every.call( cards, ( card ) => card.open );
-
-			button.setAttribute( 'aria-pressed', allOpen ? 'true' : 'false' );
-			button.textContent = allOpen ? labels.collapse : labels.expand;
+		function allOpen() {
+			return Array.prototype.every.call( cards, ( card ) => card.open );
 		}
 
-		button.setAttribute( 'aria-pressed', 'false' );
+		// The label names the next action, so it carries the state and the button needs no
+		// aria-pressed (a toggle that keeps aria-pressed must also keep a stable label).
+		function sync() {
+			button.textContent = allOpen() ? labels.collapse : labels.expand;
+		}
 
 		button.addEventListener( 'click', () => {
-			const open = 'true' !== button.getAttribute( 'aria-pressed' );
+			const open = ! allOpen();
 
 			cards.forEach( ( card ) => {
 				card.open = open;
