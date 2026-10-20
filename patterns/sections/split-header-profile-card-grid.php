@@ -26,28 +26,10 @@ $ls_profiles = array(
 		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2023/02/LightSpeed-Team-Barbara-Kerr-Shaw-alt-edited-1.jpg',
 	),
 	array(
-		'name'  => 'Brandon Marshall',
-		'role'  => __( 'WordPress designer and developer', 'ls-theme' ),
-		'focus' => __( 'Design systems, block themes and prototypes', 'ls-theme' ),
-		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/Lightspeed-Team-Brandon-Marshall.png',
-	),
-	array(
-		'name'  => 'Zared Rogers',
-		'role'  => __( 'Designer and site builder', 'ls-theme' ),
-		'focus' => __( 'Practical design and build work, Figma design systems and prototypes', 'ls-theme' ),
-		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/zared-profile.jpeg',
-	),
-	array(
 		'name'  => 'Warwick Booth',
 		'role'  => __( 'Lead developer', 'ls-theme' ),
 		'focus' => __( 'Planning, mentoring, code review and complex development', 'ls-theme' ),
 		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2023/02/LightSpeed-Team-Warwick-Booth-edited-1.jpg',
-	),
-	array(
-		'name'  => 'Lourens Visser',
-		'role'  => __( 'Support and workflow', 'ls-theme' ),
-		'focus' => __( 'Support and workflow coordination across the team', 'ls-theme' ),
-		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2023/02/LightSpeed-Team-Lourens-Visser-alt-edited.jpg',
 	),
 	array(
 		'name'  => 'Chris Vancoillie',
@@ -56,10 +38,34 @@ $ls_profiles = array(
 		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2023/02/LightSpeed-Team-Chris-Vancoillie-alt-edited.jpg',
 	),
 	array(
+		'name'  => 'Lourens Visser',
+		'role'  => __( 'Support and workflow', 'ls-theme' ),
+		'focus' => __( 'Support and workflow coordination across the team', 'ls-theme' ),
+		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2023/02/LightSpeed-Team-Lourens-Visser-alt-edited.jpg',
+	),
+	array(
+		'name'  => 'Tibi Buzdugan',
+		'role'  => __( 'Frontend and backend developer', 'ls-theme' ),
+		'focus' => __( 'WordPress themes, blocks and plugins, turning Figma design systems into web interfaces', 'ls-theme' ),
+		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/LightSpeed-Team-Tibi-Buzdugan.jpg',
+	),
+	array(
+		'name'  => 'Zared Rogers',
+		'role'  => __( 'Designer and site builder', 'ls-theme' ),
+		'focus' => __( 'Practical design and build work, Figma design systems and prototypes', 'ls-theme' ),
+		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/zared-profile.jpeg',
+	),
+	array(
 		'name'  => 'José Abreu',
 		'role'  => __( 'Block theme and block developer', 'ls-theme' ),
 		'focus' => __( 'Block themes and custom blocks for WordPress platforms', 'ls-theme' ),
 		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/LightSpeed-Team-Jose-Abreu-alt.png',
+	),
+	array(
+		'name'  => 'Brandon Marshall',
+		'role'  => __( 'WordPress designer and developer', 'ls-theme' ),
+		'focus' => __( 'Design systems, block themes and prototypes', 'ls-theme' ),
+		'image' => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/Lightspeed-Team-Brandon-Marshall.png',
 	),
 );
 ?>
