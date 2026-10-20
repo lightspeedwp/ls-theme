@@ -4,7 +4,7 @@
  * Slug: ls-theme/details-card-grid
  * Categories: featured
  * Block Types: core/pattern
- * Description: A "year by year" reference section on the page canvas: dot eyebrow and H2 on the left, an "Expand all" toggle button on the right, and below them a two-column grid of core Details blocks on the default surface.card, each a mono brand-coloured year, a title and a bulleted list that opens on click. Only open cards stretch to their row, so two open cards in a row stay the same height while a closed card keeps its own height whatever its neighbour does, and "Expand all" opens every card and swaps its label to "Collapse all" (assets/js/details-expand-all.js, which also keeps the label in step when cards are opened one by one). Authored for the About History page "Milestones beyond the headlines" section; duplicate or delete a card freely and edit the years, titles and bullets after inserting. Uses the core Details and Button blocks (the button renders a real button element) and falls back to core/group for the header and the grid. Adapts between light and dark mode through surface, text, border and link tokens. SCSS lives in src/scss/structural/details-card-grid.scss.
+ * Description: A "year by year" reference section on the page canvas (the shared Content Band style, so its vertical spacing matches the other page sections): dot eyebrow and H2 on the left, an "Expand all" toggle button on the right, and below them a two-column grid of core Details blocks on the default surface.card, each a mono brand-coloured year, a title and a bulleted list that opens on click. Only open cards stretch to their row, so two open cards in a row stay the same height while a closed card keeps its own height whatever its neighbour does, and "Expand all" opens every card and swaps its label to "Collapse all" (assets/js/details-expand-all.js, which also keeps the label in step when cards are opened one by one). Authored for the About History page "Milestones beyond the headlines" section; duplicate or delete a card freely and edit the years, titles and bullets after inserting. Uses the core Details and Button blocks (the button renders a real button element) and falls back to core/group for the header and the grid. Adapts between light and dark mode through surface, text, border and link tokens. SCSS lives in src/scss/structural/details-card-grid.scss.
  * Keywords: details, accordion, years, milestones, timeline, history, expand, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -134,8 +134,8 @@ $ls_year_cards = array(
 	),
 );
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"ls-year-by-year","style":{"color":{"background":"var:custom|color|surface|canvas"},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|30","bottom":"var:preset|spacing|100","left":"var:preset|spacing|30"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull ls-year-by-year has-background" style="background-color:var(--wp--custom--color--surface--canvas);margin-top:0;padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--30)">
+<!-- wp:group {"align":"full","tagName":"section","className":"ls-year-by-year is-style-content-band","style":{"spacing":{"margin":{"top":"0"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ls-year-by-year is-style-content-band" style="margin-top:0">
 
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
 	<div class="wp-block-group alignwide">
