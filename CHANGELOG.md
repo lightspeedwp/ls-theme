@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The team cards (`patterns/sections/split-header-profile-card-grid.php`) are rebuilt as an image, an identity group (bold name, smaller brand-coloured role) and a description group with a 1px divider. The initials circle is replaced by a 5:4 core Image block, populated with the team photos from the DEV media library, and the cards lift slightly, strengthen their border, show a soft shadow and zoom the photo on hover (`.ls-team-card` in `src/scss/structural/card-shells.scss`, with a reduced-motion companion).
+- The team profile dataset adds Tibi Buzdugan and updates the profile ordering, placing him after Lourens Visser and before Zared Rogers.
 - The "Start a project" CTA (`patterns/cta/split-cta-form-card.php`) reuses the Contact hero treatment: the intro stays in view while the form scrolls, and the Gravity Form takes the theme's colours, sizes and spacing. The Contact form stylesheet now also loads on the About page (`inc/animations.php`).
 - Light-mode `border.card-strong` is now `neutral-400` (was `neutral-300`, the same as `border.card`), so strong borders are visibly stronger; `work-project-card` is the only other consumer.
 
