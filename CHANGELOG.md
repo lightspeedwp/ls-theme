@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add a Lefthook pre-commit Sass lint and build (LSA-191)
+
+### Added
+
+- `lefthook.yml`: a `pre-commit` hook that runs when Sass in `src/scss/` is staged and is skipped during merges and rebases. It lints the staged Sass with Stylelint, then runs `npm run build:css` and stages only the compiled CSS files it writes, so Sass source and compiled CSS are committed together and other files in `assets/css` are left alone. A Stylelint error or a Sass error blocks the commit, and so does an unstaged change in, or an untracked file under, `src/scss`, so compiled CSS is never committed without its source. `git commit <file>` is blocked when Sass is staged, because Git would drop the staged CSS from the index.
+- `.stylelintrc.json`: extends `@wordpress/stylelint-config/scss`. The class-name pattern and formatting rules that the existing Sass breaks are turned off, and three smaller rules are warnings only. The existing Sass passes with no errors except one: a bare `//` comment line at line 38 of `src/scss/structural/phase-link-card-grid.scss` (`scss/comment-no-empty`, added by #121). Stylelint reports it as an error, so the hook will block the next commit that touches that file until the line is removed or the rule is relaxed.
+- `lefthook`, `stylelint`, `@wordpress/stylelint-config` and `stylelint-scss` as devDependencies, and a `lint:scss` npm script. `npm install` installs the hook.
+- `.github/reports/lefthook-setup.md`: install steps, everyday commands, how to bypass the hook, known limits and verification results.
+
+### Changed
+
+- `.gitignore` now ignores `lefthook-local.yml` and `.lefthook-local.yml` for personal hook overrides.
+- The `engines.node` range in `package.json` is now `^20.19.0 || >=22.13.0` (was `>=20.0.0`), the range Stylelint 17 and `@wordpress/stylelint-config` support.
+
+([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+
+---
+
 ## [Unreleased] — Match the About mega menu to the other menus and add Our process (LSA-189)
 
 ### Changed
