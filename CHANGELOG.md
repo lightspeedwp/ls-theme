@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the History page scroll timeline and stat card grid patterns (LSA-107)
+
+### Added
+
+- `patterns/sections/scroll-timeline.php` (Section - Scroll Timeline): "The LightSpeed Journey" as nine milestone nodes, each a mono year, a dot on a vertical line and a flat card, with a dashed "future" card last. As the page scrolls, a glowing gradient line fills down the timeline and each node fades up and lights its dot. The editor, no-JS and reduced-motion views show every node lit and the full line.
+- `assets/js/scroll-timeline.js` and `src/scss/structural/scroll-timeline.scss`, compiled to `assets/css/scroll-timeline.css`: the scroll-driven line fill, the reveal, the lit dots and the card hover. Loaded on `/about/history/` and wherever the pattern renders.
+- `patterns/sections/stat-card-grid.php` (Section - Stat Card Grid): a left-aligned eyebrow, heading and lede above four flat stat cards with figures in their own accent colours, and a closing line. The first stat reads "Websites built and rebuilt".
+- New semantic tokens `gradient.accent-start` and `gradient.accent-end`: brand-600 to cta-800 in `theme.json`, brand-400 to cta-500 in `styles/dark.json`. All four pairings are at least 3:1 against their canvas.
+
+### Fixed
+
+- The Homepage CTA's secondary button (`.ls-homepage-cta-outline`) no longer shows the shared outline arrow box, which clipped longer labels. Its no-arrow rule had the same specificity as the shared rule, so whichever stylesheet loaded last won; it is now scoped under `.ls-homepage-cta`. This also corrects the homepage "Send a brief first" button.
+
+([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
+
+---
+
 ## [Unreleased] — Match the About mega menu to the other menus and add Our process (LSA-189)
 
 ### Changed
