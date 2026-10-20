@@ -11,10 +11,10 @@
  * assets/js/scroll-timeline.js adds `.is-enhanced`, then `.is-in` per node and `--p` on the list.
  */
 .ls-scroll-timeline {
-  // The year column width must match the `flexSize` on each node's year group in the pattern.
-  --ls-timeline-year-width: 10rem;
-  --ls-timeline-gap: var(--wp--preset--spacing--40);
-  --ls-timeline-line-x: calc(var(--ls-timeline-year-width) + var(--ls-timeline-gap) / 2);
+  // One source for the year column width: the column below and the line position both read it.
+  // The line and dots sit on the column's right edge, with the year text padded back from it.
+  --ls-timeline-year-width: 10.5rem;
+  --ls-timeline-line-x: var(--ls-timeline-year-width);
   // Centre of the first dot, measured from the top of a node.
   --ls-timeline-dot-top: calc(var(--wp--preset--spacing--20) + 0.75rem);
   --p: 1;
@@ -53,6 +53,19 @@
 
 .ls-scroll-timeline__node {
   position: relative;
+}
+
+// JSON limitation: the Group block's fixed flex size sets only flex-basis and leaves flex-shrink at 1,
+// so the year column collapses beside a long card and the line stops sitting between the two. The
+// column and card sizes are set here so they share the one width value above — see AGENTS.md
+// Theme-First Approach
+.ls-scroll-timeline__year {
+  flex: 0 0 var(--ls-timeline-year-width);
+}
+
+.ls-scroll-timeline__card {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 // JSON limitation: the dot sits on the line, so it is absolutely positioned, and its lit and
@@ -124,7 +137,7 @@
   }
 
   .ls-scroll-timeline__year {
-    flex-basis: auto;
+    flex: 0 0 auto;
     padding-top: 0;
 
     p {

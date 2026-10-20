@@ -69,7 +69,7 @@ $ls_timeline_nodes = array(
 	),
 );
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"margin":{"top":"0"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"margin":{"top":"0"},"blockGap":"var:preset|spacing|80"}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-content-band" style="margin-top:0">
 
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained","contentSize":"680px","justifyContent":"left"}} -->
@@ -91,14 +91,14 @@ $ls_timeline_nodes = array(
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"align":"wide","className":"ls-scroll-timeline","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"960px","justifyContent":"left"}} -->
+	<!-- wp:group {"align":"wide","className":"ls-scroll-timeline","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained","contentSize":"960px","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide ls-scroll-timeline">
 		<?php foreach ( $ls_timeline_nodes as $ls_timeline_node ) : ?>
 
-		<!-- wp:group {"tagName":"article","className":"ls-scroll-timeline__node","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+		<!-- wp:group {"tagName":"article","className":"ls-scroll-timeline__node","style":{"spacing":{"blockGap":"var:preset|spacing|70"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 		<article class="wp-block-group ls-scroll-timeline__node">
-			<!-- wp:group {"className":"ls-scroll-timeline__year","style":{"layout":{"selfStretch":"fixed","flexSize":"10rem"},"spacing":{"padding":{"top":"var:preset|spacing|20"}}}} -->
-			<div class="wp-block-group ls-scroll-timeline__year" style="padding-top:var(--wp--preset--spacing--20)">
+			<!-- wp:group {"className":"ls-scroll-timeline__year","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|40"}}}} -->
+			<div class="wp-block-group ls-scroll-timeline__year" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--40)">
 				<!-- wp:paragraph {"align":"right","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","fontWeight":"var:custom|typography|font-weight|semibold","letterSpacing":"var:custom|typography|letter-spacing|wide"},"color":{"text":"var(--wp--custom--color--text--default)"}},"fontSize":"200"} -->
 				<p class="has-text-align-right has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--default);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide)"><?php echo esc_html( $ls_timeline_node['year'] ); ?></p>
 				<!-- /wp:paragraph -->
@@ -108,11 +108,11 @@ $ls_timeline_nodes = array(
 			<!-- wp:icon {"icon":"lightspeed/dot","className":"ls-scroll-timeline__dot","style":{"dimensions":{"width":"14px"}}} /-->
 
 			<?php if ( $ls_timeline_node['future'] ) : ?>
-			<!-- wp:group {"tagName":"div","className":"is-style-card-plain ls-scroll-timeline__card","style":{"layout":{"selfStretch":"fill"},"border":{"color":"var:custom|color|text|brand","style":"dashed"},"color":{"gradient":"linear-gradient(135deg,color-mix(in srgb, var(--wp--custom--color--text--brand) 10%, transparent) 0%,transparent 70%)"}}} -->
-			<div class="wp-block-group is-style-card-plain ls-scroll-timeline__card has-border-color has-background" style="border-color:var(--wp--custom--color--text--brand);border-style:dashed;background:linear-gradient(135deg,color-mix(in srgb, var(--wp--custom--color--text--brand) 10%, transparent) 0%,transparent 70%)">
+			<!-- wp:group {"tagName":"div","className":"is-style-card-plain ls-scroll-timeline__card","style":{"border":{"color":"var:custom|color|text|brand","style":"dashed"},"color":{"gradient":"linear-gradient(135deg,color-mix(in srgb, var(--wp--custom--color--text--brand) 10%, transparent) 0%,transparent 70%)"},"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|10"}}} -->
+			<div class="wp-block-group is-style-card-plain ls-scroll-timeline__card has-border-color has-background" style="border-color:var(--wp--custom--color--text--brand);border-style:dashed;background:linear-gradient(135deg,color-mix(in srgb, var(--wp--custom--color--text--brand) 10%, transparent) 0%,transparent 70%);padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 			<?php else : ?>
-			<!-- wp:group {"tagName":"div","className":"is-style-card-plain ls-scroll-timeline__card","style":{"layout":{"selfStretch":"fill"}}} -->
-			<div class="wp-block-group is-style-card-plain ls-scroll-timeline__card">
+			<!-- wp:group {"tagName":"div","className":"is-style-card-plain ls-scroll-timeline__card","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|10"}}} -->
+			<div class="wp-block-group is-style-card-plain ls-scroll-timeline__card" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
 			<?php endif; ?>
 				<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|semibold"}},"fontSize":"300"} -->
 				<h3 class="wp-block-heading has-300-font-size" style="font-weight:var(--wp--custom--typography--font-weight--semibold)"><?php echo esc_html( $ls_timeline_node['title'] ); ?></h3>
