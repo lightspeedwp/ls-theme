@@ -1,0 +1,194 @@
+/********** About Culture page patterns **********/
+
+/*
+ * Shared by the About Culture patterns (Hero - Lede Actions Ticks, Section - Split Statement Words,
+ * Section - Split Sticky Intro Rows, Section - Dark Band Lanes, Section - Accent Card Grid).
+ * Surface, border, radius, spacing and type are block attributes in the patterns. What lives here
+ * is only what theme.json and block attributes cannot express.
+ */
+
+// The orange accent (second value, "Independence") is the accent.warm semantic token: warm-700 in
+// light mode and warm-300 in dark mode.
+$accent-warm: var(--wp--custom--color--accent--warm);
+
+/* ---------- Hero - Lede Actions Ticks ---------- */
+
+// JSON limitation: max-width in ch and text-wrap have no theme.json or heading-block key.
+// They keep the large H1 breaking after "How we work".
+.ls-rhythm-hero__title {
+  max-width: 11ch;
+  text-wrap: balance;
+}
+
+// JSON limitation: repeating-linear-gradient tick marks and a fixed row height have no block
+// support. The marks are decorative; the row labels beside them stay as real text. Tick widths
+// and pitches are purely graphic and have no token equivalent.
+.ls-rhythm-ticks__marks {
+  display: block;
+  min-width: 0;
+  height: var(--wp--preset--spacing--30);
+  color: var(--wp--custom--color--text--brand);
+}
+
+.ls-rhythm-ticks__marks--daily {
+  background: repeating-linear-gradient(90deg, currentcolor 0 2px, transparent 2px 12px);
+  opacity: 0.55;
+}
+
+.ls-rhythm-ticks__marks--weekly {
+  background: repeating-linear-gradient(90deg, currentcolor 0 3px, transparent 3px 84px);
+  opacity: 0.8;
+}
+
+.ls-rhythm-ticks__marks--quarterly {
+  color: $accent-warm;
+  background: repeating-linear-gradient(90deg, currentcolor 0 6px, transparent 6px 252px);
+}
+
+// JSON limitation: text-align is not a flex-child layout key; the right-hand label hugs the row end.
+.ls-rhythm-ticks__label--end {
+  text-align: right;
+}
+
+// JSON limitation: breakpoint overrides have no theme.json equivalent. The end label is dropped on
+// narrow screens so the marks keep room; the row label still names the rhythm.
+@media (max-width: 781.98px) {
+  .ls-rhythm-ticks__label--end {
+    display: none;
+  }
+}
+
+/* ---------- Section - Split Statement Words ---------- */
+
+// JSON limitation: ::first-letter has no theme.json key. Each word takes its own accent colour.
+.ls-statement-word--brand::first-letter {
+  color: var(--wp--custom--color--text--brand);
+}
+
+.ls-statement-word--warm::first-letter {
+  color: $accent-warm;
+}
+
+.ls-statement-word--grow::first-letter {
+  color: var(--wp--custom--color--phase--grow);
+}
+
+/* ---------- Section - Split Sticky Intro Rows ---------- */
+
+// JSON limitation: position: sticky on a nested column child isn't a block support (core only
+// offers sticky on top-level blocks) — see AGENTS.md Theme-First Approach. The intro stays in view
+// while the rows scroll past on desktop, and returns to normal flow below the columns' stacking
+// breakpoint.
+.ls-sticky-intro {
+  @media (min-width: 782px) {
+    position: sticky;
+    top: var(--wp--preset--spacing--100);
+    align-self: flex-start;
+  }
+}
+
+// JSON limitation: -webkit-text-stroke and a transparent fill have no theme.json key. The year is
+// drawn as an outline in the brand colour.
+.ls-outline-year {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--wp--custom--color--text--brand);
+}
+
+// JSON limitation: flex-shrink has no block key. Without it the long row text squeezes the
+// fixed-width number column until the digits wrap.
+.ls-row-number {
+  flex-shrink: 0;
+}
+
+/* ---------- Pill labels (tinted tags and numbered steps) ---------- */
+
+// JSON limitation: styling the <li> children of a list block, and CSS counters, have no
+// theme.json key. A list reset is needed because the labels are pills, not bullets.
+.ls-chips,
+.ls-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wp--preset--spacing--10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: var(--wp--preset--spacing--5) var(--wp--preset--spacing--10);
+    font-family: var(--wp--preset--font-family--monospace);
+    font-weight: var(--wp--custom--typography--font-weight--semibold);
+    letter-spacing: var(--wp--custom--typography--letter-spacing--wide);
+    text-transform: uppercase;
+  }
+}
+
+.ls-chips li {
+  border-radius: var(--wp--preset--border-radius--100);
+  background: var(--wp--custom--color--surface--brand-light);
+  color: var(--wp--custom--color--text--brand-strong);
+}
+
+.ls-steps {
+  counter-reset: ls-step;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--wp--preset--spacing--10);
+    border: 1px solid var(--wp--custom--color--border--card-strong);
+    border-radius: var(--wp--preset--border-radius--500);
+    color: var(--wp--custom--color--text--default);
+    counter-increment: ls-step;
+    text-transform: none;
+  }
+
+  li::before {
+    color: var(--wp--custom--color--text--brand);
+    content: counter(ls-step);
+  }
+}
+
+/* ---------- Section - Band Lanes ---------- */
+
+// JSON limitation: breakpoint overrides have no theme.json equivalent. Below the columns'
+// stacking breakpoint the lanes sit one under another, so the side dividers become bottom
+// dividers. !important is needed because the divider and padding are block attributes, which
+// WordPress prints as inline styles.
+@media (max-width: 781.98px) {
+  .ls-lanes__lane {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    border-left: 0 !important;
+    border-bottom: 1px solid var(--wp--custom--color--border--card) !important;
+  }
+
+  .ls-lanes__lane:last-child {
+    border-bottom: 0 !important;
+  }
+}
+
+/* ---------- Section - Accent Card Grid ---------- */
+
+// JSON limitation: :hover has no theme.json pseudo-state key for a block — see AGENTS.md
+// Theme-First Approach. The cards lift on hover; reduced motion removes the movement.
+.ls-accent-card {
+  transition:
+    transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised),
+    box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--emphasised);
+
+  &:hover {
+    transform: translateY(calc(var(--wp--preset--spacing--5) * -1));
+    box-shadow: var(--wp--custom--shadow--elevation--200);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-accent-card {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
