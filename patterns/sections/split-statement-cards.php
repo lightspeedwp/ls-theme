@@ -45,10 +45,10 @@ $ls_statement_cards = array(
 		<div class="wp-block-group alignwide">
 			<?php foreach ( $ls_statement_cards as $ls_statement_card ) : ?>
 				<?php
-				$ls_card_bg     = $ls_statement_card['strong'] ? 'surface|brand-strong' : 'surface|canvas';
-				$ls_card_bg_css = $ls_statement_card['strong'] ? 'var(--wp--custom--color--surface--brand-strong)' : 'var(--wp--custom--color--surface--canvas)';
-				$ls_card_text   = $ls_statement_card['strong'] ? 'inverse' : 'default';
-				$ls_card_border = $ls_statement_card['strong'] ? 'surface|brand-strong' : 'border|card';
+				$ls_card_bg         = $ls_statement_card['strong'] ? 'surface|brand-strong' : 'surface|canvas';
+				$ls_card_bg_css     = $ls_statement_card['strong'] ? 'var(--wp--custom--color--surface--brand-strong)' : 'var(--wp--custom--color--surface--canvas)';
+				$ls_card_text       = $ls_statement_card['strong'] ? 'inverse' : 'default';
+				$ls_card_border     = $ls_statement_card['strong'] ? 'surface|brand-strong' : 'border|card';
 				$ls_card_border_css = $ls_statement_card['strong'] ? 'var(--wp--custom--color--surface--brand-strong)' : 'var(--wp--custom--color--border--card)';
 				?>
 
