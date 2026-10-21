@@ -4,7 +4,7 @@
  * Slug: ls-theme/stat-card-grid
  * Categories: stats
  * Block Types: core/pattern
- * Description: A proof section on a surface.card band: a left-aligned dot eyebrow, H2 and lede paragraph above a responsive grid of four flat stat cards (Card - Plain: no shadow and no hover lift, because they are not links), each a large figure in its own accent colour above one line of supporting copy, followed by a closing statement. The grid is a core/group with the grid layout and a minimum column width, so any number of cards wraps cleanly; duplicate or delete a card freely. Authored for the About History page "A Legacy of Open-Source Contribution" section; edit the figures and copy after inserting. Same family as Section - Stat Icon Cards but with no icon wells and left-aligned figures. Falls back to core/group because no semantic core block fits a stat card. Adapts between light and dark mode through text, surface, border and phase tokens. No new SCSS.
+ * Description: A proof section on a surface.card band (the shared Content Band style with its background swapped, so its vertical spacing matches the other page sections): a left-aligned dot eyebrow, H2 and lede paragraph above a responsive grid of four flat stat cards (Card - Plain: no shadow and no hover lift, because they are not links), each a large figure in its own accent colour above one line of supporting copy, followed by a closing statement. The grid is a core/group with the grid layout and a minimum column width, so any number of cards wraps cleanly; duplicate or delete a card freely. Authored for the About History page "A Legacy of Open-Source Contribution" section; edit the figures and copy after inserting. Same family as Section - Stat Icon Cards but with no icon wells and left-aligned figures. Falls back to core/group because no semantic core block fits a stat card. Adapts between light and dark mode through text, surface, border and phase tokens. No new SCSS.
  * Keywords: stats, numbers, proof, cards, open source, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -35,8 +35,8 @@ $ls_stat_cards = array(
 	),
 );
 ?>
-<!-- wp:group {"align":"full","tagName":"section","style":{"color":{"background":"var:custom|color|surface|card"},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|100","right":"var:preset|spacing|30","bottom":"var:preset|spacing|100","left":"var:preset|spacing|30"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull has-background" style="background-color:var(--wp--custom--color--surface--card);margin-top:0;padding-top:var(--wp--preset--spacing--100);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--100);padding-left:var(--wp--preset--spacing--30)">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"color":{"background":"var:custom|color|surface|card"},"spacing":{"margin":{"top":"0"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band has-background" style="background-color:var(--wp--custom--color--surface--card);margin-top:0">
 
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained","contentSize":"780px","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">

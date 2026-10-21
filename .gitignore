@@ -112,3 +112,7 @@ lightspeed.code-workspace
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Local-only Lefthook overrides
+lefthook-local.yml
+.lefthook-local.yml
