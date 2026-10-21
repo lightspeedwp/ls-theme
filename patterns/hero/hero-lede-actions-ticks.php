@@ -36,7 +36,7 @@ $ls_rhythm_rows = array(
 	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
 	<div class="wp-block-group alignwide">
 
-		<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
+		<?php if ( WP_Block_Type_Registry::get_instance()->is_registered( 'yoast-seo/breadcrumbs' ) ) : ?>
 		<!-- wp:yoast-seo/breadcrumbs {"className":"alignwide"} /-->
 		<?php endif; ?>
 
