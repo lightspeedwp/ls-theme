@@ -627,6 +627,10 @@
                 "status": {
                     "success": "var:preset|color|success-strong"
                 },
+                "gradient": {
+                    "accent-start": "var:preset|color|brand-600",
+                    "accent-end": "var:preset|color|cta-800"
+                },
                 "text-shadow": {
                     "contrast": "var:preset|color|contrast",
                     "base": "var:preset|color|base"
