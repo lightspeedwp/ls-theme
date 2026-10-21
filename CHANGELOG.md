@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the History page Year by year Details Card Grid pattern (LSA-107)
+
+### Added
+
+- `patterns/sections/details-card-grid.php` (Section - Details Card Grid): "Milestones beyond the headlines" as thirteen core Details cards in a two-column grid, each a mono brand-coloured year, a title and a bulleted list, with an "Expand all" button. The shell, size and bullets reuse the core Details block and `core-details.json`, and the section uses the shared Content Band spacing.
+- `assets/js/details-expand-all.js` and `src/scss/structural/details-card-grid.scss`, compiled to `assets/css/details-card-grid.css`: "Expand all" opens every card and swaps its label to "Collapse all" (translatable, and kept in step when cards are opened one by one), plus the year styling, calmer open-state borders and the grid alignment. Loaded on `/about/history/` and wherever the pattern renders.
+
+### Changed
+
+- A closed card keeps its own height when its neighbour opens; an open card stretches to its row, so two open cards side by side match.
+- Open cards use the neutral `border.card-strong` and `border.card` tokens instead of the cyan link accent, so thirteen open cards no longer read as a wall of blue.
+
+### Fixed
+
+- The standing accessibility scan (`tests/helpers/accessibility.ts`) now waits for in-flight transitions and finite animations before running axe, which read the half-transparent text of the scroll-reveal timeline mid-fade and failed intermittently.
+
+([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
+
+---
+
 ## [Unreleased] — Add the History page scroll timeline and stat card grid patterns (LSA-107)
 
 ### Added

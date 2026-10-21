@@ -114,6 +114,7 @@ function ls_theme_get_bundle_render_markers() {
 		'legal-page'                => array( 'classes' => array( 'ls-page-hero', 'ls-legal-toc', 'ls-legal-body', 'ls-related-trust-grid' ) ),
 		'hero-split-form'           => array( 'classes' => array( 'ls-hero-form-intro' ) ),
 		'scroll-timeline'           => array( 'classes' => array( 'ls-scroll-timeline' ) ),
+		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
 	);
 }
 
@@ -720,6 +721,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( 'about/history' );
 			},
 		),
+		'details-card-grid'         => array(
+			'handle'    => 'ls-theme-details-card-grid',
+			'path'      => 'assets/css/details-card-grid.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The About History page's "Milestones beyond the headlines" cards (Section - Details Card
+			// Grid): the summary weight and the monospace year. The render-marker fallback loads it
+			// wherever the pattern renders.
+			'condition' => static function () {
+				return is_page( 'about/history' );
+			},
+		),
 	);
 
 	/**
@@ -875,6 +887,48 @@ function ls_theme_enqueue_scroll_timeline_script( $block_content, $block ) {
 	return $block_content;
 }
 add_filter( 'render_block', 'ls_theme_enqueue_scroll_timeline_script', 10, 2 );
+
+/**
+ * Enqueues the "Expand all" script when the year-by-year cards actually render.
+ *
+ * Same render_block approach as the scripts above. The labels are passed in from PHP so the
+ * button text stays translatable. The cards' CSS loads via the details-card-grid bundle.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_enqueue_details_expand_all_script( $block_content, $block ) {
+	if ( empty( $block['blockName'] ) || false === strpos( $block_content, 'ls-year-by-year' ) ) {
+		return $block_content;
+	}
+
+	$script_path = 'assets/js/details-expand-all.js';
+
+	wp_enqueue_script(
+		'ls-theme-details-expand-all',
+		get_theme_file_uri( $script_path ),
+		array(),
+		ls_theme_get_local_asset_version( $script_path ),
+		true
+	);
+
+	wp_script_add_data( 'ls-theme-details-expand-all', 'strategy', 'defer' );
+
+	wp_add_inline_script(
+		'ls-theme-details-expand-all',
+		'window.lsExpandAll = ' . wp_json_encode(
+			array(
+				'expand'   => __( 'Expand all', 'ls-theme' ),
+				'collapse' => __( 'Collapse all', 'ls-theme' ),
+			)
+		) . ';',
+		'before'
+	);
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_enqueue_details_expand_all_script', 10, 2 );
 
 /*
  * 'card-feature' (core/group) and 'button-arrow-compact' (core/button) used to be
