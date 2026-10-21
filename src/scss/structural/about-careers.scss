@@ -22,13 +22,6 @@
 }
 
 @media (max-width: 781.98px) {
-  // JSON limitation: the image block prints its aspect ratio as an inline style, and breakpoint
-  // overrides have no theme.json equivalent, so the banner crop needs !important to change on
-  // small screens — see AGENTS.md Theme-First Approach
-  .ls-careers-hero__photo img {
-    aspect-ratio: 16 / 10 !important;
-  }
-
   // JSON limitation: a core grid has one column count for every width, and the child column spans
   // are generated single-class rules; the two-class selectors here override both at the stacking
   // breakpoint — see AGENTS.md Theme-First Approach
