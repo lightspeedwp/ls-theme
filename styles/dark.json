@@ -88,6 +88,9 @@
 					"evolve-on-dark": "var:preset|color|phase-six",
 					"evolve-on-dark-card": "var:preset|color|phase-six-light"
 				},
+				"accent": {
+					"warm": "var:preset|color|warm-300"
+				},
 				"status": {
 					"success": "var:preset|color|success-foreground"
 				},

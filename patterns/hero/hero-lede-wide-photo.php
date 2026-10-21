@@ -1,0 +1,60 @@
+<?php
+/**
+ * Title: Hero - Lede Wide Photo
+ * Slug: ls-theme/hero-lede-wide-photo
+ * Categories: hero
+ * Block Types: core/pattern
+ * Description: A left-aligned page hero for careers and team pages on the page canvas: breadcrumb trail, dot eyebrow, a large H1 with one brand-coloured word, a lede paragraph, and a wide team photo below. The shared corner-glow class supplies the soft background glow. The photo is a core/image cropped to a 21:8 banner (16:10 on small screens, in src/scss/structural/about-careers.scss because the aspect ratio is an inline style); swap it for any image from the Media Library. Falls back to core/group because no semantic core block fits a hero. Adapts between light and dark mode through surface, text, border and brand tokens. Authored for the About Careers page; edit the eyebrow, heading, lede and photo after inserting.
+ * Keywords: hero, careers, team, photo, about, section
+ * Viewport Width: 1280
+ * Inserter: true
+ *
+ * @package ls-theme
+ */
+
+$ls_hero_photo_url = 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2024/06/lightspeed-team-photo-edited.png';
+?>
+<!-- wp:group {"align":"full","tagName":"section","className":"ls-corner-glow ls-careers-hero","style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|80","right":"var:preset|spacing|30","bottom":"var:preset|spacing|80","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ls-corner-glow ls-careers-hero" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;margin-top:0;padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--30)">
+
+	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"default"}} -->
+	<div class="wp-block-group alignwide">
+
+		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"default"}} -->
+		<div class="wp-block-group">
+
+			<?php if ( WP_Block_Type_Registry::get_instance()->is_registered( 'yoast-seo/breadcrumbs' ) ) : ?>
+			<!-- wp:yoast-seo/breadcrumbs {"className":"alignwide"} /-->
+			<?php endif; ?>
+
+			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
+			<div class="wp-block-group">
+				<!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
+
+				<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"var(--wp--custom--color--text--brand)"}},"fontSize":"100"} -->
+				<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--brand);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><?php echo esc_html__( 'About – Careers', 'ls-theme' ); ?></p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|extrabold","letterSpacing":"var:custom|typography|letter-spacing|tight","lineHeight":"var:custom|line-height|heading-tight"}},"fontSize":"900"} -->
+			<h1 class="wp-block-heading has-900-font-size" style="font-weight:var(--wp--custom--typography--font-weight--extrabold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight);line-height:var(--wp--custom--line-height--heading-tight)"><?php echo esc_html__( 'Careers at', 'ls-theme' ); ?> <span style="color:var(--wp--custom--color--text--brand)"><?php echo esc_html__( 'LightSpeed', 'ls-theme' ); ?></span></h1>
+			<!-- /wp:heading -->
+
+			<!-- wp:group {"layout":{"type":"constrained","contentSize":"720px","justifyContent":"left"}} -->
+			<div class="wp-block-group">
+				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
+				<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'We’re interested in thoughtful people who care about WordPress, design systems, maintainable work and the kind of collaboration that improves with clarity.', 'ls-theme' ); ?></p>
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:image {"aspectRatio":"21/8","scale":"cover","width":"100%","sizeSlug":"full","linkDestination":"none","className":"ls-careers-hero__photo","style":{"border":{"radius":"var:preset|border-radius|400"}}} -->
+		<figure class="wp-block-image size-full has-custom-border ls-careers-hero__photo"><img src="<?php echo esc_url( $ls_hero_photo_url ); ?>" alt="<?php echo esc_attr__( 'The LightSpeed team together', 'ls-theme' ); ?>" style="border-radius:var(--wp--preset--border-radius--400);aspect-ratio:21/8;object-fit:cover;width:100%"/></figure>
+		<!-- /wp:image -->
+	</div>
+	<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
