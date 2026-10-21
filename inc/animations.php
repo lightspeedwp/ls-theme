@@ -113,6 +113,7 @@ function ls_theme_get_bundle_render_markers() {
 		'search-results'            => array( 'classes' => array( 'ls-search-result' ) ),
 		'legal-page'                => array( 'classes' => array( 'ls-page-hero', 'ls-legal-toc', 'ls-legal-body', 'ls-related-trust-grid' ) ),
 		'hero-split-form'           => array( 'classes' => array( 'ls-hero-form-intro' ) ),
+		'scroll-timeline'           => array( 'classes' => array( 'ls-scroll-timeline' ) ),
 	);
 }
 
@@ -708,6 +709,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page_template( 'page-legal' );
 			},
 		),
+		'scroll-timeline'           => array(
+			'handle'    => 'ls-theme-scroll-timeline',
+			'path'      => 'assets/css/scroll-timeline.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The About History page's "The LightSpeed Journey" timeline (Section - Scroll Timeline):
+			// the connector line, lit dots, reveal and card hover. The render-marker fallback loads it
+			// wherever the pattern renders.
+			'condition' => static function () {
+				return is_page( 'about/history' );
+			},
+		),
 	);
 
 	/**
@@ -832,6 +844,37 @@ function ls_theme_enqueue_legal_toc_script( $block_content, $block ) {
 	return $block_content;
 }
 add_filter( 'render_block', 'ls_theme_enqueue_legal_toc_script', 10, 2 );
+
+/**
+ * Enqueues the scroll timeline script when the timeline actually renders.
+ *
+ * Same render_block approach as the FAQ accordion and contents rail scripts above, so it loads
+ * wherever the pattern came from. The timeline's CSS loads via the scroll-timeline bundle.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_enqueue_scroll_timeline_script( $block_content, $block ) {
+	if ( empty( $block['blockName'] ) || false === strpos( $block_content, 'ls-scroll-timeline' ) ) {
+		return $block_content;
+	}
+
+	$script_path = 'assets/js/scroll-timeline.js';
+
+	wp_enqueue_script(
+		'ls-theme-scroll-timeline',
+		get_theme_file_uri( $script_path ),
+		array(),
+		ls_theme_get_local_asset_version( $script_path ),
+		true
+	);
+
+	wp_script_add_data( 'ls-theme-scroll-timeline', 'strategy', 'defer' );
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_enqueue_scroll_timeline_script', 10, 2 );
 
 /*
  * 'card-feature' (core/group) and 'button-arrow-compact' (core/button) used to be

@@ -1,0 +1,167 @@
+/********** Section - Scroll Timeline (About History "The LightSpeed Journey") **********/
+
+/*
+ * Everything the block attributes can express (the node's flex layout, the year column width,
+ * type, colours, the Card - Plain shell and the dashed "future" card) is authored in
+ * patterns/sections/scroll-timeline.php. This file owns only what JSON cannot: the vertical line
+ * (pseudo-elements), the scroll-driven fill, the dot's lit state, the reveal and the card hover.
+ *
+ * Progressive enhancement: the rules outside `.is-enhanced` describe the final state (every node
+ * visible and lit, the full line), which is what the editor, no-JS and reduced-motion views see.
+ * assets/js/scroll-timeline.js adds `.is-enhanced`, then `.is-in` per node and `--p` on the list.
+ */
+.ls-scroll-timeline {
+  // One source for the year column width: the column below and the line position both read it.
+  // The line and dots sit on the column's right edge, with the year text padded back from it.
+  --ls-timeline-year-width: 10.5rem;
+  --ls-timeline-line-x: var(--ls-timeline-year-width);
+  // Centre of the first dot, measured from the top of a node.
+  --ls-timeline-dot-top: calc(var(--wp--preset--spacing--20) + 0.75rem);
+  --p: 1;
+
+  position: relative;
+
+  // JSON limitation: a vertical connector line needs ::before/::after pseudo-elements, and its
+  // fill reads a scroll-driven custom property — see AGENTS.md Theme-First Approach
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: var(--ls-timeline-dot-top);
+    bottom: var(--ls-timeline-dot-top);
+    left: var(--ls-timeline-line-x);
+    width: 2px;
+    transform: translateX(-50%);
+    border-radius: var(--wp--preset--border-radius--100);
+  }
+
+  &::before {
+    background: var(--wp--custom--color--border--card-strong);
+  }
+
+  &::after {
+    bottom: auto;
+    height: calc((100% - 2 * var(--ls-timeline-dot-top)) * var(--p));
+    background: linear-gradient(
+      180deg,
+      var(--wp--custom--color--gradient--accent-start),
+      var(--wp--custom--color--gradient--accent-end)
+    );
+    box-shadow: 0 0 14px color-mix(in srgb, var(--wp--custom--color--gradient--accent-start) 50%, transparent);
+  }
+}
+
+.ls-scroll-timeline__node {
+  position: relative;
+}
+
+// JSON limitation: the Group block's fixed flex size sets only flex-basis and leaves flex-shrink at 1,
+// so the year column collapses beside a long card and the line stops sitting between the two. The
+// column and card sizes are set here so they share the one width value above — see AGENTS.md
+// Theme-First Approach
+.ls-scroll-timeline__year {
+  flex: 0 0 var(--ls-timeline-year-width);
+}
+
+.ls-scroll-timeline__card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+// JSON limitation: the dot sits on the line, so it is absolutely positioned, and its lit and
+// unlit states depend on a class the script toggles — see AGENTS.md Theme-First Approach.
+// The three-class selector is needed in the editor, where `.block-editor-block-list__layout
+// .block-editor-block-list__block { position: relative }` would otherwise win and leave the dot
+// in the flex row; z-index keeps it above the cards, which the editor also makes positioned.
+.ls-scroll-timeline .ls-scroll-timeline__node > .ls-scroll-timeline__dot {
+  position: absolute;
+  z-index: 1;
+  top: var(--ls-timeline-dot-top);
+  left: var(--ls-timeline-line-x);
+  display: flex;
+  margin: 0;
+  border-radius: 50%;
+  line-height: 0;
+  color: var(--wp--custom--color--text--brand);
+  background: var(--wp--custom--color--surface--canvas);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--wp--custom--color--text--brand) 16%, transparent),
+    0 0 18px color-mix(in srgb, var(--wp--custom--color--text--brand) 60%, transparent);
+  transform: translate(-50%, -50%);
+  transition:
+    color var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--slow) var(--wp--custom--animation--easing--standard);
+}
+
+// JSON limitation: block-level :hover has no theme.json pseudo-state key — see AGENTS.md Theme-First Approach
+.ls-scroll-timeline__card {
+  transition:
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+
+  &:hover {
+    border-color: var(--wp--custom--color--text--brand);
+    box-shadow: var(--wp--custom--shadow--card--hover);
+    transform: translateY(var(--wp--custom--animation--lift--sm));
+  }
+}
+
+// JSON limitation: the initial hidden state is a class-gated rule the script enables — see AGENTS.md Theme-First Approach
+.ls-scroll-timeline.is-enhanced {
+  .ls-scroll-timeline__node {
+    transition:
+      opacity var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised),
+      transform var(--wp--custom--animation--duration--emphasised) var(--wp--custom--animation--easing--emphasised);
+
+    &:not(.is-in) {
+      opacity: 0;
+      transform: translateY(var(--wp--preset--spacing--10));
+
+      > .ls-scroll-timeline__dot {
+        color: var(--wp--custom--color--border--card-strong);
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+// JSON limitation: a breakpoint override has no theme.json key, and WordPress stacks flex rows on
+// its own breakpoint — see AGENTS.md Theme-First Approach
+@media (max-width: 781.98px) {
+  .ls-scroll-timeline {
+    --ls-timeline-line-x: 0.5rem;
+    --ls-timeline-dot-top: 0.75rem;
+  }
+
+  .ls-scroll-timeline__node {
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: var(--wp--preset--spacing--40);
+  }
+
+  .ls-scroll-timeline__year {
+    flex: 0 0 auto;
+    padding-top: 0;
+
+    p {
+      text-align: left;
+    }
+  }
+
+  .ls-scroll-timeline .ls-scroll-timeline__node > .ls-scroll-timeline__dot {
+    left: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-scroll-timeline__dot,
+  .ls-scroll-timeline__card,
+  .ls-scroll-timeline.is-enhanced .ls-scroll-timeline__node {
+    transition: none;
+  }
+
+  .ls-scroll-timeline__card:hover {
+    transform: none;
+  }
+}
