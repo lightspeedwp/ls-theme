@@ -149,22 +149,40 @@ $accent-warm: var(--wp--custom--color--accent--warm);
   }
 }
 
-/* ---------- Section - Band Lanes ---------- */
+/* ---------- Section - Band Lanes, Split Header Icon Columns and Split Divided Text Chips ---------- */
 
 // JSON limitation: breakpoint overrides have no theme.json equivalent. Below the columns'
-// stacking breakpoint the lanes sit one under another, so the side dividers become bottom
-// dividers. !important is needed because the divider and padding are block attributes, which
-// WordPress prints as inline styles.
+// stacking breakpoint the lanes and icon columns sit one under another, so the side dividers
+// become bottom dividers, and the divided pair gets a top rule instead of a side rule.
+// !important is needed because the divider and padding are block attributes, which WordPress
+// prints as inline styles.
 @media (max-width: 781.98px) {
-  .ls-lanes__lane {
+  .ls-lanes__lane,
+  .ls-col-rule {
     padding-right: 0 !important;
     padding-left: 0 !important;
     border-left: 0 !important;
     border-bottom: 1px solid var(--wp--custom--color--border--card) !important;
   }
 
-  .ls-lanes__lane:last-child {
+  .ls-lanes__lane:last-child,
+  .ls-col-rule:last-child {
     border-bottom: 0 !important;
+  }
+
+  .ls-divided-col {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    border-left: 0 !important;
+  }
+
+  .ls-divided-col:first-child {
+    padding-bottom: var(--wp--preset--spacing--60) !important;
+  }
+
+  .ls-divided-col + .ls-divided-col {
+    padding-top: var(--wp--preset--spacing--60) !important;
+    border-top: 1px solid var(--wp--custom--color--border--card) !important;
   }
 }
 
@@ -191,4 +209,13 @@ $accent-warm: var(--wp--custom--color--accent--warm);
       transform: none;
     }
   }
+}
+
+/* ---------- CTA - Centered Panel ---------- */
+
+// JSON limitation: max-width in ch and text-wrap have no heading-block key. They keep the large
+// call-to-action heading to a balanced two or three lines.
+.ls-cta-centered__title {
+  max-width: 16ch;
+  text-wrap: balance;
 }
