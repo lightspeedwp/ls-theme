@@ -43,8 +43,39 @@ $ls_divided_columns = array(
 	<div class="wp-block-columns alignwide are-vertically-aligned-top">
 		<?php foreach ( $ls_divided_columns as $ls_divided_index => $ls_divided_column ) : ?>
 
-		<!-- wp:column {"verticalAlignment":"top","className":"ls-divided-col","style":{<?php echo 0 === $ls_divided_index ? '' : '"border":{"left":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},'; ?>"spacing":{"blockGap":"var:preset|spacing|30","padding":{"right":"<?php echo 0 === $ls_divided_index ? 'var:preset|spacing|60' : '0'; ?>","left":"<?php echo 0 === $ls_divided_index ? '0' : 'var:preset|spacing|60'; ?>"}}}} -->
-		<div class="wp-block-column is-vertically-aligned-top ls-divided-col" style="<?php echo 0 === $ls_divided_index ? '' : 'border-left-color:var(--wp--custom--color--border--card);border-left-style:solid;border-left-width:1px;'; ?>padding-right:<?php echo 0 === $ls_divided_index ? 'var(--wp--preset--spacing--60)' : '0'; ?>;padding-left:<?php echo 0 === $ls_divided_index ? '0' : 'var(--wp--preset--spacing--60)'; ?>">
+			<?php
+			$ls_divided_first = 0 === $ls_divided_index;
+			$ls_divided_style = array(
+				'spacing' => array(
+					'blockGap' => 'var:preset|spacing|30',
+					'padding'  => array(
+						'right' => $ls_divided_first ? 'var:preset|spacing|60' : '0',
+						'left'  => $ls_divided_first ? '0' : 'var:preset|spacing|60',
+					),
+				),
+			);
+			if ( ! $ls_divided_first ) {
+				$ls_divided_style = array(
+					'border' => array(
+						'left' => array(
+							'color' => 'var:custom|color|border|card',
+							'style' => 'solid',
+							'width' => '1px',
+						),
+					),
+				) + $ls_divided_style;
+			}
+			$ls_divided_attrs = array(
+				'verticalAlignment' => 'top',
+				'className'         => 'ls-divided-col',
+				'style'             => $ls_divided_style,
+			);
+			$ls_divided_css   = ( $ls_divided_first ? '' : 'border-left-color:var(--wp--custom--color--border--card);border-left-style:solid;border-left-width:1px;' )
+			. 'padding-right:' . ( $ls_divided_first ? 'var(--wp--preset--spacing--60)' : '0' )
+			. ';padding-left:' . ( $ls_divided_first ? '0' : 'var(--wp--preset--spacing--60)' );
+			?>
+		<!-- wp:column <?php echo wp_json_encode( $ls_divided_attrs ); ?> -->
+		<div class="wp-block-column is-vertically-aligned-top ls-divided-col" style="<?php echo esc_attr( $ls_divided_css ); ?>">
 
 			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 			<div class="wp-block-group">

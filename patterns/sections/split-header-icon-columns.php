@@ -74,8 +74,40 @@ $ls_icon_columns = array(
 		<div class="wp-block-columns alignwide" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px">
 			<?php foreach ( $ls_icon_columns as $ls_icon_index => $ls_icon_column ) : ?>
 
-			<!-- wp:column {"className":"ls-col-rule","style":{<?php echo 0 === $ls_icon_index ? '' : '"border":{"left":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},'; ?>"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|40","bottom":"var:preset|spacing|50","left":"<?php echo 0 === $ls_icon_index ? '0' : 'var:preset|spacing|40'; ?>"}}}} -->
-			<div class="wp-block-column ls-col-rule" style="<?php echo 0 === $ls_icon_index ? '' : 'border-left-color:var(--wp--custom--color--border--card);border-left-style:solid;border-left-width:1px;'; ?>padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:<?php echo 0 === $ls_icon_index ? '0' : 'var(--wp--preset--spacing--40)'; ?>">
+				<?php
+				$ls_icon_first = 0 === $ls_icon_index;
+				$ls_icon_style = array(
+					'spacing' => array(
+						'blockGap' => 'var:preset|spacing|20',
+						'padding'  => array(
+							'top'    => 'var:preset|spacing|50',
+							'right'  => 'var:preset|spacing|40',
+							'bottom' => 'var:preset|spacing|50',
+							'left'   => $ls_icon_first ? '0' : 'var:preset|spacing|40',
+						),
+					),
+				);
+				if ( ! $ls_icon_first ) {
+					$ls_icon_style = array(
+						'border' => array(
+							'left' => array(
+								'color' => 'var:custom|color|border|card',
+								'style' => 'solid',
+								'width' => '1px',
+							),
+						),
+					) + $ls_icon_style;
+				}
+				$ls_icon_attrs = array(
+					'className' => 'ls-col-rule',
+					'style'     => $ls_icon_style,
+				);
+				$ls_icon_css   = ( $ls_icon_first ? '' : 'border-left-color:var(--wp--custom--color--border--card);border-left-style:solid;border-left-width:1px;' )
+				. 'padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:'
+				. ( $ls_icon_first ? '0' : 'var(--wp--preset--spacing--40)' );
+				?>
+			<!-- wp:column <?php echo wp_json_encode( $ls_icon_attrs ); ?> -->
+			<div class="wp-block-column ls-col-rule" style="<?php echo esc_attr( $ls_icon_css ); ?>">
 				<!-- wp:icon {"icon":"lightspeed/<?php echo esc_attr( $ls_icon_column['icon'] ); ?>","className":"has-text-color","style":{"color":{"text":"<?php echo esc_attr( $ls_icon_column['colour'] ); ?>"},"dimensions":{"width":"6rem"}}} /-->
 
 				<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|bold","letterSpacing":"var:custom|typography|letter-spacing|tight"}},"fontSize":"400"} -->
