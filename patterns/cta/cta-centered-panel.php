@@ -47,8 +47,8 @@
 			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/careers/' ) ); ?>"><?php echo esc_html__( 'View Open Roles', 'ls-theme' ); ?></a></div>
 			<!-- /wp:button -->
 
-			<!-- wp:button {"className":"is-style-outline"} -->
-			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/team/' ) ); ?>"><?php echo esc_html__( 'Meet the Team', 'ls-theme' ); ?></a></div>
+			<!-- wp:button -->
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/team/' ) ); ?>"><?php echo esc_html__( 'Meet the Team', 'ls-theme' ); ?></a></div>
 			<!-- /wp:button -->
 
 			<!-- wp:button {"className":"is-style-outline"} -->
