@@ -2,7 +2,7 @@
 
 /*
  * Everything the block attributes can express (type, colours, spacing, the Card - Plain shells, the
- * bento grid and its column spans, the staircase of card heights and the icon wells) is authored in
+ * bento grid and its column spans and the icon wells) is authored in
  * the pattern files. This file owns only what JSON cannot: a measure in ch, text-wrap, inline-style
  * overrides on small screens and the grid reflow. The mobile rules use WordPress's own breakpoints
  * (781.98px for the columns stacking, 599.98px for the small-screen step).
@@ -35,12 +35,6 @@
 
   .ls-bento > .ls-bento__card:last-child {
     grid-column: span 2;
-  }
-
-  // JSON limitation: the cards' minimum heights are inline styles, so dropping them where the
-  // columns stack needs !important — see AGENTS.md Theme-First Approach
-  .ls-stairs__card {
-    min-height: 0 !important;
   }
 }
 

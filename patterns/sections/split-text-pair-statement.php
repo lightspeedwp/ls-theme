@@ -24,8 +24,8 @@ $ls_pair_columns = array(
 );
 
 $ls_goal_html = sprintf(
-	/* translators: 1: struck-through phrase, 2: highlighted phrase. */
-	esc_html__( 'The goal is not %1$s. The goal is %2$s.', 'ls-theme' ),
+	/* translators: 1: struck-through phrase, 2: highlighted phrase. The line break between the two sentences is intentional. */
+	__( 'The goal is not %1$s.<br>The goal is %2$s.', 'ls-theme' ),
 	'<s><span style="color:var(--wp--custom--color--text--subtle)" class="has-inline-color">' . esc_html__( 'constant visibility', 'ls-theme' ) . '</span></s>',
 	'<mark style="background-color:transparent;color:var(--wp--custom--color--text--brand)" class="has-inline-color">' . esc_html__( 'dependable progress', 'ls-theme' ) . '</mark>'
 );
@@ -62,7 +62,7 @@ $ls_goal_html = sprintf(
 		</div>
 		<!-- /wp:columns -->
 
-		<!-- wp:group {"style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|70"}}},"layout":{"type":"constrained","contentSize":"","justifyContent":"left"}} -->
+		<!-- wp:group {"style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"padding":{"top":"var:preset|spacing|70"}}},"layout":{"type":"default"}} -->
 		<div class="wp-block-group" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--70)">
 			<!-- wp:paragraph {"className":"ls-careers-goal","style":{"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|extrabold","letterSpacing":"var:custom|typography|letter-spacing|tight","lineHeight":"var:custom|line-height|heading-snug"}},"fontSize":"800"} -->
 			<p class="ls-careers-goal has-800-font-size" style="font-family:var(--wp--preset--font-family--heading);font-weight:var(--wp--custom--typography--font-weight--extrabold);letter-spacing:var(--wp--custom--typography--letter-spacing--tight);line-height:var(--wp--custom--line-height--heading-snug)"><?php echo wp_kses_post( $ls_goal_html ); ?></p>
