@@ -4,7 +4,7 @@
  * Slug: ls-theme/band-lanes
  * Categories: text
  * Block Types: core/pattern
- * Description: A surface.card band that follows light and dark mode through surface, text and border tokens: a dot eyebrow, H2 and lede paragraph, then three ruled "lanes" side by side, each a mono kicker label, a large H3 and a paragraph, divided by hairlines, then a closing row with an H3 on the left and a paragraph plus a "More time for" row of pill labels on the right. The lane dividers are column borders; src/scss/structural/about-culture.scss only switches them from side dividers to stacked dividers on mobile and styles the pill labels (ls-chips). Authored for the About Culture page "The AI-Empowered Remote Workflow" section; edit the copy and labels after inserting. Falls back to core/columns and core/group because no semantic core block fits a lane.
+ * Description: A surface.card band that follows light and dark mode through surface, text and border tokens: a dot eyebrow, H2 and lede paragraph, then three ruled "lanes" side by side, each a mono kicker label, a large H3 and a paragraph, divided by hairlines, then a closing row with an H3 on the left and a paragraph, an arrow link to the AI workflow article and a "More time for" row of pill labels on the right. The lane dividers are column borders; src/scss/structural/about-culture.scss only switches them from side dividers to stacked dividers on mobile and styles the pill labels (ls-chips). Authored for the About Culture page "The AI-Empowered Remote Workflow" section; edit the copy and labels after inserting. Falls back to core/columns and core/group because no semantic core block fits a lane.
  * Keywords: band, lanes, columns, workflow, ai, culture, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -103,6 +103,10 @@ $ls_lane_labels = array(
 			<div class="wp-block-column" style="flex-basis:60%">
 				<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"300"} -->
 				<p class="has-text-color has-300-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'AI has changed the pace and shape of day-to-day work, but not the standard we hold it to. We use AI to help summarise research, draft documentation, support code reviews, generate starting points, and reduce repetitive task-switching. That means more time can go into architecture, accessibility, design judgement, mentoring and the parts of the job that still need human experience. LightSpeed’s own 2025 workflow article makes that shift public and concrete.', 'ls-theme' ); ?></p>
+				<!-- /wp:paragraph -->
+
+				<!-- wp:paragraph {"className":"is-style-link-arrow-accent","style":{"elements":{"link":{"color":{"text":"var:custom|color|link|accent"}}}},"fontSize":"200"} -->
+				<p class="is-style-link-arrow-accent has-link-color has-200-font-size"><a href="<?php echo esc_url( home_url( '/ai-workflow/' ) ); ?>"><?php echo esc_html__( 'Read “A Deep Dive into LightSpeed’s AI Workflow”', 'ls-theme' ); ?></a></p>
 				<!-- /wp:paragraph -->
 
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
