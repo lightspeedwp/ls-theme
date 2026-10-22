@@ -86,10 +86,16 @@ $ls_bento_cards = array(
 		<div class="wp-block-group ls-bento">
 			<?php foreach ( $ls_bento_cards as $ls_bento_card ) : ?>
 				<?php
-				$ls_bento_is_wide    = ( 6 === $ls_bento_card['span'] );
+				$ls_bento_is_wide  = ( 6 === $ls_bento_card['span'] );
+				$ls_bento_modifier = '';
+				if ( $ls_bento_is_wide ) {
+					$ls_bento_modifier = ' ls-bento__card--wide';
+				} elseif ( 4 === $ls_bento_card['span'] ) {
+					$ls_bento_modifier = ' ls-bento__card--feature';
+				}
 				$ls_bento_attrs      = array(
 					'tagName'   => 'article',
-					'className' => 'is-style-card-plain ls-bento__card',
+					'className' => 'is-style-card-plain ls-bento__card' . $ls_bento_modifier,
 					'style'     => array(
 						'layout'  => array( 'columnSpan' => $ls_bento_card['span'] ),
 						'spacing' => array( 'blockGap' => 'var:preset|spacing|40' ),
@@ -110,7 +116,7 @@ $ls_bento_cards = array(
 				}
 				?>
 			<!-- wp:group <?php echo wp_json_encode( $ls_bento_attrs, JSON_UNESCAPED_SLASHES ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON for a block comment. ?> -->
-			<article class="wp-block-group ls-bento__card is-style-card-plain" style="min-height:<?php echo esc_attr( $ls_bento_min_height ); ?>">
+			<article class="wp-block-group ls-bento__card is-style-card-plain<?php echo esc_attr( $ls_bento_modifier ); ?>" style="min-height:<?php echo esc_attr( $ls_bento_min_height ); ?>">
 				<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|monospace","letterSpacing":"var:custom|typography|letter-spacing|wide","fontWeight":"var:custom|typography|font-weight|semibold"},"color":{"text":"<?php echo esc_attr( $ls_bento_card['colour'] ); ?>"}},"fontSize":"100"} -->
 				<p class="has-text-color has-100-font-size" style="color:<?php echo esc_attr( $ls_bento_card['colour'] ); ?>;font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--wide)"><?php echo esc_html( $ls_bento_card['number'] ); ?></p>
 				<!-- /wp:paragraph -->
