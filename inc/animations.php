@@ -115,6 +115,7 @@ function ls_theme_get_bundle_render_markers() {
 		'hero-split-form'           => array( 'classes' => array( 'ls-hero-form-intro' ) ),
 		'scroll-timeline'           => array( 'classes' => array( 'ls-scroll-timeline' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
+		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-text-stack', 'ls-team-cta' ) ),
 	);
 }
 
@@ -730,6 +731,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// wherever the pattern renders.
 			'condition' => static function () {
 				return is_page( 'about/history' );
+			},
+		),
+		'about-team'                => array(
+			'handle'    => 'ls-theme-about-team',
+			'path'      => 'assets/css/about-team.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The About Team page patterns: the sticky hero column, the index row hover, the jump-link
+			// offset and the ghost and CTA button arrows. The render-marker fallback loads it wherever
+			// the patterns render.
+			'condition' => static function () {
+				return is_page( 'about/team' );
 			},
 		),
 	);
