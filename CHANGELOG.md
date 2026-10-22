@@ -21,6 +21,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- Add the Careers page patterns (LSA-197).
+- The About "Careers" page (`/about/careers/`) as ten section patterns: Hero - Split Photo, Statement Lede, Split Text Pair Statement, Numbered Bento Cards, Intro Icon Card Trio, Split Label Text Pair, Process Loop Text Pair, Accent Rule Columns, Centered Statement Link and Numbered Card Pair Action Note. The FAQ and closing CTA reuse the existing Solutions Split FAQ and Services CTA patterns.
+- `src/scss/structural/about-careers.scss`, compiled to `assets/css/about-careers.css`: the statement measure, the grid and loop reflow on small screens and the role-card hover lift.
+
+([#139](https://github.com/lightspeedwp/ls-theme/pull/139), [#140](https://github.com/lightspeedwp/ls-theme/pull/140))
+
+---
+
+## [Unreleased] — Add the Culture page Sections 5-8 patterns (LSA-108)
+
+### Added
+
+- `patterns/sections/split-divided-text-chips.php` (Section - Split Divided Text Chips): two columns on a card band, each a dot eyebrow H2, a paragraph and tinted pill labels, with a divider between them that becomes a top rule on mobile.
+- `patterns/sections/split-header-icon-columns.php` (Section - Split Header Icon Columns): a split header above three ruled columns, each a large accent-coloured Icon block, an H3 and a paragraph.
+- `patterns/sections/split-statement-cards.php` (Section - Split Statement Cards): two large statement cards on a card band, one plain and one using the `surface.brand-strong` token with inverse text.
+- `patterns/cta/cta-centered-panel.php` (CTA - Centered Panel): a rounded `surface.card` panel with the shared corner glow, and a centred eyebrow, H2, paragraph and three buttons (two primary, one outline).
+- `src/scss/structural/about-culture.scss`, compiled to `assets/css/about-culture.css`: the mobile side-to-bottom dividers for the icon columns and the divided pair, and the CTA heading width. `inc/animations.php` lists the new classes.
+
+([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
+
+---
+
 ## [Unreleased] — Add the History page Year by year Details Card Grid pattern (LSA-107)
 
 ### Added

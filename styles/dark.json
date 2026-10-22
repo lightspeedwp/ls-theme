@@ -28,6 +28,7 @@
 					"highlight-hover": "var:preset|color|neutral-200",
 					"brand-light": "var:preset|color|brand-900",
                     "brand": "var:preset|color|cta-500",
+                    "brand-strong": "var:preset|color|cta-600",
                     "cta-light": "var:preset|color|cta-900",
                     "cta": "var:preset|color|accent-two-500",
                     "accent-light": "var:preset|color|accent-900",
@@ -87,6 +88,9 @@
 					"evolve": "var:preset|color|phase-six",
 					"evolve-on-dark": "var:preset|color|phase-six",
 					"evolve-on-dark-card": "var:preset|color|phase-six-light"
+				},
+				"accent": {
+					"warm": "var:preset|color|warm-300"
 				},
 				"status": {
 					"success": "var:preset|color|success-foreground"

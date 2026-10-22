@@ -96,6 +96,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/services-service-tiles.css' );
 	add_editor_style( 'assets/css/solutions-route-tiles.css' );
 	add_editor_style( 'assets/css/stat-feature-bento.css' );
+	add_editor_style( 'assets/css/about-culture.css' );
 	add_editor_style( 'assets/css/services-delivery-numbers.css' );
 	add_editor_style( 'assets/css/corner-glow.css' );
 	add_editor_style( 'assets/css/snapshot-card.css' );
@@ -129,6 +130,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/hero-split-form.css' );
 	add_editor_style( 'assets/css/scroll-timeline.css' );
 	add_editor_style( 'assets/css/details-card-grid.css' );
+	add_editor_style( 'assets/css/about-careers.css' );
 	add_editor_style( 'assets/css/about-team.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );

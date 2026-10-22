@@ -502,6 +502,16 @@
                     "name": "Phase Six Light",
                     "slug": "phase-six-light",
                     "color": "#A3A5FB"
+                },
+                {
+                    "name": "Warm 300",
+                    "slug": "warm-300",
+                    "color": "#FDBA74"
+                },
+                {
+                    "name": "Warm 700",
+                    "slug": "warm-700",
+                    "color": "#C2410C"
                 }
             ]
         },
@@ -545,6 +555,7 @@
                     "highlight-hover": "var:preset|color|neutral-200",
                     "brand-light": "var:preset|color|brand-100",
                     "brand": "var:preset|color|brand-500",
+                    "brand-strong": "var:preset|color|brand-600",
                     "cta-light": "var:preset|color|cta-100",
                     "cta": "var:preset|color|cta-500",
                     "accent-light": "var:preset|color|accent-100",
@@ -609,6 +620,9 @@
                     "evolve": "var:preset|color|phase-six-strong",
                     "evolve-on-dark": "var:preset|color|phase-six",
                     "evolve-on-dark-card": "var:preset|color|phase-six-mid"
+                },
+                "accent": {
+                    "warm": "var:preset|color|warm-700"
                 },
                 "status": {
                     "success": "var:preset|color|success-strong"
