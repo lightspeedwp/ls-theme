@@ -115,6 +115,7 @@ function ls_theme_get_bundle_render_markers() {
 		'legal-page'                => array( 'classes' => array( 'ls-page-hero', 'ls-legal-toc', 'ls-legal-body', 'ls-related-trust-grid' ) ),
 		'hero-split-form'           => array( 'classes' => array( 'ls-hero-form-intro' ) ),
 		'scroll-timeline'           => array( 'classes' => array( 'ls-scroll-timeline' ) ),
+		'about-careers'             => array( 'classes' => array( 'ls-careers-statement', 'ls-careers-goal', 'ls-bento' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
 	);
 }
@@ -741,6 +742,15 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// wherever the pattern renders.
 			'condition' => static function () {
 				return is_page( 'about/history' );
+			},
+		),
+		'about-careers'             => array(
+			'handle'    => 'ls-theme-about-careers',
+			'path'      => 'assets/css/about-careers.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The About Careers page patterns: the statement measure and the bento reflow on small screens. The render-marker fallback loads it wherever the patterns render.
+			'condition' => static function () {
+				return is_page( 'about/careers' );
 			},
 		),
 	);
