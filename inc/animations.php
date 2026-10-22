@@ -115,7 +115,7 @@ function ls_theme_get_bundle_render_markers() {
 		'hero-split-form'           => array( 'classes' => array( 'ls-hero-form-intro' ) ),
 		'scroll-timeline'           => array( 'classes' => array( 'ls-scroll-timeline' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
-		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-text-stack', 'ls-team-cta' ) ),
+		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-profile-grid', 'ls-text-stack', 'ls-team-cta' ) ),
 	);
 }
 

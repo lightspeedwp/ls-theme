@@ -4,7 +4,7 @@
  * Slug: ls-theme/profile-card-group
  * Categories: featured
  * Block Types: core/pattern
- * Description: A "meet the team" group section on the page canvas: a stacked header (dot eyebrow and H2) above a responsive three-column grid of flat profile cards. Each card is a plain group with no shell, with a 4:5 portrait (core Image block, cover crop, rounded corners; empty until you choose a photo), the name (H3) with a monospace brand-coloured role beneath it, and a short bio. The section and each card carry an anchor so an index can link to them, and a scroll offset (src/scss/structural/about-team.scss) keeps a jumped-to group clear of the sticky header. Falls back to core/group because no semantic core block fits a profile card grid. The grid reflows to fewer columns on small screens. Insert it once per team group and keep only that group's cards, changing the eyebrow, heading and anchors.
+ * Description: A "meet the team" group section on the page canvas: a stacked header (dot eyebrow and H2) above a responsive three-column grid of flat profile cards. Each card is a plain group with no shell, with a 4:5 portrait (core Image block, cover crop, rounded corners; empty until you choose a photo), the name (H3) with a monospace brand-coloured role beneath it, and a short bio. The section and each card carry an anchor so an index can link to them, and a scroll offset (src/scss/structural/about-team.scss) keeps a jumped-to group clear of the sticky header. Falls back to core/group because no semantic core block fits a profile card grid. The grid is capped to a 76rem measure (src/scss/structural/about-team.scss) so the portraits stay a card-sized 4:5 on wide screens, and it reflows to fewer columns on small screens. Insert it once per team group and keep only that group's cards, changing the eyebrow, heading and anchors.
  * Keywords: team, people, profile, staff, cards, grid, bio, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -75,8 +75,8 @@ $ls_profiles = array(
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"14rem"}} -->
-		<div class="wp-block-group">
+		<!-- wp:group {"className":"ls-profile-grid","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"14rem"}} -->
+		<div class="wp-block-group ls-profile-grid">
 
 			<?php foreach ( $ls_profiles as $ls_profile ) : ?>
 			<!-- wp:group {"tagName":"article","anchor":"<?php echo esc_attr( $ls_profile['anchor'] ); ?>","className":"ls-profile-card","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->

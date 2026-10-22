@@ -24,6 +24,13 @@
   text-wrap: balance;
 }
 
+// JSON limitation: max-width has no group-block key in a grid layout. The cap keeps three columns of
+// 4:5 portraits at card size instead of stretching them across the full wide width — see AGENTS.md
+// Theme-First Approach
+.ls-profile-grid {
+  max-width: 76rem;
+}
+
 // JSON limitation: scroll-margin-top has no block key. It keeps a jumped-to group or card clear of
 // the sticky header — see AGENTS.md Theme-First Approach
 .ls-profile-group,
