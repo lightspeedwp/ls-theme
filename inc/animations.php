@@ -81,6 +81,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
 		'solutions-route-tiles'     => array( 'classes' => array( 'ls-route-tile' ) ),
 		'stat-feature-bento'        => array( 'classes' => array( 'ls-stat-feature-card' ) ),
+		'about-culture'             => array( 'classes' => array( 'ls-rhythm-ticks', 'ls-statement-word', 'ls-sticky-intro', 'ls-outline-year', 'ls-chips', 'ls-steps', 'ls-lanes', 'ls-accent-card' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
 		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
 		'snapshot-card'             => array( 'classes' => array( 'ls-snapshot-card' ) ),
@@ -390,6 +391,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// Scoped to the real Solutions landing page slug, same reasoning as solutions-hero above.
 			'condition' => static function () {
 				return is_page( 'solutions' );
+			},
+		),
+		'about-culture'             => array(
+			'handle'    => 'ls-theme-about-culture',
+			'path'      => 'assets/css/about-culture.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// Scoped to the real About Culture page slug, same reasoning as stat-feature-bento
+			// above; the render_block marker detection covers the patterns placed elsewhere.
+			'condition' => static function () {
+				return is_page( 'culture' );
 			},
 		),
 		'services-delivery-numbers' => array(
