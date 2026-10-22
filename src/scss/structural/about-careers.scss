@@ -21,7 +21,76 @@
   text-wrap: balance;
 }
 
+// JSON limitation: a dashed return line that is open on top with curved bottom corners, and an arrow
+// pinned to its left end, need a single-sided dashed border plus absolute positioning — see AGENTS.md
+// Theme-First Approach
+.ls-loop__return {
+  height: 2.75rem;
+  margin-inline: 10%;
+  position: relative;
+  border: 2px dashed var(--wp--custom--color--border--card-strong);
+  border-top: 0;
+  border-radius: 0 0 var(--wp--preset--border-radius--400) var(--wp--preset--border-radius--400);
+}
+
+// JSON limitation: absolute positioning has no block key — see AGENTS.md Theme-First Approach
+.ls-loop__return .ls-loop__return-arrow {
+  position: absolute;
+  top: -0.25rem;
+  left: -0.75rem;
+  background: var(--wp--custom--color--surface--canvas);
+}
+
+// JSON limitation: flex-shrink and min-width have no block key. Without min-width the longest chip
+// label would push the row wider than the section — see AGENTS.md Theme-First Approach
+.ls-loop__chip {
+  min-width: 0;
+}
+
+.ls-loop__arrow {
+  flex: none;
+}
+
+// JSON limitation: :hover has no theme.json pseudo-state key for a block, and the lift is a transform
+// — see AGENTS.md Theme-First Approach
+.ls-role-card {
+  transition:
+    border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
+.ls-role-card.is-style-card-plain:hover {
+  border-color: var(--wp--custom--color--text--brand);
+  transform: translateY(var(--wp--custom--animation--lift--sm));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-role-card {
+    transition: none;
+  }
+
+  .ls-role-card.is-style-card-plain:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 781.98px) {
+  // JSON limitation: the chip row is a generated flex container class, so stacking it on small screens
+  // and turning the arrows downward needs breakpoint rules — see AGENTS.md Theme-First Approach
+  .wp-block-group.ls-loop__row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ls-loop__arrow {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+
+  .wp-block-group.ls-loop__return {
+    display: none;
+  }
+
   // JSON limitation: a core grid has one column count for every width, and the child column spans
   // are generated single-class rules; the two-class selectors here override both at the stacking
   // breakpoint — see AGENTS.md Theme-First Approach
@@ -51,6 +120,14 @@
   .ls-bento > .ls-bento__card--feature,
   .ls-bento > .ls-bento__card--wide {
     grid-column: auto;
+  }
+
+  // JSON limitation: the theme's button style sets white-space: nowrap in its own CSS, which has no
+  // breakpoint key, so the long "View Our Open-Source Work on GitHub" label would run off the screen
+  // — see AGENTS.md Theme-First Approach
+  .ls-role-actions .wp-block-button__link {
+    text-align: center;
+    white-space: normal;
   }
 
   // JSON limitation: inline min-height needs !important to drop on small screens — see AGENTS.md

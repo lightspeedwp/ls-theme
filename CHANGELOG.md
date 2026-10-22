@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- Add the Careers page patterns (LSA-197).
+- The About "Careers" page (`/about/careers/`) as ten section patterns: Hero - Split Photo, Statement Lede, Split Text Pair Statement, Numbered Bento Cards, Intro Icon Card Trio, Split Label Text Pair, Process Loop Text Pair, Accent Rule Columns, Centered Statement Link and Numbered Card Pair Action Note. The FAQ and closing CTA reuse the existing Solutions Split FAQ and Services CTA patterns.
+- `src/scss/structural/about-careers.scss`, compiled to `assets/css/about-careers.css`: the statement measure, the grid and loop reflow on small screens and the role-card hover lift.
+
+([#139](https://github.com/lightspeedwp/ls-theme/pull/139), [#140](https://github.com/lightspeedwp/ls-theme/pull/140))
+
+---
+
 ## [Unreleased] — Add the Culture page Sections 5-8 patterns (LSA-108)
 
 ### Added
