@@ -738,7 +738,7 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'path'      => 'assets/css/about-team.css',
 			'contexts'  => array( 'front', 'editor' ),
 			// The About Team page patterns: the sticky hero column, the index row hover, the jump-link
-			// offset and the ghost and CTA button arrows. The render-marker fallback loads it wherever
+			// offset and the CTA button arrow. The render-marker fallback loads it wherever
 			// the patterns render.
 			'condition' => static function () {
 				return is_page( 'about/team' );

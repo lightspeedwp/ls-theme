@@ -1,10 +1,10 @@
-/********** About Team (Hero - Split Index Card, Section - Profile Card Group, Section - Text Stack, Team page buttons) **********/
+/********** About Team (Hero - Split Index Card, Section - Profile Card Group, Section - Text Stack, CTA button) **********/
 
 /*
  * Everything the block attributes can express (type, colours, spacing, the index card, the profile
  * cards and the band) is authored in the pattern files. This file owns only what JSON cannot: the
  * index row hover, the jump-link offset and smooth scroll, the grid measure, the heading balance and
- * the ghost-button and CTA arrow treatments.
+ * the CTA button arrow.
  */
 
 // JSON limitation: text-wrap has no heading-block key. It balances the hero and text-stack headings
@@ -72,30 +72,6 @@
 .ls-index-hero__row:hover a,
 .ls-index-hero__row a:focus-visible {
   color: var(--wp--custom--color--text--brand);
-}
-
-/*
- * Ghost buttons (Careers row and CTA band) are built on the shared `is-style-outline` for its pill
- * shape, but that style adds an arrow-well `::after` through src/scss/animations/_button-motion.scss.
- * The Team design shows these buttons with no arrow, so the well and its padding shift are
- * neutralised here, scoped to the `ls-team-ghost-button` class. Same recipe as
- * src/scss/structural/homepage-cta.scss; the extra class keeps it ahead of the shared style
- * whatever the stylesheet load order.
- */
-.wp-block-button.is-style-outline.ls-team-ghost-button .wp-block-button__link {
-  padding-inline-start: var(--wp--preset--spacing--40);
-  padding-inline-end: var(--wp--preset--spacing--40);
-  padding-block: var(--wp--preset--spacing--20);
-
-  &::after {
-    content: none;
-  }
-
-  &:hover,
-  &:focus-visible {
-    padding-inline-start: var(--wp--preset--spacing--40);
-    padding-inline-end: var(--wp--preset--spacing--40);
-  }
 }
 
 /*

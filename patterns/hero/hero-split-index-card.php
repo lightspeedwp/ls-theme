@@ -4,7 +4,7 @@
  * Slug: ls-theme/hero-split-index-card
  * Categories: hero
  * Block Types: core/pattern
- * Description: A split hero for team and directory pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and a primary and an outline button on the left (about 50%), and a bordered surface.card index on the right (about 50%) that groups the team by area in two side-by-side lists (they stack into one column when the card is narrow). Each group title and each person's name link to an anchor lower down the page, with the role beneath the name, and each row slides and turns brand-coloured on hover (src/scss/structural/about-team.scss). Uses the shared corner-glow class for the background. The index is a core/group of linked paragraphs because no semantic core block fits an in-page jump list with a role under each name; the group titles are paragraphs, not headings, so the page outline stays H1 then H2. Columns stack on mobile. The outline button drops the shared arrow tile through the same stylesheet. Edit the copy, groups, anchors and buttons after inserting.
+ * Description: A split hero for team and directory pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and a primary and an outline button on the left (about 50%), and a bordered surface.card index on the right (about 50%) that groups the team by area in two side-by-side lists (they stack into one column when the card is narrow). Each group title and each person's name link to an anchor lower down the page, with the role beneath the name, and each row slides and turns brand-coloured on hover (src/scss/structural/about-team.scss). Uses the shared corner-glow class for the background. The index is a core/group of linked paragraphs because no semantic core block fits an in-page jump list with a role under each name; the group titles are paragraphs, not headings, so the page outline stays H1 then H2. Columns stack on mobile. The outline button is the shared is-style-outline button, the same as the other heroes. Edit the copy, groups, anchors and buttons after inserting.
  * Keywords: hero, split, team, index, directory, jump links, people, buttons, section
  * Viewport Width: 1280
  * Inserter: true
@@ -126,8 +126,8 @@ $ls_index_columns = array(
 					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 
-					<!-- wp:button {"className":"is-style-outline ls-team-ghost-button"} -->
-					<div class="wp-block-button is-style-outline ls-team-ghost-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/culture/' ) ); ?>"><?php echo esc_html__( 'Explore our culture', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"is-style-outline"} -->
+					<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/culture/' ) ); ?>"><?php echo esc_html__( 'Explore our culture', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->

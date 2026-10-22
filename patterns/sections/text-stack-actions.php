@@ -4,7 +4,7 @@
  * Slug: ls-theme/text-stack-actions
  * Categories: featured
  * Block Types: core/pattern
- * Description: A text-led section on the page canvas: a dot eyebrow, an H2, an H3 sub-heading and two lede paragraphs stacked in one narrow, left-aligned column (capped to a 760px content size on the group's own layout), followed by a row of three buttons (one primary, two outline) built with core/buttons and core/button. The heading balances its lines (src/scss/structural/about-team.scss). Falls back to core/group because no semantic core block fits an eyebrow, heading and paragraph stack. The two outline buttons drop the shared arrow tile (src/scss/structural/about-team.scss). Buttons wrap on small screens. Adapts between light and dark mode through text tokens and the shared button styles. Edit the copy and button labels and links after inserting.
+ * Description: A text-led section on the page canvas: a dot eyebrow, an H2, an H3 sub-heading and two lede paragraphs stacked in one narrow, left-aligned column (capped to a 760px content size on the group's own layout), followed by a row of two buttons (one primary, one outline) built with core/buttons and core/button. The heading balances its lines (src/scss/structural/about-team.scss). Falls back to core/group because no semantic core block fits an eyebrow, heading and paragraph stack. Buttons wrap on small screens. Adapts between light and dark mode through text tokens and the shared button styles. Edit the copy and button labels and links after inserting.
  * Keywords: text, careers, actions, buttons, stack, about, section
  * Viewport Width: 1280
  * Inserter: true
@@ -51,12 +51,8 @@
 			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/careers/' ) ); ?>"><?php echo esc_html__( 'View Open Roles', 'ls-theme' ); ?></a></div>
 			<!-- /wp:button -->
 
-			<!-- wp:button {"className":"is-style-outline ls-team-ghost-button"} -->
-			<div class="wp-block-button is-style-outline ls-team-ghost-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/culture/' ) ); ?>"><?php echo esc_html__( 'Explore Our Culture', 'ls-theme' ); ?></a></div>
-			<!-- /wp:button -->
-
-			<!-- wp:button {"className":"is-style-outline ls-team-ghost-button"} -->
-			<div class="wp-block-button is-style-outline ls-team-ghost-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( 'https://www.linkedin.com/company/lightspeedwp' ); ?>"><?php echo esc_html__( 'Connect on LinkedIn', 'ls-theme' ); ?></a></div>
+			<!-- wp:button {"className":"is-style-outline"} -->
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( 'https://www.linkedin.com/company/lightspeedwp' ); ?>"><?php echo esc_html__( 'Connect on LinkedIn', 'ls-theme' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->
