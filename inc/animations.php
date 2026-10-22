@@ -117,6 +117,7 @@ function ls_theme_get_bundle_render_markers() {
 		'scroll-timeline'           => array( 'classes' => array( 'ls-scroll-timeline' ) ),
 		'about-careers'             => array( 'classes' => array( 'ls-careers-statement', 'ls-careers-goal', 'ls-bento', 'ls-loop', 'ls-role-card', 'ls-role-actions' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
+		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-profile-grid', 'ls-text-stack', 'ls-team-cta' ) ),
 	);
 }
 
@@ -751,6 +752,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// The About Careers page patterns: the statement measure and the bento reflow on small screens. The render-marker fallback loads it wherever the patterns render.
 			'condition' => static function () {
 				return is_page( 'about/careers' );
+			},
+		),
+		'about-team'                => array(
+			'handle'    => 'ls-theme-about-team',
+			'path'      => 'assets/css/about-team.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The About Team page patterns: the index row hover, the jump-link offset and smooth scroll,
+			// the profile grid measure and the CTA button arrow. The render-marker fallback loads it
+			// wherever the patterns render.
+			'condition' => static function () {
+				return is_page( 'about/team' );
 			},
 		),
 	);

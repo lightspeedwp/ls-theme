@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the Team page patterns (LSA-109)
+
+### Added
+
+- `patterns/hero/hero-split-index-card.php` (Hero - Split Index Card): the Team hero with a breadcrumb, eyebrow, H1, lede and a primary and an outline button, beside a bordered card that indexes the team in two side-by-side lists with the role under each name. Group titles and names jump to the matching section or card, and each row slides and turns brand-coloured on hover.
+- `patterns/sections/profile-card-group.php` (Section - Profile Card Group): an eyebrow and H2 above a three-column grid of plain 4:5 portrait cards (portrait, name, monospace role and bio), each with an anchor. The grid is capped to a 76rem measure so the portraits stay card-sized on wide screens.
+- `patterns/sections/text-stack.php` (Section - Text Stack) and `patterns/sections/text-stack-actions.php` (Section - Text Stack With Actions): an eyebrow, H2 and lede paragraphs in one narrow column, the second with an H3 and a primary and an outline button.
+- `patterns/cta/cta-dark-band-buttons.php` (CTA - Dark Band Buttons): a fixed-dark closing band with a white primary button with an arrow and an outline button.
+- `src/scss/structural/about-team.scss`, compiled to `assets/css/about-team.css`: the index row hover, the jump-link scroll offset and smooth scroll (only on pages with the index hero and off under reduced motion), the profile grid measure, balanced heading wrapping and the arrow on the dark primary button. Loaded on `/about/team/` and wherever the patterns render.
+
+([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
+
+---
+
 ## [Unreleased]
 
 ### Added
