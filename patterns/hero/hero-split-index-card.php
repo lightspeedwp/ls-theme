@@ -4,75 +4,79 @@
  * Slug: ls-theme/hero-split-index-card
  * Categories: hero
  * Block Types: core/pattern
- * Description: A split hero for team and directory pages: breadcrumb trail, dot eyebrow, H1 and lede paragraph on the left (about 58%), and a bordered surface.card index on the right (about 42%) that groups the team by area, each group title and each person's name linking to an anchor lower down the page, with the role right-aligned on the same row. Uses the shared corner-glow class for the background. The index is a core/group of linked paragraphs because no semantic core block fits an in-page jump list with a right-aligned role; the group titles are paragraphs, not headings, so the page outline stays H1 then H2. The left column stays in place while the taller index scrolls past, and each row slides and turns brand-coloured on hover (src/scss/structural/about-team.scss). Columns stack on mobile. Edit the copy, groups and anchors after inserting.
- * Keywords: hero, split, team, index, directory, jump links, people, section
+ * Description: A split hero for team and directory pages: breadcrumb trail, dot eyebrow, H1, lede paragraph and a primary and an outline button on the left (about 50%), and a bordered surface.card index on the right (about 50%) that groups the team by area in two side-by-side lists (they stack into one column when the card is narrow). Each group title and each person's name link to an anchor lower down the page, with the role beneath the name, and each row slides and turns brand-coloured on hover (src/scss/structural/about-team.scss). Uses the shared corner-glow class for the background. The index is a core/group of linked paragraphs because no semantic core block fits an in-page jump list with a role under each name; the group titles are paragraphs, not headings, so the page outline stays H1 then H2. Columns stack on mobile. The outline button drops the shared arrow tile through the same stylesheet. Edit the copy, groups, anchors and buttons after inserting.
+ * Keywords: hero, split, team, index, directory, jump links, people, buttons, section
  * Viewport Width: 1280
  * Inserter: true
  *
  * @package ls-theme
  */
 
-$ls_index_groups = array(
+$ls_index_columns = array(
 	array(
-		'title'  => __( 'Leadership and direction', 'ls-theme' ),
-		'anchor' => 'leadership',
-		'people' => array(
-			array(
-				'name'   => 'Ash Shaw',
-				'role'   => __( 'Founder', 'ls-theme' ),
-				'anchor' => 'p-ash',
+		array(
+			'title'  => __( 'Leadership and direction', 'ls-theme' ),
+			'anchor' => 'leadership',
+			'people' => array(
+				array(
+					'name'   => 'Ash Shaw',
+					'role'   => __( 'Founder', 'ls-theme' ),
+					'anchor' => 'p-ash',
+				),
+				array(
+					'name'   => 'Barbara Kerr',
+					'role'   => __( 'Finance and operations', 'ls-theme' ),
+					'anchor' => 'p-barbara',
+				),
 			),
-			array(
-				'name'   => 'Barbara Kerr',
-				'role'   => __( 'Finance and operations', 'ls-theme' ),
-				'anchor' => 'p-barbara',
+		),
+		array(
+			'title'  => __( 'Infrastructure and support', 'ls-theme' ),
+			'anchor' => 'infra',
+			'people' => array(
+				array(
+					'name'   => 'Chris Vancoillie',
+					'role'   => __( 'Systems lead', 'ls-theme' ),
+					'anchor' => 'p-chris',
+				),
+				array(
+					'name'   => 'Lourens Visser',
+					'role'   => __( 'Support and workflow', 'ls-theme' ),
+					'anchor' => 'p-lourens',
+				),
 			),
 		),
 	),
 	array(
-		'title'  => __( 'Design and development', 'ls-theme' ),
-		'anchor' => 'design',
-		'people' => array(
-			array(
-				'name'   => 'Warwick Booth',
-				'role'   => __( 'Lead developer', 'ls-theme' ),
-				'anchor' => 'p-warwick',
-			),
-			array(
-				'name'   => 'Brandon Marshall',
-				'role'   => __( 'WordPress designer and developer', 'ls-theme' ),
-				'anchor' => 'p-brandon',
-			),
-			array(
-				'name'   => 'José Abreu',
-				'role'   => __( 'Block theme and block developer', 'ls-theme' ),
-				'anchor' => 'p-jose',
-			),
-			array(
-				'name'   => 'Tibi Buzdugan',
-				'role'   => __( 'Frontend and backend developer', 'ls-theme' ),
-				'anchor' => 'p-tibi',
-			),
-			array(
-				'name'   => 'Zared Rogers',
-				'role'   => __( 'Designer and site builder', 'ls-theme' ),
-				'anchor' => 'p-zared',
-			),
-		),
-	),
-	array(
-		'title'  => __( 'Infrastructure and support', 'ls-theme' ),
-		'anchor' => 'infra',
-		'people' => array(
-			array(
-				'name'   => 'Chris Vancoillie',
-				'role'   => __( 'Systems lead', 'ls-theme' ),
-				'anchor' => 'p-chris',
-			),
-			array(
-				'name'   => 'Lourens Visser',
-				'role'   => __( 'Support and workflow', 'ls-theme' ),
-				'anchor' => 'p-lourens',
+		array(
+			'title'  => __( 'Design and development', 'ls-theme' ),
+			'anchor' => 'design',
+			'people' => array(
+				array(
+					'name'   => 'Warwick Booth',
+					'role'   => __( 'Lead developer', 'ls-theme' ),
+					'anchor' => 'p-warwick',
+				),
+				array(
+					'name'   => 'Brandon Marshall',
+					'role'   => __( 'WordPress designer and developer', 'ls-theme' ),
+					'anchor' => 'p-brandon',
+				),
+				array(
+					'name'   => 'José Abreu',
+					'role'   => __( 'Block theme and block developer', 'ls-theme' ),
+					'anchor' => 'p-jose',
+				),
+				array(
+					'name'   => 'Tibi Buzdugan',
+					'role'   => __( 'Frontend and backend developer', 'ls-theme' ),
+					'anchor' => 'p-tibi',
+				),
+				array(
+					'name'   => 'Zared Rogers',
+					'role'   => __( 'Designer and site builder', 'ls-theme' ),
+					'anchor' => 'p-zared',
+				),
 			),
 		),
 	),
@@ -88,11 +92,11 @@ $ls_index_groups = array(
 		<!-- wp:yoast-seo/breadcrumbs {"className":"alignwide"} /-->
 		<?php endif; ?>
 
-		<!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
-		<div class="wp-block-columns alignwide are-vertically-aligned-top">
+		<!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
+		<div class="wp-block-columns alignwide are-vertically-aligned-center">
 
-			<!-- wp:column {"verticalAlignment":"top","width":"58%","className":"ls-index-hero__text","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
-			<div class="wp-block-column is-vertically-aligned-top ls-index-hero__text" style="flex-basis:58%">
+			<!-- wp:column {"verticalAlignment":"center","width":"50%","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
+			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%">
 
 				<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left","verticalAlignment":"center"}} -->
 				<div class="wp-block-group">
@@ -115,31 +119,50 @@ $ls_index_groups = array(
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
+
+				<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
+				<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--20)">
+					<!-- wp:button -->
+					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
+					<!-- /wp:button -->
+
+					<!-- wp:button {"className":"is-style-outline ls-team-ghost-button"} -->
+					<div class="wp-block-button is-style-outline ls-team-ghost-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/culture/' ) ); ?>"><?php echo esc_html__( 'Explore our culture', 'ls-theme' ); ?></a></div>
+					<!-- /wp:button -->
+				</div>
+				<!-- /wp:buttons -->
 			</div>
 			<!-- /wp:column -->
 
-			<!-- wp:column {"verticalAlignment":"top","width":"42%"} -->
-			<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:42%">
-				<!-- wp:group {"style":{"color":{"background":"var:custom|color|surface|card"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
+			<!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
+			<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%">
+				<!-- wp:group {"style":{"color":{"background":"var:custom|color|surface|card"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|400","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"grid","minimumColumnWidth":"13rem"}} -->
 				<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--400);background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 
-					<?php foreach ( $ls_index_groups as $ls_index_group ) : ?>
-					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"default"}} -->
+					<?php foreach ( $ls_index_columns as $ls_index_column ) : ?>
+					<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"default"}} -->
 					<div class="wp-block-group">
-						<!-- wp:paragraph {"className":"ls-index-hero__title","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} -->
-						<p class="ls-index-hero__title has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--subtle);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><a href="<?php echo esc_url( '#' . $ls_index_group['anchor'] ); ?>"><?php echo esc_html( $ls_index_group['title'] ); ?></a></p>
-						<!-- /wp:paragraph -->
 
-						<?php foreach ( $ls_index_group['people'] as $ls_index_person ) : ?>
-						<!-- wp:group {"className":"ls-index-hero__row","style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|10","bottom":"var:preset|spacing|10"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
-						<div class="wp-block-group ls-index-hero__row" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10)">
-							<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|semibold"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"200"} -->
-							<p class="has-200-font-size" style="margin-top:0;margin-bottom:0;font-family:var(--wp--preset--font-family--heading);font-weight:var(--wp--custom--typography--font-weight--semibold)"><a href="<?php echo esc_url( '#' . $ls_index_person['anchor'] ); ?>"><?php echo esc_html( $ls_index_person['name'] ); ?></a></p>
+						<?php foreach ( $ls_index_column as $ls_index_group ) : ?>
+						<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"default"}} -->
+						<div class="wp-block-group">
+							<!-- wp:paragraph {"className":"ls-index-hero__title","style":{"typography":{"fontFamily":"var:preset|font-family|monospace","textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|bold"},"color":{"text":"var(--wp--custom--color--text--subtle)"}},"fontSize":"100"} -->
+							<p class="ls-index-hero__title has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--subtle);font-family:var(--wp--preset--font-family--monospace);font-weight:var(--wp--custom--typography--font-weight--bold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);text-transform:uppercase"><a href="<?php echo esc_url( '#' . $ls_index_group['anchor'] ); ?>"><?php echo esc_html( $ls_index_group['title'] ); ?></a></p>
 							<!-- /wp:paragraph -->
 
-							<!-- wp:paragraph {"align":"right","style":{"color":{"text":"var(--wp--custom--color--text--subtle)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"200"} -->
-							<p class="has-text-align-right has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--subtle);margin-top:0;margin-bottom:0"><?php echo esc_html( $ls_index_person['role'] ); ?></p>
-							<!-- /wp:paragraph -->
+							<?php foreach ( $ls_index_group['people'] as $ls_index_person ) : ?>
+							<!-- wp:group {"className":"ls-index-hero__row","style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|5","padding":{"top":"var:preset|spacing|10","bottom":"var:preset|spacing|10"}}},"layout":{"type":"default"}} -->
+							<div class="wp-block-group ls-index-hero__row" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10)">
+								<!-- wp:paragraph {"style":{"typography":{"fontFamily":"var:preset|font-family|heading","fontWeight":"var:custom|typography|font-weight|semibold"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"200"} -->
+								<p class="has-200-font-size" style="margin-top:0;margin-bottom:0;font-family:var(--wp--preset--font-family--heading);font-weight:var(--wp--custom--typography--font-weight--semibold)"><a href="<?php echo esc_url( '#' . $ls_index_person['anchor'] ); ?>"><?php echo esc_html( $ls_index_person['name'] ); ?></a></p>
+								<!-- /wp:paragraph -->
+
+								<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--subtle)"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"100"} -->
+								<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--subtle);margin-top:0;margin-bottom:0"><?php echo esc_html( $ls_index_person['role'] ); ?></p>
+								<!-- /wp:paragraph -->
+							</div>
+							<!-- /wp:group -->
+							<?php endforeach; ?>
 						</div>
 						<!-- /wp:group -->
 						<?php endforeach; ?>

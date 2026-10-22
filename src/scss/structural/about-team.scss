@@ -3,23 +3,13 @@
 /*
  * Everything the block attributes can express (type, colours, spacing, the index card, the profile
  * cards and the band) is authored in the pattern files. This file owns only what JSON cannot: the
- * sticky hero column, the index row hover, the jump-link offset and smooth scroll, and the
- * ghost-button and CTA arrow treatments. The sticky rule starts at WordPress's own columns
- * breakpoint (782px), where the columns stop stacking.
+ * index row hover, the jump-link offset and smooth scroll, the grid measure, the heading balance and
+ * the ghost-button and CTA arrow treatments.
  */
 
-@media (min-width: 782px) {
-  // JSON limitation: position: sticky has no block key. The hero text stays in view while the taller
-  // index card scrolls past — see AGENTS.md Theme-First Approach
-  .wp-block-column.ls-index-hero__text {
-    position: sticky;
-    top: calc(var(--wp--preset--spacing--100) + var(--wp--preset--spacing--20));
-  }
-}
-
-// JSON limitation: text-wrap has no heading-block key. It balances the hero and text-stack headings over short lines, so no single word is left alone on a line —
-// see AGENTS.md Theme-First Approach
-.ls-index-hero__text .wp-block-heading,
+// JSON limitation: text-wrap has no heading-block key. It balances the hero and text-stack headings
+// over short lines, so no single word is left alone — see AGENTS.md Theme-First Approach
+.ls-index-hero .wp-block-heading,
 .ls-text-stack .wp-block-heading {
   text-wrap: balance;
 }
