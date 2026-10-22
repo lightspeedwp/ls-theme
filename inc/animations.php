@@ -81,7 +81,7 @@ function ls_theme_get_bundle_render_markers() {
 		'services-service-tiles'    => array( 'classes' => array( 'is-style-card-service-tile' ) ),
 		'solutions-route-tiles'     => array( 'classes' => array( 'ls-route-tile' ) ),
 		'stat-feature-bento'        => array( 'classes' => array( 'ls-stat-feature-card' ) ),
-		'about-culture'             => array( 'classes' => array( 'ls-rhythm-ticks', 'ls-statement-word', 'ls-sticky-intro', 'ls-outline-year', 'ls-chips', 'ls-steps', 'ls-lanes', 'ls-accent-card' ) ),
+		'about-culture'             => array( 'classes' => array( 'ls-rhythm-ticks', 'ls-statement-word', 'ls-sticky-intro', 'ls-outline-year', 'ls-chips', 'ls-steps', 'ls-lanes', 'ls-col-rule', 'ls-divided-col', 'ls-cta-centered', 'ls-accent-card' ) ),
 		'services-delivery-numbers' => array( 'classes' => array( 'ls-delivery-stats-row' ) ),
 		'corner-glow'               => array( 'classes' => array( 'ls-corner-glow' ) ),
 		'snapshot-card'             => array( 'classes' => array( 'ls-snapshot-card' ) ),
