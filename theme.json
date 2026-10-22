@@ -555,6 +555,7 @@
                     "highlight-hover": "var:preset|color|neutral-200",
                     "brand-light": "var:preset|color|brand-100",
                     "brand": "var:preset|color|brand-500",
+                    "brand-strong": "var:preset|color|brand-600",
                     "cta-light": "var:preset|color|cta-100",
                     "cta": "var:preset|color|cta-500",
                     "accent-light": "var:preset|color|accent-100",

@@ -28,6 +28,7 @@
 					"highlight-hover": "var:preset|color|neutral-200",
 					"brand-light": "var:preset|color|brand-900",
                     "brand": "var:preset|color|cta-500",
+                    "brand-strong": "var:preset|color|cta-600",
                     "cta-light": "var:preset|color|cta-900",
                     "cta": "var:preset|color|accent-two-500",
                     "accent-light": "var:preset|color|accent-900",
