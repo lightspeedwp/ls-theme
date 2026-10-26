@@ -147,6 +147,18 @@
 					}
 				}
 			},
+			"colour": {
+				"base": {
+					"100": "var:preset|color|neutral-100"
+				},
+				"neutral": {
+					"100": "var:preset|color|neutral-800",
+					"900": "var:preset|color|neutral-400"
+				},
+				"primary": {
+					"500": "var:preset|color|cta-500"
+				}
+			},
 			"shadow": {
 				"elevation": {
 					"100": "0.5px 2px 3px 0.5px rgba(8, 8, 8, 0.36)",

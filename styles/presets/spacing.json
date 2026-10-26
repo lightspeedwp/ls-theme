@@ -59,6 +59,31 @@
                     "name": "Colossal",
                     "slug": "100",
                     "size": "clamp(4.000rem, calc(3.164rem + 0.214vw), 6.250rem)"
+                },
+                {
+                    "name": "Legacy X-Small",
+                    "slug": "x-small",
+                    "size": "20px"
+                },
+                {
+                    "name": "Legacy Small",
+                    "slug": "small",
+                    "size": "clamp(20px, 4vw, 40px)"
+                },
+                {
+                    "name": "Legacy Medium",
+                    "slug": "medium",
+                    "size": "clamp(30px, 6vw, 60px)"
+                },
+                {
+                    "name": "Legacy Large",
+                    "slug": "large",
+                    "size": "clamp(40px, 8vw, 80px)"
+                },
+                {
+                    "name": "Legacy X-Large",
+                    "slug": "x-large",
+                    "size": "clamp(50px, 10vw, 100px)"
                 }
             ],
             "units": [

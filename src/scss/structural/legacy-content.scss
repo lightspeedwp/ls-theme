@@ -1,0 +1,366 @@
+/********** Legacy Content (Work Single and Blog Single) **********/
+
+/*
+ * Imported (LIVE) case studies and articles were authored for the old LSX theme and rely on its
+ * content defaults. Everything here is scoped to the post content of Work Single and Blog Single
+ * and reproduces the measured LIVE values, so imported content renders like LIVE without editing
+ * it. Each rule notes the LIVE value it matches.
+ */
+
+/* ---- Content frame ---------------------------------------------------------------------- */
+
+// LIVE: wide-size 1240px, content-size 768px (ls-theme: 1360px / 800px) and no root side padding.
+// Legacy column layouts (700px body, 20% / 60% / 20%), images and quote cards are all sized
+// relative to these, so redefining them here reproduces LIVE's widths in one place.
+.wp-block-post-content {
+  --wp--style--global--wide-size: 1240px;
+  --wp--style--global--content-size: 768px;
+  --wp--style--root--padding-left: 0;
+  --wp--style--root--padding-right: 0;
+}
+
+/* ---- Vertical rhythm -------------------------------------------------------------------- */
+
+// LIVE: the gap between the post's own top-level blocks is 16px on work posts and 8px on blog
+// posts (ls-theme: 20px). Containers further down use the 16px default below.
+.single-project .wp-block-post-content > * + * {
+  margin-block-start: 16px;
+}
+
+.single-post .wp-block-post-content > * + * {
+  margin-block-start: 8px;
+}
+
+// LIVE: default block gap 16px (ls-theme: 20px). Containers with an explicit gap in the content
+// carry a generated `wp-container-` class and are left alone.
+.wp-block-post-content :is(.is-layout-flow, .is-layout-constrained):not([class*="wp-container-"]) > * + * {
+  margin-block-start: 16px;
+}
+
+// LIVE: full-width blocks (top-level or nested) have no space above them. The class is doubled
+// to out-rank the block-gap rule above, which has three classes of specificity.
+.wp-block-post-content .alignfull.alignfull {
+  margin-block-start: 0;
+}
+
+// LIVE: every paragraph has 10px of bottom padding.
+.wp-block-post-content p {
+  padding-bottom: 10px;
+}
+
+// LIVE: headings in a default-gap container have no space above and 10px below, wherever they sit,
+// except the legacy `is-style-default` section headings, which have none (containers with an explicit gap carry a generated `wp-container-` class and reset it).
+.wp-block-post-content :is(.is-layout-flow, .is-layout-constrained):not([class*="wp-container-"]) > .wp-block-heading:not(.is-style-default) {
+  margin-block: 0 10px;
+}
+
+// LIVE: lists indent 20px and have no space between items.
+.wp-block-post-content :is(ul, ol) {
+  padding-inline-start: 20px;
+}
+
+.wp-block-post-content .wp-block-list > li {
+  margin-top: 0;
+}
+
+// LIVE: the buttons row is sized from LIVE's 20px "small" size (its gap is in em).
+.wp-block-post-content .wp-block-buttons {
+  font-size: var(--wp--preset--font-size--small);
+}
+
+// LIVE: image and embed captions are 16px/24px with 10px above and nothing below.
+.wp-block-post-content :is(.wp-block-image, .wp-block-embed) > figcaption {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-block: 10px 0;
+}
+
+// LIVE: in a default-gap container, images that are not aligned have no space above them
+// (aligned ones, and containers with an explicit gap, keep the gap).
+.wp-block-post-content :is(.is-layout-flow, .is-layout-constrained):not([class*="wp-container-"]) > .wp-block-image:not(.alignleft, .alignright, .aligncenter) {
+  margin-block-start: 0;
+}
+
+/* ---- Buttons ---------------------------------------------------------------------------- */
+
+/*
+ * LIVE content buttons are plain: a solid primary-blue fill, 8px radius, 10px 20px padding, white
+ * bold text, and on hover/focus a darker blue (primary-700) with an underlined label; there is no
+ * icon. ls-theme's default "fill" button instead paints its background on a ::before panel and
+ * adds an arrow icon in an ::after well, which needs 64px of right padding. With LIVE's 20px
+ * padding that arrow lands on top of the label, so both pseudo-elements are switched off here and
+ * the fill is painted on the link itself. Colours set in the editor (a `has-*-background-color`
+ * class, which is `!important`) still win.
+ */
+.wp-block-post-content .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient) .wp-block-button__link,
+.wp-block-post-content .wp-block-button.is-style-fill.is-style-fill .wp-block-button__link {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: var(--wp--preset--border-radius--200);
+  background: var(--wp--preset--color--primary);
+  color: var(--wp--custom--color--text--on-dark);
+  transition: background-color 0.2s ease-in-out;
+
+  &::before,
+  &::after {
+    content: none;
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--wp--preset--color--primary-700);
+    text-decoration: underline;
+  }
+}
+
+// LIVE leaves a button with the "center" alignment class at the start of its column and sizes the
+// row to the button, with no baseline gap under it.
+.wp-block-post-content .wp-block-button.aligncenter {
+  text-align: start;
+}
+
+.wp-block-post-content .wp-block-button__link {
+  vertical-align: top;
+}
+
+// LIVE redefines the whole spacing scale inside the button link, which is what any spacing set in
+// the editor on a button (inline padding) resolves against. Other button styles keep their own
+// look but get LIVE's padding.
+.wp-block-post-content .wp-block-button__link {
+  --wp--preset--spacing--x-small: 16px;
+  --wp--preset--spacing--small: 20px;
+  --wp--preset--spacing--medium: 28px;
+  --wp--preset--spacing--large: 38px;
+  --wp--preset--spacing--x-large: 50px;
+
+  padding: 10px 20px;
+}
+
+/* ---- Extra breathing room (deliberately more than LIVE) --------------------------------- */
+
+/*
+ * LIVE sets code blocks and button rows tight against their neighbours (8px on blog posts, 16px
+ * elsewhere). They get about 16px more above and below here, on purpose. Totals are given rather
+ * than additions because adjacent vertical margins collapse (the larger one wins). A button row
+ * is a `buttons` block, or the columns block that holds the buttons.
+ */
+.wp-block-post-content :is(pre.wp-block-code, .wp-block-buttons, .wp-block-columns:has(.wp-block-button)) {
+  margin-block: 32px;
+}
+
+.single-post .wp-block-post-content > :is(pre.wp-block-code, .wp-block-buttons, .wp-block-columns:has(.wp-block-button)) {
+  margin-block: 24px;
+}
+
+/* ---- Headings --------------------------------------------------------------------------- */
+
+// LIVE headings are Lexend 700 with line-height 1.35: h2 uses LIVE's "x-large" size (40px from
+// ~1000px up), h3 its "large" size (32px). ls-theme's own h2/h3 are 48px/600 and 32px/500.
+.wp-block-post-content h2.wp-block-heading:not(.is-style-heading-2) {
+  font-size: var(--wp--preset--font-size--x-large);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  line-height: var(--wp--custom--line-height--heading-loose);
+}
+
+.wp-block-post-content h3.wp-block-heading:not(.is-style-heading-2) {
+  font-size: var(--wp--preset--font-size--large);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  line-height: var(--wp--custom--line-height--heading-loose);
+}
+
+// LIVE h4: 24px at desktop (fluid below), 700, line-height 1.35.
+.wp-block-post-content h4.wp-block-heading {
+  font-size: clamp(18px, 1.125rem + ((1vw - 3.2px) * 0.6), 24px);
+  font-weight: var(--wp--custom--typography--font-weight--bold);
+  line-height: var(--wp--custom--line-height--heading-loose);
+}
+
+// LIVE code blocks: 5px padding, 3px radius (ls-theme: 14px / 8px) and green text (the "senary"
+// palette colour).
+.wp-block-post-content pre.wp-block-code {
+  padding: 5px;
+  border-radius: 3px;
+  color: var(--wp--preset--color--senary);
+}
+
+// LIVE: groups and columns with a background colour have no padding of their own (core adds
+// 1.25em 2.375em); padding set in the editor is inline and still applies.
+.wp-block-post-content :is(.wp-block-group, .wp-block-columns, .wp-block-column).has-background {
+  padding: 0;
+}
+
+// LIVE inline code: a solid chip, near-black with white text (inverted by the dark variation),
+// 5px 8px padding and LIVE's 20px "small" size.
+.wp-block-post-content :not(pre) > code {
+  padding: 5px 8px;
+  background-color: var(--wp--custom--color--text--default);
+  color: var(--wp--custom--color--text--inverse);
+  font-size: var(--wp--preset--font-size--small);
+}
+
+// LIVE shaded lists: 20px padding on top, bottom and start, none on the end (core adds 2.375em).
+.wp-block-post-content :is(ul, ol).has-background {
+  padding: 20px 0 20px 20px;
+}
+
+/*
+ * Heading fit: the section heading sits in a ~230px column and the longest legacy heading word
+ * ("Conclusion") is ~5.55em wide, and the theme sets `overflow-wrap: break-word`, which split
+ * words mid-word. The column becomes a size container; the heading keeps LIVE's size but never
+ * grows past what lets its longest word overflow the gap by more than ~20px, and mid-word
+ * breaking is off, so a narrow column can never split a word.
+ */
+.wp-block-post-content .wp-block-columns.alignwide > .wp-block-column:first-child {
+  container-type: inline-size;
+
+  > .wp-block-heading {
+    font-size: min(var(--wp--preset--font-size--x-large), calc(18cqw + 3.6px));
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+}
+
+/* ---- Columns ---------------------------------------------------------------------------- */
+
+/*
+ * LIVE squeezes the heading column to ~100px between the 782px stacking breakpoint and ~1100px.
+ * Below 1100px the heading column keeps a readable minimum width and the empty spacer column is
+ * dropped so the body takes the remaining space. The spacer is also hidden when columns stack
+ * on mobile, where it would only add a stray gap.
+ */
+@media (min-width: 782px) and (max-width: 1099px) {
+  .wp-block-post-content .wp-block-columns:has(> .wp-block-column[style*="flex-basis:700px"]) {
+    > .wp-block-column:first-child {
+      flex: 0 0 12rem;
+    }
+
+    > .wp-block-column[style*="flex-basis:700px"] {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    > .wp-block-column:empty {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 781px) {
+  .wp-block-post-content .wp-block-columns > .wp-block-column:empty {
+    display: none;
+  }
+}
+
+/* ---- Quotes ----------------------------------------------------------------------------- */
+
+/*
+ * LIVE quote blocks: 16px/400 text, 20px padding, no left rule, a right-aligned citation and a
+ * decorative 28x24 quote mark above the text. The theme's default quote style (20px/500, a 4px
+ * left rule and 26px side padding) is replaced inside the imported content only. Quotes that
+ * carry their own border in the content (inline style) keep it.
+ */
+.wp-block-post-content .wp-block-quote {
+  padding: var(--wp--preset--spacing--x-small);
+  border-inline-start-width: 0;
+  font-size: 1rem;
+  font-weight: var(--wp--custom--typography--font-weight--normal);
+  line-height: 1.5;
+
+  cite {
+    display: block;
+    font-size: 1rem;
+    font-weight: var(--wp--custom--typography--font-weight--normal);
+    line-height: 1.5;
+    text-align: end;
+  }
+
+  // Recreated as a mask so it takes the theme's brand text colour (and follows the dark
+  // variation) instead of a hard-coded colour or an image file.
+  &::before {
+    content: "";
+    display: block;
+    inline-size: 32px;
+    block-size: 32px;
+    margin-block-end: 10px;
+    background-color: var(--wp--custom--color--text--brand);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 24'%3E%3Cpath d='M27.8153 0.221762L27.1132 5.2228C25.9294 5.06015 24.7252 5.29953 23.6936 5.90259C22.8127 6.47783 22.1668 7.3494 21.8728 8.35958C21.5287 9.56471 21.4614 10.832 21.6759 12.0668H27.8174V24H15.8842L15.8842 12.0668C15.8842 7.85544 16.8642 4.66735 18.8242 2.50259C20.7841 0.337822 23.7811 -0.422451 27.8153 0.221762ZM11.934 0.221762L11.2319 5.2228C10.048 5.06015 8.84385 5.29953 7.81221 5.90259C6.93099 6.47749 6.285 7.3492 5.99146 8.35958C5.64734 9.5647 5.57986 10.832 5.79406 12.0668L11.936 12.0668L11.936 24H0.00287247V12.0668C0.00287247 7.85544 0.982874 4.66735 2.94281 2.50259C4.90274 0.337822 7.89981 -0.422451 11.934 0.221762Z'/%3E%3C/svg%3E") no-repeat 0 0 / 28px 24px;
+  }
+}
+
+// LIVE: a quote with a border colour set in the editor gets a 3px border all round (a width set
+// in the content itself still wins).
+.wp-block-post-content .wp-block-quote.has-border-color {
+  border-style: solid;
+  border-width: 3px;
+}
+
+// A quote inside a bordered card group gives the card its border and padding instead.
+.wp-block-post-content .wp-block-group.has-border-color > .wp-block-quote {
+  border: 0;
+}
+
+/* ---- Pullquotes ------------------------------------------------------------------------- */
+
+/*
+ * LIVE pullquotes: a 1px all-round border with a 5px radius, 36px top and 20px side/bottom
+ * padding, 400-weight text at 1.6 line-height (16px, or the size class on the block) and a
+ * decorative 42px quote mark above the text. ls-theme's pullquote has a 4px top/bottom rule, no
+ * padding, 500-weight text and a 12px citation. The quote mark is the same mask as the quote
+ * block's, so it follows the brand colour and the dark variation.
+ */
+.wp-block-post-content .wp-block-pullquote {
+  padding: 36px 20px 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: var(--wp--custom--typography--font-weight--normal);
+  line-height: 1.6;
+
+  blockquote {
+    padding: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+
+    p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      inline-size: 42px;
+      block-size: 42px;
+      background-color: var(--wp--custom--color--text--brand);
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 24'%3E%3Cpath d='M27.8153 0.221762L27.1132 5.2228C25.9294 5.06015 24.7252 5.29953 23.6936 5.90259C22.8127 6.47783 22.1668 7.3494 21.8728 8.35958C21.5287 9.56471 21.4614 10.832 21.6759 12.0668H27.8174V24H15.8842L15.8842 12.0668C15.8842 7.85544 16.8642 4.66735 18.8242 2.50259C20.7841 0.337822 23.7811 -0.422451 27.8153 0.221762ZM11.934 0.221762L11.2319 5.2228C10.048 5.06015 8.84385 5.29953 7.81221 5.90259C6.93099 6.47749 6.285 7.3492 5.99146 8.35958C5.64734 9.5647 5.57986 10.832 5.79406 12.0668L11.936 12.0668L11.936 24H0.00287247V12.0668C0.00287247 7.85544 0.982874 4.66735 2.94281 2.50259C4.90274 0.337822 7.89981 -0.422451 11.934 0.221762Z'/%3E%3C/svg%3E") no-repeat 0 0 / 28px 24px;
+    }
+  }
+
+  cite {
+    font-size: 1rem;
+    font-weight: var(--wp--custom--typography--font-weight--normal);
+    line-height: 1.6;
+  }
+}
+
+/* ---- Client logo pair ------------------------------------------------------------------- */
+
+// Both images are in the markup; the theme's existing light/dark visibility tokens (see
+// _header.scss) pick one, so a dark logo never disappears on the dark style variation. Sizing
+// lives here, not in the block's width attribute, for the same reason as the header logo.
+.ls-client-logo--for-light {
+  display: var(--wp--custom--visibility--logo-for-light);
+}
+
+.ls-client-logo--for-dark {
+  display: var(--wp--custom--visibility--logo-for-dark);
+}
+
+.ls-client-logo img {
+  display: block;
+  width: min(200px, 100%);
+  height: auto;
+}

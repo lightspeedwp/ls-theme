@@ -452,6 +452,16 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_singular( 'project' );
 			},
 		),
+		// Imported (LIVE) case-study and article content: reproduces the old theme's content defaults
+		// for Work Single and Blog Single posts (see the SCSS header).
+		'legacy-content'            => array(
+			'handle'    => 'ls-theme-legacy-content',
+			'path'      => 'assets/css/legacy-content.css',
+			'contexts'  => array( 'front', 'editor' ),
+			'condition' => static function () {
+				return is_singular( array( 'project', 'post' ) );
+			},
+		),
 		'blog-hero'                 => array(
 			'handle'    => 'ls-theme-blog-hero',
 			'path'      => 'assets/css/blog-hero.css',

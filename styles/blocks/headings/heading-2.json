@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Heading 2",
+	"slug": "heading-2",
+	"blockTypes": [
+		"core/heading"
+	],
+	"description": "Legacy secondary heading for imported case-study and article content.",
+	"styles": {
+		"typography": {
+			"fontSize": "var:preset|font-size|medium",
+			"fontWeight": "var:custom|typography|font-weight|medium",
+			"lineHeight": "1.1"
+		},
+		"spacing": {
+			"margin": {
+				"bottom": "10px"
+			}
+		}
+	}
+}

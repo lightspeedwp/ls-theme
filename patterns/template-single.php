@@ -6,8 +6,8 @@
  * Block Types: core/template-part
  * Description: Main-content pattern for the Single Blog template — the Blog Single hero
  * (breadcrumb, title, excerpt, author/date/read-time/category meta, featured image, all wide),
- * the post's own content rendered exactly as authored at the theme's default 800px content
- * width, a share row (also 800px, alongside the content it belongs to), a wide "Related Reading"
+ * the post's own content rendered exactly as authored in a wide flow frame (like LIVE; imported
+ * articles are sized by assets/css/legacy-content.css), a share row (800px), a wide "Related Reading"
  * Query Loop scoped to the post's own category (excluding the post itself, via
  * inc/blog-single-related-query.php), and the Blog Writing CTA closing band. `wp:post-content`
  * is the only section pinned to the 800px default — every other section carries its own explicit
@@ -27,7 +27,7 @@
 <main class="wp-block-group" style="margin-top:0">
 	<!-- wp:pattern {"slug":"ls-theme/blog-single-hero"} /-->
 
-	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+	<!-- wp:post-content {"align":"wide","layout":{"type":"default"}} /-->
 
 	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 	<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">

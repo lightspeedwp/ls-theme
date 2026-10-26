@@ -512,6 +512,96 @@
                     "name": "Warm 700",
                     "slug": "warm-700",
                     "color": "#C2410C"
+                },
+                {
+                    "name": "Legacy Neutral",
+                    "slug": "neutral",
+                    "color": "var(--wp--custom--color--surface--card)"
+                },
+                {
+                    "name": "Legacy Primary",
+                    "slug": "primary",
+                    "color": "var(--wp--preset--color--brand-500)"
+                },
+                {
+                    "name": "Legacy Primary Background",
+                    "slug": "primary-bg",
+                    "color": "var(--wp--custom--color--surface--brand-light)"
+                },
+                {
+                    "name": "Legacy Primary 200",
+                    "slug": "primary-200",
+                    "color": "var(--wp--preset--color--brand-200)"
+                },
+                {
+                    "name": "Legacy Primary 600",
+                    "slug": "primary-600",
+                    "color": "var(--wp--preset--color--brand-700)"
+                },
+                {
+                    "name": "Legacy Primary 700",
+                    "slug": "primary-700",
+                    "color": "var(--wp--preset--color--brand-800)"
+                },
+                {
+                    "name": "Legacy Secondary",
+                    "slug": "secondary",
+                    "color": "var(--wp--preset--color--cta-300)"
+                },
+                {
+                    "name": "Legacy Secondary Background",
+                    "slug": "secondary-bg",
+                    "color": "var(--wp--custom--color--surface--cta-light)"
+                },
+                {
+                    "name": "Legacy Secondary 200",
+                    "slug": "secondary-200",
+                    "color": "var(--wp--custom--color--surface--cta-light)"
+                },
+                {
+                    "name": "Legacy Tertiary",
+                    "slug": "tertiary",
+                    "color": "#19DFC1"
+                },
+                {
+                    "name": "Legacy Tertiary 600",
+                    "slug": "tertiary-600",
+                    "color": "#13A791"
+                },
+                {
+                    "name": "Legacy Quinary",
+                    "slug": "quinary",
+                    "color": "#FFEC55"
+                },
+                {
+                    "name": "Legacy Quinary Background",
+                    "slug": "quinary-bg",
+                    "color": "color-mix(in srgb, var(--wp--preset--color--phase-four) 8%, var(--wp--custom--color--surface--canvas))"
+                },
+                {
+                    "name": "Legacy Quinary 200",
+                    "slug": "quinary-200",
+                    "color": "color-mix(in srgb, var(--wp--preset--color--phase-four) 16%, var(--wp--custom--color--surface--canvas))"
+                },
+                {
+                    "name": "Legacy Quinary 300",
+                    "slug": "quinary-300",
+                    "color": "color-mix(in srgb, var(--wp--preset--color--phase-four) 28%, var(--wp--custom--color--surface--canvas))"
+                },
+                {
+                    "name": "Legacy Senary",
+                    "slug": "senary",
+                    "color": "#3D9751"
+                },
+                {
+                    "name": "Legacy Septenary",
+                    "slug": "septenary",
+                    "color": "#CC3F23"
+                },
+                {
+                    "name": "Legacy CTA",
+                    "slug": "cta",
+                    "color": "#9147FF"
                 }
             ]
         },
@@ -678,6 +768,21 @@
                         "brand": "var:preset|color|brand-450"
                     }
                 }
+            },
+            "colour": {
+                "base": {
+                    "100": "var:preset|color|base"
+                },
+                "neutral": {
+                    "100": "var:preset|color|neutral-100",
+                    "900": "var:preset|color|neutral-700"
+                },
+                "primary": {
+                    "500": "var:preset|color|brand-500"
+                }
+            },
+            "font-weight": {
+                "regular": "400"
             },
             "typography": {
                 "letter-spacing": {
