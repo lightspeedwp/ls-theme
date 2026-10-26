@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Rebuild the thank-you pattern as a reusable confirmation section (LSA-198)
+
+### Added
+
+- `patterns/sections/thank-you-confirmation.php` (Section - Thank You Confirmation): one reusable confirmation section for every thank-you page, with neutral copy to overwrite per page. It has a Yoast breadcrumb, a success status badge, an H1, a lead paragraph and a home button, a "What happens next" card with a tick list, and a "While you wait" row of three whole-card links below a top border. The hero, the card and the cards row sit in one centred 900px column.
+
+### Changed
+
+- The success colour reads the `status.success` token, which has its own light and dark values. The card, list and button reuse the existing Card - Plain, Card - Service Tile and Tick Accent styles and the core Button, with no new SCSS.
+- `styles/blocks/lists/tick-accent.json`: the tick now stays on the first line of a list item that wraps (`align-items: first baseline`), instead of sitting in the middle. This also applies to `work-discuss-project-list` and `section-card-services`.
+- `.github/reports/`: added the 2026-10-23 DEV vs LIVE launch-readiness audit and the pre-launch to-do list.
+
+### Removed
+
+- `patterns/thank-you-consultation.php`: replaced by the new pattern. It had a hardcoded "Free consultation" breadcrumb, consultation-only copy, unused `ls-thank-you*` classes and a `core/separator` that the editor flagged as invalid content.
+
+([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
+
+---
+
 ## [Unreleased] — Add the Team page patterns (LSA-109)
 
 ### Added
