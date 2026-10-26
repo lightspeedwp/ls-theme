@@ -91,7 +91,7 @@ Notes on likely replacements (inferred, please confirm): `/policies/*` probably 
 
 ## DEV-only pages that are published but blank (title only)
 
-These do not exist on LIVE, but they would go live empty: /faq/, /faq-2/ (duplicate), /pricing/ and 5 children (foundation, growth, enterprise, how-we-price-work, pricing-principles), /guarantees/, /systems/ and 3 children, /solutions/ai-readiness/, /about/ai-governance/, /about/community-events/, /about/diversity/, /about/publishing-principles-ai-ethics/, /about/privacy-and-terms/, /book-a-call/, /services-landing/, /woocommerce-redesign/, /wordpress-redesign/, /woocommerce-solutions/, /tour-operators-solutions/, and /lsx/ + 2 children ("being rebuilt"). 29 pages in total. Also /briefing/ and /briefing/about-us-page/ are old content.
+These do not exist on LIVE, but they would go live empty: /faq/, /faq-2/ (duplicate), /pricing/ and 5 children (foundation, growth, enterprise, how-we-price-work, pricing-principles), /guarantees/, /systems/ and 3 children, /solutions/ai-readiness/, /about/ai-governance/, /about/community-events/, /about/diversity/, /about/publishing-principles-ai-ethics/, /about/privacy-and-terms/, /book-a-call/, /services-landing/, /woocommerce-redesign/, /wordpress-redesign/, /woocommerce-solutions/, /tour-operators-solutions/, and /lsx/ + 2 children ("being rebuilt"). 28 pages in total. Also /briefing/ and /briefing/about-us-page/ are old content.
 
 Draft-only on LIVE (not blockers): 9 pages, including 6 Mailchimp pages and a Website Briefing page.
 
