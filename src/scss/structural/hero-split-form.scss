@@ -1,5 +1,7 @@
 /********** Hero - Split Form (Contact page hero with the Gravity Forms block) **********/
 
+@use "../abstracts/mixins/gravity-forms" as gf;
+
 /*
  * Sticky intro. The form is much taller than the hero text beside it, so the left column stays in
  * view on desktop while the form scrolls past it; below the columns' own stacking breakpoint it
@@ -31,39 +33,7 @@
  * override its inline variables — see AGENTS.md Theme-First Approach.
  */
 #contact-form .gform_wrapper.gform-theme[data-form-index] {
-  // Labels, legend and checkbox text (text.default); sub-labels, descriptions and the counter
-  // (text.muted).
-  --gf-color-out-ctrl-dark-darker: var(--wp--custom--color--text--default);
-  --gf-color-out-ctrl-dark: var(--wp--custom--color--text--muted);
-  --gf-color-out-ctrl-dark-lighter: var(--wp--custom--color--text--muted);
-  --gf-ctrl-label-color-primary: var(--wp--custom--color--text--default);
-  --gf-ctrl-label-color-secondary: var(--wp--custom--color--text--default);
-  --gf-ctrl-desc-color: var(--wp--custom--color--text--muted);
-
-  // Inputs: canvas surface, default text and the existing field border token.
-  --gf-color-in-ctrl: var(--wp--custom--color--surface--canvas);
-  --gf-color-in-ctrl-contrast: var(--wp--custom--color--text--default);
-  --gf-color-in-ctrl-dark: var(--wp--custom--color--text--muted);
-  --gf-color-in-ctrl-dark-darker: var(--wp--custom--color--text--default);
-  --gf-color-in-ctrl-dark-lighter: var(--wp--custom--color--text--muted);
-  --gf-ctrl-border-color: var(--wp--custom--color--border--field);
-
-  // Submit button and checked-state accent: the shared fill button tokens.
-  --gf-color-primary: var(--wp--custom--color--button--fill--background);
-  --gf-color-primary-contrast: var(--wp--custom--color--button--fill--text);
-  --gf-color-primary-darker: var(--wp--custom--color--button--fill--background-hover);
-  --gf-color-primary-lighter: var(--wp--custom--color--button--fill--background-hover);
-  --gf-color-in-ctrl-primary: var(--wp--custom--color--button--fill--background);
-  --gf-color-in-ctrl-primary-contrast: var(--wp--custom--color--button--fill--text);
-
-  // Text sizes: Gravity Forms defaults to 13-14px; use the 16px body-size token.
-  --gf-font-size-secondary: var(--wp--preset--font-size--200);
-  --gf-font-size-tertiary: var(--wp--preset--font-size--200);
-  --gf-ctrl-btn-font-size: var(--wp--preset--font-size--200);
-  --gf-ctrl-btn-font-size-md: var(--wp--preset--font-size--200);
-
-  // Gap between fields (Gravity Forms defaults to 40px).
-  --gf-form-gap-y: var(--wp--preset--spacing--20);
+  @include gf.token-map;
 }
 
 // The required-field asterisk is red by default (about 3:1 on the dark card); show it in the

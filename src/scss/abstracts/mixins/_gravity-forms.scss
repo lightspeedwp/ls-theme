@@ -1,0 +1,44 @@
+/*
+ * Gravity Forms colour, size and spacing mapping. Gravity Forms' own theme reads CSS custom
+ * properties (--gf-color-*, --gf-ctrl-*); this mixin points them at the theme's semantic tokens so a
+ * form follows light and dark mode. Include it inside a selector that outranks Gravity Forms' inline
+ * per-form variables (see hero-split-form.scss and gravity-forms-popup.scss).
+ *
+ * JSON limitation: theme.json and block attributes can't style another plugin's markup or override
+ * its inline variables — see AGENTS.md Theme-First Approach.
+ */
+@mixin token-map {
+  // Labels, legend and checkbox text (text.default); sub-labels, descriptions and the counter
+  // (text.muted).
+  --gf-color-out-ctrl-dark-darker: var(--wp--custom--color--text--default);
+  --gf-color-out-ctrl-dark: var(--wp--custom--color--text--muted);
+  --gf-color-out-ctrl-dark-lighter: var(--wp--custom--color--text--muted);
+  --gf-ctrl-label-color-primary: var(--wp--custom--color--text--default);
+  --gf-ctrl-label-color-secondary: var(--wp--custom--color--text--default);
+  --gf-ctrl-desc-color: var(--wp--custom--color--text--muted);
+
+  // Inputs: canvas surface, default text and the existing field border token.
+  --gf-color-in-ctrl: var(--wp--custom--color--surface--canvas);
+  --gf-color-in-ctrl-contrast: var(--wp--custom--color--text--default);
+  --gf-color-in-ctrl-dark: var(--wp--custom--color--text--muted);
+  --gf-color-in-ctrl-dark-darker: var(--wp--custom--color--text--default);
+  --gf-color-in-ctrl-dark-lighter: var(--wp--custom--color--text--muted);
+  --gf-ctrl-border-color: var(--wp--custom--color--border--field);
+
+  // Submit button and checked-state accent: the shared fill button tokens.
+  --gf-color-primary: var(--wp--custom--color--button--fill--background);
+  --gf-color-primary-contrast: var(--wp--custom--color--button--fill--text);
+  --gf-color-primary-darker: var(--wp--custom--color--button--fill--background-hover);
+  --gf-color-primary-lighter: var(--wp--custom--color--button--fill--background-hover);
+  --gf-color-in-ctrl-primary: var(--wp--custom--color--button--fill--background);
+  --gf-color-in-ctrl-primary-contrast: var(--wp--custom--color--button--fill--text);
+
+  // Text sizes: Gravity Forms defaults to 13-14px; use the 16px body-size token.
+  --gf-font-size-secondary: var(--wp--preset--font-size--200);
+  --gf-font-size-tertiary: var(--wp--preset--font-size--200);
+  --gf-ctrl-btn-font-size: var(--wp--preset--font-size--200);
+  --gf-ctrl-btn-font-size-md: var(--wp--preset--font-size--200);
+
+  // Gap between fields (Gravity Forms defaults to 40px).
+  --gf-form-gap-y: var(--wp--preset--spacing--20);
+}

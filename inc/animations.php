@@ -715,6 +715,14 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( array( 'contact', 'about' ) );
 			},
 		),
+		// The popup form styling (Popup Maker popups render on every page, so this loads without a
+		// condition): the Gravity Forms colour, size and spacing mapping, the required-asterisk colour
+		// and the scrolling card, scoped to the Popup Form Shell pattern's `.ls-popup-form` class.
+		'gravity-forms-popup'       => array(
+			'handle'   => 'ls-theme-gravity-forms-popup',
+			'path'     => 'assets/css/gravity-forms-popup.css',
+			'contexts' => array( 'front', 'editor' ),
+		),
 		'legal-page'                => array(
 			'handle'    => 'ls-theme-legal-page',
 			'path'      => 'assets/css/legal-page.css',
