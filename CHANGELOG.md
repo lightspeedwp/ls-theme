@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `src/scss/structural/image-captions.scss`, `assets/css/image-captions.css`, its `build:css` entries, its `inc/animations.php` enqueue entry, and its `add_editor_style()` line in `functions.php`. The JSON rule replaces them (AGENTS.md Theme-First Approach), and the SCSS used the fixed `on-dark-muted` token, which would have been wrong in light mode.
 
+([#166](https://github.com/lightspeedwp/ls-theme/pull/166))
+
 ---
 
 ## [Unreleased] — Style the popup forms to the theme (LSA-214)
