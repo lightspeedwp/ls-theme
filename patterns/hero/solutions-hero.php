@@ -55,8 +55,8 @@ $ls_solutions_hero_swatches = array( 'brand', 'violet', 'cyan', 'orange' );
 
 				<!-- wp:buttons -->
 				<div class="wp-block-buttons">
-					<!-- wp:button -->
-					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Discuss your platform', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"pum-triggercta"} -->
+					<div class="wp-block-button pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Discuss your platform', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 
 					<!-- wp:button {"className":"is-style-outline"} -->

@@ -122,8 +122,8 @@ $ls_index_columns = array(
 
 				<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20"}}}} -->
 				<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--20)">
-					<!-- wp:button -->
-					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"pum-triggercta"} -->
+					<div class="wp-block-button pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 
 					<!-- wp:button {"className":"is-style-outline"} -->

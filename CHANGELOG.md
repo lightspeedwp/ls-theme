@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Open the Consultation popup from the hero, header and phase CTA buttons (LSA-214)
+
+### Changed
+
+- The consultation buttons in the hero patterns (`hero-split-glance`, `hero-split-index-card`, `hero-split-proof`, `phase-hero`, `service-hero`, `services-hero`, `solutions-hero`, `work-hero`, `work-single-hero`), `home-hero-static`, `home-hero` (the inline link), `header` and `sections/phase-cta` now open the Consultation popup instead of leaving the page, so Form 4 entries record the page the visitor was on. Each button keeps its link to `/free-consultation/` as a fallback if the popup or JavaScript fails.
+- The "Request a discovery workshop" button in `sections/phase-cta` stays a plain link, because the popup form cannot carry the workshop type.
+
+([#161](https://github.com/lightspeedwp/ls-theme/pull/161))
+
+---
+
 ## [Unreleased] — Rebuild the thank-you pattern as a reusable confirmation section (LSA-198)
 
 ### Added

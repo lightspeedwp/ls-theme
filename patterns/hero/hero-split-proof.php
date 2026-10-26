@@ -75,8 +75,8 @@ $ls_proof_row_count = count( $ls_proof_rows );
 
 				<!-- wp:buttons -->
 				<div class="wp-block-buttons">
-					<!-- wp:button -->
-					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"pum-triggercta"} -->
+					<div class="wp-block-button pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 
 					<!-- wp:button {"className":"is-style-outline"} -->
