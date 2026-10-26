@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Fix image caption contrast with a theme.json caption style (BugHerd #231)
+
+### Fixed
+
+- Image captions in imported classic content (plain `<figcaption>` inside `.wp-block-image`) rendered WordPress core's `#555555` on the dark canvas, a 2.68:1 contrast ratio. The earlier SCSS rule from LS-2934 could not override it: core's `:root :where(.wp-block-image figcaption)` has higher specificity than a bare `figcaption`. Eight captions on `/lightspeed-remote-workspaces-2016/` still failed the standing-suite axe check.
+
+### Changed
+
+- `theme.json`: added `styles.elements.caption` with `color.text` set to the existing `text.muted` token. WordPress prints it after core's caption rule at equal specificity, so it wins. `text.muted` has real values in both modes (`neutral-700` light, `neutral-400` dark), so no `dark.json` change is needed.
+
+### Removed
+
+- `src/scss/structural/image-captions.scss`, `assets/css/image-captions.css`, its `build:css` entries, its `inc/animations.php` enqueue entry, and its `add_editor_style()` line in `functions.php`. The JSON rule replaces them (AGENTS.md Theme-First Approach), and the SCSS used the fixed `on-dark-muted` token, which would have been wrong in light mode.
+
+---
+
 ## [Unreleased] — Style the popup forms to the theme (LSA-214)
 
 ### Added

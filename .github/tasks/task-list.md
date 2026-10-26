@@ -23,6 +23,7 @@ Update this file as tasks are created, started, or completed.
 - [ ] Execute the detailed Figma Make implementation plan in `.github/tasks/2026-04-07-figma-make-implementation-checklist.md`
 - [x] Draft mixin strategy report in `.github/reports/2026-04-10-theme-mixin-strategy.md`
 - [x] Implement Sass mixin structure and compiled CSS workflow for authored theme effects
+- [x] Fix image caption contrast (BugHerd #231) with a `theme.json` `elements.caption` style, replacing `image-captions.scss`
 - [ ] Build `parts/header.html`
 - [ ] Build `parts/footer.html`
 - [ ] Build `templates/index.html`
