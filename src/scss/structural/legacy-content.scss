@@ -22,14 +22,9 @@
 /* ---- Vertical rhythm -------------------------------------------------------------------- */
 
 // LIVE: the gap between the post's own top-level blocks is 16px on work posts and 8px on blog
-// posts (ls-theme: 20px). Containers further down use the 16px default below.
-.single-project .wp-block-post-content > * + * {
-  margin-block-start: 16px;
-}
-
-.single-post .wp-block-post-content > * + * {
-  margin-block-start: 8px;
-}
+// posts (ls-theme: 20px). That is set as `blockGap` on the `core/post-content` block in
+// template-work-single.php and template-single.php, so no rule is needed here. Containers further
+// down use the 16px default below.
 
 // LIVE: default block gap 16px (ls-theme: 20px). Containers with an explicit gap in the content
 // carry a generated `wp-container-` class and are left alone.

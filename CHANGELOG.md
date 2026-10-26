@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `patterns/template-work-single.php` and `patterns/template-single.php` render the post content in the wide default layout, so imported layouts get their LIVE widths.
-- `patterns/hero/work-single-hero.php`: the Work hero is now split, with the content on the left and the featured image on the right. The image is shown uncropped and never wider than its natural size. The hero sits in a full-width band on the `surface.card` token, with the Software, Project Type and Services row inside it. Columns with no terms are hidden.
+- `patterns/hero/work-single-hero.php`: the Work hero is now split, with the content on the left and the featured image on the right. The image is shown uncropped and never wider than its natural size. The hero sits in a full-width band on the `surface.card` token, with the Software, Project Type and Services row inside it. Columns with no terms are hidden and the dividers follow the visible ones. A post with no featured image gets a single full-width text column. The post-content block gap (16px for Work, 8px for Blog) is now set as `blockGap` on the `core/post-content` block in the templates.
 
 ([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
 

@@ -15,6 +15,6 @@
 <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:0">
 	<!-- wp:pattern {"slug":"ls-theme/work-single-hero"} /-->
-	<!-- wp:post-content {"align":"wide","layout":{"type":"default"}} /-->
+	<!-- wp:post-content {"align":"wide","style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"default"}} /-->
 </main>
 <!-- /wp:group -->
