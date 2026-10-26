@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Style the popup forms to the theme (LSA-214)
+
+### Added
+
+- `patterns/sections/popup-form-shell.php` (Section - Popup Form Shell): the content for a Popup Maker popup that holds a Gravity Forms form: a Card - Plain group on the raised `surface.card` token (so the card stays distinct from the page in dark mode), a centred H2, an intro line and the Gravity Forms block set to the Orbital theme.
+- `src/scss/structural/gravity-forms-popup.scss`, compiled to `assets/css/gravity-forms-popup.css`: styles forms inside the popup shell with the theme's tokens, shows the required asterisk in the text colour, lets the card scroll inside the popup, blurs the page behind the form (not for visitors who prefer reduced transparency), and replaces Popup Maker's hardcoded black 18px close button with a 44px button that follows light and dark mode and has a visible focus ring. Scoped to popups that hold the shell, so other popups are unaffected. Loads on every page, because popups render on every page.
+- `src/scss/abstracts/mixins/_gravity-forms.scss`: the shared Gravity Forms variable mapping, so every styled form uses the same tokens.
+
+### Changed
+
+- `src/scss/structural/hero-split-form.scss` uses the shared mapping instead of its own copy. The compiled CSS is unchanged, so the contact hero form looks the same.
+
+([#164](https://github.com/lightspeedwp/ls-theme/pull/164))
+
+---
+
 ## [Unreleased] — Open the popup from the CTA band and section buttons (LSA-214)
 
 ### Changed
