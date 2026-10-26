@@ -45,12 +45,12 @@
 
 				<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
 				<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
-					<!-- wp:button {"className":"is-style-button-secondary"} -->
-					<div class="wp-block-button is-style-button-secondary"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation →', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"is-style-button-secondary pum-triggercta"} -->
+					<div class="wp-block-button is-style-button-secondary pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation →', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 
-					<!-- wp:button {"className":"is-style-button-secondary-outline"} -->
-					<div class="wp-block-button is-style-button-secondary-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html__( 'Send a brief first', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"is-style-button-secondary-outline pum-triggerbrief"} -->
+					<div class="wp-block-button is-style-button-secondary-outline pum-triggerbrief"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html__( 'Send a brief first', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->

@@ -100,8 +100,8 @@ $ls_phase_accent = 'var(--ls-phase-accent)';
 
 	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
 	<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--60)">
-		<!-- wp:button {"className":"is-style-button-phase-primary"} -->
-		<div class="wp-block-button is-style-button-phase-primary"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Request Assessment', 'ls-theme' ); ?></a></div>
+		<!-- wp:button {"className":"is-style-button-phase-primary pum-triggercta"} -->
+		<div class="wp-block-button is-style-button-phase-primary pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Request Assessment', 'ls-theme' ); ?></a></div>
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->
