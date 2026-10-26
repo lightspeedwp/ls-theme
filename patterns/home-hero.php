@@ -91,7 +91,7 @@
 		<!-- /wp:group -->
 
 		<!-- wp:paragraph {"align":"center","style":{"color":{"text":"var(--wp--custom--color--text--on-dark-muted)"},"spacing":{"margin":{"top":"var:preset|spacing|20"}}},"fontSize":"200"} -->
-		<p class="has-text-align-center has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--on-dark-muted);margin-top:var(--wp--preset--spacing--20)"><?php echo esc_html__( 'Prefer to speak directly?', 'ls-theme' ); ?> <a href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>" style="color:var(--wp--custom--color--text--on-dark-accent)"><?php echo esc_html__( 'Book your consultation instead', 'ls-theme' ); ?></a></p>
+		<p class="has-text-align-center has-text-color has-200-font-size" style="color:var(--wp--custom--color--text--on-dark-muted);margin-top:var(--wp--preset--spacing--20)"><?php echo esc_html__( 'Prefer to speak directly?', 'ls-theme' ); ?> <a class="pum-triggercta" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>" style="color:var(--wp--custom--color--text--on-dark-accent)"><?php echo esc_html__( 'Book your consultation instead', 'ls-theme' ); ?></a></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
