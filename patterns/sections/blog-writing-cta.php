@@ -58,8 +58,8 @@
 
 				<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
 				<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)">
-					<!-- wp:button {"className":"is-style-button-primary-on-dark"} -->
-					<div class="wp-block-button is-style-button-primary-on-dark"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
+					<!-- wp:button {"className":"is-style-button-primary-on-dark pum-triggercta"} -->
+					<div class="wp-block-button is-style-button-primary-on-dark pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a consultation', 'ls-theme' ); ?></a></div>
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->

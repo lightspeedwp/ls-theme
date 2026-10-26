@@ -47,8 +47,8 @@ $ls_cta_checklist = array(
 
 			<!-- wp:buttons {"className":"ls-buttons-wrap"} -->
 			<div class="wp-block-buttons ls-buttons-wrap">
-				<!-- wp:button -->
-				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Discuss your platform', 'ls-theme' ); ?></a></div>
+				<!-- wp:button {"className":"pum-triggercta"} -->
+				<div class="wp-block-button pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Discuss your platform', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 
 				<!-- wp:button {"className":"is-style-outline"} -->

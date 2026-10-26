@@ -51,8 +51,8 @@ $ls_cta_checklist = array(
 
 			<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","justifyContent":"left"}} -->
 			<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--40)">
-				<!-- wp:button {"className":"is-style-button-phase-primary"} -->
-				<div class="wp-block-button is-style-button-phase-primary"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
+				<!-- wp:button {"className":"is-style-button-phase-primary pum-triggercta"} -->
+				<div class="wp-block-button is-style-button-phase-primary pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 
 				<!-- wp:button {"className":"is-style-button-phase-outline"} -->

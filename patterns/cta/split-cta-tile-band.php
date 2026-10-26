@@ -61,8 +61,8 @@ $ls_cta_tiles = array(
 				<div class="wp-block-group">
 					<!-- wp:buttons -->
 					<div class="wp-block-buttons">
-						<!-- wp:button {"className":"ls-cta-tile-band__button","style":{"border":{"radius":"var:preset|border-radius|500"}},"fontSize":"200"} -->
-						<div class="wp-block-button ls-cta-tile-band__button"><a class="wp-block-button__link has-custom-font-size has-200-font-size wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>" style="border-radius:var(--wp--preset--border-radius--500)"><?php echo esc_html__( 'Book a design-system audit', 'ls-theme' ); ?></a></div>
+						<!-- wp:button {"className":"ls-cta-tile-band__button pum-triggercta","style":{"border":{"radius":"var:preset|border-radius|500"}},"fontSize":"200"} -->
+						<div class="wp-block-button ls-cta-tile-band__button pum-triggercta"><a class="wp-block-button__link has-custom-font-size has-200-font-size wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>" style="border-radius:var(--wp--preset--border-radius--500)"><?php echo esc_html__( 'Book a design-system audit', 'ls-theme' ); ?></a></div>
 						<!-- /wp:button -->
 					</div>
 					<!-- /wp:buttons -->

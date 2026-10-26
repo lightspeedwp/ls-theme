@@ -52,12 +52,12 @@
 
 			<!-- wp:buttons {"className":"ls-buttons-wrap","layout":{"type":"flex","flexWrap":"wrap"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
 			<div class="wp-block-buttons ls-buttons-wrap" style="margin-top:var(--wp--preset--spacing--30)">
-				<!-- wp:button {"className":"is-style-button-primary-on-dark ls-homepage-cta-arrow"} -->
-				<div class="wp-block-button is-style-button-primary-on-dark ls-homepage-cta-arrow"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
+				<!-- wp:button {"className":"is-style-button-primary-on-dark ls-homepage-cta-arrow pum-triggercta"} -->
+				<div class="wp-block-button is-style-button-primary-on-dark ls-homepage-cta-arrow pum-triggercta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/free-consultation/' ) ); ?>"><?php echo esc_html__( 'Book a free consultation', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 
-				<!-- wp:button {"className":"is-style-outline ls-homepage-cta-outline","style":{"color":{"text":"var(--wp--custom--color--text--on-dark)","background":"transparent"},"border":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 38%, transparent)","width":"1px","style":"solid","radius":"var:preset|border-radius|500"}},"fontSize":"200"} -->
-				<div class="wp-block-button is-style-outline ls-homepage-cta-outline"><a class="wp-block-button__link has-text-color has-background has-border-color has-200-font-size has-custom-font-size wp-element-button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="border-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 38%, transparent);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);color:var(--wp--custom--color--text--on-dark);background-color:transparent"><?php echo esc_html__( 'Send a brief first', 'ls-theme' ); ?></a></div>
+				<!-- wp:button {"className":"is-style-outline ls-homepage-cta-outline pum-triggerbrief","style":{"color":{"text":"var(--wp--custom--color--text--on-dark)","background":"transparent"},"border":{"color":"color-mix(in srgb, var(--wp--custom--color--text--on-dark) 38%, transparent)","width":"1px","style":"solid","radius":"var:preset|border-radius|500"}},"fontSize":"200"} -->
+				<div class="wp-block-button is-style-outline ls-homepage-cta-outline pum-triggerbrief"><a class="wp-block-button__link has-text-color has-background has-border-color has-200-font-size has-custom-font-size wp-element-button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="border-color:color-mix(in srgb, var(--wp--custom--color--text--on-dark) 38%, transparent);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--500);color:var(--wp--custom--color--text--on-dark);background-color:transparent"><?php echo esc_html__( 'Send a brief first', 'ls-theme' ); ?></a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
