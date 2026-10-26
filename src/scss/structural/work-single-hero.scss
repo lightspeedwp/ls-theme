@@ -1,4 +1,22 @@
-/********** Work Single Hero: metadata row responsive dividers **********/
+/********** Work Single Hero: featured image + metadata row responsive dividers **********/
+
+/*
+ * Featured image: shown uncropped at its own ratio, and never larger than its own width.
+ * `core/post-featured-image` stretches its <img> to 100% of the column by default, which
+ * upscales (and blurs) any image narrower than the ~42% column. JSON limitation: there is no
+ * block-supports key for `width: auto; max-width: 100%` on the inner <img>, so it lives here.
+ * Images wider than the column still fill it; smaller ones sit at their natural size.
+ */
+.ls-work-single-hero__image {
+  margin: 0;
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+  }
+}
 
 /*
  * JSON limitation: block-supports styles aren't responsive-conditional, so a divider that must
@@ -23,4 +41,20 @@
     padding-top: var(--wp--preset--spacing--20) !important;
     margin-top: var(--wp--preset--spacing--10);
   }
+}
+
+/*
+ * Metadata columns whose taxonomy has no terms (e.g. a project with no Services) would show a
+ * bare label. Hide them so the remaining columns share the width. JSON limitation: block markup
+ * can't conditionally hide a column based on whether its inner block rendered. If the first
+ * column is the one hidden, the next one takes over as the first (no left divider/padding).
+ */
+.ls-work-single-meta > .ls-work-single-meta__col:not(:has(.wp-block-post-terms)) {
+  display: none;
+}
+
+.ls-work-single-meta:has(> .ls-work-single-meta__col:first-child:not(:has(.wp-block-post-terms)))
+  > .ls-work-single-meta__col:nth-child(2) {
+  padding-left: 0 !important;
+  border-left: none !important;
 }
