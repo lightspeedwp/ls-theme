@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Open the popup from the CTA band and section buttons (LSA-214)
+
+### Changed
+
+- The consultation buttons in the CTA band patterns (`cta-dark-band-buttons`, `section-cta-consultation-band`, `-inline`, `-reassurance`, `-strip`, `section-cta-split-checklist`, `split-cta-check-card`, `split-cta-tile-band`) and the section patterns (`blog-writing-cta`, `homepage-cta`, `phase-support-focus`, `services-cta`, `work-discuss-project`) now open the Consultation popup instead of leaving the page, so Form 4 entries record the page the visitor was on. Each button keeps its link to `/free-consultation/` as a fallback if the popup or JavaScript fails.
+- The "Send a brief first" buttons in `homepage-cta` and `work-discuss-project` open the Website Brief popup and keep their `/contact/` link as the fallback.
+
+([#162](https://github.com/lightspeedwp/ls-theme/pull/162))
+
+---
+
 ## [Unreleased] — Open the Consultation popup from the hero, header and phase CTA buttons (LSA-214)
 
 ### Changed
