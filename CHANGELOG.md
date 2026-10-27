@@ -25,6 +25,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the testimonial section patterns and masonry card styles (LSA-206)
+
+### Added
+
+- `patterns/hero/hero-split-graphic-actions.php` (Hero - Split Graphic Actions): a split page hero with a Yoast breadcrumb, dot eyebrow, H1, lede, a consultation button that opens the popup and an outline button, and a large quote-mark graphic that takes its colour from the brand text token.
+- `patterns/sections/logo-strip.php` (Section - Logo Strip): a label and six client logos, centred, each logo a light/dark image pair toggled by the existing logo visibility tokens.
+- `patterns/sections/testimonial-featured-split.php` (Section - Testimonial Featured Split): two featured testimonials, each with a logo header, a quote with a brand-colour quote icon, a ruled attribution with the author portrait, name and role, and a framed preview panel holding the full website screenshot and a View Website button.
+- `patterns/sections/testimonial-card-masonry.php` (Section - Testimonial Card Masonry): the 27 text-only testimonials as Card - Plain cards on a `surface.card` band, packed into 1, 2 or 3 columns with no gaps, with a visually hidden H2.
+- `src/scss/structural/testimonial-cards.scss`, compiled to `assets/css/testimonial-cards.css`: the masked quote-mark shape, logo and avatar sizing, the featured copy column alignment, the small-screen View Website button width and the CSS multi-column masonry. `package.json`, `inc/animations.php` and `functions.php` wire it in for the testimonials page and the editor.
+
+([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+
+---
+
+## [Unreleased] — Tighten the breadcrumb gap under the header, batch 2: the spacing 90, 100 and 60 heroes
+
+### Fixed
+
+- The gap between the header and the breadcrumb on the remaining heroes was too large: 64px on `hero-centered-gradient-title`, `page-hero` and the `thank-you-confirmation` section (`spacing|100`), 56px on `search-hero`, `services-hero` and `solutions-hero` (`spacing|90`), and 37px on `phase-hero` and `service-hero` (`spacing|60`). Their outer section's top padding is now `spacing|40` (26px), the same value used on the blog hero and in batch 1, so every hero with a breadcrumb now matches. The breadcrumb is the first element in each, so the whole hero moves up by the same amount.
+- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated.
+
+([#170](https://github.com/lightspeedwp/ls-theme/pull/170))
+
+---
+
+## [Unreleased] — Tighten the breadcrumb gap under the header, batch 1: the spacing 80 heroes
+
+### Fixed
+
+- The gap between the header and the breadcrumb on the heroes that used `spacing|80` (48px) was too large. Their outer section's top padding is now `spacing|40` (26px), the same value trialled on the blog hero. Patterns: `hero-lede-actions-ticks`, `hero-split-form`, `hero-split-glance-support`, `hero-split-glance`, `hero-split-index-card`, `hero-split-photo`, `hero-split-proof`, `blog-single-hero`, `work-hero` and `work-single-hero`. The breadcrumb is the first element in each, so the whole hero moves up by the same amount.
+- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated. The remaining heroes (spacing 90, 100 and 60) follow in batch 2.
+
+([#168](https://github.com/lightspeedwp/ls-theme/pull/168))
+
+---
+
+## [Unreleased] — Align the header, centre the mega menus, hide Pricing and close the blog hero gaps (BugHerd #268, #269, #270)
+
+### Fixed
+
+- `src/scss/structural/_mega-menu.scss`: every Ollie mega-menu panel now opens from the same point, the centre of the header. Work and Solutions opened about 100px further right than the other menus because they lack the plugin's `menu-justified-center` option, and none of them were centred on the screen because the plugin positions a panel against the off-centre navigation list. On desktop (1024px and up) the panels now resolve against the header and use the plugin's own centred offset. The mobile menu uses accordions, not panels, so it needed no change.
+- `patterns/header.php`: the logo and the buttons on the right lined up with the content only on small screens. On wide screens they stayed 64px from the screen edges while the content stopped at the wide size. The header row is now wide-aligned inside a constrained header, with the same side padding as the page sections, so it lines up with the content at every width.
+- `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`: set `margin-top: 0` (as the other hero patterns do) so the hero and the two bands that follow it no longer leave a 20px gap from the root block gap. The Writing CTA card is unchanged.
+- `patterns/hero/blog-hero.php`: the hero's top padding goes from spacing 80 to spacing 40, so the breadcrumb sits 26px below the header instead of 48px. This is a trial of the value before the other heroes are changed in batches.
+
+- `patterns/header.php`, `patterns/site-logo-switcher.php`: the light and dark logo images showed "Block contains unexpected or invalid content" in the editor, in the header and (through the shared pattern) the footer and mobile menu. The `<img>` tags carried `width="419" height="90"`, but core/image's save() never writes those as attributes, so the editor rebuilt the image without them and saw a mismatch. The attributes are removed from the markup, and the ratio now lives on the block as `aspectRatio: 419/90` (with the matching inline `aspect-ratio` style on the `<img>`), so the space is still reserved before the SVG loads and there is no layout shift.
+
+### Removed
+
+- The Pricing menu is hidden until the pricing pages are ready. `inc/header.php` drops the Pricing mega menu from the header navigation (it lives in the database navigation post, so a filter avoids a manual edit on every site), and the Pricing accordion is removed from `parts/mobile-menu.html`. The `pricing-mega-menu` template part and the pricing pages are untouched; delete `ls_theme_hide_pricing_mega_menu()` and its `add_filter( 'render_block', 'ls_theme_hide_pricing_mega_menu', 10, 2 )` call in `inc/header.php`, and restore the accordion to bring the menu back.
+
+([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+
+---
+
 ## [Unreleased] — Style the popup forms to the theme (LSA-214)
 
 ### Added

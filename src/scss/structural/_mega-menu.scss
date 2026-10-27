@@ -41,6 +41,41 @@
 }
 
 /*
+ * Every Ollie mega-menu panel (ollie/mega-menu) opens from the same point: the centre of the header,
+ * which is the centre of the screen. The plugin positions a panel against the navigation list, which
+ * sits between the logo and the buttons and so is off-centre, and it only centres the items that
+ * carry its `menu-justified-center` option. Work and Solutions do not, so they opened about 100px
+ * further right than the rest. Making the navigation wrappers static lets every panel resolve
+ * against the header (`position: relative`) instead, and the plugin's own centred offset (half the
+ * content width back from 50%) is then applied to all of them whatever their justification. The
+ * plugin's script sets each panel's `top` inline, so the vertical gap the navigation list used to
+ * add is restored with a margin. Desktop only: below 1024px the navigation becomes the full-screen
+ * mobile menu, which lays out its own panels, so none of this applies there.
+ *
+ * JSON limitation: `position`, `left` and `margin` on a plugin block's wrapper and on core
+ * navigation containers have no theme.json or block-attribute key — see AGENTS.md Theme-First
+ * Approach.
+ */
+@media (min-width: 1024px) {
+  .site-header {
+    position: relative;
+  }
+
+  .site-header .wp-block-navigation,
+  .site-header .wp-block-navigation .wp-block-navigation__responsive-container:not(.is-menu-open),
+  .site-header .wp-block-navigation .wp-block-navigation__responsive-dialog,
+  .site-header .wp-block-navigation .wp-block-navigation__container {
+    position: static;
+  }
+
+  .site-header .wp-block-navigation .wp-block-ollie-mega-menu .wp-block-ollie-mega-menu__menu-container.menu-width-content {
+    left: calc(var(--wp--style--global--content-size) * -1 / 2 + 50%);
+    right: unset;
+    margin-top: var(--wp--preset--spacing--40);
+  }
+}
+
+/*
  * Ollie Menu Designer's own wrapper (.wp-block-ollie-mega-menu__menu-container, plugin CSS, not
  * ours to edit) ships a hardcoded white background and no border-radius. It sits exactly flush
  * against our rounded is-style-mega-menu-panel (same width/height, confirmed via computed
