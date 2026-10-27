@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"ls-work-single-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","right":"var:preset|spacing|30","bottom":"var:preset|spacing|70","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull ls-work-single-hero" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30)">
+<!-- wp:group {"align":"full","tagName":"section","className":"ls-work-single-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|30","bottom":"var:preset|spacing|70","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ls-work-single-hero" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30)">
 
 	<!-- wp:group {"align":"wide"} -->
 	<div class="wp-block-group alignwide">
