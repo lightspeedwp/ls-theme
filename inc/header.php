@@ -78,3 +78,28 @@ function ls_theme_resolve_portable_navigation_ref( $parsed_block ) {
 	return $parsed_block;
 }
 add_filter( 'render_block_data', 'ls_theme_resolve_portable_navigation_ref' );
+
+/**
+ * Hides the "Pricing" mega menu from the header navigation until the pricing pages are ready.
+ *
+ * The item lives in the "Main Navigation" wp_navigation post (database, one copy per environment),
+ * so removing it there would need the same manual edit on every site. Dropping its rendered output
+ * here keeps it hidden everywhere from one place; the post, the `pricing-mega-menu` template part
+ * and the pricing pages are left intact. Delete this function and its hook to bring the menu back.
+ * The mobile menu's Pricing accordion was removed from parts/mobile-menu.html separately.
+ *
+ * @param string $block_content The rendered block HTML.
+ * @param array  $block         The parsed block.
+ * @return string An empty string for the Pricing mega menu, otherwise the unchanged HTML.
+ */
+function ls_theme_hide_pricing_mega_menu( $block_content, $block ) {
+	if (
+		'ollie/mega-menu' === ( $block['blockName'] ?? '' )
+		&& 'pricing-mega-menu' === ( $block['attrs']['menuSlug'] ?? '' )
+	) {
+		return '';
+	}
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_hide_pricing_mega_menu', 10, 2 );
