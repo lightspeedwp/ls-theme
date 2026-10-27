@@ -4,7 +4,7 @@
  * Slug: ls-theme/work-single-hero
  * Categories: hero
  * Block Types: core/pattern
- * Description: The Work single (case study) hero: breadcrumb trail, "Case Study" eyebrow badge, post title, excerpt, CTA buttons, a metadata row (Software, Project Type, Services from the project-group/project-type/project-tag taxonomies), and the post's featured image. Breadcrumb/eyebrow/heading/excerpt/buttons sit in a focused inner content area; the metadata row and featured image stay full wide. Adapts between light and dark mode using existing semantic tokens.
+ * Description: The Work single (case study) hero: breadcrumb trail, "Case Study" eyebrow badge, post title, excerpt, CTA buttons, the post's featured image beside them, and a metadata row (Software, Project Type, Services from the project-group/project-type/project-tag taxonomies). Breadcrumb/eyebrow/heading/excerpt/buttons sit in the left column (about 48%) and the featured image in the right (about 52%), shown uncropped at its natural ratio and never above its natural width; the metadata row stays full wide below, inside a full-width tinted band (surface card token) that marks where the hero ends. Adapts between light and dark mode using existing semantic tokens.
  * Keywords: work, hero, single, case study, project, section
  * Viewport Width: 1280
  * Inserter: true
@@ -13,17 +13,17 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"ls-work-single-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|30","bottom":"var:preset|spacing|70","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull ls-work-single-hero" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30)">
+<!-- wp:group {"align":"full","tagName":"section","className":"ls-work-single-hero","style":{"color":{"background":"var(--wp--custom--color--surface--card)"},"spacing":{"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|30","bottom":"var:preset|spacing|80","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ls-work-single-hero has-background" style="background-color:var(--wp--custom--color--surface--card);padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--30)">
 
 	<!-- wp:group {"align":"wide"} -->
 	<div class="wp-block-group alignwide">
 
-		<!-- wp:columns {"align":"wide"} -->
-		<div class="wp-block-columns alignwide">
+		<!-- wp:columns {"align":"wide","className":"ls-work-single-hero__row"} -->
+		<div class="wp-block-columns alignwide ls-work-single-hero__row">
 
-			<!-- wp:column {"width":"66%"} -->
-			<div class="wp-block-column" style="flex-basis:66%">
+			<!-- wp:column {"verticalAlignment":"center","width":"48%","className":"ls-work-single-hero__text"} -->
+			<div class="wp-block-column is-vertically-aligned-center ls-work-single-hero__text" style="flex-basis:48%">
 
 				<?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
 				<!-- wp:yoast-seo/breadcrumbs {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} /-->
@@ -54,6 +54,12 @@
 					<!-- /wp:button -->
 				</div>
 				<!-- /wp:buttons -->
+			</div>
+			<!-- /wp:column -->
+
+			<!-- wp:column {"verticalAlignment":"center","width":"52%","className":"ls-work-single-hero__media"} -->
+			<div class="wp-block-column is-vertically-aligned-center ls-work-single-hero__media" style="flex-basis:52%">
+				<!-- wp:post-featured-image {"sizeSlug":"large","className":"ls-work-single-hero__image","style":{"spacing":{"margin":{"top":"0","right":"0","bottom":"0","left":"0"}},"border":{"color":"var(--wp--custom--color--border--field)","width":"1px","style":"solid","radius":"var:preset|border-radius|400"}}} /-->
 			</div>
 			<!-- /wp:column -->
 		</div>
@@ -95,7 +101,5 @@
 		<!-- /wp:columns -->
 	</div>
 	<!-- /wp:group -->
-
-	<!-- wp:post-featured-image {"align":"wide","style":{"border":{"color":"var(--wp--custom--color--border--field)","width":"1px","style":"solid","radius":"var:preset|border-radius|400"},"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} /-->
 </section>
 <!-- /wp:group -->

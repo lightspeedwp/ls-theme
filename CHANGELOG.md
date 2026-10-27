@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Match imported Work and Blog content to the LIVE site and split the Work hero
+
+### Added
+
+- `src/scss/structural/legacy-content.scss`, compiled to `assets/css/legacy-content.css` and loaded on Work and Blog singles: styling for imported LIVE content written for the previous theme. It matches the LIVE widths, block gaps, headings, lists, captions, quote and pullquote cards, buttons (default and hover) and code blocks, and adds about 16px of extra space around code blocks and button rows. It replaces the unused `work-single-body` stylesheet.
+- Legacy tokens, all additive and mapped to existing tokens so they follow light and dark mode: spacing sizes x-small to x-large, font sizes x-small to x-large, the `regular` font weight, the `primary` and `secondary` font families, legacy palette slugs, and a `custom.colour` set with dark values in `styles/dark.json`.
+- Block styles: the Subheading 1, 2 and 3 paragraph styles and the Heading 2 heading style.
+
+### Changed
+
+- `patterns/template-work-single.php` and `patterns/template-single.php` render the post content in the wide default layout, so imported layouts get their LIVE widths.
+- `patterns/hero/work-single-hero.php`: the Work hero is now split, with the content on the left and the featured image on the right. The image is shown uncropped and never wider than its natural size. The hero sits in a full-width band on the `surface.card` token, with the Software, Project Type and Services row inside it. Columns with no terms are hidden and the dividers follow the visible ones. A post with no featured image gets a single full-width text column. The post-content block gap (16px for Work, 8px for Blog) is now set as `blockGap` on the `core/post-content` block in the templates.
+
+([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
+
+---
+
 ## [Unreleased] — Fix image caption contrast with a theme.json caption style (BugHerd #231)
 
 ### Fixed
