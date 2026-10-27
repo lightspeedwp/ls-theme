@@ -28,12 +28,17 @@
  * validation failed" / "cannot be previewed") because the saved markup no longer matches what
  * save() regenerates. Width comes from a real token (custom.layout.logo-width) rather than a
  * literal value so the logo size can be tuned in one place.
+ *
+ * The aspect-ratio reserves the logo's height before the SVG loads (no layout shift). It stands in
+ * for width/height attributes on the <img>: core/image's save() never writes those as attributes, so
+ * adding them to the markup makes the block invalid in the editor.
  */
 .site-logo--for-light img,
 .site-logo--for-dark img {
   display: block;
   width: var(--wp--custom--layout--logo-width);
   height: auto;
+  aspect-ratio: 419 / 90;
 }
 
 /*
