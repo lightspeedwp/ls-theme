@@ -18,8 +18,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-content-band">
+<!-- wp:group {"align":"full","tagName":"section","className":"is-style-content-band","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-content-band" style="margin-top:0">
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">

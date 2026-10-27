@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Align the header, centre the mega menus, hide Pricing and close the blog hero gaps (BugHerd #268, #269, #270)
+
+### Fixed
+
+- `src/scss/structural/_mega-menu.scss`: every Ollie mega-menu panel now opens from the same point, the centre of the header. Work and Solutions opened about 100px further right than the other menus because they lack the plugin's `menu-justified-center` option, and none of them were centred on the screen because the plugin positions a panel against the off-centre navigation list. On desktop (1024px and up) the panels now resolve against the header and use the plugin's own centred offset. The mobile menu uses accordions, not panels, so it needed no change.
+- `patterns/header.php`: the logo and the buttons on the right lined up with the content only on small screens. On wide screens they stayed 64px from the screen edges while the content stopped at the wide size. The header row is now wide-aligned inside a constrained header, with the same side padding as the page sections, so it lines up with the content at every width.
+- `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`: set `margin-top: 0` (as the other hero patterns do) so the hero and the two bands that follow it no longer leave a 20px gap from the root block gap. The Writing CTA card is unchanged.
+
+### Removed
+
+- The Pricing menu is hidden until the pricing pages are ready. `inc/header.php` drops the Pricing mega menu from the header navigation (it lives in the database navigation post, so a filter avoids a manual edit on every site), and the Pricing accordion is removed from `parts/mobile-menu.html`. The `pricing-mega-menu` template part and the pricing pages are untouched; delete `ls_theme_hide_pricing_mega_menu()` and restore the accordion to bring the menu back.
+
+---
+
 ## [Unreleased] — Style the popup forms to the theme (LSA-214)
 
 ### Added
