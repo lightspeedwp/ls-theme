@@ -61,6 +61,26 @@
 }
 
 /*
+ * Featured preview button on small screens: the button fills the panel width so it can never be
+ * wider than its container (at 320px the padded panel leaves less room than the button's natural
+ * width), with the arrow kept at the right edge.
+ *
+ * JSON limitation: a breakpoint override of the button width has no block-supports key (the
+ * width attribute is not responsive) — see AGENTS.md Theme-First Approach.
+ */
+@media (max-width: 781.98px) {
+  .ls-testimonial-featured__panel .wp-block-button,
+  .ls-testimonial-featured__panel .wp-block-button__link {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ls-testimonial-featured__panel .wp-block-button__link {
+    justify-content: space-between;
+  }
+}
+
+/*
  * Masonry card grid (patterns/sections/testimonial-card-masonry.php): CSS multi-column packs cards
  * of any quote length into 1, 2 or 3 columns by width with no empty slots. Each card keeps a
  * minimum height and its attribution pinned to the bottom, so short and long cards read as one set.
