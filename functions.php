@@ -76,7 +76,6 @@ function ls_theme_setup() {
 	// regardless of which template it's viewed through.
 	add_editor_style( 'style.css' );
 	add_editor_style( 'assets/css/animations.css' );
-	add_editor_style( 'assets/css/image-captions.css' );
 	add_editor_style( 'assets/css/taxonomy-filter.css' );
 	add_editor_style( 'assets/css/work-project-card.css' );
 	add_editor_style( 'assets/css/work-archive-sections.css' );
@@ -133,6 +132,7 @@ function ls_theme_setup() {
 	add_editor_style( 'assets/css/about-careers.css' );
 	add_editor_style( 'assets/css/about-team.css' );
 	add_editor_style( 'assets/css/gravity-forms-popup.css' );
+	add_editor_style( 'assets/css/testimonial-cards.css' );
 }
 add_action( 'after_setup_theme', 'ls_theme_setup' );
 

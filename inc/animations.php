@@ -118,6 +118,7 @@ function ls_theme_get_bundle_render_markers() {
 		'about-careers'             => array( 'classes' => array( 'ls-careers-statement', 'ls-careers-goal', 'ls-bento', 'ls-loop', 'ls-role-card', 'ls-role-actions' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
 		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-profile-grid', 'ls-text-stack', 'ls-team-cta' ) ),
+		'testimonial-cards'         => array( 'classes' => array( 'ls-quote-mark', 'ls-logo-strip', 'ls-testimonial-featured', 'ls-card-masonry' ) ),
 	);
 }
 
@@ -238,13 +239,6 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 		'effects'                   => array(
 			'handle'   => 'ls-theme-effects',
 			'path'     => 'assets/css/animations.css',
-			'contexts' => array( 'front', 'editor' ),
-		),
-		// Image captions can appear in any post/page's content, so this loads unconditionally
-		// rather than being gated to a specific template (LS-2934).
-		'image-captions'            => array(
-			'handle'   => 'ls-theme-image-captions',
-			'path'     => 'assets/css/image-captions.css',
 			'contexts' => array( 'front', 'editor' ),
 		),
 		// Structural bundles (LS-2615, gated LS-2922): each `condition` reflects verified actual
@@ -781,6 +775,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// wherever the patterns render.
 			'condition' => static function () {
 				return is_page( 'about/team' );
+			},
+		),
+		'testimonial-cards'         => array(
+			'handle'    => 'ls-theme-testimonial-cards',
+			'path'      => 'assets/css/testimonial-cards.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The Testimonials page patterns: the decorative quote mark, the client logo strip, the
+			// featured card side swap and the masonry card grid. The render-marker fallback loads it
+			// wherever the patterns render.
+			'condition' => static function () {
+				return is_page( 'testimonials' );
 			},
 		),
 	);

@@ -899,6 +899,13 @@
         "color": {
             "background": "var:custom|color|surface|canvas",
             "text": "var:custom|color|text|default"
+        },
+        "elements": {
+            "caption": {
+                "color": {
+                    "text": "var:custom|color|text|muted"
+                }
+            }
         }
     },
     "templateParts": [

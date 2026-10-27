@@ -11,16 +11,16 @@
 
 ?>
 
-<!-- wp:group {"tagName":"header","metadata":{"patternName":"ls-theme/header","name":"Header","description":"Site header — logo, primary navigation, search, light/dark toggle, and \u0022Start a project\u0022 CTA.","categories":["header"]},"className":"site-header","style":{"border":{"bottom":{"width":"1px","style":"solid","color":"var:custom|color|border|card"}},"spacing":{"padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|100","bottom":"var:preset|spacing|20","left":"var:preset|spacing|100"}}}} -->
-<header class="wp-block-group site-header" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--100);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--100)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:group {"className":"site-logo-switcher","layout":{"type":"default"}} -->
+<!-- wp:group {"tagName":"header","metadata":{"patternName":"ls-theme/header","name":"Header","description":"Site header — logo, primary navigation, search, light/dark toggle, and \u0022Start a project\u0022 CTA.","categories":["header"]},"className":"site-header","style":{"border":{"bottom":{"width":"1px","style":"solid","color":"var:custom|color|border|card"}},"spacing":{"padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|30","bottom":"var:preset|spacing|20","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<header class="wp-block-group site-header" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--30)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+<div class="wp-block-group alignwide"><!-- wp:group {"className":"site-logo-switcher","layout":{"type":"default"}} -->
 <div class="wp-block-group site-logo-switcher">
-<!-- wp:image {"linkDestination":"custom","className":"site-logo--for-light","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<figure class="wp-block-image site-logo--for-light" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/logos/ls-blue-logo.svg' ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>" width="419" height="90"/></a></figure>
+<!-- wp:image {"aspectRatio":"419/90","linkDestination":"custom","className":"site-logo--for-light","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<figure class="wp-block-image site-logo--for-light" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/logos/ls-blue-logo.svg' ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>" style="aspect-ratio:419/90"/></a></figure>
 <!-- /wp:image -->
 
-<!-- wp:image {"linkDestination":"custom","className":"site-logo--for-dark","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-<figure class="wp-block-image site-logo--for-dark" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/logos/ls-white-logo.svg' ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>" width="419" height="90"/></a></figure>
+<!-- wp:image {"aspectRatio":"419/90","linkDestination":"custom","className":"site-logo--for-dark","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<figure class="wp-block-image site-logo--for-dark" style="margin-top:0;margin-bottom:0"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/logos/ls-white-logo.svg' ) ); ?>" alt="<?php echo esc_attr__( 'LightSpeed home', 'ls-theme' ); ?>" style="aspect-ratio:419/90"/></a></figure>
 <!-- /wp:image -->
 </div>
 <!-- /wp:group -->
