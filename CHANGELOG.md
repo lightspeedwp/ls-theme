@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- The Pricing menu is hidden until the pricing pages are ready. `inc/header.php` drops the Pricing mega menu from the header navigation (it lives in the database navigation post, so a filter avoids a manual edit on every site), and the Pricing accordion is removed from `parts/mobile-menu.html`. The `pricing-mega-menu` template part and the pricing pages are untouched; delete `ls_theme_hide_pricing_mega_menu()` and restore the accordion to bring the menu back.
+- The Pricing menu is hidden until the pricing pages are ready. `inc/header.php` drops the Pricing mega menu from the header navigation (it lives in the database navigation post, so a filter avoids a manual edit on every site), and the Pricing accordion is removed from `parts/mobile-menu.html`. The `pricing-mega-menu` template part and the pricing pages are untouched; delete `ls_theme_hide_pricing_mega_menu()` and its `add_filter( 'render_block', 'ls_theme_hide_pricing_mega_menu', 10, 2 )` call in `inc/header.php`, and restore the accordion to bring the menu back.
 
 ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
 
