@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Tighten the breadcrumb gap under the header, batch 2: the spacing 90, 100 and 60 heroes
+
+### Fixed
+
+- The gap between the header and the breadcrumb on the remaining heroes was too large: 64px on `hero-centered-gradient-title`, `page-hero` and the `thank-you-confirmation` section (`spacing|100`), 56px on `search-hero`, `services-hero` and `solutions-hero` (`spacing|90`), and 37px on `phase-hero` and `service-hero` (`spacing|60`). Their outer section's top padding is now `spacing|40` (26px), the same value used on the blog hero and in batch 1, so every hero with a breadcrumb now matches. The breadcrumb is the first element in each, so the whole hero moves up by the same amount.
+- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated.
+
+---
+
 ## [Unreleased] — Tighten the breadcrumb gap under the header, batch 1: the spacing 80 heroes
 
 ### Fixed

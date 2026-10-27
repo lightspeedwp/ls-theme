@@ -25,7 +25,7 @@ Update this file as tasks are created, started, or completed.
 - [x] Implement Sass mixin structure and compiled CSS workflow for authored theme effects
 - [x] Align the header to the content width, centre the mega menus, hide Pricing and close the blog hero gaps (BugHerd #268, #269, #270)
 - [x] Tighten the breadcrumb gap under the header on the spacing 80 heroes (hero breadcrumb batch 1 of 2, pattern sources only; saved pages update separately)
-- [ ] Tighten the breadcrumb gap on the spacing 90, 100 and 60 heroes (hero breadcrumb batch 2 of 2)
+- [x] Tighten the breadcrumb gap on the spacing 90, 100 and 60 heroes (hero breadcrumb batch 2 of 2)
 - [ ] Build `parts/header.html`
 - [ ] Build `parts/footer.html`
 - [ ] Build `templates/index.html`
