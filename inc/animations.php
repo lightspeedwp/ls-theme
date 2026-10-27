@@ -118,6 +118,7 @@ function ls_theme_get_bundle_render_markers() {
 		'about-careers'             => array( 'classes' => array( 'ls-careers-statement', 'ls-careers-goal', 'ls-bento', 'ls-loop', 'ls-role-card', 'ls-role-actions' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
 		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-profile-grid', 'ls-text-stack', 'ls-team-cta' ) ),
+		'testimonial-cards'         => array( 'classes' => array( 'ls-quote-mark', 'ls-logo-strip', 'ls-testimonial-featured', 'ls-card-masonry' ) ),
 	);
 }
 
@@ -771,6 +772,17 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			// wherever the patterns render.
 			'condition' => static function () {
 				return is_page( 'about/team' );
+			},
+		),
+		'testimonial-cards'         => array(
+			'handle'    => 'ls-theme-testimonial-cards',
+			'path'      => 'assets/css/testimonial-cards.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The Testimonials page patterns: the decorative quote mark, the client logo strip, the
+			// featured card side swap and the masonry card grid. The render-marker fallback loads it
+			// wherever the patterns render.
+			'condition' => static function () {
+				return is_page( 'testimonials' );
 			},
 		),
 	);

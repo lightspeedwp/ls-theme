@@ -1,0 +1,106 @@
+/********** Testimonial Cards (Hero Split Graphic Actions, Logo Strip, Testimonial Featured Split, Testimonial Card Masonry) **********/
+
+/*
+ * Decorative quote mark (patterns/hero/hero-split-graphic-actions.php): an empty group masked with
+ * the double-quote shape and filled with the brand text token, so it follows light and dark mode
+ * (blue in light, cyan in dark) with no image file. Hidden from assistive tech by being empty.
+ *
+ * JSON limitation: mask-image has no block-supports or theme.json key, and a group has no
+ * background-shape setting — see AGENTS.md Theme-First Approach.
+ */
+.ls-quote-mark {
+  width: min(100%, 20rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  background: var(--wp--custom--color--text--brand);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 310 310'%3E%3Cpath d='m229.01 243.48 58.99-58.99v-117.97h-117.98v117.97h58.99zm-148.02-58.99v58.99l58.99-58.99v-117.97h-117.98v117.97z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/*
+ * Client logo sizing (patterns/sections/logo-strip.php, patterns/sections/testimonial-featured-split.php).
+ * The shared .site-logo--for-light/-dark img rule in _header.scss sets a fixed header-logo width,
+ * so these scoped rules replace it with a token height and automatic width, keeping every logo the
+ * same optical size whatever its aspect ratio.
+ *
+ * JSON limitation: core/image has no height/width token key and a lone width attribute fails block
+ * validation (see _header.scss) — see AGENTS.md Theme-First Approach.
+ */
+.ls-logo-strip .site-logo--for-light img,
+.ls-logo-strip .site-logo--for-dark img {
+  width: auto;
+  max-width: 100%;
+  height: var(--wp--preset--spacing--40);
+}
+
+.ls-testimonial-featured__logo .site-logo--for-light img,
+.ls-testimonial-featured__logo .site-logo--for-dark img {
+  width: auto;
+  max-width: 100%;
+  height: var(--wp--preset--spacing--60);
+}
+
+/*
+ * Featured avatar size: a round avatar needs a fixed width, which core/image can only hold as a
+ * lone width attribute that fails block validation — see AGENTS.md Theme-First Approach.
+ */
+.ls-testimonial-featured__avatar {
+  flex: 0 0 auto;
+  width: var(--wp--preset--spacing--100);
+}
+
+/*
+ * Featured copy column: it stretches to the height of the screenshot panel and its two groups (quote
+ * and attribution) are pushed apart, so the quote sits at the top and the ruled attribution lines up
+ * with the bottom of the panel, whatever the quote length.
+ *
+ * JSON limitation: space-between has no justifyContent option on a vertical flex group in the block
+ * editor controls — see AGENTS.md Theme-First Approach.
+ */
+.ls-testimonial-featured__copy {
+  justify-content: space-between;
+}
+
+/*
+ * Featured preview button on small screens: the button fills the panel width so it can never be
+ * wider than its container (at 320px the padded panel leaves less room than the button's natural
+ * width), with the arrow kept at the right edge.
+ *
+ * JSON limitation: a breakpoint override of the button width has no block-supports key (the
+ * width attribute is not responsive) — see AGENTS.md Theme-First Approach.
+ */
+@media (max-width: 781.98px) {
+  .ls-testimonial-featured__panel .wp-block-button,
+  .ls-testimonial-featured__panel .wp-block-button__link {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ls-testimonial-featured__panel .wp-block-button__link {
+    justify-content: space-between;
+  }
+}
+
+/*
+ * Masonry card grid (patterns/sections/testimonial-card-masonry.php): CSS multi-column packs cards
+ * of any quote length into 1, 2 or 3 columns by width with no empty slots. Each card keeps a
+ * minimum height and its attribution pinned to the bottom, so short and long cards read as one set.
+ * The source order is the page order; it reads down each column.
+ *
+ * JSON limitation: neither core group layouts nor theme.json can express CSS multi-column, and
+ * multi-column has no row gap, so the card spacing is a bottom margin that cancels the flow-layout
+ * top margin — see AGENTS.md Theme-First Approach.
+ */
+.ls-card-masonry {
+  columns: 22rem;
+  column-gap: var(--wp--preset--spacing--30);
+}
+
+.ls-card-masonry > .ls-testimonial-card {
+  margin-block: 0 var(--wp--preset--spacing--30);
+  min-height: 20rem;
+  break-inside: avoid;
+}
+
+.ls-testimonial-card > .wp-block-quote {
+  flex: 1 1 auto;
+}
