@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the testimonial section patterns and masonry card styles (LSA-206)
+
+### Added
+
+- `patterns/hero/hero-split-graphic-actions.php` (Hero - Split Graphic Actions): a split page hero with a Yoast breadcrumb, dot eyebrow, H1, lede, a consultation button that opens the popup and an outline button, and a large quote-mark graphic that takes its colour from the brand text token.
+- `patterns/sections/logo-strip.php` (Section - Logo Strip): a label and six client logos, centred, each logo a light/dark image pair toggled by the existing logo visibility tokens.
+- `patterns/sections/testimonial-featured-split.php` (Section - Testimonial Featured Split): two featured testimonials, each with a logo header, a quote with a brand-colour quote icon, a ruled attribution with the author portrait, name and role, and a framed preview panel holding the full website screenshot and a View Website button.
+- `patterns/sections/testimonial-card-masonry.php` (Section - Testimonial Card Masonry): the 27 text-only testimonials as Card - Plain cards on a `surface.card` band, packed into 1, 2 or 3 columns with no gaps, with a visually hidden H2.
+- `src/scss/structural/testimonial-cards.scss`, compiled to `assets/css/testimonial-cards.css`: the masked quote-mark shape, logo and avatar sizing, the featured copy column alignment, the small-screen View Website button width and the CSS multi-column masonry. `package.json`, `inc/animations.php` and `functions.php` wire it in for the testimonials page and the editor.
+
+([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+
+---
+
 ## [Unreleased] — Style the popup forms to the theme (LSA-214)
 
 ### Added
