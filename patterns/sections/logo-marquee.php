@@ -4,7 +4,7 @@
  * Slug: ls-theme/logo-marquee
  * Categories: featured
  * Block Types: core/pattern
- * Description: A client logo strip that scrolls slowly and endlessly: six client logos in a clipped track, with a small text and icon pause control beneath it and a visually hidden H2 that names the section. Each logo is a light/dark image pair toggled by the theme light/dark visibility tokens, so the logos stay legible in both modes. Without JavaScript, and when the visitor prefers reduced motion, it stays a static, centred, wrapping row. The script (assets/js/logo-marquee.js) starts the scroll, repeats the logos once for a seamless loop (the repeat has empty alt text and is hidden from assistive tech), and shows the pause control, which meets WCAG 2.2.2. It also narrows the window to less than one set of logos, so the same logo never shows twice at once. The scroll also pauses on hover and while anything in it has focus. Falls back to core/group, core/image and core/button (as a button element) because no semantic core block fits a logo carousel.
+ * Description: A client logo strip that scrolls slowly and endlessly: six client logos in a clipped track, with a small text and icon pause control beneath it and a visually hidden H2 that names the section. Each logo is a light/dark image pair toggled by the theme light/dark visibility tokens, so the logos stay legible in both modes. Without JavaScript, and when the visitor prefers reduced motion, it stays a static, centred, wrapping row. The script (assets/js/logo-marquee.js) starts the scroll, builds the repeat for a seamless loop from the current logo set (so editing a logo here is enough; the repeat has empty alt text and is hidden from assistive tech), and shows the pause control, which meets WCAG 2.2.2. It also narrows the window to less than one set of logos, so the same logo never shows twice at once. The scroll also pauses on hover and while anything in it has focus. Falls back to core/group, core/image and core/button (as a button element) because no semantic core block fits a logo carousel.
  * Keywords: logos, clients, marquee, slider, carousel, trust
  * Viewport Width: 1280
  * Inserter: true
@@ -101,83 +101,6 @@ $ls_logo_base = 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/';
 
 						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
 						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/ctt-logo.svg' ); ?>" alt="<?php echo esc_attr__( 'Love Cape Town', 'ls-theme' ); ?>"/></figure>
-						<!-- /wp:image -->
-					</div>
-					<!-- /wp:group -->
-				</div>
-				<!-- /wp:group -->
-
-				<!-- wp:group {"className":"ls-logo-marquee__set ls-logo-marquee__set--clone","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|60"}}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center","verticalAlignment":"center"}} -->
-				<div class="wp-block-group ls-logo-marquee__set ls-logo-marquee__set--clone">
-
-					<!-- wp:group {"className":"ls-logo-marquee__item","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-					<div class="wp-block-group ls-logo-marquee__item">
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-						<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/tas-logo-1.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/tas-logo.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-					</div>
-					<!-- /wp:group -->
-
-					<!-- wp:group {"className":"ls-logo-marquee__item","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-					<div class="wp-block-group ls-logo-marquee__item">
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-						<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/xneelo-logo-1.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/xneelo-logo.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-					</div>
-					<!-- /wp:group -->
-
-					<!-- wp:group {"className":"ls-logo-marquee__item","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-					<div class="wp-block-group ls-logo-marquee__item">
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-						<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/sd-logo-1.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/sd-logo.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-					</div>
-					<!-- /wp:group -->
-
-					<!-- wp:group {"className":"ls-logo-marquee__item","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-					<div class="wp-block-group ls-logo-marquee__item">
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-						<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/m24-logo-1.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/m24-logo.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-					</div>
-					<!-- /wp:group -->
-
-					<!-- wp:group {"className":"ls-logo-marquee__item","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-					<div class="wp-block-group ls-logo-marquee__item">
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-						<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/client-logo-safari-partners-22-1.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/client-logo-safari-partners-22.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-					</div>
-					<!-- /wp:group -->
-
-					<!-- wp:group {"className":"ls-logo-marquee__item","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-					<div class="wp-block-group ls-logo-marquee__item">
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-						<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/ctt-logo-1.svg' ); ?>" alt=""/></figure>
-						<!-- /wp:image -->
-
-						<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-						<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_logo_base . '2024/06/ctt-logo.svg' ); ?>" alt=""/></figure>
 						<!-- /wp:image -->
 					</div>
 					<!-- /wp:group -->

@@ -2,15 +2,15 @@
 
 /*
  * Progressive enhancement. Without JavaScript, and when the visitor prefers reduced motion, the
- * logos stay a static, centred, wrapping row: the repeat set and the pause button stay hidden. The
+ * logos stay a static, centred, wrapping row: there is no repeat set and the pause button stays hidden. The
  * script adds `.is-animated` to the section only when it starts the scroll, so the Site Editor
- * (which never runs the script) always shows the static row.
+ * (which never runs the script) always shows the static row. The repeat set does not exist in the markup:
+ * the script copies the first set when it starts, so editing a logo in the pattern is enough.
  *
  * JSON limitation: neither block attributes nor theme.json can express state-dependent display,
  * keyframes or a clipped, masked track — see AGENTS.md Theme-First Approach.
  */
 // Two classes, so this outranks the core flex layout's `display: flex` on the groups and buttons.
-.ls-logo-marquee .ls-logo-marquee__set--clone,
 .ls-logo-marquee .ls-logo-marquee__pause {
   display: none;
 }
@@ -112,14 +112,14 @@
     will-change: transform;
   }
 
+  // margin-block is reset because the track is a WordPress flow layout, which gives every child
+  // after the first a block-gap top margin; the repeat would otherwise sit lower and jump at the
+  // loop boundary.
   .ls-logo-marquee__set {
     flex: none;
     flex-wrap: nowrap;
+    margin-block: 0;
     padding-inline-end: var(--wp--preset--spacing--60);
-  }
-
-  .ls-logo-marquee__set--clone {
-    display: flex;
   }
 
   .ls-logo-marquee__viewport:hover .ls-logo-marquee__track,

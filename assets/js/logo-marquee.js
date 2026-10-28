@@ -9,10 +9,13 @@
 	function enhance( root ) {
 		const button = root.querySelector( '.ls-logo-marquee__pause button' );
 		const set = root.querySelector( '.ls-logo-marquee__set' );
-		const clone = root.querySelector( '.ls-logo-marquee__set--clone' );
+		let clone = null;
 		let observer = null;
+		// The visitor's own pause choice, kept while the scroll is switched off and on again by a
+		// change to their reduced-motion setting.
+		let paused = false;
 
-		if ( ! button || ! set || ! clone ) {
+		if ( ! button || ! set ) {
 			return;
 		}
 
@@ -20,12 +23,21 @@
 		// aria-pressed (a toggle that keeps aria-pressed must also keep a stable label). The icon
 		// shows the same next action and is hidden from assistive tech.
 		function syncLabel() {
-			const paused = root.classList.contains( 'is-paused' );
 			const label = document.createElement( 'span' );
 
 			label.textContent = paused ? labels.play : labels.pause;
 			button.innerHTML = icons[ paused ? 'play' : 'pause' ] || '';
 			button.appendChild( label );
+		}
+
+		// The repeat is copied from the logo set as it is now, so it can never show an old logo, and
+		// it has empty alt text and is hidden from assistive tech (it is only there for the loop).
+		function buildClone() {
+			clone = set.cloneNode( true );
+			clone.classList.add( 'ls-logo-marquee__set--clone' );
+			clone.setAttribute( 'aria-hidden', 'true' );
+			clone.querySelectorAll( 'img' ).forEach( ( image ) => image.setAttribute( 'alt', '' ) );
+			set.after( clone );
 		}
 
 		// A logo and its repeat are one set apart, so the window must be narrower than a set by at
@@ -45,10 +57,12 @@
 		}
 
 		function start() {
-			root.classList.remove( 'is-paused' );
+			if ( ! clone ) {
+				buildClone();
+			}
+
+			root.classList.toggle( 'is-paused', paused );
 			root.classList.add( 'is-animated' );
-			// The repeat is only there for the seamless loop, so assistive tech skips it.
-			clone.setAttribute( 'aria-hidden', 'true' );
 			syncLabel();
 			sizeWindow();
 
@@ -62,7 +76,11 @@
 		function stop() {
 			root.classList.remove( 'is-animated', 'is-paused' );
 			root.style.removeProperty( '--ls-logo-marquee-window' );
-			clone.removeAttribute( 'aria-hidden' );
+
+			if ( clone ) {
+				clone.remove();
+				clone = null;
+			}
 
 			if ( observer ) {
 				observer.disconnect();
@@ -79,7 +97,8 @@
 		}
 
 		button.addEventListener( 'click', () => {
-			root.classList.toggle( 'is-paused' );
+			paused = ! paused;
+			root.classList.toggle( 'is-paused', paused );
 			syncLabel();
 		} );
 
