@@ -17,21 +17,13 @@
 }
 
 /*
- * Client logo sizing (patterns/sections/logo-strip.php, patterns/sections/testimonial-featured-split.php).
- * The shared .site-logo--for-light/-dark img rule in _header.scss sets a fixed header-logo width,
- * so these scoped rules replace it with a token height and automatic width, keeping every logo the
- * same optical size whatever its aspect ratio.
+ * Featured client logo sizing (patterns/sections/testimonial-featured-split.php). The shared
+ * .site-logo--for-light/-dark img rule in _header.scss sets a fixed header-logo width, so this scoped
+ * rule replaces it with a token height and automatic width.
  *
  * JSON limitation: core/image has no height/width token key and a lone width attribute fails block
  * validation (see _header.scss) — see AGENTS.md Theme-First Approach.
  */
-.ls-logo-strip .site-logo--for-light img,
-.ls-logo-strip .site-logo--for-dark img {
-  width: auto;
-  max-width: 100%;
-  height: var(--wp--preset--spacing--40);
-}
-
 .ls-testimonial-featured__logo .site-logo--for-light img,
 .ls-testimonial-featured__logo .site-logo--for-dark img {
   width: auto;

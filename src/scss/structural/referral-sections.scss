@@ -1,0 +1,20 @@
+/********** Referral Sections (Hero Split Graphic Actions graphic, and the Referrals page sections) **********/
+
+/*
+ * Referral hero graphic (patterns/hero/hero-split-graphic-actions.php, with the graphic group's class
+ * swapped to ls-referral-mark on the Referrals page): an empty group masked with the "one person
+ * refers another" shape (two circles with a person cut out of each, joined by two arrows) and filled
+ * with the brand text token, so it follows light and dark mode (blue in light, cyan in dark) with no
+ * image file. It replaces the old banner-refer.svg, whose fixed dark fill disappeared in dark mode.
+ * Hidden from assistive tech by being empty.
+ *
+ * JSON limitation: mask-image has no block-supports or theme.json key, and a group has no
+ * background-shape setting — see AGENTS.md Theme-First Approach.
+ */
+.ls-referral-mark {
+  width: min(100%, 22rem);
+  aspect-ratio: 6 / 5;
+  margin-inline: auto;
+  background: var(--wp--custom--color--text--brand);
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%20200'%3E%3Cpath%20fill-rule='evenodd'%20d='M12%20130a60%2060%200%201%200%20120%200a60%2060%200%201%200%20-120%200zM60.67%20118.67a11.33%2011.33%200%201%200%2022.67%200a11.33%2011.33%200%201%200%20-22.67%200zM49.33%20155.50c0%20-12.75%209.92%20-21.25%2022.67%20-21.25s22.67%208.50%2022.67%2021.25zM124%2062a46%2046%200%201%200%2092%200a46%2046%200%201%200%20-92%200zM160.67%2052.67a9.33%209.33%200%201%200%2018.67%200a9.33%209.33%200%201%200%20-18.67%200zM151.33%2083.00c0%20-10.50%208.17%20-17.50%2018.67%20-17.50s18.67%207.00%2018.67%2017.50z'/%3E%3Cg%20fill='none'%20stroke='%23000'%20stroke-width='7'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M68%2056c4-22%2024-34%2048-34'/%3E%3Cpath%20d='m108%2012%2010%2010-10%2010'/%3E%3Cpath%20d='M132%20186c34%200%2062-18%2070-46'/%3E%3Cpath%20d='m190%20142%2012-4%204%2012'%20transform='translate(0%20-6)'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}

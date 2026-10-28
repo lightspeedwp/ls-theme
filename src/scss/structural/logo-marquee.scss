@@ -1,0 +1,152 @@
+/********** Logo Marquee (patterns/sections/logo-marquee.php, assets/js/logo-marquee.js) **********/
+
+/*
+ * Progressive enhancement. Without JavaScript, and when the visitor prefers reduced motion, the
+ * logos stay a static, centred, wrapping row: the repeat set and the pause button stay hidden. The
+ * script adds `.is-animated` to the section only when it starts the scroll, so the Site Editor
+ * (which never runs the script) always shows the static row.
+ *
+ * JSON limitation: neither block attributes nor theme.json can express state-dependent display,
+ * keyframes or a clipped, masked track — see AGENTS.md Theme-First Approach.
+ */
+// Two classes, so this outranks the core flex layout's `display: flex` on the groups and buttons.
+.ls-logo-marquee .ls-logo-marquee__set--clone,
+.ls-logo-marquee .ls-logo-marquee__pause {
+  display: none;
+}
+
+/*
+ * The pause control: a small text link with a pause or play icon, not a filled button. It keeps the
+ * neutral Button - Secondary Outline variant (no fill sweep or arrow chip, which the default button
+ * motion adds) and strips its border, pill padding and hover fill. The script inserts the icon (an
+ * inline SVG that takes the text colour) and the label. It keeps a 24px-plus target (WCAG 2.5.8),
+ * the 16px minimum text size and the theme's focus ring.
+ *
+ * JSON limitation: a block-level :hover state and the icon sizing have no theme.json key, and
+ * overriding the variant's hover fill needs the same specificity as its own rule — see AGENTS.md
+ * Theme-First Approach.
+ */
+.ls-logo-marquee .ls-logo-marquee__pause .wp-block-button .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wp--preset--spacing--5);
+  padding-block: var(--wp--preset--spacing--5);
+  padding-inline: var(--wp--preset--spacing--10);
+  border: 0;
+  border-radius: var(--wp--preset--border-radius--100);
+  background: transparent;
+  box-shadow: none;
+  color: var(--wp--custom--color--text--muted);
+  // The base size token is fluid and drops to 14px on small screens; this control must stay at the 16px minimum.
+  font-size: max(1rem, var(--wp--preset--font-size--200));
+  font-weight: var(--wp--custom--typography--font-weight--medium);
+  text-transform: none;
+  letter-spacing: normal;
+
+  &:hover,
+  &:focus-visible {
+    border: 0;
+    background: transparent;
+    color: var(--wp--custom--color--text--default);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+}
+
+/*
+ * Client logo sizing. The shared .site-logo--for-light/-dark img rule in _header.scss sets a fixed
+ * header-logo width, so this scoped rule replaces it with a token height and automatic width, keeping
+ * every logo the same optical size whatever its aspect ratio.
+ *
+ * JSON limitation: core/image has no height token key and a lone width attribute fails block
+ * validation (see _header.scss) — see AGENTS.md Theme-First Approach.
+ */
+.ls-logo-marquee .site-logo--for-light img,
+.ls-logo-marquee .site-logo--for-dark img {
+  width: auto;
+  max-width: 100%;
+  height: var(--wp--preset--spacing--70);
+}
+
+/*
+ * The scrolling state. The track holds the logo set twice and slides left by exactly one set (half
+ * its own width), then restarts, which looks seamless. Each set carries trailing padding equal to the
+ * gap between logos so the two halves are identical. The track scrolls slowly (60 seconds for a
+ * full loop) and pauses while the pointer is over it, while anything inside has keyboard focus, or
+ * after the pause button is pressed. The edges fade out with a mask.
+ *
+ * JSON limitation: keyframes, animation-play-state and mask-image have no block-supports or
+ * theme.json key, and no animation token is this long, so the duration is a literal — see AGENTS.md
+ * Theme-First Approach.
+ */
+.ls-logo-marquee.is-animated {
+  // Flex, not block, so the buttons row keeps its right-aligned justification.
+  .ls-logo-marquee__pause {
+    display: flex;
+  }
+
+  // The script sets --ls-logo-marquee-window to a little less than one set of logos, so a logo and
+  // its repeat can never both be in view; the window is centred on wide screens.
+  .ls-logo-marquee__viewport {
+    max-width: var(--ls-logo-marquee-window, 100%);
+    margin-inline: auto;
+    overflow: hidden;
+    // The mask only uses the alpha channel, so the colour is a technical value, not a UI colour.
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .ls-logo-marquee__track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: ls-logo-marquee-scroll 60s linear infinite;
+    will-change: transform;
+  }
+
+  .ls-logo-marquee__set {
+    flex: none;
+    flex-wrap: nowrap;
+    padding-inline-end: var(--wp--preset--spacing--60);
+  }
+
+  .ls-logo-marquee__set--clone {
+    display: flex;
+  }
+
+  .ls-logo-marquee__viewport:hover .ls-logo-marquee__track,
+  .ls-logo-marquee__viewport:focus-within .ls-logo-marquee__track {
+    animation-play-state: paused;
+  }
+
+  &.is-paused .ls-logo-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes ls-logo-marquee-scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+// Safety net if the script started the scroll just before the visitor's preference changed.
+@media (prefers-reduced-motion: reduce) {
+  .ls-logo-marquee.is-animated {
+    .ls-logo-marquee__track {
+      animation: none;
+    }
+
+    .ls-logo-marquee__set--clone,
+    .ls-logo-marquee__pause {
+      display: none;
+    }
+  }
+}
