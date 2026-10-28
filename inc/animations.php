@@ -120,7 +120,7 @@ function ls_theme_get_bundle_render_markers() {
 		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-profile-grid', 'ls-text-stack', 'ls-team-cta' ) ),
 		'testimonial-cards'         => array( 'classes' => array( 'ls-quote-mark', 'ls-testimonial-featured', 'ls-card-masonry' ) ),
 		'logo-marquee'              => array( 'classes' => array( 'ls-logo-marquee' ) ),
-		'referral-sections'         => array( 'classes' => array( 'ls-referral-mark' ) ),
+		'referral-sections'         => array( 'classes' => array( 'ls-referral-mark', 'ls-referral-network', 'ls-referral-steps', 'ls-referral-reasons', 'ls-case-study-card' ) ),
 	);
 }
 
@@ -804,8 +804,8 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 			'handle'    => 'ls-theme-referral-sections',
 			'path'      => 'assets/css/referral-sections.css',
 			'contexts'  => array( 'front', 'editor' ),
-			// The Referrals page: the referral hero graphic (more sections arrive with the page patterns).
-			// The render-marker fallback loads it wherever the graphic renders.
+			// The Referrals page: the hero and intro graphics, the list cards, the referral form styles and the
+			// case-study cards. The render-marker fallback loads it wherever those patterns render.
 			'condition' => static function () {
 				return is_page( 'referrals' );
 			},
