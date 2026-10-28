@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the scrolling client logo marquee and the referral hero graphic (LSA-212)
+
+### Added
+
+- `patterns/sections/logo-marquee.php` (Section - Logo Marquee): the six client logos in a clipped track that scrolls slowly and endlessly, with a visually hidden H2 and a small text-and-icon pause control. Each logo is a light/dark image pair, so it stays legible in both modes. It stays a static, centred row without JavaScript or with reduced motion, pauses on hover and focus, and the window is narrower than one set of logos so the same logo never shows twice at once.
+- `assets/js/logo-marquee.js`: starts the scroll, repeats the logos for a seamless loop, wires up the pause control (WCAG 2.2.2) and follows the visitor's reduced-motion setting. It loads only when the pattern renders.
+- `src/scss/structural/logo-marquee.scss`, compiled to `assets/css/logo-marquee.css`: the static row, the seamless loop, the edge fades, the logo sizing and the pause control.
+- `src/scss/structural/referral-sections.scss`, compiled to `assets/css/referral-sections.css`: the "one person refers another" hero graphic as a token-coloured mask, so it follows light and dark mode. `package.json`, `inc/animations.php` and `functions.php` wire both bundles in.
+
+### Removed
+
+- `patterns/sections/logo-strip.php` (Section - Logo Strip) and its rules in `testimonial-cards.scss`: replaced by the marquee, which falls back to a static row by itself.
+
+([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
+
+---
+
 ## [Unreleased] — Match imported Work and Blog content to the LIVE site and split the Work hero
 
 ### Added
