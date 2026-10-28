@@ -143,6 +143,14 @@
  * JSON limitation: a stretched pseudo-element link and a focus ring on a different element have no
  * block-supports or theme.json key — see AGENTS.md Theme-First Approach.
  */
+// The theme's link style makes every anchor position: relative, which would make the overlay size
+// itself against the title link (a 30px box) instead of the card. The anchor must stay non-positioned
+// so the overlay resolves against the card (position: relative from the Card - Case Study shell), the
+// same recipe as Card - Link Row and the search result rows.
+.ls-case-study-card .wp-block-post-title a {
+  position: static;
+}
+
 .ls-case-study-card .wp-block-post-title a::after {
   content: "";
   position: absolute;
