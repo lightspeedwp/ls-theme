@@ -31,7 +31,7 @@
   align-items: center;
   gap: var(--wp--preset--spacing--5);
   padding-block: var(--wp--preset--spacing--5);
-  padding-inline: var(--wp--preset--spacing--10);
+  padding-inline: var(--wp--preset--spacing--5);
   border: 0;
   border-radius: var(--wp--preset--border-radius--100);
   background: transparent;
@@ -40,6 +40,7 @@
   // The base size token is fluid and drops to 14px on small screens; this control must stay at the 16px minimum.
   font-size: max(1rem, var(--wp--preset--font-size--200));
   font-weight: var(--wp--custom--typography--font-weight--medium);
+  line-height: var(--wp--custom--line-height--button);
   text-transform: none;
   letter-spacing: normal;
 
@@ -55,8 +56,8 @@
   }
 
   svg {
-    width: 1em;
-    height: 1em;
+    width: 0.875em;
+    height: 0.875em;
     flex: none;
   }
 }
