@@ -43,11 +43,11 @@
 				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"flex","orientation":"vertical","flexWrap":"nowrap"}} -->
 				<div class="wp-block-group">
 					<!-- wp:paragraph {"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|semibold"}},"fontSize":"200"} -->
-					<p class="has-200-font-size" style="font-weight:var(--wp--custom--typography--font-weight--semibold)"><a class="ls-card-link-row__link" href="<?php echo esc_url( home_url( '/why/lightspeed/' ) ); ?>"><?php echo esc_html__( 'Why LightSpeed', 'ls-theme' ); ?></a></p>
+					<p class="has-200-font-size" style="font-weight:var(--wp--custom--typography--font-weight--semibold)"><a class="ls-card-link-row__link" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php echo esc_html__( 'About LightSpeed', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}},"fontSize":"100"} -->
-					<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Capability positioning.', 'ls-theme' ); ?></p>
+					<p class="has-text-color has-100-font-size" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Who we are and how we work.', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->

@@ -66,24 +66,24 @@
 			<article class="wp-block-group is-style-card-category">
 				<!-- wp:group {"className":"ls-icon-well-brand"} -->
 				<div class="wp-block-group ls-icon-well-brand">
-					<!-- wp:icon {"icon":"lightspeed/tag","style":{"dimensions":{"width":"18px"}}} /-->
+					<!-- wp:icon {"icon":"lightspeed/category","style":{"dimensions":{"width":"18px"}}} /-->
 				</div>
 				<!-- /wp:group -->
 
 				<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 				<div class="wp-block-group ls-card-category__content">
 					<!-- wp:heading {"level":3,"fontSize":"300"} -->
-					<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Pricing', 'ls-theme' ); ?></h3>
+					<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Services', 'ls-theme' ); ?></h3>
 					<!-- /wp:heading -->
 
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-					<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'A useful destination for users who may have arrived while evaluating options.', 'ls-theme' ); ?></p>
+					<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'What LightSpeed does across the full WordPress lifecycle.', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
 
 				<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-				<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>"><?php echo esc_html__( 'Read about pricing', 'ls-theme' ); ?></a></p>
+				<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>"><?php echo esc_html__( 'Explore services', 'ls-theme' ); ?></a></p>
 				<!-- /wp:paragraph -->
 			</article>
 			<!-- /wp:group -->
@@ -92,24 +92,24 @@
 			<article class="wp-block-group is-style-card-category">
 				<!-- wp:group {"className":"ls-icon-well-brand"} -->
 				<div class="wp-block-group ls-icon-well-brand">
-					<!-- wp:icon {"icon":"lightspeed/archive","style":{"dimensions":{"width":"18px"}}} /-->
+					<!-- wp:icon {"icon":"lightspeed/folder","style":{"dimensions":{"width":"18px"}}} /-->
 				</div>
 				<!-- /wp:group -->
 
 				<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 				<div class="wp-block-group ls-card-category__content">
 					<!-- wp:heading {"level":3,"fontSize":"300"} -->
-					<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Website packages', 'ls-theme' ); ?></h3>
+					<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Our work', 'ls-theme' ); ?></h3>
 					<!-- /wp:heading -->
 
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-					<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'A good route for visitors trying to understand delivery fit.', 'ls-theme' ); ?></p>
+					<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Case studies showing how we deliver across platforms and industries.', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
 
 				<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-				<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/website-packages/' ) ); ?>"><?php echo esc_html__( 'Website packages', 'ls-theme' ); ?></a></p>
+				<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/work/' ) ); ?>"><?php echo esc_html__( 'See our work', 'ls-theme' ); ?></a></p>
 				<!-- /wp:paragraph -->
 			</article>
 			<!-- /wp:group -->
@@ -118,24 +118,24 @@
 			<article class="wp-block-group is-style-card-category">
 				<!-- wp:group {"className":"ls-icon-well-brand"} -->
 				<div class="wp-block-group ls-icon-well-brand">
-					<!-- wp:icon {"icon":"lightspeed/help","style":{"dimensions":{"width":"18px"}}} /-->
+					<!-- wp:icon {"icon":"lightspeed/notepad","style":{"dimensions":{"width":"18px"}}} /-->
 				</div>
 				<!-- /wp:group -->
 
 				<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 				<div class="wp-block-group ls-card-category__content">
 					<!-- wp:heading {"level":3,"fontSize":"300"} -->
-					<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'FAQ', 'ls-theme' ); ?></h3>
+					<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Blog', 'ls-theme' ); ?></h3>
 					<!-- /wp:heading -->
 
 					<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-					<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Helpful for users who are trying to orient themselves quickly.', 'ls-theme' ); ?></p>
+					<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Practical writing on WordPress, design systems and delivery.', 'ls-theme' ); ?></p>
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
 
 				<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-				<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/faq/' ) ); ?>"><?php echo esc_html__( 'Read the FAQ', 'ls-theme' ); ?></a></p>
+				<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/blog/' ) ); ?>"><?php echo esc_html__( 'Read the blog', 'ls-theme' ); ?></a></p>
 				<!-- /wp:paragraph -->
 			</article>
 			<!-- /wp:group -->

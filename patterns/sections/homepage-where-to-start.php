@@ -4,7 +4,7 @@
  * Slug: ls-theme/homepage-where-to-start
  * Categories: featured
  * Block Types: core/pattern
- * Description: The Homepage "Where to start" section: eyebrow, heading, and description, followed by a Commercial/Proof/Process card row using the shared Card - Work Category style with tinted icon wells.
+ * Description: The Homepage "Where to start" section: eyebrow, heading, and description, followed by a Our story/Proof/Process card row using the shared Card - Work Category style with tinted icon wells.
  * Keywords: homepage, where to start, routes, section
  * Viewport Width: 1280
  * Inserter: true
@@ -61,17 +61,17 @@
 					<!-- wp:group {"className":"ls-card-category__content","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 					<div class="wp-block-group ls-card-category__content">
 						<!-- wp:heading {"level":3,"fontSize":"300"} -->
-						<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Commercial', 'ls-theme' ); ?></h3>
+						<h3 class="wp-block-heading has-300-font-size"><?php echo esc_html__( 'Our story', 'ls-theme' ); ?></h3>
 						<!-- /wp:heading -->
 
 						<!-- wp:paragraph {"style":{"color":{"text":"var(--wp--custom--color--text--muted)"}}} -->
-						<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Why LightSpeed, pricing principles, packages and the consultation route, for teams comparing partners or scoping a real project.', 'ls-theme' ); ?></p>
+						<p class="has-text-color" style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Two decades of WordPress and WooCommerce work, from our first projects in 2003 to the team and approach behind LightSpeed today, for teams deciding who to trust.', 'ls-theme' ); ?></p>
 						<!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/why-lightspeed/' ) ); ?>"><?php echo esc_html__( 'Why LightSpeed', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/about/history/' ) ); ?>"><?php echo esc_html__( 'Read our history', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -131,7 +131,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/get-started/' ) ); ?>"><?php echo esc_html__( 'How to get started', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/getting-started-with-lightspeed/' ) ); ?>"><?php echo esc_html__( 'How to get started', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->

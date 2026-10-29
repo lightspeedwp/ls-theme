@@ -4,14 +4,14 @@
  * Slug: ls-theme/footer
  * Categories: footer
  * Block Types: core/template-part/footer
- * Description: Full site footer — company summary with proof points, 6-section link grid mirroring the header nav, and legal/social bottom bar. Core-block fallbacks: core/image x2 for the logo (core/site-logo cannot swap by colour scheme), core/group + core/paragraph for the proof cards and availability badge (no semantic core equivalent), core/paragraph links for the nav lists.
+ * Description: Full site footer — company summary with proof points, 5-section link grid mirroring the header nav, and legal/social bottom bar. Core-block fallbacks: core/image x2 for the logo (core/site-logo cannot swap by colour scheme), core/group + core/paragraph for the proof cards and availability badge (no semantic core equivalent), core/paragraph links for the nav lists.
  *
  * @package ls-theme
  */
 
 ?>
 
-<!-- wp:group {"tagName":"footer","metadata":{"patternName":"ls-theme/footer","name":"Footer","description":"Full site footer — company summary with proof points, 6-section link grid mirroring the header nav, and legal/social bottom bar. Core-block fallbacks: core/image x2 for the logo (core/site-logo cannot swap by colour scheme), core/group + core/paragraph for the proof cards and availability badge (no semantic core equivalent), core/paragraph links for the nav lists.","categories":["footer"]},"className":"site-footer","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","right":"var:preset|spacing|60","bottom":"var:preset|spacing|80","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"footer","metadata":{"patternName":"ls-theme/footer","name":"Footer","description":"Full site footer — company summary with proof points, 5-section link grid mirroring the header nav, and legal/social bottom bar. Core-block fallbacks: core/image x2 for the logo (core/site-logo cannot swap by colour scheme), core/group + core/paragraph for the proof cards and availability badge (no semantic core equivalent), core/paragraph links for the nav lists.","categories":["footer"]},"className":"site-footer","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","right":"var:preset|spacing|60","bottom":"var:preset|spacing|80","left":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <footer class="wp-block-group site-footer" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--60)"><!-- wp:columns {"align":"wide","className":"site-footer__columns","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|80"}}}} -->
 <div class="wp-block-columns alignwide site-footer__columns"><!-- wp:column {"width":"35%","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
 <div class="wp-block-column" style="flex-basis:35%"><!-- wp:pattern {"slug":"ls-theme/site-logo-switcher"} /-->
@@ -190,38 +190,6 @@
 <div class="wp-block-group"><!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
 
 <!-- wp:heading {"level":2,"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold","lineHeight":"var:custom|line-height|paragraph"},"color":{"text":"var:custom|color|text|subtle"}},"fontSize":"100","fontFamily":"body"} -->
-<h2 class="wp-block-heading has-text-color has-body-font-family has-100-font-size" style="color:var(--wp--custom--color--text--subtle);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);line-height:var(--wp--custom--line-height--paragraph);text-transform:uppercase"><?php echo esc_html__( 'Pricing', 'ls-theme' ); ?></h2>
-<!-- /wp:heading --></div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/pricing/foundation/' ) ); ?>"><?php echo esc_html__( 'Foundation', 'ls-theme' ); ?></a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/pricing/growth/' ) ); ?>"><?php echo esc_html__( 'Growth', 'ls-theme' ); ?></a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/pricing/enterprise/' ) ); ?>"><?php echo esc_html__( 'Enterprise', 'ls-theme' ); ?></a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/website-packages/' ) ); ?>"><?php echo esc_html__( 'Website packages', 'ls-theme' ); ?></a></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
-<!-- wp:paragraph {"className":"is-style-link-arrow-accent","fontSize":"100"} -->
-<p class="is-style-link-arrow-accent has-100-font-size"><a href="<?php echo esc_url( home_url( '/pricing/pricing-principles/' ) ); ?>"><?php echo esc_html__( 'See pricing principles', 'ls-theme' ); ?></a></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}}} -->
-<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:icon {"icon":"lightspeed/dot","className":"has-text-color","style":{"color":{"text":"var(--wp--custom--color--text--brand)"},"dimensions":{"width":"8px"}}} /-->
-
-<!-- wp:heading {"level":2,"style":{"typography":{"textTransform":"uppercase","letterSpacing":"var:custom|typography|letter-spacing|widest","fontWeight":"var:custom|typography|font-weight|semibold","lineHeight":"var:custom|line-height|paragraph"},"color":{"text":"var:custom|color|text|subtle"}},"fontSize":"100","fontFamily":"body"} -->
 <h2 class="wp-block-heading has-text-color has-body-font-family has-100-font-size" style="color:var(--wp--custom--color--text--subtle);font-weight:var(--wp--custom--typography--font-weight--semibold);letter-spacing:var(--wp--custom--typography--letter-spacing--widest);line-height:var(--wp--custom--line-height--paragraph);text-transform:uppercase"><?php echo esc_html__( 'Insights', 'ls-theme' ); ?></h2>
 <!-- /wp:heading --></div>
 <!-- /wp:group -->
@@ -261,10 +229,6 @@
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
 <p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php echo esc_html__( 'About LightSpeed', 'ls-theme' ); ?></a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/why/lightspeed/' ) ); ?>"><?php echo esc_html__( 'Why LightSpeed', 'ls-theme' ); ?></a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->

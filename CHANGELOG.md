@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Replace the links to hidden, empty and legacy pages in the theme patterns before launch
+
+### Changed
+
+- `patterns/sections/404-best-next-routes.php` and `patterns/sections/search-useful-destinations.php`: the Pricing, Website packages and FAQ cards are now Services, Our work and Blog, each with a matching icon. The search pattern's three inline SVG icons are now theme icon blocks, like the 404 pattern's.
+- `patterns/sections/related-routes-grid.php`: the default cards are Our process and Services instead of Pricing and Website packages.
+- `patterns/sections/work-related-routes.php`: the "Why LightSpeed" card is now "About LightSpeed" and links to `/about/`.
+- `patterns/footer.php`: the Pricing column and the "Why LightSpeed" link are removed, so the footer matches the live site. The nav grid now has five sections.
+- `patterns/sections/homepage-where-to-start.php` and `patterns/sections/homepage-why-lightspeed.php`: match the live homepage. The first card is "Our story" and links to `/about/history/`, "Read our story" links to `/about/history/`, "How to get started" links to `/getting-started-with-lightspeed/` and "What we commit to" links to `/about/ai-governance/`. The old `/why-lightspeed/`, `/get-started/` and `/commitments/` links pointed at pages that don't exist or are legacy.
+- `src/scss/structural/_footer.scss`: comment only, now lists the five footer nav sections.
+
+---
+
 ## [Unreleased] — Add the Referrals page section patterns and fix the mobile menu accordion links (LSA-212)
 
 ### Added
