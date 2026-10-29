@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `parts/work-mega-menu.html`, `src/scss/structural/_mega-menu.scss` and `assets/css/animations.css`: the Work mega menu shows each project's own logo (The Safari Partners, Novus Media, ATI Holidays and Southern Destinations, taken from the media library) in place of the folder-style icon. Each logo sits in a fixed-width, always-light tile (`.ls-mega-menu-logo`, using the existing `surface--highlight` token) because all four logos are drawn for light backgrounds, so they keep their brand colours and stay readable in both the light and the dark style. All case studies and Testimonials keep their icons, drawn dark, in the same tile so the titles line up. The six rows now sit in one two-column grid (`.ls-mega-menu-grid`) instead of two separate columns, with `grid-auto-rows: 1fr`, so every row is the same height and each pair lines up across and down; the title, description and arrow are top-aligned in every row. The mobile menu rows have no icons, so the mobile menu is unchanged.
 - `patterns/footer.php`: the footer's Work column lists the same three projects (The Safari Partners, ATI Holidays and Southern Destinations) instead of Drive Botswana, Slimmer met SARIE and xneelo, so it matches the Work menu.
 
+([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+
 ---
 
 ## [Unreleased] — Build the pattern image URLs from the site's uploads folder instead of the DEV domain
