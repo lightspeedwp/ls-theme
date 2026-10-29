@@ -12,41 +12,43 @@
  * @package ls-theme
  */
 
+$ls_uploads_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
+
 $ls_profiles = array(
 	array(
 		'anchor' => 'p-warwick',
 		'name'   => 'Warwick Booth',
 		'role'   => __( 'Lead developer', 'ls-theme' ),
 		'bio'    => __( 'Warwick’s public team profile emphasises planning, mentoring, code review and complex development work. He is the kind of senior developer clients trust when architecture and implementation need to stay aligned.', 'ls-theme' ),
-		'image'  => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2023/02/LightSpeed-Team-Warwick-Booth-edited-1.jpg',
+		'image'  => $ls_uploads_base . '2023/02/LightSpeed-Team-Warwick-Booth-edited-1.jpg',
 	),
 	array(
 		'anchor' => 'p-brandon',
 		'name'   => 'Brandon Marshall',
 		'role'   => __( 'WordPress designer and developer', 'ls-theme' ),
 		'bio'    => __( 'Brandon is a WordPress Designer/Developer at LightSpeed, passionate about thoughtful design, structured workflows, and contributing to reliable, high-quality WordPress websites and plugins with the team.', 'ls-theme' ),
-		'image'  => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/Lightspeed-Team-Brandon-Marshall.png',
+		'image'  => $ls_uploads_base . '2025/12/Lightspeed-Team-Brandon-Marshall.png',
 	),
 	array(
 		'anchor' => 'p-jose',
 		'name'   => 'José Abreu',
 		'role'   => __( 'Block theme and block developer', 'ls-theme' ),
 		'bio'    => __( 'José focuses on web design to code and user interface and experience. He also assists with backend development, theme and blocks updates and development, project planning and mentoring interns.', 'ls-theme' ),
-		'image'  => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/LightSpeed-Team-Jose-Abreu-alt.png',
+		'image'  => $ls_uploads_base . '2025/12/LightSpeed-Team-Jose-Abreu-alt.png',
 	),
 	array(
 		'anchor' => 'p-tibi',
 		'name'   => 'Tibi Buzdugan',
 		'role'   => __( 'Frontend and backend developer', 'ls-theme' ),
 		'bio'    => __( 'Tibi works on WordPress theme and block development, translating Figma design systems to web interfaces.', 'ls-theme' ),
-		'image'  => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/LightSpeed-Team-Tibi-Buzdugan.jpg',
+		'image'  => $ls_uploads_base . '2025/12/LightSpeed-Team-Tibi-Buzdugan.jpg',
 	),
 	array(
 		'anchor' => 'p-zared',
 		'name'   => 'Zared Rogers',
 		'role'   => __( 'Designer and site builder', 'ls-theme' ),
 		'bio'    => __( 'Zared’s role reflects practical design and build work, and LightSpeed’s WordCamp Cape Town 2024 material also placed him in public demos around Figma design systems and prototypes.', 'ls-theme' ),
-		'image'  => 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2025/12/zared-profile.jpeg',
+		'image'  => $ls_uploads_base . '2025/12/zared-profile.jpeg',
 	),
 );
 ?>

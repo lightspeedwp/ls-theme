@@ -12,7 +12,7 @@
  * @package ls-theme
  */
 
-$ls_hero_photo_url = 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/2024/06/lightspeed-team-photo-edited.png';
+$ls_hero_photo_url = trailingslashit( wp_get_upload_dir()['baseurl'] ) . '2024/06/lightspeed-team-photo-edited.png';
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"ls-corner-glow","style":{"border":{"bottom":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|30","bottom":"var:preset|spacing|80","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull ls-corner-glow" style="border-bottom-color:var(--wp--custom--color--border--card);border-bottom-style:solid;border-bottom-width:1px;margin-top:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--30)">

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Build the pattern image URLs from the site's uploads folder instead of the DEV domain
+
+### Changed
+
+- `patterns/sections/split-header-profile-card-grid.php`, `patterns/sections/profile-card-group.php`, `patterns/sections/testimonial-featured-split.php`, `patterns/sections/logo-marquee.php` and `patterns/hero/hero-split-photo.php`: the team photos, client logos and hero photo were addressed with the full `https://ls-agency.lightspeedwp.dev/wp-content/uploads/` URL, so they would break once the DEV site is retired. Each pattern now builds the same image paths from `wp_get_upload_dir()['baseurl']`, so the images load from whichever site the theme runs on. The image files and their paths are unchanged, and the output is still escaped with `esc_url()`.
+
+---
+
 ## [Unreleased] — Rebuild the archive and taxonomy listings with a shared hero and the Blog and Work cards
 
 ### Added
