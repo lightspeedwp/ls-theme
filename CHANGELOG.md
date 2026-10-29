@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Point the homepage and hero links at live pages, add the homepage main landmark and swap three Work menu projects
+
+### Changed
+
+- `patterns/sections/homepage-what-we-build.php`: the WordPress, WooCommerce and Design System cards link to `/solutions/wordpress/`, `/solutions/woocommerce/` and `/solutions/design-systems/` instead of `/services/...`, which only worked through redirects.
+- `patterns/hero/hero-split-graphic-actions.php`: "View our Work" links to `/work/` instead of `/portfolio/`.
+- `templates/front-page.html`: the homepage patterns now sit inside a `<main>` landmark (the page had none), and `homepage-where-to-fit` is wrapped in a group with block visibility off, named so it can be found in the List View. The section stays hidden until the pricing pages are ready, even after the saved database template is reset. Delete the wrapper or switch the group to visible to bring it back.
+- `parts/work-mega-menu.html` and `parts/mobile-menu.html`: Drive Botswana, Slimmer met SARIE and xneelo are replaced by The Safari Partners, ATI Holidays and Southern Destinations, in the same positions, in both the desktop mega menu and the mobile Work accordion. Novus Media stays. The desktop cards carry new one-line descriptions.
+- `patterns/footer.php`: the footer's Work column lists the same three projects (The Safari Partners, ATI Holidays and Southern Destinations) instead of Drive Botswana, Slimmer met SARIE and xneelo, so it matches the Work menu.
+
+---
+
 ## [Unreleased] — Build the pattern image URLs from the site's uploads folder instead of the DEV domain
 
 ### Changed

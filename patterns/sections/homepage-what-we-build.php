@@ -67,7 +67,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/services/wordpress/' ) ); ?>"><?php echo esc_html__( 'WordPress solutions', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/solutions/wordpress/' ) ); ?>"><?php echo esc_html__( 'WordPress solutions', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -97,7 +97,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/services/woocommerce/' ) ); ?>"><?php echo esc_html__( 'WooCommerce solutions', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/solutions/woocommerce/' ) ); ?>"><?php echo esc_html__( 'WooCommerce solutions', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
@@ -127,7 +127,7 @@
 					<!-- /wp:group -->
 
 					<!-- wp:paragraph {"className":"is-style-link-arrow-accent"} -->
-					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/services/design-systems/' ) ); ?>"><?php echo esc_html__( 'Design System solutions', 'ls-theme' ); ?></a></p>
+					<p class="is-style-link-arrow-accent"><a class="ls-card-category__link" href="<?php echo esc_url( home_url( '/solutions/design-systems/' ) ); ?>"><?php echo esc_html__( 'Design System solutions', 'ls-theme' ); ?></a></p>
 					<!-- /wp:paragraph -->
 				</article>
 				<!-- /wp:group -->
