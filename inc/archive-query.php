@@ -19,14 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * nine here, which is three full rows. The pagination block recalculates the page count from it.
  *
  * Only the listings those templates render are touched: category, tag, author and date archives,
- * and the taxonomies of the `project` post type. The blog page, the search results, the Work
- * archive and WooCommerce listings keep their own sizes.
+ * and the taxonomies of the `project` post type. The blog page, the search results (also when a
+ * search is narrowed by a category, date or author in the URL), the Work archive and WooCommerce
+ * listings keep their own sizes.
  *
  * @param WP_Query $query The query being built.
  * @return void
  */
 function ls_theme_set_archive_posts_per_page( $query ) {
-	if ( is_admin() || ! $query->is_main_query() ) {
+	if ( is_admin() || ! $query->is_main_query() || $query->is_search() ) {
 		return;
 	}
 
