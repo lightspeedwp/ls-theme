@@ -15,7 +15,8 @@ import { expectNoSeriousAccessibilityViolations } from '../helpers/accessibility
  */
 const START_URL = process.env.SINGLE_PAGE_URL ?? '/';
 
-const ACCORDIONS = ['Work', 'Solutions', 'Services', 'Pricing', 'Insights', 'About'];
+// 'Pricing' is left out while the Pricing menu is hidden (see inc/header.php); add it back when the pricing pages launch.
+const ACCORDIONS = ['Work', 'Solutions', 'Services', 'Insights', 'About'];
 const PHASES = ['discover', 'create', 'build', 'launch', 'grow', 'evolve'];
 
 // WCAG 2.2 SC 2.5.8 (Target Size, Minimum, AA).
@@ -358,26 +359,18 @@ test.describe('Mobile menu pressed state colours (Chromium only)', () => {
 });
 
 test.describe('Mobile menu accessibility', () => {
-	// KNOWN ISSUE, tracked separately (not fixed by LSA-183): every accordion's <summary> contains a
-	// link (`summary > a`), which axe reports as nested-interactive / no-focusable-content. The
-	// first test below scans everything else with that one rule off; the second keeps the issue
-	// itself visible as an expected failure, so it flips (and says so) the day the markup is fixed.
-	const KNOWN_ISSUE_RULES = ['nested-interactive'];
-
-	test('has no other serious/critical axe violations with the menu open and Services expanded', async ({
+	test('has no serious/critical axe violations with the menu open and Services expanded', async ({
 		page,
 	}, testInfo) => {
-		const menu = await openMobileMenu(page);
-		await expandAccordion(menu, 'Services');
-		await expectNoSeriousAccessibilityViolations(page, testInfo, { disableRules: KNOWN_ISSUE_RULES });
-	});
-
-	test('accordion summaries do not contain links (known issue: nested-interactive)', async ({
-		page,
-	}, testInfo) => {
-		test.fail(true, 'Known issue: each accordion <summary> wraps a link. Remove this once fixed.');
 		const menu = await openMobileMenu(page);
 		await expandAccordion(menu, 'Services');
 		await expectNoSeriousAccessibilityViolations(page, testInfo);
+	});
+
+	// Each accordion's <summary> is already a control (it toggles the panel), so it must not wrap a
+	// link (axe: nested-interactive). The section overview links live inside each panel ("See all …").
+	test('accordion summaries do not contain links', async ({ page }) => {
+		const menu = await openMobileMenu(page);
+		await expect(menu.locator('details.mobile-menu-accordion > summary a')).toHaveCount(0);
 	});
 });

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add the Referrals page section patterns and fix the mobile menu accordion links (LSA-212)
+
+### Added
+
+- `patterns/sections/intro-graphic-lede.php` (Section - Intro Graphic Lede): an H2, a decorative three-person network graphic that follows light and dark mode, and the lede paragraph.
+- `patterns/sections/list-card-pair.php` (Section - List Card Pair): two bordered cards with an H3, a lead paragraph and a core List each, an ordered list with round numbered badges and a bulleted list with brand-coloured bullets.
+- `patterns/sections/split-intro-form-panel.php` (Section - Split Intro Form Panel): the intro on the left and a bordered card holding only the Gravity Forms block on the right, laid out like the Contact page. The form ID is looked up by the form title, so it works on every site.
+- `patterns/sections/project-query-image-cards.php` (Section - Project Query Image Cards): a 2-column Query Loop of Work posts from the WordPress group, each a Card - Case Study shell with the featured image and the title, the whole card one link.
+- `src/scss/structural/referral-sections.scss`, compiled to `assets/css/referral-sections.css`: the network graphic, the numbered step badges, the brand bullets, the referral form styles scoped to the card, and the stretched case-study link.
+
+### Changed
+
+- `parts/mobile-menu.html`: the five accordion titles are plain text instead of links inside a `<summary>` (axe nested-interactive). The overview link already inside each panel ("See all work" and the others) is the way to the section page, so tapping a title now opens its panel. The unused `summary > a` rules are removed from `styles/blocks/details/mobile-menu-accordion.json`.
+- `tests/specs/mobile-menu.spec.ts`: leaves Pricing out of the accordion list while the Pricing menu is hidden, and replaces the known-issue test with a real check that no summary contains a link, with the axe scan running every rule.
+
+([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+
+---
+
 ## [Unreleased] — Add the scrolling client logo marquee and the referral hero graphic (LSA-212)
 
 ### Added
