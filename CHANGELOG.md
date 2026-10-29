@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries.
 - `templates/archive.html` and `templates/taxonomy.html`: no longer insert the shared breadcrumbs part, because the hero carries its own breadcrumb.
 
+([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+
 ---
 
 ## [Unreleased] — Replace the links to hidden, empty and legacy pages in the theme patterns before launch
