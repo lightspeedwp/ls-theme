@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `patterns/template-archive.php` (category, tag, author and date listings): the Hero - Archive followed by a paginated 3-column grid of Card - Blog Post cards, the same cards as the Blog archive. It replaces the bare title and list of linked titles.
-- `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries.
+- `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries. Each carries a visually hidden H2 ("Articles" / "Case studies") before the grid so the heading order runs from the hero's H1 through the cards' H3 titles without skipping a level.
 - `templates/archive.html` and `templates/taxonomy.html`: no longer insert the shared breadcrumbs part, because the hero carries its own breadcrumb.
 
 ([#178](https://github.com/lightspeedwp/ls-theme/pull/178))

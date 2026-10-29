@@ -22,6 +22,10 @@
 		<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 		<div class="wp-block-group alignwide">
 
+			<!-- wp:heading {"level":2,"className":"screen-reader-text"} -->
+			<h2 class="wp-block-heading screen-reader-text"><?php echo esc_html__( 'Articles', 'ls-theme' ); ?></h2>
+			<!-- /wp:heading -->
+
 			<!-- wp:query {"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}}} -->
 			<div class="wp-block-query alignwide">
 
