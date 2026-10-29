@@ -118,7 +118,9 @@ function ls_theme_get_bundle_render_markers() {
 		'about-careers'             => array( 'classes' => array( 'ls-careers-statement', 'ls-careers-goal', 'ls-bento', 'ls-loop', 'ls-role-card', 'ls-role-actions' ) ),
 		'details-card-grid'         => array( 'classes' => array( 'ls-year-card' ) ),
 		'about-team'                => array( 'classes' => array( 'ls-index-hero', 'ls-profile-group', 'ls-profile-grid', 'ls-text-stack', 'ls-team-cta' ) ),
-		'testimonial-cards'         => array( 'classes' => array( 'ls-quote-mark', 'ls-logo-strip', 'ls-testimonial-featured', 'ls-card-masonry' ) ),
+		'testimonial-cards'         => array( 'classes' => array( 'ls-quote-mark', 'ls-testimonial-featured', 'ls-card-masonry' ) ),
+		'logo-marquee'              => array( 'classes' => array( 'ls-logo-marquee' ) ),
+		'referral-sections'         => array( 'classes' => array( 'ls-referral-mark' ) ),
 	);
 }
 
@@ -788,6 +790,26 @@ function ls_theme_get_effect_styles( $context = 'front' ) {
 				return is_page( 'testimonials' );
 			},
 		),
+		'logo-marquee'              => array(
+			'handle'    => 'ls-theme-logo-marquee',
+			'path'      => 'assets/css/logo-marquee.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The scrolling client logo strip on the Testimonials and Referrals pages. The render-marker
+			// fallback loads it wherever the pattern renders.
+			'condition' => static function () {
+				return is_page( array( 'testimonials', 'referrals' ) );
+			},
+		),
+		'referral-sections'         => array(
+			'handle'    => 'ls-theme-referral-sections',
+			'path'      => 'assets/css/referral-sections.css',
+			'contexts'  => array( 'front', 'editor' ),
+			// The Referrals page: the referral hero graphic (more sections arrive with the page patterns).
+			// The render-marker fallback loads it wherever the graphic renders.
+			'condition' => static function () {
+				return is_page( 'referrals' );
+			},
+		),
 	);
 
 	/**
@@ -985,6 +1007,58 @@ function ls_theme_enqueue_details_expand_all_script( $block_content, $block ) {
 	return $block_content;
 }
 add_filter( 'render_block', 'ls_theme_enqueue_details_expand_all_script', 10, 2 );
+
+/**
+ * Enqueues the logo marquee script when the scrolling logo strip actually renders.
+ *
+ * Same render_block approach as the scripts above. The script starts the scroll, repeats the logos
+ * for a seamless loop and wires up the pause button, but only when the visitor has not asked for
+ * reduced motion. The labels are passed in from PHP so the button text stays translatable. The
+ * strip's CSS loads via the logo-marquee bundle.
+ *
+ * @param string $block_content The block content.
+ * @param array  $block         The full block data.
+ * @return string
+ */
+function ls_theme_enqueue_logo_marquee_script( $block_content, $block ) {
+	if ( empty( $block['blockName'] ) || false === strpos( $block_content, 'ls-logo-marquee' ) ) {
+		return $block_content;
+	}
+
+	$script_path = 'assets/js/logo-marquee.js';
+
+	wp_enqueue_script(
+		'ls-theme-logo-marquee',
+		get_theme_file_uri( $script_path ),
+		array(),
+		ls_theme_get_local_asset_version( $script_path ),
+		true
+	);
+
+	wp_script_add_data( 'ls-theme-logo-marquee', 'strategy', 'defer' );
+
+	wp_add_inline_script(
+		'ls-theme-logo-marquee',
+		'window.lsLogoMarquee = ' . wp_json_encode(
+			array(
+				'labels' => array(
+					'pause' => __( 'Pause animation', 'ls-theme' ),
+					'play'  => __( 'Play animation', 'ls-theme' ),
+				),
+				// Small inline glyphs that take the text colour. The LightSpeed icon collection has a play
+				// icon but no pause icon, so both are drawn here to match each other.
+				'icons'  => array(
+					'pause' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><rect x="52" y="40" width="52" height="176" rx="14" fill="currentColor"/><rect x="152" y="40" width="52" height="176" rx="14" fill="currentColor"/></svg>',
+					'play'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path d="M84 48l128 80-128 80z" fill="currentColor" stroke="currentColor" stroke-width="24" stroke-linejoin="round"/></svg>',
+				),
+			)
+		) . ';',
+		'before'
+	);
+
+	return $block_content;
+}
+add_filter( 'render_block', 'ls_theme_enqueue_logo_marquee_script', 10, 2 );
 
 /*
  * 'card-feature' (core/group) and 'button-arrow-compact' (core/button) used to be
