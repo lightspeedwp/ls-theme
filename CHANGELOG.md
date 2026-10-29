@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Rebuild the archive and taxonomy listings with a shared hero and the Blog and Work cards
+
+### Added
+
+- `patterns/hero/archive-hero.php` (Hero - Archive): a left-aligned hero for archive listings with the breadcrumb, an "Archive" eyebrow, the archive's own title (`core/query-title`, no "Category:" prefix) and its description (`core/term-description`). It reuses the Hero - Page layout and its `ls-page-hero` styles, so it needs no stylesheet of its own.
+- `inc/archive-query.php`, loaded from `functions.php`: sets the main query on category, tag, author, date and portfolio-taxonomy listings to nine entries per page. A Query Loop that inherits the main query ignores its own `perPage`, so without this the grid took its size from Settings > Reading (10) and left one card alone on the last row of every full page. The blog page, search results, the Work archive and WooCommerce listings are not affected.
+
+### Changed
+
+- `patterns/template-archive.php` (category, tag, author and date listings): the Hero - Archive followed by a paginated 3-column grid of Card - Blog Post cards, the same cards as the Blog archive. It replaces the bare title and list of linked titles.
+- `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries. Each carries a visually hidden H2 ("Articles" / "Case studies") before the grid so the heading order runs from the hero's H1 through the cards' H3 titles without skipping a level.
+- `templates/archive.html` and `templates/taxonomy.html`: no longer insert the shared breadcrumbs part, because the hero carries its own breadcrumb.
+
+([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+
+---
+
 ## [Unreleased] — Replace the links to hidden, empty and legacy pages in the theme patterns before launch
 
 ### Changed

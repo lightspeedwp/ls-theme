@@ -48,6 +48,9 @@ require get_template_directory() . '/inc/service-case-study-query.php';
 /** Loads the query filter that points the Solutions pages' case-study section at the project tagged with that page */
 require get_template_directory() . '/inc/solutions-case-study-query.php';
 
+/** Loads the nine-per-page size for the archive and taxonomy listings */
+require get_template_directory() . '/inc/archive-query.php';
+
 /** Loads the phase-page body class used to drive the Journey Phases nav's active state */
 require get_template_directory() . '/inc/phase-page-body-class.php';
 
