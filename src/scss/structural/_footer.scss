@@ -164,8 +164,8 @@
 }
 
 /*
- * Nav sections 2-per-row on mobile (.footer-nav-columns, patterns/footer.php): the 6 nav sections
- * (Services, Solutions, Work, Pricing, Insights, About) sit in one core/group grid layout, 3 columns
+ * Nav sections 2-per-row on mobile (.footer-nav-columns, patterns/footer.php): the 5 nav sections
+ * (Services, Solutions, Work, Insights, About) sit in one core/group grid layout, 3 columns
  * wide on desktop so each row lines up across all three columns. JSON limitation: core's grid layout
  * only offers a fixed column count and @media is stripped from the styles/**.json css field, so
  * there's no JSON way to drop to 2 columns below WordPress's own column-stack breakpoint (781px).

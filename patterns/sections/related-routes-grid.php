@@ -14,14 +14,14 @@
 
 $ls_related_routes = array(
 	array(
-		'title'       => __( 'Pricing', 'ls-theme' ),
-		'description' => __( 'How project costs are scoped.', 'ls-theme' ),
-		'url'         => '/pricing/',
+		'title'       => __( 'Our process', 'ls-theme' ),
+		'description' => __( 'How a project runs from first call to launch.', 'ls-theme' ),
+		'url'         => '/about/process/',
 	),
 	array(
-		'title'       => __( 'Website packages', 'ls-theme' ),
-		'description' => __( 'Likely engagement depth before the call.', 'ls-theme' ),
-		'url'         => '/website-packages/',
+		'title'       => __( 'Services', 'ls-theme' ),
+		'description' => __( 'What we do across the full WordPress lifecycle.', 'ls-theme' ),
+		'url'         => '/services/',
 	),
 	array(
 		'title'       => __( 'Contact', 'ls-theme' ),
