@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `patterns/sections/homepage-where-to-start.php` and `patterns/sections/homepage-why-lightspeed.php`: match the live homepage. The first card is "Our story" and links to `/about/history/`, "Read our story" links to `/about/history/`, "How to get started" links to `/getting-started-with-lightspeed/` and "What we commit to" links to `/about/ai-governance/`. The old `/why-lightspeed/`, `/get-started/` and `/commitments/` links pointed at pages that don't exist or are legacy.
 - `src/scss/structural/_footer.scss`: comment only, now lists the five footer nav sections.
 
+([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+
 ---
 
 ## [Unreleased] — Add the Referrals page section patterns and fix the mobile menu accordion links (LSA-212)
