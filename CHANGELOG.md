@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `patterns/hero/archive-hero.php` (Hero - Archive): a left-aligned hero for archive listings with the breadcrumb, an "Archive" eyebrow, the archive's own title (`core/query-title`, no "Category:" prefix) and its description (`core/term-description`). It reuses the Hero - Page layout and its `ls-page-hero` styles, so it needs no stylesheet of its own.
+- `inc/archive-query.php`, loaded from `functions.php`: sets the main query on category, tag, author, date and portfolio-taxonomy listings to nine entries per page. A Query Loop that inherits the main query ignores its own `perPage`, so without this the grid took its size from Settings > Reading (10) and left one card alone on the last row of every full page. The blog page, search results, the Work archive and WooCommerce listings are not affected.
 
 ### Changed
 

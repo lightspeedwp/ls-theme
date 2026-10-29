@@ -4,7 +4,7 @@
  * Slug: ls-theme/template-archive
  * Categories: template
  * Block Types: core/template-part
- * Description: Main-content pattern for the All Archives template (category, tag, author and date listings) — the Hero - Archive (breadcrumb, title, description) followed by a paginated 3-column grid of Card - Blog Post cards, the same cards the Blog archive uses. The query inherits the archive being viewed. The section carries its own top:80/bottom:90 padding, matching the Blog archive's All Articles section.
+ * Description: Main-content pattern for the All Archives template (category, tag, author and date listings) — the Hero - Archive (breadcrumb, title, description) followed by a paginated 3-column grid of Card - Blog Post cards, the same cards the Blog archive uses. The query inherits the archive being viewed, so its page size of nine comes from inc/archive-query.php, not from the block's own perPage. The section carries its own top:80/bottom:90 padding, matching the Blog archive's All Articles section.
  * Inserter: false
  *
  * @package ls-theme

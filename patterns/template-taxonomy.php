@@ -4,7 +4,7 @@
  * Slug: ls-theme/template-taxonomy
  * Categories: template
  * Block Types: core/template-part
- * Description: Main-content pattern for the Taxonomy template — shared across every Portfolio taxonomy (Industry, Project types, Service, Software). The Hero - Archive (breadcrumb, title, description) followed by a paginated 3-column grid of Card - Work Project cards, the same cards the Work archive uses. The query inherits the term being viewed. The section carries its own top:80/bottom:90 padding, matching the Work archive's Selected Projects section.
+ * Description: Main-content pattern for the Taxonomy template — shared across every Portfolio taxonomy (Industry, Project types, Service, Software). The Hero - Archive (breadcrumb, title, description) followed by a paginated 3-column grid of Card - Work Project cards, the same cards the Work archive uses. The query inherits the term being viewed, so its page size of nine comes from inc/archive-query.php, not from the block's own perPage. The section carries its own top:80/bottom:90 padding, matching the Work archive's Selected Projects section.
  * Inserter: false
  *
  * @package ls-theme
