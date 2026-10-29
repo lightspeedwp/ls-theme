@@ -4,7 +4,7 @@
  * Slug: ls-theme/homepage-where-to-start
  * Categories: featured
  * Block Types: core/pattern
- * Description: The Homepage "Where to start" section: eyebrow, heading, and description, followed by a Our story/Proof/Process card row using the shared Card - Work Category style with tinted icon wells.
+ * Description: The Homepage "Where to start" section: eyebrow, heading, and description, followed by Our story, Proof, and Process cards using the shared Card - Work Category style with tinted icon wells.
  * Keywords: homepage, where to start, routes, section
  * Viewport Width: 1280
  * Inserter: true
