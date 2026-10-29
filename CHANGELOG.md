@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Rebuild the archive and taxonomy listings with a shared hero and the Blog and Work cards
+
+### Added
+
+- `patterns/hero/archive-hero.php` (Hero - Archive): a left-aligned hero for archive listings with the breadcrumb, an "Archive" eyebrow, the archive's own title (`core/query-title`, no "Category:" prefix) and its description (`core/term-description`). It reuses the Hero - Page layout and its `ls-page-hero` styles, so it needs no stylesheet of its own.
+
+### Changed
+
+- `patterns/template-archive.php` (category, tag, author and date listings): the Hero - Archive followed by a paginated 3-column grid of Card - Blog Post cards, the same cards as the Blog archive. It replaces the bare title and list of linked titles.
+- `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries.
+- `templates/archive.html` and `templates/taxonomy.html`: no longer insert the shared breadcrumbs part, because the hero carries its own breadcrumb.
+
+---
+
 ## [Unreleased] — Replace the links to hidden, empty and legacy pages in the theme patterns before launch
 
 ### Changed
