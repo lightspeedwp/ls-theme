@@ -12,7 +12,7 @@
  * @package ls-theme
  */
 
-$ls_logo_base = 'https://ls-agency.lightspeedwp.dev/wp-content/uploads/';
+$ls_logo_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 ?>
 <!-- wp:group {"align":"full","tagName":"section","className":"ls-logo-marquee","style":{"spacing":{"margin":{"top":"0"},"padding":{"top":"var:preset|spacing|50","right":"var:preset|spacing|30","bottom":"var:preset|spacing|50","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull ls-logo-marquee" style="margin-top:0;padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--30)">
