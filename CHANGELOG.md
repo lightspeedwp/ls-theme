@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Remove the Diversity link from the About menus
+
+### Changed
+
+- `parts/about-mega-menu.html` and `parts/mobile-menu.html`: the Diversity row is removed from the About mega menu and from the About accordion in the mobile menu, because `/about/diversity/` is an empty page. The saved database copy of the About mega menu already hid it; with the theme file updated too, resetting that template no longer brings the link back. The About menus now list Our Story, Team, Careers, Our Culture and Our process.
+
+([#187](https://github.com/lightspeedwp/ls-theme/pull/187))
+
+---
+
 ## [Unreleased] — Point the homepage and hero links at live pages, add the homepage main landmark and swap three Work menu projects
 
 ### Changed
