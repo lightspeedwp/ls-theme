@@ -269,6 +269,57 @@
   }
 }
 
+/*
+ * Work mega menu (parts/work-mega-menu.html). The six rows sit in ONE two-column grid, read row by
+ * row, instead of two independent columns: in separate columns a row that wraps (a long title or a
+ * four-line description) pushed every row below it out of line with its neighbour. As grid rows the
+ * pair always shares a height, and `grid-auto-rows: 1fr` gives all three rows the height of the
+ * tallest one, so the rows line up across and down. JSON limitation: `grid-auto-rows` has no
+ * block-supports key.
+ */
+.ls-mega-menu-grid {
+  grid-auto-rows: 1fr;
+  column-gap: var(--wp--preset--spacing--40);
+  row-gap: 0;
+
+  > * {
+    min-width: 0;
+  }
+}
+
+/*
+ * Work mega menu logo tiles: each project row shows the client's own logo where the other mega
+ * menus show an icon, and the two non-project rows (All case studies, Testimonials) keep their icon
+ * inside the same tile so the titles stay aligned. The tile is always light (surface--highlight is
+ * the light surface in both the light and the dark style), because every logo used here is drawn
+ * for a light background: a single image per client keeps its brand colours and needs no light/dark
+ * switching, and no logo can fall below readable contrast on a dark menu. The logos are wide
+ * wordmarks, so the tile is a fixed-width rounded rectangle, not the 2.5rem accent circle the icon
+ * rows use. JSON limitation: the fixed flex-basis and the contained logo height have no
+ * block-supports key that survives save() validation.
+ */
+.ls-mega-menu-logo {
+  flex: 0 0 7.5rem;
+  width: 7.5rem;
+  min-height: 2.5rem;
+  padding: var(--wp--preset--spacing--10);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--200);
+  background-color: var(--wp--custom--color--surface--highlight);
+
+  .wp-block-image {
+    margin: 0;
+  }
+
+  .wp-block-image img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 1.5rem;
+    object-fit: contain;
+  }
+}
+
 .is-style-mega-menu-item-service {
   position: relative;
 

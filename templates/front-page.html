@@ -1,5 +1,7 @@
 <!-- wp:template-part {"slug":"header","theme":"ls-theme","area":"header"} /-->
 
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:0">
 <!-- wp:pattern {"slug":"ls-theme/hero-static"} /-->
 
 <!-- wp:pattern {"slug":"ls-theme/section-stats-bar"} /-->
@@ -12,8 +14,12 @@
 
 <!-- wp:pattern {"slug":"ls-theme/homepage-featured-work"} /-->
 
-<!-- wp:pattern {"slug":"ls-theme/homepage-where-to-fit"} /-->
+<!-- wp:group {"metadata":{"name":"Where to fit (hidden until the pricing pages are ready)","blockVisibility":false}} -->
+<div class="wp-block-group"><!-- wp:pattern {"slug":"ls-theme/homepage-where-to-fit"} /--></div>
+<!-- /wp:group -->
 
 <!-- wp:pattern {"slug":"ls-theme/homepage-cta"} /-->
+</main>
+<!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","theme":"ls-theme","area":"footer"} /-->

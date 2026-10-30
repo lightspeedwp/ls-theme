@@ -160,7 +160,7 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/work/drive-botswana-case-study/' ) ); ?>"><?php echo esc_html__( 'Drive Botswana', 'ls-theme' ); ?></a></p>
+<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/work/the-safari-partners/' ) ); ?>"><?php echo esc_html__( 'The Safari Partners', 'ls-theme' ); ?></a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
@@ -168,11 +168,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/work/slimmer-met-sarie/' ) ); ?>"><?php echo esc_html__( 'Slimmer met SARIE', 'ls-theme' ); ?></a></p>
+<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/work/ati-holidays/' ) ); ?>"><?php echo esc_html__( 'ATI Holidays', 'ls-theme' ); ?></a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
-<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/work/xneelo/' ) ); ?>"><?php echo esc_html__( 'xneelo', 'ls-theme' ); ?></a></p>
+<p class="ls-footer-nav-link has-text-color" style="color:var(--wp--custom--color--text--muted);text-decoration:none"><a href="<?php echo esc_url( home_url( '/work/southerndestinations/' ) ); ?>"><?php echo esc_html__( 'Southern Destinations', 'ls-theme' ); ?></a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"ls-footer-nav-link","style":{"color":{"text":"var:custom|color|text|muted"},"typography":{"textDecoration":"none"}}} -->
