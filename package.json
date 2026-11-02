@@ -1,6 +1,6 @@
 {
 	"name": "ls-theme",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "LightSpeed Theme is a custom WordPress block theme built by LightSpeed for fast, accessible, maintainable websites using the WordPress Site Editor and block editor.",
 	"type": "module",
 	"scripts": {

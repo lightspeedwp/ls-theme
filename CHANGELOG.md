@@ -7,1340 +7,204 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] — Remove the Diversity link from the About menus
-
-### Changed
-
-- `parts/about-mega-menu.html` and `parts/mobile-menu.html`: the Diversity row is removed from the About mega menu and from the About accordion in the mobile menu, because `/about/diversity/` is an empty page. The saved database copy of the About mega menu already hid it; with the theme file updated too, resetting that template no longer brings the link back. The About menus now list Our Story, Team, Careers, Our Culture and Our process.
-
-([#187](https://github.com/lightspeedwp/ls-theme/pull/187))
-
----
-
-## [Unreleased] — Point the homepage and hero links at live pages, add the homepage main landmark and swap three Work menu projects
-
-### Changed
-
-- `patterns/sections/homepage-what-we-build.php`: the WordPress, WooCommerce and Design System cards link to `/solutions/wordpress/`, `/solutions/woocommerce/` and `/solutions/design-systems/` instead of `/services/...`, which only worked through redirects.
-- `patterns/hero/hero-split-graphic-actions.php`: "View our Work" links to `/work/` instead of `/portfolio/`.
-- `templates/front-page.html`: the homepage patterns now sit inside a `<main>` landmark (the page had none), and `homepage-where-to-fit` is wrapped in a group with block visibility off, named so it can be found in the List View. The section stays hidden until the pricing pages are ready, even after the saved database template is reset. Delete the wrapper or switch the group to visible to bring it back.
-- `parts/work-mega-menu.html` and `parts/mobile-menu.html`: Drive Botswana, Slimmer met SARIE and xneelo are replaced by The Safari Partners, ATI Holidays and Southern Destinations, in the same positions, in both the desktop mega menu and the mobile Work accordion. Novus Media stays. The desktop cards carry new one-line descriptions.
-- `parts/work-mega-menu.html`, `src/scss/structural/_mega-menu.scss` and `assets/css/animations.css`: the Work mega menu shows each project's own logo (The Safari Partners, Novus Media, ATI Holidays and Southern Destinations, taken from the media library) in place of the folder-style icon. Each logo sits in a fixed-width, always-light tile (`.ls-mega-menu-logo`, using the existing `surface--highlight` token) because all four logos are drawn for light backgrounds, so they keep their brand colours and stay readable in both the light and the dark style. All case studies and Testimonials keep their icons, drawn dark, in the same tile so the titles line up. The six rows now sit in one two-column grid (`.ls-mega-menu-grid`) instead of two separate columns, with `grid-auto-rows: 1fr`, so every row is the same height and each pair lines up across and down; the title, description and arrow are top-aligned in every row. The mobile menu rows have no icons, so the mobile menu is unchanged.
-- `patterns/footer.php`: the footer's Work column lists the same three projects (The Safari Partners, ATI Holidays and Southern Destinations) instead of Drive Botswana, Slimmer met SARIE and xneelo, so it matches the Work menu.
-
-([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
-
----
-
-## [Unreleased] — Build the pattern image URLs from the site's uploads folder instead of the DEV domain
-
-### Changed
-
-- `patterns/sections/split-header-profile-card-grid.php`, `patterns/sections/profile-card-group.php`, `patterns/sections/testimonial-featured-split.php`, `patterns/sections/logo-marquee.php` and `patterns/hero/hero-split-photo.php`: the team photos, client logos and hero photo were addressed with the full `https://ls-agency.lightspeedwp.dev/wp-content/uploads/` URL, so they would break once the DEV site is retired. Each pattern now builds the same image paths from `wp_get_upload_dir()['baseurl']`, so the images load from whichever site the theme runs on. The image files and their paths are unchanged, and the output is still escaped with `esc_url()`.
-
-([#184](https://github.com/lightspeedwp/ls-theme/pull/184))
-
----
-
-## [Unreleased] — Rebuild the archive and taxonomy listings with a shared hero and the Blog and Work cards
-
-### Added
-
-- `patterns/hero/archive-hero.php` (Hero - Archive): a left-aligned hero for archive listings with the breadcrumb, an "Archive" eyebrow, the archive's own title (`core/query-title`, no "Category:" prefix) and its description (`core/term-description`). It reuses the Hero - Page layout and its `ls-page-hero` styles, so it needs no stylesheet of its own.
-- `inc/archive-query.php`, loaded from `functions.php`: sets the main query on category, tag, author, date and portfolio-taxonomy listings to nine entries per page. A Query Loop that inherits the main query ignores its own `perPage`, so without this the grid took its size from Settings > Reading (10) and left one card alone on the last row of every full page. The blog page, search results, the Work archive and WooCommerce listings are not affected.
-
-### Changed
-
-- `patterns/template-archive.php` (category, tag, author and date listings): the Hero - Archive followed by a paginated 3-column grid of Card - Blog Post cards, the same cards as the Blog archive. It replaces the bare title and list of linked titles.
-- `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries. Each carries a visually hidden H2 ("Articles" / "Case studies") before the grid so the heading order runs from the hero's H1 through the cards' H3 titles without skipping a level.
-- `templates/archive.html` and `templates/taxonomy.html`: no longer insert the shared breadcrumbs part, because the hero carries its own breadcrumb.
-
-([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
-
----
-
-## [Unreleased] — Replace the links to hidden, empty and legacy pages in the theme patterns before launch
-
-### Changed
-
-- `patterns/sections/404-best-next-routes.php` and `patterns/sections/search-useful-destinations.php`: the Pricing, Website packages and FAQ cards are now Services, Our work and Blog, each with a matching icon. The search pattern's three inline SVG icons are now theme icon blocks, like the 404 pattern's.
-- `patterns/sections/related-routes-grid.php`: the default cards are Our process and Services instead of Pricing and Website packages.
-- `patterns/sections/work-related-routes.php`: the "Why LightSpeed" card is now "About LightSpeed" and links to `/about/`.
-- `patterns/footer.php`: the Pricing column and the "Why LightSpeed" link are removed, so the footer matches the live site. The nav grid now has five sections.
-- `patterns/sections/homepage-where-to-start.php` and `patterns/sections/homepage-why-lightspeed.php`: match the live homepage. The first card is "Our story" and links to `/about/history/`, "Read our story" links to `/about/history/`, "How to get started" links to `/getting-started-with-lightspeed/` and "What we commit to" links to `/about/ai-governance/`. The old `/why-lightspeed/`, `/get-started/` and `/commitments/` links pointed at pages that don't exist or are legacy.
-- `src/scss/structural/_footer.scss`: comment only, now lists the five footer nav sections.
-
-([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
-
----
-
-## [Unreleased] — Add the Referrals page section patterns and fix the mobile menu accordion links (LSA-212)
-
-### Added
-
-- `patterns/sections/intro-graphic-lede.php` (Section - Intro Graphic Lede): an H2, a decorative three-person network graphic that follows light and dark mode, and the lede paragraph.
-- `patterns/sections/list-card-pair.php` (Section - List Card Pair): two bordered cards with an H3, a lead paragraph and a core List each, an ordered list with round numbered badges and a bulleted list with brand-coloured bullets.
-- `patterns/sections/split-intro-form-panel.php` (Section - Split Intro Form Panel): the intro on the left and a bordered card holding only the Gravity Forms block on the right, laid out like the Contact page. The form ID is looked up by the form title, so it works on every site.
-- `patterns/sections/project-query-image-cards.php` (Section - Project Query Image Cards): a 2-column Query Loop of Work posts from the WordPress group, each a Card - Case Study shell with the featured image and the title, the whole card one link.
-- `src/scss/structural/referral-sections.scss`, compiled to `assets/css/referral-sections.css`: the network graphic, the numbered step badges, the brand bullets, the referral form styles scoped to the card, and the stretched case-study link.
-
-### Changed
-
-- `parts/mobile-menu.html`: the five accordion titles are plain text instead of links inside a `<summary>` (axe nested-interactive). The overview link already inside each panel ("See all work" and the others) is the way to the section page, so tapping a title now opens its panel. The unused `summary > a` rules are removed from `styles/blocks/details/mobile-menu-accordion.json`.
-- `tests/specs/mobile-menu.spec.ts`: leaves Pricing out of the accordion list while the Pricing menu is hidden, and replaces the known-issue test with a real check that no summary contains a link, with the axe scan running every rule.
-
-([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
-
----
-
-## [Unreleased] — Add the scrolling client logo marquee and the referral hero graphic (LSA-212)
-
-### Added
-
-- `patterns/sections/logo-marquee.php` (Section - Logo Marquee): the six client logos in a clipped track that scrolls slowly and endlessly, with a visually hidden H2 and a small text-and-icon pause control. Each logo is a light/dark image pair, so it stays legible in both modes. It stays a static, centred row without JavaScript or with reduced motion, pauses on hover and focus, and the window is narrower than one set of logos so the same logo never shows twice at once.
-- `assets/js/logo-marquee.js`: starts the scroll, repeats the logos for a seamless loop, wires up the pause control (WCAG 2.2.2) and follows the visitor's reduced-motion setting. It loads only when the pattern renders.
-- `src/scss/structural/logo-marquee.scss`, compiled to `assets/css/logo-marquee.css`: the static row, the seamless loop, the edge fades, the logo sizing and the pause control.
-- `src/scss/structural/referral-sections.scss`, compiled to `assets/css/referral-sections.css`: the "one person refers another" hero graphic as a token-coloured mask, so it follows light and dark mode. `package.json`, `inc/animations.php` and `functions.php` wire both bundles in.
-
-### Removed
-
-- `patterns/sections/logo-strip.php` (Section - Logo Strip) and its rules in `testimonial-cards.scss`: replaced by the marquee, which falls back to a static row by itself.
-
-([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
-
----
-
-## [Unreleased] — Match imported Work and Blog content to the LIVE site and split the Work hero
-
-### Added
-
-- `src/scss/structural/legacy-content.scss`, compiled to `assets/css/legacy-content.css` and loaded on Work and Blog singles: styling for imported LIVE content written for the previous theme. It matches the LIVE widths, block gaps, headings, lists, captions, quote and pullquote cards, buttons (default and hover) and code blocks, and adds about 16px of extra space around code blocks and button rows. It replaces the unused `work-single-body` stylesheet.
-- Legacy tokens, all additive and mapped to existing tokens so they follow light and dark mode: spacing sizes x-small to x-large, font sizes x-small to x-large, the `regular` font weight, the `primary` and `secondary` font families, legacy palette slugs, and a `custom.colour` set with dark values in `styles/dark.json`.
-- Block styles: the Subheading 1, 2 and 3 paragraph styles and the Heading 2 heading style.
-
-### Changed
-
-- `patterns/template-work-single.php` and `patterns/template-single.php` render the post content in the wide default layout, so imported layouts get their LIVE widths.
-- `patterns/hero/work-single-hero.php`: the Work hero is now split, with the content on the left and the featured image on the right. The image is shown uncropped and never wider than its natural size. The hero sits in a full-width band on the `surface.card` token, with the Software, Project Type and Services row inside it. Columns with no terms are hidden and the dividers follow the visible ones. A post with no featured image gets a single full-width text column. The post-content block gap (16px for Work, 8px for Blog) is now set as `blockGap` on the `core/post-content` block in the templates.
-
-([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
-
----
-
-## [Unreleased] — Fix image caption contrast with a theme.json caption style (BugHerd #231)
-
-### Fixed
-
-- Image captions in imported classic content (plain `<figcaption>` inside `.wp-block-image`) rendered WordPress core's `#555555` on the dark canvas, a 2.68:1 contrast ratio. The earlier SCSS rule from LS-2934 could not override it: core's `:root :where(.wp-block-image figcaption)` has higher specificity than a bare `figcaption`. Eight captions on `/lightspeed-remote-workspaces-2016/` still failed the standing-suite axe check.
-
-### Changed
-
-- `theme.json`: added `styles.elements.caption` with `color.text` set to the existing `text.muted` token. WordPress prints it after core's caption rule at equal specificity, so it wins. `text.muted` has real values in both modes (`neutral-700` light, `neutral-400` dark), so no `dark.json` change is needed.
-
-### Removed
-
-- `src/scss/structural/image-captions.scss`, `assets/css/image-captions.css`, its `build:css` entries, its `inc/animations.php` enqueue entry, and its `add_editor_style()` line in `functions.php`. The JSON rule replaces them (AGENTS.md Theme-First Approach), and the SCSS used the fixed `on-dark-muted` token, which would have been wrong in light mode.
-
-([#166](https://github.com/lightspeedwp/ls-theme/pull/166))
-
----
-
-## [Unreleased] — Add the testimonial section patterns and masonry card styles (LSA-206)
-
-### Added
-
-- `patterns/hero/hero-split-graphic-actions.php` (Hero - Split Graphic Actions): a split page hero with a Yoast breadcrumb, dot eyebrow, H1, lede, a consultation button that opens the popup and an outline button, and a large quote-mark graphic that takes its colour from the brand text token.
-- `patterns/sections/logo-strip.php` (Section - Logo Strip): a label and six client logos, centred, each logo a light/dark image pair toggled by the existing logo visibility tokens.
-- `patterns/sections/testimonial-featured-split.php` (Section - Testimonial Featured Split): two featured testimonials, each with a logo header, a quote with a brand-colour quote icon, a ruled attribution with the author portrait, name and role, and a framed preview panel holding the full website screenshot and a View Website button.
-- `patterns/sections/testimonial-card-masonry.php` (Section - Testimonial Card Masonry): the 27 text-only testimonials as Card - Plain cards on a `surface.card` band, packed into 1, 2 or 3 columns with no gaps, with a visually hidden H2.
-- `src/scss/structural/testimonial-cards.scss`, compiled to `assets/css/testimonial-cards.css`: the masked quote-mark shape, logo and avatar sizing, the featured copy column alignment, the small-screen View Website button width and the CSS multi-column masonry. `package.json`, `inc/animations.php` and `functions.php` wire it in for the testimonials page and the editor.
-
-([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
-
----
-
-## [Unreleased] — Tighten the breadcrumb gap under the header, batch 2: the spacing 90, 100 and 60 heroes
-
-### Fixed
-
-- The gap between the header and the breadcrumb on the remaining heroes was too large: 64px on `hero-centered-gradient-title`, `page-hero` and the `thank-you-confirmation` section (`spacing|100`), 56px on `search-hero`, `services-hero` and `solutions-hero` (`spacing|90`), and 37px on `phase-hero` and `service-hero` (`spacing|60`). Their outer section's top padding is now `spacing|40` (26px), the same value used on the blog hero and in batch 1, so every hero with a breadcrumb now matches. The breadcrumb is the first element in each, so the whole hero moves up by the same amount.
-- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated.
-
-([#170](https://github.com/lightspeedwp/ls-theme/pull/170))
-
----
-
-## [Unreleased] — Tighten the breadcrumb gap under the header, batch 1: the spacing 80 heroes
-
-### Fixed
-
-- The gap between the header and the breadcrumb on the heroes that used `spacing|80` (48px) was too large. Their outer section's top padding is now `spacing|40` (26px), the same value trialled on the blog hero. Patterns: `hero-lede-actions-ticks`, `hero-split-form`, `hero-split-glance-support`, `hero-split-glance`, `hero-split-index-card`, `hero-split-photo`, `hero-split-proof`, `blog-single-hero`, `work-hero` and `work-single-hero`. The breadcrumb is the first element in each, so the whole hero moves up by the same amount.
-- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated. The remaining heroes (spacing 90, 100 and 60) follow in batch 2.
-
-([#168](https://github.com/lightspeedwp/ls-theme/pull/168))
-
----
-
-## [Unreleased] — Align the header, centre the mega menus, hide Pricing and close the blog hero gaps (BugHerd #268, #269, #270)
-
-### Fixed
-
-- `src/scss/structural/_mega-menu.scss`: every Ollie mega-menu panel now opens from the same point, the centre of the header. Work and Solutions opened about 100px further right than the other menus because they lack the plugin's `menu-justified-center` option, and none of them were centred on the screen because the plugin positions a panel against the off-centre navigation list. On desktop (1024px and up) the panels now resolve against the header and use the plugin's own centred offset. The mobile menu uses accordions, not panels, so it needed no change.
-- `patterns/header.php`: the logo and the buttons on the right lined up with the content only on small screens. On wide screens they stayed 64px from the screen edges while the content stopped at the wide size. The header row is now wide-aligned inside a constrained header, with the same side padding as the page sections, so it lines up with the content at every width.
-- `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`: set `margin-top: 0` (as the other hero patterns do) so the hero and the two bands that follow it no longer leave a 20px gap from the root block gap. The Writing CTA card is unchanged.
-- `patterns/hero/blog-hero.php`: the hero's top padding goes from spacing 80 to spacing 40, so the breadcrumb sits 26px below the header instead of 48px. This is a trial of the value before the other heroes are changed in batches.
-
-- `patterns/header.php`, `patterns/site-logo-switcher.php`: the light and dark logo images showed "Block contains unexpected or invalid content" in the editor, in the header and (through the shared pattern) the footer and mobile menu. The `<img>` tags carried `width="419" height="90"`, but core/image's save() never writes those as attributes, so the editor rebuilt the image without them and saw a mismatch. The attributes are removed from the markup, and the ratio now lives on the block as `aspectRatio: 419/90` (with the matching inline `aspect-ratio` style on the `<img>`), so the space is still reserved before the SVG loads and there is no layout shift.
-
-### Removed
-
-- The Pricing menu is hidden until the pricing pages are ready. `inc/header.php` drops the Pricing mega menu from the header navigation (it lives in the database navigation post, so a filter avoids a manual edit on every site), and the Pricing accordion is removed from `parts/mobile-menu.html`. The `pricing-mega-menu` template part and the pricing pages are untouched; delete `ls_theme_hide_pricing_mega_menu()` and its `add_filter( 'render_block', 'ls_theme_hide_pricing_mega_menu', 10, 2 )` call in `inc/header.php`, and restore the accordion to bring the menu back.
-
-([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
-
----
-
-## [Unreleased] — Style the popup forms to the theme (LSA-214)
-
-### Added
-
-- `patterns/sections/popup-form-shell.php` (Section - Popup Form Shell): the content for a Popup Maker popup that holds a Gravity Forms form: a Card - Plain group on the raised `surface.card` token (so the card stays distinct from the page in dark mode), a centred H2, an intro line and the Gravity Forms block set to the Orbital theme.
-- `src/scss/structural/gravity-forms-popup.scss`, compiled to `assets/css/gravity-forms-popup.css`: styles forms inside the popup shell with the theme's tokens, shows the required asterisk in the text colour, lets the card scroll inside the popup, blurs the page behind the form (not for visitors who prefer reduced transparency), and replaces Popup Maker's hardcoded black 18px close button with a 44px button that follows light and dark mode and has a visible focus ring. Scoped to popups that hold the shell, so other popups are unaffected. Loads on every page, because popups render on every page.
-- `src/scss/abstracts/mixins/_gravity-forms.scss`: the shared Gravity Forms variable mapping, so every styled form uses the same tokens.
-
-### Changed
-
-- `src/scss/structural/hero-split-form.scss` uses the shared mapping instead of its own copy. The compiled CSS is unchanged, so the contact hero form looks the same.
-
-([#164](https://github.com/lightspeedwp/ls-theme/pull/164))
-
----
-
-## [Unreleased] — Open the popup from the CTA band and section buttons (LSA-214)
-
-### Changed
-
-- The consultation buttons in the CTA band patterns (`cta-dark-band-buttons`, `section-cta-consultation-band`, `-inline`, `-reassurance`, `-strip`, `section-cta-split-checklist`, `split-cta-check-card`, `split-cta-tile-band`) and the section patterns (`blog-writing-cta`, `homepage-cta`, `phase-support-focus`, `services-cta`, `work-discuss-project`) now open the Consultation popup instead of leaving the page, so Form 4 entries record the page the visitor was on. Each button keeps its link to `/free-consultation/` as a fallback if the popup or JavaScript fails.
-- The "Send a brief first" buttons in `homepage-cta` and `work-discuss-project` open the Website Brief popup and keep their `/contact/` link as the fallback.
-
-([#162](https://github.com/lightspeedwp/ls-theme/pull/162))
-
----
-
-## [Unreleased] — Open the Consultation popup from the hero, header and phase CTA buttons (LSA-214)
-
-### Changed
-
-- The consultation buttons in the hero patterns (`hero-split-glance`, `hero-split-index-card`, `hero-split-proof`, `phase-hero`, `service-hero`, `services-hero`, `solutions-hero`, `work-hero`, `work-single-hero`), `home-hero-static`, `home-hero` (the inline link), `header` and `sections/phase-cta` now open the Consultation popup instead of leaving the page, so Form 4 entries record the page the visitor was on. Each button keeps its link to `/free-consultation/` as a fallback if the popup or JavaScript fails.
-- The "Request a discovery workshop" button in `sections/phase-cta` stays a plain link, because the popup form cannot carry the workshop type.
-
-([#161](https://github.com/lightspeedwp/ls-theme/pull/161))
-
----
-
-## [Unreleased] — Rebuild the thank-you pattern as a reusable confirmation section (LSA-198)
-
-### Added
-
-- `patterns/sections/thank-you-confirmation.php` (Section - Thank You Confirmation): one reusable confirmation section for every thank-you page, with neutral copy to overwrite per page. It has a Yoast breadcrumb, a success status badge, an H1, a lead paragraph and a home button, a "What happens next" card with a tick list, and a "While you wait" row of three whole-card links below a top border. The hero, the card and the cards row sit in one centred 900px column.
-
-### Changed
-
-- The success colour reads the `status.success` token, which has its own light and dark values. The card, list and button reuse the existing Card - Plain, Card - Service Tile and Tick Accent styles and the core Button, with no new SCSS.
-- `styles/blocks/lists/tick-accent.json`: the tick now stays on the first line of a list item that wraps (`align-items: first baseline`), instead of sitting in the middle. This also applies to `work-discuss-project-list` and `section-card-services`.
-- `.github/reports/`: added the 2026-10-23 DEV vs LIVE launch-readiness audit and the pre-launch to-do list.
-
-### Removed
-
-- `patterns/thank-you-consultation.php`: replaced by the new pattern. It had a hardcoded "Free consultation" breadcrumb, consultation-only copy, unused `ls-thank-you*` classes and a `core/separator` that the editor flagged as invalid content.
-
-([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
-
----
-
-## [Unreleased] — Add the Team page patterns (LSA-109)
-
-### Added
-
-- `patterns/hero/hero-split-index-card.php` (Hero - Split Index Card): the Team hero with a breadcrumb, eyebrow, H1, lede and a primary and an outline button, beside a bordered card that indexes the team in two side-by-side lists with the role under each name. Group titles and names jump to the matching section or card, and each row slides and turns brand-coloured on hover.
-- `patterns/sections/profile-card-group.php` (Section - Profile Card Group): an eyebrow and H2 above a three-column grid of plain 4:5 portrait cards (portrait, name, monospace role and bio), each with an anchor. The grid is capped to a 76rem measure so the portraits stay card-sized on wide screens.
-- `patterns/sections/text-stack.php` (Section - Text Stack) and `patterns/sections/text-stack-actions.php` (Section - Text Stack With Actions): an eyebrow, H2 and lede paragraphs in one narrow column, the second with an H3 and a primary and an outline button.
-- `patterns/cta/cta-dark-band-buttons.php` (CTA - Dark Band Buttons): a fixed-dark closing band with a white primary button with an arrow and an outline button.
-- `src/scss/structural/about-team.scss`, compiled to `assets/css/about-team.css`: the index row hover, the jump-link scroll offset and smooth scroll (only on pages with the index hero and off under reduced motion), the profile grid measure, balanced heading wrapping and the arrow on the dark primary button. Loaded on `/about/team/` and wherever the patterns render.
-
-([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
-
----
-
 ## [Unreleased]
 
-### Added
-
-- Add the Careers page patterns (LSA-197).
-- The About "Careers" page (`/about/careers/`) as ten section patterns: Hero - Split Photo, Statement Lede, Split Text Pair Statement, Numbered Bento Cards, Intro Icon Card Trio, Split Label Text Pair, Process Loop Text Pair, Accent Rule Columns, Centered Statement Link and Numbered Card Pair Action Note. The FAQ and closing CTA reuse the existing Solutions Split FAQ and Services CTA patterns.
-- `src/scss/structural/about-careers.scss`, compiled to `assets/css/about-careers.css`: the statement measure, the grid and loop reflow on small screens and the role-card hover lift.
-
-([#139](https://github.com/lightspeedwp/ls-theme/pull/139), [#140](https://github.com/lightspeedwp/ls-theme/pull/140))
-
 ---
 
-## [Unreleased] — Add the Culture page Sections 5-8 patterns (LSA-108)
+## [1.0.0] - 2026-11-02
 
-### Added
+### ⚠️ BREAKING CHANGES
 
-- `patterns/sections/split-divided-text-chips.php` (Section - Split Divided Text Chips): two columns on a card band, each a dot eyebrow H2, a paragraph and tinted pill labels, with a divider between them that becomes a top rule on mobile.
-- `patterns/sections/split-header-icon-columns.php` (Section - Split Header Icon Columns): a split header above three ruled columns, each a large accent-coloured Icon block, an H3 and a paragraph.
-- `patterns/sections/split-statement-cards.php` (Section - Split Statement Cards): two large statement cards on a card band, one plain and one using the `surface.brand-strong` token with inverse text.
-- `patterns/cta/cta-centered-panel.php` (CTA - Centered Panel): a rounded `surface.card` panel with the shared corner glow, and a centred eyebrow, H2, paragraph and three buttons (two primary, one outline).
-- `src/scss/structural/about-culture.scss`, compiled to `assets/css/about-culture.css`: the mobile side-to-bottom dividers for the icon columns and the divided pair, and the CTA heading width. `inc/animations.php` lists the new classes.
+This is the first stable release. It replaces the 0.1.0 scaffold with a full site redesign, so sites built on the scaffold need to follow [docs/migrating-to-1.0.md](docs/migrating-to-1.0.md).
 
-([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
-
----
-
-## [Unreleased] — Add the History page Year by year Details Card Grid pattern (LSA-107)
+- **Full site redesign requiring ls-plugin 1.0.0.** Most templates, template parts and patterns are rebuilt, and the theme now depends on the `ls-plugin` plugin. Install and activate ls-plugin 1.0.0 before the theme.
+  - The `ls-plugin/taxonomy-filter` block is used in `patterns/sections/blog-all-articles.php`, `patterns/sections/work-selected-projects.php` and the blog post card.
+  - The `lightspeed` icon collection registered by ls-plugin supplies the icons used by the `core/icon` blocks across the patterns.
+  - The `ls_plugin_portfolio_website` post meta feeds the "View site" button in `inc/work-single-hero.php` and the Work single hero pattern.
+- **`core/icon` replaces `outermost/icon-block`.** The patterns use the native Core Icon block, which needs WordPress 7.1 (`Requires at least` is now 7.1). One pattern, `patterns/sections/search-useful-destinations.php`, still uses `outermost/icon-block` for a decorative marker, and `patterns/template-single.php` still uses `outermost/social-sharing`.
+- **Removed files:** the `phase-services` block (`blocks/phase-services/`), `inc/blocks.php`, `patterns/sections/phase-services-in-phase.php`, `inc/phase-page-redirects.php` (the bare phase-slug redirects now live in the Redirection plugin), `patterns/thank-you-consultation.php`, `patterns/sections/logo-strip.php`, `src/scss/structural/image-captions.scss` and `assets/css/image-captions.css`, and `assets/css/animations.min.css`.
+- **Pattern renames:** section-level patterns now lead with `section-`, for example `ls-theme/section-cta-consultation-band`, `-inline`, `-reassurance` and `-strip`, `ls-theme/section-card-feature`, `-services` and `-solutions`, and `ls-theme/section-stats-grid`. Any content or template that inserts the old slugs needs the new ones.
+- **Removed block style variants:** about 30 single-use `is-style-*` variants are gone, folded into their patterns or turned into plain classes. These include `badge-brand`, `card-banner-tint`, `button-glow-accent`, `gradient-accent`, `shadow-heading-base`, `shadow-heading-contrast` and `link-underline-accent`. `button-cta-gradient`, `glass-button` and `footer-nav-link` are now plain classes rather than registered styles. Saved content that used the removed styles loses that styling.
+- **Removed tokens:** the `footer-notes` shadow preset and the `custom.shadow.footer.notes` tokens are gone from `theme.json`, `styles/dark.json` and `styles/presets/shadows.json`.
+- **Removed script:** the `sync:breakpoints` npm script and its `theme-utils.mjs` implementation.
+- **Dark only:** `styles/light.json` is removed, so `styles/dark.json` is the only style variation.
 
 ### Added
 
-- `patterns/sections/details-card-grid.php` (Section - Details Card Grid): "Milestones beyond the headlines" as thirteen core Details cards in a two-column grid, each a mono brand-coloured year, a title and a bulleted list, with an "Expand all" button. The shell, size and bullets reuse the core Details block and `core-details.json`, and the section uses the shared Content Band spacing.
-- `assets/js/details-expand-all.js` and `src/scss/structural/details-card-grid.scss`, compiled to `assets/css/details-card-grid.css`: "Expand all" opens every card and swaps its label to "Collapse all" (translatable, and kept in step when cards are opened one by one), plus the year styling, calmer open-state borders and the grid alignment. Loaded on `/about/history/` and wherever the pattern renders.
-
-### Changed
-
-- A closed card keeps its own height when its neighbour opens; an open card stretches to its row, so two open cards side by side match.
-- Open cards use the neutral `border.card-strong` and `border.card` tokens instead of the cyan link accent, so thirteen open cards no longer read as a wall of blue.
-
-### Fixed
-
-- The standing accessibility scan (`tests/helpers/accessibility.ts`) now waits for in-flight transitions and finite animations before running axe, which read the half-transparent text of the scroll-reveal timeline mid-fade and failed intermittently.
-
-([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
-
----
-
-## [Unreleased] — Add the History page scroll timeline and stat card grid patterns (LSA-107)
-
-### Added
-
-- `patterns/sections/scroll-timeline.php` (Section - Scroll Timeline): "The LightSpeed Journey" as nine milestone nodes, each a mono year, a dot on a vertical line and a flat card, with a dashed "future" card last. As the page scrolls, a glowing gradient line fills down the timeline and each node fades up and lights its dot. The editor, no-JS and reduced-motion views show every node lit and the full line.
-- `assets/js/scroll-timeline.js` and `src/scss/structural/scroll-timeline.scss`, compiled to `assets/css/scroll-timeline.css`: the scroll-driven line fill, the reveal, the lit dots and the card hover. Loaded on `/about/history/` and wherever the pattern renders.
-- `patterns/sections/stat-card-grid.php` (Section - Stat Card Grid): a left-aligned eyebrow, heading and lede above four flat stat cards with figures in their own accent colours, and a closing line. The first stat reads "Websites built and rebuilt".
-- New semantic tokens `gradient.accent-start` and `gradient.accent-end`: brand-600 to cta-800 in `theme.json`, brand-400 to cta-500 in `styles/dark.json`. All four pairings are at least 3:1 against their canvas.
-
-### Fixed
-
-- The Homepage CTA's secondary button (`.ls-homepage-cta-outline`) no longer shows the shared outline arrow box, which clipped longer labels. Its no-arrow rule had the same specificity as the shared rule, so whichever stylesheet loaded last won; it is now scoped under `.ls-homepage-cta`. This also corrects the homepage "Send a brief first" button.
-
-([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
-
----
-
-## [Unreleased] — Add a Lefthook pre-commit Sass lint and build (LSA-191)
-
-### Added
-
-- `lefthook.yml`: a `pre-commit` hook that runs when Sass in `src/scss/` is staged and is skipped during merges and rebases. It lints the staged Sass with Stylelint, then runs `npm run build:css` and stages only the compiled CSS files it writes, so Sass source and compiled CSS are committed together and other files in `assets/css` are left alone. A Stylelint error or a Sass error blocks the commit, and so does an unstaged change in, or an untracked file under, `src/scss`, so compiled CSS is never committed without its source. `git commit <file>` is blocked when Sass is staged, because Git would drop the staged CSS from the index.
-- `.stylelintrc.json`: extends `@wordpress/stylelint-config/scss`. The class-name pattern and formatting rules that the existing Sass breaks are turned off, and three smaller rules are warnings only. The existing Sass passes with no errors except one: a bare `//` comment line at line 38 of `src/scss/structural/phase-link-card-grid.scss` (`scss/comment-no-empty`, added by #121). Stylelint reports it as an error, so the hook will block the next commit that touches that file until the line is removed or the rule is relaxed.
-- `lefthook`, `stylelint`, `@wordpress/stylelint-config` and `stylelint-scss` as devDependencies, and a `lint:scss` npm script. `npm install` installs the hook.
-- `.github/reports/lefthook-setup.md`: install steps, everyday commands, how to bypass the hook, known limits and verification results.
-
-### Changed
-
-- `.gitignore` now ignores `lefthook-local.yml` and `.lefthook-local.yml` for personal hook overrides.
-- The `engines.node` range in `package.json` is now `^20.19.0 || >=22.13.0` (was `>=20.0.0`), the range Stylelint 17 and `@wordpress/stylelint-config` support.
-
-([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
-
----
-
-## [Unreleased] — Match the About mega menu to the other menus and add Our process (LSA-189)
-
-### Changed
-
-- The About mega menu (`parts/about-mega-menu.html`) is now two columns of three links, built like the Work, Solutions, Pricing and Insights menus, with no category headings: Our Story, Team, Careers, Our Culture, Our process and Diversity. "Our process" (`/about/process/`) is added back, and Community & Events, Publishing & AI Ethics and Privacy & Terms are removed.
-- The About accordion in the mobile menu (`parts/mobile-menu.html`) lists the same six links, plus "About LightSpeed".
-
-### Fixed
-
-- The About-only width rule (`.ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`), which added `left: 50%` and a centring transform on top of the plugin's own placement, is removed so the About panel is the standard 800px width and is placed like the other menus. DEV validation of the placement is pending.
-
-([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
-
----
-
-## [Unreleased] — Fix the About page links, redesign the team cards and restyle the Start a project CTA (LSA-125)
-
-### Fixed
-
-- The hero "Explore our process" button and the Process card in Link Card Row now go to `/about/process/`; `/about/our-process/` does not exist on DEV and returned 404.
-- "What we ship" (`patterns/sections/stat-icon-cards.php`) left-aligns its eyebrow, heading and paragraph like the other About sections.
-- The team member "Jose" is now "José Abreu".
-
-### Changed
-
-- The team cards (`patterns/sections/split-header-profile-card-grid.php`) are rebuilt as an image, an identity group (bold name, smaller brand-coloured role) and a description group with a 1px divider. The initials circle is replaced by a 5:4 core Image block, populated with the team photos from the DEV media library, and the cards lift slightly, strengthen their border, show a soft shadow and zoom the photo on hover (`.ls-team-card` in `src/scss/structural/card-shells.scss`, with a reduced-motion companion).
-- The team profile dataset adds Tibi Buzdugan and updates the profile ordering, placing him after Lourens Visser and before Zared Rogers.
-- The "Start a project" CTA (`patterns/cta/split-cta-form-card.php`) reuses the Contact hero treatment: the intro stays in view while the form scrolls, and the Gravity Form takes the theme's colours, sizes and spacing. The Contact form stylesheet now also loads on the About page (`inc/animations.php`).
-- Light-mode `border.card-strong` is now `neutral-400` (was `neutral-300`, the same as `border.card`), so strong borders are visibly stronger; `work-project-card` is the only other consumer.
-
-### Added
-
-- `custom.animation.scale.hover` (`1.025`) in `theme.json`, for the team card photo zoom.
-
-([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
-
----
-
-## [Unreleased] — Add the About "Our Process" hero and phase link card grid patterns (LSA-124)
-
-### Added
-
-- `patterns/hero/hero-centered-gradient-title.php` (Hero - Centered Gradient Title): a full-bleed, permanently dark, centred hero with a breadcrumb, a pill, an H1 whose last line takes a gradient across the six lifecycle phase colours, and an intro paragraph. It reuses the Hero - Phase background (`ls-phase-hero`); the pill, dot and glow use `text.brand-on-dark` (cyan in dark mode, blue in light mode).
-- `patterns/sections/phase-link-card-grid.php` (Section - Phase Link Card Grid): a permanently dark band with six whole-card links to `/services/{phase}/`, each with a "PHASE 0X" label, an H2, a paragraph and a "Read about ..." arrow link in that phase's colour. Hovering or focusing a card tints it, lifts it and slides the arrow. It reuses Card - Service Tile and Link Arrow Accent.
-- `src/scss/structural/hero-gradient-title.scss` and `src/scss/structural/phase-link-card-grid.scss`, compiled to `assets/css/hero-gradient-title.css` and `assets/css/phase-link-card-grid.css`: the gradient text, the dark card surface, the per-phase accents and the hover lift. Loaded wherever the patterns render.
-- New palette presets `phase-six-mid` (`#8F91FA`), `phase-six-light` (`#A3A5FB`) and `phase-three-light` (`#FE85C1`), and new semantic tokens `phase.evolve-on-dark-card` and `phase.build-on-dark-card` (a lighter shade in `styles/dark.json`, the existing or mid shade in `theme.json`). They keep the Evolve and Build cards' label and link above the 4.5:1 contrast minimum in light and dark mode, including the hover and focus tint. Only those two cards use them; existing tokens are unchanged.
-
-### Fixed
-
-- The header's centred mega menu panel no longer causes a small horizontal scroll at about 1024px wide. `.site-header` now clips overflow on the horizontal axis only (`src/scss/structural/_mega-menu.scss`, compiled to `assets/css/animations.css`). At that width the panel's right edge reached 1027px against a 1024px viewport, so the clip removes only the last 3px, which already sat past the viewport edge. Vertical overflow is unaffected.
-
-([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
-
----
-
-## [Unreleased] — Rebuild the About mega menu and widen mega menu side padding (LSA-125)
-
-### Changed
-
-- The About mega menu (`parts/about-mega-menu.html`) now follows the content doc: a "Get to know us" title and three columns with headings (Company, How We Work, Governance & Policies) linking to the About child pages. The old links (Why LightSpeed, Getting started, AI governance, Our process, Guarantees, Accessibility) are no longer in this menu.
-- The About panel is wider than the other mega menus: its wrapper is sized to its content and centred on the nav (`ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`).
-- All mega menu panels have more side padding: `Mega Menu Panel` left and right padding is now `spacing|40` (was `spacing|20`).
-
-### Fixed
-
-- Mega menu dropdowns no longer show square corners behind the rounded panel: the plugin wrapper that clipped the panel's shadow to a square now has the panel's radius.
-
-([#117](https://github.com/lightspeedwp/ls-theme/pull/117))
-
----
-
-## [Unreleased] — Add the About page patterns (LSA-125)
-
-### Added
-
-- `patterns/hero/hero-split-proof.php` (Hero - Split Proof): breadcrumb, dot eyebrow, H1, lede and two buttons on the left, and a bordered proof card on the right with three figure, label and description rows in brand, launch and evolve colours.
-- `patterns/sections/split-intro-text-pair.php` (Section - Split Intro Text Pair): eyebrow and H2 beside two paragraphs on a `surface.card` band.
-- `patterns/sections/stat-icon-cards.php` (Section - Stat Icon Cards): a centred intro above three flat stat cards, each with an Icon block well, a large figure, a label and a line of copy.
-- `patterns/sections/card-trio-labelled.php` (Section - Labelled Card Trio): three bordered cards with mono kickers for mission, vision and a row of value pills.
-- `patterns/sections/split-header-icon-card-trio.php` (Section - Split Header Icon Card Trio): a split header above three icon cards, for community and open-source proof.
-- `patterns/sections/split-header-phase-cards-note.php` (Section - Split Header Phase Cards with Note): six lifecycle cards, each a whole-card link to its phase page (`/services/{phase}/`) in its own phase colour, and a centred AI note.
-- `patterns/sections/split-header-labelled-card-row.php` (Section - Split Header Labelled Card Row): a split header above four product cards with mono kickers.
-- `patterns/sections/split-header-profile-card-grid.php` (Section - Split Header Profile Card Grid): eight team cards with initials avatars, names, roles and a focus line.
-- `patterns/sections/split-copy-timeline-card.php` (Section - Split Copy Timeline Card): copy and an outline button beside a six-row milestone timeline.
-- `patterns/sections/link-card-row.php` (Section - Link Card Row): five whole-card links to the About sibling pages (History, Team, Culture, Process and Careers).
-- `patterns/cta/split-cta-form-card.php` (CTA - Split Form Card): closing copy beside the Gravity Forms enquiry form (form ID 2).
-- `src/scss/structural/split-header-icon-card-grid.scss` (compiled to `assets/css/split-header-icon-card-grid.css`): per-phase title and hover/focus border colours for the six phase cards, using the existing phase colour tokens.
-- Copy comes from the About content docs; no tokens were added. The pages the Link Card Row links to still need to be created.
-
-([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
-
----
-
-## [Unreleased] — Keep the Contact hero form in the hero with a sticky intro and token-driven form styling (LSA-188)
-
-### Changed
-
-- `patterns/hero/hero-split-form.php` (Hero - Split Form): both columns align to the top, the left column carries the `ls-hero-form-intro` class, the H1 uses size token `800` and the form card padding is `spacing|40`. Pages that already contain a copy of the hero keep their old settings until the hero is re-inserted.
-- The Contact form (Gravity Forms) now follows the theme's tokens in light and dark mode: labels, descriptions, input text and borders, the Submit button and the required asterisk, all at the 16px size token. The field gap is tighter, the message box is shorter and the sub-labels are visually hidden (still available to screen readers). Validation error colours are unchanged.
-- The left column stays in view on desktop while the taller form scrolls.
-
-### Added
-
-- `src/scss/structural/hero-split-form.scss`, compiled to `assets/css/hero-split-form.css`: the sticky intro and the Gravity Forms colour, size and spacing mapping, scoped to the form card's `contact-form` anchor. Loaded on the Contact page (`is_page( 'contact' )`) and wherever the hero renders.
-
-([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
-
----
-
-## [Unreleased] — Add the Contact page patterns and raise Link Row card padding (LSA-188)
-
-### Added
-
-- `patterns/hero/hero-split-form.php` (Hero - Split Form): breadcrumb, dot eyebrow, H1, lede and two buttons on the left, and a form card on the right holding the Gravity Forms block (form ID 2, the Contact Form on DEV). The block only renders where Gravity Forms is active; the primary button opens the consultation popup (`pum-triggercta`) and the outline button links to the form.
-- `patterns/sections/split-text-pair.php` (Section - Split Text Pair): two equal columns on a `surface.card` band, each an H2 and a paragraph.
-- `patterns/sections/icon-card-grid-optional-links.php` (Section - Icon Card Grid with Optional Links): a grid of icon cards where linked cards are whole-card links and the rest are flat.
-- The Contact page also reuses `solutions-split-faq`, `cta-split-buttons` and `related-routes-grid` with the Contact content doc's copy; no new file for those.
-
-### Changed
-
-- `Card - Link Row` padding is now `spacing|30` on all four sides (was `spacing|20`), set in `styles/sections/cards/card-link-row.json`, so every card that uses it is slightly roomier. The phase "Where to go next" cards keep their own padding.
-
-([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
-
----
-
-## [Unreleased] — Catch buttons overflowing their own container on mobile (LSA-187)
-
-### Added
-
-- An element-level overflow check in the standing responsive-overflow spec. It fails when a button starts left of the viewport, ends past its right edge, or sits more than 1px outside its button row or bordered/backgrounded panel. The document-width check missed this: on `/free-consultation/` at 370px, 307px buttons spilled out of a 254px panel while the suite passed.
-- Failures name the section, button text, overflowing side, container, and element and container widths, and BugHerd groups them by section, button text and side rather than by page or width.
-
-### Changed
-
-- The responsive-overflow spec now runs at 320, 360, 370, 375, 390, 768, 1024 and 1440px (360 and 370 are new) and also runs on the Mobile Chrome project.
-- README testing section documents the check, its exclusions and how to run it on one page.
-
-([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
-
----
-
-## [Unreleased] — Add the trust page hero, document layout and related pages patterns (LSA-122)
-
-### Added
-
-- A "Page (Legal)" page template for the trust and legal pages (Privacy Policy, Terms, Cookie Policy, Accessibility Statement). Choose it as a page's template and write only the text: the hero shows the page's title and excerpt, and the document column is the page's own content.
-- Three reusable patterns behind it: Hero - Page, Section - Document with Contents Rail, and Section - Related Trust Pages.
-- A sticky "On this page" rail beside the document, built from the page's H2 headings, which highlights the section being read (`assets/js/legal-toc.js`, loaded only when the rail renders; hidden when scripting is off).
-- `src/scss/structural/legal-page.scss` (compiled to `assets/css/legal-page.css`) holds the hero glow, the breadcrumb, the sticky rail and the responsive related-pages grid.
-- Pages that should use the layout need "Page (Legal)" chosen as their template; no existing page changes.
-
-([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
-
----
-
-## [Unreleased] — Add the Free Consultation page patterns (LSA-123)
-
-### Added
-
-- `patterns/hero/hero-split-glance-support.php` (Hero - Split At a Glance with Support Line): breadcrumb, dot eyebrow, H1, lede, support line, two CTAs and a "Consultation snapshot" card built as a semantic description list. The CTAs are core Button "button" mode buttons that trigger Popup Maker popups via the `pum-triggercta` and `pum-triggerbrief` classes; the popups and their Gravity Forms are not part of the theme and must be configured in Popup Maker on each site.
-- `patterns/sections/icon-strip.php` (Section - Icon Strip): a wrapping row of short brand-icon labels spread across the full width.
-- `patterns/sections/split-checklist-card-stack.php` (Section - Split Checklist Card Stack): a check-row panel beside a stack of three icon cards.
-- `patterns/cta/cta-split-buttons.php` (CTA - Split Buttons): a rounded panel with a heading, paragraph and two buttons that trigger Popup Maker popups (`pum-triggercta` and `pum-triggerbrief`); the popups must be configured in Popup Maker on each site.
-- `patterns/sections/related-routes-grid.php` (Section - Related Routes Grid): a generic grid of Card - Link Row cards.
-- `src/scss/structural/snapshot-card.scss`, compiled to `assets/css/snapshot-card.css`: row layout, description measure and a container query that stacks each label above its value when the card is narrow.
-
-### Fixed
-
-- Buttons no longer spill out of their container on narrow phones. An opt-in `ls-buttons-wrap` class (in `corner-glow.scss`) lets the button row shrink and its text wrap; it is applied to the Free Consultation CTA, Split CTA check card, Services hero, Home hero static, Homepage CTA, Homepage Why LightSpeed and Phase CTA. Pages that already contain a copy of those patterns need the pattern re-inserted.
-
-([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
-
----
-
-## [Unreleased] — Refine the Solutions case-study card layout, spacing and service pills
-
-### Changed
-
-- The Solutions case-study card is rebuilt: the copy and testimonial form the left column and the website preview is the right column, top-aligned and shown at its natural aspect ratio instead of a cropped portrait slice. On mobile the order is copy, preview, testimonial.
-- Spacing now follows one token rhythm (small, medium, large) set as `gap` on vertical flex groups, and every margin inside the card is zero.
-- The testimonial is a compact `surface.card` box with a small quote icon and no italics; the card border is softened and the preview no longer has its own shadow.
-- `inc/solutions-case-study-query.php` caps the card's service pills at four and shows `wordpress` / `woocommerce` as WordPress / WooCommerce. This changes the rendered HTML only; stored terms are untouched.
-- `src/scss/structural/solutions-case-study.scss` (compiled to `assets/css/solutions-case-study.css`) now holds the grid areas and browser-frame preview; the old thumbnail panel and mobile corner overrides are removed.
-- Pages that already have the pattern need it re-inserted to pick up the new layout.
-
-([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
-
----
-
-## [Unreleased] — Choose the Solutions case-study project in the editor (LSA-113)
-
-### Changed
-
-- The Solutions case-study card now features a project picked in the editor: select the Query block and choose it in the "Featured project" control in the sidebar. With none chosen it shows the latest project, so a Solutions page never renders an empty card.
-- `assets/js/solutions-case-study-editor.js` adds the control (plain script, no build step) and `inc/solutions-case-study-query.php` applies the choice on the front end. The page-slug and taxonomy lookup is removed.
-- Pages that already have the pattern need it re-inserted to get the control.
-
-([#107](https://github.com/lightspeedwp/ls-theme/pull/107))
-
----
-
-## [Unreleased] — Add Solutions related services, receive/who, CTA band and FAQ patterns (LSA-113)
-
-### Added
-
-- `patterns/sections/split-header-link-card-grid.php` (Section - Split Header Link Card Grid): a split header above six linked cards, each a Card - Service Tile with an icon well, description and "Read about ..." arrow link.
-- `patterns/sections/split-header-checklist-card-pair.php` (Section - Split Header Checklist Card Pair): a split header above two equal-height, border-only cards of check rows with dividers.
-- `patterns/cta/split-cta-tile-band.php` (CTA - Split Tile Band): a fixed-dark rounded call-to-action band with a white primary button, an arrow link and three glass reassurance tiles.
-- `patterns/sections/solutions-split-faq.php` (Section - Solutions Split FAQ): a split header beside the Yoast FAQ block with a brand accent, and `solutions-split-faq.scss`, compiled to `assets/css/`.
-
-### Fixed
-
-- The left-aligned stats row no longer overflows horizontally at phone widths; it becomes a single column below 600px.
-- The checklist card rows now use padding only, so the space above and below every divider is equal.
-
-([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
-
----
-
-## [Unreleased] — Add Solutions hero, stats, intro, case study, checklist and icon grid patterns (LSA-113)
-
-### Added
-
-- `patterns/hero/hero-split-glance.php` (Hero - Split At a Glance): breadcrumb, icon-tile eyebrow, H1, lede, two CTAs and an "At a glance" card built as a semantic description list.
-- `patterns/sections/stats-row-left.php` (Section - Stats Row Left-aligned): four left-aligned stats with dividers, reusing the Stats Bar classes and responsive grid.
-- `patterns/sections/split-intro-text.php` (Section - Split Intro Text): dot eyebrow and heading beside a single paragraph.
-- `patterns/sections/solutions-case-study.php` (Section - Solutions Case Study): a query-driven featured case study that follows the project tagged with the Solutions page's slug. The quote and attribution are editable per page.
-- `patterns/sections/split-copy-checklist-card.php` (Section - Split Copy Checklist Card): heading and copy beside a capped-width card of four check rows.
-- `patterns/sections/split-header-icon-card-grid.php` (Section - Split Header Icon Card Grid): split header above six equal-height icon cards, with titles and descriptions clamped to an ellipsis.
-- `inc/solutions-case-study-query.php`, a Solutions-specific case-study query filter (front end and editor preview) separate from the service pages' filter.
-- `solutions-case-study.scss` and `split-header-icon-card-grid.scss`, compiled to `assets/css/`, registered in the build scripts, loaded through the conditional bundles and added as editor styles.
-
-([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
-
----
-
-## [Unreleased] — Fix homepage "Most chosen" badge contrast
-
-### Fixed
-
-- The "Most chosen" badge on the homepage Growth package card now uses the `text.brand-strong` token for its text instead of `text.brand`, so it meets WCAG 2.2 AA contrast. It was 4.16:1 in light mode against the required 4.5:1; it is now about 7.66:1 in light mode and 10.6:1 in dark mode. The badge background is unchanged (`patterns/sections/homepage-where-to-fit.php`).
-
-([#102](https://github.com/lightspeedwp/ls-theme/pull/102))
-
----
-
-## [Unreleased] — Add Solutions stat bento and CTA check card patterns (LSA-128)
-
-### Added
-
-- `patterns/sections/stat-feature-bento.php` (Section - Stat Feature Bento): an eyebrow, heading and paragraph above a large feature stat card and two stacked stat cards, using the Solutions Landing proof points (300+, 10,000+, 220,000+). The feature card always matches the two stacked cards plus their gap in height, and the columns stack on mobile.
-- `patterns/cta/split-cta-check-card.php` (CTA - Split Check Card): eyebrow, heading, paragraph and two buttons beside a bordered card with a four-item checklist and solid check badges, using the existing icon tokens.
-- `stat-feature-bento.scss`, compiled to `assets/css/stat-feature-bento.css`, for the feature card's glow and decorative rings. It loads on the Solutions page and is registered in the build scripts, the page-scoped loader and the editor styles. No new design tokens were added.
-
-([#100](https://github.com/lightspeedwp/ls-theme/pull/100))
-
----
-
-## [Unreleased] — Add Solutions landing hero, route tiles and comparison section (LSA-128)
-
-### Added
-
-- `patterns/hero/solutions-hero.php` (Hero - Solutions): breadcrumb, eyebrow, heading, intro and two CTAs beside a tilted "solutions / palette" specimen card, on the shared `corner-glow` background.
-- `patterns/sections/solutions-route-tiles.php` (Section - Solutions Route Tiles): a grid of seven route tiles (WordPress, WooCommerce, Publishing, Tour Operators, AI, Design Systems, AI Chatbots), each a single link to its `/solutions/{slug}/` page.
-- `patterns/cards/card-route-tile.php` (Card - Route Tile): the same tile as a single editable card pattern, built on the existing Card - Service Tile style.
-- `patterns/sections/split-intro-pair-cards.php` (Section - Split Intro Pair Cards): eyebrow and heading beside a paragraph and two bordered comparison cards.
-- `solutions-hero.scss` and `solutions-route-tiles.scss`, compiled to `assets/css/`, for the specimen card tilt and the larger route-tile icon well and index inset. Both are scoped to their own classes, so the Services tiles and Work archive icon wells are unchanged.
-
-### Changed
-
-- The service tiles stylesheet now also loads on the Solutions page, and the two new stylesheets are registered in the build scripts, the page-scoped loader and the editor styles. No new design tokens were added.
-
-([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
-
----
-
-## [Unreleased] — Redesign Services-Hero colour palette card (LSA-168)
-
-### Changed
-
-- The "Services / Lifecycle" card in the Services hero is now a compact colour palette specimen: four rounded-square swatches (Periwinkle, Green, Aqua, Lime) each with a name and hex value, a `4 core colours` label, a dashed divider and a four-step shade/tint ramp per colour. The "14 / 14 tokens live" footer is removed (`patterns/hero/services-hero.php`, `src/scss/structural/services-hero.scss`).
-- Swatches use the fixed palette presets `brand-300` (Periwinkle), `accent-three-500` (Green), `cta-300` (Aqua), and `accent-three-400` (Lime), matching their printed hex values; tint ramps are derived with `color-mix()`, so no new tokens were added.
-- Swatches and tints are spacer blocks so the card renders cleanly in the block editor. Pages with a saved copy of the old hero need the hero re-inserted from the updated pattern to pick up the new card.
-
-([#86](https://github.com/lightspeedwp/ls-theme/pull/86))
-
----
-
-## [Unreleased] — Add mobile and tablet Playwright coverage for the mobile menu (LSA-183)
-
-### Added
-
-- `Mobile Chrome` (Pixel 5), `Mobile Safari` (iPhone 12) and `Tablet` (iPad Mini) Playwright projects with real touch and mobile emulation. Desktop projects skip the device-only spec; `Mobile Chrome` also runs the standing accessibility spec (`playwright.config.ts`).
-- `tests/specs/mobile-menu.spec.ts`: covers every mobile menu dropdown (open/close, links, tap targets, overflow), the six Services phase groups, the LSA-171 padding and phase press colours, and an axe scan with the menu open. It uses `SINGLE_PAGE_URL` when set.
-- `tests/specs/bugherd-reporter.spec.ts`: checks the BugHerd reporter without contacting BugHerd, including that `SINGLE_PAGE_URL` runs never create tasks.
-- `test:setup`, `test:setup:all` and `test:mobile` npm scripts, and a `.env.example`.
-- Navigation checks at the 1023px/1024px breakpoint and overflow checks at 768px and 1024px (`tests/specs/navigation.spec.ts`).
-
-### Changed
-
-- The BugHerd reporter now gives failures from device projects their own task, with a `device:` tag and a `Project:` line, instead of merging them into the desktop task. Desktop task ids are unchanged.
-- The README testing section now explains setup, which page vs which device, and the available projects and commands.
-
-### Removed
-
-- The stale note in `navigation.spec.ts` saying the mobile menu links were `href="#"` placeholders.
-
-([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
-
----
-
-## [Unreleased] — Fix mobile menu pressed state padding and phase colour (LSA-171)
-
-### Changed
-
-- Mobile menu service rows now have more left padding (`spacing|20`), so the label no longer sits against the accent rail (`src/scss/structural/_mega-menu.scss`).
-- The mobile menu tint and rail now show while a row is pressed or keyboard-focused, instead of on hover, so touch devices no longer keep a tint after a tap. Hover still applies on devices that can hover.
-- Rows in the mobile Services accordion now press in their phase's own colour (tint, rail and link) via new `ls-phase-{phase}` classes in `parts/mobile-menu.html`, matching the desktop mega menu. The other dropdowns keep the neutral accent.
-
-([#96](https://github.com/lightspeedwp/ls-theme/pull/96))
-
----
-
-## [Unreleased] — Audit footer: spacing, tokens and header-matched navigation (LSA-170)
-
-### Changed
-
-- `patterns/footer.php`: the root group now uses a plain `constrained` layout with `align: wide` inner content and no root `blockGap`. Top and bottom padding and the legal bar's top margin and padding are all `spacing|80`, so the four edge gaps are equal; side padding stays `spacing|60`.
-- `patterns/footer.php`: replaced per-link `margin-top` values with `blockGap` on groups and the brand column.
-- `patterns/footer.php`: the footer nav now mirrors the header mega menus. Six sections (Services, Solutions, Work, Pricing, Insights, About) use the same labels and URLs as the header and sit in one `core/group` grid, three columns by two rows, so rows line up across columns. Below 781px the grid drops to two columns.
-- `patterns/footer.php`: nav column labels are now `core/heading` (level 2) instead of paragraphs, with identical typography.
-- `patterns/footer.php`: the social icons are now `core/social-links` with four `core/social-link` blocks (LinkedIn, GitHub, Facebook, Instagram) at 24px, in 44px circles. They are real links that open in a new tab.
-- `patterns/footer.php`: all copy now uses `esc_html__()` with the `ls-theme` text domain, and the copyright year is dynamic. The brand name is now "LightSpeedWP.agency".
-- `patterns/footer.php`, `src/scss/structural/_footer.scss`: replaced `phase--create` with `text--brand` for the footer dots, hover, glow and top bar.
-- `patterns/footer.php`: the "Available for selected projects" badge background uses the new `surface.success-tint` token instead of an inline `color-mix()`.
-- `patterns/footer.php`, `patterns/site-logo-switcher.php`: pattern descriptions now list the core-block fallbacks, and the logo pattern description correctly says it is shared by the footer and mobile menu.
-- `src/scss/animations/_footer-motion.scss`, `src/scss/structural/_footer.scss`: moved the footer layout and background rules out of the motion file, which now holds only motion rules, and added JSON-limitation comments.
-- `theme.json`, `src/scss/structural/_footer.scss`: the footer logo is 200px wide via the new `custom.layout.logo-width-footer` token. The header logo is unchanged at 150px.
-
-### Added
-
-- `success-strong` palette colour (`#047857`) in `theme.json`. `custom.color.status.success` now uses it in light mode (4.82:1 on the badge background); dark mode keeps `success-foreground`.
-- `custom.color.surface.success-tint` token in `theme.json`.
-
-### Removed
-
-- The "LightSpeed notes" panel and heading from the footer, along with the `footer-notes` shadow preset (`styles/presets/shadows.json`), the `custom.shadow.footer.notes` tokens in `theme.json` and `styles/dark.json`, and the `.footer-notes-badge` CSS.
-- The Systems, Company and Studio footer sections, and the placeholder links Memberships, Partnerships, Cape Town studio and the duplicate Support. The LSX Design System is now linked from Insights, matching the header.
-
-### Fixed
-
-- The footer social icons were not links and could not be reached by keyboard.
-- The availability badge text failed WCAG AA contrast in light mode (2.43:1).
-
-([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
-
----
-
-## [Unreleased] — Move bare phase-slug redirects to the Redirection plugin
-
-### Removed
-
-- `inc/phase-page-redirects.php` and its `require` in `functions.php`. The six bare phase-slug redirects (`/discover/`, `/create/`, `/build/`, `/launch/`, `/grow/`, `/evolve/` to `/services/{phase}/`) now live in Tools > Redirection as 301 rules, so they no longer depend on the theme. No theme links used the bare slugs.
-
-([#85](https://github.com/lightspeedwp/ls-theme/pull/85))
-
----
-
-## [Unreleased] — Fit Work archive cards to existing featured images (LSA-172)
-
-### Changed
-
-- The Work archive cards now show each project's featured image in a bordered media wrapper (16:9, cropped to cover; the tinted-grid banner remains the fallback when there is no image). The platform label is two compact chips over the image, the duplicate body badge is gone, and the card uses a clearer image, title, excerpt, divider, tags, `View project →` order (`patterns/cards/work-project-card.php`, `src/scss/structural/work-project-card.scss`).
-- Cards in a row are now the same height; titles clamp to two lines and excerpts to three with an ellipsis, and dividers stay level on cards with no tags.
-- The Selected Projects and Discuss Project bands on the Work archive use the card surface token, and the Discuss Project band now spans the full width of the screen.
-
-### Added
-
-- `custom.color.border.card-strong` in `theme.json` (`neutral-300`) and `styles/dark.json` (`neutral-750`), used for the Work card, media wrapper and divider borders so they stay visible in dark mode. Sites with Site Editor styles saved from the dark variation need those styles reset (or the variation re-selected) to pick it up.
-
-([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
-
----
-
-## [Unreleased] — Add split FAQ, link card grid and split checklist CTA patterns (LSA-120)
-
-### Added
-
-- `Section - Split FAQ` (`ls-theme/split-faq`), `Section - Link Card Grid` (`ls-theme/link-card-grid`) and `CTA - Split Checklist` (`ls-theme/section-cta-split-checklist`): the last three sections for the 14 individual service pages, authored with Discovery's copy and edited per page. The FAQ uses the Yoast FAQ block, like the other FAQ patterns.
-- `ls-tick-phase--on-dark` modifier for the Tick Phase list style, for permanently dark sections.
-
-### Changed
-
-- The Phase FAQ and Phase "Where to go next" styles now also apply on the 14 service pages, taking each service's parent phase colour.
-
-([#82](https://github.com/lightspeedwp/ls-theme/pull/82))
-
----
-
-## [Unreleased] — Add AI section, receive/role cards and featured case study patterns (LSA-120)
-
-### Added
-
-- `Section - Split Intro Icon Cards` (`ls-theme/split-intro-icon-cards`), `Section - Checklist Card Pair` (`ls-theme/checklist-card-pair`) and `Section - Featured Case Study` (`ls-theme/featured-case-study`): the next three sections for the 14 individual service pages, authored with Discovery's copy and edited per page.
-- The featured case study shows the project tagged with the service page's own slug in the `project-tag` ("Services") taxonomy (`inc/service-case-study-query.php`), on the front end and in the block editor preview.
-- `ls-tick-phase--compact` modifier for the Tick Phase list style, for checklists in smaller text.
-
-### Changed
-
-- The Tick Phase list style's layout, divider and spacing rules now live in `styles/blocks/lists/tick-phase.json`; only the tick marker remains in `src/scss/structural/tick-phase.scss`.
-
-([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
-
----
-
-## [Unreleased] — Add service hero, split checklist and icon card grid patterns (LSA-120)
-
-### Added
-
-- `Hero - Service` (`ls-theme/service-hero`), `Section - Split Copy Checklist` (`ls-theme/split-copy-checklist`) and `Section - Icon Card Grid` (`ls-theme/icon-card-grid`): the first three patterns for the 14 individual service pages, authored with Discovery's copy and edited per page.
-- `Card - Plain` section style (`styles/sections/cards/card-plain.json`): a flat, non-interactive card with no shadow or hover lift.
-- `Tick Phase` list style (`styles/blocks/lists/tick-phase.json`, `src/scss/structural/tick-phase.scss`): a checklist with a phase-coloured tick and dividers.
-- `inc/service-phase-map.php`: maps each of the 14 services to its lifecycle phase.
-- An `ls-service-phase-{phase}` body class, so service pages take their parent phase's accent colour on the front end and in the block editor.
-
-### Changed
-
-- The `phase-hero`, `button-phase` and `phase-journey-nav` stylesheets now also load on the 14 service pages. The phase accent selector in `phase-journey-nav.scss` also matches the new body class; phase pages are unchanged.
-
-([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
-
----
-
-## [Unreleased] — Fix phase contrast, phase menu links and service tile heights
-
-### Fixed
-
-- Phase buttons and journey-nav links on the Create, Build, Launch, Grow and Evolve pages now meet WCAG 2.2 AA contrast on the dark phase hero. Added `custom.color.phase.{create,build,launch,grow,evolve}-on-dark` (bright phase presets, matching `discover-on-dark`) to `theme.json` and `styles/dark.json`; no pattern changes were needed.
-- The phase headings in the Services mega menu and the mobile menu now link to their own phase pages (`/services/{discover,create,build,launch,grow,evolve}/`) instead of `/services/`. The mobile menu headings were previously plain text.
-- Tiles in the "Services in this phase" sections are now the same height within a row, and descriptions are clamped to three lines with an ellipsis (`src/scss/structural/phase-services-in-phase.scss`, BugHerd #267).
-
-([#77](https://github.com/lightspeedwp/ls-theme/pull/77))
-
----
-
-## [Unreleased] — Restore theme validation and PHP code quality CI (LSA-173)
-
-### Fixed
-
-- `npm run theme:validate` no longer requires `styles/light.json`, which was intentionally removed. `README.md` and `AGENTS.md` now list only `styles/dark.json`.
-- `inc/phase-page-redirects.php` now checks, unslashes and sanitizes `REQUEST_URI` before matching bare phase slugs.
-- PHPCS formatting findings in `functions.php`, `inc/gsap.php` and `patterns/sections/services-service-clusters.php`.
-
-### Added
-
-- `phpcs.xml.dist`: WordPress standard, text domain `ls-theme`, with `vendor/`, `node_modules/`, `tests/`, `playwright-report/` and `test-results/` excluded, and pattern-only exclusions for the `@package` tag, embedded PHP tag placement and WordPress capitalisation checks.
-
-### Changed
-
-- `composer phpcs` and `composer phpcbf` now read `phpcs.xml.dist`.
-
-([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
-
----
-
-## [Unreleased] — Replace the phase-services dynamic block with per-phase patterns (LS-4179)
-
-### Changed
-
-- Replaced the `ls-theme/phase-services` dynamic block, which chose its "Services in this phase" cards from the current page slug, with six static patterns you can insert from the editor: `patterns/sections/phase-services-{discover,create,build,launch,grow,evolve}.php` (Section - Phase Services: Discover … Evolve). Each one holds its own phase's heading, service tiles and phase accent colour, so the content no longer depends on which page it's placed on.
-
-### Removed
-
-- `blocks/phase-services/`, `inc/blocks.php` (and its `require` in `functions.php`), and `patterns/sections/phase-services-in-phase.php`, the wrapper pattern that only contained the block.
-
-([#76](https://github.com/lightspeedwp/ls-theme/pull/76))
-
----
-
-## [Unreleased] — Make phase section patterns follow the current phase colour (LS-4179)
-
-### Fixed
-
-- Accent colour (eyebrows, numbers, icons, bullets, borders) in the phase section patterns no longer stays hardcoded to Discover's green on the other five phase pages. Added a light-surface `--ls-phase-accent` custom property (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class alongside `--ls-phase-accent-on-dark`. `phase-introduction.php` and `phase-delivery-numbers.php` now use it directly, and `phase-common-services.php`, `phase-support-focus.php`, `phase-deliverables-and-role.php` and `phase-where-to-go-next.php` point their `$ls_phase_accent` variable at it. `phase-cta.php` (permanently dark) now uses `--ls-phase-accent-on-dark` for its checklist bullet.
-
-([#73](https://github.com/lightspeedwp/ls-theme/pull/73))
-
----
-
-## [Unreleased] — Add flatten-proof phase colour and a phase-services dynamic block (LS-4179)
-
-### Fixed
-
-- Phase page colour (hero buttons, breadcrumb "current page" text) no longer goes black/white when a phase section's pattern is flattened by the block editor, and no longer stays hardcoded to Discover's green on the other five phase pages. Added `--ls-phase-accent`/`--ls-phase-accent-on-dark` custom properties (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class, so colour is resolved by CSS on every request instead of being computed in PHP or baked into a pattern's stored content. `styles/blocks/buttons/button-phase-primary.json`, `button-phase-outline.json`, `src/scss/structural/button-phase.scss`, and `src/scss/structural/phase-hero.scss` were hardwired directly to Discover's token — swapped all four to the new shared property.
-- `patterns/sections/phase-services-in-phase.php` selected its "Services in this phase" cards via `get_queried_object()` inside the pattern's own PHP, which only re-evaluates while the pattern stays a live `wp:pattern` reference, falling back to Discover's services once flattened. Moved that selection into a new `ls-theme/phase-services` dynamic block (`blocks/phase-services/`), which resolves the current phase from block context at real render time and isn't affected by pattern flattening.
-
-([#72](https://github.com/lightspeedwp/ls-theme/pull/72))
-
----
-
-## [Unreleased] — Refine Phase Where To Go Next section to match prototype (LS-4179)
-
-### Changed
-
-- `patterns/sections/phase-where-to-go-next.php`: narrowed the cards row into a `900px` centred container (previously full `align:wide`), tightened the gap between cards (`spacing|20` → `10`), increased the gap between the eyebrow and the cards (`spacing|30` → `40`), increased section bottom padding (`spacing|90` → `100`), reduced the card title to `fontSize:300` and the "Read more" CTA to the standard `fontSize:200` body token, and removed the `verticalAlignment:"top"` on the columns/column blocks so `core/columns`' default equal-height column stretch applies.
-- `src/scss/structural/phase-where-to-go-next.scss`: added a scoped override (`.ls-phase-where-to-go-next .is-style-card-link-row`) so each card fills its now-equal-height column (`height:100%`), which combined with the card's existing flex-column layout and the "Read more" link's existing `margin-top:auto` bottom-aligns both CTAs regardless of description length — no fixed heights, no CSS Grid rebuild needed. Also increased card padding (`spacing|20` → `30`), reduced the border radius (`border-radius|400` → `300`), and softened the border colour, scoped to this pattern only so the Work archive and Services page's use of the same shared Card - Link Row style is unaffected. The existing Discover phase accent colour is unchanged.
-
-([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
-
----
-
-## [Unreleased] — Fix FAQ accordion closed-state gap (LS-4179)
-
-### Fixed
-
-- `src/scss/structural/faq.scss`: the shared `schema-faq` accordion's closed-row collapse used `grid-template-rows: 0fr` → `1fr`, which does not actually resolve to zero on this element — it is both the grid container and, via its own anonymous content box, the only grid item, so the browser's intrinsic-sizing pass for an auto-height container falls back to the answer text's own content height regardless of the `0fr` value (confirmed via computed styles; `min-height: 0` did not change it either). This left a large empty gap below every closed question. Replaced with a `max-height: 0` → `1000px` collapse, a more reliable technique for this exact shape. Root-caused and fixed in the shared component (not scoped to `.ls-phase-faq`) since it affects every consumer of `section-faq.php`'s accordion, not just this pattern.
-
-([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
-
----
-
-## [Unreleased] — Refine Phase FAQ section to match prototype (LS-4179)
-
-### Changed
-
-- `patterns/sections/phase-faq.php`: increased section top padding (`spacing|90` → `100`) for more breathing room before the heading; widened the heading/intro/FAQ containers from `620px`/`880px` to a unified `780px` so the heading stays on one line at desktop without reducing its font size; changed the intro paragraph from centred to left-aligned and reduced its size from `fontSize:300` to the theme's standard `fontSize:200` body-copy token.
-- `src/scss/structural/phase-faq.scss`: added a scoped visual redesign of the shared `schema-faq` accordion for this pattern only (`.ls-phase-faq`) — larger corner radius (`border-radius|400`), a subtler rest-state border (colour-mixed down), tighter gap between rows (`spacing|10`), taller/vertically-centred rows (`spacing|50` vertical padding), and a circular plus/minus control (sized via `spacing|50`, tinted with the current phase accent) replacing the shared component's small rotated-chevron icon. Implemented as a scoped override so the homepage FAQ and any other consumer of `schema-faq` are unaffected.
-- Fixed a CSS specificity bug in the same file where the shared component's open-state chevron rotation was still winning over the new plus/minus icon's transform, distorting it when a question was expanded.
-
-([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
-
----
-
-## [Unreleased] — Add Phase FAQ and Phase Where To Go Next sections (LS-4179)
-
-### Added
-
-- `patterns/sections/phase-faq.php`: shared "Frequently asked questions" section for all six lifecycle phase pages, currently authored with Discover's own five questions. Reuses the existing Yoast FAQ block and its `schema-faq` accordion component (`patterns/section-faq.php`, `assets/css/faq.css`, `assets/js/faq-accordion.js`) as-is — no new accordion, JS, or markup pattern introduced.
-- `patterns/sections/phase-where-to-go-next.php`: shared "Where to go next" section for all six lifecycle phase pages, currently authored with Discover's own two next-step cards. Reuses the existing Card - Link Row section style and Link Arrow Accent paragraph style (the same "Explore service"/"Read more" convention already used in `phase-services-in-phase.php`) in a real 2-column row, rather than the source Figma frame's broken 4-column grid.
-- `src/scss/structural/phase-faq.scss` → `assets/css/phase-faq.css`: phase-scoped override (via the `page-slug-{phase}` body class, one rule per phase) so the FAQ accordion's open-state border and toggle-icon colour match the current phase's accent instead of the sitewide generic link-accent token, without affecting any other page that uses the shared `schema-faq` component.
-- `src/scss/structural/phase-where-to-go-next.scss` → `assets/css/phase-where-to-go-next.css`: same phase-scoped override technique for the Card - Link Row hover border/background/icon colours and the "Read more" link's colour, without affecting the Work archive or Services page, which also use these shared styles.
-- Wired both new bundles into `package.json` (`build:css`/`build:css:dev`/`watch:css`), `inc/animations.php` (conditional on the six phase-page slugs, same pattern as the other phase bundles), and `functions.php` (editor styles).
-
-([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
-
----
-
-## [Unreleased] — Refine Phase Support Focus section layout and typography (LS-4179)
-
-### Changed
-
-- `patterns/sections/phase-support-focus.php`: widened the eyebrow/heading wrapper from a fixed `620px` content width to the theme's existing wide alignment (`align:"wide"`, no custom `contentSize`) so "AI Readiness Assessment" stays on one line at desktop without changing the global H2 style, heading level, or inventing a new width token; added top margin above the eyebrow/heading group for more breathing room from the previous section.
-- `patterns/sections/phase-support-focus.php`: widened the column gutter between the body copy and focus-area card (`spacing|60` → `spacing|70`) so the section reads more balanced, matching the reference design.
-- `patterns/sections/phase-support-focus.php`: changed each focus-area row's vertical alignment from `top` to `center` so the hollow-circle bullet centres against its single-line list text instead of sitting high above it.
-- `patterns/sections/phase-support-focus.php`: reduced left-column body copy and focus-card heading/list typography from `fontSize:300` to `fontSize:200`, tightened line-height and paragraph spacing, and reduced the CTA's top margin — all using existing typography/spacing tokens.
-- `patterns/sections/phase-support-focus.php`: replaced the filled/tinted `lightspeed/dot` icon bullet with a simple hollow outlined circle (1px border, no fill, no icon) in the approved Discover accent colour, matching the reference's bullet style.
-
-([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
-
----
-
-## [Unreleased] — Phase page review fixes
-
-### Fixed
-
-- Load phase hero styles wherever the pattern renders and redirect bare phase URLs only to published pages.
-- Correct introduction heading levels, journey navigation label serialization, current-page semantics, and inactive-link contrast.
-- Scale the outline button's circle reveal to cover the button's corners without animating layout dimensions; retain reduced-motion behavior.
-
----
-
-## [Unreleased] — Fix WCAG color-contrast violations for captions and blog filter pill (LS-2934)
-
-### Fixed
-
-- `src/scss/structural/image-captions.scss` (new): image captions (`.wp-element-caption`/`figcaption`) previously rendered WordPress core's unthemed default text colour (`#555555`) against this theme's dark background (`#080808`), a 2.68:1 contrast ratio. Now uses the existing `--text--on-dark-muted` token (10.1:1), applied sitewide.
-- `src/scss/structural/taxonomy-filter.scss`: the blog page's category filter pill, in its active/selected state (`.taxonomy-filter-current`), paired light text with its blue background at a 2.92:1 ratio. Swapped to the existing `--text--on-light` token (6.57:1 against the same background), including its hover/focus state.
-
-([#61](https://github.com/lightspeedwp/ls-theme/pull/61))
-
----
-
-## [Unreleased] — Fix editor validation errors and Icon block attributes on Services patterns (LS-4207)
-
-### Fixed
-
-- `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php`: added the missing `has-border-color` class to the `ls-process-pill` and `ls-cluster-tag` wrapper groups. Both blocks set an inline border colour via a custom JSON style attribute, but WordPress's border block support always expects a `has-border-color` class on the wrapper whenever a border colour is set. The hand-authored static HTML never included it, so the editor's re-derived expected markup never matched the stored HTML, permanently flagging these blocks as "Block contains unexpected or invalid content" with an "Attempt Recovery" prompt in the Site Editor.
-- `patterns/cards/section-card-services.php`, `patterns/sections/services-service-tiles.php`: moved the Icon block's width from an unsupported top-level `"width"` JSON attribute to the correct `"style":{"dimensions":{"width":...}}` path, matching `core/icon`'s actual schema. The old attribute was silently dropped, leaving the icon unsized.
-- `patterns/cards/section-card-services.php`: fixed icon slug `lightspeed/rocket-launch` to `lightspeed/rocket` — `rocket-launch.svg` does not exist in the `ls-plugin` icon library, so the icon failed to render entirely.
-
-([#60](https://github.com/lightspeedwp/ls-theme/pull/60))
-
----
-
-## [Unreleased] — Fix mobile menu: restore dropdown links, remove Systems, refine spacing (LS-3222)
-
-### Fixed
-
-- `parts/mobile-menu.html`, `styles/blocks/details/mobile-menu-accordion.json`: each top-level accordion label (Work, Solutions, Services, Pricing, Insights, About) is now a real link to its overview page (`/work/`, `/solutions/`, `/services/`, `/pricing/`, `/blog/`, `/about/`). Previously the label was plain text inside `<summary>`, so there was no way to reach e.g. "All Work" without opening the dropdown. Clicking the label now navigates directly; clicking elsewhere in the row still toggles the dropdown, using native `<summary>` click behavior with no JS needed. Added the label link's own colour/underline reset and `:focus-visible` outline.
-- `parts/mobile-menu.html`: removed the non-functional "Systems" link row.
-
-### Changed
-
-- `parts/mobile-menu.html`, `src/scss/structural/_mega-menu.scss`, `styles/blocks/groups/mega-menu-item-service.json`: converted the Work/Solutions/Pricing/Insights/About and Services mobile dropdown page-lists from 2-column to single-column layouts; decoupled each row's visual height from its tap-target size (rows read tighter while the actual tap area stays at the accessible ~44px minimum via an expanded stretched-link hit area); tightened spacing between links, between each heading and its first link, and between the last link and the "See all…" CTA, while keeping stronger separation between sections/phases; increased the "See all…" CTA font size to match page-link text and removed a redundant divider above it; reduced indentation under each Services phase heading.
-
-([#58](https://github.com/lightspeedwp/ls-theme/pull/58))
-
----
-
-## [Unreleased] — Build Services page: Entry Points and Delivery by the Numbers (LS-1598)
-
-### Added
-
-- Added `patterns/sections/services-entry-points.php`: "You don't have to buy everything at once" — eyebrow/heading/description with a 2x2 grid of 4 entry-point link cards, reusing the existing Card - Link Row style.
-- Added `patterns/sections/services-delivery-numbers.php`: "Twelve years of WordPress engineering" — a centered eyebrow/heading/description intro followed by 3 centered delivery-scale stats, reusing the existing Stat Segment style.
-
-### Fixed
-
-- Fixed Entry Points' card grid forcing a 2-column squeeze (and multi-line text wrap) on mobile/tablet — switched from a fixed `columnCount` to `minimumColumnWidth`, which collapses to 1 column natively.
-- Fixed Delivery by the Numbers' stat divider staying a vertical line on the right of a stacked mobile/tablet card instead of a horizontal line between stacked cards — added a scoped SCSS override that flips the divider orientation below 782px, without touching the shared Stat Segment style used elsewhere.
-
-[PR #55](https://github.com/lightspeedwp/ls-theme/pull/55)
-
----
-
-## [Unreleased] — Build Services page: closing CTA section (LS-1598)
-
-### Added
-
-- Added `patterns/sections/services-cta.php` (renamed from the empty, unused `patterns/section-cta.php` stub): "Let's scope it properly" — eyebrow, heading, description, and a single button reusing the exact button already established in `services-hero.php`.
-- Added `src/scss/structural/corner-glow.scss`: a shared, multi-consumer two-corner radial-gradient glow background, with its colours as CSS custom properties so future consumers can override them per instance instead of duplicating the file.
-
-### Fixed
-
-- Corrected a Figma SVG gradient matrix decode error that made the corner-glow's blobs roughly 10x too small (a missing `r="10"` base-circle multiplier), and set the CTA panel to a real 800px max width.
-
-[PR #56](https://github.com/lightspeedwp/ls-theme/pull/56)
-
----
-
-## [Unreleased] — Build Services page: service tiles section (LS-1598)
-
-### Added
-
-- Added `patterns/sections/services-service-tiles.php`: the "Fourteen services. One delivery model." section — a 14-card bento grid (Discovery through AI), each card a single stretched link to its individual service page, with an icon well, index number, kicker line and description.
-- Added `styles/sections/cards/card-service-tile.json`, a new shared card shell modelled on Card - Category's shell but flatter, with an index-number slot Card - Category doesn't have.
-
-### Fixed
-
-- Fixed each row's `blockGap` only setting its horizontal component, which meant stacked mobile/tablet spacing fell back to WordPress's default instead of the intended value, producing inconsistent gaps between cards.
-
-[PR #54](https://github.com/lightspeedwp/ls-theme/pull/54)
-
----
-
-## [Unreleased] — Expand CodeRabbit config for full auto-review and finishing touches (LS-4124)
-
-### Changed
-
-- `.coderabbit.yml`: corrected `auto_review.base_branches` to use the `feature/.*` and `fix/.*` regular expressions, so stacked PRs (based on a prior feature or fix branch rather than `main`/`develop`) trigger an automatic review. Enabled `auto_incremental_review`, `assess_linked_issues`, `related_issues`, `related_prs`, `path_filters`, `finishing_touches` (autofix/docstrings/unit_tests), `tools` (eslint/markdownlint/gitleaks/trufflehog), and `knowledge_base.code_guidelines` (pointed at `AGENTS.md`). Set `profile: assertive` and enabled `request_changes_workflow`. ([#57](https://github.com/lightspeedwp/ls-theme/pull/57))
-
----
-
-## [Unreleased] — Build Search template (LS-2594)
-
-### Added
-
+- `patterns/hero/archive-hero.php` (Hero - Archive): a left-aligned hero for archive listings with the breadcrumb, an "Archive" eyebrow, the archive's own title (`core/query-title`, no "Category:" prefix) and its description (`core/term-description`). It reuses the Hero - Page layout and its `ls-page-hero` styles, so it needs no stylesheet of its own. ([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+- `inc/archive-query.php`, loaded from `functions.php`: sets the main query on category, tag, author, date and portfolio-taxonomy listings to nine entries per page. A Query Loop that inherits the main query ignores its own `perPage`, so without this the grid took its size from Settings > Reading (10) and left one card alone on the last row of every full page. The blog page, search results, the Work archive and WooCommerce listings are not affected. ([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+- `patterns/sections/intro-graphic-lede.php` (Section - Intro Graphic Lede): an H2, a decorative three-person network graphic that follows light and dark mode, and the lede paragraph. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `patterns/sections/list-card-pair.php` (Section - List Card Pair): two bordered cards with an H3, a lead paragraph and a core List each, an ordered list with round numbered badges and a bulleted list with brand-coloured bullets. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `patterns/sections/split-intro-form-panel.php` (Section - Split Intro Form Panel): the intro on the left and a bordered card holding only the Gravity Forms block on the right, laid out like the Contact page. The form ID is looked up by the form title, so it works on every site. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `patterns/sections/project-query-image-cards.php` (Section - Project Query Image Cards): a 2-column Query Loop of Work posts from the WordPress group, each a Card - Case Study shell with the featured image and the title, the whole card one link. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `src/scss/structural/referral-sections.scss`, compiled to `assets/css/referral-sections.css`: the network graphic, the numbered step badges, the brand bullets, the referral form styles scoped to the card, and the stretched case-study link. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `patterns/sections/logo-marquee.php` (Section - Logo Marquee): the six client logos in a clipped track that scrolls slowly and endlessly, with a visually hidden H2 and a small text-and-icon pause control. Each logo is a light/dark image pair, so it stays legible in both modes. It stays a static, centred row without JavaScript or with reduced motion, pauses on hover and focus, and the window is narrower than one set of logos so the same logo never shows twice at once. ([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
+- `assets/js/logo-marquee.js`: starts the scroll, repeats the logos for a seamless loop, wires up the pause control (WCAG 2.2.2) and follows the visitor's reduced-motion setting. It loads only when the pattern renders. ([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
+- `src/scss/structural/logo-marquee.scss`, compiled to `assets/css/logo-marquee.css`: the static row, the seamless loop, the edge fades, the logo sizing and the pause control. ([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
+- `src/scss/structural/referral-sections.scss`, compiled to `assets/css/referral-sections.css`: the "one person refers another" hero graphic as a token-coloured mask, so it follows light and dark mode. `package.json`, `inc/animations.php` and `functions.php` wire both bundles in. ([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
+- `src/scss/structural/legacy-content.scss`, compiled to `assets/css/legacy-content.css` and loaded on Work and Blog singles: styling for imported LIVE content written for the previous theme. It matches the LIVE widths, block gaps, headings, lists, captions, quote and pullquote cards, buttons (default and hover) and code blocks, and adds about 16px of extra space around code blocks and button rows. It replaces the unused `work-single-body` stylesheet. ([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
+- Legacy tokens, all additive and mapped to existing tokens so they follow light and dark mode: spacing sizes x-small to x-large, font sizes x-small to x-large, the `regular` font weight, the `primary` and `secondary` font families, legacy palette slugs, and a `custom.colour` set with dark values in `styles/dark.json`. ([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
+- Block styles: the Subheading 1, 2 and 3 paragraph styles and the Heading 2 heading style. ([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
+- `patterns/hero/hero-split-graphic-actions.php` (Hero - Split Graphic Actions): a split page hero with a Yoast breadcrumb, dot eyebrow, H1, lede, a consultation button that opens the popup and an outline button, and a large quote-mark graphic that takes its colour from the brand text token. ([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+- `patterns/sections/logo-strip.php` (Section - Logo Strip): a label and six client logos, centred, each logo a light/dark image pair toggled by the existing logo visibility tokens. ([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+- `patterns/sections/testimonial-featured-split.php` (Section - Testimonial Featured Split): two featured testimonials, each with a logo header, a quote with a brand-colour quote icon, a ruled attribution with the author portrait, name and role, and a framed preview panel holding the full website screenshot and a View Website button. ([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+- `patterns/sections/testimonial-card-masonry.php` (Section - Testimonial Card Masonry): the 27 text-only testimonials as Card - Plain cards on a `surface.card` band, packed into 1, 2 or 3 columns with no gaps, with a visually hidden H2. ([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+- `src/scss/structural/testimonial-cards.scss`, compiled to `assets/css/testimonial-cards.css`: the masked quote-mark shape, logo and avatar sizing, the featured copy column alignment, the small-screen View Website button width and the CSS multi-column masonry. `package.json`, `inc/animations.php` and `functions.php` wire it in for the testimonials page and the editor. ([#173](https://github.com/lightspeedwp/ls-theme/pull/173))
+- `patterns/sections/popup-form-shell.php` (Section - Popup Form Shell): the content for a Popup Maker popup that holds a Gravity Forms form: a Card - Plain group on the raised `surface.card` token (so the card stays distinct from the page in dark mode), a centred H2, an intro line and the Gravity Forms block set to the Orbital theme. ([#164](https://github.com/lightspeedwp/ls-theme/pull/164))
+- `src/scss/structural/gravity-forms-popup.scss`, compiled to `assets/css/gravity-forms-popup.css`: styles forms inside the popup shell with the theme's tokens, shows the required asterisk in the text colour, lets the card scroll inside the popup, blurs the page behind the form (not for visitors who prefer reduced transparency), and replaces Popup Maker's hardcoded black 18px close button with a 44px button that follows light and dark mode and has a visible focus ring. Scoped to popups that hold the shell, so other popups are unaffected. Loads on every page, because popups render on every page. ([#164](https://github.com/lightspeedwp/ls-theme/pull/164))
+- `src/scss/abstracts/mixins/_gravity-forms.scss`: the shared Gravity Forms variable mapping, so every styled form uses the same tokens. ([#164](https://github.com/lightspeedwp/ls-theme/pull/164))
+- `patterns/sections/thank-you-confirmation.php` (Section - Thank You Confirmation): one reusable confirmation section for every thank-you page, with neutral copy to overwrite per page. It has a Yoast breadcrumb, a success status badge, an H1, a lead paragraph and a home button, a "What happens next" card with a tick list, and a "While you wait" row of three whole-card links below a top border. The hero, the card and the cards row sit in one centred 900px column. ([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
+- `patterns/hero/hero-split-index-card.php` (Hero - Split Index Card): the Team hero with a breadcrumb, eyebrow, H1, lede and a primary and an outline button, beside a bordered card that indexes the team in two side-by-side lists with the role under each name. Group titles and names jump to the matching section or card, and each row slides and turns brand-coloured on hover. ([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
+- `patterns/sections/profile-card-group.php` (Section - Profile Card Group): an eyebrow and H2 above a three-column grid of plain 4:5 portrait cards (portrait, name, monospace role and bio), each with an anchor. The grid is capped to a 76rem measure so the portraits stay card-sized on wide screens. ([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
+- `patterns/sections/text-stack.php` (Section - Text Stack) and `patterns/sections/text-stack-actions.php` (Section - Text Stack With Actions): an eyebrow, H2 and lede paragraphs in one narrow column, the second with an H3 and a primary and an outline button. ([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
+- `patterns/cta/cta-dark-band-buttons.php` (CTA - Dark Band Buttons): a fixed-dark closing band with a white primary button with an arrow and an outline button. ([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
+- `src/scss/structural/about-team.scss`, compiled to `assets/css/about-team.css`: the index row hover, the jump-link scroll offset and smooth scroll (only on pages with the index hero and off under reduced motion), the profile grid measure, balanced heading wrapping and the arrow on the dark primary button. Loaded on `/about/team/` and wherever the patterns render. ([#142](https://github.com/lightspeedwp/ls-theme/pull/142))
+- Add the Careers page patterns (LSA-197). ([#139](https://github.com/lightspeedwp/ls-theme/pull/139), [#140](https://github.com/lightspeedwp/ls-theme/pull/140))
+- The About "Careers" page (`/about/careers/`) as ten section patterns: Hero - Split Photo, Statement Lede, Split Text Pair Statement, Numbered Bento Cards, Intro Icon Card Trio, Split Label Text Pair, Process Loop Text Pair, Accent Rule Columns, Centered Statement Link and Numbered Card Pair Action Note. The FAQ and closing CTA reuse the existing Solutions Split FAQ and Services CTA patterns. ([#139](https://github.com/lightspeedwp/ls-theme/pull/139), [#140](https://github.com/lightspeedwp/ls-theme/pull/140))
+- `src/scss/structural/about-careers.scss`, compiled to `assets/css/about-careers.css`: the statement measure, the grid and loop reflow on small screens and the role-card hover lift. ([#139](https://github.com/lightspeedwp/ls-theme/pull/139), [#140](https://github.com/lightspeedwp/ls-theme/pull/140))
+- `patterns/sections/split-divided-text-chips.php` (Section - Split Divided Text Chips): two columns on a card band, each a dot eyebrow H2, a paragraph and tinted pill labels, with a divider between them that becomes a top rule on mobile. ([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
+- `patterns/sections/split-header-icon-columns.php` (Section - Split Header Icon Columns): a split header above three ruled columns, each a large accent-coloured Icon block, an H3 and a paragraph. ([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
+- `patterns/sections/split-statement-cards.php` (Section - Split Statement Cards): two large statement cards on a card band, one plain and one using the `surface.brand-strong` token with inverse text. ([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
+- `patterns/cta/cta-centered-panel.php` (CTA - Centered Panel): a rounded `surface.card` panel with the shared corner glow, and a centred eyebrow, H2, paragraph and three buttons (two primary, one outline). ([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
+- `src/scss/structural/about-culture.scss`, compiled to `assets/css/about-culture.css`: the mobile side-to-bottom dividers for the icon columns and the divided pair, and the CTA heading width. `inc/animations.php` lists the new classes. ([#136](https://github.com/lightspeedwp/ls-theme/pull/136))
+- `patterns/sections/details-card-grid.php` (Section - Details Card Grid): "Milestones beyond the headlines" as thirteen core Details cards in a two-column grid, each a mono brand-coloured year, a title and a bulleted list, with an "Expand all" button. The shell, size and bullets reuse the core Details block and `core-details.json`, and the section uses the shared Content Band spacing. ([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
+- `assets/js/details-expand-all.js` and `src/scss/structural/details-card-grid.scss`, compiled to `assets/css/details-card-grid.css`: "Expand all" opens every card and swaps its label to "Collapse all" (translatable, and kept in step when cards are opened one by one), plus the year styling, calmer open-state borders and the grid alignment. Loaded on `/about/history/` and wherever the pattern renders. ([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
+- `patterns/sections/scroll-timeline.php` (Section - Scroll Timeline): "The LightSpeed Journey" as nine milestone nodes, each a mono year, a dot on a vertical line and a flat card, with a dashed "future" card last. As the page scrolls, a glowing gradient line fills down the timeline and each node fades up and lights its dot. The editor, no-JS and reduced-motion views show every node lit and the full line. ([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
+- `assets/js/scroll-timeline.js` and `src/scss/structural/scroll-timeline.scss`, compiled to `assets/css/scroll-timeline.css`: the scroll-driven line fill, the reveal, the lit dots and the card hover. Loaded on `/about/history/` and wherever the pattern renders. ([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
+- `patterns/sections/stat-card-grid.php` (Section - Stat Card Grid): a left-aligned eyebrow, heading and lede above four flat stat cards with figures in their own accent colours, and a closing line. The first stat reads "Websites built and rebuilt". ([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
+- New semantic tokens `gradient.accent-start` and `gradient.accent-end`: brand-600 to cta-800 in `theme.json`, brand-400 to cta-500 in `styles/dark.json`. All four pairings are at least 3:1 against their canvas. ([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
+- `lefthook.yml`: a `pre-commit` hook that runs when Sass in `src/scss/` is staged and is skipped during merges and rebases. It lints the staged Sass with Stylelint, then runs `npm run build:css` and stages only the compiled CSS files it writes, so Sass source and compiled CSS are committed together and other files in `assets/css` are left alone. A Stylelint error or a Sass error blocks the commit, and so does an unstaged change in, or an untracked file under, `src/scss`, so compiled CSS is never committed without its source. `git commit <file>` is blocked when Sass is staged, because Git would drop the staged CSS from the index. ([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+- `.stylelintrc.json`: extends `@wordpress/stylelint-config/scss`. The class-name pattern and formatting rules that the existing Sass breaks are turned off, and three smaller rules are warnings only. The existing Sass passes with no errors except one: a bare `//` comment line at line 38 of `src/scss/structural/phase-link-card-grid.scss` (`scss/comment-no-empty`, added by #121). Stylelint reports it as an error, so the hook will block the next commit that touches that file until the line is removed or the rule is relaxed. ([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+- `lefthook`, `stylelint`, `@wordpress/stylelint-config` and `stylelint-scss` as devDependencies, and a `lint:scss` npm script. `npm install` installs the hook. ([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+- `.github/reports/lefthook-setup.md`: install steps, everyday commands, how to bypass the hook, known limits and verification results. ([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+- `custom.animation.scale.hover` (`1.025`) in `theme.json`, for the team card photo zoom. ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- `patterns/hero/hero-centered-gradient-title.php` (Hero - Centered Gradient Title): a full-bleed, permanently dark, centred hero with a breadcrumb, a pill, an H1 whose last line takes a gradient across the six lifecycle phase colours, and an intro paragraph. It reuses the Hero - Phase background (`ls-phase-hero`); the pill, dot and glow use `text.brand-on-dark` (cyan in dark mode, blue in light mode). ([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
+- `patterns/sections/phase-link-card-grid.php` (Section - Phase Link Card Grid): a permanently dark band with six whole-card links to `/services/{phase}/`, each with a "PHASE 0X" label, an H2, a paragraph and a "Read about ..." arrow link in that phase's colour. Hovering or focusing a card tints it, lifts it and slides the arrow. It reuses Card - Service Tile and Link Arrow Accent. ([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
+- `src/scss/structural/hero-gradient-title.scss` and `src/scss/structural/phase-link-card-grid.scss`, compiled to `assets/css/hero-gradient-title.css` and `assets/css/phase-link-card-grid.css`: the gradient text, the dark card surface, the per-phase accents and the hover lift. Loaded wherever the patterns render. ([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
+- New palette presets `phase-six-mid` (`#8F91FA`), `phase-six-light` (`#A3A5FB`) and `phase-three-light` (`#FE85C1`), and new semantic tokens `phase.evolve-on-dark-card` and `phase.build-on-dark-card` (a lighter shade in `styles/dark.json`, the existing or mid shade in `theme.json`). They keep the Evolve and Build cards' label and link above the 4.5:1 contrast minimum in light and dark mode, including the hover and focus tint. Only those two cards use them; existing tokens are unchanged. ([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
+- `patterns/hero/hero-split-proof.php` (Hero - Split Proof): breadcrumb, dot eyebrow, H1, lede and two buttons on the left, and a bordered proof card on the right with three figure, label and description rows in brand, launch and evolve colours. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/split-intro-text-pair.php` (Section - Split Intro Text Pair): eyebrow and H2 beside two paragraphs on a `surface.card` band. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/stat-icon-cards.php` (Section - Stat Icon Cards): a centred intro above three flat stat cards, each with an Icon block well, a large figure, a label and a line of copy. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/card-trio-labelled.php` (Section - Labelled Card Trio): three bordered cards with mono kickers for mission, vision and a row of value pills. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/split-header-icon-card-trio.php` (Section - Split Header Icon Card Trio): a split header above three icon cards, for community and open-source proof. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/split-header-phase-cards-note.php` (Section - Split Header Phase Cards with Note): six lifecycle cards, each a whole-card link to its phase page (`/services/{phase}/`) in its own phase colour, and a centred AI note. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/split-header-labelled-card-row.php` (Section - Split Header Labelled Card Row): a split header above four product cards with mono kickers. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/split-header-profile-card-grid.php` (Section - Split Header Profile Card Grid): eight team cards with initials avatars, names, roles and a focus line. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/split-copy-timeline-card.php` (Section - Split Copy Timeline Card): copy and an outline button beside a six-row milestone timeline. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/sections/link-card-row.php` (Section - Link Card Row): five whole-card links to the About sibling pages (History, Team, Culture, Process and Careers). ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `patterns/cta/split-cta-form-card.php` (CTA - Split Form Card): closing copy beside the Gravity Forms enquiry form (form ID 2). ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `src/scss/structural/split-header-icon-card-grid.scss` (compiled to `assets/css/split-header-icon-card-grid.css`): per-phase title and hover/focus border colours for the six phase cards, using the existing phase colour tokens. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- Copy comes from the About content docs; no tokens were added. The pages the Link Card Row links to still need to be created. ([#115](https://github.com/lightspeedwp/ls-theme/pull/115))
+- `src/scss/structural/hero-split-form.scss`, compiled to `assets/css/hero-split-form.css`: the sticky intro and the Gravity Forms colour, size and spacing mapping, scoped to the form card's `contact-form` anchor. Loaded on the Contact page (`is_page( 'contact' )`) and wherever the hero renders. ([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
+- `patterns/hero/hero-split-form.php` (Hero - Split Form): breadcrumb, dot eyebrow, H1, lede and two buttons on the left, and a form card on the right holding the Gravity Forms block (form ID 2, the Contact Form on DEV). The block only renders where Gravity Forms is active; the primary button opens the consultation popup (`pum-triggercta`) and the outline button links to the form. ([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+- `patterns/sections/split-text-pair.php` (Section - Split Text Pair): two equal columns on a `surface.card` band, each an H2 and a paragraph. ([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+- `patterns/sections/icon-card-grid-optional-links.php` (Section - Icon Card Grid with Optional Links): a grid of icon cards where linked cards are whole-card links and the rest are flat. ([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+- The Contact page also reuses `solutions-split-faq`, `cta-split-buttons` and `related-routes-grid` with the Contact content doc's copy; no new file for those. ([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+- An element-level overflow check in the standing responsive-overflow spec. It fails when a button starts left of the viewport, ends past its right edge, or sits more than 1px outside its button row or bordered/backgrounded panel. The document-width check missed this: on `/free-consultation/` at 370px, 307px buttons spilled out of a 254px panel while the suite passed. ([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
+- Failures name the section, button text, overflowing side, container, and element and container widths, and BugHerd groups them by section, button text and side rather than by page or width. ([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
+- A "Page (Legal)" page template for the trust and legal pages (Privacy Policy, Terms, Cookie Policy, Accessibility Statement). Choose it as a page's template and write only the text: the hero shows the page's title and excerpt, and the document column is the page's own content. ([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
+- Three reusable patterns behind it: Hero - Page, Section - Document with Contents Rail, and Section - Related Trust Pages. ([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
+- A sticky "On this page" rail beside the document, built from the page's H2 headings, which highlights the section being read (`assets/js/legal-toc.js`, loaded only when the rail renders; hidden when scripting is off). ([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
+- `src/scss/structural/legal-page.scss` (compiled to `assets/css/legal-page.css`) holds the hero glow, the breadcrumb, the sticky rail and the responsive related-pages grid. ([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
+- Pages that should use the layout need "Page (Legal)" chosen as their template; no existing page changes. ([#111](https://github.com/lightspeedwp/ls-theme/pull/111))
+- `patterns/hero/hero-split-glance-support.php` (Hero - Split At a Glance with Support Line): breadcrumb, dot eyebrow, H1, lede, support line, two CTAs and a "Consultation snapshot" card built as a semantic description list. The CTAs are core Button "button" mode buttons that trigger Popup Maker popups via the `pum-triggercta` and `pum-triggerbrief` classes; the popups and their Gravity Forms are not part of the theme and must be configured in Popup Maker on each site. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- `patterns/sections/icon-strip.php` (Section - Icon Strip): a wrapping row of short brand-icon labels spread across the full width. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- `patterns/sections/split-checklist-card-stack.php` (Section - Split Checklist Card Stack): a check-row panel beside a stack of three icon cards. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- `patterns/cta/cta-split-buttons.php` (CTA - Split Buttons): a rounded panel with a heading, paragraph and two buttons that trigger Popup Maker popups (`pum-triggercta` and `pum-triggerbrief`); the popups must be configured in Popup Maker on each site. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- `patterns/sections/related-routes-grid.php` (Section - Related Routes Grid): a generic grid of Card - Link Row cards. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- `src/scss/structural/snapshot-card.scss`, compiled to `assets/css/snapshot-card.css`: row layout, description measure and a container query that stacks each label above its value when the card is narrow. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- `patterns/sections/split-header-link-card-grid.php` (Section - Split Header Link Card Grid): a split header above six linked cards, each a Card - Service Tile with an icon well, description and "Read about ..." arrow link. ([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+- `patterns/sections/split-header-checklist-card-pair.php` (Section - Split Header Checklist Card Pair): a split header above two equal-height, border-only cards of check rows with dividers. ([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+- `patterns/cta/split-cta-tile-band.php` (CTA - Split Tile Band): a fixed-dark rounded call-to-action band with a white primary button, an arrow link and three glass reassurance tiles. ([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+- `patterns/sections/solutions-split-faq.php` (Section - Solutions Split FAQ): a split header beside the Yoast FAQ block with a brand accent, and `solutions-split-faq.scss`, compiled to `assets/css/`. ([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+- `patterns/hero/hero-split-glance.php` (Hero - Split At a Glance): breadcrumb, icon-tile eyebrow, H1, lede, two CTAs and an "At a glance" card built as a semantic description list. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `patterns/sections/stats-row-left.php` (Section - Stats Row Left-aligned): four left-aligned stats with dividers, reusing the Stats Bar classes and responsive grid. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `patterns/sections/split-intro-text.php` (Section - Split Intro Text): dot eyebrow and heading beside a single paragraph. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `patterns/sections/solutions-case-study.php` (Section - Solutions Case Study): a query-driven featured case study that follows the project tagged with the Solutions page's slug. The quote and attribution are editable per page. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `patterns/sections/split-copy-checklist-card.php` (Section - Split Copy Checklist Card): heading and copy beside a capped-width card of four check rows. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `patterns/sections/split-header-icon-card-grid.php` (Section - Split Header Icon Card Grid): split header above six equal-height icon cards, with titles and descriptions clamped to an ellipsis. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `inc/solutions-case-study-query.php`, a Solutions-specific case-study query filter (front end and editor preview) separate from the service pages' filter. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `solutions-case-study.scss` and `split-header-icon-card-grid.scss`, compiled to `assets/css/`, registered in the build scripts, loaded through the conditional bundles and added as editor styles. ([#104](https://github.com/lightspeedwp/ls-theme/pull/104))
+- `patterns/sections/stat-feature-bento.php` (Section - Stat Feature Bento): an eyebrow, heading and paragraph above a large feature stat card and two stacked stat cards, using the Solutions Landing proof points (300+, 10,000+, 220,000+). The feature card always matches the two stacked cards plus their gap in height, and the columns stack on mobile. ([#100](https://github.com/lightspeedwp/ls-theme/pull/100))
+- `patterns/cta/split-cta-check-card.php` (CTA - Split Check Card): eyebrow, heading, paragraph and two buttons beside a bordered card with a four-item checklist and solid check badges, using the existing icon tokens. ([#100](https://github.com/lightspeedwp/ls-theme/pull/100))
+- `stat-feature-bento.scss`, compiled to `assets/css/stat-feature-bento.css`, for the feature card's glow and decorative rings. It loads on the Solutions page and is registered in the build scripts, the page-scoped loader and the editor styles. No new design tokens were added. ([#100](https://github.com/lightspeedwp/ls-theme/pull/100))
+- `patterns/hero/solutions-hero.php` (Hero - Solutions): breadcrumb, eyebrow, heading, intro and two CTAs beside a tilted "solutions / palette" specimen card, on the shared `corner-glow` background. ([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+- `patterns/sections/solutions-route-tiles.php` (Section - Solutions Route Tiles): a grid of seven route tiles (WordPress, WooCommerce, Publishing, Tour Operators, AI, Design Systems, AI Chatbots), each a single link to its `/solutions/{slug}/` page. ([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+- `patterns/cards/card-route-tile.php` (Card - Route Tile): the same tile as a single editable card pattern, built on the existing Card - Service Tile style. ([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+- `patterns/sections/split-intro-pair-cards.php` (Section - Split Intro Pair Cards): eyebrow and heading beside a paragraph and two bordered comparison cards. ([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+- `solutions-hero.scss` and `solutions-route-tiles.scss`, compiled to `assets/css/`, for the specimen card tilt and the larger route-tile icon well and index inset. Both are scoped to their own classes, so the Services tiles and Work archive icon wells are unchanged. ([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+- `Mobile Chrome` (Pixel 5), `Mobile Safari` (iPhone 12) and `Tablet` (iPad Mini) Playwright projects with real touch and mobile emulation. Desktop projects skip the device-only spec; `Mobile Chrome` also runs the standing accessibility spec (`playwright.config.ts`). ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- `tests/specs/mobile-menu.spec.ts`: covers every mobile menu dropdown (open/close, links, tap targets, overflow), the six Services phase groups, the LSA-171 padding and phase press colours, and an axe scan with the menu open. It uses `SINGLE_PAGE_URL` when set. ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- `tests/specs/bugherd-reporter.spec.ts`: checks the BugHerd reporter without contacting BugHerd, including that `SINGLE_PAGE_URL` runs never create tasks. ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- `test:setup`, `test:setup:all` and `test:mobile` npm scripts, and a `.env.example`. ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- Navigation checks at the 1023px/1024px breakpoint and overflow checks at 768px and 1024px (`tests/specs/navigation.spec.ts`). ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- `success-strong` palette colour (`#047857`) in `theme.json`. `custom.color.status.success` now uses it in light mode (4.82:1 on the badge background); dark mode keeps `success-foreground`. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `custom.color.surface.success-tint` token in `theme.json`. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `custom.color.border.card-strong` in `theme.json` (`neutral-300`) and `styles/dark.json` (`neutral-750`), used for the Work card, media wrapper and divider borders so they stay visible in dark mode. Sites with Site Editor styles saved from the dark variation need those styles reset (or the variation re-selected) to pick it up. ([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
+- `Section - Split FAQ` (`ls-theme/split-faq`), `Section - Link Card Grid` (`ls-theme/link-card-grid`) and `CTA - Split Checklist` (`ls-theme/section-cta-split-checklist`): the last three sections for the 14 individual service pages, authored with Discovery's copy and edited per page. The FAQ uses the Yoast FAQ block, like the other FAQ patterns. ([#82](https://github.com/lightspeedwp/ls-theme/pull/82))
+- `ls-tick-phase--on-dark` modifier for the Tick Phase list style, for permanently dark sections. ([#82](https://github.com/lightspeedwp/ls-theme/pull/82))
+- `Section - Split Intro Icon Cards` (`ls-theme/split-intro-icon-cards`), `Section - Checklist Card Pair` (`ls-theme/checklist-card-pair`) and `Section - Featured Case Study` (`ls-theme/featured-case-study`): the next three sections for the 14 individual service pages, authored with Discovery's copy and edited per page. ([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
+- The featured case study shows the project tagged with the service page's own slug in the `project-tag` ("Services") taxonomy (`inc/service-case-study-query.php`), on the front end and in the block editor preview. ([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
+- `ls-tick-phase--compact` modifier for the Tick Phase list style, for checklists in smaller text. ([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
+- `Hero - Service` (`ls-theme/service-hero`), `Section - Split Copy Checklist` (`ls-theme/split-copy-checklist`) and `Section - Icon Card Grid` (`ls-theme/icon-card-grid`): the first three patterns for the 14 individual service pages, authored with Discovery's copy and edited per page. ([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+- `Card - Plain` section style (`styles/sections/cards/card-plain.json`): a flat, non-interactive card with no shadow or hover lift. ([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+- `Tick Phase` list style (`styles/blocks/lists/tick-phase.json`, `src/scss/structural/tick-phase.scss`): a checklist with a phase-coloured tick and dividers. ([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+- `inc/service-phase-map.php`: maps each of the 14 services to its lifecycle phase. ([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+- An `ls-service-phase-{phase}` body class, so service pages take their parent phase's accent colour on the front end and in the block editor. ([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+- `phpcs.xml.dist`: WordPress standard, text domain `ls-theme`, with `vendor/`, `node_modules/`, `tests/`, `playwright-report/` and `test-results/` excluded, and pattern-only exclusions for the `@package` tag, embedded PHP tag placement and WordPress capitalisation checks. ([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
+- `patterns/sections/phase-faq.php`: shared "Frequently asked questions" section for all six lifecycle phase pages, currently authored with Discover's own five questions. Reuses the existing Yoast FAQ block and its `schema-faq` accordion component (`patterns/section-faq.php`, `assets/css/faq.css`, `assets/js/faq-accordion.js`) as-is — no new accordion, JS, or markup pattern introduced. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-where-to-go-next.php`: shared "Where to go next" section for all six lifecycle phase pages, currently authored with Discover's own two next-step cards. Reuses the existing Card - Link Row section style and Link Arrow Accent paragraph style (the same "Explore service"/"Read more" convention already used in `phase-services-in-phase.php`) in a real 2-column row, rather than the source Figma frame's broken 4-column grid. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `src/scss/structural/phase-faq.scss` → `assets/css/phase-faq.css`: phase-scoped override (via the `page-slug-{phase}` body class, one rule per phase) so the FAQ accordion's open-state border and toggle-icon colour match the current phase's accent instead of the sitewide generic link-accent token, without affecting any other page that uses the shared `schema-faq` component. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `src/scss/structural/phase-where-to-go-next.scss` → `assets/css/phase-where-to-go-next.css`: same phase-scoped override technique for the Card - Link Row hover border/background/icon colours and the "Read more" link's colour, without affecting the Work archive or Services page, which also use these shared styles. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- Wired both new bundles into `package.json` (`build:css`/`build:css:dev`/`watch:css`), `inc/animations.php` (conditional on the six phase-page slugs, same pattern as the other phase bundles), and `functions.php` (editor styles). ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- Added `patterns/sections/services-entry-points.php`: "You don't have to buy everything at once" — eyebrow/heading/description with a 2x2 grid of 4 entry-point link cards, reusing the existing Card - Link Row style. ([#55](https://github.com/lightspeedwp/ls-theme/pull/55))
+- Added `patterns/sections/services-delivery-numbers.php`: "Twelve years of WordPress engineering" — a centered eyebrow/heading/description intro followed by 3 centered delivery-scale stats, reusing the existing Stat Segment style. ([#55](https://github.com/lightspeedwp/ls-theme/pull/55))
+- Added `patterns/sections/services-cta.php` (renamed from the empty, unused `patterns/section-cta.php` stub): "Let's scope it properly" — eyebrow, heading, description, and a single button reusing the exact button already established in `services-hero.php`. ([#56](https://github.com/lightspeedwp/ls-theme/pull/56))
+- Added `src/scss/structural/corner-glow.scss`: a shared, multi-consumer two-corner radial-gradient glow background, with its colours as CSS custom properties so future consumers can override them per instance instead of duplicating the file. ([#56](https://github.com/lightspeedwp/ls-theme/pull/56))
+- Added `patterns/sections/services-service-tiles.php`: the "Fourteen services. One delivery model." section — a 14-card bento grid (Discovery through AI), each card a single stretched link to its individual service page, with an icon well, index number, kicker line and description. ([#54](https://github.com/lightspeedwp/ls-theme/pull/54))
+- Added `styles/sections/cards/card-service-tile.json`, a new shared card shell modelled on Card - Category's shell but flatter, with an index-number slot Card - Category doesn't have. ([#54](https://github.com/lightspeedwp/ls-theme/pull/54))
 - Added `patterns/hero/search-hero.php`: the Search template's hero — breadcrumb trail, eyebrow, a static "Search LightSpeed" heading (intentionally not bound to the query term), supporting copy, and a no-button pill search field (`is-style-search-pill`, reused from the existing Blog All Articles search box). The breadcrumb is embedded here rather than the shared `ls-theme/breadcrumbs` template part, so it shares this hero's own padding instead of stacking a second set on top, matching the `blog-hero`/`work-hero` convention.
 - Added `patterns/sections/search-useful-destinations.php`: the "Useful destinations" section — eyebrow, heading, and a 4-card grid (FAQ, Pricing, Website packages, Contact), reusing the existing `is-style-card-category`/`ls-icon-well-brand`/`is-style-link-arrow-accent` styles and the same Phosphor icon markup already used by `404-best-next-routes.php`. Kept as a separate, self-contained file per this repo's one-pattern-per-file convention rather than a shared cross-pattern reference. Always shown below the results list regardless of result count.
 - Added `src/scss/structural/search-hero.scss`: the hero's decorative corner-glow background (two radial gradients, layered — `color.gradient` block support only accepts one), reusing the existing `effect.hero.brand`/`effect.hero.cyan` tokens; and `.ls-optical-trim`, a font-leading correction (see Fixed, below).
 - Added `src/scss/structural/search-results.scss` additions: whole-row clickable results with a rightward-shift hover, using the same stretched-link technique as Card - Post (`font-size:0` on a real `core/read-more` link, not the core `screen-reader-text` utility — that sets `position:absolute` on the anchor itself, which breaks the stretched-link's `::before{inset:0}` sizing).
-
-### Changed
-
-- Rebuilt `patterns/template-search.php`: hero → results query loop → useful destinations. Each result shows a category eyebrow (`core/post-terms`) above an `H2` title (`core/post-title`, `level:2` — the previous `level:3` skipped a heading level with no `H2` before it) and excerpt, plus a hairline divider (`border.card`) between items. Removed the query loop's unused `postType`/`search`/`exclude` args, which `inherit:true` was already ignoring in favor of the main search query — pages now correctly appear in results alongside posts, matching core behavior.
-- `styles/blocks/search/search-pill.json`: added explicit `text.default`/`text.subtle` colours for the input's typed text and placeholder. Neither this file nor `core-search.json` previously set a `color` on the input, so it fell back to the browser's black UA default — invisible against this pill's dark-mode `surface.card` background (only coincidentally legible in light mode). Fixes both consumers of this shared style (the Search hero and Blog All Articles' header search, which had the same latent bug).
-
-### Fixed
-
-- Hover-state title colour on search results used `link.accent` (dark mode: `cta-500`, the same saturated cyan as the CTA buttons — too loud for a hover-only state on heading-sized text). Changed to `link.accent-hover` (dark mode: `cta-300`, same family, softer), the token that exists specifically for this role.
-- Added `.ls-optical-trim` (`text-box-trim`/`text-box-edge`, plus a `transform: translateY(calc((1cap - 1lh) / 2))` fallback for broader browser support) to the hero eyebrow/heading and the Useful destinations eyebrow/heading. `line-height` alone can't fully cancel a font's own built-in leading (baked into the font file's vertical metrics), which differs between the body font (Manrope) and the display font (Lexend) — that residual, font-specific leading was making the gap above each heading read larger than the gap below it, even with identical margin values. `cap`/`lh` are real CSS units resolved per-font by the browser, not a guessed pixel offset.
-
-### Notes
-
-- No new colour tokens or font-size presets were needed — every value maps to an existing semantic token or preset, and every reused block style already carries dark-mode parity.
-- The results-list "eyebrow" shows the post's category term rather than a post-type label, since WordPress core has no block for rendering a post-type name and this site has no custom taxonomy resembling the Figma mock's placeholder labels (e.g. "Trust", "Commercial").
-- Verified against the dev site (`ls-agency.lightspeedwp.dev`, the theme's active environment there): the `category` taxonomy exists on `post` and matches local; all four destination links (`/faq/`, `/pricing/`, `/website-packages/`, `/contact/`) are published there. All links use `esc_url( home_url( '/slug/' ) )` — no hardcoded domains.
-
----
-
-## [Unreleased] — Migrate Services patterns to the Core Icon block (LS-3229)
-
-### Changed
-
-- Replaced `outermost/icon-block` (third-party "Icon Block" plugin) with WordPress 7.1's native Core Icon block (`core/icon`) across the 3 Services page patterns — `patterns/hero/services-hero.php`, `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php` — referencing icons from the `lightspeed` collection registered in `ls-plugin`. Final batch of the Core Icon block migration (LS-3229).
-- Converted the PHP icon arrays in these files (per-service, per-cluster, per-step) from raw inline SVG to bare `lightspeed/{name}` slugs, and rewrote their loop templates to emit `core/icon` block markup dynamically per iteration, removing the now-unused raw-SVG helper variables.
-
-See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
-
----
-
-## [Unreleased] — Fix legacy outermost/icon-block CSS selectors broken by Core Icon migration (LS-3720)
-
-### Fixed
-
-- Fixed mega-menu and Work-archive card icon hover/focus colour treatments no longer applying after the Core Icon block migration (LS-3229): `.wp-block-outermost-icon-block` selectors in `src/scss/animations/_menu-motion.scss` and `src/scss/structural/work-archive-sections.scss` only matched the legacy `outermost/icon-block` markup, so any icon already converted to WordPress 7.1's Core `core/icon` block (`.wp-block-icon`) lost its hover styling. Both selector sets now target `.wp-block-outermost-icon-block` and `.wp-block-icon` side by side, so neither markup shape loses the treatment while any remaining legacy instances are migrated.
-- Removed a redundant, footer-specific `.icon-container svg { fill: currentColor; }` rule from `src/scss/animations/_footer-motion.scss`.
-- Removed the stale compiled artifact `assets/css/animations.min.css`.
-
-### Changed
-
-- Moved the `.is-style-mega-menu-item-default` icon hover/focus `color` rule from `src/scss/animations/_menu-motion.scss` to `src/scss/structural/_mega-menu.scss`, per code review: motion partials may only contain `transition`/`transform`/`animation`-family properties (AGENTS.md), so the non-motion colour swap now lives in the structural partial alongside the rest of that style's rules, while the animations file retains only the `transition` and its `prefers-reduced-motion` override.
-
----
-
-## [Unreleased] — Build Services page: hero, linked decisions, and service clusters (LS-1598)
-
-### Added
-
 - Added `patterns/hero/services-hero.php`: breadcrumb, eyebrow, heading, description, CTAs, and a lifecycle-phase-coloured row of all 14 service tags linking to their `/services/` pages.
 - Added `patterns/sections/services-linked-decisions.php`: a six-step process pill row (Discover/Create/Build/Launch/Grow/Evolve) linking to new `/services/` phase pages, with a fixed whole-pill click target.
 - Added `patterns/sections/services-service-clusters.php`: five cluster cards in an asymmetric 3+2 layout grouping all 14 services, each linking out to its individual service page.
 - Added `styles/sections/cards/card-cluster.json`, a new shared card shell for the service-clusters section.
-
-### Fixed
-
-- Fixed the second service-clusters card row's `blockGap` being nested outside `spacing` instead of inside it, which silently fell back to WordPress's default gap instead of matching row 1.
-
----
-
-## [Unreleased] — Fix button.fill color contrast (LS-2937)
-
-### Fixed
-
-- Fixed a WCAG AA color-contrast failure on the theme's secondary filled button style (`is-style-button-secondary`, used by the 404 page's "Back to homepage" button, the Work archive's "Ready to discuss a project?" CTA, and the mobile menu's "Start a project" button). `button.fill.background`/`border` was `brand-500` (`#1E6AFF`) against `button.fill.text` (`base`, `#FAFAFA`) — 4.41:1, below the 4.5:1 minimum. Changed to `brand-600` (`#1C5EE4`), which is already the token used everywhere else this brand blue needs to be accessible (`text.brand`, `link.accent`, `card.platform.wordpress`) — 5.34:1, passes with real margin.
-- Fixed a related, previously-undetected hover-state contrast failure on the same button: `text-hover` was `contrast` (`#080808`, near-black) against `background-hover` (the same blue), which was already failing at 4.35:1 before this change and would have failed worse (3.6:1) after the background swap alone. Changed `text-hover` to `base` (white), matching the resting state's text color. Resting and hover now share the same `brand-600`/`base` color pair, so both are 5.34:1. Automated axe-core scans don't trigger `:hover` states, so this wasn't caught by the original BugHerd report.
-- Fixed the same underlying failure on the theme's secondary outline button style (`is-style-button-secondary-outline`): `button.outline.text`/`border`/`background-hover` were also `brand-500`, failing at 4.41:1 in both resting (text on a transparent/light background) and hover (white text on a `brand-500` background) states. Changed all three to `brand-600` — 5.34:1 in both states, matching the filled button fix above.
-
-### Notes
-
-- Dark mode's equivalent button tokens (`cta-500`/`cta-400` against `contrast`) were checked for both the filled and outline styles and already pass comfortably (15.57:1 resting, 13.1:1 hover) — no dark-mode change needed.
-- The header's "Start a project →" gradient CTA (`ls-button-cta-gradient` in `patterns/header.php`) is unaffected — it uses its own custom gradient background, not `button.fill.background`.
-
----
-
-## [Unreleased] — 404 template rebuild (LS-2596)
-
-### Added
-
 - Added `patterns/sections/404-best-next-routes.php`, the "Five useful destinations" section: eyebrow, heading, and a 5-card grid (Homepage, Pricing, Website packages, FAQ, Contact) reusing the existing Card - Category style and Phosphor icons. Wired into `templates/404.html` alongside the existing 404 pattern.
 - Added the `1000` ("Display") font-size preset to `styles/presets/typography.json` (fluid `4.5rem`–`10rem`), used by the 404 numeral — the previous largest preset (`900`, `4.5rem`) was too small for the design's display-scale treatment.
 - Added the `effect.watermark.brand` semantic colour token to `theme.json` and `styles/dark.json`, backed by two new palette presets (`brand-450`, `cta-150`), for the 404 numeral's colour.
-
-### Changed
-
-- Rebuilt `patterns/template-404.php` in place: large 404 numeral, not-found heading, supporting copy, and Homepage/Search CTAs, replacing the previous minimal search-field version.
-
-### Fixed
-
-- Fixed the routes section rendering with no gap before the footer by applying the existing `is-style-content-band` section style (padding, not margin — WordPress core zeroes `margin-top` on template-part wrappers, so root `blockGap` alone can't create space against the footer).
-- Fixed missing card icons: `outermost/icon-block` is a static block that reads its SVG from serialized HTML content, not the `iconName` attribute alone — embedded real Phosphor "regular" SVG markup for each card icon.
-- Fixed a Gutenberg editor crash on the routes section caused by an invalid `core/group` layout type (`"flow"` is not a real layout type; corrected to `"default"`).
-
----
-
-## [Unreleased] — Work Single (Portfolio) page rebuild (LS-2277)
-
-### Added
-
 - Added `templates/single-project.html`, a dedicated single template for the `project` custom post type. Previously `project` posts fell back to the generic `templates/single.html` used for blog posts, which had no eyebrow, CTA buttons, or meta row.
 - Added `patterns/template-work-single.php`, the Work Single main-content pattern: the new hero followed by `wp:post-content` rendered exactly as authored, so every existing case study's body (headings, columns, image/gallery blocks) keeps rendering unchanged.
 - Added `patterns/hero/work-single-hero.php`, the redesigned hero: breadcrumb trail, "Case Study" eyebrow, post title/excerpt, CTA buttons ("Talk to us about a similar project" + a "View site" button sourced from the `ls_plugin_portfolio_website` post meta), a three-column meta row (Software / Project Type / Services, from the existing `project-group` / `project-type` / `project-tag` taxonomies), and the post's featured image, bordered so it reads clearly against the page background regardless of the image's own colours.
 - Added `inc/work-single-hero.php`, a `render_block` filter that resolves the "View site" button's real URL (or removes the button) at actual render time. A pattern file's top-level PHP runs once at registration (`init`, no post context), so `get_post_meta( get_the_ID(), ... )` called directly in the pattern always returned empty — the button never appeared regardless of whether the post meta was set.
 - Added `src/scss/structural/work-single-hero.scss` (compiled to `assets/css/work-single-hero.css`, loaded only when `is_singular('project')` via the same conditional-bundle system as `work-hero`/`blog-hero`), for the meta row's mobile divider swap — see Changed below. No JSON block-supports equivalent exists for a divider that must be a vertical border on desktop and a horizontal one once columns stack.
-
-### Changed
-
-- Refined the metadata row's spacing and grouping, design-only — no taxonomy values, links, block bindings, or dynamic data changed: tightened the row's vertical padding and reduced the label-to-value gap to `spacing|10` (within the requested 12–16px range); added a 1px vertical divider between columns (reusing the existing `border.card` token) with consistent horizontal padding per column, while the first and last columns keep 0 padding on their outer edge so their content still aligns with the hero content above; gave every meta value (`wp:post-terms`) explicit, consistent typography (regular weight, `fontSize:200`) without touching their existing link colour; moved the featured image closer to the metadata row (margin-top `spacing|60` → `spacing|40`, matching the same reduction applied to the meta row's own top margin). On mobile (below WordPress core's own 782px `wp-block-columns` stacking breakpoint), the vertical dividers switch to horizontal dividers between the stacked blocks instead of an oddly full-height left border.
-
-### Fixed
-
-- Fixed the hero's title/excerpt/buttons/meta-row rendering narrower and centred instead of left-aligned with the breadcrumb: the inner wrapper group used `layout:"constrained"`, which restricts un-aligned children to content-width, while the breadcrumb block forced itself to `alignwide`. Removed the group's `layout` override entirely so all children fill the same wide width via the block's own default.
-- Increased the gap between the hero content and the featured-image panel from `spacing|60` to `spacing|80` for clearer visual separation.
-- Fixed the Site Editor throwing "This block has encountered an error and cannot be previewed" on the `single-project` template, caused by a `TypeError: Cannot read properties of undefined (reading 'getAlignments')`. Root cause: an intermediate fix for the alignment bug above used `layout:{"type":"flow"}` — `"flow"` is not a registered Gutenberg layout type (valid values are `default`, `constrained`, `flex`, `grid`), so resolving it returned `undefined` and calling `.getAlignments()` on that threw. Frontend rendering was never affected (block themes just ignore an unrecognised layout type there), but the pattern is unusable in the Site Editor until fixed. Removed the invalid `layout` attribute.
-- Fixed the breadcrumb, meta row, and CTA column using a 850px-fixed / flex-wrap layout combination untested elsewhere in this theme; reverted to the same `wp:columns`/`wp:column` shape (percentage widths) already proven throughout the codebase.
-- Fixed the "View site" button's meta key: initially wired to `lsx_project_url`, sourced from a different remote environment's plugin version. Confirmed via WP-CLI (`wp post meta list`) that this site's actual key is `ls_plugin_portfolio_website`.
-- Fixed the metadata row's two divided columns rendering a bold black box around all four sides instead of a subtle single-side divider. Their `style` only declared `border-left-*`; WordPress core's block-library CSS applies `border-style: solid` to every side once any border colour is set on a block (via `.has-border-color`), so the other three sides fell back to the browser's default border-width (`medium`, ~3px) and `currentColor` (black) — a real border, not a rendering glitch. Fixed by explicitly zeroing out the top/right/bottom sides (`width:0; style:none`) alongside the intended `border.card`-coloured 1px left divider, so nothing is left to a browser default.
-- Fixed the "View site" button's hover animation rendering the arrow icon on top of the button text instead of masking it. Two compounding causes: (1) an earlier attempt to lighten the icon well set `--ls-button-outline-accent-background: transparent` — that background is what visually covers the text as the icon slides from the button's right edge to its left edge on hover, not a decorative fill; (2) both hero buttons had custom, smaller `spacing.padding` overrides (an earlier "reduce button dominance" pass), but the outline button's hover slide uses fixed padding/positioning constants in `src/scss/animations/_button-motion.scss` calibrated for the theme's default button padding — shrinking the rest-state padding left the slide with less room than it needs, so the icon overlapped the text regardless of the well's background colour. Fixed by removing both hero buttons' padding overrides entirely, matching every other hero/CTA button in the theme (none of which override button padding) and letting the built-in hover animation work as designed.
-- Fixed case-study body content (`wp:post-content` in `patterns/template-work-single.php`) rendering capped at the theme's 800px `contentSize` instead of the 1370px `wideSize`, even though every section band inside a case study's own content already carries an `alignwide` class. Root cause: the `wp:post-content` block itself had no `align` attribute, so its own box was an unaligned child of `<main>` and rendered at 800px regardless of what alignment its children requested — a child can't be wider than its own parent's box. Added `"align":"wide"` to the block, matching how every other wide-content pattern in this theme is wired. No post content or per-post structure changes needed.
-
-### Notes
-
-- Only the hero is new design. The meta row deliberately reuses the three taxonomies that already exist on LIVE (`project-group`, `project-type`, `project-tag`) rather than introducing new fields like "Client Type" or "Platform" seen in the Figma reference — adding new taxonomies/meta would leave existing LIVE posts with blank data once this template ships.
-- The hero's featured-image panel renders the plain featured image with no caption/browser-chrome treatment — the Figma frame's caption chip is a design annotation, not real post content.
-- Drive Botswana's own post content (not a theme file — edited directly via WP-CLI/`wp_update_post`, same as the other post-content fixes above) needed several further passes: its mini-heading labels (e.g. "About Drive Botswana") were authored as plain paragraphs with `is-style-subheading-2`/`-3` classes that were never registered in this theme, so they rendered as unstyled text. Converted every instance to real `core/heading` blocks (`h3`/`h4`), which already get correct weight and size from the theme's existing heading styles — no new theme code needed. Also standardized every section's label-column width (`40%` → `30%`), removed each section's per-instance `wp:columns` `blockGap` override (falling back to the theme's own default, `spacing|50`), and gave each section equal top/bottom padding (`spacing|20`) for consistent vertical rhythm. Separately, several inner content groups had `"blockGap":"0"`, which WordPress renders as a hard `margin-block: 0px` reset on every child regardless of that child's own margin — changed to a real token (`spacing|10`) so WordPress's own flow-gap mechanism (margin-top on each subsequent sibling) produces a real gap between each label and the copy below it.
-
----
-
-## [Unreleased] — Build Single Blog template (LS-2932)
-
-### Added
-
 - Added `ls-theme/blog-single-hero` (`patterns/hero/blog-single-hero.php`): breadcrumb, dot-icon category eyebrow, `post-title`, `post-excerpt`, and a bordered author/date/read-time meta strip, all left-aligned and wide, then a full-wide featured image capped to a `21/9` aspect ratio. Adapted from the Work Single hero's structure, using existing semantic tokens only.
 - Added `inc/blog-single-related-query.php`: scopes the new "Related Reading" Query Loop to the current post's own category and excludes the post itself, resolved at render time via `query_loop_block_query_vars` (a pattern's own `wp:query` attributes can't express "the current post").
-
-### Changed
-
-- Rewired `template-single.php` (the Single Blog main-content pattern): hero → `post-content` (unchanged, default 800px width) → share row → wide "Related Reading" grid (reusing the existing `blog-post-card` pattern) → the existing `blog-writing-cta` pattern as the closing CTA.
-- Removed the shared `parts/breadcrumbs.html` template-part reference from `templates/single.html` — the hero pattern now renders its own breadcrumb, matching the Blog Archive hero's convention, avoiding a duplicate breadcrumb.
-
-### Docs
-
-- Added a "Core WordPress blocks first" rule to `AGENTS.md`, documenting the existing practice of preferring semantic core blocks (`post-title`, `post-excerpt`, `post-terms`, `query`/`post-template`, etc.) over generic `group`/`columns` markup.
-
----
-
-## [Unreleased] — Fix broken placeholder links and heading hierarchy skips (LS-2936, LS-2938)
-
-### Fixed
-
-- Fixed 25 `href="#"` placeholder links across `patterns/footer.php` (Services, Solutions, Systems, Company, Studio, and legal-bar columns), `patterns/header.php` ("Start a project →" CTA), and `patterns/sections/work-related-routes.php` (6 card links) — all now point to their real destination pages, verified against the live page list on ls-agency.lightspeedwp.dev.
-- Fixed a heading hierarchy skip (h1 straight to h3, no intermediate h2) caused by reusable patterns whose lead heading is hard-coded at `level: 3`, designed to sit under an existing h2 section heading but used standalone in several places. Promoted `patterns/cta/section-cta-consultation-inline.php` and `section-cta-consultation-strip.php` from h3 to h2. `patterns/thank-you-consultation.php` has its own embedded h1 and jumped straight to h3 card headings; converted its "While you wait" intro from a plain paragraph to a proper h2.
-
-### Notes
-
-- `section-card-feature.php`, `section-card-services.php`, and `section-card-solutions.php` were deliberately left at h3 — they're grid-card patterns correctly nested under an existing h2 section heading elsewhere (e.g. `work-related-routes.php`'s "Where to go next" h2), so changing them would have broken correctly structured pages.
-- A related `/contact-us/` 404 was also fixed as part of this work, but not in this repo: the link didn't exist anywhere in theme source — it was hardcoded directly in the content of two blog posts ("Tour Operator Websites: Promoting Experiences" and "Marketing your Tour Operator Business Online"), corrected on the live site to point to `/contact/` instead.
-
----
-
-## [Unreleased] — Fix footer overflow, logo switching, and uneven stat card heights (LS-2939)
-
-### Fixed
-
-- Fixed the footer's newsletter heading and paragraph overflowing horizontally at 320-380px viewports. `.ls-footer-notes-panel` is a vertical flex container with no explicit alignment set, so WordPress's default `align-items: flex-start` let the heading/paragraph size to their own unwrapped content width instead of the panel's actual available width. Added `"layout":{"selfStretch":"fill"}` (and the resulting `width:100%`) to both blocks in `patterns/footer.php` so they stretch to fit and wrap normally. The "LightSpeed notes" badge pill above them was left untouched since it's meant to hug its own content.
-- Fixed the footer logo not responding to light/dark mode. It used WordPress's core `wp:site-logo` block (a single static logo from Site Identity), unlike the header's `ls-theme/site-logo-switcher` pattern (a light/dark image pair toggled via existing global CSS in `_header.scss`). Swapped the footer to reference the same shared pattern already used by the header and mobile menu — no new CSS needed since the switching selectors aren't scoped to the header.
-- Fixed the footer's 3 stat cards (`.ls-footer-proof-card`) having visibly uneven heights when their text wrapped to a different number of lines. The columns they sit in already stretch to equal height by default, but each card's own background/border box only wrapped its own content. Added `height: 100%` to `.ls-footer-proof-card` in `src/scss/structural/_footer.scss` — a genuine JSON limitation, since `core/group`'s dimensions support only offers `minHeight`, not a "stretch to fill parent" key.
-
----
-
-## [Unreleased] — PageSpeed: Fix mobile performance on Homepage (LS-2922)
-
-### Fixed
-
-- Fixed the homepage loading every structural CSS bundle in the theme unconditionally (~20 files), regardless of whether the page actually used them — the root cause behind PageSpeed's "render-blocking requests" and "unused CSS" findings on mobile. `inc/animations.php` now gates most bundles behind a `condition` reflecting their real, verified usage (e.g. `is_front_page()`, `is_post_type_archive('project')`, `is_page_template('page-blog-archive')`) instead of loading everywhere.
-- Fixed several of those bundles being gated too narrowly at first: `work-project-card`, `work-archive-sections`, and `taxonomy-filter` are also used by patterns outside their assumed "home" template (e.g. homepage sections, the Blog archive's filter), not just the Work archive.
-- Fixed a `render_block`-based safety net for every pattern that's individually insertable via the block inserter (`Inserter: true`), since a template-only condition can't detect a pattern placed somewhere the condition doesn't anticipate. This uncovered and fixed a live bug: the mobile menu's two CTA buttons (`parts/mobile-menu.html`) were unstyled on every page except the homepage/Work archive/404, since template-part markup never appears in a page's own `post_content`.
-- Fixed missing `font-display: swap` on all 17 `fontFace` entries in `styles/presets/typography.json`, so text renders in a fallback font instead of staying invisible while a custom font loads.
-- Fixed the Featured Work card grid overlay being invisible in light mode: `work-project-card.scss` was tinting the grid lines from `--wp--custom--color--surface--highlight`, a token pinned to the same near-white value in both `theme.json` and `styles/dark.json` (unlike its sibling `canvas`, which correctly flips per mode). Switched to `--wp--custom--color--text--default`, which already adapts correctly, instead of changing the shared token — that token also drives the glass-card/glass-button sheen effect elsewhere and needs to stay light-colored in both modes.
-
-### Added
-
 - Added a `build:css:dev`/`build:css` split in `package.json`: `build:css` now outputs the compressed CSS that's actually committed and shipped; the old expanded output is preserved as `build:css:dev` for local debugging.
-
-### Notes
-
-- `card-shells`, `cta-buttons`, and `faq` are loaded unconditionally rather than through the `render_block` safety net — they have no head-time condition at all, so every use would otherwise flash unstyled (not just a rare off-template case). At ~10 KB/~5 KB/~3 KB compressed combined, that's a better trade than the FOUC/CLS risk.
-- `homepage-why-lightspeed` is a known, deliberate gap in the `render_block` safety net: its only defined CSS selector isn't present anywhere in the pattern's current markup (pre-existing, unrelated to this fix), so there's no reliable marker to detect yet.
-- Header search expand animation, JS minification, and the GSAP "legacy JavaScript" PageSpeed flag were investigated and deliberately left out of scope — see LS-2922 for reasoning.
-- Forced-reflow/long-task profiling and an LCP font preload hint were flagged by the original PageSpeed report but not implemented in this pass.
-
----
-
-## [Unreleased] — Sync mobile menu links with desktop mega menus (LS-2801)
-
-### Fixed
-
-- Fixed `parts/mobile-menu.html` still using the original placeholder titles and `href="#"` links across all 6 dropdowns (Work, Solutions, Services, Pricing, Insights, About) — these were never updated when the desktop mega menus were wired to real pages/posts. Every item now matches its desktop equivalent's label and real URL exactly.
-- Fixed the mobile menu's two footer action buttons ("Book a consultation" and "Start a project") both linking to `#` and pointing at the same destination as each other. "Start a project" is now the primary button, linking to `/free-consultation/` to match the desktop header's CTA; the secondary button now reads "Explore case studies" and links to `/work/`, reusing the same pairing already established on the homepage hero.
-
-### Notes
-
-- Confirmed mobile and desktop are otherwise in full parity — every link/label pair cross-checked programmatically. Desktop's secondary per-dropdown CTAs (e.g. "Book a free consultation" on Work, "Tell us about your project" on Pricing) were deliberately not added to mobile, since they'd duplicate the persistent "Start a project" button already visible at all times in the mobile menu.
-
----
-
-## [Unreleased] — Audit link cursor behaviour across theme patterns and templates (LS-2804)
-
-### Fixed
-
-- Fixed clickable cards across the theme where only a small inner link (e.g. "See the work →") had the pointer cursor / clickable hit area, not the whole card, despite hover styling implying the entire card was interactive. Applied the existing stretched-link technique (`::before`/`::after` with `inset:0` over a `position:relative` card, already used by `is-style-card-link-row`) to: `is-style-card-category` (Homepage "Where to start", "What we build", Work archive categories), `is-style-card-feature`, `is-style-card-solutions`, `is-style-card-package` (Homepage "Where to fit" packages), `is-style-card-case-study` (Work archive project cards, Homepage Featured Work), `is-style-card-post` (Blog All Articles), and `is-style-card-highlight-dark` (Blog Hero featured tile). Added a `:focus-visible` outline to each so keyboard users see where focus lands.
-- Fixed the same underlying issue on the mega-menu item rows (`is-style-mega-menu-item-default`, `is-style-mega-menu-item-service`) by adding a `:focus-visible` outline — the stretched-link hit area itself already existed via `src/scss/structural/_mega-menu.scss` from LS-2801, which this branch's own JSON-based stretched-link addition was found to duplicate during code review and was removed in favour of the existing SCSS implementation.
-- Fixed 10 icon SVGs in `patterns/footer.php` missing `fill="currentColor"`, plus a stale `iconColor`/`has-icon-color` class conflict on the availability badge icon — both caused "Block contains unexpected or invalid content" errors in the Site Editor.
-- Fixed a block validation error on the Work archive's "Ready to discuss a project?" CTA (`patterns/sections/work-discuss-project.php`): the columns wrapper had a hand-authored inline `--wp--style--block-gap` style that `core/columns`' actual save output never produces.
-
-### Notes
-
-- Every card audited has either exactly one link, or two links to the same destination (post title + "read more"/"view project"), so a single stretched link is safe everywhere it was applied — no card required per-link disambiguation.
-- `card-package.json` and `card-post.json` had no `css` field at all before this change; `card-case-study.json` had no `position: relative`. Added both from scratch where missing.
-
----
-
-## [Unreleased] — Build Homepage Where to Fit and Homepage CTA (LS-1616)
-
-### Added
-
 - Added `patterns/sections/homepage-where-to-fit.php`: eyebrow, heading, copy, and a 3-card package row (Foundation/Growth/Enterprise). The middle "Growth" card is pre-styled with its border/shadow as a permanent rest-state (it's the featured package, not literally hovered); the other two cards gain that border/shadow only on hover. All 3 lift slightly on hover and share an equal height regardless of content length.
 - Added `patterns/sections/homepage-cta.php`: the homepage's closing CTA, mirroring `blog-writing-cta.php`'s structure/max-width-cap convention — eyebrow, two-line heading, copy, two buttons ("Book a free consultation" reusing the existing `is-style-button-primary-on-dark`; "Send a brief first" a plain-bordered on-dark outline with no arrow), and a "What you'll leave with" definition-list panel on the right.
 - Added `src/scss/structural/where-to-fit.scss` (equal card height, hover border/shadow/lift motion) and `src/scss/structural/homepage-cta.scss` (max-width cap, decorative glow, panel label column width, arrow-reveal on the primary button, and neutralising `is-style-outline`'s built-in arrow-well for the one button that shouldn't have it) — all genuine `theme.json` limitations, documented inline.
 - Wired both into `templates/front-page.html`: Where to Fit after Featured Work, Homepage CTA as the final section before the footer.
-
-### Notes
-
-- No new colour tokens needed. Where to Fit flips normally with the style variation (`surface.card`/`border.card`/`text.brand`, same as other homepage card sections); Homepage CTA is permanently dark, reusing the exact `surface.band-start`/`band-end` gradient and `on-dark` token family already established by `blog-writing-cta.php` — confirmed this matches the "light mode still looks dark, dark mode is a lighter shade" behavior requested, since those tokens already resolve that way.
-- "Send a brief first" needed its pill shape from `is-style-outline` but not that style's built-in arrow icon — rather than edit the shared `is-style-outline`/`_button-motion.scss` (global, used site-wide, and touching it would have compiled into `animations.css`), the arrow/hover-reveal is neutralised via a scoped override in `homepage-cta.scss` targeting only this button's class. `animations.css` was not touched.
-- All CTA buttons across Where to Fit reuse the existing pill button styles (`is-style-button-secondary`/`-outline`) and the `ls-has-arrow-reveal` marker class already established for the other homepage sections, and flip with the style variation as requested.
-
-### Fixed
-
-- Fixed editor crashes on the Why LightSpeed, Featured Work, What We Build, and Where to Start sections (and the mobile menu part): `"layout":{"type":"flow"}` is not a registered Gutenberg layout type (the valid value is `"default"`) — the editor threw `Cannot read properties of undefined (reading 'getOrientation')` and the block failed to render.
-- Fixed a block validation "unexpected or invalid content" error on Where to Fit's featured "Growth" card — its shadow style pointed at a nonexistent theme.json preset (`var:preset|shadow|400`) instead of the real custom token (`var:custom|shadow|elevation|400`) already used in the rendered markup.
-- Fixed a block validation error on the homepage CTA's "Send a brief first" button — missing `has-custom-font-size` class caused by combining a named `fontSize` with a custom inline style on a `core/button`.
-
-### Changed
-
-- Rebuilt Featured Work's card row as a real `wp:query` Query Loop (`project` post type, 3 per page) filtered to the existing "Featured" `project-tag` term, replacing the 3 hand-written static cards. Editors control which case studies appear by tagging/untagging posts as "Featured" in the post editor — no code changes needed.
-- Tagged 3 real project posts ("Modernising African Safari Consultants' Website", "Novus Media", "Drive Botswana") with the "Featured" term so the section has real content on load.
-- Card markup is inlined directly inside the Post Template rather than referenced via `wp:pattern {"slug":...}` — a `wp:pattern` reference does not forward the Post Template's block context to nested dynamic blocks (`post-title`/`post-excerpt`/`post-terms`), so referencing it by slug rendered every card empty. Confirmed via live HTML inspection.
-- **Superseded the custom horizontal "list view" card entirely** (from the entry below) in favour of reusing the Work archive's existing `is-style-card-case-study` card in a 3-column grid (`wp:post-template {"layout":{"type":"grid","columnCount":3}}`), matching `work-selected-projects.php`'s convention — the custom card had no real per-post data for its stat row and looked sparse once the fabricated numbers were removed. `src/scss/structural/featured-work.scss` now only contains the equal-card-height fix (`.ls-featured-work-grid`, scoped so the Work archive's own grid is unaffected) — the old thumbnail-texture and flex-grow rules were removed as dead code.
-- Excerpt/title/tag-pill content is now genuinely dynamic per post (via `post-terms`/`post-title`/`post-excerpt`), not fabricated placeholder copy.
-
----
-
-## [Unreleased] — Build Homepage What We Build, Why LightSpeed, Featured Work (LS-1616)
-
-### Added
-
 - Added `patterns/sections/homepage-what-we-build.php`: eyebrow, heading, a 4-card row (WordPress platforms/WooCommerce/Design systems/Migrations) reusing the shared `is-style-card-category` shell, and an "All services" `core/button is-style-outline` CTA.
 - Added `patterns/sections/homepage-why-lightspeed.php`: two-column section with positioning copy + two `core/button` CTAs (filled + outline) on the left, a 5-item checklist card on the right.
 - Added `patterns/sections/homepage-featured-work.php`: a new horizontal "list view" case-study card (thumbnail, heading/description, 3-figure stat row, trailing arrow) — genuinely new, not reused from the existing vertical `is-style-card-case-study` Query Loop card.
 - Added `src/scss/structural/featured-work.scss` for the case-study card's flex-grow content column and the thumbnail's decorative diagonal-line texture, both genuine `theme.json` limitations (documented inline).
 - Wired all 3 new patterns into `templates/front-page.html`, after Where to Start.
 - Registered `featured-work.css` in `package.json`'s `build:css`/`watch:css` scripts, `inc/animations.php`'s effect-styles list, and `functions.php`'s editor styles, matching the existing per-pattern CSS convention.
-
-### Notes
-
-- No new colour tokens were needed — all colours map to existing `surface.card`/`border.card`/`text.brand`/`text.muted` tokens (already flip correctly between light/dark) or the established `color-mix()` convention for tinted badge backgrounds.
-- No new `is-style` variants were registered; `is-style-card-category` and `is-style-link-arrow-accent` are reused as already-established multi-use styles, per LS-2341.
-- All pill-shaped CTAs use the native `core/button` block (default fill + `is-style-outline`), both already registered/token-driven — no new button styling needed.
-- `assets/css/animations.css` was not touched.
-
----
-
-## [Unreleased] — Build Homepage Hero, Stats Bar, Where to Start (LS-1616)
-
-### Added
-
 - Rebuilt the Homepage Hero (`patterns/home-hero.php`) to match Figma: AI-planner intro, decorative prompt-input row, project-type suggestion pills, and a consultation link. Kept the existing GSAP network background system (`.ls-home-hero-section`) untouched and layered new content on top.
 - Added `patterns/section-stats-bar.php`, a 4-figure stat strip with vertical dividers, placed directly beneath the Hero.
 - Added `patterns/sections/homepage-where-to-start.php` ("Three honest routes into LightSpeed"), reusing the Work archive's `is-style-card-category` / `.ls-icon-well-brand` / `is-style-link-arrow-accent` styling so both pages now share one improved card treatment.
 - Wired all 3 new patterns into `templates/front-page.html`.
 - Added 4 new mode-invariant custom colour tokens for the Hero's translucent "glass" badges/borders, following the existing `on-dark` family convention (defined in `theme.json`, intentionally not overridden in `styles/dark.json`): `surface.glass`, `surface.glass-lighter`, `surface.glass-subtle`, `border.glass`.
 - Added scoped `ls-hero-badge-neon` / `ls-hero-prompt-row` / `ls-hero-pill` rules to `src/scss/structural/home-hero.scss` for the glass-panel styling with a `JSON limitation` comment (comma-separated background+border+box-shadow combination and hover-state background swap have no theme.json equivalent).
-
-### Notes
-
-- No new `is-style` variants were registered, per the LS-2341 cleanup (PR #24) — single-use Hero treatments use scoped `ls-*` classes; the Where to Start cards reuse the already multi-use `is-style-card-category`.
-- Hero prompt input is decorative only (no functional wiring) per current scope.
-- `assets/css/animations.css` was not touched.
-
----
-
-## [PR #26](https://github.com/lightspeedwp/ls-theme/pull/26) — Build Blog Archive page (Hero, All Articles, Engagement, Writing CTA) - 2026-08-19
-
-### Added
-
-- Built the Blog Archive template's 4 sections to match Figma (LS-1616): `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`, `patterns/sections/blog-writing-cta.php`, plus supporting card patterns (`blog-featured-article.php`, `blog-latest-item.php`, `blog-post-card.php`, `blog-code-snippet.php`).
-- Added a 9-slug `category.*` semantic colour token family (`theme.json`/`dark.json`), mapped to the existing `phase-*` token family by post-volume rank, replacing 5 placeholder categories that didn't match the real site taxonomy.
-- Added `text.on-dark-accent`, `surface.on-dark-accent-tint`, `icon.on-dark`, and `border.on-dark` tokens for the permanently-dark Hero and Writing CTA sections.
-- Added the `core/post-time-to-read` block to the Blog card patterns for per-post reading time in Query Loop cards.
-- Added a `Button - Primary On Dark` block style and a `Card - Post` section style for the archive's post grid.
-- Added a `search-pill.json` no-button search variant for the All Articles filter row.
-- Added horizontal-scroll behaviour for the taxonomy filter pills below 790px (`src/scss/structural/taxonomy-filter.scss`), now shared by both the Work and Blog archives.
-
-### Fixed
-
-- Fixed category badge and post-title text rendering black instead of the correct on-dark/on-light colour — caused by `elements.link` styles winning the cascade over inherited heading colour on `isLink` blocks (post-title, post-terms).
-- Fixed the category badge colour not swapping per post in the Query Loop — `elements.link` renders as one deduped, shared rule, not per-instance — replaced with a plain class + `color: inherit`.
-- Fixed long category names overflowing the post card edge.
-- Fixed the Writing CTA card's max-width and taxonomy-filter's mobile flex-wrap both silently no-op'ing against WordPress core's own `.alignwide`/`.wp-block-buttons` cascade.
-- Fixed the `ls-plugin/taxonomy-filter` block rendering an editor "invalid content" error due to a self-closing pattern comment.
-- Removed the Blog Archive template's top padding so the Hero sits flush against the header; kept bottom padding for consistent spacing above the footer.
-
-## [Unreleased]
-
-### Added
-
+- Built the Blog Archive template's 4 sections to match Figma (LS-1616): `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`, `patterns/sections/blog-writing-cta.php`, plus supporting card patterns (`blog-featured-article.php`, `blog-latest-item.php`, `blog-post-card.php`, `blog-code-snippet.php`). ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Added a 9-slug `category.*` semantic colour token family (`theme.json`/`dark.json`), mapped to the existing `phase-*` token family by post-volume rank, replacing 5 placeholder categories that didn't match the real site taxonomy. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Added `text.on-dark-accent`, `surface.on-dark-accent-tint`, `icon.on-dark`, and `border.on-dark` tokens for the permanently-dark Hero and Writing CTA sections. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Added the `core/post-time-to-read` block to the Blog card patterns for per-post reading time in Query Loop cards. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Added a `Button - Primary On Dark` block style and a `Card - Post` section style for the archive's post grid. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Added a `search-pill.json` no-button search variant for the All Articles filter row. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Added horizontal-scroll behaviour for the taxonomy filter pills below 790px (`src/scss/structural/taxonomy-filter.scss`), now shared by both the Work and Blog archives. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
 - Added 4 Work archive component patterns (LS-1616), each an individually insertable pattern built entirely from existing adaptive semantic tokens — no new `theme.json`/`dark.json` tokens were needed:
   - `patterns/cards/work-project-card.php` — a case-study card bound to real Portfolio post data via WordPress block bindings (LS-1617): `core/post-title`, `core/post-excerpt`, `core/post-terms` (badge bound to `project-group`, tag pills bound to `project-tag`), and `core/read-more` for the permalink. Intended as the Post Template content inside a Query Loop scoped to the `project` post type.
   - `patterns/cards/work-discuss-project-list.php` — a static checklist card reusing the existing `tick-accent` list style.
@@ -1382,9 +246,166 @@ See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
 - Added a Playwright end-to-end testing setup (LS-2335), matching the official `create-playwright` scaffold: `@playwright/test`, `dotenv`, and `@types/node` as dev dependencies, and `playwright.config.ts` configured for all 3 browser projects (Chromium, Firefox, WebKit) with `baseURL` read from a local, gitignored `.env` (`BASE_URL=`) so each developer points tests at their own environment — no CI wiring, run manually via `npx playwright test`. Added a real spec (`tests/specs/work-archive.spec.ts`) exercising all 6 generic assertion helpers from `tests/helpers/assertions.ts` (LS-2244) against the live Work Archive template — section order, category-card count/parts, hero link href, related-routes grid reflow at mobile, and stats-grid divider styling.
 - Added a standing, content-agnostic Playwright regression suite (LS-2335) under `tests/specs/standing/`, run manually against the staging site rather than any single template: `site-health`, `runtime-errors`, `network-errors`, `accessibility` (via `@axe-core/playwright`), `internal-links`, `responsive-overflow`, `media-integrity`, and `special-routes` (search + 404). Backed by a sitemap/REST/crawl URL-discovery fixture (`tests/helpers/site-urls.ts`) with a fetch timeout, crawl-path exclusions (`wp-admin`, `wp-login.php`, feeds), and a hard crawl-budget guardrail. All standing assertions use `expect.soft()` so every discovered URL is checked in full instead of stopping at the first failure.
 - Added a BugHerd reporter (`tests/reporters/bugherd-reporter.ts`) that auto-logs standing-suite failures as BugHerd tasks, scoped only to `tests/specs/standing/` — other specs never create tasks. Deduplicates by a stable `external_id` derived from the spec and a normalized failure signature (`tests/helpers/failure-signature.ts`), so the same underlying bug across many pages becomes one task instead of one per page, while genuinely distinct bugs (e.g. two different broken links) stay separate. Reads `BUGHERD_API_KEY`/`BUGHERD_PROJECT_ID` from `.env`.
+- Initial LightSpeed Theme repository setup.
+- Root theme files: `style.css`, `theme.json`, `functions.php`, `readme.txt`.
+- Block template: `templates/index.html`.
+- Block template parts: `parts/header.html`, `parts/footer.html`.
+- Style variations: `styles/light.json`, `styles/dark.json`.
+- Asset folders: `assets/fonts/`, `assets/icons/`, `assets/logos/`, `assets/images/`, `assets/css/`, `assets/js/`.
+- Validation and utility script: `theme-utils.mjs`.
+- Node-based tooling: `package.json`, `.lintstagedrc.json`, `.nvmrc`.
+- PHP tooling: `composer.json`.
+- GitHub config: `.editorconfig`, `.gitignore`, `.gitattributes`, `.coderabbit.yml`, `CODEOWNERS`.
+- AI guidance: `AGENTS.md`, `CLAUDE.md`.
+- GitHub Copilot instructions: `.github/copilot-instructions.md`, `.github/instructions/`.
+- GitHub prompts: `.github/prompts/`.
+- GitHub reports folder: `.github/reports/`.
+- GitHub tasks folder: `.github/tasks/`.
+- GitHub Actions workflows: `ci.yml`, `code-quality.yml`, `release.yml`.
+- Portable agent assets: `.agents/skills/`, `.agents/agents/`.
+- End-user documentation folder: `docs/`.
 
 ### Changed
 
+- `parts/about-mega-menu.html` and `parts/mobile-menu.html`: the Diversity row is removed from the About mega menu and from the About accordion in the mobile menu, because `/about/diversity/` is an empty page. The saved database copy of the About mega menu already hid it; with the theme file updated too, resetting that template no longer brings the link back. The About menus now list Our Story, Team, Careers, Our Culture and Our process. ([#187](https://github.com/lightspeedwp/ls-theme/pull/187))
+- `patterns/sections/homepage-what-we-build.php`: the WordPress, WooCommerce and Design System cards link to `/solutions/wordpress/`, `/solutions/woocommerce/` and `/solutions/design-systems/` instead of `/services/...`, which only worked through redirects. ([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+- `patterns/hero/hero-split-graphic-actions.php`: "View our Work" links to `/work/` instead of `/portfolio/`. ([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+- `templates/front-page.html`: the homepage patterns now sit inside a `<main>` landmark (the page had none), and `homepage-where-to-fit` is wrapped in a group with block visibility off, named so it can be found in the List View. The section stays hidden until the pricing pages are ready, even after the saved database template is reset. Delete the wrapper or switch the group to visible to bring it back. ([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+- `parts/work-mega-menu.html` and `parts/mobile-menu.html`: Drive Botswana, Slimmer met SARIE and xneelo are replaced by The Safari Partners, ATI Holidays and Southern Destinations, in the same positions, in both the desktop mega menu and the mobile Work accordion. Novus Media stays. The desktop cards carry new one-line descriptions. ([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+- `parts/work-mega-menu.html`, `src/scss/structural/_mega-menu.scss` and `assets/css/animations.css`: the Work mega menu shows each project's own logo (The Safari Partners, Novus Media, ATI Holidays and Southern Destinations, taken from the media library) in place of the folder-style icon. Each logo sits in a fixed-width, always-light tile (`.ls-mega-menu-logo`, using the existing `surface--highlight` token) because all four logos are drawn for light backgrounds, so they keep their brand colours and stay readable in both the light and the dark style. All case studies and Testimonials keep their icons, drawn dark, in the same tile so the titles line up. The six rows now sit in one two-column grid (`.ls-mega-menu-grid`) instead of two separate columns, with `grid-auto-rows: 1fr`, so every row is the same height and each pair lines up across and down; the title, description and arrow are top-aligned in every row. The mobile menu rows have no icons, so the mobile menu is unchanged. ([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+- `patterns/footer.php`: the footer's Work column lists the same three projects (The Safari Partners, ATI Holidays and Southern Destinations) instead of Drive Botswana, Slimmer met SARIE and xneelo, so it matches the Work menu. ([#185](https://github.com/lightspeedwp/ls-theme/pull/185))
+- `patterns/sections/split-header-profile-card-grid.php`, `patterns/sections/profile-card-group.php`, `patterns/sections/testimonial-featured-split.php`, `patterns/sections/logo-marquee.php` and `patterns/hero/hero-split-photo.php`: the team photos, client logos and hero photo were addressed with the full `https://ls-agency.lightspeedwp.dev/wp-content/uploads/` URL, so they would break once the DEV site is retired. Each pattern now builds the same image paths from `wp_get_upload_dir()['baseurl']`, so the images load from whichever site the theme runs on. The image files and their paths are unchanged, and the output is still escaped with `esc_url()`. ([#184](https://github.com/lightspeedwp/ls-theme/pull/184))
+- `patterns/template-archive.php` (category, tag, author and date listings): the Hero - Archive followed by a paginated 3-column grid of Card - Blog Post cards, the same cards as the Blog archive. It replaces the bare title and list of linked titles. ([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+- `patterns/template-taxonomy.php` (Industry, Project type, Service and Software listings): the Hero - Archive followed by a paginated 3-column grid of Card - Work Project cards, the same cards as the Work archive. Both listings keep the inherited query and show a short message when a term has no entries. Each carries a visually hidden H2 ("Articles" / "Case studies") before the grid so the heading order runs from the hero's H1 through the cards' H3 titles without skipping a level. ([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+- `templates/archive.html` and `templates/taxonomy.html`: no longer insert the shared breadcrumbs part, because the hero carries its own breadcrumb. ([#178](https://github.com/lightspeedwp/ls-theme/pull/178))
+- `patterns/sections/404-best-next-routes.php` and `patterns/sections/search-useful-destinations.php`: the Pricing, Website packages and FAQ cards are now Services, Our work and Blog, each with a matching icon. The search pattern's three inline SVG icons are now theme icon blocks, like the 404 pattern's. ([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+- `patterns/sections/related-routes-grid.php`: the default cards are Our process and Services instead of Pricing and Website packages. ([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+- `patterns/sections/work-related-routes.php`: the "Why LightSpeed" card is now "About LightSpeed" and links to `/about/`. ([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+- `patterns/footer.php`: the Pricing column and the "Why LightSpeed" link are removed, so the footer matches the live site. The nav grid now has five sections. ([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+- `patterns/sections/homepage-where-to-start.php` and `patterns/sections/homepage-why-lightspeed.php`: match the live homepage. The first card is "Our story" and links to `/about/history/`, "Read our story" links to `/about/history/`, "How to get started" links to `/getting-started-with-lightspeed/` and "What we commit to" links to `/about/ai-governance/`. The old `/why-lightspeed/`, `/get-started/` and `/commitments/` links pointed at pages that don't exist or are legacy. ([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+- `src/scss/structural/_footer.scss`: comment only, now lists the five footer nav sections. ([#177](https://github.com/lightspeedwp/ls-theme/pull/177))
+- `parts/mobile-menu.html`: the five accordion titles are plain text instead of links inside a `<summary>` (axe nested-interactive). The overview link already inside each panel ("See all work" and the others) is the way to the section page, so tapping a title now opens its panel. The unused `summary > a` rules are removed from `styles/blocks/details/mobile-menu-accordion.json`. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `tests/specs/mobile-menu.spec.ts`: leaves Pricing out of the accordion list while the Pricing menu is hidden, and replaces the known-issue test with a real check that no summary contains a link, with the axe scan running every rule. ([#175](https://github.com/lightspeedwp/ls-theme/pull/175))
+- `patterns/template-work-single.php` and `patterns/template-single.php` render the post content in the wide default layout, so imported layouts get their LIVE widths. ([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
+- `patterns/hero/work-single-hero.php`: the Work hero is now split, with the content on the left and the featured image on the right. The image is shown uncropped and never wider than its natural size. The hero sits in a full-width band on the `surface.card` token, with the Software, Project Type and Services row inside it. Columns with no terms are hidden and the dividers follow the visible ones. A post with no featured image gets a single full-width text column. The post-content block gap (16px for Work, 8px for Blog) is now set as `blockGap` on the `core/post-content` block in the templates. ([#165](https://github.com/lightspeedwp/ls-theme/pull/165))
+- `theme.json`: added `styles.elements.caption` with `color.text` set to the existing `text.muted` token. WordPress prints it after core's caption rule at equal specificity, so it wins. `text.muted` has real values in both modes (`neutral-700` light, `neutral-400` dark), so no `dark.json` change is needed. ([#166](https://github.com/lightspeedwp/ls-theme/pull/166))
+- `src/scss/structural/hero-split-form.scss` uses the shared mapping instead of its own copy. The compiled CSS is unchanged, so the contact hero form looks the same. ([#164](https://github.com/lightspeedwp/ls-theme/pull/164))
+- The consultation buttons in the CTA band patterns (`cta-dark-band-buttons`, `section-cta-consultation-band`, `-inline`, `-reassurance`, `-strip`, `section-cta-split-checklist`, `split-cta-check-card`, `split-cta-tile-band`) and the section patterns (`blog-writing-cta`, `homepage-cta`, `phase-support-focus`, `services-cta`, `work-discuss-project`) now open the Consultation popup instead of leaving the page, so Form 4 entries record the page the visitor was on. Each button keeps its link to `/free-consultation/` as a fallback if the popup or JavaScript fails. ([#162](https://github.com/lightspeedwp/ls-theme/pull/162))
+- The "Send a brief first" buttons in `homepage-cta` and `work-discuss-project` open the Website Brief popup and keep their `/contact/` link as the fallback. ([#162](https://github.com/lightspeedwp/ls-theme/pull/162))
+- The consultation buttons in the hero patterns (`hero-split-glance`, `hero-split-index-card`, `hero-split-proof`, `phase-hero`, `service-hero`, `services-hero`, `solutions-hero`, `work-hero`, `work-single-hero`), `home-hero-static`, `home-hero` (the inline link), `header` and `sections/phase-cta` now open the Consultation popup instead of leaving the page, so Form 4 entries record the page the visitor was on. Each button keeps its link to `/free-consultation/` as a fallback if the popup or JavaScript fails. ([#161](https://github.com/lightspeedwp/ls-theme/pull/161))
+- The "Request a discovery workshop" button in `sections/phase-cta` stays a plain link, because the popup form cannot carry the workshop type. ([#161](https://github.com/lightspeedwp/ls-theme/pull/161))
+- The success colour reads the `status.success` token, which has its own light and dark values. The card, list and button reuse the existing Card - Plain, Card - Service Tile and Tick Accent styles and the core Button, with no new SCSS. ([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
+- `styles/blocks/lists/tick-accent.json`: the tick now stays on the first line of a list item that wraps (`align-items: first baseline`), instead of sitting in the middle. This also applies to `work-discuss-project-list` and `section-card-services`. ([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
+- `.github/reports/`: added the 2026-10-23 DEV vs LIVE launch-readiness audit and the pre-launch to-do list. ([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
+- A closed card keeps its own height when its neighbour opens; an open card stretches to its row, so two open cards side by side match. ([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
+- Open cards use the neutral `border.card-strong` and `border.card` tokens instead of the cyan link accent, so thirteen open cards no longer read as a wall of blue. ([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
+- `.gitignore` now ignores `lefthook-local.yml` and `.lefthook-local.yml` for personal hook overrides. ([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+- The `engines.node` range in `package.json` is now `^20.19.0 || >=22.13.0` (was `>=20.0.0`), the range Stylelint 17 and `@wordpress/stylelint-config` support. ([#128](https://github.com/lightspeedwp/ls-theme/pull/128))
+- The About mega menu (`parts/about-mega-menu.html`) is now two columns of three links, built like the Work, Solutions, Pricing and Insights menus, with no category headings: Our Story, Team, Careers, Our Culture, Our process and Diversity. "Our process" (`/about/process/`) is added back, and Community & Events, Publishing & AI Ethics and Privacy & Terms are removed. ([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
+- The About accordion in the mobile menu (`parts/mobile-menu.html`) lists the same six links, plus "About LightSpeed". ([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
+- The team cards (`patterns/sections/split-header-profile-card-grid.php`) are rebuilt as an image, an identity group (bold name, smaller brand-coloured role) and a description group with a 1px divider. The initials circle is replaced by a 5:4 core Image block, populated with the team photos from the DEV media library, and the cards lift slightly, strengthen their border, show a soft shadow and zoom the photo on hover (`.ls-team-card` in `src/scss/structural/card-shells.scss`, with a reduced-motion companion). ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- The team profile dataset adds Tibi Buzdugan and updates the profile ordering, placing him after Lourens Visser and before Zared Rogers. ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- The "Start a project" CTA (`patterns/cta/split-cta-form-card.php`) reuses the Contact hero treatment: the intro stays in view while the form scrolls, and the Gravity Form takes the theme's colours, sizes and spacing. The Contact form stylesheet now also loads on the About page (`inc/animations.php`). ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- Light-mode `border.card-strong` is now `neutral-400` (was `neutral-300`, the same as `border.card`), so strong borders are visibly stronger; `work-project-card` is the only other consumer. ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- The About mega menu (`parts/about-mega-menu.html`) now follows the content doc: a "Get to know us" title and three columns with headings (Company, How We Work, Governance & Policies) linking to the About child pages. The old links (Why LightSpeed, Getting started, AI governance, Our process, Guarantees, Accessibility) are no longer in this menu. ([#117](https://github.com/lightspeedwp/ls-theme/pull/117))
+- The About panel is wider than the other mega menus: its wrapper is sized to its content and centred on the nav (`ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`). ([#117](https://github.com/lightspeedwp/ls-theme/pull/117))
+- All mega menu panels have more side padding: `Mega Menu Panel` left and right padding is now `spacing|40` (was `spacing|20`). ([#117](https://github.com/lightspeedwp/ls-theme/pull/117))
+- `patterns/hero/hero-split-form.php` (Hero - Split Form): both columns align to the top, the left column carries the `ls-hero-form-intro` class, the H1 uses size token `800` and the form card padding is `spacing|40`. Pages that already contain a copy of the hero keep their old settings until the hero is re-inserted. ([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
+- The Contact form (Gravity Forms) now follows the theme's tokens in light and dark mode: labels, descriptions, input text and borders, the Submit button and the required asterisk, all at the 16px size token. The field gap is tighter, the message box is shorter and the sub-labels are visually hidden (still available to screen readers). Validation error colours are unchanged. ([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
+- The left column stays in view on desktop while the taller form scrolls. ([#119](https://github.com/lightspeedwp/ls-theme/pull/119))
+- `Card - Link Row` padding is now `spacing|30` on all four sides (was `spacing|20`), set in `styles/sections/cards/card-link-row.json`, so every card that uses it is slightly roomier. The phase "Where to go next" cards keep their own padding. ([#114](https://github.com/lightspeedwp/ls-theme/pull/114))
+- The responsive-overflow spec now runs at 320, 360, 370, 375, 390, 768, 1024 and 1440px (360 and 370 are new) and also runs on the Mobile Chrome project. ([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
+- README testing section documents the check, its exclusions and how to run it on one page. ([#112](https://github.com/lightspeedwp/ls-theme/pull/112))
+- The Solutions case-study card is rebuilt: the copy and testimonial form the left column and the website preview is the right column, top-aligned and shown at its natural aspect ratio instead of a cropped portrait slice. On mobile the order is copy, preview, testimonial. ([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+- Spacing now follows one token rhythm (small, medium, large) set as `gap` on vertical flex groups, and every margin inside the card is zero. ([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+- The testimonial is a compact `surface.card` box with a small quote icon and no italics; the card border is softened and the preview no longer has its own shadow. ([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+- `inc/solutions-case-study-query.php` caps the card's service pills at four and shows `wordpress` / `woocommerce` as WordPress / WooCommerce. This changes the rendered HTML only; stored terms are untouched. ([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+- `src/scss/structural/solutions-case-study.scss` (compiled to `assets/css/solutions-case-study.css`) now holds the grid areas and browser-frame preview; the old thumbnail panel and mobile corner overrides are removed. ([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+- Pages that already have the pattern need it re-inserted to pick up the new layout. ([#108](https://github.com/lightspeedwp/ls-theme/pull/108))
+- The Solutions case-study card now features a project picked in the editor: select the Query block and choose it in the "Featured project" control in the sidebar. With none chosen it shows the latest project, so a Solutions page never renders an empty card. ([#107](https://github.com/lightspeedwp/ls-theme/pull/107))
+- `assets/js/solutions-case-study-editor.js` adds the control (plain script, no build step) and `inc/solutions-case-study-query.php` applies the choice on the front end. The page-slug and taxonomy lookup is removed. ([#107](https://github.com/lightspeedwp/ls-theme/pull/107))
+- Pages that already have the pattern need it re-inserted to get the control. ([#107](https://github.com/lightspeedwp/ls-theme/pull/107))
+- The service tiles stylesheet now also loads on the Solutions page, and the two new stylesheets are registered in the build scripts, the page-scoped loader and the editor styles. No new design tokens were added. ([#99](https://github.com/lightspeedwp/ls-theme/pull/99))
+- The "Services / Lifecycle" card in the Services hero is now a compact colour palette specimen: four rounded-square swatches (Periwinkle, Green, Aqua, Lime) each with a name and hex value, a `4 core colours` label, a dashed divider and a four-step shade/tint ramp per colour. The "14 / 14 tokens live" footer is removed (`patterns/hero/services-hero.php`, `src/scss/structural/services-hero.scss`). ([#86](https://github.com/lightspeedwp/ls-theme/pull/86))
+- Swatches use the fixed palette presets `brand-300` (Periwinkle), `accent-three-500` (Green), `cta-300` (Aqua), and `accent-three-400` (Lime), matching their printed hex values; tint ramps are derived with `color-mix()`, so no new tokens were added. ([#86](https://github.com/lightspeedwp/ls-theme/pull/86))
+- Swatches and tints are spacer blocks so the card renders cleanly in the block editor. Pages with a saved copy of the old hero need the hero re-inserted from the updated pattern to pick up the new card. ([#86](https://github.com/lightspeedwp/ls-theme/pull/86))
+- The BugHerd reporter now gives failures from device projects their own task, with a `device:` tag and a `Project:` line, instead of merging them into the desktop task. Desktop task ids are unchanged. ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- The README testing section now explains setup, which page vs which device, and the available projects and commands. ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- Mobile menu service rows now have more left padding (`spacing|20`), so the label no longer sits against the accent rail (`src/scss/structural/_mega-menu.scss`). ([#96](https://github.com/lightspeedwp/ls-theme/pull/96))
+- The mobile menu tint and rail now show while a row is pressed or keyboard-focused, instead of on hover, so touch devices no longer keep a tint after a tap. Hover still applies on devices that can hover. ([#96](https://github.com/lightspeedwp/ls-theme/pull/96))
+- Rows in the mobile Services accordion now press in their phase's own colour (tint, rail and link) via new `ls-phase-{phase}` classes in `parts/mobile-menu.html`, matching the desktop mega menu. The other dropdowns keep the neutral accent. ([#96](https://github.com/lightspeedwp/ls-theme/pull/96))
+- `patterns/footer.php`: the root group now uses a plain `constrained` layout with `align: wide` inner content and no root `blockGap`. Top and bottom padding and the legal bar's top margin and padding are all `spacing|80`, so the four edge gaps are equal; side padding stays `spacing|60`. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`: replaced per-link `margin-top` values with `blockGap` on groups and the brand column. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`: the footer nav now mirrors the header mega menus. Six sections (Services, Solutions, Work, Pricing, Insights, About) use the same labels and URLs as the header and sit in one `core/group` grid, three columns by two rows, so rows line up across columns. Below 781px the grid drops to two columns. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`: nav column labels are now `core/heading` (level 2) instead of paragraphs, with identical typography. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`: the social icons are now `core/social-links` with four `core/social-link` blocks (LinkedIn, GitHub, Facebook, Instagram) at 24px, in 44px circles. They are real links that open in a new tab. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`: all copy now uses `esc_html__()` with the `ls-theme` text domain, and the copyright year is dynamic. The brand name is now "LightSpeedWP.agency". ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`, `src/scss/structural/_footer.scss`: replaced `phase--create` with `text--brand` for the footer dots, hover, glow and top bar. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`: the "Available for selected projects" badge background uses the new `surface.success-tint` token instead of an inline `color-mix()`. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `patterns/footer.php`, `patterns/site-logo-switcher.php`: pattern descriptions now list the core-block fallbacks, and the logo pattern description correctly says it is shared by the footer and mobile menu. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `src/scss/animations/_footer-motion.scss`, `src/scss/structural/_footer.scss`: moved the footer layout and background rules out of the motion file, which now holds only motion rules, and added JSON-limitation comments. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `theme.json`, `src/scss/structural/_footer.scss`: the footer logo is 200px wide via the new `custom.layout.logo-width-footer` token. The header logo is unchanged at 150px. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- The Work archive cards now show each project's featured image in a bordered media wrapper (16:9, cropped to cover; the tinted-grid banner remains the fallback when there is no image). The platform label is two compact chips over the image, the duplicate body badge is gone, and the card uses a clearer image, title, excerpt, divider, tags, `View project →` order (`patterns/cards/work-project-card.php`, `src/scss/structural/work-project-card.scss`). ([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
+- Cards in a row are now the same height; titles clamp to two lines and excerpts to three with an ellipsis, and dividers stay level on cards with no tags. ([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
+- The Selected Projects and Discuss Project bands on the Work archive use the card surface token, and the Discuss Project band now spans the full width of the screen. ([#83](https://github.com/lightspeedwp/ls-theme/pull/83))
+- The Phase FAQ and Phase "Where to go next" styles now also apply on the 14 service pages, taking each service's parent phase colour. ([#82](https://github.com/lightspeedwp/ls-theme/pull/82))
+- The Tick Phase list style's layout, divider and spacing rules now live in `styles/blocks/lists/tick-phase.json`; only the tick marker remains in `src/scss/structural/tick-phase.scss`. ([#80](https://github.com/lightspeedwp/ls-theme/pull/80))
+- The `phase-hero`, `button-phase` and `phase-journey-nav` stylesheets now also load on the 14 service pages. The phase accent selector in `phase-journey-nav.scss` also matches the new body class; phase pages are unchanged. ([#79](https://github.com/lightspeedwp/ls-theme/pull/79))
+- `composer phpcs` and `composer phpcbf` now read `phpcs.xml.dist`. ([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
+- Replaced the `ls-theme/phase-services` dynamic block, which chose its "Services in this phase" cards from the current page slug, with six static patterns you can insert from the editor: `patterns/sections/phase-services-{discover,create,build,launch,grow,evolve}.php` (Section - Phase Services: Discover … Evolve). Each one holds its own phase's heading, service tiles and phase accent colour, so the content no longer depends on which page it's placed on. ([#76](https://github.com/lightspeedwp/ls-theme/pull/76))
+- `patterns/sections/phase-where-to-go-next.php`: narrowed the cards row into a `900px` centred container (previously full `align:wide`), tightened the gap between cards (`spacing|20` → `10`), increased the gap between the eyebrow and the cards (`spacing|30` → `40`), increased section bottom padding (`spacing|90` → `100`), reduced the card title to `fontSize:300` and the "Read more" CTA to the standard `fontSize:200` body token, and removed the `verticalAlignment:"top"` on the columns/column blocks so `core/columns`' default equal-height column stretch applies. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `src/scss/structural/phase-where-to-go-next.scss`: added a scoped override (`.ls-phase-where-to-go-next .is-style-card-link-row`) so each card fills its now-equal-height column (`height:100%`), which combined with the card's existing flex-column layout and the "Read more" link's existing `margin-top:auto` bottom-aligns both CTAs regardless of description length — no fixed heights, no CSS Grid rebuild needed. Also increased card padding (`spacing|20` → `30`), reduced the border radius (`border-radius|400` → `300`), and softened the border colour, scoped to this pattern only so the Work archive and Services page's use of the same shared Card - Link Row style is unaffected. The existing Discover phase accent colour is unchanged. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-faq.php`: increased section top padding (`spacing|90` → `100`) for more breathing room before the heading; widened the heading/intro/FAQ containers from `620px`/`880px` to a unified `780px` so the heading stays on one line at desktop without reducing its font size; changed the intro paragraph from centred to left-aligned and reduced its size from `fontSize:300` to the theme's standard `fontSize:200` body-copy token. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `src/scss/structural/phase-faq.scss`: added a scoped visual redesign of the shared `schema-faq` accordion for this pattern only (`.ls-phase-faq`) — larger corner radius (`border-radius|400`), a subtler rest-state border (colour-mixed down), tighter gap between rows (`spacing|10`), taller/vertically-centred rows (`spacing|50` vertical padding), and a circular plus/minus control (sized via `spacing|50`, tinted with the current phase accent) replacing the shared component's small rotated-chevron icon. Implemented as a scoped override so the homepage FAQ and any other consumer of `schema-faq` are unaffected. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- Fixed a CSS specificity bug in the same file where the shared component's open-state chevron rotation was still winning over the new plus/minus icon's transform, distorting it when a question was expanded. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-support-focus.php`: widened the eyebrow/heading wrapper from a fixed `620px` content width to the theme's existing wide alignment (`align:"wide"`, no custom `contentSize`) so "AI Readiness Assessment" stays on one line at desktop without changing the global H2 style, heading level, or inventing a new width token; added top margin above the eyebrow/heading group for more breathing room from the previous section. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-support-focus.php`: widened the column gutter between the body copy and focus-area card (`spacing|60` → `spacing|70`) so the section reads more balanced, matching the reference design. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-support-focus.php`: changed each focus-area row's vertical alignment from `top` to `center` so the hollow-circle bullet centres against its single-line list text instead of sitting high above it. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-support-focus.php`: reduced left-column body copy and focus-card heading/list typography from `fontSize:300` to `fontSize:200`, tightened line-height and paragraph spacing, and reduced the CTA's top margin — all using existing typography/spacing tokens. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `patterns/sections/phase-support-focus.php`: replaced the filled/tinted `lightspeed/dot` icon bullet with a simple hollow outlined circle (1px border, no fill, no icon) in the approved Discover accent colour, matching the reference's bullet style. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- `parts/mobile-menu.html`, `src/scss/structural/_mega-menu.scss`, `styles/blocks/groups/mega-menu-item-service.json`: converted the Work/Solutions/Pricing/Insights/About and Services mobile dropdown page-lists from 2-column to single-column layouts; decoupled each row's visual height from its tap-target size (rows read tighter while the actual tap area stays at the accessible ~44px minimum via an expanded stretched-link hit area); tightened spacing between links, between each heading and its first link, and between the last link and the "See all…" CTA, while keeping stronger separation between sections/phases; increased the "See all…" CTA font size to match page-link text and removed a redundant divider above it; reduced indentation under each Services phase heading. ([#58](https://github.com/lightspeedwp/ls-theme/pull/58))
+- `.coderabbit.yml`: corrected `auto_review.base_branches` to use the `feature/.*` and `fix/.*` regular expressions, so stacked PRs (based on a prior feature or fix branch rather than `main`/`develop`) trigger an automatic review. Enabled `auto_incremental_review`, `assess_linked_issues`, `related_issues`, `related_prs`, `path_filters`, `finishing_touches` (autofix/docstrings/unit_tests), `tools` (eslint/markdownlint/gitleaks/trufflehog), and `knowledge_base.code_guidelines` (pointed at `AGENTS.md`). Set `profile: assertive` and enabled `request_changes_workflow`. ([#57](https://github.com/lightspeedwp/ls-theme/pull/57))
+- Rebuilt `patterns/template-search.php`: hero → results query loop → useful destinations. Each result shows a category eyebrow (`core/post-terms`) above an `H2` title (`core/post-title`, `level:2` — the previous `level:3` skipped a heading level with no `H2` before it) and excerpt, plus a hairline divider (`border.card`) between items. Removed the query loop's unused `postType`/`search`/`exclude` args, which `inherit:true` was already ignoring in favor of the main search query — pages now correctly appear in results alongside posts, matching core behavior.
+- `styles/blocks/search/search-pill.json`: added explicit `text.default`/`text.subtle` colours for the input's typed text and placeholder. Neither this file nor `core-search.json` previously set a `color` on the input, so it fell back to the browser's black UA default — invisible against this pill's dark-mode `surface.card` background (only coincidentally legible in light mode). Fixes both consumers of this shared style (the Search hero and Blog All Articles' header search, which had the same latent bug).
+- No new colour tokens or font-size presets were needed — every value maps to an existing semantic token or preset, and every reused block style already carries dark-mode parity.
+- The results-list "eyebrow" shows the post's category term rather than a post-type label, since WordPress core has no block for rendering a post-type name and this site has no custom taxonomy resembling the Figma mock's placeholder labels (e.g. "Trust", "Commercial").
+- Verified against the dev site (`ls-agency.lightspeedwp.dev`, the theme's active environment there): the `category` taxonomy exists on `post` and matches local; all four destination links (`/faq/`, `/pricing/`, `/website-packages/`, `/contact/`) are published there. All links use `esc_url( home_url( '/slug/' ) )` — no hardcoded domains.
+- Replaced `outermost/icon-block` (third-party "Icon Block" plugin) with WordPress 7.1's native Core Icon block (`core/icon`) across the 3 Services page patterns — `patterns/hero/services-hero.php`, `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php` — referencing icons from the `lightspeed` collection registered in `ls-plugin`. Final batch of the Core Icon block migration (LS-3229). ([#50](https://github.com/lightspeedwp/ls-theme/pull/50))
+- Converted the PHP icon arrays in these files (per-service, per-cluster, per-step) from raw inline SVG to bare `lightspeed/{name}` slugs, and rewrote their loop templates to emit `core/icon` block markup dynamically per iteration, removing the now-unused raw-SVG helper variables. ([#50](https://github.com/lightspeedwp/ls-theme/pull/50))
+- Moved the `.is-style-mega-menu-item-default` icon hover/focus `color` rule from `src/scss/animations/_menu-motion.scss` to `src/scss/structural/_mega-menu.scss`, per code review: motion partials may only contain `transition`/`transform`/`animation`-family properties (AGENTS.md), so the non-motion colour swap now lives in the structural partial alongside the rest of that style's rules, while the animations file retains only the `transition` and its `prefers-reduced-motion` override.
+- Dark mode's equivalent button tokens (`cta-500`/`cta-400` against `contrast`) were checked for both the filled and outline styles and already pass comfortably (15.57:1 resting, 13.1:1 hover) — no dark-mode change needed.
+- The header's "Start a project →" gradient CTA (`ls-button-cta-gradient` in `patterns/header.php`) is unaffected — it uses its own custom gradient background, not `button.fill.background`.
+- Rebuilt `patterns/template-404.php` in place: large 404 numeral, not-found heading, supporting copy, and Homepage/Search CTAs, replacing the previous minimal search-field version.
+- Refined the metadata row's spacing and grouping, design-only — no taxonomy values, links, block bindings, or dynamic data changed: tightened the row's vertical padding and reduced the label-to-value gap to `spacing|10` (within the requested 12–16px range); added a 1px vertical divider between columns (reusing the existing `border.card` token) with consistent horizontal padding per column, while the first and last columns keep 0 padding on their outer edge so their content still aligns with the hero content above; gave every meta value (`wp:post-terms`) explicit, consistent typography (regular weight, `fontSize:200`) without touching their existing link colour; moved the featured image closer to the metadata row (margin-top `spacing|60` → `spacing|40`, matching the same reduction applied to the meta row's own top margin). On mobile (below WordPress core's own 782px `wp-block-columns` stacking breakpoint), the vertical dividers switch to horizontal dividers between the stacked blocks instead of an oddly full-height left border.
+- Only the hero is new design. The meta row deliberately reuses the three taxonomies that already exist on LIVE (`project-group`, `project-type`, `project-tag`) rather than introducing new fields like "Client Type" or "Platform" seen in the Figma reference — adding new taxonomies/meta would leave existing LIVE posts with blank data once this template ships.
+- The hero's featured-image panel renders the plain featured image with no caption/browser-chrome treatment — the Figma frame's caption chip is a design annotation, not real post content.
+- Drive Botswana's own post content (not a theme file — edited directly via WP-CLI/`wp_update_post`, same as the other post-content fixes above) needed several further passes: its mini-heading labels (e.g. "About Drive Botswana") were authored as plain paragraphs with `is-style-subheading-2`/`-3` classes that were never registered in this theme, so they rendered as unstyled text. Converted every instance to real `core/heading` blocks (`h3`/`h4`), which already get correct weight and size from the theme's existing heading styles — no new theme code needed. Also standardized every section's label-column width (`40%` → `30%`), removed each section's per-instance `wp:columns` `blockGap` override (falling back to the theme's own default, `spacing|50`), and gave each section equal top/bottom padding (`spacing|20`) for consistent vertical rhythm. Separately, several inner content groups had `"blockGap":"0"`, which WordPress renders as a hard `margin-block: 0px` reset on every child regardless of that child's own margin — changed to a real token (`spacing|10`) so WordPress's own flow-gap mechanism (margin-top on each subsequent sibling) produces a real gap between each label and the copy below it.
+- Rewired `template-single.php` (the Single Blog main-content pattern): hero → `post-content` (unchanged, default 800px width) → share row → wide "Related Reading" grid (reusing the existing `blog-post-card` pattern) → the existing `blog-writing-cta` pattern as the closing CTA.
+- Removed the shared `parts/breadcrumbs.html` template-part reference from `templates/single.html` — the hero pattern now renders its own breadcrumb, matching the Blog Archive hero's convention, avoiding a duplicate breadcrumb.
+- `section-card-feature.php`, `section-card-services.php`, and `section-card-solutions.php` were deliberately left at h3 — they're grid-card patterns correctly nested under an existing h2 section heading elsewhere (e.g. `work-related-routes.php`'s "Where to go next" h2), so changing them would have broken correctly structured pages.
+- A related `/contact-us/` 404 was also fixed as part of this work, but not in this repo: the link didn't exist anywhere in theme source — it was hardcoded directly in the content of two blog posts ("Tour Operator Websites: Promoting Experiences" and "Marketing your Tour Operator Business Online"), corrected on the live site to point to `/contact/` instead.
+- `card-shells`, `cta-buttons`, and `faq` are loaded unconditionally rather than through the `render_block` safety net — they have no head-time condition at all, so every use would otherwise flash unstyled (not just a rare off-template case). At ~10 KB/~5 KB/~3 KB compressed combined, that's a better trade than the FOUC/CLS risk.
+- `homepage-why-lightspeed` is a known, deliberate gap in the `render_block` safety net: its only defined CSS selector isn't present anywhere in the pattern's current markup (pre-existing, unrelated to this fix), so there's no reliable marker to detect yet.
+- Header search expand animation, JS minification, and the GSAP "legacy JavaScript" PageSpeed flag were investigated and deliberately left out of scope — see LS-2922 for reasoning.
+- Forced-reflow/long-task profiling and an LCP font preload hint were flagged by the original PageSpeed report but not implemented in this pass.
+- Confirmed mobile and desktop are otherwise in full parity — every link/label pair cross-checked programmatically. Desktop's secondary per-dropdown CTAs (e.g. "Book a free consultation" on Work, "Tell us about your project" on Pricing) were deliberately not added to mobile, since they'd duplicate the persistent "Start a project" button already visible at all times in the mobile menu.
+- Every card audited has either exactly one link, or two links to the same destination (post title + "read more"/"view project"), so a single stretched link is safe everywhere it was applied — no card required per-link disambiguation.
+- `card-package.json` and `card-post.json` had no `css` field at all before this change; `card-case-study.json` had no `position: relative`. Added both from scratch where missing.
+- No new colour tokens needed. Where to Fit flips normally with the style variation (`surface.card`/`border.card`/`text.brand`, same as other homepage card sections); Homepage CTA is permanently dark, reusing the exact `surface.band-start`/`band-end` gradient and `on-dark` token family already established by `blog-writing-cta.php` — confirmed this matches the "light mode still looks dark, dark mode is a lighter shade" behavior requested, since those tokens already resolve that way.
+- "Send a brief first" needed its pill shape from `is-style-outline` but not that style's built-in arrow icon — rather than edit the shared `is-style-outline`/`_button-motion.scss` (global, used site-wide, and touching it would have compiled into `animations.css`), the arrow/hover-reveal is neutralised via a scoped override in `homepage-cta.scss` targeting only this button's class. `animations.css` was not touched.
+- All CTA buttons across Where to Fit reuse the existing pill button styles (`is-style-button-secondary`/`-outline`) and the `ls-has-arrow-reveal` marker class already established for the other homepage sections, and flip with the style variation as requested.
+- Rebuilt Featured Work's card row as a real `wp:query` Query Loop (`project` post type, 3 per page) filtered to the existing "Featured" `project-tag` term, replacing the 3 hand-written static cards. Editors control which case studies appear by tagging/untagging posts as "Featured" in the post editor — no code changes needed.
+- Tagged 3 real project posts ("Modernising African Safari Consultants' Website", "Novus Media", "Drive Botswana") with the "Featured" term so the section has real content on load.
+- Card markup is inlined directly inside the Post Template rather than referenced via `wp:pattern {"slug":...}` — a `wp:pattern` reference does not forward the Post Template's block context to nested dynamic blocks (`post-title`/`post-excerpt`/`post-terms`), so referencing it by slug rendered every card empty. Confirmed via live HTML inspection.
+- **Superseded the custom horizontal "list view" card entirely** (from the entry below) in favour of reusing the Work archive's existing `is-style-card-case-study` card in a 3-column grid (`wp:post-template {"layout":{"type":"grid","columnCount":3}}`), matching `work-selected-projects.php`'s convention — the custom card had no real per-post data for its stat row and looked sparse once the fabricated numbers were removed. `src/scss/structural/featured-work.scss` now only contains the equal-card-height fix (`.ls-featured-work-grid`, scoped so the Work archive's own grid is unaffected) — the old thumbnail-texture and flex-grow rules were removed as dead code.
+- Excerpt/title/tag-pill content is now genuinely dynamic per post (via `post-terms`/`post-title`/`post-excerpt`), not fabricated placeholder copy.
+- No new colour tokens were needed — all colours map to existing `surface.card`/`border.card`/`text.brand`/`text.muted` tokens (already flip correctly between light/dark) or the established `color-mix()` convention for tinted badge backgrounds.
+- No new `is-style` variants were registered; `is-style-card-category` and `is-style-link-arrow-accent` are reused as already-established multi-use styles, per LS-2341.
+- All pill-shaped CTAs use the native `core/button` block (default fill + `is-style-outline`), both already registered/token-driven — no new button styling needed.
+- `assets/css/animations.css` was not touched.
+- No new `is-style` variants were registered, per the LS-2341 cleanup (PR #24) — single-use Hero treatments use scoped `ls-*` classes; the Where to Start cards reuse the already multi-use `is-style-card-category`.
+- Hero prompt input is decorative only (no functional wiring) per current scope.
+- `assets/css/animations.css` was not touched.
 - Moved the majority of `assets/css/animations.css`'s structural (non-motion) CSS into `theme.json`/`styles/**` JSON block-style partials across buttons, cards, footer, header, mega menu, mobile menu, details/accordion, and links — leaving only real motion (transitions, transforms, `@keyframes`) and a small set of confirmed WordPress/JSON limitations (no `:hover`/`:focus` generation for arbitrary style variations, `@media`/`@supports` stripped from the `styles/**.json` `css` field, content referencing Sass variables) in Sass. `assets/css/animations.css` dropped from 2,003 to 1,444 lines (LS-2340).
 - Eliminated 3 of 5 files under `src/scss/abstracts/mixins/` (`_mq.scss`, `_breakpoints-theme.scss`, `_glass.scss`) by inlining every remaining call-site as literal CSS; `_motion.scss` and `_surface.scss` remain only because the dead `gsap/_card-spotlight.scss` (tracked for removal on LS-2341) still references them. Removed the now-unneeded `sync:breakpoints` npm script and its `theme-utils.mjs` implementation.
 - Consolidated 3 groups of byte-identical (or near-identical) hover/motion rules that had been duplicated once per consuming file — a shared circular icon-button hover contract (header search button, mobile-menu close button, footer proof-card, footer social-icon), a shared mega-menu-item row hover contract, and a shared frosted-glass `@supports` blur block — into one new partial, `src/scss/animations/_shared-hover.scss`.
@@ -1433,10 +454,17 @@ See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
 - Updated `README.md`, `AGENTS.md`, and `.github/copilot-instructions.md` to reflect the real theme repo rather than a starter template.
 - Updated theme prompts and instructions to require semantic custom colour tokens, matching `styles/dark.json` token paths, and WCAG AA contrast checks for new colour work.
 
-### Deprecated
-
 ### Removed
 
+- `patterns/sections/logo-strip.php` (Section - Logo Strip) and its rules in `testimonial-cards.scss`: replaced by the marquee, which falls back to a static row by itself. ([#174](https://github.com/lightspeedwp/ls-theme/pull/174))
+- `src/scss/structural/image-captions.scss`, `assets/css/image-captions.css`, its `build:css` entries, its `inc/animations.php` enqueue entry, and its `add_editor_style()` line in `functions.php`. The JSON rule replaces them (AGENTS.md Theme-First Approach), and the SCSS used the fixed `on-dark-muted` token, which would have been wrong in light mode. ([#166](https://github.com/lightspeedwp/ls-theme/pull/166))
+- The Pricing menu is hidden until the pricing pages are ready. `inc/header.php` drops the Pricing mega menu from the header navigation (it lives in the database navigation post, so a filter avoids a manual edit on every site), and the Pricing accordion is removed from `parts/mobile-menu.html`. The `pricing-mega-menu` template part and the pricing pages are untouched; delete `ls_theme_hide_pricing_mega_menu()` and its `add_filter( 'render_block', 'ls_theme_hide_pricing_mega_menu', 10, 2 )` call in `inc/header.php`, and restore the accordion to bring the menu back. ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+- `patterns/thank-you-consultation.php`: replaced by the new pattern. It had a hardcoded "Free consultation" breadcrumb, consultation-only copy, unused `ls-thank-you*` classes and a `core/separator` that the editor flagged as invalid content. ([#159](https://github.com/lightspeedwp/ls-theme/pull/159))
+- The stale note in `navigation.spec.ts` saying the mobile menu links were `href="#"` placeholders. ([#97](https://github.com/lightspeedwp/ls-theme/pull/97))
+- The "LightSpeed notes" panel and heading from the footer, along with the `footer-notes` shadow preset (`styles/presets/shadows.json`), the `custom.shadow.footer.notes` tokens in `theme.json` and `styles/dark.json`, and the `.footer-notes-badge` CSS. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- The Systems, Company and Studio footer sections, and the placeholder links Memberships, Partnerships, Cape Town studio and the duplicate Support. The LSX Design System is now linked from Insights, matching the header. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- `inc/phase-page-redirects.php` and its `require` in `functions.php`. The six bare phase-slug redirects (`/discover/`, `/create/`, `/build/`, `/launch/`, `/grow/`, `/evolve/` to `/services/{phase}/`) now live in Tools > Redirection as 301 rules, so they no longer depend on the theme. No theme links used the bare slugs. ([#85](https://github.com/lightspeedwp/ls-theme/pull/85))
+- `blocks/phase-services/`, `inc/blocks.php` (and its `require` in `functions.php`), and `patterns/sections/phase-services-in-phase.php`, the wrapper pattern that only contained the block. ([#76](https://github.com/lightspeedwp/ls-theme/pull/76))
 - Removed ~30 single-use "fake" `is-style` block-style variants that cluttered the block editor's style picker with options that were never a real second editorial choice (LS-2341): folded each into its one consumer pattern as real inline block attributes, or as scoped plain-classname CSS under the new `src/scss/structural/` directory where JSON block-supports genuinely can't express the rule (nested selectors, custom-property recipes, layered gradients). Converted `badge-brand`/`badge-woocommerce` and `card-banner-tint`/`card-banner-tint-woocommerce` from registered is-styles into plain classes swapped programmatically by `inc/portfolio-card-colors.php`, since they were a taxonomy-driven state flag, not an editorial choice. Deleted 6 fully dead, zero-consumer style files found during the audit, plus the single-use button (`button-cta-gradient`, `glass-button`, `button-glow-accent`), heading (`gradient-accent`, `shadow-heading-base`, `shadow-heading-contrast`), and paragraph/link (`footer-nav-link`, `link-underline-accent`) variants found in those same families. Left only the genuinely multi-consumer variants within icon-well, buttons, headings, and paragraph/link (e.g. `link-arrow-accent`, `button-arrow-compact`, `button-secondary`) registered as-is.
 - Removed stale compiled CSS and source-map artefacts from `src/scss/` so `assets/css/` remains the only runtime stylesheet output tree.
 - Removed the experimental vanilla JavaScript spotlight card implementation pending GSAP evaluation.
@@ -1447,6 +475,99 @@ See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
 
 ### Fixed
 
+- Image captions in imported classic content (plain `<figcaption>` inside `.wp-block-image`) rendered WordPress core's `#555555` on the dark canvas, a 2.68:1 contrast ratio. The earlier SCSS rule from LS-2934 could not override it: core's `:root :where(.wp-block-image figcaption)` has higher specificity than a bare `figcaption`. Eight captions on `/lightspeed-remote-workspaces-2016/` still failed the standing-suite axe check. ([#166](https://github.com/lightspeedwp/ls-theme/pull/166))
+- The gap between the header and the breadcrumb on the remaining heroes was too large: 64px on `hero-centered-gradient-title`, `page-hero` and the `thank-you-confirmation` section (`spacing|100`), 56px on `search-hero`, `services-hero` and `solutions-hero` (`spacing|90`), and 37px on `phase-hero` and `service-hero` (`spacing|60`). Their outer section's top padding is now `spacing|40` (26px), the same value used on the blog hero and in batch 1, so every hero with a breadcrumb now matches. The breadcrumb is the first element in each, so the whole hero moves up by the same amount. ([#170](https://github.com/lightspeedwp/ls-theme/pull/170))
+- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated. ([#170](https://github.com/lightspeedwp/ls-theme/pull/170))
+- The gap between the header and the breadcrumb on the heroes that used `spacing|80` (48px) was too large. Their outer section's top padding is now `spacing|40` (26px), the same value trialled on the blog hero. Patterns: `hero-lede-actions-ticks`, `hero-split-form`, `hero-split-glance-support`, `hero-split-glance`, `hero-split-index-card`, `hero-split-photo`, `hero-split-proof`, `blog-single-hero`, `work-hero` and `work-single-hero`. The breadcrumb is the first element in each, so the whole hero moves up by the same amount. ([#168](https://github.com/lightspeedwp/ls-theme/pull/168))
+- Pages built from these patterns hold their own copy of the hero in the database, so they only change once their saved markup is updated. The remaining heroes (spacing 90, 100 and 60) follow in batch 2. ([#168](https://github.com/lightspeedwp/ls-theme/pull/168))
+- `src/scss/structural/_mega-menu.scss`: every Ollie mega-menu panel now opens from the same point, the centre of the header. Work and Solutions opened about 100px further right than the other menus because they lack the plugin's `menu-justified-center` option, and none of them were centred on the screen because the plugin positions a panel against the off-centre navigation list. On desktop (1024px and up) the panels now resolve against the header and use the plugin's own centred offset. The mobile menu uses accordions, not panels, so it needed no change. ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+- `patterns/header.php`: the logo and the buttons on the right lined up with the content only on small screens. On wide screens they stayed 64px from the screen edges while the content stopped at the wide size. The header row is now wide-aligned inside a constrained header, with the same side padding as the page sections, so it lines up with the content at every width. ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+- `patterns/hero/blog-hero.php`, `patterns/sections/blog-all-articles.php`, `patterns/sections/blog-engagement.php`: set `margin-top: 0` (as the other hero patterns do) so the hero and the two bands that follow it no longer leave a 20px gap from the root block gap. The Writing CTA card is unchanged. ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+- `patterns/hero/blog-hero.php`: the hero's top padding goes from spacing 80 to spacing 40, so the breadcrumb sits 26px below the header instead of 48px. This is a trial of the value before the other heroes are changed in batches. ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+- `patterns/header.php`, `patterns/site-logo-switcher.php`: the light and dark logo images showed "Block contains unexpected or invalid content" in the editor, in the header and (through the shared pattern) the footer and mobile menu. The `<img>` tags carried `width="419" height="90"`, but core/image's save() never writes those as attributes, so the editor rebuilt the image without them and saw a mismatch. The attributes are removed from the markup, and the ratio now lives on the block as `aspectRatio: 419/90` (with the matching inline `aspect-ratio` style on the `<img>`), so the space is still reserved before the SVG loads and there is no layout shift. ([#167](https://github.com/lightspeedwp/ls-theme/pull/167))
+- The standing accessibility scan (`tests/helpers/accessibility.ts`) now waits for in-flight transitions and finite animations before running axe, which read the half-transparent text of the scroll-reveal timeline mid-fade and failed intermittently. ([#133](https://github.com/lightspeedwp/ls-theme/pull/133))
+- The Homepage CTA's secondary button (`.ls-homepage-cta-outline`) no longer shows the shared outline arrow box, which clipped longer labels. Its no-arrow rule had the same specificity as the shared rule, so whichever stylesheet loaded last won; it is now scoped under `.ls-homepage-cta`. This also corrects the homepage "Send a brief first" button. ([#132](https://github.com/lightspeedwp/ls-theme/pull/132))
+- The About-only width rule (`.ls-mega-menu-panel-about` in `src/scss/structural/_mega-menu.scss`), which added `left: 50%` and a centring transform on top of the plugin's own placement, is removed so the About panel is the standard 800px width and is placed like the other menus. DEV validation of the placement is pending. ([#130](https://github.com/lightspeedwp/ls-theme/pull/130))
+- The hero "Explore our process" button and the Process card in Link Card Row now go to `/about/process/`; `/about/our-process/` does not exist on DEV and returned 404. ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- "What we ship" (`patterns/sections/stat-icon-cards.php`) left-aligns its eyebrow, heading and paragraph like the other About sections. ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- The team member "Jose" is now "José Abreu". ([#129](https://github.com/lightspeedwp/ls-theme/pull/129))
+- The header's centred mega menu panel no longer causes a small horizontal scroll at about 1024px wide. `.site-header` now clips overflow on the horizontal axis only (`src/scss/structural/_mega-menu.scss`, compiled to `assets/css/animations.css`). At that width the panel's right edge reached 1027px against a 1024px viewport, so the clip removes only the last 3px, which already sat past the viewport edge. Vertical overflow is unaffected. ([#121](https://github.com/lightspeedwp/ls-theme/pull/121))
+- Mega menu dropdowns no longer show square corners behind the rounded panel: the plugin wrapper that clipped the panel's shadow to a square now has the panel's radius. ([#117](https://github.com/lightspeedwp/ls-theme/pull/117))
+- Buttons no longer spill out of their container on narrow phones. An opt-in `ls-buttons-wrap` class (in `corner-glow.scss`) lets the button row shrink and its text wrap; it is applied to the Free Consultation CTA, Split CTA check card, Services hero, Home hero static, Homepage CTA, Homepage Why LightSpeed and Phase CTA. Pages that already contain a copy of those patterns need the pattern re-inserted. ([#109](https://github.com/lightspeedwp/ls-theme/pull/109))
+- The left-aligned stats row no longer overflows horizontally at phone widths; it becomes a single column below 600px. ([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+- The checklist card rows now use padding only, so the space above and below every divider is equal. ([#105](https://github.com/lightspeedwp/ls-theme/pull/105))
+- The "Most chosen" badge on the homepage Growth package card now uses the `text.brand-strong` token for its text instead of `text.brand`, so it meets WCAG 2.2 AA contrast. It was 4.16:1 in light mode against the required 4.5:1; it is now about 7.66:1 in light mode and 10.6:1 in dark mode. The badge background is unchanged (`patterns/sections/homepage-where-to-fit.php`). ([#102](https://github.com/lightspeedwp/ls-theme/pull/102))
+- The footer social icons were not links and could not be reached by keyboard. ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- The availability badge text failed WCAG AA contrast in light mode (2.43:1). ([#84](https://github.com/lightspeedwp/ls-theme/pull/84))
+- Phase buttons and journey-nav links on the Create, Build, Launch, Grow and Evolve pages now meet WCAG 2.2 AA contrast on the dark phase hero. Added `custom.color.phase.{create,build,launch,grow,evolve}-on-dark` (bright phase presets, matching `discover-on-dark`) to `theme.json` and `styles/dark.json`; no pattern changes were needed. ([#77](https://github.com/lightspeedwp/ls-theme/pull/77))
+- The phase headings in the Services mega menu and the mobile menu now link to their own phase pages (`/services/{discover,create,build,launch,grow,evolve}/`) instead of `/services/`. The mobile menu headings were previously plain text. ([#77](https://github.com/lightspeedwp/ls-theme/pull/77))
+- Tiles in the "Services in this phase" sections are now the same height within a row, and descriptions are clamped to three lines with an ellipsis (`src/scss/structural/phase-services-in-phase.scss`, BugHerd #267). ([#77](https://github.com/lightspeedwp/ls-theme/pull/77))
+- `npm run theme:validate` no longer requires `styles/light.json`, which was intentionally removed. `README.md` and `AGENTS.md` now list only `styles/dark.json`. ([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
+- `inc/phase-page-redirects.php` now checks, unslashes and sanitizes `REQUEST_URI` before matching bare phase slugs. ([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
+- PHPCS formatting findings in `functions.php`, `inc/gsap.php` and `patterns/sections/services-service-clusters.php`. ([#78](https://github.com/lightspeedwp/ls-theme/pull/78))
+- Accent colour (eyebrows, numbers, icons, bullets, borders) in the phase section patterns no longer stays hardcoded to Discover's green on the other five phase pages. Added a light-surface `--ls-phase-accent` custom property (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class alongside `--ls-phase-accent-on-dark`. `phase-introduction.php` and `phase-delivery-numbers.php` now use it directly, and `phase-common-services.php`, `phase-support-focus.php`, `phase-deliverables-and-role.php` and `phase-where-to-go-next.php` point their `$ls_phase_accent` variable at it. `phase-cta.php` (permanently dark) now uses `--ls-phase-accent-on-dark` for its checklist bullet. ([#73](https://github.com/lightspeedwp/ls-theme/pull/73))
+- Phase page colour (hero buttons, breadcrumb "current page" text) no longer goes black/white when a phase section's pattern is flattened by the block editor, and no longer stays hardcoded to Discover's green on the other five phase pages. Added `--ls-phase-accent`/`--ls-phase-accent-on-dark` custom properties (`src/scss/structural/phase-journey-nav.scss`), set per phase via the existing `page-slug-{phase}` body class, so colour is resolved by CSS on every request instead of being computed in PHP or baked into a pattern's stored content. `styles/blocks/buttons/button-phase-primary.json`, `button-phase-outline.json`, `src/scss/structural/button-phase.scss`, and `src/scss/structural/phase-hero.scss` were hardwired directly to Discover's token — swapped all four to the new shared property. ([#72](https://github.com/lightspeedwp/ls-theme/pull/72))
+- `patterns/sections/phase-services-in-phase.php` selected its "Services in this phase" cards via `get_queried_object()` inside the pattern's own PHP, which only re-evaluates while the pattern stays a live `wp:pattern` reference, falling back to Discover's services once flattened. Moved that selection into a new `ls-theme/phase-services` dynamic block (`blocks/phase-services/`), which resolves the current phase from block context at real render time and isn't affected by pattern flattening. ([#72](https://github.com/lightspeedwp/ls-theme/pull/72))
+- `src/scss/structural/faq.scss`: the shared `schema-faq` accordion's closed-row collapse used `grid-template-rows: 0fr` → `1fr`, which does not actually resolve to zero on this element — it is both the grid container and, via its own anonymous content box, the only grid item, so the browser's intrinsic-sizing pass for an auto-height container falls back to the answer text's own content height regardless of the `0fr` value (confirmed via computed styles; `min-height: 0` did not change it either). This left a large empty gap below every closed question. Replaced with a `max-height: 0` → `1000px` collapse, a more reliable technique for this exact shape. Root-caused and fixed in the shared component (not scoped to `.ls-phase-faq`) since it affects every consumer of `section-faq.php`'s accordion, not just this pattern. ([#64](https://github.com/lightspeedwp/ls-theme/pull/64))
+- Load phase hero styles wherever the pattern renders and redirect bare phase URLs only to published pages.
+- Correct introduction heading levels, journey navigation label serialization, current-page semantics, and inactive-link contrast.
+- Scale the outline button's circle reveal to cover the button's corners without animating layout dimensions; retain reduced-motion behavior.
+- `src/scss/structural/image-captions.scss` (new): image captions (`.wp-element-caption`/`figcaption`) previously rendered WordPress core's unthemed default text colour (`#555555`) against this theme's dark background (`#080808`), a 2.68:1 contrast ratio. Now uses the existing `--text--on-dark-muted` token (10.1:1), applied sitewide. ([#61](https://github.com/lightspeedwp/ls-theme/pull/61))
+- `src/scss/structural/taxonomy-filter.scss`: the blog page's category filter pill, in its active/selected state (`.taxonomy-filter-current`), paired light text with its blue background at a 2.92:1 ratio. Swapped to the existing `--text--on-light` token (6.57:1 against the same background), including its hover/focus state. ([#61](https://github.com/lightspeedwp/ls-theme/pull/61))
+- `patterns/sections/services-linked-decisions.php`, `patterns/sections/services-service-clusters.php`: added the missing `has-border-color` class to the `ls-process-pill` and `ls-cluster-tag` wrapper groups. Both blocks set an inline border colour via a custom JSON style attribute, but WordPress's border block support always expects a `has-border-color` class on the wrapper whenever a border colour is set. The hand-authored static HTML never included it, so the editor's re-derived expected markup never matched the stored HTML, permanently flagging these blocks as "Block contains unexpected or invalid content" with an "Attempt Recovery" prompt in the Site Editor. ([#60](https://github.com/lightspeedwp/ls-theme/pull/60))
+- `patterns/cards/section-card-services.php`, `patterns/sections/services-service-tiles.php`: moved the Icon block's width from an unsupported top-level `"width"` JSON attribute to the correct `"style":{"dimensions":{"width":...}}` path, matching `core/icon`'s actual schema. The old attribute was silently dropped, leaving the icon unsized. ([#60](https://github.com/lightspeedwp/ls-theme/pull/60))
+- `patterns/cards/section-card-services.php`: fixed icon slug `lightspeed/rocket-launch` to `lightspeed/rocket` — `rocket-launch.svg` does not exist in the `ls-plugin` icon library, so the icon failed to render entirely. ([#60](https://github.com/lightspeedwp/ls-theme/pull/60))
+- `parts/mobile-menu.html`, `styles/blocks/details/mobile-menu-accordion.json`: each top-level accordion label (Work, Solutions, Services, Pricing, Insights, About) is now a real link to its overview page (`/work/`, `/solutions/`, `/services/`, `/pricing/`, `/blog/`, `/about/`). Previously the label was plain text inside `<summary>`, so there was no way to reach e.g. "All Work" without opening the dropdown. Clicking the label now navigates directly; clicking elsewhere in the row still toggles the dropdown, using native `<summary>` click behavior with no JS needed. Added the label link's own colour/underline reset and `:focus-visible` outline. ([#58](https://github.com/lightspeedwp/ls-theme/pull/58))
+- `parts/mobile-menu.html`: removed the non-functional "Systems" link row. ([#58](https://github.com/lightspeedwp/ls-theme/pull/58))
+- Fixed Entry Points' card grid forcing a 2-column squeeze (and multi-line text wrap) on mobile/tablet — switched from a fixed `columnCount` to `minimumColumnWidth`, which collapses to 1 column natively. ([#55](https://github.com/lightspeedwp/ls-theme/pull/55))
+- Fixed Delivery by the Numbers' stat divider staying a vertical line on the right of a stacked mobile/tablet card instead of a horizontal line between stacked cards — added a scoped SCSS override that flips the divider orientation below 782px, without touching the shared Stat Segment style used elsewhere. ([#55](https://github.com/lightspeedwp/ls-theme/pull/55))
+- Corrected a Figma SVG gradient matrix decode error that made the corner-glow's blobs roughly 10x too small (a missing `r="10"` base-circle multiplier), and set the CTA panel to a real 800px max width. ([#56](https://github.com/lightspeedwp/ls-theme/pull/56))
+- Fixed each row's `blockGap` only setting its horizontal component, which meant stacked mobile/tablet spacing fell back to WordPress's default instead of the intended value, producing inconsistent gaps between cards. ([#54](https://github.com/lightspeedwp/ls-theme/pull/54))
+- Hover-state title colour on search results used `link.accent` (dark mode: `cta-500`, the same saturated cyan as the CTA buttons — too loud for a hover-only state on heading-sized text). Changed to `link.accent-hover` (dark mode: `cta-300`, same family, softer), the token that exists specifically for this role.
+- Added `.ls-optical-trim` (`text-box-trim`/`text-box-edge`, plus a `transform: translateY(calc((1cap - 1lh) / 2))` fallback for broader browser support) to the hero eyebrow/heading and the Useful destinations eyebrow/heading. `line-height` alone can't fully cancel a font's own built-in leading (baked into the font file's vertical metrics), which differs between the body font (Manrope) and the display font (Lexend) — that residual, font-specific leading was making the gap above each heading read larger than the gap below it, even with identical margin values. `cap`/`lh` are real CSS units resolved per-font by the browser, not a guessed pixel offset.
+- Fixed mega-menu and Work-archive card icon hover/focus colour treatments no longer applying after the Core Icon block migration (LS-3229): `.wp-block-outermost-icon-block` selectors in `src/scss/animations/_menu-motion.scss` and `src/scss/structural/work-archive-sections.scss` only matched the legacy `outermost/icon-block` markup, so any icon already converted to WordPress 7.1's Core `core/icon` block (`.wp-block-icon`) lost its hover styling. Both selector sets now target `.wp-block-outermost-icon-block` and `.wp-block-icon` side by side, so neither markup shape loses the treatment while any remaining legacy instances are migrated.
+- Removed a redundant, footer-specific `.icon-container svg { fill: currentColor; }` rule from `src/scss/animations/_footer-motion.scss`.
+- Removed the stale compiled artifact `assets/css/animations.min.css`.
+- Fixed the second service-clusters card row's `blockGap` being nested outside `spacing` instead of inside it, which silently fell back to WordPress's default gap instead of matching row 1.
+- Fixed a WCAG AA color-contrast failure on the theme's secondary filled button style (`is-style-button-secondary`, used by the 404 page's "Back to homepage" button, the Work archive's "Ready to discuss a project?" CTA, and the mobile menu's "Start a project" button). `button.fill.background`/`border` was `brand-500` (`#1E6AFF`) against `button.fill.text` (`base`, `#FAFAFA`) — 4.41:1, below the 4.5:1 minimum. Changed to `brand-600` (`#1C5EE4`), which is already the token used everywhere else this brand blue needs to be accessible (`text.brand`, `link.accent`, `card.platform.wordpress`) — 5.34:1, passes with real margin.
+- Fixed a related, previously-undetected hover-state contrast failure on the same button: `text-hover` was `contrast` (`#080808`, near-black) against `background-hover` (the same blue), which was already failing at 4.35:1 before this change and would have failed worse (3.6:1) after the background swap alone. Changed `text-hover` to `base` (white), matching the resting state's text color. Resting and hover now share the same `brand-600`/`base` color pair, so both are 5.34:1. Automated axe-core scans don't trigger `:hover` states, so this wasn't caught by the original BugHerd report.
+- Fixed the same underlying failure on the theme's secondary outline button style (`is-style-button-secondary-outline`): `button.outline.text`/`border`/`background-hover` were also `brand-500`, failing at 4.41:1 in both resting (text on a transparent/light background) and hover (white text on a `brand-500` background) states. Changed all three to `brand-600` — 5.34:1 in both states, matching the filled button fix above.
+- Fixed the routes section rendering with no gap before the footer by applying the existing `is-style-content-band` section style (padding, not margin — WordPress core zeroes `margin-top` on template-part wrappers, so root `blockGap` alone can't create space against the footer).
+- Fixed missing card icons: `outermost/icon-block` is a static block that reads its SVG from serialized HTML content, not the `iconName` attribute alone — embedded real Phosphor "regular" SVG markup for each card icon.
+- Fixed a Gutenberg editor crash on the routes section caused by an invalid `core/group` layout type (`"flow"` is not a real layout type; corrected to `"default"`).
+- Fixed the hero's title/excerpt/buttons/meta-row rendering narrower and centred instead of left-aligned with the breadcrumb: the inner wrapper group used `layout:"constrained"`, which restricts un-aligned children to content-width, while the breadcrumb block forced itself to `alignwide`. Removed the group's `layout` override entirely so all children fill the same wide width via the block's own default.
+- Increased the gap between the hero content and the featured-image panel from `spacing|60` to `spacing|80` for clearer visual separation.
+- Fixed the Site Editor throwing "This block has encountered an error and cannot be previewed" on the `single-project` template, caused by a `TypeError: Cannot read properties of undefined (reading 'getAlignments')`. Root cause: an intermediate fix for the alignment bug above used `layout:{"type":"flow"}` — `"flow"` is not a registered Gutenberg layout type (valid values are `default`, `constrained`, `flex`, `grid`), so resolving it returned `undefined` and calling `.getAlignments()` on that threw. Frontend rendering was never affected (block themes just ignore an unrecognised layout type there), but the pattern is unusable in the Site Editor until fixed. Removed the invalid `layout` attribute.
+- Fixed the breadcrumb, meta row, and CTA column using a 850px-fixed / flex-wrap layout combination untested elsewhere in this theme; reverted to the same `wp:columns`/`wp:column` shape (percentage widths) already proven throughout the codebase.
+- Fixed the "View site" button's meta key: initially wired to `lsx_project_url`, sourced from a different remote environment's plugin version. Confirmed via WP-CLI (`wp post meta list`) that this site's actual key is `ls_plugin_portfolio_website`.
+- Fixed the metadata row's two divided columns rendering a bold black box around all four sides instead of a subtle single-side divider. Their `style` only declared `border-left-*`; WordPress core's block-library CSS applies `border-style: solid` to every side once any border colour is set on a block (via `.has-border-color`), so the other three sides fell back to the browser's default border-width (`medium`, ~3px) and `currentColor` (black) — a real border, not a rendering glitch. Fixed by explicitly zeroing out the top/right/bottom sides (`width:0; style:none`) alongside the intended `border.card`-coloured 1px left divider, so nothing is left to a browser default.
+- Fixed the "View site" button's hover animation rendering the arrow icon on top of the button text instead of masking it. Two compounding causes: (1) an earlier attempt to lighten the icon well set `--ls-button-outline-accent-background: transparent` — that background is what visually covers the text as the icon slides from the button's right edge to its left edge on hover, not a decorative fill; (2) both hero buttons had custom, smaller `spacing.padding` overrides (an earlier "reduce button dominance" pass), but the outline button's hover slide uses fixed padding/positioning constants in `src/scss/animations/_button-motion.scss` calibrated for the theme's default button padding — shrinking the rest-state padding left the slide with less room than it needs, so the icon overlapped the text regardless of the well's background colour. Fixed by removing both hero buttons' padding overrides entirely, matching every other hero/CTA button in the theme (none of which override button padding) and letting the built-in hover animation work as designed.
+- Fixed case-study body content (`wp:post-content` in `patterns/template-work-single.php`) rendering capped at the theme's 800px `contentSize` instead of the 1370px `wideSize`, even though every section band inside a case study's own content already carries an `alignwide` class. Root cause: the `wp:post-content` block itself had no `align` attribute, so its own box was an unaligned child of `<main>` and rendered at 800px regardless of what alignment its children requested — a child can't be wider than its own parent's box. Added `"align":"wide"` to the block, matching how every other wide-content pattern in this theme is wired. No post content or per-post structure changes needed.
+- Fixed 25 `href="#"` placeholder links across `patterns/footer.php` (Services, Solutions, Systems, Company, Studio, and legal-bar columns), `patterns/header.php` ("Start a project →" CTA), and `patterns/sections/work-related-routes.php` (6 card links) — all now point to their real destination pages, verified against the live page list on ls-agency.lightspeedwp.dev.
+- Fixed a heading hierarchy skip (h1 straight to h3, no intermediate h2) caused by reusable patterns whose lead heading is hard-coded at `level: 3`, designed to sit under an existing h2 section heading but used standalone in several places. Promoted `patterns/cta/section-cta-consultation-inline.php` and `section-cta-consultation-strip.php` from h3 to h2. `patterns/thank-you-consultation.php` has its own embedded h1 and jumped straight to h3 card headings; converted its "While you wait" intro from a plain paragraph to a proper h2.
+- Fixed the footer's newsletter heading and paragraph overflowing horizontally at 320-380px viewports. `.ls-footer-notes-panel` is a vertical flex container with no explicit alignment set, so WordPress's default `align-items: flex-start` let the heading/paragraph size to their own unwrapped content width instead of the panel's actual available width. Added `"layout":{"selfStretch":"fill"}` (and the resulting `width:100%`) to both blocks in `patterns/footer.php` so they stretch to fit and wrap normally. The "LightSpeed notes" badge pill above them was left untouched since it's meant to hug its own content.
+- Fixed the footer logo not responding to light/dark mode. It used WordPress's core `wp:site-logo` block (a single static logo from Site Identity), unlike the header's `ls-theme/site-logo-switcher` pattern (a light/dark image pair toggled via existing global CSS in `_header.scss`). Swapped the footer to reference the same shared pattern already used by the header and mobile menu — no new CSS needed since the switching selectors aren't scoped to the header.
+- Fixed the footer's 3 stat cards (`.ls-footer-proof-card`) having visibly uneven heights when their text wrapped to a different number of lines. The columns they sit in already stretch to equal height by default, but each card's own background/border box only wrapped its own content. Added `height: 100%` to `.ls-footer-proof-card` in `src/scss/structural/_footer.scss` — a genuine JSON limitation, since `core/group`'s dimensions support only offers `minHeight`, not a "stretch to fill parent" key.
+- Fixed the homepage loading every structural CSS bundle in the theme unconditionally (~20 files), regardless of whether the page actually used them — the root cause behind PageSpeed's "render-blocking requests" and "unused CSS" findings on mobile. `inc/animations.php` now gates most bundles behind a `condition` reflecting their real, verified usage (e.g. `is_front_page()`, `is_post_type_archive('project')`, `is_page_template('page-blog-archive')`) instead of loading everywhere.
+- Fixed several of those bundles being gated too narrowly at first: `work-project-card`, `work-archive-sections`, and `taxonomy-filter` are also used by patterns outside their assumed "home" template (e.g. homepage sections, the Blog archive's filter), not just the Work archive.
+- Fixed a `render_block`-based safety net for every pattern that's individually insertable via the block inserter (`Inserter: true`), since a template-only condition can't detect a pattern placed somewhere the condition doesn't anticipate. This uncovered and fixed a live bug: the mobile menu's two CTA buttons (`parts/mobile-menu.html`) were unstyled on every page except the homepage/Work archive/404, since template-part markup never appears in a page's own `post_content`.
+- Fixed missing `font-display: swap` on all 17 `fontFace` entries in `styles/presets/typography.json`, so text renders in a fallback font instead of staying invisible while a custom font loads.
+- Fixed the Featured Work card grid overlay being invisible in light mode: `work-project-card.scss` was tinting the grid lines from `--wp--custom--color--surface--highlight`, a token pinned to the same near-white value in both `theme.json` and `styles/dark.json` (unlike its sibling `canvas`, which correctly flips per mode). Switched to `--wp--custom--color--text--default`, which already adapts correctly, instead of changing the shared token — that token also drives the glass-card/glass-button sheen effect elsewhere and needs to stay light-colored in both modes.
+- Fixed `parts/mobile-menu.html` still using the original placeholder titles and `href="#"` links across all 6 dropdowns (Work, Solutions, Services, Pricing, Insights, About) — these were never updated when the desktop mega menus were wired to real pages/posts. Every item now matches its desktop equivalent's label and real URL exactly.
+- Fixed the mobile menu's two footer action buttons ("Book a consultation" and "Start a project") both linking to `#` and pointing at the same destination as each other. "Start a project" is now the primary button, linking to `/free-consultation/` to match the desktop header's CTA; the secondary button now reads "Explore case studies" and links to `/work/`, reusing the same pairing already established on the homepage hero.
+- Fixed clickable cards across the theme where only a small inner link (e.g. "See the work →") had the pointer cursor / clickable hit area, not the whole card, despite hover styling implying the entire card was interactive. Applied the existing stretched-link technique (`::before`/`::after` with `inset:0` over a `position:relative` card, already used by `is-style-card-link-row`) to: `is-style-card-category` (Homepage "Where to start", "What we build", Work archive categories), `is-style-card-feature`, `is-style-card-solutions`, `is-style-card-package` (Homepage "Where to fit" packages), `is-style-card-case-study` (Work archive project cards, Homepage Featured Work), `is-style-card-post` (Blog All Articles), and `is-style-card-highlight-dark` (Blog Hero featured tile). Added a `:focus-visible` outline to each so keyboard users see where focus lands.
+- Fixed the same underlying issue on the mega-menu item rows (`is-style-mega-menu-item-default`, `is-style-mega-menu-item-service`) by adding a `:focus-visible` outline — the stretched-link hit area itself already existed via `src/scss/structural/_mega-menu.scss` from LS-2801, which this branch's own JSON-based stretched-link addition was found to duplicate during code review and was removed in favour of the existing SCSS implementation.
+- Fixed 10 icon SVGs in `patterns/footer.php` missing `fill="currentColor"`, plus a stale `iconColor`/`has-icon-color` class conflict on the availability badge icon — both caused "Block contains unexpected or invalid content" errors in the Site Editor.
+- Fixed a block validation error on the Work archive's "Ready to discuss a project?" CTA (`patterns/sections/work-discuss-project.php`): the columns wrapper had a hand-authored inline `--wp--style--block-gap` style that `core/columns`' actual save output never produces.
+- Fixed editor crashes on the Why LightSpeed, Featured Work, What We Build, and Where to Start sections (and the mobile menu part): `"layout":{"type":"flow"}` is not a registered Gutenberg layout type (the valid value is `"default"`) — the editor threw `Cannot read properties of undefined (reading 'getOrientation')` and the block failed to render.
+- Fixed a block validation "unexpected or invalid content" error on Where to Fit's featured "Growth" card — its shadow style pointed at a nonexistent theme.json preset (`var:preset|shadow|400`) instead of the real custom token (`var:custom|shadow|elevation|400`) already used in the rendered markup.
+- Fixed a block validation error on the homepage CTA's "Send a brief first" button — missing `has-custom-font-size` class caused by combining a named `fontSize` with a custom inline style on a `core/button`.
+- Fixed category badge and post-title text rendering black instead of the correct on-dark/on-light colour — caused by `elements.link` styles winning the cascade over inherited heading colour on `isLink` blocks (post-title, post-terms). ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Fixed the category badge colour not swapping per post in the Query Loop — `elements.link` renders as one deduped, shared rule, not per-instance — replaced with a plain class + `color: inherit`. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Fixed long category names overflowing the post card edge. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Fixed the Writing CTA card's max-width and taxonomy-filter's mobile flex-wrap both silently no-op'ing against WordPress core's own `.alignwide`/`.wp-block-buttons` cascade. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Fixed the `ls-plugin/taxonomy-filter` block rendering an editor "invalid content" error due to a self-closing pattern comment. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
+- Removed the Blog Archive template's top padding so the Hero sits flush against the header; kept bottom padding for consistent spacing above the footer. ([#26](https://github.com/lightspeedwp/ls-theme/pull/26))
 - Fixed several pre-existing bugs surfaced while auditing the is-style layer (LS-2341): a `wp:list` block with a duplicated base classname breaking editor validation on the Work Discuss Project CTA; hand-authored inline spacing styles on `core/query`/`core/columns` that neither block nor the theme's settings actually support; the `ls-plugin/taxonomy-filter` block being inserted as a self-closing void block when its `save()` returns a real wrapper div; `assets/js/gsap-effects.js` querying a stale classname after a fold-in rename, breaking the homepage hero's GSAP initialization; the WooCommerce card-colour swap not reliably reading post context for `core/group` blocks on `render_block_data` inside a Post Template loop (moved to `render_block`); and WordPress core's default `.wp-block-group.has-background` padding going un-overridden on the Work Project Card, inset-ing its banner grid.
 - Fixed an invalid nested `wp:site-title` block inside `patterns/footer.php`'s paragraph markup that broke block parsing on every template (LS-1226).
 - Fixed `patterns/breadcrumbs.php` rendering full-bleed instead of content width by removing an unnecessary `align:full` (LS-1226).
@@ -1458,34 +579,11 @@ See [PR #50](https://github.com/lightspeedwp/ls-theme/pull/50).
 - Fixed non-existent `x-small`/`small`/`medium` `fontSize` slugs and a non-existent `x-small` spacing slug referenced in several patterns/templates — none of these slugs were ever registered in `styles/presets/typography.json` or `spacing.json` — replaced with real registered slugs (LS-2436).
 - Fixed `settings.custom.color.surface.band-start`/`band-end`/`on-dark-card` in `theme.json`/`styles/dark.json` being byte-identical between light and dark mode (hardcoded rather than tokenised); gave dark mode its own distinct, contrast-checked values. Added a `text.brand-on-dark` token so on-dark text/icon colour meets WCAG AA 4.5:1 in both modes (LS-2436).
 
-### Security
+### Documentation
+
+- Added a "Core WordPress blocks first" rule to `AGENTS.md`, documenting the existing practice of preferring semantic core blocks (`post-title`, `post-excerpt`, `post-terms`, `query`/`post-template`, etc.) over generic `group`/`columns` markup.
 
 ---
 
-## [0.1.0] - YYYY-MM-DD
-
-### Added
-
-- Initial LightSpeed Theme repository setup.
-- Root theme files: `style.css`, `theme.json`, `functions.php`, `readme.txt`.
-- Block template: `templates/index.html`.
-- Block template parts: `parts/header.html`, `parts/footer.html`.
-- Style variations: `styles/light.json`, `styles/dark.json`.
-- Asset folders: `assets/fonts/`, `assets/icons/`, `assets/logos/`, `assets/images/`, `assets/css/`, `assets/js/`.
-- Validation and utility script: `theme-utils.mjs`.
-- Node-based tooling: `package.json`, `.lintstagedrc.json`, `.nvmrc`.
-- PHP tooling: `composer.json`.
-- GitHub config: `.editorconfig`, `.gitignore`, `.gitattributes`, `.coderabbit.yml`, `CODEOWNERS`.
-- AI guidance: `AGENTS.md`, `CLAUDE.md`.
-- GitHub Copilot instructions: `.github/copilot-instructions.md`, `.github/instructions/`.
-- GitHub prompts: `.github/prompts/`.
-- GitHub reports folder: `.github/reports/`.
-- GitHub tasks folder: `.github/tasks/`.
-- GitHub Actions workflows: `ci.yml`, `code-quality.yml`, `release.yml`.
-- Portable agent assets: `.agents/skills/`, `.agents/agents/`.
-- End-user documentation folder: `docs/`.
-
----
-
-[Unreleased]: https://github.com/lightspeedwp/ls-theme/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/lightspeedwp/ls-theme/releases/tag/v0.1.0
+[Unreleased]: https://github.com/lightspeedwp/ls-theme/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/lightspeedwp/ls-theme/releases/tag/v1.0.0
