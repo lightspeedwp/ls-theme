@@ -1,0 +1,28 @@
+/********** Section - Phase CTA (closing CTA for the six phase pages) **********/
+
+/*
+ * Background: the same faint 32px crossed-gradient grid over the permanently-dark
+ * band-start/band-end diagonal base already used by phase-hero.php's own background (see
+ * src/scss/structural/phase-hero.scss) — this section normally closes out the same page the hero
+ * opens, so the two ends of the page share one atmosphere. Deliberately scoped to its own
+ * .ls-phase-cta class (not reusing .ls-phase-hero) so this stays fully independent of the hero
+ * file. No radial phase-colour glow here — that's specific to the hero's own upper-content
+ * composition, not needed on this section.
+ *
+ * Left as external background-image (not the block's own inline color.gradient attribute) for the
+ * same reason documented in phase-hero.scss/blog-hero.scss: an inline `style="background:..."`
+ * always wins the cascade over an external stylesheet's background-image, so the two can't
+ * coexist on this block — the pattern's own color.background attribute is left unset so this can
+ * take over.
+ */
+.ls-phase-cta {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--wp--custom--color--text--on-dark) 2%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--wp--custom--color--text--on-dark) 2%, transparent) 1px, transparent 1px),
+    linear-gradient(158deg, var(--wp--custom--color--surface--band-start) 0%, var(--wp--custom--color--surface--band-end) 100%);
+  background-position: 0 0, 0 0, 0 0;
+  background-repeat: repeat, repeat, no-repeat;
+  background-size: 32px 32px, 32px 32px, auto;
+}

@@ -1,0 +1,87 @@
+/********** Gravity Forms in popups (Consultation and Website Brief) **********/
+
+@use "../abstracts/mixins/gravity-forms" as gf;
+
+/*
+ * Popup form colours, sizes and spacing. The popups are Popup Maker popups whose content is the
+ * "Popup Form Shell" pattern (a Card - Plain group holding a heading, an intro line and a Gravity
+ * Forms block). The form is rendered by a plugin, so its fields are styled through the same
+ * Gravity Forms variable mapping the Contact hero form uses (see the shared mixin), which keeps every
+ * form on the site on the same tokens and in step with light and dark mode.
+ *
+ * Gravity Forms prints its variables inline per form, on `#gform_wrapper_{id}[data-form-index].gform-theme`.
+ * That ID selector outranks any class-only selector. `:is()` takes the specificity of its most
+ * specific argument, so listing a never-rendered ID beside the shell's class gives this rule ID-level
+ * specificity without tying it to a form ID (which differs between sites and popups). It still only
+ * matches forms inside the shell, so no other Gravity Forms form on the site changes.
+ *
+ * JSON limitation: theme.json and block attributes can't style another plugin's markup or
+ * override its inline variables — see AGENTS.md Theme-First Approach.
+ */
+:is(.ls-popup-form, #ls-popup-form-specificity) .gform_wrapper.gform-theme[data-form-index] {
+  @include gf.token-map;
+}
+
+// The required-field asterisk is red by default; show it in the field's own text colour at the
+// field's size so it keeps contrast on the card surface in both colour modes.
+// JSON limitation: styles an element inside the plugin's markup — see AGENTS.md Theme-First Approach.
+.ls-popup-form .gfield_required {
+  color: var(--wp--custom--color--text--default);
+  font-size: inherit;
+}
+
+// A long form (the Website Brief has dozens of fields) must not run off the screen: the card scrolls
+// inside the popup instead. There is no viewport-height token, so it is the viewport height minus
+// two spacing tokens.
+// JSON limitation: max-height and overflow have no block support key — see AGENTS.md Theme-First Approach.
+.ls-popup-form {
+  max-height: calc(100dvh - (2 * var(--wp--preset--spacing--70)));
+  overflow-y: auto;
+}
+
+/*
+ * Popup chrome for popups that hold the Popup Form Shell. `:has(.ls-popup-form)` limits these rules
+ * to those popups, so any other Popup Maker popup on the site keeps its own look.
+ *
+ * JSON limitation: Popup Maker prints the overlay and the close button itself, so block attributes
+ * can't reach them, and `backdrop-filter` and pseudo-states have no theme.json key — see AGENTS.md
+ * Theme-First Approach.
+ */
+
+// Blur the page behind the form so the eye stays on the form. The overlay is already a translucent
+// dark layer from the Popup Maker theme, so the blur shows through it. Skipped when the visitor asks
+// for reduced transparency.
+.pum-overlay:has(.ls-popup-form) {
+  backdrop-filter: blur(var(--wp--preset--spacing--10));
+
+  @media (prefers-reduced-transparency: reduce) {
+    backdrop-filter: none;
+  }
+}
+
+// The close button: Popup Maker hardcodes it to black at 18px square, which disappears on a dark card
+// and is below the minimum target size. Use the text token (so it follows light and dark mode), the
+// theme's tap-target token for the size, and a visible focus ring. The selector mirrors Popup
+// Maker's own (`.pum-theme-{id} .pum-content + .pum-close`) plus `:has()`, so it outranks it.
+.pum-container:has(.ls-popup-form) .pum-content + .pum-close {
+  inset: var(--wp--preset--spacing--10) var(--wp--preset--spacing--10) auto auto;
+  inline-size: var(--wp--custom--spacing--tap-target-min);
+  block-size: var(--wp--custom--spacing--tap-target-min);
+  border: 0;
+  border-radius: var(--wp--preset--border-radius--500);
+  background: transparent;
+  box-shadow: none;
+  color: var(--wp--custom--color--text--default);
+  font-size: var(--wp--preset--font-size--600);
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--wp--custom--color--surface--card-raised);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--wp--custom--color--focus--ring);
+    outline-offset: 2px;
+  }
+}

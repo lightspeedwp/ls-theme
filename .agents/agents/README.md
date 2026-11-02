@@ -13,9 +13,11 @@ Personas help ensure consistent, expert behaviour across sessions and tools.
 
 ## Available Personas
 
-| File                    | Persona                           |
-|-------------------------|-----------------------------------|
-| `theme-architect.md`    | WordPress block theme architect   |
+| File                                       | Persona                          |
+| ------------------------------------------ | -------------------------------- |
+| `theme-architect.md`                       | WordPress block theme architect  |
+| `themejson-completer.agent.md`             | Theme.json completion specialist |
+| `wordpress-theme-styling-auditor.agent.md` | WordPress theme styling auditor  |
 
 ---
 

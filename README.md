@@ -1,57 +1,59 @@
-# {{THEME_NAME}} — LightSpeed WordPress Block Theme Starter
+# LightSpeed Theme — WordPress Block Theme
 
-A lean, production-aware starter repository for building custom WordPress block themes at LightSpeed.
+LightSpeed Theme is a custom WordPress block theme built by [LightSpeed](https://lightspeedwp.agency/) for fast, accessible, and maintainable websites using the WordPress Site Editor and block editor.
 
 ---
 
 ## What This Repo Is
 
-This is a **GitHub template repository** for creating WordPress block themes for client and commercial projects.
+This is the **LightSpeed Theme** repository — a production WordPress block theme for client and commercial projects.
 
-It provides:
-- A working WordPress block theme skeleton
+It includes:
+
+- A working WordPress block theme
+- A Sass source layer for authored effect CSS
 - Validation and linting tooling
 - AI guidance files and GitHub Copilot instructions
 - Structured folders for prompts, reports, tasks, docs, and AI agents
 
-> **Note:** This starter is not specifically packaged for WordPress.org submission. It is designed for client and commercial block theme development.
+> **Note:** This theme is not specifically packaged for WordPress.org submission. It is designed for client and commercial block theme development.
 
 ---
 
 ## Who It Is For
 
 - WordPress theme developers at LightSpeed
-- Developers creating custom block themes for clients
+- Developers maintaining or extending this theme
 - AI agents building or maintaining block themes in this repo
 
 ---
 
 ## What It Includes
 
-| Area              | Details                                                     |
-|-------------------|-------------------------------------------------------------|
-| Theme files       | `style.css`, `theme.json`, `functions.php`, `readme.txt`    |
-| Templates         | `templates/index.html`                                      |
-| Parts             | `parts/header.html`, `parts/footer.html`                    |
-| Style variations  | `styles/light.json`, `styles/dark.json`                     |
-| Assets            | `assets/fonts/`, `assets/css/`, `assets/js/`, etc.         |
-| PHP includes      | `inc/` (empty, ready for use)                               |
-| Patterns          | `patterns/` (empty, ready for use)                          |
-| Validation        | `theme-utils.mjs`, `package.json`, `composer.json`          |
-| AI guidance       | `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` |
-| Copilot prompts   | `.github/prompts/`                                          |
-| Reports           | `.github/reports/`                                          |
-| Tasks             | `.github/tasks/`                                            |
-| Docs              | `docs/`                                                     |
-| Agent assets      | `.agents/skills/`, `.agents/agents/`                        |
-| CI workflows      | `.github/workflows/`                                        |
+| Area             | Details                                                     |
+| ---------------- | ----------------------------------------------------------- |
+| Theme files      | `style.css`, `theme.json`, `functions.php`, `readme.txt`    |
+| Templates        | `templates/index.html`                                      |
+| Parts            | `parts/header.html`, `parts/footer.html`                    |
+| Style variations | `styles/dark.json`                                          |
+| Assets           | `assets/fonts/`, `assets/css/`, `assets/js/`, etc.          |
+| PHP includes     | `inc/` (empty, ready for use)                               |
+| Patterns         | `patterns/` (empty, ready for use)                          |
+| Validation       | `theme-utils.mjs`, `package.json`, `composer.json`          |
+| AI guidance      | `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` |
+| Copilot prompts  | `.github/prompts/`                                          |
+| Reports          | `.github/reports/`                                          |
+| Tasks            | `.github/tasks/`                                            |
+| Docs             | `docs/`                                                     |
+| Agent assets     | `.agents/skills/`, `.agents/agents/`                        |
+| CI workflows     | `.github/workflows/`                                        |
 
 ---
 
 ## Requirements
 
 - **PHP** 8.1+
-- **WordPress** 6.4+
+- **WordPress** 6.9+
 - **Node.js** (see `.nvmrc` for version)
 - **Composer** 2.x
 
@@ -60,20 +62,19 @@ It provides:
 ## Quick Start
 
 ```bash
-# 1. Clone or use this repo as a template on GitHub
+# 1. Clone the repo
 
-# 2. Replace all placeholder tokens
-#    Search for {{ to find all placeholders
-grep -r "{{" . --include="*.php" --include="*.json" --include="*.css" --include="*.html" --include="*.md" --include="*.txt" --include="*.mjs" --include="*.yml"
-
-# 3. Install Node dependencies
+# 2. Install Node dependencies
 npm install
 
-# 4. Install Composer dependencies
+# 3. Install Composer dependencies
 composer install
 
-# 5. Validate the theme
+# 4. Validate the theme
 npm run theme:validate
+
+# 5. Compile authored CSS
+npm run build:css
 
 # 6. Validate JSON schema
 npm run schema:validate
@@ -111,6 +112,8 @@ npm run schema:validate
 │   ├── images/
 │   ├── css/
 │   └── js/
+├── src/
+│   └── scss/                # Sass source for authored theme CSS
 ├── docs/                      # End-user documentation
 ├── inc/                       # PHP includes
 ├── parts/
@@ -120,7 +123,6 @@ npm run schema:validate
 ├── styles/
 │   ├── blocks/
 │   ├── sections/
-│   ├── light.json
 │   └── dark.json
 ├── templates/
 │   └── index.html
@@ -142,68 +144,132 @@ npm run schema:validate
 
 ### Node
 
-| Command                   | Description                                  |
-|---------------------------|----------------------------------------------|
-| `npm run schema:validate` | Validate theme.json and styles JSON schemas  |
-| `npm run theme:validate`  | Validate theme consistency                   |
-| `npm run patterns:escape` | Check PHP patterns for escaping issues       |
-| `npm run security:scan`   | Scan PHP files for security issues           |
-| `npm run lint`            | Run all linting                              |
-| `npm run lint:json`       | Lint JSON files                              |
+| Command                    | Description                                                   |
+| -------------------------- | ------------------------------------------------------------- |
+| `npm run schema:validate`  | Validate theme.json and styles JSON schemas                   |
+| `npm run theme:validate`   | Validate theme consistency                                    |
+| `npm run build:css`        | Compile Sass source to `assets/css/`                          |
+| `npm run watch:css`        | Watch Sass entry files and rebuild CSS                        |
+| `npm run patterns:escape`  | Check PHP patterns for escaping issues                        |
+| `npm run security:scan`    | Scan PHP files for security issues                            |
+| `npm run lint`             | Run all linting                                               |
+| `npm run lint:json`        | Lint JSON files                                               |
 
 ### Composer
 
-| Command                   | Description                                  |
-|---------------------------|----------------------------------------------|
-| `composer run phpcs`      | PHP code sniffer                             |
-| `composer run phpcbf`     | Fix auto-fixable PHP issues                  |
-| `composer run lint:php`   | Lint PHP syntax                              |
+| Command                 | Description                 |
+| ----------------------- | --------------------------- |
+| `composer run phpcs`    | PHP code sniffer            |
+| `composer run phpcbf`   | Fix auto-fixable PHP issues |
+| `composer run lint:php` | Lint PHP syntax             |
 
 ---
 
-## How to Customise Placeholders
+## What to Edit
 
-Search for `{{` across the repository and replace all placeholder tokens:
-
-| Placeholder              | Replace with                        |
-|--------------------------|-------------------------------------|
-| `{{THEME_NAME}}`         | Human-readable theme name           |
-| `{{THEME_SLUG}}`         | Kebab-case slug                     |
-| `{{TEXT_DOMAIN}}`        | Text domain (same as slug)          |
-| `{{THEME_URI}}`          | Theme URI                           |
-| `{{AUTHOR_NAME}}`        | Author or agency name               |
-| `{{AUTHOR_URI}}`         | Author or agency URI                |
-| `{{THEME_DESCRIPTION}}` | Short theme description              |
-| `{{REPO_NAME}}`          | GitHub repository name              |
-| `{{GITHUB_ORG}}`         | GitHub organisation name            |
-
----
-
-## What to Edit First
-
-1. `style.css` — replace all header placeholders
-2. `theme.json` — set your colour palette and typography
-3. `functions.php` — add any theme supports you need
-4. `parts/header.html` — build your header
-5. `parts/footer.html` — build your footer
-6. `templates/index.html` — build your main template
-7. `CHANGELOG.md` — start tracking your changes
-8. `CODEOWNERS` — set your team as owners
+1. `theme.json` — set your colour palette and typography
+2. `functions.php` — add any theme supports you need
+3. `parts/header.html` — build your header
+4. `parts/footer.html` — build your footer
+5. `templates/index.html` — build your main template
+6. `CHANGELOG.md` — track your changes
+7. `CODEOWNERS` — set your team as owners
 
 ---
 
 ## AI Prompts, Reports, Tasks, Docs, Skills, and Agents
 
-| What                   | Where                        |
-|------------------------|------------------------------|
-| Copilot prompts        | `.github/prompts/`           |
-| Developer reports      | `.github/reports/`           |
-| Task lists             | `.github/tasks/`             |
-| End-user documentation | `docs/`                      |
-| Portable AI skills     | `.agents/skills/`            |
-| Agent personas         | `.agents/agents/`            |
+| What                   | Where              |
+| ---------------------- | ------------------ |
+| Copilot prompts        | `.github/prompts/` |
+| Developer reports      | `.github/reports/` |
+| Task lists             | `.github/tasks/`   |
+| End-user documentation | `docs/`            |
+| Portable AI skills     | `.agents/skills/`  |
+| Agent personas         | `.agents/agents/`  |
 
 See `AGENTS.md` for full guidance on AI workflow conventions.
+
+---
+
+## Testing (Playwright)
+
+Playwright is run manually or with an AI agent, not in CI.
+
+### First-time setup
+
+```bash
+npm install
+cp .env.example .env        # then set BASE_URL (see below)
+npm run test:setup          # downloads the Chromium + WebKit browsers (not installed by npm install)
+```
+
+`npm run test:setup:all` also downloads Firefox, which only the desktop `firefox` project needs. Without the browser downloads every test fails with "Executable doesn't exist".
+
+`.env` (gitignored, in the theme root) needs at least:
+
+```
+BASE_URL=<the site to test against>
+```
+
+The tests only see what `BASE_URL` is serving. To check a branch you haven't deployed, point it at your local site (e.g. `http://localhost:8882`). Pass it per run instead of editing `.env` if you prefer: `BASE_URL=http://localhost:8882 npx playwright test ...`.
+
+### Mobile menu spec
+
+`tests/specs/mobile-menu.spec.ts` covers every mobile menu dropdown (open/close, links, tap targets, overflow), the Services phase groups, the pressed-state padding and phase colours, and an axe scan with the menu open. The press-colour tests force `:active` / `:focus-visible` through the Chrome DevTools Protocol, so they run on Chromium only and are skipped on the WebKit projects. Colours are compared against tokens read from the page, so the same tests pass whichever style variation (light or Dark) the target site is on — run them again against a site set to Dark to cover it.
+
+A few tests are expected failures (`test.fail`) for known menu issues: links inside accordion `<summary>` elements, and undersized "See all …" and phase-heading tap targets. They report as passing, and will flip to failing once the issue is fixed, as a prompt to remove the expectation.
+
+### Which page vs which device
+
+Two separate things decide what a run tests:
+
+| Question | Controlled by | Example |
+| --- | --- | --- |
+| Which page? | `SINGLE_PAGE_URL` (standing specs and `mobile-menu.spec.ts`) | `SINGLE_PAGE_URL="http://localhost:8882/services/"` |
+| Which device / browser? | The Playwright project, chosen with `--project` | `--project="Mobile Chrome"` |
+
+`SINGLE_PAGE_URL` never picks a viewport, and the page URL never implies one. A spec runs under each project it is assigned to (see `playwright.config.ts`). Without `--project`, every project runs.
+
+| Project | Device | Runs |
+| --- | --- | --- |
+| `chromium`, `firefox`, `webkit` | Desktop browsers | Everything except `mobile-menu.spec.ts` |
+| `Mobile Chrome` | Pixel 5 (393px, touch) | `mobile-menu.spec.ts` + the standing accessibility and responsive-overflow specs |
+| `Mobile Safari` | iPhone 12 (390px, touch) | `mobile-menu.spec.ts` |
+| `Tablet` | iPad Mini (768px, touch) | `mobile-menu.spec.ts` |
+
+The device projects use real touch and mobile emulation, not just a narrow window, so `(hover: none)` and tap behaviour match a phone. Which specs run on which device is set in `playwright.config.ts` (`DEVICE_ONLY_SPECS`, `MOBILE_STANDING_SPECS`).
+
+| Command | Runs |
+| --- | --- |
+| `npx playwright test` | Everything, on every project |
+| `npx playwright test --project=chromium` | Everything on desktop Chromium only |
+| `npm run test:mobile` | The mobile-menu spec on Mobile Chrome, Mobile Safari and Tablet |
+| `npx playwright test mobile-menu --project="Mobile Chrome"` | The mobile menu on one device |
+| `SINGLE_PAGE_URL="http://localhost:8882/services/" npx playwright test mobile-menu --project="Mobile Chrome"` | One URL at one device |
+| `SINGLE_PAGE_URL="..." npx playwright test standing/accessibility --project="Mobile Chrome"` | A standing spec on one URL at mobile width |
+| `npx playwright test tests/specs/standing` | Only the standing regression suite |
+| `npx playwright test tests/specs/header-search.spec.ts` | A single feature spec |
+
+Project names are exact and case-sensitive; quote the ones with spaces.
+
+**Feature specs** (`header-search.spec.ts`, `navigation.spec.ts`, `keyboard-navigation.spec.ts`, `reduced-motion.spec.ts`, `mobile-menu.spec.ts`, `bugherd-reporter.spec.ts`) test reusable, site-wide components and behaviors — not one specific page/template — and use the generic assertion helpers in `tests/helpers/assertions.ts` where applicable.
+
+**Standing suite** (`tests/specs/standing/`) is content-agnostic — it discovers every reachable page on `BASE_URL` (via sitemap, REST, or crawl fallback) and runs a fixed set of checks against all of them: page health/PHP errors, console/runtime errors, broken same-origin resources, accessibility (axe), internal link integrity, horizontal overflow at common widths, image alt attributes, and the search/404 routes. It requires no per-template setup — new pages are covered automatically.
+
+- **Responsive overflow** (`standing/responsive-overflow.spec.ts`) runs two checks on every page at 320, 360, 370, 375, 390, 768, 1024 and 1440px:
+  - The document check fails when the page scrolls sideways (`scrollWidth` wider than `clientWidth`).
+  - The button check (`expectNoElementOverflow` in `tests/helpers/responsive.ts`) catches what the document check misses: a button spilling out of the left of a panel, or out of a panel narrower than the page. It fails when a `.wp-block-button__link` (or a `.wp-block-buttons` child with no link) starts left of the viewport, ends past its right edge, or sits more than 1px outside its nearest `.wp-block-buttons` row or its nearest bordered/backgrounded panel, on either side.
+  - Each failure lists the section (its heading and theme classes), the button text, which side overflowed, which container (`viewport`, `button-row` or `panel`), and the element and container widths. Failures use `expect.soft`, so one run reports every offender. WordPress doesn't put the pattern name in the page, so find the pattern by searching `patterns/` for the section heading.
+  - It ignores zero-width/zero-height elements, everything inside `.mobile-menu`, and buttons inside a row that deliberately scrolls sideways (such as the blog's filter pills). Text clipping and vertical overflow are not checked.
+  - Run one page with `SINGLE_PAGE_URL="http://localhost:8882/free-consultation/" npx playwright test standing/responsive-overflow --project=chromium --project=webkit --project="Mobile Chrome"`. Dark mode is covered by running it again against a site set to Dark.
+  - It also runs on Mobile Chrome, so a full run files device-tagged BugHerd tasks for overflow found there; `SINGLE_PAGE_URL` runs create none.
+- The number of URLs actually tested is currently throttled by `MAX_TEST_URLS` in `tests/fixtures/site.ts` while the suite is being verified — raise this before relying on it for full site coverage.
+- Failures in the standing suite are automatically logged as BugHerd tasks (deduplicated, so re-running doesn't create duplicates). This requires `BUGHERD_API_KEY` and `BUGHERD_PROJECT_ID` in `.env`. Feature specs never create BugHerd tasks.
+- **`SINGLE_PAGE_URL` never creates BugHerd tasks**, on any project or spec. Use it for local and one-off checks.
+- A standing spec that fails on a device project (e.g. Mobile Chrome) gets its own BugHerd task with a `device:` tag and a `Project:` line, separate from the same failure on desktop. Desktop browsers share one task between them.
+- Each created task is attributed to whoever ran the suite, via your local `git config user.email` — so your name/email will show up as the reporter on any task your run creates.
+- No CI wiring — run manually, after `develop` has been merged and the target site has redeployed.
 
 ---
 

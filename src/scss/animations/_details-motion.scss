@@ -1,0 +1,69 @@
+/********** Details / Accordion **********/
+
+/*
+ * Rest-state structural CSS (overflow, summary layout/marker-reset/arrow-shape, content spacing)
+ * all lives in styles/presets/blocks/core-details.json now — it's the confirmed default core/details
+ * root selector (.wp-block-details, no custom "selectors.root" override, unlike core/button), so no
+ * scoping surprises there. Only real motion (transitions, the arrow rotation, hover/[open]/
+ * focus-within states) stays here.
+ *
+ * The lone `:not(.is-style-mobile-menu-accordion) > summary` padding override below stays a REAL
+ * (non-:where()) Sass rule rather than moving to JSON — styles/blocks/details/mobile-menu-
+ * accordion.json's own doubled `&.wp-block-details` selectors rely on out-specifying a real rule at
+ * equal specificity via source order; if this became :where()-wrapped too, both sides would be
+ * zero-specificity and the outcome would depend on unpredictable stylesheet ordering instead.
+ */
+.wp-block-details {
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+
+  > summary {
+    transition: inherit;
+
+    &::after {
+      transform: translateY(-1px) rotate(45deg);
+      transition:
+        transform var(--wp--custom--animation--duration--base)
+          var(--wp--custom--animation--easing--emphasised),
+        border-color var(--wp--custom--animation--duration--base)
+          var(--wp--custom--animation--easing--standard);
+    }
+  }
+
+  &:not(.is-style-mobile-menu-accordion) > summary {
+    padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
+    font: inherit;
+    font-weight: var(--wp--custom--typography--font-weight--normal);
+  }
+
+  &:hover:not(.is-style-mobile-menu-accordion) {
+    background: var(--wp--custom--color--surface--card-raised);
+    border-color: var(--wp--custom--color--link--accent);
+  }
+
+  &[open]:not(.is-style-mobile-menu-accordion),
+  &[open]:hover:not(.is-style-mobile-menu-accordion) {
+    background: var(--wp--custom--color--surface--card);
+    border-color: var(--wp--custom--color--link--accent);
+  }
+
+  &:not(.is-style-mobile-menu-accordion)[open] > summary {
+    border-bottom: 1px solid var(--wp--custom--color--link--accent);
+  }
+
+  &[open] > summary {
+    &::after {
+      transform: translateY(1px) rotate(-135deg);
+    }
+  }
+
+  &:focus-within:not(.is-style-mobile-menu-accordion) {
+    border-color: var(--wp--custom--color--link--accent);
+    box-shadow: 0 0 0 2px var(--wp--custom--color--focus--ring);
+  }
+}

@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Item - Service",
+	"slug": "mega-menu-item-service",
+	"blockTypes": [
+		"core/paragraph"
+	],
+	"description": "Shared row style for service mega-menu and mobile menu links.",
+	"styles": {
+		"border": {
+			"radius": "var:preset|border-radius|300",
+			"left": {
+				"color": "transparent",
+				"style": "solid",
+				"width": "3px"
+			}
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|10",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|10"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:custom|color|text|muted"
+				}
+			}
+		},
+		"css": "& a:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
+	}
+}

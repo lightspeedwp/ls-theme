@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Service Tile",
+	"slug": "card-service-tile",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Services page bento-grid tile: icon well + index number header, H3 heading, an accent-coloured kicker line, supporting copy, and a bottom-anchored arrow link — the whole card is a single stretched link, unlike Card - Cluster's per-tag links. Modelled on Card - Category's shell (position/overflow/content-flex/stretched-link/focus-visible + the hover border-color swap recipe) but flatter: no default shadow, tighter padding, and an index-number slot Card - Category doesn't have. The hover border-color/box-shadow swap itself stays in src/scss/structural/services-service-tiles.scss, same split as Card - Category/work-archive-sections.scss — a bare &:hover in this css field is silently dropped, same class of bug as @media/@supports stripping.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"css": "position: relative;\noverflow: hidden;\n--ls-card-service-tile-border-active: var(--wp--custom--color--link--accent);\n\n& .ls-card-service-tile__content {\n\tflex: 1 1 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: var(--wp--preset--spacing--10);\n}\n\n& .ls-card-service-tile__index {\n\tposition: absolute;\n\ttop: var(--wp--preset--spacing--20);\n\tright: var(--wp--preset--spacing--20);\n}\n\n& .ls-card-service-tile__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-card-service-tile__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
+	}
+}

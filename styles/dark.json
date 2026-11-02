@@ -3,45 +3,191 @@
 	"version": 3,
 	"title": "Dark",
 	"settings": {
-		"color": {
-			"palette": [
-				{
-					"name": "Base",
-					"slug": "base",
-					"color": "#111111"
+		"custom": {
+			"color": {
+				"text": {
+					"default": "var:preset|color|base",
+					"inverse": "var:preset|color|contrast",
+					"muted": "var:preset|color|neutral-400",
+					"subtle": "var:preset|color|neutral-500",
+					"brand": "var:preset|color|cta-500",
+					"brand-strong": "var:preset|color|cta-200",
+					"on-dark": "var:preset|color|base",
+					"on-dark-muted": "var:preset|color|neutral-400",
+					"brand-on-dark": "var:preset|color|cta-500",
+					"on-dark-accent": "var:preset|color|cta-400",
+					"on-light": "var:preset|color|contrast",
+					"code-value": "var:preset|color|warning-foreground"
 				},
-				{
-					"name": "Base Two",
-					"slug": "base-2",
-					"color": "#1a1a1a"
+				"surface": {
+					"canvas": "var:preset|color|contrast",
+					"card": "var:preset|color|neutral-900",
+					"card-raised": "var:preset|color|neutral-800",
+					"card-strong": "var:preset|color|neutral-800",
+					"highlight": "var:preset|color|base",
+					"highlight-hover": "var:preset|color|neutral-200",
+					"brand-light": "var:preset|color|brand-900",
+                    "brand": "var:preset|color|cta-500",
+                    "brand-strong": "var:preset|color|cta-600",
+                    "cta-light": "var:preset|color|cta-900",
+                    "cta": "var:preset|color|accent-two-500",
+                    "accent-light": "var:preset|color|accent-900",
+                    "accent-two-light": "var:preset|color|accent-two-900",
+                    "accent-three-light": "var:preset|color|accent-three-900",
+                    "band-start": "var:preset|color|neutral-800",
+                    "band-end": "var:preset|color|neutral-900",
+                    "on-dark-card": "var:preset|color|neutral-800",
+                    "on-dark-card-hover": "var:preset|color|neutral-750",
+                    "on-dark-accent-tint": "var:preset|color|brand-900"
 				},
-				{
-					"name": "Contrast",
-					"slug": "contrast",
-					"color": "#ffffff"
+				"border": {
+					"card": "var:preset|color|neutral-800",
+					"card-strong": "var:preset|color|neutral-750",
+					"on-dark": "var:preset|color|neutral-500",
+					"field": "var:preset|color|neutral-600"
 				},
-				{
-					"name": "Contrast Two",
-					"slug": "contrast-2",
-					"color": "#e0e0e0"
+				"icon": {
+					"background": "var:preset|color|cta-500",
+					"color": "var:preset|color|contrast",
+					"commerce": "var:preset|color|warning-foreground",
+					"on-dark": "var:preset|color|cta-500"
 				},
-				{
-					"name": "Accent",
-					"slug": "accent",
-					"color": "#4da6ff"
+				"card": {
+					"solutions": {
+						"brand": "var:preset|color|cta-500",
+						"accent": "var:preset|color|accent-three-500"
+					},
+					"platform": {
+						"wordpress": "var:preset|color|brand-400",
+						"woocommerce": "var:preset|color|cta-400"
+					}
 				},
-				{
-					"name": "Accent Two",
-					"slug": "accent-2",
-					"color": "#80c1ff"
+				"category": {
+					"news": "var:preset|color|phase-two",
+					"tour-operators": "var:preset|color|phase-one",
+					"lsx": "var:preset|color|phase-six",
+					"design-systems": "var:preset|color|phase-five",
+					"project-workflows": "var:preset|color|phase-four",
+					"content": "var:preset|color|phase-three",
+					"release-notes": "var:preset|color|brand-400",
+					"design": "var:preset|color|cta-400",
+					"wordcamp": "var:preset|color|brand-400"
+				},
+				"phase": {
+					"discover": "var:preset|color|phase-one",
+					"discover-on-dark": "var:preset|color|phase-one",
+					"create": "var:preset|color|phase-two",
+					"create-on-dark": "var:preset|color|phase-two",
+					"build": "var:preset|color|phase-three",
+					"build-on-dark": "var:preset|color|phase-three",
+					"build-on-dark-card": "var:preset|color|phase-three-light",
+					"launch": "var:preset|color|phase-four",
+					"launch-on-dark": "var:preset|color|phase-four",
+					"grow": "var:preset|color|phase-five",
+					"grow-on-dark": "var:preset|color|phase-five",
+					"evolve": "var:preset|color|phase-six",
+					"evolve-on-dark": "var:preset|color|phase-six",
+					"evolve-on-dark-card": "var:preset|color|phase-six-light"
+				},
+				"accent": {
+					"warm": "var:preset|color|warm-300"
+				},
+				"status": {
+					"success": "var:preset|color|success-foreground"
+				},
+				"gradient": {
+					"accent-start": "var:preset|color|brand-400",
+					"accent-end": "var:preset|color|cta-500"
+				},
+				"text-shadow": {
+					"contrast": "var:preset|color|base",
+					"base": "var:preset|color|contrast"
+				},
+				"link": {
+					"default": "var:preset|color|base",
+					"decoration-start": "var:preset|color|brand-400",
+					"decoration-end": "var:preset|color|accent-300",
+					"accent": "var:preset|color|cta-500",
+					"accent-hover": "var:preset|color|cta-300"
+				},
+				"button": {
+					"fill": {
+						"background": "var:preset|color|cta-500",
+						"text": "var:preset|color|contrast",
+						"border": "var:preset|color|cta-500",
+						"background-hover": "var:preset|color|cta-400",
+						"text-hover": "var:preset|color|contrast",
+						"border-hover": "var:preset|color|cta-400"
+					},
+					"outline": {
+						"background": "var:preset|color|surface-400",
+						"text": "var:preset|color|cta-500",
+						"border": "var:preset|color|cta-500",
+						"background-hover": "var:preset|color|cta-400",
+						"text-hover": "var:preset|color|contrast"
+					}
+				},
+				"focus": {
+					"ring": "var:preset|color|base"
+				},
+				"effect": {
+					"spotlight": {
+						"primary": "var:preset|color|brand-500",
+						"secondary": "var:preset|color|accent-three-500"
+					},
+					"hero": {
+						"brand": "var:preset|color|brand-300",
+						"cta": "var:preset|color|cta-300",
+						"accent": "var:preset|color|accent-two-300",
+						"violet": "var:preset|color|phase-six",
+						"cyan": "var:preset|color|cta-300"
+					},
+					"watermark": {
+						"brand": "var:preset|color|cta-150"
+					}
 				}
-			]
+			},
+			"colour": {
+				"base": {
+					"100": "var:preset|color|neutral-100"
+				},
+				"neutral": {
+					"100": "var:preset|color|neutral-800",
+					"900": "var:preset|color|neutral-400"
+				},
+				"primary": {
+					"500": "var:preset|color|cta-500"
+				}
+			},
+			"shadow": {
+				"elevation": {
+					"100": "0.5px 2px 3px 0.5px rgba(8, 8, 8, 0.36)",
+					"200": "0.5px 2px 6px 1px rgba(8, 8, 8, 0.38)",
+					"300": "1px 4px 12px 4px rgba(8, 8, 8, 0.42)",
+					"400": "1px 4px 12px 4px rgba(8, 8, 8, 0.48)",
+					"500": "1px 4px 12px 4px rgba(8, 8, 8, 0.54)",
+					"600": "2px 6px 12px 6px rgba(8, 8, 8, 0.6)"
+				},
+				"interactive": {
+					"accent": "1px 4px 12px 4px color-mix(in srgb, var(--wp--custom--color--link--accent) 62%, transparent)"
+				},
+				"card": {
+					"hover": "var(--wp--custom--shadow--elevation--400), 0 28px 56px -28px color-mix(in srgb, var(--wp--custom--color--link--accent) 52%, transparent), 0 14px 30px -18px color-mix(in srgb, var(--wp--custom--color--link--accent) 32%, transparent)"
+				},
+				"popover": {
+					"menu": "0 32px 80px 0 color-mix(in srgb, var(--wp--custom--color--effect--spotlight--primary) 18%, transparent), var(--wp--custom--shadow--elevation--200)"
+				}
+			},
+			"visibility": {
+				"logo-for-light": "none",
+				"logo-for-dark": "block"
+			}
 		}
 	},
 	"styles": {
 		"color": {
-			"background": "var(--wp--preset--color--base)",
-			"text": "var(--wp--preset--color--contrast)"
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|default"
 		}
 	}
 }

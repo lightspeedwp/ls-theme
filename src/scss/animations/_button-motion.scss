@@ -1,0 +1,285 @@
+@use "icons";
+
+/********** Button Motion (global) **********/
+
+/* Shared button motion primitives */
+.wp-element-button,
+.wp-block-button__link {
+  transition:
+    background-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    box-shadow var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    outline-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    outline-offset var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    transform var(--wp--custom--animation--duration--fast)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--enter);
+}
+
+.wp-element-button:hover,
+.wp-element-button:focus-visible,
+.wp-block-button__link:hover,
+.wp-block-button__link:focus-visible {
+  outline-offset: 0;
+}
+
+.wp-element-button:active,
+.wp-block-button__link:active {
+  transform: scale(var(--ls-button-active-scale, var(--wp--custom--animation--scale--active)));
+}
+
+/*
+ * Shared button shell (position/display/box-sizing/max-inline-size/white-space/overflow/isolation)
+ * and the default-fill / outline custom-property "recipes" all live in
+ * styles/presets/blocks/core-button.json now — rest-state only, no hover/pseudo, so they're fully
+ * JSON-portable. Only the motion below (transitions, hover/focus states, the reveal pseudo-elements)
+ * stays here. Fill and Outline are WP-core's own built-in button styles, usable on any button
+ * anywhere on the site — genuinely global infrastructure, not tied to any one page or pattern.
+ *
+ * The default-fill selector's `:not([class*="is-style-"])` exclusion only catches registered
+ * is-style variants. LS-2341 Group 5 folded `glass-button`/`button-cta-gradient` from is-styles
+ * into plain classes (`.ls-glass-button`/`.ls-button-cta-gradient`), which stopped matching that
+ * exclusion and started picking up the default fill button's own arrow-icon `::after` on top of
+ * their own content — explicit `:not(.ls-glass-button):not(.ls-button-cta-gradient)` restores the
+ * exclusion for both.
+ */
+
+/* Fill button motion */
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link {
+  --ls-button-fill-icon-well-size: 3rem;
+  --ls-button-fill-icon-inline-end: 0.625rem;
+  --ls-button-fill-icon-font-size: 1.25rem;
+  --ls-button-fill-icon-block-inset: calc(
+    50% - (var(--ls-button-fill-icon-well-size) / 2)
+  );
+  --ls-button-fill-icon-inline-start: calc(
+    100% - var(--ls-button-fill-icon-well-size) - var(--ls-button-fill-icon-inline-end)
+  );
+  background: transparent;
+  border: 0;
+  transition:
+    transform var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+      var(--wp--custom--animation--easing--emphasised),
+    color var(--ls-button-fill-duration, var(--wp--custom--animation--duration--emphasised))
+      var(--wp--custom--animation--easing--emphasised);
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(
+    --ls-button-fill-background,
+    var(--wp--custom--color--button--fill--background)
+  );
+  transition:
+    inset-inline-start var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    inset-inline-end var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    inset-block-start var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    inset-block-end var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised),
+    border-radius var(--wp--custom--animation--duration--slow)
+      var(--wp--custom--animation--easing--emphasised);
+  z-index: var(--wp--custom--z-index--behind);
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link::after {
+  content: icons.$ls-icon-arrow-right;
+  position: absolute;
+  inset-block: var(--ls-button-fill-icon-block-inset);
+  inset-inline-end: var(--ls-button-fill-icon-inline-end);
+  width: var(--ls-button-fill-icon-well-size);
+  display: grid;
+  place-items: center;
+  color: var(--ls-button-fill-icon-colour, currentColor);
+  font-size: var(--ls-button-fill-icon-font-size);
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    color var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised);
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover,
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover::before {
+  transition-delay: var(--ls-button-fill-enter-delay, var(--wp--custom--animation--delay--enter));
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover::before,
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:focus-visible::before {
+  inset-block: var(--ls-button-fill-icon-block-inset);
+  inset-inline-end: var(--ls-button-fill-icon-inline-end);
+  inset-inline-start: var(--ls-button-fill-icon-inline-start);
+  border-radius: inherit;
+}
+
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:hover,
+:is(
+  .wp-block-button:not([class*="is-style-"]):not(.ls-glass-button):not(.ls-button-cta-gradient),
+  .wp-block-button.is-style-fill
+) .wp-block-button__link:focus-visible {
+  color: var(--ls-button-fill-hover-text, var(--wp--custom--color--text--default));
+}
+
+/* Outline button motion */
+.wp-block-button.is-style-outline .wp-block-button__link {
+  --ls-button-outline-icon-well-size: calc(3rem - 4px);
+  --ls-button-outline-icon-inset: 4px;
+  --ls-button-outline-icon-font-size: 1.25rem;
+  --ls-button-outline-hover-padding-start: calc(4rem - 4px);
+  --ls-button-outline-hover-padding-end: 1.5rem;
+  --ls-button-outline-icon-inline-start: calc(
+    100% - var(--ls-button-outline-icon-well-size) - var(--ls-button-outline-icon-inset)
+  );
+  transition:
+    padding-inline-start var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    padding-inline-end var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    transform var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--smooth);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link::after {
+  content: icons.$ls-icon-arrow-right;
+  position: absolute;
+  inset-block: var(--ls-button-outline-icon-inset);
+  inset-inline-end: var(--ls-button-outline-icon-inset);
+  width: var(--ls-button-outline-icon-well-size);
+  display: grid;
+  place-items: center;
+  border-radius: var(--ls-button-outline-icon-radius, var(--wp--preset--border-radius--100));
+  background-color: var(
+    --ls-button-outline-accent-background,
+    var(--wp--custom--color--button--outline--border)
+  );
+  color: var(--ls-button-outline-accent-colour, var(--wp--custom--color--button--outline--text-hover));
+  font-size: var(--ls-button-outline-icon-font-size);
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    inset-inline-end var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    background-color var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard),
+    color var(--wp--custom--animation--duration--medium)
+      var(--wp--custom--animation--easing--standard);
+  z-index: var(--wp--custom--z-index--content);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-outline .wp-block-button__link:focus-visible {
+  padding-inline-start: var(--ls-button-outline-hover-padding-start);
+  padding-inline-end: var(--ls-button-outline-hover-padding-end);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover::after,
+.wp-block-button.is-style-outline .wp-block-button__link:focus-visible::after {
+  inset-inline-end: var(--ls-button-outline-icon-inline-start);
+}
+
+/*
+ * Button - Secondary: not sitewide-exclusive — also used as a normal CTA button on
+ * patterns/sections/work-discuss-project.php, not just the mobile menu — so per architecture
+ * review it doesn't belong in the global animations bundle at all. Its rest-of-shared-button
+ * transition above still applies (that's genuinely universal); the hover colour swap itself
+ * lives in src/scss/structural/button-secondary.scss, its own standalone bundle.
+ */
+
+/*
+ * Button - Phase Primary / Button - Phase Outline (phase-page heroes/CTAs): transition timing and
+ * the arrow's animated transform only — the actual rest/hover colour, size and shape values live in
+ * src/scss/structural/button-phase.scss instead, since AGENTS.md restricts animation-folder files
+ * to @keyframes/transition/transform/animation/will-change rules (plus their reduced-motion
+ * companions) and nothing else, the same split already used for Button - Secondary
+ * (src/scss/structural/button-secondary.scss). Primary's arrow is a normal inline flex item after
+ * the label (gap-based spacing, declared in styles/blocks/buttons/button-phase-primary.json) with
+ * only a small hover nudge — an earlier version made it enter/exit via absolute positioning, which
+ * needed ever-larger padding just to keep it clear of the text and was reverted for exactly that
+ * reason (do not reintroduce it). Outline has no arrow, at rest or on hover — deliberately removed
+ * per explicit direction (it's the secondary, lower-emphasis CTA); do not extend Primary's arrow
+ * treatment to it.
+ */
+.wp-block-button.is-style-button-phase-primary,
+.wp-block-button.is-style-button-phase-outline {
+  transition: border-radius var(--wp--custom--animation--duration--emphasised)
+    var(--wp--custom--animation--easing--emphasised);
+}
+
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link {
+  transition: border-radius var(--wp--custom--animation--duration--emphasised)
+    var(--wp--custom--animation--easing--emphasised);
+}
+
+.wp-block-button.is-style-button-phase-outline .wp-block-button__link {
+  transition: border-radius var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    border-color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+}
+
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link:hover::after,
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link:focus-visible::after {
+  transform: translateX(var(--wp--preset--spacing--5));
+}
+
+.wp-block-button.is-style-button-phase-primary .wp-block-button__link::after {
+  transition: transform var(--wp--custom--animation--duration--base)
+    var(--wp--custom--animation--easing--standard);
+}
+
+// JSON limitation: pseudo-element transitions have no theme.json equivalent.
+.wp-block-button.is-style-button-phase-outline .wp-block-button__link::before {
+  transition: transform var(--wp--custom--animation--duration--emphasised)
+      var(--wp--custom--animation--easing--emphasised),
+    opacity var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-button.is-style-button-phase-primary,
+  .wp-block-button.is-style-button-phase-outline,
+  .wp-block-button.is-style-button-phase-primary .wp-block-button__link,
+  .wp-block-button.is-style-button-phase-outline .wp-block-button__link,
+  .wp-block-button.is-style-button-phase-primary .wp-block-button__link::after,
+  .wp-block-button.is-style-button-phase-outline .wp-block-button__link::before {
+    transition: none;
+  }
+}

@@ -98,7 +98,21 @@ $RECYCLE.BIN/
 *.temp
 /tmp/
 
+# VS Code workspace file
+lightspeed.code-workspace
+
 # AI and cache folders (local agent working files)
 .cache/
 .aider*
 .continue/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Local-only Lefthook overrides
+lefthook-local.yml
+.lefthook-local.yml

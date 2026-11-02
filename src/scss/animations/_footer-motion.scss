@@ -1,0 +1,40 @@
+
+/********** Site Footer **********/
+
+/*
+ * Footer nav links (.ls-footer-nav-link, folded in from
+ * styles/blocks/paragraphs/footer-nav-link.json — LS-2341): underline reveals on hover/focus by
+ * animating decoration-colour from transparent, rather than toggling text-decoration-line itself.
+ * Matches the approved reference screenshot. Rest-state colour/spacing/textDecoration are inline
+ * block attributes on the paragraph; the nested `a`'s static decoration setup (line/colour/offset,
+ * colour:inherit) and the hover/focus colour swap live in src/scss/structural/_footer.scss — only
+ * the transition (timing) it shares with that hover rule is real motion.
+ */
+.ls-footer-nav-link a {
+  transition: color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard),
+    text-decoration-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard);
+}
+
+/*
+ * Proof-point card (.ls-footer-proof-card): folded in from styles/blocks/groups/*.json (LS-2341) as
+ * inline block attributes on patterns/footer.php. The shared transition (timing) lives in
+ * _shared-hover.scss — shared byte-for-byte with the header search button and the mobile-menu
+ * close button; the hover colour swap itself lives in structural/_footer.scss, alongside the
+ * rest-state it modifies. WordPress doesn't generate :hover/:focus CSS for arbitrary block style
+ * variations, so neither can move back into JSON.
+ */
+
+/*
+ * Footer social links (core/social-links): core scales every .wp-social-link up on hover, which
+ * would fight the border/background swap in structural/_footer.scss, so the footer opts out.
+ * JSON limitation: transform on a core/social-link :hover state has no theme.json key.
+ */
+.ls-footer-social .wp-social-link:hover {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-footer-nav-link a {
+    transition: none;
+  }
+}

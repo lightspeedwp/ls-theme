@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Button - Secondary Outline",
+	"slug": "button-secondary-outline",
+	"blockTypes": [
+		"core/button"
+	],
+	"description": "Outline pill button for CTAs outside the header, paired with Button - Secondary — transparent background (not the default outline button's surface-400 fill, which reads as solid black against a light section), reusing the default outline button's border/text colour tokens. Pill-shaped with tighter padding and non-uppercase type. Hover contract in src/scss/animations/_button-motion.scss.",
+	"styles": {
+		"color": {
+			"background": "transparent",
+			"text": "var:custom|color|button|outline|text"
+		},
+		"border": {
+			"color": "var:custom|color|button|outline|border",
+			"radius": "var:preset|border-radius|500",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|40",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|40"
+			}
+		},
+		"typography": {
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "var:custom|typography|font-weight|bold",
+			"letterSpacing": "normal"
+		}
+	}
+}
