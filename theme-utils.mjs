@@ -14,7 +14,7 @@
  *   help               Show this help message.
  */
 
-import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'fs';
 import { resolve, join, relative } from 'path';
 import { createRequire } from 'module';
 
@@ -22,6 +22,7 @@ const require = createRequire( import.meta.url );
 
 // Root of the theme repository.
 const ROOT = resolve( '.' );
+const THEME_JSON_PATH = join( ROOT, 'theme.json' );
 
 // Colours for terminal output.
 const RESET = '\x1b[0m';
@@ -198,7 +199,7 @@ async function validateSchema() {
  * - Required files exist.
  * - No unreplaced placeholder tokens.
  * - Text domain consistency.
- * - Style variations light.json and dark.json exist.
+ * - Style variation dark.json exists.
  */
 async function validateTheme() {
 	heading( 'Validating theme consistency…' );
@@ -214,7 +215,6 @@ async function validateTheme() {
 		'templates/index.html',
 		'parts/header.html',
 		'parts/footer.html',
-		'styles/light.json',
 		'styles/dark.json',
 	];
 

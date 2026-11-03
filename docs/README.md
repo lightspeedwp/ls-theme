@@ -1,6 +1,6 @@
 # docs/
 
-This folder is for **end-user documentation** for the `{{THEME_NAME}}` theme.
+This folder is for **end-user documentation** for the `LightSpeed Theme` theme.
 
 It is intended for:
 

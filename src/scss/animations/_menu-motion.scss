@@ -1,0 +1,111 @@
+@use "sass:list";
+
+/********** Mega Menu Item **********/
+
+/*
+ * Hover/focus transition for .is-style-mega-menu-item-default (styles/blocks/groups/mega-menu-item-default.json).
+ * The colour swap itself lives in src/scss/structural/_mega-menu.scss (motion files may only hold
+ * transition/transform/animation properties — see AGENTS.md); this file owns only the transition
+ * timing and its prefers-reduced-motion override.
+ */
+.is-style-mega-menu-item-default {
+  // .wp-block-outermost-icon-block covers any not-yet-converted outermost/icon-block
+  // instance (see LS-3229's "Missing icons" tracking list); .wp-block-icon covers the
+  // WP 7.1 Core Icon block that replaces it. Both selectors are kept side by side rather
+  // than one replacing the other, so neither markup shape loses this hover treatment.
+  .wp-block-outermost-icon-block,
+  .wp-block-icon {
+    transition: color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-style-mega-menu-item-default .wp-block-outermost-icon-block,
+  .is-style-mega-menu-item-default .wp-block-icon {
+    transition: none;
+  }
+}
+
+/*
+ * Per-phase hover for the Services mega menu: the phase-header group (dot + label + arrow) and
+ * every service row underneath it hover in that same column's phase colour. Each phase always
+ * occupies the same column position (Discover 1st ... Evolve 6th), so this is targeted structurally
+ * via :nth-child rather than adding a per-instance custom property to the markup — the same custom
+ * hover mechanic that broke block validation earlier in this file.
+ *
+ * Only the transition timing and rest-state border-radius live here — the actual hover/focus
+ * colour values (background-color, border-left-color, link color) are structural, not motion,
+ * properties, so per AGENTS.md they're set in src/scss/structural/_mega-menu.scss instead, via its
+ * own copy of this same phase list.
+ */
+$ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
+
+@each $pair in $ls-mega-menu-phases {
+  $index: list.nth($pair, 1);
+
+  .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
+    > .wp-block-group:first-child {
+      border-radius: var(--wp--preset--border-radius--300);
+      transition: background-color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-mega-menu-panel-services .wp-block-column > .wp-block-group:first-child {
+    transition: none;
+  }
+}
+
+/*
+ * Mobile menu Services accordion: responsive phase grid (Discover..Evolve, in that DOM order).
+ * 2 columns below 650px (3 rows), 3 columns at 650px and up (2 rows) — matches the same 650px
+ * breakpoint the user specified directly, not one of theme.json's own named breakpoints.
+ *
+ * JSON limitation: this needs a real @media query — confirmed empirically (2026-08-11, the
+ * home-hero-section fix) that the styles/**.json css field silently strips @media and leaks its
+ * declarations out unconditionally at every viewport, so a responsive column count genuinely
+ * cannot be authored in JSON at all.
+ *
+ * CSS grid rather than flex-wrap, for the same reason as src/scss/structural/_mega-menu.scss's
+ * desktop equivalent: flex-wrap sizes each wrapped row independently from that row's own content,
+ * producing inconsistent column widths row-to-row (confirmed bug, fixed 2026-08-11) — grid tracks
+ * are shared across every row, so this can't recur here. The divider between visual rows is drawn
+ * per-column (not per-row-container, since there's no longer a per-row container) via :nth-child,
+ * gated by the same breakpoint as the column count; grid's default align-items:stretch keeps every
+ * column in a row equal height, so the two dashed segments always line up into one continuous line
+ * regardless of how much text content each phase's column holds.
+ */
+.mobile-menu-accordion .is-style-mega-menu-item-service.wp-block-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--wp--style--block-gap);
+  row-gap: var(--wp--preset--spacing--20);
+
+  > .wp-block-column {
+    width: auto;
+  }
+
+  > .wp-block-column:nth-child(-n + 4) {
+    border-bottom: 1px dashed var(--wp--custom--color--border--card);
+    padding-bottom: var(--wp--preset--spacing--20);
+  }
+}
+
+@media (min-width: 650px) {
+  .mobile-menu-accordion .is-style-mega-menu-item-service.wp-block-columns {
+    grid-template-columns: repeat(3, 1fr);
+
+    > .wp-block-column:nth-child(-n + 4) {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    > .wp-block-column:nth-child(-n + 3) {
+      border-bottom: 1px dashed var(--wp--custom--color--border--card);
+      padding-bottom: var(--wp--preset--spacing--20);
+    }
+  }
+}

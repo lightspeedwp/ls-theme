@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Content Band",
+	"slug": "content-band",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Full-width content band for a page section: flat canvas background, standard section padding. Generic — shared by every Work archive section (Categories, Selected Projects, Stats Grid, Discuss Project, Related Routes) and any future section with the same plain band treatment.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|80",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|90",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}

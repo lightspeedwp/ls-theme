@@ -1,0 +1,69 @@
+@use "../animations/icons";
+
+/********** Link Arrow Accent (multi-page insertable: cards, mega menus, footer, mobile menu) **********/
+
+/*
+ * Link Arrow Accent (styles/blocks/paragraphs/link-arrow-accent.json): rest-state layout
+ * (display/align-items/gap on the link, display/baseline transform on the arrow glyph) lives in
+ * the JSON file's css field now — font-weight/text-decoration were already on the JSON's
+ * elements.link. Rest colour stays here rather than on elements.link: it needs the
+ * --ls-link-arrow-colour custom-property-with-fallback pattern so consumers (e.g. the CTA band's
+ * on-dark override) can override it, which the elements schema can't express. `content:` also
+ * stays here (Sass icon variable).
+ *
+ * Not part of the global animations bundle: despite appearing in every mega-menu part, the
+ * footer, and the mobile menu, it's equally used in ordinary content patterns (Card Feature/
+ * Services, Work Categories, the CTA band, the thank-you page) — not exclusively sitewide chrome
+ * — so per architecture review it gets its own dedicated bundle instead.
+ */
+.wp-block-paragraph.is-style-link-arrow-accent a {
+  color: var(--ls-link-arrow-colour, var(--wp--custom--color--link--accent));
+  transition:
+    color var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard),
+    gap var(--wp--custom--animation--duration--base)
+      var(--wp--custom--animation--easing--standard);
+  transition-delay: var(--wp--custom--animation--delay--none);
+
+  &::after {
+    content: icons.$ls-icon-arrow-right;
+    display: inline-block;
+    transform: translateX(0);
+    transition:
+      transform var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--emphasised),
+      color var(--wp--custom--animation--duration--base)
+        var(--wp--custom--animation--easing--standard);
+  }
+
+  &:hover,
+  &:focus-visible,
+  .is-style-card-feature:hover &,
+  .is-style-card-feature:focus-within &,
+  .is-style-card-services:hover &,
+  .is-style-card-services:focus-within & {
+    color: var(--ls-link-arrow-hover-colour, var(--wp--custom--color--link--accent-hover));
+  }
+
+  &:hover::after,
+  &:focus-visible::after,
+  .is-style-card-feature:hover &::after,
+  .is-style-card-feature:focus-within &::after,
+  .is-style-card-services:hover &::after,
+  .is-style-card-services:focus-within &::after {
+    transform: translateX(var(--ls-link-arrow-offset, 0.35em));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-paragraph.is-style-link-arrow-accent a,
+  .wp-block-paragraph.is-style-link-arrow-accent a::after {
+    transition: none;
+  }
+
+  .wp-block-paragraph.is-style-link-arrow-accent a::after,
+  .wp-block-paragraph.is-style-link-arrow-accent a:hover::after,
+  .wp-block-paragraph.is-style-link-arrow-accent a:focus-visible::after {
+    transform: none;
+  }
+}

@@ -37,6 +37,10 @@ jobs:
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           NOTES=$(awk "/^## \[$VERSION\]/{found=1; next} /^## \[/{if(found) exit} found{print}" CHANGELOG.md)
+          if [ "${#NOTES}" -gt 120000 ]; then
+            NOTES=$(printf '%s\n' "$NOTES" | awk '/^### /{if(found) exit} /^### ⚠️ BREAKING CHANGES/{found=1} found{print}')
+            NOTES="$NOTES"$'\n\n'"Full changelog: https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md"
+          fi
           echo "notes<<EOF" >> $GITHUB_OUTPUT
           echo "$NOTES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT

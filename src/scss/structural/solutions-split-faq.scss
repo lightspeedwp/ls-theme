@@ -1,0 +1,20 @@
+/********** Solutions Split FAQ (Solutions pages' common questions) **********/
+
+/*
+ * Solutions Split FAQ (single consumer: patterns/sections/solutions-split-faq.php). Layers a brand
+ * accent on top of the shared Phase FAQ accordion (phase-faq.scss), which takes its open-state
+ * border and its circular plus/minus control from --ls-faq-border-active. That property is set per
+ * service phase on the service and phase pages; Solutions pages have no phase, so it is set here to
+ * the semantic brand text token, which resolves to a blue in light mode and a cyan in dark mode.
+ * The rows use the large radius token `300` (16px) from the design.
+ */
+
+// JSON limitation: the accordion markup is hard-coded Yoast FAQ block HTML, so there is no style
+// JSON path to its rows or controls — see AGENTS.md Theme-First Approach. The extra .ls-phase-faq
+// lifts it above the Phase FAQ component's own rules.
+.ls-phase-faq.ls-solutions-faq {
+  .schema-faq.is-accordion .schema-faq-section {
+    --ls-faq-border-active: var(--wp--custom--color--text--brand);
+    border-radius: var(--wp--preset--border-radius--300);
+  }
+}

@@ -1,0 +1,15 @@
+/********** Homepage Why LightSpeed checklist (LS-1597) **********/
+
+/*
+ * The checklist uses core/list for semantic list markup (screen readers announce it as a list
+ * with an item count), but each item already carries its own icon-well "bullet" — the browser's
+ * native disc marker and the block's default left indent would double up against that and shift
+ * the icon out of alignment with the card's padding. No block-supports attribute suppresses the
+ * native list marker or resets list padding, so this is real CSS, scoped to this one checklist
+ * rather than every core/list on the site.
+ */
+.ls-why-lightspeed-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

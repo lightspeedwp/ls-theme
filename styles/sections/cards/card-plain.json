@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Plain",
+	"slug": "card-plain",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Flat, non-interactive card shell: canvas surface, card border, large radius, no shadow and no hover or focus lift. For informational cards that are not links (e.g. the service pages' icon card grid) — unlike Card - Feature / Card - Category, which add a shadow and a hover lift that wrongly signal clickability. Sits on a surface.card band; pair with a tinted icon well, an H3 and a paragraph. Entirely block-supports JSON, no SCSS.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|canvas",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|300",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}

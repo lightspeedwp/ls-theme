@@ -1,0 +1,13 @@
+{
+	"extends": [ "@wordpress/stylelint-config/scss" ],
+	"rules": {
+		"selector-class-pattern": null,
+		"rule-empty-line-before": null,
+		"at-rule-empty-line-before": null,
+		"comment-empty-line-before": null,
+		"value-keyword-case": null,
+		"color-named": [ "never", { "severity": "warning" } ],
+		"scss/selector-no-redundant-nesting-selector": [ true, { "severity": "warning" } ],
+		"scss/operator-no-newline-after": [ true, { "severity": "warning" } ]
+	}
+}

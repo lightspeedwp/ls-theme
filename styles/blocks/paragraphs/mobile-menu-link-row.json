@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mobile Menu Link Row",
+	"slug": "mobile-menu-link-row",
+	"blockTypes": [
+		"core/paragraph"
+	],
+	"description": "Full-width divider row for a plain link inside the mobile navigation drawer (parts/mobile-menu.html), matching the height/typography/vertical rhythm of the drawer's accordion rows (styles/blocks/details/mobile-menu-accordion.json). margin-top:0 cancels the wrapping .mobile-menu group's default flow blockGap the same way mobile-menu-accordion.json does — that gap lands entirely as margin-top (never margin-bottom), so left in place the link text sits visibly closer to its own bottom divider than to the previous row's, exactly like the accordion rows did before that override was added there.",
+	"styles": {
+		"border": {
+			"bottom": { "color": "var:custom|color|border|card", "style": "solid", "width": "1px" }
+		},
+		"spacing": {
+			"margin": {
+				"top": "0"
+			}
+		},
+		"css": "& a {\n\tdisplay: flex;\n\talign-items: center;\n\tmin-block-size: 3rem;\n\tfont-size: var(--wp--preset--font-size--200);\n\tfont-weight: var(--wp--custom--typography--font-weight--semibold);\n\tcolor: var(--wp--custom--color--text--default);\n\ttext-decoration: none;\n\tline-height: 1;\n}\n\n& a:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: -2px;\n}"
+	}
+}

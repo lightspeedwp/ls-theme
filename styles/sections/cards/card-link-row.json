@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Card - Link Row",
+	"slug": "card-link-row",
+	"blockTypes": [
+		"core/group"
+	],
+	"description": "Compact horizontal related-route button for the Work archive: white card surface, solid border, trailing arrow.",
+	"styles": {
+		"color": {
+			"background": "var:custom|color|surface|card",
+			"text": "var:custom|color|text|default"
+		},
+		"border": {
+			"color": "var:custom|color|border|card",
+			"radius": "var:preset|border-radius|400",
+			"style": "solid",
+			"width": "1px"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|10",
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		},
+		"css": "position: relative;\n--ls-card-link-row-border-active: var(--wp--custom--color--link--accent);\n--ls-card-link-row-background-active: color-mix(in srgb, var(--wp--custom--color--link--accent) 10%, transparent);\n--ls-card-link-row-icon-active: var(--wp--custom--color--text--brand);\n\n& .ls-card-link-row__link {\n\tcolor: inherit;\n\ttext-decoration: none;\n}\n\n& .ls-card-link-row__link::before {\n\tcontent: \"\";\n\tposition: absolute;\n\tinset: 0;\n}\n\n& .ls-card-link-row__link:focus-visible {\n\toutline: 2px solid var(--wp--custom--color--focus--ring);\n\toutline-offset: 2px;\n}"
+	}
+}

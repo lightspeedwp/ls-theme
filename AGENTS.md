@@ -7,8 +7,8 @@ Human developers should also read this file before contributing.
 
 ## Repo Purpose
 
-This is a **LightSpeed WordPress block theme starter repository**.
-It is designed to be used as a GitHub template for building custom WordPress block themes for client and commercial work.
+This is the **LightSpeed Theme** WordPress block theme repository (`lightspeedwp/ls-theme`).
+It is a production block theme for client and commercial work at [LightSpeed](https://lightspeedwp.agency/).
 
 It is **not** specifically packaged for WordPress.org submission.
 Do not add WordPress.org-specific bureaucracy unless there is clear value.
@@ -52,7 +52,6 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 ├── styles/                    # Style variations
 │   ├── blocks/
 │   ├── sections/
-│   ├── light.json
 │   └── dark.json
 ├── templates/                 # Block templates
 ├── .github/
@@ -71,34 +70,87 @@ Do not add WordPress.org-specific bureaucracy unless there is clear value.
 
 ## Theme-First Approach
 
+- `theme.json` and `styles/**/*.json` (block-style and section-style JSON partials)
+  are the single source of truth for styling. This includes colour, typography,
+  spacing, layout, borders, shadows, and block-level structural properties.
+- Author Sass/CSS in `src/scss/**/*.scss` **only** for what a JSON style genuinely
+  cannot express: `:hover`/`:focus-within` states not covered by an `elements.*`
+  pseudo-state key, `content:""` pseudo-elements, comma-separated selectors, SVG
+  `fill`, aria-attribute selectors, or parent-triggered child-selector motion. See
+  `.agents/skills/wp-block-style-audit/references/block-style-json-anatomy.md` for
+  the authoritative JSON-vs-CSS decision table.
+- Before writing any new Sass/CSS rule, check whether a JSON equivalent already
+  exists — look at sibling files in `styles/**` for the established pattern first.
+- When writing a new or modifying an existing CSS rule that is genuinely
+  unavoidable, add a comment directly above it naming the specific limitation
+  that forced it, e.g.:
+  `// JSON limitation: block-level :hover has no theme.json pseudo-state key — see AGENTS.md Theme-First Approach`
+  This applies to new/modified rules going forward — it does not require
+  retroactively commenting every pre-existing valid CSS exception already in
+  the codebase.
+- Structural properties — layout (flex/grid), spacing, sizing, positioning — use
+  JSON or block attributes whenever a supported key exists, regardless of what
+  folder or filename the CSS would otherwise land in (a file named "motion" is
+  not exempt). Only fall back to Sass/CSS, with a "JSON limitation" comment,
+  for structural properties JSON genuinely has no key for (e.g. `overflow`,
+  `max-width`, `width` — see
+  `.agents/skills/wp-block-style-audit/references/block-style-json-anatomy.md`
+  for the full list).
+- Motion/animation files (`src/scss/animations/**`, `src/scss/gsap/**`) may contain
+  **only** `@keyframes`, `transition`, `transform`, `animation`, and `will-change`
+  rules, plus their `prefers-reduced-motion` companions. Any other property in those
+  files is a defect and must be moved to a JSON style partial or removed.
+- `assets/css/animations.css` (and the SCSS it's compiled from) may only contain
+  genuinely **global** styling — content that loads sitewide through the header or
+  footer template parts (including anything nested in them, e.g. the mobile menu or
+  mega menus). Styling tied to a specific page or pattern does not belong there, no
+  matter how small, and must live in its own dedicated file instead.
+- GSAP is permitted only for JS-driven interaction that CSS transition/animation
+  structurally cannot achieve (e.g. scroll-triggered sequencing, cursor-tracked
+  effects) — never as a default choice for "this pattern has motion."
+- Do not register a new `is-style` variant for a single-use, one-off treatment with
+  no second option ever offered. If it's used in exactly one place, style it inline
+  on the pattern's block attributes instead of creating a global style-picker entry.
 - Prefer `theme.json` over PHP for colours, typography, spacing, and layout.
 - Keep `functions.php` minimal. Only register block supports, enqueue assets, or add editor styles there.
 - Use `inc/` only for genuine PHP logic that does not belong in `functions.php`.
 - Do not invent PHP architecture that `theme.json` can handle.
+- Before using an attribute or attribute value on a core WordPress block,
+  verify it is actually supported by that block (check the block's registered
+  attributes/supports or an existing working usage) rather than guessing.
+- **Core WordPress blocks first.** Prefer the most semantic core block available
+  before reaching for a generic layout block. Post-aware content uses
+  `core/post-title`, `core/post-excerpt`, `core/post-date`, `core/post-terms`,
+  `core/post-featured-image`, `core/post-time-to-read`, and `core/query` +
+  `core/post-template` for listings — not a `core/group`/`core/columns`
+  hand-rolled substitute. Site identity uses `core/site-logo`,
+  `core/site-title`, `core/site-tagline`; navigation uses `core/navigation`;
+  calls to action use `core/buttons` + `core/button`. Fall back to
+  `core/group`, `core/columns`, `core/heading`, `core/paragraph`, `core/image`,
+  or `core/cover` only when no semantic core block fits the design intent, and
+  note the fallback in the pattern's description. See the
+  [Core Blocks reference](https://developer.wordpress.org/block-editor/reference-guides/core-blocks/)
+  for the full inventory.
 
 ---
 
-## Slug and Text Domain Consistency
+## Slug and Text Domain
 
-Replace all placeholder tokens before using this starter:
+This theme uses the following identifiers consistently:
 
-| Placeholder         | Description                              |
-|---------------------|------------------------------------------|
-| `{{THEME_NAME}}`    | Human-readable theme name                |
-| `{{THEME_SLUG}}`    | Kebab-case slug (used in folder names)   |
-| `{{TEXT_DOMAIN}}`   | Text domain (must match slug)            |
-| `{{THEME_URI}}`     | Theme URI                                |
-| `{{AUTHOR_NAME}}`   | Author or agency name                    |
-| `{{AUTHOR_URI}}`    | Author or agency URI                     |
-| `{{THEME_DESCRIPTION}}` | Short theme description              |
-| `{{REPO_NAME}}`     | GitHub repository name                   |
-| `{{GITHUB_ORG}}`    | GitHub organisation name                 |
+| Key              | Value                                |
+|------------------|--------------------------------------|
+| Theme name       | `LightSpeed Theme`                   |
+| Theme slug       | `ls-theme`                           |
+| Text domain      | `ls-theme`                           |
+| Theme URI        | `https://lightspeedwp.agency/`       |
+| Author           | `LightSpeed`                         |
+| Author URI       | `https://lightspeedwp.agency/`       |
+| Repo             | `lightspeedwp/ls-theme`              |
 
 Rules:
-- `{{TEXT_DOMAIN}}` must match `{{THEME_SLUG}}` everywhere.
+- Text domain must match the theme slug (`ls-theme`) everywhere.
 - Keep the slug consistent in `style.css`, `theme.json`, `composer.json`, and `package.json`.
-- Do not leave placeholder tokens blank — replace them with real values.
-- Search the repo for `{{` to find all remaining placeholders.
 
 ---
 
@@ -157,10 +209,13 @@ Rules:
 ## Style Variation Guidance
 
 - Style variations live in `styles/`.
-- Two starter variations are provided: `light.json` and `dark.json`.
+- One style variation is provided: `dark.json`. Light is the default in `theme.json`.
 - Additional variations can be added as `styles/*.json`.
-- `styles/blocks/` and `styles/sections/` are organisational conventions for future per-block or per-section styles.
-- These nested JSON files are not automatically consumed by WordPress as global style variations — they are available for reference or tooling.
+- `styles/blocks/` and `styles/sections/` files carry the `blockTypes` + `slug`
+  schema, which WordPress 6.6+ auto-discovers recursively and registers as live,
+  editor-facing style-picker entries. Every file added here is a real, user-visible
+  option — do not add one as a one-off hack for a single pattern (see Theme-First
+  Approach above).
 - Keep variation files small and focused.
 
 ---
@@ -232,6 +287,11 @@ composer run lint:php
 | `.agents/skills/`       | Portable, reusable AI skills                 |
 | `.agents/agents/`       | Agent persona definitions                    |
 
+Key skill: `.agents/skills/wp-block-style-audit/` — the JSON-vs-CSS decision
+procedure for migrating CSS-selector-soup into proper theme.json-style JSON
+(`elements`, `blocks`, pseudo-states). Read this before authoring or auditing any
+`styles/**/*.json` file or `src/scss/**/*.scss` partial.
+
 ---
 
 ## Rules for AI Agents
@@ -250,5 +310,4 @@ composer run lint:php
 12. **Keep agent personas in `.agents/agents/`.** Agent persona files describe specialist roles.
 13. **Do not modify `.github/workflows/` without understanding CI impacts.**
 14. **Always update `CHANGELOG.md`** when making meaningful changes.
-15. **Replace all placeholder tokens** before considering setup complete.
-16. **Use placeholder tokens** (`{{THEME_SLUG}}` etc.) rather than leaving metadata blank.
+15. **Keep slug and text domain consistent** — use `ls-theme` as both the theme slug and text domain.

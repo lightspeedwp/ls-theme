@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="LS Theme" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+	<description>PHP_CodeSniffer ruleset for the LS Theme block theme.</description>
+
+	<file>.</file>
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="ps"/>
+
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/playwright-report/*</exclude-pattern>
+	<exclude-pattern>*/test-results/*</exclude-pattern>
+
+	<rule ref="WordPress"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="ls-theme"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Patterns are template files: no file docblock, inline PHP mixed with block markup, and slugs that must stay lowercase. -->
+	<rule ref="Squiz.Commenting.FileComment.MissingPackageTag">
+		<exclude-pattern>*/patterns/*</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.PHP.EmbeddedPhp">
+		<exclude-pattern>*/patterns/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WP.CapitalPDangit.MisspelledInText">
+		<exclude-pattern>*/patterns/*</exclude-pattern>
+	</rule>
+</ruleset>

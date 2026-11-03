@@ -1,0 +1,1 @@
+.is-style-card-service-tile{transition:border-color var(--wp--custom--animation--duration--base) var(--wp--custom--animation--easing--standard)}.is-style-card-service-tile:hover,.is-style-card-service-tile:focus-within{border-color:var(--ls-card-service-tile-border-active)}@media(prefers-reduced-motion: reduce){.is-style-card-service-tile{transition:none}}

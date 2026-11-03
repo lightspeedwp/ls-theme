@@ -1,0 +1,433 @@
+@use "sass:list";
+
+/********** Mega Menu Structural Overrides **********/
+
+/*
+ * Desktop mega-menu dropdown centering: WP core's Navigation submenu is position:absolute against
+ * its own trigger <li> (a narrow single word like "About"), not the full nav bar — no theme.json
+ * key exists for a core-generated submenu's position/transform, a genuine JSON limitation. Left
+ * uncorrected, a trigger near the right edge (About, Insights, Pricing) pushes its much-wider
+ * mega-menu content off-balance toward the screen edge instead of sitting centred with even space
+ * either side. Making the trigger position:static lets the submenu's absolute positioning resolve
+ * against the next positioned ancestor up (the nav bar) instead, so left:50%/translateX(-50%)
+ * centres it against the whole bar rather than one word.
+ *
+ * Scoped to .site-header specifically — if a second wp:navigation block is ever added elsewhere
+ * (e.g. a footer nav), it should not automatically inherit header-specific mega-menu centering.
+ */
+.site-header .wp-block-navigation-item {
+  position: static;
+}
+
+/*
+ * The centred dropdown above is up to 800px wide and sits against the nav bar, not the viewport, so
+ * at about 1024px its hidden panel can end a few pixels past the right edge (measured at 1027px
+ * against a 1024px viewport, depending on how wide the nav bar is once the fonts have loaded) and
+ * give the whole page a small horizontal scroll. Clipping only the horizontal axis on the header
+ * removes that without cutting off the open panel, which hangs below the header (overflow-y stays
+ * visible, and `clip`, unlike `hidden`, does not make the header a scroll container).
+ *
+ * JSON limitation: overflow has no theme.json or block-attribute key for the header template part's
+ * wrapper — see AGENTS.md Theme-First Approach.
+ */
+.site-header {
+  overflow-x: clip;
+}
+
+.site-header .wp-block-navigation__submenu-container {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+/*
+ * Every Ollie mega-menu panel (ollie/mega-menu) opens from the same point: the centre of the header,
+ * which is the centre of the screen. The plugin positions a panel against the navigation list, which
+ * sits between the logo and the buttons and so is off-centre, and it only centres the items that
+ * carry its `menu-justified-center` option. Work and Solutions do not, so they opened about 100px
+ * further right than the rest. Making the navigation wrappers static lets every panel resolve
+ * against the header (`position: relative`) instead, and the plugin's own centred offset (half the
+ * content width back from 50%) is then applied to all of them whatever their justification. The
+ * plugin's script sets each panel's `top` inline, so the vertical gap the navigation list used to
+ * add is restored with a margin. Desktop only: below 1024px the navigation becomes the full-screen
+ * mobile menu, which lays out its own panels, so none of this applies there.
+ *
+ * JSON limitation: `position`, `left` and `margin` on a plugin block's wrapper and on core
+ * navigation containers have no theme.json or block-attribute key — see AGENTS.md Theme-First
+ * Approach.
+ */
+@media (min-width: 1024px) {
+  .site-header {
+    position: relative;
+  }
+
+  .site-header .wp-block-navigation,
+  .site-header .wp-block-navigation .wp-block-navigation__responsive-container:not(.is-menu-open),
+  .site-header .wp-block-navigation .wp-block-navigation__responsive-dialog,
+  .site-header .wp-block-navigation .wp-block-navigation__container {
+    position: static;
+  }
+
+  .site-header .wp-block-navigation .wp-block-ollie-mega-menu .wp-block-ollie-mega-menu__menu-container.menu-width-content {
+    left: calc(var(--wp--style--global--content-size) * -1 / 2 + 50%);
+    right: unset;
+    margin-top: var(--wp--preset--spacing--40);
+  }
+}
+
+/*
+ * Ollie Menu Designer's own wrapper (.wp-block-ollie-mega-menu__menu-container, plugin CSS, not
+ * ours to edit) ships a hardcoded white background and no border-radius. It sits exactly flush
+ * against our rounded is-style-mega-menu-panel (same width/height, confirmed via computed
+ * getBoundingClientRect) — a square white box directly behind a rounded one of identical size
+ * always leaves its four corners' triangular slivers showing outside the panel's rounded arc,
+ * regardless of the panel's own radius value. Overriding the plugin's background to transparent
+ * here lets only the panel's own (correctly rounded, dark/light-aware) background show.
+ *
+ * The same wrapper is also a square clip box: the plugin's script sets an inline `overflow-y: auto`
+ * (and `max-height`) on it so a tall panel can scroll, which forces the wrapper to clip its
+ * contents. The panel's popover shadow is clipped to that square, so it leaves a square tint in
+ * each corner outside the panel's rounded arc. Giving the wrapper the panel's own radius
+ * (`border-radius--300`, the radius set in styles/sections/menu/mega-menu-panel.json) makes the
+ * clip rounded too, so the corners follow the panel. Done here rather than with an
+ * `overflow: visible` override so tall panels keep their scroll.
+ *
+ * JSON limitation: this class belongs to a plugin block (ollie/mega-menu), not a core block or one
+ * of our own registered style variations — there is no theme.json/block-attribute surface for it.
+ */
+.site-header .wp-block-ollie-mega-menu__menu-container {
+  background: transparent;
+  border-radius: var(--wp--preset--border-radius--300);
+}
+
+/*
+ * .ls-mega-menu-panel-services (parts/services-mega-menu.html): plain classname, not a registered
+ * is-style — this panel already carries is-style-mega-menu-panel for its shared card shell
+ * (background/border/shadow/spacing, styles/sections/menu/mega-menu-panel.json) and only needs
+ * this one extra rule: its 6-column, single-row phase grid layout. Previously authored as its own
+ * is-style-mega-menu-panel-services variation duplicating the whole shell, but that variation had
+ * exactly one consumer — folded per the Group 2/3 precedent in PR #24 (LS-2341) rather than keep a
+ * single-use entry in the block-style picker.
+ *
+ * JSON limitation: arbitrary CSS (the "css" field) is only available on a registered style
+ * variation's "styles.css", never as an inline block "style" attribute — so this rule cannot move
+ * into the pattern's block attributes and has to live here instead.
+ *
+ * CSS grid rather than the columns block's native flex-wrap: flex-wrap sized each wrapped row's
+ * columns independently from that row's own content, so shorter labels (Discover/Create) and
+ * longer ones (Build/Launch) produced visibly inconsistent gaps. Grid tracks are shared across the
+ * row, so column widths stay fixed regardless of label length. Fixed at 6 columns rather than a
+ * responsive column count: this panel is core Navigation's desktop hover dropdown, which only ever
+ * renders at/above the theme's own mobileMenuBreakpoint (1024px, patterns/header.php) — below that,
+ * the header swaps to the mobile hamburger menu entirely, so there is no narrower context for this
+ * specific markup to ever appear in.
+ */
+.ls-mega-menu-panel-services {
+  width: fit-content;
+  max-width: 100vw;
+  box-sizing: border-box;
+
+  .wp-block-columns {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--wp--style--block-gap);
+  }
+
+  .wp-block-column {
+    width: auto;
+  }
+
+  .wp-block-column > .wp-block-group p {
+    white-space: nowrap;
+  }
+}
+
+/*
+ * .ls-simple-submenu-links (Work/Solutions/Pricing/Insights/About accordions,
+ * parts/mobile-menu.html): a single-column list of is-style-mega-menu-item-service links, one page
+ * link per row for a clear top-to-bottom mobile reading order (LS-3222). Uses WordPress core's own
+ * "layout":{"type":"grid","columnCount":1} block support (with "style":{"spacing":{"blockGap":...}}
+ * for the tightened row gap) instead of hand-authored CSS. Previously a 2-column grid with a
+ * narrow-screen (<340px) single-column fallback; the fallback is now redundant since columnCount:1
+ * is the default at every width these mobile-only rows ever render at.
+ */
+
+/*
+ * Mobile-only padding override, scoped to these two mobile-only parents (LS-3222 follow-up):
+ * is-style-mega-menu-item-service (styles/blocks/groups/mega-menu-item-service.json) is shared with
+ * the desktop Services mega-menu (parts/services-mega-menu.html), which must keep its own existing
+ * spacing|10 padding — confirmed on the PR that an earlier version of this fix changed the shared
+ * JSON partial's default directly, which also shrank desktop row padding. Overriding it here instead
+ * (higher specificity than the shared style's own class-level rule) keeps the tighter spacing|5
+ * padding mobile-only.
+ */
+.ls-simple-submenu-links > .is-style-mega-menu-item-service,
+.ls-services-phase-links > .is-style-mega-menu-item-service {
+  padding: var(--wp--preset--spacing--5);
+  // LSA-171: extra left padding so the label clears the 3px accent rail instead of sitting
+  // against it (the rail's rounded corner clipped the first letter at spacing--5).
+  padding-left: var(--wp--preset--spacing--20);
+}
+
+/*
+ * Tap-target note for the single-column list above: an earlier version of this rule expanded each
+ * row's invisible tap area to the theme's 44px tap-target-min via the stretched-link `a::after`
+ * (`calc((min - 100%) / -2)`, expanding top/bottom beyond the row's own ~29px visual box). With
+ * `blockGap: 0` between rows (by design, for a tight list), that expansion mathematically cannot
+ * avoid overlapping the neighbouring row's own expanded area — CodeRabbit and Copilot both flagged
+ * this independently on the PR, and the overlap math checks out: ~7.5px of expansion per side on
+ * 0px-separated rows overlaps by ~15px, so a tap near a row boundary can resolve to the wrong link.
+ * The same expansion also bled ~2-3px into the accordion `<summary>` above the first row, since the
+ * heading-to-first-link gap (spacing--5, ~4-5px) is smaller than the expansion itself.
+ * Removed rather than re-tuned: reintroducing a non-overlapping expansion would require restoring a
+ * real visible gap between rows (≥ 44px − row height, i.e. ~15px) to leave room for it, undoing the
+ * tight single-column spacing this list was specifically built for. Each row's own box (~29px) still
+ * clears the actual WCAG 2.2 AA target-size minimum (24×24px, SC 2.5.8) without any expansion.
+ */
+
+/*
+ * .ls-services-phase-links (mobile Services accordion, parts/mobile-menu.html): single-column list
+ * of service links per lifecycle phase (LS-3222 follow-up), matching the Work/Solutions/Pricing/
+ * Insights/About dropdowns' single-column reading order. Previously a 2-column
+ * `repeat(2, max-content)` grid with a <340px single-column fallback; now always one column, so the
+ * fallback is redundant and removed. Stays hand-authored CSS rather than core's native
+ * "layout":{"type":"grid"} block support for the same reason as before: this wrapping block's own
+ * "layout":{"type":"default"} injects consecutive-sibling margin-top on the child paragraphs (core's
+ * blockGap fallback for the "default" layout type), which the `> * { margin: 0; }` reset below
+ * still needs to cancel regardless of column count.
+ */
+.ls-services-phase-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0;
+
+  > * {
+    margin: 0;
+  }
+}
+
+/*
+ * Tap-target note: same as .ls-simple-submenu-links above — an earlier version of this rule
+ * expanded each row's tap area to 44px via `a::after`, which overlapped adjacent rows given
+ * `row-gap: 0`. Removed for the same reason; each row's own ~29px box still clears the real WCAG
+ * 2.2 AA target-size minimum (24×24px, SC 2.5.8).
+ */
+
+/*
+ * .ls-services-phase-links alignment (LSA-171 follow-up): no extra left indent on the group. The
+ * rows already carry their own inset (3px rail + spacing--20 padding, set above), which puts a
+ * service label's text at ~31px — directly under the phase heading's label text (dot 8px + the
+ * heading's own gap, ~30px) — and lines the rail up with the phase dot and the accordion label, the
+ * same as the Work/Solutions/Pricing/Insights/About rows. An earlier version added
+ * `padding-left: calc(8px + spacing--5)` here to indent rows under the heading rather than the dot;
+ * that was tuned for the old tight spacing--5 row padding, and once the row padding grew to
+ * spacing--20 it double-indented the Services rows (~43px) and pushed them out of line with both
+ * the heading and the other dropdowns.
+ */
+
+/*
+ * Stretched-link pattern: makes the entire row clickable (icon, description, whitespace — not
+ * just the title text), matching the hover highlight that already covers the full row. The real,
+ * only link stays the title's own <a> — this just expands its clickable hit area to fill the
+ * whole parent via an absolutely-positioned ::after, rather than adding a second link or wrapping
+ * everything in one giant <a> (which would be invalid once a row ever needs a second interactive
+ * child). JSON limitation: neither `position` nor a `content:""` pseudo-element has a theme.json/
+ * block-supports equivalent.
+ *
+ * .is-style-mega-menu-item-default (desktop Work/Solutions/Pricing/Insights/About rows): the title
+ * link lives several levels deep (icon-well is a sibling, title+description share a nested group)
+ * — position:relative on the outer row is the containing block the ::after resolves against
+ * regardless of that nesting.
+ *
+ * .is-style-mega-menu-item-service (Services' own rows, desktop and mobile, and the mobile
+ * simple-dropdown rows that reuse the same style): the row already *is* the link's direct parent,
+ * so this covers Services without touching its distinct visual design at all. Selector has no
+ * .wp-block-paragraph prefix — this style's blockTypes is core/paragraph only, and WordPress never
+ * renders a literal "wp-block-paragraph" class on a plain paragraph block in this theme, so a
+ * prefixed selector never matched anything (confirmed via repo-wide grep) and the stretched-link
+ * behaviour was silently inert for every Services-style row.
+ */
+.is-style-mega-menu-item-default {
+  position: relative;
+
+  h5 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  // Hover/focus colour for the row's icon (transition timing lives in
+  // src/scss/animations/_menu-motion.scss). .wp-block-outermost-icon-block covers any
+  // not-yet-converted outermost/icon-block instance (see LS-3229's "Missing icons"
+  // tracking list); .wp-block-icon covers the WP 7.1 Core Icon block that replaces it.
+  &:hover .wp-block-outermost-icon-block,
+  &:focus-within .wp-block-outermost-icon-block,
+  &:hover .wp-block-icon,
+  &:focus-within .wp-block-icon {
+    color: var(--wp--custom--color--text--subtle);
+  }
+}
+
+/*
+ * Work mega menu (parts/work-mega-menu.html). The six rows sit in ONE two-column grid, read row by
+ * row, instead of two independent columns: in separate columns a row that wraps (a long title or a
+ * four-line description) pushed every row below it out of line with its neighbour. As grid rows the
+ * pair always shares a height, and `grid-auto-rows: 1fr` gives all three rows the height of the
+ * tallest one, so the rows line up across and down. JSON limitation: `grid-auto-rows` has no
+ * block-supports key.
+ */
+.ls-mega-menu-grid {
+  grid-auto-rows: 1fr;
+  column-gap: var(--wp--preset--spacing--40);
+  row-gap: 0;
+
+  > * {
+    min-width: 0;
+  }
+}
+
+/*
+ * Work mega menu logo tiles: each project row shows the client's own logo where the other mega
+ * menus show an icon, and the two non-project rows (All case studies, Testimonials) keep their icon
+ * inside the same tile so the titles stay aligned. The tile is always light (surface--highlight is
+ * the light surface in both the light and the dark style), because every logo used here is drawn
+ * for a light background: a single image per client keeps its brand colours and needs no light/dark
+ * switching, and no logo can fall below readable contrast on a dark menu. The logos are wide
+ * wordmarks, so the tile is a fixed-width rounded rectangle, not the 2.5rem accent circle the icon
+ * rows use. JSON limitation: the fixed flex-basis and the contained logo height have no
+ * block-supports key that survives save() validation.
+ */
+.ls-mega-menu-logo {
+  flex: 0 0 7.5rem;
+  width: 7.5rem;
+  min-height: 2.5rem;
+  padding: var(--wp--preset--spacing--10);
+  border: 1px solid var(--wp--custom--color--border--card);
+  border-radius: var(--wp--preset--border-radius--200);
+  background-color: var(--wp--custom--color--surface--highlight);
+
+  .wp-block-image {
+    margin: 0;
+  }
+
+  .wp-block-image img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 1.5rem;
+    object-fit: contain;
+  }
+}
+
+.is-style-mega-menu-item-service {
+  position: relative;
+
+  a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+}
+
+/*
+ * Neutral pressed/focus colour fallback for .is-style-mega-menu-item-service (LSA-171). Touch devices
+ * have no real hover — browsers emulate it, so a tapped row keeps a "sticky" tint — so the tint is
+ * driven by :active (finger down) and keyboard focus (:focus-visible), with :hover only for
+ * devices that can genuinely hover. The mobile Services accordion layers its per-phase colour on
+ * top of this below (.ls-phase-*); the desktop Services grid still overrides it with the column's
+ * own phase colour via the nth-child rules further down. Only the colour values live here; the
+ * transition timing stays in src/scss/animations/_shared-hover.scss.
+ */
+@mixin ls-service-row-active($color) {
+  background-color: color-mix(in srgb, #{$color} 8%, transparent);
+  border-left-color: #{$color};
+}
+
+.is-style-mega-menu-item-service {
+  -webkit-tap-highlight-color: transparent;
+
+  &:active,
+  &:has(a:focus-visible) {
+    @include ls-service-row-active(var(--wp--custom--color--link--accent));
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @include ls-service-row-active(var(--wp--custom--color--link--accent));
+    }
+  }
+}
+
+/*
+ * Mobile Services accordion: each phase group carries .ls-phase-{phase} (parts/mobile-menu.html),
+ * so its rows press/focus in that phase's own token colour — matching the desktop mega menu — rather
+ * than the neutral accent above. Colour tokens are the same --wp--custom--color--phase--* set, which
+ * styles/dark.json re-points for dark mode.
+ */
+@each $phase in discover, create, build, launch, grow, evolve {
+  .ls-services-phase-links.ls-phase-#{$phase} > .is-style-mega-menu-item-service {
+    &:active,
+    &:has(a:focus-visible) {
+      @include ls-service-row-active(var(--wp--custom--color--phase--#{$phase}));
+
+      a {
+        color: var(--wp--custom--color--phase--#{$phase});
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        @include ls-service-row-active(var(--wp--custom--color--phase--#{$phase}));
+
+        a {
+          color: var(--wp--custom--color--phase--#{$phase});
+        }
+      }
+    }
+  }
+}
+
+/*
+ * Per-phase hover colour values for the Services mega menu (src/scss/animations/_menu-motion.scss
+ * has this same phase list, but only for the transition timing and rest-state border-radius —
+ * background-color/border-left-color/link color are structural, not motion, properties per
+ * AGENTS.md, so they live here instead. Two small copies of the same 6-item list rather than one
+ * shared partial, since Sass variables don't cross file boundaries without @use/@forward and this
+ * list is trivial to keep in sync.
+ */
+$ls-mega-menu-phases: 1 discover, 2 create, 3 build, 4 launch, 5 grow, 6 evolve;
+
+@each $pair in $ls-mega-menu-phases {
+  $index: list.nth($pair, 1);
+  $phase: list.nth($pair, 2);
+
+  .ls-mega-menu-panel-services .wp-block-columns > .wp-block-column:nth-child(#{$index}) {
+    > .wp-block-group:first-child:hover,
+    > .wp-block-group:first-child:focus-within {
+      background-color: color-mix(
+        in srgb,
+        var(--wp--custom--color--phase--#{$phase}) 15%,
+        transparent
+      );
+    }
+
+    .is-style-mega-menu-item-service {
+      &:hover,
+      &:focus-within {
+        background-color: color-mix(
+          in srgb,
+          var(--wp--custom--color--phase--#{$phase}) 15%,
+          transparent
+        );
+        border-left-color: var(--wp--custom--color--phase--#{$phase});
+      }
+
+      &:hover a,
+      &:focus-within a {
+        color: var(--wp--custom--color--phase--#{$phase});
+      }
+    }
+  }
+}

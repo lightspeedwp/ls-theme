@@ -19,7 +19,7 @@ Every pattern file must start with a valid registration header:
 <?php
 /**
  * Title: My Pattern Name
- * Slug: {{TEXT_DOMAIN}}/my-pattern-name
+ * Slug: ls-theme/my-pattern-name
  * Categories: featured, text
  * Description: A short description.
  * Keywords: hero, banner
@@ -37,7 +37,7 @@ Patterns often contain PHP output. All output must be escaped:
 // Correct:
 echo esc_html( get_bloginfo( 'name' ) );
 echo esc_url( home_url( '/' ) );
-echo esc_html__( 'Read more', '{{TEXT_DOMAIN}}' );
+echo esc_html__( 'Read more', 'ls-theme' );
 
 // Wrong:
 echo get_bloginfo( 'name' );
@@ -53,10 +53,19 @@ Prefer block markup in patterns over raw HTML:
 ```php
 ?>
 <!-- wp:paragraph -->
-<p><?php echo esc_html__( 'Example text', '{{TEXT_DOMAIN}}' ); ?></p>
+<p><?php echo esc_html__( 'Example text', 'ls-theme' ); ?></p>
 <!-- /wp:paragraph -->
 <?php
 ```
+
+---
+
+## Colour Usage
+
+- If a pattern needs a colour in block attributes, inline styles, or custom CSS variables, use semantic custom colour tokens such as `var(--wp--custom--color--text--default)`.
+- Do not reference `var:preset|color|...` or `var(--wp--preset--color--...)` directly in authored pattern styles.
+- If the required semantic colour token does not exist yet, create it in `theme.json` and add the exact same token path to `styles/dark.json` before using it.
+- Spacing, width, line-height, and other non-colour values may still use presets or hard values where appropriate.
 
 ---
 

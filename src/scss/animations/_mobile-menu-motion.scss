@@ -1,0 +1,98 @@
+/********** Mobile Menu (Ollie Menu Designer mobileMenuSlug drawer) **********/
+
+/*
+ * JSON limitation: these four rules target WordPress core's own generated Navigation
+ * overlay markup (.wp-block-navigation__responsive-container*), which has no registrable
+ * block-style slug — register_block_style() registers a style for a block TYPE, not for a
+ * block's internal generated wrapper elements, so there is no styles/** JSON partial to
+ * hook this to. See AGENTS.md Theme-First Approach.
+ *
+ * Logo row + close button. The close button is WP core's own
+ * .wp-block-navigation__responsive-container-close — rendered as a sibling before the injected
+ * mobileMenuSlug content, not part of this template part — so it can only be reached and aligned
+ * via a global selector, not through markup here. Core's default top:0/right:0 plus the content's
+ * default padding-top: calc(2rem + 24px) (wp-includes/blocks/navigation/style.css) is what was
+ * producing the oversized gap above the logo; both are overridden to the same spacing token here
+ * so the logo row and the close button land on the same line. Styled with the same circular
+ * icon-button language as the header search button and footer icon-shells
+ * (src/scss/animations/_shared-hover.scss) for visual consistency.
+ *
+ * Scoped under .site-header: this theme only has the one core/navigation instance (the header's),
+ * but these are otherwise generic core class names that would restyle any Navigation block's
+ * overlay drawer anywhere on the site if left unscoped.
+ */
+.site-header .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay)
+  .wp-block-navigation__responsive-container-content {
+  padding-top: var(--wp--preset--spacing--20);
+}
+
+/*
+ * JSON limitation: see block comment above. Selector must mirror core's own
+ * ".wp-block-navigation:not(.has-background) ..." ancestor shape (not just scope under
+ * .site-header) — core's rule has 5 class-level selectors, so anything with fewer loses
+ * regardless of stylesheet order. Matching that shape plus .site-header wins.
+ *
+ * The Navigation block has no backgroundColor of its own, so it never gets core's
+ * .has-background class — which means core's own fallback (wp-includes/blocks/navigation/style.css)
+ * hardcodes this overlay to a literal #fff in every mode. Overriding it here with the same
+ * adaptive token the rest of the page's background already uses (light/dark aware) instead of a
+ * fixed value.
+ */
+.site-header .wp-block-navigation:not(.has-background)
+  .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
+  background-color: var(--wp--custom--color--surface--canvas);
+}
+
+/*
+ * JSON limitation: see block comment above, text side. Core has a mirror rule keyed off
+ * .has-text-color that hardcodes this wrapper to a literal #000 whenever the Navigation block
+ * has no textColor of its own. Elements inside the mobile-menu template part escape it because
+ * they each set their own explicit color — but core's own close button relies on `currentColor`
+ * inherited from this wrapper, so it was stuck on literal black. Same adaptive token, same
+ * specificity-matching shape.
+ */
+.site-header .wp-block-navigation:not(.has-text-color)
+  .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
+  color: var(--wp--custom--color--text--default);
+}
+
+/*
+ * The responsive-container-close button's structural chrome (position, sizing, border,
+ * background) lives in src/scss/structural/_mobile-menu.scss instead — none of it is motion.
+ * Its hover/transition contract stays in _shared-hover.scss.
+ */
+
+/*
+ * JSON limitation: this component is single-use (one instance in this file), so AGENTS.md's
+ * single-use rule rules out registering an is-style for it — the border/min-height that WOULD
+ * justify a style-picker entry are inline block attributes on this instance instead. What's left
+ * here is only the one thing inline attributes structurally cannot express at all: sizing a
+ * descendant element (the logo <img>, not the group itself).
+ *
+ * The logo itself is the shared ls-theme/site-logo-switcher pattern (same light/dark image pair
+ * as the header, see src/scss/structural/_header.scss) — this only overrides its width for the
+ * mobile menu's smaller brand row, without touching the light/dark display switching.
+ */
+.mobile-menu-brand .site-logo--for-light img,
+.mobile-menu-brand .site-logo--for-dark img {
+  display: block;
+  max-block-size: 32px;
+  width: auto;
+  inline-size: auto;
+}
+
+/*
+ * JSON limitation: same reasoning as .mobile-menu-brand above — single-use, so the padding is an
+ * inline block attribute on this instance; only the descendant-selector button/link width overrides
+ * (core's own wp-block-button__width-100 class only stretches the wrapper, not the visible
+ * .wp-block-button__link pill — confirmed against wp-includes/blocks/button/style.min.css) stay here.
+ */
+.mobile-menu-actions .wp-block-button {
+  width: 100%;
+}
+
+.mobile-menu-actions .wp-block-button__link {
+  display: block;
+  width: 100%;
+  text-align: center;
+}

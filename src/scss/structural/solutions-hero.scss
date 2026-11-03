@@ -1,0 +1,84 @@
+/********** Solutions Hero (Solutions page only) **********/
+
+/*
+ * Tilted "solutions / palette" specimen card (LSA-128, single consumer
+ * patterns/hero/solutions-hero.php). Rest-state surface, border, radius, padding and the
+ * paths/tokens footer are block attributes in the pattern. What lives here is only what
+ * theme.json and block attributes cannot express: the stacked/tilted composition and the
+ * swatch grid.
+ *
+ * Swatch colours are fixed palette presets (not the mode-aware semantic tokens), same reasoning
+ * as the Services hero palette card (src/scss/structural/services-hero.scss): a colour specimen
+ * should not change with the theme mode.
+ *   brand  -> palette brand-500        (#1E6AFF)
+ *   violet -> palette phase-six        (#7A7CF9, nearest preset to the design's #8B5CF6)
+ *   cyan   -> palette cta-300          (#8DEEFF, nearest preset to the design's #7BE7FF)
+ *   orange -> palette warning-foreground (#F59E0B, nearest preset to the design's #FF6B00)
+ */
+.ls-specimen-card {
+  // JSON limitation: position has no theme.json or block-attribute key — the back card is
+  // absolutely placed against this wrapper. See AGENTS.md Theme-First Approach.
+  position: relative;
+  max-inline-size: 22rem;
+  margin-inline: auto;
+  isolation: isolate;
+
+  // JSON limitation: the groups use the default flow layout, whose block-gap margin on every
+  // sibling after the first would offset the cells, so it is reset here. Nested as a
+  // descendant selector so it outranks the layout engine's sibling-margin rule.
+  .ls-specimen-card__swatches > * {
+    margin: 0;
+  }
+
+  // JSON limitation: position, inset and transform (the tilt) have no theme.json key. The back
+  // card is a core/spacer (an empty core/group shows the editor's layout-picker placeholder), so
+  // its inline height is overridden here; its look mirrors the front card's attributes.
+  &__back {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    height: auto !important;
+    transform: translate(0.75rem, -0.5rem) rotate(4deg);
+    border: 1px solid var(--wp--custom--color--border--card);
+    border-radius: var(--wp--preset--border-radius--400);
+    background: var(--wp--custom--color--surface--card-raised);
+    opacity: 0.85;
+  }
+
+  // JSON limitation: transform has no theme.json key.
+  &__front {
+    transform: rotate(-3deg);
+  }
+
+  // JSON limitation: grid columns and aspect-ratio are not block-attribute keys on a spacer
+  // group, and the spacer's inline height must be overridden.
+  &__swatches {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--wp--preset--spacing--10);
+    width: 100%;
+  }
+
+  &__swatch {
+    height: auto !important;
+    aspect-ratio: 1.15;
+    border-radius: var(--wp--preset--border-radius--300);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--wp--custom--color--text--on-dark) 6%, transparent);
+
+    &--brand {
+      background: var(--wp--preset--color--brand-500);
+    }
+
+    &--violet {
+      background: var(--wp--preset--color--phase-six);
+    }
+
+    &--cyan {
+      background: var(--wp--preset--color--cta-300);
+    }
+
+    &--orange {
+      background: var(--wp--preset--color--warning-foreground);
+    }
+  }
+}

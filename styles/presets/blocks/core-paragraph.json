@@ -1,0 +1,11 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "styles": {
+        "blocks": {
+            "core/paragraph": {
+                "css": "&.has-background { padding: var(--wp--preset--spacing--20); }"
+            }
+        }
+    }
+}
