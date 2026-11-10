@@ -30,11 +30,11 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 			<!-- wp:group {"className":"ls-testimonial-featured__logo","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 			<div class="wp-block-group ls-testimonial-featured__logo">
 				<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-				<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_media_base . '2025/04/african-safaris-nz-logo.svg' ); ?>" alt="<?php echo esc_attr__( 'African Safaris NZ', 'ls-theme' ); ?>"/></figure>
+				<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_media_base . '2025/09/african-safaris-logo.png' ); ?>" alt="<?php echo esc_attr__( 'African Safari Consultants', 'ls-theme' ); ?>"/></figure>
 				<!-- /wp:image -->
 
 				<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-				<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_media_base . '2025/04/african-safaris-nz-logo.svg' ); ?>" alt="<?php echo esc_attr__( 'African Safaris NZ', 'ls-theme' ); ?>"/></figure>
+				<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_media_base . '2025/09/african-safaris-logo.png' ); ?>" alt="<?php echo esc_attr__( 'African Safari Consultants', 'ls-theme' ); ?>"/></figure>
 				<!-- /wp:image -->
 			</div>
 			<!-- /wp:group -->
@@ -73,7 +73,7 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 								<!-- /wp:paragraph -->
 
 								<!-- wp:paragraph {"fontSize":"200"} -->
-								<p class="has-200-font-size"><span style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Business Partner @ ', 'ls-theme' ); ?></span><a href="<?php echo esc_url( 'https://www.africansafaris.co.nz/' ); ?>"><?php echo esc_html__( 'African Safaris', 'ls-theme' ); ?></a></p>
+								<p class="has-200-font-size"><span style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Business Partner @ ', 'ls-theme' ); ?></span><a href="<?php echo esc_url( 'https://www.africansafaris.com/' ); ?>"><?php echo esc_html__( 'African Safaris', 'ls-theme' ); ?></a></p>
 								<!-- /wp:paragraph -->
 							</div>
 							<!-- /wp:group -->
@@ -89,13 +89,13 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 					<!-- wp:group {"className":"ls-testimonial-featured__panel","style":{"color":{"background":"var:custom|color|surface|canvas"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
 					<div class="wp-block-group ls-testimonial-featured__panel has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--canvas);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 						<!-- wp:image {"aspectRatio":"5/3","scale":"cover","width":"100%","sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"var:preset|border-radius|200"}}} -->
-						<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( $ls_media_base . '2025/04/asnz-home-page-image.jpg' ); ?>" alt="<?php echo esc_attr__( 'The African Safaris NZ website home page', 'ls-theme' ); ?>" style="border-radius:var(--wp--preset--border-radius--200);aspect-ratio:5/3;object-fit:cover;width:100%;height:auto"/></figure>
+						<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( $ls_media_base . '2025/09/asc-new-home-page-image.png' ); ?>" alt="<?php echo esc_attr__( 'The African Safari Consultants website home page', 'ls-theme' ); ?>" style="border-radius:var(--wp--preset--border-radius--200);aspect-ratio:5/3;object-fit:cover;width:100%;height:auto"/></figure>
 						<!-- /wp:image -->
 
 						<!-- wp:buttons -->
 						<div class="wp-block-buttons">
 							<!-- wp:button -->
-							<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( 'https://www.africansafaris.co.nz/' ); ?>" target="_blank" rel="noreferrer noopener"><?php echo esc_html__( 'View Website', 'ls-theme' ); ?></a></div>
+							<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( 'https://www.africansafaris.com/' ); ?>" target="_blank" rel="noreferrer noopener"><?php echo esc_html__( 'View Website', 'ls-theme' ); ?></a></div>
 							<!-- /wp:button -->
 						</div>
 						<!-- /wp:buttons -->
