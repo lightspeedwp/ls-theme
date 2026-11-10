@@ -30,11 +30,11 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 			<!-- wp:group {"className":"ls-testimonial-featured__logo","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 			<div class="wp-block-group ls-testimonial-featured__logo">
 				<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-light"} -->
-				<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_media_base . '2022/12/logo-portfolio-xneelo.svg' ); ?>" alt="<?php echo esc_attr__( 'xneelo, Trusted in Hosting', 'ls-theme' ); ?>"/></figure>
+				<figure class="wp-block-image size-full site-logo--for-light"><img src="<?php echo esc_url( $ls_media_base . '2025/09/african-safaris-logo.png' ); ?>" alt="<?php echo esc_attr__( 'African Safari Consultants', 'ls-theme' ); ?>"/></figure>
 				<!-- /wp:image -->
 
 				<!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"site-logo--for-dark"} -->
-				<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_media_base . '2024/06/xneelo-logo.svg' ); ?>" alt="<?php echo esc_attr__( 'xneelo, Trusted in Hosting', 'ls-theme' ); ?>"/></figure>
+				<figure class="wp-block-image size-full site-logo--for-dark"><img src="<?php echo esc_url( $ls_media_base . '2025/09/african-safaris-logo.png' ); ?>" alt="<?php echo esc_attr__( 'African Safari Consultants', 'ls-theme' ); ?>"/></figure>
 				<!-- /wp:image -->
 			</div>
 			<!-- /wp:group -->
@@ -54,7 +54,7 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 
 							<!-- wp:quote {"style":{"border":{"left":{"width":"0px","style":"none"}},"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"margin":{"top":"0","right":"0","bottom":"0","left":"0"}}},"fontSize":"300"} -->
 							<blockquote class="wp-block-quote has-300-font-size" style="border-left-style:none;border-left-width:0px;margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:paragraph -->
-							<p><?php echo esc_html__( '“The LightSpeed team is kind, diligent & always ready to assist. We are grateful to have them as part of our extended team, supporting us in maintaining & evolving our WordPress website – which includes the overall health of our WordPress website as well as ongoing optimisation and web page development. We would highly recommend LightSpeed to other companies looking for expert knowledge & support with their WordPress websites.”', 'ls-theme' ); ?></p>
+							<p><?php echo esc_html__( '“We contracted LightSpeed for the rebuild of our site. The brief included complex adherence to design, SEO and search functionality. The deadline they set was realistic and unlike previous website builds we’ve experienced; they stuck to it. We definitely intend to work with LightSpeed in the future.”', 'ls-theme' ); ?></p>
 							<!-- /wp:paragraph --></blockquote>
 							<!-- /wp:quote -->
 						</div>
@@ -63,17 +63,17 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 						<!-- wp:group {"style":{"border":{"top":{"color":"var:custom|color|border|card","style":"solid","width":"1px"}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 						<div class="wp-block-group" style="border-top-color:var(--wp--custom--color--border--card);border-top-style:solid;border-top-width:1px;padding-top:var(--wp--preset--spacing--30)">
 							<!-- wp:image {"aspectRatio":"1","scale":"cover","sizeSlug":"thumbnail","linkDestination":"none","className":"ls-testimonial-featured__avatar","style":{"border":{"radius":"var:preset|border-radius|500"}}} -->
-							<figure class="wp-block-image size-thumbnail has-custom-border ls-testimonial-featured__avatar"><img src="<?php echo esc_url( $ls_media_base . '2023/02/testimonial-jenna-laughton.jpeg' ); ?>" alt="" style="border-radius:var(--wp--preset--border-radius--500);aspect-ratio:1;object-fit:cover"/></figure>
+							<figure class="wp-block-image size-thumbnail has-custom-border ls-testimonial-featured__avatar"><img src="<?php echo esc_url( $ls_media_base . '2023/02/Vanessa-Ratcliffe.jpg' ); ?>" alt="" style="border-radius:var(--wp--preset--border-radius--500);aspect-ratio:1;object-fit:cover"/></figure>
 							<!-- /wp:image -->
 
 							<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"left","flexWrap":"nowrap"}} -->
 							<div class="wp-block-group">
 								<!-- wp:paragraph {"style":{"typography":{"fontWeight":"var:custom|typography|font-weight|semibold"}},"fontSize":"200"} -->
-								<p class="has-200-font-size" style="font-weight:var(--wp--custom--typography--font-weight--semibold)"><?php echo esc_html__( 'Jenna Laughton', 'ls-theme' ); ?></p>
+								<p class="has-200-font-size" style="font-weight:var(--wp--custom--typography--font-weight--semibold)"><?php echo esc_html__( 'Vanessa Ratcliffe', 'ls-theme' ); ?></p>
 								<!-- /wp:paragraph -->
 
 								<!-- wp:paragraph {"fontSize":"200"} -->
-								<p class="has-200-font-size"><span style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Marketing Operations Specialist @ ', 'ls-theme' ); ?></span><a href="<?php echo esc_url( 'https://xneelo.co.za/' ); ?>"><?php echo esc_html__( 'xneelo', 'ls-theme' ); ?></a></p>
+								<p class="has-200-font-size"><span style="color:var(--wp--custom--color--text--muted)"><?php echo esc_html__( 'Business Partner @ ', 'ls-theme' ); ?></span><a href="<?php echo esc_url( 'https://www.africansafaris.com/' ); ?>"><?php echo esc_html__( 'African Safaris', 'ls-theme' ); ?></a></p>
 								<!-- /wp:paragraph -->
 							</div>
 							<!-- /wp:group -->
@@ -89,13 +89,13 @@ $ls_media_base = trailingslashit( wp_get_upload_dir()['baseurl'] );
 					<!-- wp:group {"className":"ls-testimonial-featured__panel","style":{"color":{"background":"var:custom|color|surface|canvas"},"border":{"color":"var:custom|color|border|card","radius":"var:preset|border-radius|300","style":"solid","width":"1px"},"spacing":{"blockGap":"var:preset|spacing|30","padding":{"top":"var:preset|spacing|30","right":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30"}}},"layout":{"type":"default"}} -->
 					<div class="wp-block-group ls-testimonial-featured__panel has-border-color has-background" style="border-color:var(--wp--custom--color--border--card);border-style:solid;border-width:1px;border-radius:var(--wp--preset--border-radius--300);background-color:var(--wp--custom--color--surface--canvas);padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 						<!-- wp:image {"aspectRatio":"5/3","scale":"cover","width":"100%","sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"var:preset|border-radius|200"}}} -->
-						<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( $ls_media_base . '2023/02/portfolio-featured-xneelo-1.png' ); ?>" alt="<?php echo esc_attr__( 'The xneelo website home page', 'ls-theme' ); ?>" style="border-radius:var(--wp--preset--border-radius--200);aspect-ratio:5/3;object-fit:cover;width:100%;height:auto"/></figure>
+						<figure class="wp-block-image size-full is-resized has-custom-border"><img src="<?php echo esc_url( $ls_media_base . '2025/09/asc-new-home-page-image.png' ); ?>" alt="<?php echo esc_attr__( 'The African Safari Consultants website home page', 'ls-theme' ); ?>" style="border-radius:var(--wp--preset--border-radius--200);aspect-ratio:5/3;object-fit:cover;width:100%;height:auto"/></figure>
 						<!-- /wp:image -->
 
 						<!-- wp:buttons -->
 						<div class="wp-block-buttons">
 							<!-- wp:button -->
-							<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( 'https://xneelo.co.za/' ); ?>" target="_blank" rel="noreferrer noopener"><?php echo esc_html__( 'View Website', 'ls-theme' ); ?></a></div>
+							<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( 'https://www.africansafaris.com/' ); ?>" target="_blank" rel="noreferrer noopener"><?php echo esc_html__( 'View Website', 'ls-theme' ); ?></a></div>
 							<!-- /wp:button -->
 						</div>
 						<!-- /wp:buttons -->
