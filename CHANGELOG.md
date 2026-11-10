@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Remove xneelo from the featured testimonial and the logo marquee (LSA-223)
+
+### Changed
+
+- `patterns/sections/testimonial-featured-split.php`: the first featured testimonial is now African Safaris NZ (Vanessa Ratcliffe, Business Partner at African Safaris) instead of xneelo, with the African Safaris NZ logo, her existing client quote and photo, the African Safaris NZ home page screenshot and a View Website link. The Safari Partners card is unchanged.
+- `patterns/sections/logo-marquee.php`: the xneelo logo is replaced by African Safaris NZ and FISA is added at the end, so the marquee shows seven client logos. Both new logos are a single image used for the light and dark versions, because the media library has no separate dark version of either.
+
+---
+
 ## [Unreleased] — Remove the Diversity link from the About menus
 
 ### Changed
