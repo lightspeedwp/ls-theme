@@ -54,6 +54,9 @@ require get_template_directory() . '/inc/archive-query.php';
 /** Loads the phase-page body class used to drive the Journey Phases nav's active state */
 require get_template_directory() . '/inc/phase-page-body-class.php';
 
+/** Loads the Sentry context tags (theme name and version); the SDK itself is owned by ls-plugin */
+require get_template_directory() . '/inc/sentry-context.php';
+
 /**
  * Sets up theme supports.
  */

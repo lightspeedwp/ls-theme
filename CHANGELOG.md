@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] — Add theme context to Sentry events (LSA-255)
+
+### Added
+
+- `inc/sentry-context.php`: when the Sentry SDK is loaded, tags events with `component: ls-theme` and the theme version so errors can be filtered by theme in Sentry. The theme never initialises the SDK, reads a DSN or sends events itself; `ls-plugin` owns the SDK, so nothing is duplicated, and the file does nothing when the SDK is not loaded.
+
+### Changed
+
+- `functions.php`: loads `inc/sentry-context.php`.
+
+([#206](https://github.com/lightspeedwp/ls-theme/pull/206))
+
+---
+
 ## [Unreleased] — Remove xneelo from the featured testimonial and the logo marquee (LSA-223)
 
 ### Changed
