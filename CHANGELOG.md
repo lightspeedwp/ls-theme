@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `functions.php`: loads `inc/sentry-context.php`.
 
+([#206](https://github.com/lightspeedwp/ls-theme/pull/206))
+
 ---
 
 ## [Unreleased] — Remove xneelo from the featured testimonial and the logo marquee (LSA-223)
